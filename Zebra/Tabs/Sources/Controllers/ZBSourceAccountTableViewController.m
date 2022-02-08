@@ -13,7 +13,6 @@
 #import "ZBPackageViewController.h"
 #import "ZBUserInfo.h"
 
-#import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/ZBTabBarController.h>

@@ -15,7 +15,6 @@
 #import "ZBLinkTableViewCell.h"
 #import "Zebra-Swift.h"
 #import <Extensions/UINavigationBar+Extensions.h>
-#import <ZBDevice.h>
 #import "UIViewController+Extensions.h"
 #import <UI/ZBSidebarController.h>
 
@@ -439,7 +438,7 @@
     NSDictionary *packageInformation = self.packageInformation[indexPath.row];
     
     if ([packageInformation objectForKey:@"link"]) {
-        [ZBDevice openURL:packageInformation[@"link"] sender:self];
+        [ZBURLController openURL:packageInformation[@"link"] sender:self];
     }
     else if ([packageInformation objectForKey:@"class"]) {
         Class infoControllerClass = NSClassFromString(packageInformation[@"class"]);

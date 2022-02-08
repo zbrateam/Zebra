@@ -67,6 +67,16 @@
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
 		4E9FC8892790637F00934FFE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC8882790637F00934FFE /* Preferences.swift */; };
 		4E9FC89227910AD200934FFE /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC89127910AD200934FFE /* Font.swift */; };
+		4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27727B272EC0078F953 /* SlingshotController.swift */; };
+		4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27E27B275F70078F953 /* String+Localization.swift */; };
+		4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */; };
+		4EC7F28327B28D3C0078F953 /* DeviceCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28227B28D3C0078F953 /* DeviceCommands.swift */; };
+		4EC7F28527B28D770078F953 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28427B28D770078F953 /* Command.swift */; };
+		4EC7F28727B291F30078F953 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28627B291F30078F953 /* Device.swift */; };
+		4EC7F28927B2932F0078F953 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28827B2932F0078F953 /* Array+Extensions.swift */; };
+		4EC7F28B27B2985A0078F953 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28A27B2985A0078F953 /* String+Extensions.swift */; };
+		4EC7F28D27B29AB20078F953 /* Darwin+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28C27B29AB20078F953 /* Darwin+Extensions.swift */; };
+		4EC7F28F27B2B55C0078F953 /* URLController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28E27B2B55C0078F953 /* URLController.swift */; };
 		75823619249E7DCA003713DD /* ZBSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75823618249E7DCA003713DD /* ZBSettingsTableViewCell.m */; };
 		75A918B324F2669B00216395 /* AUPM~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B124F2669B00216395 /* AUPM~ipad@2x.png */; };
 		75A918B424F2669B00216395 /* AUPM~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B224F2669B00216395 /* AUPM~ipad@3x.png */; };
@@ -90,7 +100,6 @@
 		8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89374959248603D700CE0520 /* ZBSourceAddViewController.mm */; };
 		8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.mm */; };
-		893C36562509AD8400DF07DE /* ZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 893C36552509AD8400DF07DE /* ZBCommand.m */; };
 		893CCD22256457A900656810 /* ZBSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893CCD21256457A900656810 /* ZBSelectionViewController.m */; };
 		894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894893ED2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m */; };
 		894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894894002471CF9B00E2FF97 /* ZBChangelogTableViewCell.m */; };
@@ -135,7 +144,6 @@
 		89FBA8532643721500F97910 /* PLSource+Zebra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89FBA8522643721500F97910 /* PLSource+Zebra.mm */; };
 		8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA226AF248BC4E100596838 /* ZBNotificationManager.m */; };
 		9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActions.mm */; };
-		9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */; };
 		E1428E6F27791624005B0885 /* ZBCanister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E6E27791624005B0885 /* ZBCanister.swift */; };
 		E1428E7927794FC4005B0885 /* Evander in Frameworks */ = {isa = PBXBuildFile; productRef = E1428E7827794FC4005B0885 /* Evander */; };
 		E193C66A277A47E700B2469E /* ZBSourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E7D277A2731005B0885 /* ZBSourceTableViewCell.swift */; };
@@ -274,6 +282,16 @@
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		4E9FC89127910AD200934FFE /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		4EC7F27727B272EC0078F953 /* SlingshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlingshotController.swift; sourceTree = "<group>"; };
+		4EC7F27E27B275F70078F953 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
+		4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
+		4EC7F28227B28D3C0078F953 /* DeviceCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCommands.swift; sourceTree = "<group>"; };
+		4EC7F28427B28D770078F953 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		4EC7F28627B291F30078F953 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		4EC7F28827B2932F0078F953 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		4EC7F28A27B2985A0078F953 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		4EC7F28C27B29AB20078F953 /* Darwin+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Darwin+Extensions.swift"; sourceTree = "<group>"; };
+		4EC7F28E27B2B55C0078F953 /* URLController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLController.swift; sourceTree = "<group>"; };
 		75052D19249E3F2600C2F796 /* ZBSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewCell.h; sourceTree = "<group>"; };
 		75823618249E7DCA003713DD /* ZBSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewCell.m; sourceTree = "<group>"; };
 		75A918B124F2669B00216395 /* AUPM~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM~ipad@2x.png"; sourceTree = "<group>"; };
@@ -327,9 +345,6 @@
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
 		893952FE220B5D0100995109 /* ZBConsoleViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBConsoleViewController.mm; sourceTree = "<group>"; };
 		8939BDC1260E67F600EA5C98 /* iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iOS.entitlements; sourceTree = "<group>"; };
-		893C36542509AD8400DF07DE /* ZBCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommand.h; sourceTree = "<group>"; };
-		893C36552509AD8400DF07DE /* ZBCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCommand.m; sourceTree = "<group>"; };
-		893C36572509AECB00DF07DE /* ZBCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommandDelegate.h; sourceTree = "<group>"; };
 		893CB6522363A0C400204E27 /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6532363A23500204E27 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6542363A40D00204E27 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -438,8 +453,6 @@
 		9E87F358231A20350043E7F2 /* ZBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettings.h; sourceTree = "<group>"; };
 		9EAE364A2289224E004CBBA3 /* ZBPackageActions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPackageActions.mm; sourceTree = "<group>"; };
 		9EAE364C228922D2004CBBA3 /* ZBPackageActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActions.h; sourceTree = "<group>"; };
-		9EC4A24D22AABBC8005DDBC7 /* ZBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDevice.h; sourceTree = "<group>"; };
-		9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDevice.m; sourceTree = "<group>"; };
 		9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITabBarItem.h; sourceTree = "<group>"; };
 		9ED47D942365886300CF2021 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Private.h"; sourceTree = "<group>"; };
@@ -682,9 +695,7 @@
 		893952FC220B5CE400995109 /* Console */ = {
 			isa = PBXGroup;
 			children = (
-				893C36542509AD8400DF07DE /* ZBCommand.h */,
-				893C36552509AD8400DF07DE /* ZBCommand.m */,
-				893C36572509AECB00DF07DE /* ZBCommandDelegate.h */,
+				4EC7F28427B28D770078F953 /* Command.swift */,
 			);
 			path = Console;
 			sourceTree = "<group>";
@@ -820,6 +831,11 @@
 				499935F52496BDD2009A5BF9 /* UIViewController+Extensions.h */,
 				499935F62496BDD2009A5BF9 /* UIViewController+Extensions.m */,
 				E193C6A1277B93AA00B2469E /* HelionTheme.swift */,
+				4EC7F27E27B275F70078F953 /* String+Localization.swift */,
+				4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */,
+				4EC7F28827B2932F0078F953 /* Array+Extensions.swift */,
+				4EC7F28A27B2985A0078F953 /* String+Extensions.swift */,
+				4EC7F28C27B29AB20078F953 /* Darwin+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -854,8 +870,10 @@
 				89C5FDEF21B1B13800A10E58 /* main.m */,
 				89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */,
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.mm */,
-				9EC4A24D22AABBC8005DDBC7 /* ZBDevice.h */,
-				9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */,
+				4EC7F27727B272EC0078F953 /* SlingshotController.swift */,
+				4EC7F28227B28D3C0078F953 /* DeviceCommands.swift */,
+				4EC7F28627B291F30078F953 /* Device.swift */,
+				4EC7F28E27B2B55C0078F953 /* URLController.swift */,
 				9E87F358231A20350043E7F2 /* ZBSettings.h */,
 				89AD450E23CA6D260008831F /* ZBSettings.m */,
 				4E9FC8882790637F00934FFE /* Preferences.swift */,
@@ -1249,11 +1267,14 @@
 				363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */,
 				89D97AFE25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.mm in Sources */,
+				4EC7F28727B291F30078F953 /* Device.swift in Sources */,
 				894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.mm in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */,
+				4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */,
 				499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */,
 				8903B866264F7351005B1098 /* ZBAppIconSettingsViewController.m in Sources */,
+				4EC7F28927B2932F0078F953 /* Array+Extensions.swift in Sources */,
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
 				893CCD22256457A900656810 /* ZBSelectionViewController.m in Sources */,
 				75823619249E7DCA003713DD /* ZBSettingsTableViewCell.m in Sources */,
@@ -1261,11 +1282,13 @@
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				E193C66A277A47E700B2469E /* ZBSourceTableViewCell.swift in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */,
+				4EC7F28527B28D770078F953 /* Command.swift in Sources */,
 				75D0A77F24A014D2007D84EF /* ZBPreferencesViewController.m in Sources */,
 				4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */,
 				499935F72496BDD2009A5BF9 /* UIViewController+Extensions.m in Sources */,
 				49009A642471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m in Sources */,
 				3671B52222CB07F9008FD737 /* ZBHomeViewController.m in Sources */,
+				4EC7F28327B28D3C0078F953 /* DeviceCommands.swift in Sources */,
 				89AD450F23CA6D260008831F /* ZBSettings.m in Sources */,
 				89B701D52641CAAA00F50DAD /* ZBErrorViewController.mm in Sources */,
 				894EAB55261D5C4C00552235 /* ZBSidebarController.mm in Sources */,
@@ -1276,7 +1299,6 @@
 				896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */,
 				895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */,
 				4E9FC8892790637F00934FFE /* Preferences.swift in Sources */,
-				9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
 				4E9FC89227910AD200934FFE /* Font.swift in Sources */,
 				E193C67C277A8E0100B2469E /* ZBPackageDepictionViewController.swift in Sources */,
@@ -1284,6 +1306,7 @@
 				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,
 				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,
 				4910B3A82426BD5C00306C5C /* ZBSourceAccountBanner.m in Sources */,
+				4EC7F28D27B29AB20078F953 /* Darwin+Extensions.swift in Sources */,
 				8916AC2323CAAECC008BA02C /* ZBChangelogViewController.m in Sources */,
 				89FBA8532643721500F97910 /* PLSource+Zebra.mm in Sources */,
 				369CF11322DA2361007EA0F7 /* ZBPackageFilesViewController.mm in Sources */,
@@ -1294,20 +1317,24 @@
 				89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */,
 				895CB40326617D7A0013A21A /* ZBLanguageSettingsViewController.m in Sources */,
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
+				4EC7F28F27B2B55C0078F953 /* URLController.swift in Sources */,
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
 				89DCC2C7260D725F00768096 /* ZBLoadingViewController.m in Sources */,
 				E1428E6F27791624005B0885 /* ZBCanister.swift in Sources */,
 				89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageViewController.mm in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
+				4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */,
 				8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */,
 				89308E2723FF4BBB00D4641D /* ZBResetViewController.m in Sources */,
 				89ADD1222561AEFC00DF2241 /* ZBPackageFilter.m in Sources */,
 				898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.mm in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.mm in Sources */,
 				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,
+				4EC7F28B27B2985A0078F953 /* String+Extensions.swift in Sources */,
 				89A75F602606ECF100FB6422 /* ZBSourceViewController.mm in Sources */,
 				89BAE2EE261A8F1D0063BA22 /* PLPackage+Zebra.mm in Sources */,
+				4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */,
 				E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */,
 				894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */,
@@ -1316,7 +1343,6 @@
 				896B2B53259FA2170082A62E /* ZBSourceListViewController.mm in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.mm in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,
-				893C36562509AD8400DF07DE /* ZBCommand.m in Sources */,
 				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

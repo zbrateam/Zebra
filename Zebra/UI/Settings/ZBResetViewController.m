@@ -12,7 +12,6 @@
 
 #import "Zebra-Swift.h"
 #import <ZBAppDelegate.h>
-#import <ZBDevice.h>
 
 @import WebKit;
 
@@ -83,13 +82,13 @@
 
 - (void)restartSpringBoard:(id)sender {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Restart SpringBoard", @"") message:NSLocalizedString(@"Are you sure you want to restart the SpringBoard?", @"") callback:^{
-        [ZBDevice restartSpringBoard];
+        [ZBDeviceCommands restartSystemApp];
     } cell:sender];
 }
 
 - (void)refreshIconCache:(id)sender {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Refresh Icon Cache", @"") message:NSLocalizedString(@"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.", @"") callback:^{
-        [ZBDevice uicache:nil];
+        [ZBDeviceCommands uicacheWithPaths:nil];
     } cell:sender];
 }
 
@@ -132,7 +131,7 @@
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"extended_states"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"pkgcache.bin"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"srcpkgcache.bin"] error:nil];
-        [ZBDevice relaunchZebra];
+        [ZBDeviceCommands relaunchZebra];
     } cell:sender];
 }
 
@@ -144,7 +143,7 @@
             [defaults removeObjectForKey:key];
         }
         [defaults synchronize];
-        [ZBDevice relaunchZebra];
+        [ZBDeviceCommands relaunchZebra];
     } cell:sender];
 }
 
@@ -153,7 +152,7 @@
         NSString *cacheDirectory = [ZBAppDelegate cacheDirectory];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"zebra.sources"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"lists"] error:nil];
-        [ZBDevice relaunchZebra];
+        [ZBDeviceCommands relaunchZebra];
     } cell:sender];
 }
 
@@ -169,7 +168,7 @@
         NSString *cacheDirectory = [ZBAppDelegate cacheDirectory];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"zebra.sources"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"lists"] error:nil];
-        [ZBDevice relaunchZebra];
+        [ZBDeviceCommands relaunchZebra];
     } cell:sender];
 }
 

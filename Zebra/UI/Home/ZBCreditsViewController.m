@@ -9,7 +9,6 @@
 #import "ZBCreditsViewController.h"
 
 #import "Zebra-Swift.h"
-#import <ZBDevice.h>
 
 @implementation ZBCreditsViewController
 
@@ -112,7 +111,7 @@
     NSURL *url = [NSURL URLWithString:person[@"link"]];
     
     if (url) {
-        [ZBDevice openURL:url sender:self];
+        [ZBURLController openURL:url sender:self];
     }
 }
 

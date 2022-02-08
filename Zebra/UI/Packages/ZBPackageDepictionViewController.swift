@@ -219,8 +219,8 @@ import Evander
             }
             */
             let request = NSMutableURLRequest(url: url)
-            request.allHTTPHeaderFields = ZBDevice.depictionHeaders() as? [String: String]
-            webView._applicationNameForUserAgent = ZBDevice.depictionUserAgent()
+            request.allHTTPHeaderFields = URLController.webHeaders
+            webView._applicationNameForUserAgent = URLController.webUserAgent
             webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
             webView.load(request as URLRequest)
         case .native:
@@ -263,7 +263,7 @@ extension ZBPackageDepictionViewController: WKNavigationDelegate {
             decisionHandler(.cancel)
             guard let url = url else { return }
             if url.absoluteString != "about:blank" && url.scheme == "https" || url.scheme == "http" {
-                ZBDevice.open(url, sender: self)
+							URLController.open(url: url, sender: self)
             }
         }
     }

@@ -8,7 +8,6 @@
 
 #import "ZBPackageActions.h"
 
-#import <ZBDevice.h>
 #import "Zebra-Swift.h"
 #import <ZBAppDelegate.h>
 #import <Headers/UIAlertController+Private.h>

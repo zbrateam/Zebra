@@ -5,15 +5,18 @@
 #define SWIFT
 
 #import <Foundation/Foundation.h>
-
 #import <WebKit/WebKit.h>
+#import "Headers/MobileGestalt.h"
 
 #import "ZBSettings.h"
 #import "Model/ZBDummySource.h"
-#import <ZBDevice.h>
 
 #import <Plains/Model/PLSource.h>
 // #import <Plains/Model/PLPackage.h>
+
+@interface UIApplication ()
+- (void)suspend;
+@end
 
 @interface WKWebView (Private)
 @property (setter=_setApplicationNameForUserAgent:, copy, nullable) NSString * _applicationNameForUserAgent;

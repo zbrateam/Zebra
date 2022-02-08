@@ -8,7 +8,6 @@
 
 #import "ZBConsoleViewController.h"
 
-#import <ZBDevice.h>
 #import "Zebra-Swift.h"
 
 #import <Plains/Managers/PLPackageManager.h>
@@ -263,20 +262,20 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
             [fullPaths addObject:[@"/Applications/" stringByAppendingPathComponent:app]];
         }
         
-        [ZBDevice uicache:fullPaths];
+        [ZBDeviceCommands uicacheWithPaths:fullPaths];
     }
 }
 
 - (void)restartZebra {
-    [ZBDevice relaunchZebra];
+    [ZBDeviceCommands relaunchZebra];
 }
 
 - (void)restartSpringBoard {
-    [ZBDevice restartSpringBoard];
+    [ZBDeviceCommands restartSystemApp];
 }
 
 - (void)rebootDevice {
-    [ZBDevice rebootUserSpace];
+    [ZBDeviceCommands reboot];
 }
 
 @end

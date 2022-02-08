@@ -15,7 +15,6 @@
 #import <Model/ZBDummySource.h>
 
 #import "Zebra-Swift.h"
-#import <ZBDevice.h>
 
 #import <Plains/Plains.h>
 #import <SDWebImage/SDWebImage.h>

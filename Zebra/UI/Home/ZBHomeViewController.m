@@ -12,10 +12,10 @@
 #import <UI/Home/ZBCreditsViewController.h>
 
 #import <ZBAppDelegate.h>
-#import <ZBDevice.h>
 #import <UI/Settings/ZBSettingsViewController.h>
 
 #import <SafariServices/SafariServices.h>
+#import "Zebra-Swift.h"
 
 @interface ZBHomeViewController ()
 @end
@@ -138,7 +138,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == [self cells].count - 1) {
-        return [NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@\n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, [ZBDevice UDID]];
+        UIDevice *device = [UIDevice currentDevice];
+        return [NSString stringWithFormat:@"%@ - %@ %@ - Zebra %@\n%@", device.zbra_machine, device.zbra_osName, device.systemVersion, PACKAGE_VERSION, device.zbra_udid];
     }
     return NULL;
 }

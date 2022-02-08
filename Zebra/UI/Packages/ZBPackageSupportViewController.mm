@@ -7,7 +7,6 @@
 //
 
 #import "ZBPackageSupportViewController.h"
-#import <ZBDevice.h>
 #import "Zebra-Swift.h"
 #import <Plains/Model/PLPackage.h>
 
@@ -63,7 +62,7 @@
 
 - (void)sendEmailTo:(NSString *)address {
     NSString *subject = [NSString stringWithFormat:@"Zebra/APT(A): %@ (%@)", self.package.name, self.package.version];
-    NSString *body = [NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
+    NSString *body = [NSString stringWithFormat:@"%@-%@: %@", [UIDevice currentDevice].zbra_machine, [UIDevice currentDevice].systemVersion, [UIDevice currentDevice].zbra_udid];
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;

@@ -8,7 +8,6 @@
 
 #import "ZBLanguageSettingsViewController.h"
 
-#import <ZBDevice.h>
 #import "Zebra-Swift.h"
 
 #import <SafariServices/SafariServices.h>
@@ -149,7 +148,7 @@
                 [ZBSettings setSelectedLanguage:self->selectedLanguage];
             }
             [ZBSettings setUsesSystemLanguage:self->useSystemLanguage];
-            [ZBDevice relaunchZebra];
+            [ZBDeviceCommands relaunchZebra];
         }];
         [confirm addAction:confirmAction];
         

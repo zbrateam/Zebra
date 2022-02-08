@@ -8,7 +8,7 @@
 
 #import "ZBDummySource.h"
 
-#import <ZBDevice.h>
+#import "Zebra-Swift.h"
 
 @implementation ZBDummySource
 
@@ -107,7 +107,7 @@
             NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", _repositoryURI, _distribution];
             mainDirectoryURL = [NSURL URLWithString:mainDirectory];
 
-            packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", _components[0], [ZBDevice debianArchitecture]]];
+            packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", _components[0], [ZBDevice primaryDebianArchitecture]]];
         }
         
         if (!mainDirectoryURL) return NULL; // If somehow the mainDirectoryURL is malformed (either it didn't get created or the NSURL initializer returned NULL), the source cannot be used
@@ -245,7 +245,7 @@
     __block int tasks = 5;
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = [ZBDevice downloadHeaders];
+    configuration.HTTPAdditionalHeaders = [ZBURLController aptHeaders];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSMutableURLRequest *xzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.xz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
@@ -347,7 +347,7 @@
     if (![self.origin isEqualToString:self.repositoryURI] && completion) completion(self.origin);
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = [ZBDevice downloadHeaders];
+    configuration.HTTPAdditionalHeaders = [ZBURLController aptHeaders];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];

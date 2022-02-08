@@ -19,7 +19,6 @@
 #import <Headers/UITabBarItem.h>
 #import "Zebra-Swift.h"
 #import <UI/Queue/ZBQueueViewController.h>
-#import <ZBDevice.h>
 
 #import <Plains/Plains.h>
 

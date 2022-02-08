@@ -17,7 +17,6 @@
 
 #import <ZBLog.h>
 #import <UI/ZBTab.h>
-#import <ZBDevice.h>
 #import "Zebra-Swift.h"
 #import <Notifications/ZBNotificationManager.h>
 #import <UI/Sources/ZBSourceListViewController.h>
@@ -194,6 +193,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    setenv("PATH", [ZBDevice path].UTF8String, 1);
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     if (@available(iOS 13.0, macCatalyst 13.0, *)) {
