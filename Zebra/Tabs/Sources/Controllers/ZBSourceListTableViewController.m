@@ -26,7 +26,7 @@
 
 @import SDWebImage;
 
-@interface ZBSourceListTableViewController () {
+@interface ZBSourceListTableViewController () <UITextFieldDelegate> {
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
     BOOL isRefreshingTable;
@@ -303,76 +303,6 @@
     }
 }
 
-#pragma mark - Clipboard
-
-//- (void)checkClipboard {
-//    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-//    NSURL *url = [NSURL URLWithString:pasteboard.string];
-//    BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
-//    if (!isValidURL) {
-//        return;
-//    }
-//    NSArray *urlBlacklist = @[@"www.youtube.com", @"youtube.com",
-//                              @"www.youtu.be", @"youtu.be",
-//                              @"www.google.com", @"google.com",
-//                              @"www.goo.gl", @"goo.gl",
-//                              @"www.reddit.com", @"reddit.com",
-//                              @"www.twitter.com", @"twitter.com",
-//                              @"www.facebook.com", @"facebook.com",
-//                              @"www.imgur.com", @"imgur.com",
-//                              @"www.discord.com", @"discord.com",
-//                              @"www.discord.gg", @"discord.gg",
-//                              @"www.apple.com", @"apple.com",
-//                              @"share.icloud.com", @"icloud.com",
-//                              @"www.gmail.com", @"gmail.com",
-//                              @"www.pastebin.com", @"pastebin.com",
-//                              @"www.tinyurl.com", @"tinyurl.com",
-//                              @"www.bit.ly", @"bit.ly"];
-//
-//    if (![urlBlacklist containsObject:url.host]) {
-//        NSMutableArray *sources = [NSMutableArray new];
-//        for (ZBSource *source in [self.databaseManager sources]) {
-//            NSString *host = [[NSURL URLWithString:source.repositoryURI] host];
-//            if (host) {
-//                [sources addObject:host];
-//            }
-//        }
-//        if (![sources containsObject:url]) {
-//            NSString *finalURLString = url.absoluteString;
-//            if (![finalURLString hasSuffix:@"/"]) {
-//                finalURLString = [finalURLString stringByAppendingString:@"/"];
-//            }
-//            NSURL *finalURL = [NSURL URLWithString:finalURLString];
-//            ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:finalURL];
-//            if (baseSource) {
-//                [baseSource verify:^(ZBSourceVerificationStatus status) {
-//                    if (status == ZBSourceExists) {
-//                        if (!self->askedToAddFromClipboard || ![self->lastPaste isEqualToString:pasteboard.string]) {
-//                            dispatch_async(dispatch_get_main_queue(), ^{
-//                                [self showAddSourceFromClipboardAlert:baseSource];
-//                            });
-//                        }
-//                        self->askedToAddFromClipboard = YES;
-//                        self->lastPaste = pasteboard.string;
-//                    }
-//                }];
-//            }
-//        }
-//    }
-//}
-//
-//- (void)showAddSourceFromClipboardAlert:(ZBBaseSource *)baseSource {
-//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Would you like to add the URL from your clipboard?", @"") message:baseSource.repositoryURI preferredStyle:UIAlertControllerStyleAlert];
-//    alertController.view.tintColor = [UIColor accentColor];
-//
-//    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil]];
-//    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        [self verifyAndAdd:[NSSet setWithObject:baseSource]];
-//    }]];
-//
-//    [self presentViewController:alertController animated:YES completion:nil];
-//}
-
 #pragma mark - Adding a Source
 
 - (void)showAddSourceAlert:(NSString *_Nullable)placeholder {
@@ -380,70 +310,102 @@
     alertController.view.tintColor = [UIColor accentColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
+
     UIAlertAction *add = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *urlString = [alertController.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if ([urlString hasPrefix:@"http:"]) {
-            // Warn user for insecure source (has low self esteem)
-            UIAlertController *insecureSource = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You are adding a repository that is not secure", @"") message:NSLocalizedString(@"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?", @"") preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *addInsecure = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSString *repoString = [urlString copy];
-                if (![repoString hasSuffix:@"/"]) {
-                    repoString = [repoString stringByAppendingString:@"/"];
-                }
-                
-                NSURL *sourceURL = [NSURL URLWithString:repoString];
-                [self checkSourceURL:sourceURL];
-            }];
-            [insecureSource addAction:addInsecure];
-            
-            UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self showAddSourceAlert:urlString];
-            }];
-            [insecureSource addAction:edit];
-            
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-            [insecureSource addAction:cancel];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:insecureSource animated:YES completion:nil];
-            });
-            return;
-        }
-        
-        if (![urlString hasSuffix:@"/"]) {
-            urlString = [urlString stringByAppendingString:@"/"];
-        }
-        
-        NSURL *sourceURL = [NSURL URLWithString:urlString];
-        [self checkSourceURL:sourceURL];
+        [self addSourceFromAlertController:alertController];
     }];
-    
     [alertController addAction:add];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple…", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UINavigationController *controller = [ZBAddSourceViewController controllerWithText:alertController.textFields[0].text delegate:self];
-        
         [self presentViewController:controller animated:YES completion:nil];
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.delegate = self;
+        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        textField.keyboardType = UIKeyboardTypeURL;
+        textField.returnKeyType = UIReturnKeyGo;
+        [[ZBThemeManager sharedInstance] configureTextField:textField];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
+
         if (placeholder != nil) {
             textField.text = placeholder;
             [add setEnabled:YES];
         } else {
             textField.text = @"https://";
             [add setEnabled:NO];
+            [self _detectURLOnPasteboardWithCompletion:^(NSString *result) {
+                if (result) {
+                    textField.text = result;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:textField];
+                    });
+                }
+            }];
         }
-        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        textField.autocorrectionType = UITextAutocorrectionTypeNo;
-        textField.keyboardType = UIKeyboardTypeURL;
-        textField.returnKeyType = UIReturnKeyNext;
-        [[ZBThemeManager sharedInstance] configureTextField:textField];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
     }];
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)_detectURLOnPasteboardWithCompletion:(void (^)(NSString *))completion {
+    if (@available(iOS 14, *)) {
+        // Not the most usable API…
+        // First we check if the contents of the pasteboard is a URL. This prevents iOS from
+        // displaying a scary “pasted from” alert. If it is a URL, we go ahead and grab it, which
+        // will trigger the alert, but the user will at least see why we accessed the pasteboard.
+        UIPasteboardDetectionPattern pattern = UIPasteboardDetectionPatternProbableWebURL;
+        [[UIPasteboard generalPasteboard] detectPatternsForPatterns:[NSSet setWithObject:pattern]
+                                                  completionHandler:^(NSSet <UIPasteboardDetectionPattern> *patterns, NSError *error) {
+            if ([patterns containsObject:pattern]) {
+                [[UIPasteboard generalPasteboard] detectValuesForPatterns:[NSSet setWithObject:pattern]
+                                                        completionHandler:^(NSDictionary <UIPasteboardDetectionPattern, id> *values, NSError *error) {
+                    NSString *result = values[pattern];
+                    if (result) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion([self _fullyQualifiedURLForInput:result]);
+                        });
+                    }
+                }];
+            }
+        }];
+    } else {
+        NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+        NSString *input = [UIPasteboard generalPasteboard].string ?: @"";
+        NSString *result = [input substringWithRange:[detector rangeOfFirstMatchInString:input options:kNilOptions range:NSMakeRange(0, input.length)]];
+        if ([self _isValidURL:result checkFullyQualified:NO]) {
+            completion([self _fullyQualifiedURLForInput:result]);
+        }
+    }
+}
+
+- (BOOL)_isValidURL:(NSString *)input checkFullyQualified:(BOOL)checkFullyQualified {
+    // Check for valid URL. The data detector also matches incomplete URLs without a scheme. In some
+    // cases, a missing scheme is fine. If it isn’t, we also check that NSURL can parse the URL,
+    // and that a scheme and host are present.
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
+    BOOL result = [detector rangeOfFirstMatchInString:input ?: @"" options:kNilOptions range:NSMakeRange(0, input.length)].location == 0;
+    if (checkFullyQualified) {
+        NSURL *url = [NSURL URLWithString:input];
+        result = result && url.scheme.length > 0 && url.host.length > 0;
+    }
+    return result;
+}
+
+- (NSString *)_fullyQualifiedURLForInput:(NSString *)input {
+    // If there’s no scheme, let’s just give it a shot anyway by prepending https://.
+    if (![input containsString:@"://"]) {
+        input = [@"https://" stringByAppendingString:input];
+    }
+
+    // If NSURL can parse this and a scheme and host are present, let’s go with it.
+    NSURL *url = [NSURL URLWithString:input];
+    if (url.scheme.length > 0 && url.host.length > 0) {
+        return url.absoluteString;
+    }
+    return nil;
 }
 
 - (void)textDidChange:(NSNotification *)notification {
@@ -454,7 +416,7 @@
     // This will be useful when pasting the url in text field
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){2}" options:NSRegularExpressionCaseInsensitive
     error:nil];
-    NSTextCheckingResult *match = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
+    NSTextCheckingResult *match = [regex firstMatchInString:textField.text ?: @"" options:0 range:NSMakeRange(0, textField.text.length)];
     if (match) {
         if ([textField.text hasPrefix:@"https"]) {
             textField.text = [textField.text substringFromIndex:8];
@@ -464,11 +426,47 @@
     }
     
     // check if it is URL or not
-    regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){1}((\\w)|([0-9])|([-|_]))+(\\.|/)+((\\w)|([0-9])|([-|_]))+" options:NSRegularExpressionCaseInsensitive
-    error:nil];
-    NSTextCheckingResult *isURL = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
-    
-    [add setEnabled:isURL != nil];
+    BOOL isURL = [self _isValidURL:textField.text checkFullyQualified:YES];
+    [add setEnabled:isURL];
+}
+
+- (void)addSourceFromAlertController:(UIAlertController *)alertController {
+    NSString *urlString = [alertController.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([urlString hasPrefix:@"http:"]) {
+        // Warn user for insecure source (has low self esteem)
+        UIAlertController *insecureSource = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You are adding a repository that is not secure", @"") message:NSLocalizedString(@"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?", @"") preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *addInsecure = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSString *repoString = [urlString copy];
+            if (![repoString hasSuffix:@"/"]) {
+                repoString = [repoString stringByAppendingString:@"/"];
+            }
+
+            NSURL *sourceURL = [NSURL URLWithString:repoString];
+            [self checkSourceURL:sourceURL];
+        }];
+        [insecureSource addAction:addInsecure];
+
+        UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self showAddSourceAlert:urlString];
+        }];
+        [insecureSource addAction:edit];
+
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+        [insecureSource addAction:cancel];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:insecureSource animated:YES completion:nil];
+        });
+        return;
+    }
+
+    if (![urlString hasSuffix:@"/"]) {
+        urlString = [urlString stringByAppendingString:@"/"];
+    }
+
+    NSURL *sourceURL = [NSURL URLWithString:urlString];
+    [self checkSourceURL:sourceURL];
 }
 
 - (void)checkSourceURL:(NSURL *)sourceURL {
@@ -508,6 +506,14 @@
             [self verifyAndAdd:[NSSet setWithObject:baseSource]];
         }
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
+    [alertController dismissViewControllerAnimated:YES completion:^{
+        [self addSourceFromAlertController:alertController];
+    }];
+    return NO;
 }
 
 #pragma mark - Table View Helper Methods
@@ -646,30 +652,18 @@
     
     if (![path isEqualToString:@""]) {
         NSArray *components = [path pathComponents];
+        NSLog(@"XXX count %lu", (unsigned long)components.count);
         if ([components count] == 2) {
-            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-            NSURL *url = [NSURL URLWithString:pasteboard.string];
-            BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
-            if (!isValidURL) {
-                [self showAddSourceAlert:nil];
-            } else {
-                [self showAddSourceAlert:[url absoluteString]];
-            }
-        } else if ([components count] >= 4) {
+            // No URL passed in. Just present the prompt.
+            [self showAddSourceAlert:nil];
+        } else if ([components count] >= 3) {
+            // URL passed in. Try and parse a valid URL out of it, and do our best to display the
+            // prompt with it. If we can’t parse out a valid URL, we’ll display the prompt anyway
+            // with no URL prefilled.
             NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
-            
-            NSURL *url;
-            if ([urlString containsString:@"https://"] || [urlString containsString:@"http://"]) {
-                url = [NSURL URLWithString:urlString];
-            } else {
-                url = [NSURL URLWithString:[@"https://" stringByAppendingString:urlString]];
-            }
-            
-            if (url && url.scheme && url.host) {
-                [self showAddSourceAlert:[url absoluteString]]; //This should probably be changed
-            } else {
-                [self showAddSourceAlert:NULL];
-            }
+            NSLog(@"XXX add %@", urlString);
+            NSLog(@"XXX fq: %@", [self _fullyQualifiedURLForInput:urlString]);
+            [self showAddSourceAlert:[self _fullyQualifiedURLForInput:urlString]];
         }
     }
 }
