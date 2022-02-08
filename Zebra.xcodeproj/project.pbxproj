@@ -1558,7 +1558,15 @@
 				);
 				MARKETING_VERSION = "2.0~alpha3";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"-Xlinker",
+					"-allow_simulator_linking_to_macosx_dylibs",
+				);
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(APP_NAME)";
@@ -1621,7 +1629,15 @@
 				);
 				MARKETING_VERSION = "2.0~alpha3";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = (
+					"$(inherited)",
+					"-Xlinker",
+					"-allow_simulator_linking_to_macosx_dylibs",
+				);
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(APP_NAME)";
