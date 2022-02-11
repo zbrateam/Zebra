@@ -13,6 +13,7 @@
 
 #import <Plains/Model/PLSource.h>
 // #import <Plains/Model/PLPackage.h>
+#import "ZBPlainsController.h"
 
 @interface UIApplication ()
 - (void)suspend;

@@ -11,7 +11,7 @@
 #import <UI/Queue/ZBQueueViewController.h>
 #import <UI/Home/ZBCreditsViewController.h>
 
-#import <ZBAppDelegate.h>
+#import "ZBAppDelegate.h"
 #import <UI/Settings/ZBSettingsViewController.h>
 
 #import <SafariServices/SafariServices.h>

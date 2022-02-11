@@ -18,7 +18,7 @@
 #import <ZBLog.h>
 #import <UI/ZBTab.h>
 #import "Zebra-Swift.h"
-#import <Notifications/ZBNotificationManager.h>
+#import "ZBNotificationManager.h"
 #import <UI/Sources/ZBSourceListViewController.h>
 #import <UI/Packages/ZBPackageViewController.h>
 #import <UI/Search/ZBSearchViewController.h>

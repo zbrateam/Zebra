@@ -48,14 +48,26 @@ class URLController: NSObject {
 
 	@objc(openURL:sender:)
 	class func open(url: URL, sender: UIViewController) {
+		#if targetEnvironment(macCatalyst)
+		// Safari view controller just does this anyway on macOS.
+		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		#else
+		// Safari view controller can only open http/https urls.
 		guard url.scheme == "http" || url.scheme == "https" else {
 			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			return
 		}
 
-		let viewController = SFSafariViewController(url: url)
-		viewController.preferredControlTintColor = .accent
-		sender.present(viewController, animated: true, completion: nil)
+		// Is there an app installed that opens this kind of link? If so, open with that. If not, open
+		// inside Safari view controller.
+		UIApplication.shared.open(url, options: [.universalLinksOnly: true]) { success in
+			if !success {
+				let viewController = SFSafariViewController(url: url)
+				viewController.preferredControlTintColor = .accent
+				sender.present(viewController, animated: true, completion: nil)
+			}
+		}
+		#endif
 	}
 
 }

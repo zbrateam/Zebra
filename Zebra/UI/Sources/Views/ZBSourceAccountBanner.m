@@ -10,7 +10,7 @@
 #import "Zebra-Swift.h"
 #import <JSONParsing/ZBSourceInfo.h>
 #import <JSONParsing/ZBUserInfo.h>
-#import <ZBAppDelegate.h>
+#import "ZBAppDelegate.h"
 #import "ZBSourceViewController.h"
 
 @interface ZBSourceAccountBanner () {
