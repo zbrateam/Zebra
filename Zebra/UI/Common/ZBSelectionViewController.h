@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <UI/Common/Delegates/ZBSelectionDelegate.h>
+#import "ZBSelectionDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

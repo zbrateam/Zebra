@@ -9,7 +9,7 @@
 #import "ZBDisplaySettingsViewController.h"
 
 #import "Zebra-Swift.h"
-#import <Extensions/UIImageView+Zebra.h>
+#import "UIImageView+Zebra.h"
 
 @interface ZBDisplaySettingsViewController () {
     BOOL usesSystemAppearance;

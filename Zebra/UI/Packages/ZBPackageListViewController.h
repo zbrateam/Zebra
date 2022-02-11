@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <UI/Common/Delegates/ZBFilterDelegate.h>
+#import "ZBFilterDelegate.h"
 
 @class PLSource;
 @class PLPackage;

@@ -7,8 +7,8 @@
 //
 
 #import "ZBPackageDepictionViewController.h"
-#import <ZBDevice.h>
-#import <Tabs/Packages/Controllers/ZBPackageChangelogTableViewController.h>
+#import "ZBDevice.h"
+#import "ZBPackageChangelogTableViewController.h"
 #import "ZBScreenshotCollectionViewCell.h"
 #import "Zebra-Swift.h"
 

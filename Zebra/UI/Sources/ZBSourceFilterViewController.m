@@ -8,7 +8,7 @@
 
 #import "ZBSourceFilterViewController.h"
 
-#import <Model/ZBSourceFilter.h>
+#import "ZBSourceFilter.h"
 #import "Zebra-Swift.h"
 
 @interface ZBSourceFilterViewController () {

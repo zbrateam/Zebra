@@ -8,7 +8,7 @@
 
 #import "ZBChangelogViewController.h"
 
-#import <ZBLog.h>
+#import "ZBLog.h"
 #import "Zebra-Swift.h"
 
 @implementation ZBChangelogViewController

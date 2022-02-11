@@ -9,10 +9,10 @@
 #import "ZBSourceImportViewController.h"
 #import "ZBAppDelegate.h"
 
-#import <Model/ZBDummySource.h>
+#import "ZBDummySource.h"
 
-#import <Extensions/UINavigationBar+Extensions.h>
-#import <Extensions/UIViewController+Extensions.h>
+#import "UINavigationBar+Extensions.h"
+#import "UIViewController+Extensions.h"
 #import <WebKit/WebKit.h>
 #import "Zebra-Swift.h"
 

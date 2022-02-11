@@ -7,7 +7,7 @@
 //
 
 #import "ZBPackageChangelogTableViewController.h"
-#import <Tabs/Packages/Views/ZBChangelogTableViewCell.h>
+#import "ZBChangelogTableViewCell.h"
 #import "Zebra-Swift.h"
 
 @interface ZBPackageChangelogTableViewController ()

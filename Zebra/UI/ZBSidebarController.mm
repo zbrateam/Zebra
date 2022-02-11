@@ -8,12 +8,12 @@
 
 #import "ZBSidebarController.h"
 
-#import <UI/Home/ZBHomeViewController.h>
-#import <UI/Sources/ZBSourceListViewController.h>
-#import <UI/Packages/ZBPackageListViewController.h>
-#import <UI/Search/ZBSearchViewController.h>
-#import <UI/Queue/ZBQueueViewController.h>
-#import <UI/Settings/ZBSettingsViewController.h>
+#import "ZBHomeViewController.h"
+#import "ZBSourceListViewController.h"
+#import "ZBPackageListViewController.h"
+#import "ZBSearchViewController.h"
+#import "ZBQueueViewController.h"
+#import "ZBSettingsViewController.h"
 
 #import "Zebra-Swift.h"
 

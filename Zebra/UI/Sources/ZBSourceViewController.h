@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
+#import "ZBPackageInfoController.h"
 
 @class PLSource;
 

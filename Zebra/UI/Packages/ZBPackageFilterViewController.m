@@ -9,8 +9,8 @@
 #import "ZBPackageFilterViewController.h"
 
 #import "Zebra-Swift.h"
-#import <Model/ZBPackageFilter.h>
-#import <UI/Common/ZBSelectionViewController.h>
+#import "ZBPackageFilter.h"
+#import "ZBSelectionViewController.h"
 
 @interface ZBPackageFilterViewController () {
     id <ZBFilterDelegate> delegate;

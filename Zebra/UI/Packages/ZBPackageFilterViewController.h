@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import <UI/Common/Delegates/ZBFilterDelegate.h>
-#import <UI/Common/Delegates/ZBSelectionDelegate.h>
+#import "ZBFilterDelegate.h"
+#import "ZBSelectionDelegate.h"
 
 @class ZBPackageFilter;
 

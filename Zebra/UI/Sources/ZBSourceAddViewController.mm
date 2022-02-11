@@ -9,10 +9,10 @@
 #import "ZBSourceAddViewController.h"
 #import <WebKit/WebKit.h>
 
-#import <UI/Sources/ZBSourceImportViewController.h>
-#import <UI/Sources/ZBSourceBulkAddViewController.h>
+#import "ZBSourceImportViewController.h"
+#import "ZBSourceBulkAddViewController.h"
 
-#import <Model/ZBDummySource.h>
+#import "ZBDummySource.h"
 
 #import "Zebra-Swift.h"
 

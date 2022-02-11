@@ -8,10 +8,10 @@
 
 #import "ZBQueueViewController.h"
 
-#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
-#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
-#import <UI/Console/ZBConsoleViewController.h>
-#import <UI/ZBSidebarController.h>
+#import "ZBPackageTableViewCell.h"
+#import "ZBBoldTableViewHeaderView.h"
+#import "ZBConsoleViewController.h"
+#import "ZBSidebarController.h"
 
 #import "Zebra-Swift.h"
 

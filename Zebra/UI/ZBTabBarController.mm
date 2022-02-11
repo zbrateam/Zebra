@@ -8,17 +8,17 @@
 
 #import "ZBTabBarController.h"
 
-#import <UI/Home/ZBHomeViewController.h>
-#import <UI/Packages/ZBPackageListViewController.h>
-#import <UI/Sources/ZBSourceListViewController.h>
-#import <UI/Search/ZBSearchViewController.h>
+#import "ZBHomeViewController.h"
+#import "ZBPackageListViewController.h"
+#import "ZBSourceListViewController.h"
+#import "ZBSearchViewController.h"
 
 #import "ZBTab.h"
 //#import "Packages/Helpers/ZBPackage.h"
 #import "ZBAppDelegate.h"
-#import <Headers/UITabBarItem.h>
+#import "UITabBarItem.h"
 #import "Zebra-Swift.h"
-#import <UI/Queue/ZBQueueViewController.h>
+#import "ZBQueueViewController.h"
 
 #import <Plains/Plains.h>
 

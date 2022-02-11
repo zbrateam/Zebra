@@ -8,8 +8,8 @@
 
 #import "ZBSourceAccountBanner.h"
 #import "Zebra-Swift.h"
-#import <JSONParsing/ZBSourceInfo.h>
-#import <JSONParsing/ZBUserInfo.h>
+#import "ZBSourceInfo.h"
+#import "ZBUserInfo.h"
 #import "ZBAppDelegate.h"
 #import "ZBSourceViewController.h"
 

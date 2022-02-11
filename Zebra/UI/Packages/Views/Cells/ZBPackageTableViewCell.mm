@@ -8,11 +8,11 @@
 
 #import "ZBPackageTableViewCell.h"
 
-#import <Model/PLPackage+Zebra.h>
+#import "PLPackage+Zebra.h"
 #import <Plains/Model/PLSource.h>
 
 #import "Zebra-Swift.h"
-#import <Tabs/Packages/Helpers/ZBPackageActions.h>
+#import "ZBPackageActions.h"
 
 @interface ZBPackageTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;

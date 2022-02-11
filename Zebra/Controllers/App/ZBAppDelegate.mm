@@ -10,25 +10,25 @@
 
 #import "ZBAppDelegate.h"
 
-#import <UI/ZBTabBarController.h>
-#import <UI/ZBLoadingViewController.h>
+#import "ZBTabBarController.h"
+#import "ZBLoadingViewController.h"
 
 #import <Plains/Plains.h>
 
-#import <ZBLog.h>
-#import <UI/ZBTab.h>
+#import "ZBLog.h"
+#import "ZBTab.h"
 #import "Zebra-Swift.h"
 #import "ZBNotificationManager.h"
-#import <UI/Sources/ZBSourceListViewController.h>
-#import <UI/Packages/ZBPackageViewController.h>
-#import <UI/Search/ZBSearchViewController.h>
-#import <UI/Sources/ZBSourceViewController.h>
-#import <UI/Sources/ZBSourceImportViewController.h>
-#import <UI/ZBSidebarController.h>
+#import "ZBSourceListViewController.h"
+#import "ZBPackageViewController.h"
+#import "ZBSearchViewController.h"
+#import "ZBSourceViewController.h"
+#import "ZBSourceImportViewController.h"
+#import "ZBSidebarController.h"
 #import <dlfcn.h>
 #include <sys/stat.h>
 //#import <objc/runtime.h>
-#import <Headers/AccessibilityUtilities.h>
+#import "AccessibilityUtilities.h"
 
 #import <SDWebImage/SDWebImage.h>
 

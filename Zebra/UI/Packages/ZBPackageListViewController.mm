@@ -9,18 +9,18 @@
 #import "ZBPackageListViewController.h"
 #import "ZBPackageFilterViewController.h"
 
-#import <Model/ZBPackageFilter.h>
-#import <UI/Packages/ZBPackageViewController.h>
-#import <Tabs/Packages/Helpers/ZBPackageActions.h>
+#import "ZBPackageFilter.h"
+#import "ZBPackageViewController.h"
+#import "ZBPackageActions.h"
 #if TARGET_OS_MACCATALYST
-#import <UI/ZBSidebarController.h>
+#import "ZBSidebarController.h"
 #endif
-#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
-#import <UI/Common/ZBPartialPresentationController.h>
-#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
+#import "ZBBoldTableViewHeaderView.h"
+#import "ZBPartialPresentationController.h"
+#import "ZBPackageTableViewCell.h"
 #import "Zebra-Swift.h"
 
-#import <Extensions/UIViewController+Extensions.h>
+#import "UIViewController+Extensions.h"
 
 #import <Plains/Plains.h>
 

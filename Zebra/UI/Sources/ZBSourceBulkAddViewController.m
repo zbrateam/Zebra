@@ -9,8 +9,8 @@
 #import "ZBSourceBulkAddViewController.h"
 
 #import "Zebra-Swift.h"
-#import <UI/Sources/ZBSourceImportViewController.h>
-#import <Model/ZBDummySource.h>
+#import "ZBSourceImportViewController.h"
+#import "ZBDummySource.h"
 
 @interface ZBSourceBulkAddViewController ()
 @property UITextView *textView;

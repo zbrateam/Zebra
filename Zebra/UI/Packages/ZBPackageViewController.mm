@@ -7,18 +7,18 @@
 //
 
 #import "ZBPackageViewController.h"
-#import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
+#import "ZBPackageActions.h"
+#import "ZBPackageInfoController.h"
 #import "ZBActionButton.h"
 #import "ZBBoldTableViewHeaderView.h"
 #import "ZBInfoTableViewCell.h"
 #import "ZBLinkTableViewCell.h"
 #import "Zebra-Swift.h"
-#import <Extensions/UINavigationBar+Extensions.h>
+#import "UINavigationBar+Extensions.h"
 #import "UIViewController+Extensions.h"
-#import <UI/ZBSidebarController.h>
+#import "ZBSidebarController.h"
 
-#import <Model/PLPackage+Zebra.h>
+#import "PLPackage+Zebra.h"
 #import <Plains/Managers/PLPackageManager.h>
 #import <WebKit/WebKit.h>
 

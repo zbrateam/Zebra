@@ -13,14 +13,14 @@
 #import "ZBAuthorSelectorTableViewController.h"
 //#import "ZBButtonSettingsTableViewCell.h"
 
-#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
+#import "ZBPackageTableViewCell.h"
 #import "Zebra-Swift.h"
-#import <UI/Sources/ZBSourceViewController.h>
+#import "ZBSourceViewController.h"
 
-//#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
+//#import "ZBSourceSelectTableViewController.h"
 
 #import "Zebra-Swift.h"
-#import <Extensions/UIImageView+Zebra.h>
+#import "UIImageView+Zebra.h"
 //#import "UITableView+Settings.h"
 
 @interface ZBFilterSettingsTableViewController () {

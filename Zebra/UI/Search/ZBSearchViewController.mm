@@ -8,14 +8,14 @@
 
 #import "ZBSearchViewController.h"
 
-//#import <Managers/ZBPackageManager.h>
+//#import "ZBPackageManager.h"
 
-#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
-#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
+#import "ZBBoldTableViewHeaderView.h"
+#import "ZBPackageTableViewCell.h"
 
 #import "Zebra-Swift.h"
-#import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <UI/Packages/ZBPackageViewController.h>
+#import "ZBPackageActions.h"
+#import "ZBPackageViewController.h"
 
 #import <Plains/Model/PLPackage.h>
 #import <Plains/Managers/PLPackageManager.h>

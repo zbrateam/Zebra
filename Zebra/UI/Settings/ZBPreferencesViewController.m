@@ -8,7 +8,7 @@
 
 #import "ZBPreferencesViewController.h"
 
-#import <UI/Settings/Cells/ZBSettingsTableViewCell.h>
+#import "ZBSettingsTableViewCell.h"
 
 #import "Zebra-Swift.h"
 

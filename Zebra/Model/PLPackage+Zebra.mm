@@ -8,8 +8,8 @@
 
 #import "PLPackage+Zebra.h"
 
-#import <Model/PLSource+Zebra.h>
-#import <Tabs/Packages/Helpers/ZBPackageActions.h>
+#import "PLSource+Zebra.h"
+#import "ZBPackageActions.h"
 
 #import <SDWebImage/SDWebImage.h>
 #import <Plains/Utilities/NSString+Plains.h>

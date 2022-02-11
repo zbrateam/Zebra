@@ -10,15 +10,15 @@
 
 #import "Zebra-Swift.h"
 #import "ZBAppDelegate.h"
-#import <Headers/UIAlertController+Private.h>
-#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
-#import <UI/Packages/ZBPackageViewController.h>
-#import <UI/Packages/ZBPackageListViewController.h>
-#import <Extensions/UIAlertController+Zebra.h>
-#import <JSONParsing/ZBPurchaseInfo.h>
-#import <UI/ZBTabBarController.h>
+#import "UIAlertController+Private.h"
+#import "ZBPackageTableViewCell.h"
+#import "ZBPackageViewController.h"
+#import "ZBPackageListViewController.h"
+#import "UIAlertController+Zebra.h"
+#import "ZBPurchaseInfo.h"
+#import "ZBTabBarController.h"
 
-#import <Model/PLPackage+Zebra.h>
+#import "PLPackage+Zebra.h"
 #import <Plains/Queue/PLQueue.h>
 
 @implementation ZBPackageActions

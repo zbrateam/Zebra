@@ -8,11 +8,11 @@
 
 #import "ZBHomeViewController.h"
 
-#import <UI/Queue/ZBQueueViewController.h>
-#import <UI/Home/ZBCreditsViewController.h>
+#import "ZBQueueViewController.h"
+#import "ZBCreditsViewController.h"
 
 #import "ZBAppDelegate.h"
-#import <UI/Settings/ZBSettingsViewController.h>
+#import "ZBSettingsViewController.h"
 
 #import <SafariServices/SafariServices.h>
 #import "Zebra-Swift.h"

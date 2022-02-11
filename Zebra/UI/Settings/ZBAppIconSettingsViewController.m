@@ -8,7 +8,7 @@
 
 #import "ZBAppIconSettingsViewController.h"
 
-#import <Extensions/UIImageView+Zebra.h>
+#import "UIImageView+Zebra.h"
 
 #if !TARGET_OS_MACCATALYST
 

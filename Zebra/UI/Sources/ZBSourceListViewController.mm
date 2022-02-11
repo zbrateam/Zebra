@@ -10,10 +10,10 @@
 #import <WebKit/WebKit.h>
 
 #import "Zebra-Swift.h"
-#import <UI/Sources/ZBSourceViewController.h>
-#import <UI/ZBSidebarController.h>
-#import <UI/Sources/ZBSourceAddViewController.h>
-#import <UI/Common/ZBErrorViewController.h>
+#import "ZBSourceViewController.h"
+#import "ZBSidebarController.h"
+#import "ZBSourceAddViewController.h"
+#import "ZBErrorViewController.h"
 
 #import <Plains/Managers/PLSourceManager.h>
 #import <Plains/Model/PLSource.h>
