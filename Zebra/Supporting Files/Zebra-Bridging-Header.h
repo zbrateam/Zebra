@@ -15,6 +15,11 @@
 // #import <Plains/Model/PLPackage.h>
 #import "ZBPlainsController.h"
 
+#import "ZBHomeViewController.h"
+#import "ZBSourceListViewController.h"
+#import "ZBPackageListViewController.h"
+#import "ZBSettingsViewController.h"
+
 @interface UIApplication ()
 - (void)suspend;
 @end

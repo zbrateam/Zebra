@@ -9,6 +9,10 @@
 import UIKit
 import UniformTypeIdentifiers
 
+protocol RootViewControllerDelegate: AnyObject {
+	func selectTab(_ tab: RootViewController.AppTab)
+}
+
 class RootViewController: UISplitViewController {
 
 	enum AppTab: Int, CaseIterable {
@@ -31,6 +35,15 @@ class RootViewController: UISplitViewController {
 			case .me:        return UIImage(systemName: "person.crop.circle.fill")
 			}
 		}
+
+		var viewController: UIViewController {
+			switch self {
+			case .home:      return ZBHomeViewController()
+			case .browse:    return ZBSourceListViewController()
+			case .installed: return ZBPackageListViewController()
+			case .me:        return ZBSettingsViewController()
+			}
+		}
 	}
 
 	static let tabKeyCommands: [UIKeyCommand] = {
@@ -38,7 +51,7 @@ class RootViewController: UISplitViewController {
 		for (i, row) in AppTab.allCases.enumerated() {
 			result.append(UIKeyCommand(title: row.name,
 																 image: row.icon,
-																 action: #selector(MacSidebarViewController.switchToTab),
+																 action: #selector(switchToTab),
 																 input: "\(i + 1)",
 																 modifierFlags: .command,
 																 propertyList: i,
@@ -46,6 +59,9 @@ class RootViewController: UISplitViewController {
 		}
 		return result
 	}()
+
+	private weak var navigationDelegate: RootViewControllerDelegate?
+	private var currentTab: AppTab?
 
 	init() {
 		super.init(style: .doubleColumn)
@@ -64,16 +80,63 @@ class RootViewController: UISplitViewController {
 		minimumPrimaryColumnWidth = 220
 		maximumPrimaryColumnWidth = 220
 
-		let sidebarNavigationController = UINavigationController(rootViewController: MacSidebarViewController())
+		let sidebarViewController = MacSidebarViewController()
+		navigationDelegate = sidebarViewController
+		let sidebarNavigationController = UINavigationController(rootViewController: sidebarViewController)
 		sidebarNavigationController.setNavigationBarHidden(true, animated: false)
-
 		setViewController(sidebarNavigationController, for: .primary)
-		setViewController(UINavigationController(rootViewController: UIViewController()), for: .secondary)
+
+		let secondaryNavigationController = UINavigationController()
+		secondaryNavigationController.delegate = self
+		secondaryNavigationController.setNavigationBarHidden(true, animated: false)
+		setViewController(secondaryNavigationController, for: .secondary)
 		#else
 		// Tab bar controller
 		#endif
 
 		view.addInteraction(UIDropInteraction(delegate: self))
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		selectTab(.home)
+	}
+
+	// MARK: - Tabs
+
+	func selectTab(_ tab: AppTab) {
+		if tab == currentTab {
+			// We’re already on this tab, just pop to root.
+			#if targetEnvironment(macCatalyst)
+			let navigationController = viewController(for: .secondary) as! UINavigationController
+			#else
+			let navigationController = tabBarController!.selectedViewController as! UINavigationController
+			#endif
+			navigationController.popToRootViewController(animated: true)
+			return
+		}
+
+		currentTab = tab
+
+		#if targetEnvironment(macCatalyst)
+		// Update the secondary view controller’s stack
+		let secondaryNavigationController = viewController(for: .secondary) as! UINavigationController
+		secondaryNavigationController.viewControllers = [tab.viewController]
+		#else
+		// Select tab bar item
+		#endif
+
+		// Update UI
+		navigationDelegate?.selectTab(tab)
+
+		// Update menu bar state
+		for item in RootViewController.tabKeyCommands {
+			let tab2 = AppTab(rawValue: item.propertyList as! Int)!
+			item.state = tab2 == tab ? .on : .off
+		}
+
+		// TODO: Can I, like, not rebuild the entire menu bar every time?
+		UIMenuSystem.main.setNeedsRebuild()
 	}
 
 	// MARK: - Application Menu
@@ -104,6 +167,11 @@ class RootViewController: UISplitViewController {
 
 	@IBAction func openSearch() {
 		// TODO: This
+	}
+
+	@IBAction func switchToTab(_ sender: UIKeyCommand) {
+		let tab = AppTab(rawValue: sender.propertyList as! Int)!
+		selectTab(tab)
 	}
 
 	// MARK: - Sources Menu
@@ -142,6 +210,23 @@ class RootViewController: UISplitViewController {
 
 }
 
+#if targetEnvironment(macCatalyst)
+extension RootViewController: UINavigationControllerDelegate {
+
+	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+		let windowScene = view.window!.windowScene!
+		let sceneDelegate = windowScene.delegate as! AppSceneDelegate
+		windowScene.title = viewController.title
+
+		let isRoot = navigationController.viewControllers.first == viewController
+		sceneDelegate.toolbarItems = [
+			isRoot ? .flexibleSpace : .back
+		]
+	}
+
+}
+#endif
+
 extension RootViewController: UIDropInteractionDelegate {
 
 	func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
@@ -153,7 +238,7 @@ extension RootViewController: UIDropInteractionDelegate {
 		return UIDropProposal(operation: .copy)
 	}
 
-	@objc func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+	func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
 		guard let item = session.items.first else {
 			return
 		}

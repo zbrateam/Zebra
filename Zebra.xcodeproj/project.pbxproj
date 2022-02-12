@@ -66,6 +66,7 @@
 		4E1A1C7B27B6A3A900B6DC9A /* ZBAppSceneHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C7927B6A3A900B6DC9A /* ZBAppSceneHelper.m */; };
 		4E1A1C8827B6B9BF00B6DC9A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E1A1C8627B6B9BF00B6DC9A /* InfoPlist.strings */; };
 		4E1A1C9027B6B9F600B6DC9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E1A1C8E27B6B9F600B6DC9A /* LaunchScreen.storyboard */; };
+		4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */; };
 		4E9FC8742790555800934FFE /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9FC87D2790569800934FFE /* DepictionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC87C2790569800934FFE /* DepictionKit.framework */; };
@@ -303,6 +304,7 @@
 		4E1A1C7927B6A3A900B6DC9A /* ZBAppSceneHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppSceneHelper.m; sourceTree = "<group>"; };
 		4E1A1C8727B6B9BF00B6DC9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E1A1C8F27B6B9F600B6DC9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSToolbarItem+AppItems.swift"; sourceTree = "<group>"; };
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC87C2790569800934FFE /* DepictionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DepictionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 				89DCC2C6260D725F00768096 /* ZBLoadingViewController.m */,
 				891ED4B02614F6EB005B926B /* ZBSidebarController.h */,
 				894EAB54261D5C4C00552235 /* ZBSidebarController.mm */,
+				4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1517,6 +1520,7 @@
 				89308E2723FF4BBB00D4641D /* ZBResetViewController.m in Sources */,
 				89ADD1222561AEFC00DF2241 /* ZBPackageFilter.m in Sources */,
 				898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.mm in Sources */,
+				4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.mm in Sources */,
 				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,
 				4EC7F28B27B2985A0078F953 /* String+Extensions.swift in Sources */,

@@ -19,43 +19,6 @@ class MacSidebarViewController: UITableViewController {
 
 		clearsSelectionOnViewWillAppear = false
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-
-		for item in RootViewController.tabKeyCommands {
-			addKeyCommand(item)
-		}
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		selectTab(.home)
-	}
-
-	private func selectTab(_ tab: AppTab) {
-		tableView.selectRow(at: IndexPath(row: tab.rawValue, section: 0),
-												animated: false,
-												scrollPosition: .middle)
-
-		for item in RootViewController.tabKeyCommands {
-			let tab2 = AppTab(rawValue: item.propertyList as! Int)!
-			item.state = tab2 == tab ? .on : .off
-		}
-		UIMenuSystem.main.setNeedsRebuild()
-	}
-
-	@objc func switchToTab(_ sender: UIKeyCommand) {
-		let tab = AppTab(rawValue: sender.propertyList as! Int)!
-		selectTab(tab)
-	}
-
-	override func buildMenu(with builder: UIMenuBuilder) {
-		super.buildMenu(with: builder)
-
-		let menu = UIMenu(options: .displayInline,
-											children:
-												keyCommands!
-											)
-		builder.insertSibling(menu, afterMenu: .view)
 	}
 
 }
@@ -83,7 +46,18 @@ extension MacSidebarViewController { // UITableViewDataSource, UITableViewDelega
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		selectTab(AppTab(rawValue: indexPath.row)!)
+		let rootViewController = splitViewController as! RootViewController
+		rootViewController.selectTab(AppTab(rawValue: indexPath.row)!)
+	}
+
+}
+
+extension MacSidebarViewController: RootViewControllerDelegate {
+
+	func selectTab(_ tab: RootViewController.AppTab) {
+		tableView.selectRow(at: IndexPath(row: tab.rawValue, section: 0),
+												animated: false,
+												scrollPosition: .middle)
 	}
 
 }
