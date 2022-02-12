@@ -7,7 +7,7 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>utiicon</string>
+				<string>debicon</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Debian Package</string>
@@ -21,10 +21,10 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>utiicon.png</string>
+				<string>listicon</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>APT Sources List</string>
+			<string>Zebra Sources List</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
@@ -35,241 +35,23 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>utiicon.png</string>
+				<string>sourcesicon</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Debian Sources File</string>
+			<string>Zebra Sources List</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.debian.sources-file</string>
 			</array>
 		</dict>
 	</array>
-	<key>CFBundleIcons</key>
-	<dict>
-		<key>CFBundleAlternateIcons</key>
-		<dict>
-			<key>AUPM</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>AUPM</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>darkZebraSkin</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>darkZebraSkin</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>lightZebraSkin</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>lightZebraSkin</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>originalBlack</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>originalBlack</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>quda</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>quda</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>viola</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>viola</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>zBlack</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zBlack</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>zWhite</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zWhite</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>zebrine</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zebrine</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-		</dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string></string>
-			</array>
-			<key>UIPrerenderedIcon</key>
-			<false/>
-		</dict>
-		<key>UINewsstandIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string></string>
-			</array>
-			<key>UINewsstandBindingEdge</key>
-			<string>UINewsstandBindingEdgeLeft</string>
-			<key>UINewsstandBindingType</key>
-			<string>UINewsstandBindingTypeMagazine</string>
-		</dict>
-	</dict>
-	<key>CFBundleIcons~ipad</key>
-	<dict>
-		<key>CFBundleAlternateIcons</key>
-		<dict>
-			<key>AUPM</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>AUPM</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>darkZebraSkin</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>darkZebraSkin~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>lightZebraSkin</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>lightZebraSkin~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>originalBlack</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>originalBlack~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>quda</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>quda~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>viola</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>viola~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>zBlack</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zBlack~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>zWhite</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zWhite~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>zebrine</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zebrine~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-		</dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string></string>
-			</array>
-			<key>UIPrerenderedIcon</key>
-			<false/>
-		</dict>
-		<key>UINewsstandIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string></string>
-			</array>
-			<key>UINewsstandBindingEdge</key>
-			<string>UINewsstandBindingEdgeLeft</string>
-			<key>UINewsstandBindingType</key>
-			<string>UINewsstandBindingTypeMagazine</string>
-		</dict>
-	</dict>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>CFBundleURLIconFile</key>
-			<string>utiicon</string>
 			<key>CFBundleURLName</key>
 			<string>Zebra</string>
 			<key>CFBundleURLSchemes</key>
@@ -341,7 +123,7 @@
 	<true/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>UTImportedTypeDeclarations</key>
+	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>
@@ -351,10 +133,15 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Debian Package</string>
-			<key>UTTypeIconFiles</key>
-			<array>
-				<string>utiicon.png</string>
-			</array>
+			<key>UTTypeIconFile</key>
+			<string>debicon.png</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBadgeName</key>
+				<string>debicon-badge</string>
+				<key>UTTypeIconText</key>
+				<string>deb</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>org.debian.deb-archive</string>
 			<key>UTTypeTagSpecification</key>
@@ -377,11 +164,14 @@
 				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Debian Sources List</string>
-			<key>UTTypeIconFiles</key>
-			<array>
-				<string>utiicon.png</string>
-			</array>
+			<string>Zebra Sources List</string>
+			<key>UTTypeIconFile</key>
+			<string>listicon.png</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>list</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>org.debian.sources-list</string>
 			<key>UTTypeTagSpecification</key>
@@ -398,11 +188,14 @@
 				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Debian Sources File</string>
-			<key>UTTypeIconFiles</key>
-			<array>
-				<string>utiicon.png</string>
-			</array>
+			<string>Zebra Sources List</string>
+			<key>UTTypeIconFile</key>
+			<string>sourcesicon.png</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>sources</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>org.debian.sources-file</string>
 			<key>UTTypeTagSpecification</key>
