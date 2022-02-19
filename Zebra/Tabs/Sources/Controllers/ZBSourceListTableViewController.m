@@ -375,7 +375,7 @@
         NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
         NSString *input = [UIPasteboard generalPasteboard].string ?: @"";
         NSRange range = [detector rangeOfFirstMatchInString:input options:kNilOptions range:NSMakeRange(0, input.length)];
-        if(range.location != NSNotFound) {
+        if (range.location != NSNotFound) {
             NSString *result = [input substringWithRange:range];
             if ([self _isValidURL:result checkFullyQualified:NO]) {
                 completion([self _fullyQualifiedURLForInput:result]);
