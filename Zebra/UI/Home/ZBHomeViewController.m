@@ -139,7 +139,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == [self cells].count - 1) {
         UIDevice *device = [UIDevice currentDevice];
-        return [NSString stringWithFormat:@"%@ - %@ %@ - Zebra %@\n%@", device.zbra_machine, device.zbra_osName, device.systemVersion, PACKAGE_VERSION, device.zbra_udid];
+        return [NSString stringWithFormat:@"%@ - %@ %@ - Zebra %@\n%@", device.zbra_machine, device.zbra_osName, device.zbra_osVersion, PACKAGE_VERSION, device.zbra_udid];
     }
     return NULL;
 }

@@ -25,25 +25,85 @@ fileprivate let machineFallback = "iPhone10,3"
 
 	@objc(zbra_udid)
 	var udid: String {
-#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
+		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
 		return udidFallback
-#else
+		#else
 		return MGCopyAnswer(kMGUniqueDeviceID)?.takeUnretainedValue() as? String ?? udidFallback
-#endif
+		#endif
 	}
 
 	@objc(zbra_machine)
 	var machine: String {
-#if targetEnvironment(simulator)
+		#if targetEnvironment(simulator)
 		// Use a safe fallback. iPhone10,3 (iPhone X) is a well-known value seen with the well-known
 		// UDID above.
 		return machineFallback
-#else
-#if targetEnvironment(macCatalyst)
+		#else
+		#if targetEnvironment(macCatalyst)
 		let key = "hw.model"
-#else
+		#else
 		let key = "hw.machine"
-#endif
+		#endif
+		if let value = sysctlValue(key: key) {
+			return value
+		}
+		#if targetEnvironment(macCatalyst)
+		return "Mac"
+		#else
+		return model
+		#endif
+		#endif
+	}
+
+	@objc(zbra_hardwareModel)
+	var hardwareModel: String {
+		#if targetEnvironment(macCatalyst)
+		// localizedModel on macOS always returns “iPad” 🙁
+		// Grab the device machine identifier directly, then find its name via CoreTypes.
+		return UTType(tag: machine,
+									tagClass: .deviceModelCode,
+									conformingTo: nil)?.localizedDescription ?? "Mac"
+		#else
+		return localizedModel
+		#endif
+	}
+
+	@objc(zbra_hardwarePlatform)
+	var hardwarePlatform: String {
+		#if targetEnvironment(macCatalyst)
+		return "Mac"
+		#else
+		switch model {
+		case "iPod touch": return "iPod"
+		default:           return model
+		}
+		#endif
+	}
+
+	@objc(zbra_osName)
+	var osName: String {
+		#if targetEnvironment(macCatalyst)
+		return "macOS"
+		#else
+		switch systemName {
+		case "iPhone OS": return "iOS"
+		case "Mac OS X":  return "macOS"
+		default:          return systemName
+		}
+		#endif
+	}
+
+	@objc(zbra_osVersion)
+	var osVersion: String {
+		#if targetEnvironment(macCatalyst)
+		if let value = sysctlValue(key: "kern.osproductversion") {
+			return value
+		}
+		#endif
+		return systemVersion
+	}
+
+	private func sysctlValue(key: String) -> String? {
 		var size = size_t()
 		sysctlbyname(key, nil, &size, nil, 0)
 		let value = malloc(size)
@@ -51,64 +111,10 @@ fileprivate let machineFallback = "iPhone10,3"
 			value?.deallocate()
 		}
 		sysctlbyname(key, value, &size, nil, 0)
-		guard let cChar = value?.bindMemory(to: CChar.self, capacity: size) else {
-#if targetEnvironment(macCatalyst)
-			return "Mac"
-#else
-			return model
-#endif
+		if let cChar = value?.bindMemory(to: CChar.self, capacity: size) {
+			return String(cString: cChar)
 		}
-		return String(cString: cChar)
-#endif
-	}
-
-	@objc(zbra_hardwareModel)
-	var hardwareModel: String {
-#if targetEnvironment(macCatalyst)
-		// localizedModel on macOS always returns “iPad” 🙁
-		// Grab the device machine identifier directly, then find its name via CoreTypes.
-		return UTType(tag: machine,
-									tagClass: .deviceModelCode,
-									conformingTo: nil)?.localizedDescription ?? "Mac"
-#else
-		return localizedModel
-#endif
-	}
-
-	@objc(zbra_hardwarePlatform)
-	var hardwarePlatform: String {
-#if targetEnvironment(macCatalyst)
-		return "Mac"
-#else
-		switch model {
-		case "iPod touch": return "iPod"
-		default:           return model
-		}
-#endif
-	}
-
-	@objc(zbra_osName)
-	var osName: String {
-#if targetEnvironment(macCatalyst)
-		return "macOS"
-#else
-		switch systemName {
-		case "iPhone OS": return "iOS"
-		case "Mac OS X":  return "macOS"
-		default:          return systemName
-		}
-#endif
-	}
-
-	@objc(zbra_osVersion)
-	var osVersion: String {
-#if targetEnvironment(macCatalyst)
-		if let systemVersion = NSDictionary(contentsOf: URL(fileURLWithPath: "/System/Library/CoreServices/SystemVersion.plist")),
-			 let version = systemVersion["ProductUserVisibleVersion"] as? String {
-			return version
-		}
-#endif
-		return systemVersion
+		return nil
 	}
 
 }
