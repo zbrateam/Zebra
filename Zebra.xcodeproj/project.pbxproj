@@ -78,8 +78,6 @@
 		8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsViewController.m */; };
 		891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 891D1BAC26290FB1006839F7 /* ZBDummySource.m */; };
 		8927D52123C29CCA00A7987E /* ZBSourceImportViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportViewController.mm */; };
-		893051F3260E723C0017CC29 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 893051DC260E72210017CC29 /* LNPopupController.framework */; };
-		893051F4260E723C0017CC29 /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 893051DC260E72210017CC29 /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		893051F6260E72400017CC29 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 893051EB260E72330017CC29 /* SDWebImage.framework */; };
 		893051F7260E72400017CC29 /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 893051EB260E72330017CC29 /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		89308E2723FF4BBB00D4641D /* ZBResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89308E2623FF4BBB00D4641D /* ZBResetViewController.m */; };
@@ -138,13 +136,6 @@
 			remoteGlobalIDString = 4E1A1C6027B69F9A00B6DC9A;
 			remoteInfo = ZebraCatalystHelper;
 		};
-		893051DB260E72210017CC29 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 893051D7260E72210017CC29 /* LNPopupController.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 39DB52E51B5823330061C589;
-			remoteInfo = LNPopupController;
-		};
 		893051E8260E72330017CC29 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 893051E1260E72330017CC29 /* SDWebImage.xcodeproj */;
@@ -179,7 +170,6 @@
 				4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */,
 				4E9FC87E2790569800934FFE /* DepictionKit.framework in Embed Frameworks */,
 				893051F7260E72400017CC29 /* SDWebImage.framework in Embed Frameworks */,
-				893051F4260E723C0017CC29 /* LNPopupController.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,7 +281,6 @@
 		892552C3237B288000120F9B /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8927D51F23C29CCA00A7987E /* ZBSourceImportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceImportViewController.h; sourceTree = "<group>"; };
 		8927D52023C29CCA00A7987E /* ZBSourceImportViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSourceImportViewController.mm; sourceTree = "<group>"; };
-		893051D7260E72210017CC29 /* LNPopupController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPopupController.xcodeproj; path = Vendor/LNPopupController/LNPopupController/LNPopupController.xcodeproj; sourceTree = "<group>"; };
 		893051E1260E72330017CC29 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = Vendor/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
 		89308E2523FF4BBA00D4641D /* ZBResetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBResetViewController.h; sourceTree = "<group>"; };
 		89308E2623FF4BBB00D4641D /* ZBResetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBResetViewController.m; sourceTree = "<group>"; };
@@ -448,7 +437,6 @@
 				893051F6260E72400017CC29 /* SDWebImage.framework in Frameworks */,
 				4E9FC8742790555800934FFE /* Plains.framework in Frameworks */,
 				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
-				893051F3260E723C0017CC29 /* LNPopupController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,14 +629,6 @@
 				891D1BAC26290FB1006839F7 /* ZBDummySource.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		893051D8260E72210017CC29 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				893051DC260E72210017CC29 /* LNPopupController.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		893051E2260E72330017CC29 /* Products */ = {
@@ -934,7 +914,6 @@
 				E1A1472F277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd */,
 				E193C67D277A91C900B2469E /* WebKit.framework */,
 				893051E1260E72330017CC29 /* SDWebImage.xcodeproj */,
-				893051D7260E72210017CC29 /* LNPopupController.xcodeproj */,
 				898C50422649F9E0002CDC09 /* MessageUI.framework */,
 				893F857323C027E9005C4CF6 /* libcompression.tbd */,
 				8905172123723995000F0A32 /* libc++.tbd */,
@@ -1186,10 +1165,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 893051D8260E72210017CC29 /* Products */;
-					ProjectRef = 893051D7260E72210017CC29 /* LNPopupController.xcodeproj */;
-				},
-				{
 					ProductGroup = 893051E2260E72330017CC29 /* Products */;
 					ProjectRef = 893051E1260E72330017CC29 /* SDWebImage.xcodeproj */;
 				},
@@ -1203,13 +1178,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		893051DC260E72210017CC29 /* LNPopupController.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = LNPopupController.framework;
-			remoteRef = 893051DB260E72210017CC29 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		893051E9260E72330017CC29 /* libSDWebImage.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;

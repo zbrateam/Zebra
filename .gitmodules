@@ -1,9 +1,6 @@
 [submodule "Vendor/SDWebImage"]
 	path = Vendor/SDWebImage
 	url = https://github.com/SDWebImage/SDWebImage.git
-[submodule "Vendor/LNPopupController"]
-	path = Vendor/LNPopupController
-	url = https://github.com/LeoNatan/LNPopupController.git
 [submodule "Vendor/Plains"]
 	path = Vendor/Plains
 	url = https://github.com/zbrateam/Plains-Dev.git

@@ -22,8 +22,6 @@
 
 #import <Plains/Plains.h>
 
-#import <LNPopupController/LNPopupController.h>
-
 @interface ZBTabBarController () {
     UIActivityIndicatorView *sourceRefreshIndicator;
     NSUInteger queueCount;
@@ -173,63 +171,63 @@
 }
 
 - (void)updateQueueBar {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateQueueBarPackageCount];
-        
-        if (self->queueCount == 0) {
-            [self closeQueue];
-        } else {
-            LNPopupPresentationState state = self.popupPresentationState;
-            if (state != LNPopupPresentationStateOpen) {
-                [self openQueue:NO];
-            } else {
-                [[self popupBar] setNeedsLayout];
-            }
-        }
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self updateQueueBarPackageCount];
+//
+//        if (self->queueCount == 0) {
+//            [self closeQueue];
+//        } else {
+//            LNPopupPresentationState state = self.popupPresentationState;
+//            if (state != LNPopupPresentationStateOpen) {
+//                [self openQueue:NO];
+//            } else {
+//                [[self popupBar] setNeedsLayout];
+//            }
+//        }
+//    });
 }
 
 - (void)updateQueueBarPackageCount {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->queueCount > 0) {
-            self.popupController.popupItem.title = self->queueCount > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%lu Packages Queued", @""), (unsigned long)self->queueCount] : [NSString stringWithFormat:NSLocalizedString(@"%lu Package Queued", @""), (unsigned long)self->queueCount];
-            self.popupController.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
-        }
-        else {
-            self.popupController.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
-            self.popupController.popupItem.subtitle = nil;
-        }
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (self->queueCount > 0) {
+//            self.popupController.popupItem.title = self->queueCount > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%lu Packages Queued", @""), (unsigned long)self->queueCount] : [NSString stringWithFormat:NSLocalizedString(@"%lu Package Queued", @""), (unsigned long)self->queueCount];
+//            self.popupController.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
+//        }
+//        else {
+//            self.popupController.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
+//            self.popupController.popupItem.subtitle = nil;
+//        }
+//    });
 }
 
 - (void)openQueue:(BOOL)openPopup {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        LNPopupPresentationState state = self.popupPresentationState;
-        if ((openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateBarPresented))) {
-            return;
-        }
-
-        self.popupInteractionStyle = LNPopupInteractionStyleSnap;
-        self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
-        
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleHoldGesture:)];
-        longPress.minimumPressDuration = 1;
-        longPress.delegate = self;
-        
-        [self.popupBar addGestureRecognizer:longPress];
-        [self presentPopupBarWithContentViewController:self.popupController openPopup:openPopup animated:YES completion:nil];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        LNPopupPresentationState state = self.popupPresentationState;
+//        if ((openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateBarPresented))) {
+//            return;
+//        }
+//
+//        self.popupInteractionStyle = LNPopupInteractionStyleSnap;
+//        self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
+//
+//        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleHoldGesture:)];
+//        longPress.minimumPressDuration = 1;
+//        longPress.delegate = self;
+//
+//        [self.popupBar addGestureRecognizer:longPress];
+//        [self presentPopupBarWithContentViewController:self.popupController openPopup:openPopup animated:YES completion:nil];
+//    });
 }
 
 - (void)closeQueue {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        LNPopupPresentationState state = self.popupPresentationState;
-        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateBarPresented) {
-            [self dismissPopupBarAnimated:YES completion:^{
-                self.popupController = nil;
-            }];
-        }
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        LNPopupPresentationState state = self.popupPresentationState;
+//        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateBarPresented) {
+//            [self dismissPopupBarAnimated:YES completion:^{
+//                self.popupController = nil;
+//            }];
+//        }
+//    });
 }
 
 - (void)handleHoldGesture:(UILongPressGestureRecognizer *)gesture {
