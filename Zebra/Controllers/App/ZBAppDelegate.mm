@@ -11,7 +11,6 @@
 #import "ZBAppDelegate.h"
 
 #import "ZBTabBarController.h"
-#import "ZBLoadingViewController.h"
 
 #import <Plains/Plains.h>
 
@@ -222,7 +221,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self setupSDWebImageCache];
 //    [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
     
-    self.window.rootViewController = [[ZBLoadingViewController alloc] init];
+//    self.window.rootViewController = [[ZBLoadingViewController alloc] init];
     [self.window makeKeyAndVisible];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
