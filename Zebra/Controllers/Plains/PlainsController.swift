@@ -17,7 +17,7 @@ class PlainsController {
 		.appendingPathComponent(Bundle.main.bundleIdentifier!, isDirectory: true)
 
 	class func setUp() throws {
-		let config = PLConfig.sharedInstance()
+		let config = PLConfig.shared
 
 		// Create directories
 		for path in ["logs", "lists", "archives", "archives/partial"] {
@@ -27,28 +27,28 @@ class PlainsController {
 		}
 
 		// Set directories
-		config.setString(cacheURL.appendingPathComponent("logs").path, forKey: "Dir::Log")
-		config.setString(cacheURL.appendingPathComponent("lists").path, forKey: "Dir::State::Lists")
-		config.setString(cacheURL.path, forKey: "Dir::Cache")
-		config.setString(cacheURL.appendingPathComponent("zebra.sources").path, forKey: "Plains::SourcesList")
+		config.set(string: cacheURL.appendingPathComponent("logs").path, forKey: "Dir::Log")
+		config.set(string: cacheURL.appendingPathComponent("lists").path, forKey: "Dir::State::Lists")
+		config.set(string: cacheURL.path, forKey: "Dir::Cache")
+		config.set(string: cacheURL.appendingPathComponent("zebra.sources").path, forKey: "Plains::SourcesList")
 
 		// Set slingshot path
-		config.setString(SlingshotController.superslingPath, forKey: "Plains::Slingshot")
-		config.setString(SlingshotController.superslingPath, forKey: "Dir::Bin::dpkg")
+		config.set(string: SlingshotController.superslingPath, forKey: "Plains::Slingshot")
+		config.set(string: SlingshotController.superslingPath, forKey: "Dir::Bin::dpkg")
 
 		// Allow unsigned repos only on iOS
 		#if !targetEnvironment(macCatalyst)
-		config.setBoolean(true, forKey: "Acquire::AllowInsecureRepositories")
+		config.set(boolean: true, forKey: "Acquire::AllowInsecureRepositories")
 		#endif
 
 		// Configure http method
-		config.setString(URLController.aptUserAgent, forKey: "Acquire::http::User-Agent")
+		config.set(string: URLController.aptUserAgent, forKey: "Acquire::http::User-Agent")
 
 		// Configure finish fd
 		var finishFds: [Int32] = [0, 0]
 		if pipe(&finishFds) == 0 {
-			config.setInteger(finishFds[0], forKey: "Plains::FinishFD::")
-			config.setInteger(finishFds[1], forKey: "Plains::FinishFD::")
+			config.set(integer: finishFds[0], forKey: "Plains::FinishFD::")
+			config.set(integer: finishFds[1], forKey: "Plains::FinishFD::")
 		} else {
 			os_log("[Zebra] Unable to create file descriptors.")
 		}
@@ -63,11 +63,11 @@ class PlainsController {
 			("gz", "gzip")
 		]
 		for (ext, program) in compressors {
-			config.setString(program, forKey: "Acquire::CompressionTypes::\(ext)")
+			config.set(string: program, forKey: "Acquire::CompressionTypes::\(ext)")
 		}
 
 		// Load the database
-		PLPackageManager.sharedInstance().import()
+		PLPackageManager.shared.import()
 	}
 
 }

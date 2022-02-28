@@ -206,11 +206,11 @@ class PackageDepictionViewController: UIViewController {
         switch depictionDisplay {
         case .offline:
             offlineDepictionView.isHidden = false
-            descriptionLabel.text = package.longDescription()
-            NSLog("[Zebra] Long Description = \(package.longDescription()) Height = \(descriptionLabel.bounds)")
+            descriptionLabel.text = package.longDescription
+            NSLog("[Zebra] Long Description = \(package.longDescription) Height = \(descriptionLabel.bounds)")
         case .web:
             webDepictionView.isHidden = false
-            guard let url = package.depictionURL() else {
+            guard let url = package.depictionURL else {
                 depictionDisplay = .offline
                 return setDepiction()
             }

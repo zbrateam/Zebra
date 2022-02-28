@@ -136,8 +136,8 @@ import Evander
         sourceLabel.text = source.origin
         urlLabel.text  = source.uri.absoluteString
         
-        iconLink = source.iconURL()
-        EvanderNetworking.image(url: iconLink, condition: { [weak self] in self?.iconLink == source.iconURL() }, imageView: iconImageView, fallback: UIImage(named: "Unknown"))
+        iconLink = source.iconURL
+        EvanderNetworking.image(url: iconLink, condition: { [weak self] in self?.iconLink == source.iconURL }, imageView: iconImageView, fallback: UIImage(named: "Unknown"))
     }
     
     @objc public var spinning: Bool = false {

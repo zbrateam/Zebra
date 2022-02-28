@@ -81,7 +81,7 @@ class PackageSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 					}
 
 		do {
-			let package = try PLPackageManager.sharedInstance().addDebFile(url)
+			let package = try PLPackageManager.shared.addDebFile(url)
 			navigationController?.viewControllers = [ZBPackageViewController(package: package)]
 
 			let scene = window!.windowScene!
