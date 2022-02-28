@@ -116,9 +116,9 @@
 		89FBA8532643721500F97910 /* PLSource+Zebra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89FBA8522643721500F97910 /* PLSource+Zebra.mm */; };
 		8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA226AF248BC4E100596838 /* ZBNotificationManager.m */; };
 		9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActions.mm */; };
-		E1428E6F27791624005B0885 /* ZBCanister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E6E27791624005B0885 /* ZBCanister.swift */; };
+		E1428E6F27791624005B0885 /* Canister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E6E27791624005B0885 /* Canister.swift */; };
 		E1428E7927794FC4005B0885 /* Evander in Frameworks */ = {isa = PBXBuildFile; productRef = E1428E7827794FC4005B0885 /* Evander */; };
-		E193C66A277A47E700B2469E /* ZBSourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E7D277A2731005B0885 /* ZBSourceTableViewCell.swift */; };
+		E193C66A277A47E700B2469E /* SourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E7D277A2731005B0885 /* SourceTableViewCell.swift */; };
 		E193C67C277A8E0100B2469E /* PackageDepictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C67B277A8E0100B2469E /* PackageDepictionViewController.swift */; };
 		E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E193C67D277A91C900B2469E /* WebKit.framework */; };
 		E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C6A1277B93AA00B2469E /* HelionTheme.swift */; };
@@ -378,8 +378,8 @@
 		A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Private.h"; sourceTree = "<group>"; };
 		A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityUtilities.h; sourceTree = "<group>"; };
 		E1428E6D27791624005B0885 /* Zebra-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zebra-Bridging-Header.h"; sourceTree = "<group>"; };
-		E1428E6E27791624005B0885 /* ZBCanister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBCanister.swift; sourceTree = "<group>"; };
-		E1428E7D277A2731005B0885 /* ZBSourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBSourceTableViewCell.swift; sourceTree = "<group>"; };
+		E1428E6E27791624005B0885 /* Canister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canister.swift; sourceTree = "<group>"; };
+		E1428E7D277A2731005B0885 /* SourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceTableViewCell.swift; sourceTree = "<group>"; };
 		E193C67B277A8E0100B2469E /* PackageDepictionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PackageDepictionViewController.swift; path = Zebra/UI/Packages/PackageDepictionViewController.swift; sourceTree = SOURCE_ROOT; };
 		E193C67D277A91C900B2469E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/iOSSupport/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		E193C6A1277B93AA00B2469E /* HelionTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelionTheme.swift; sourceTree = "<group>"; };
@@ -434,7 +434,7 @@
 				36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */,
 				899229FB242815E90086E2F4 /* ZBSourceInfo.h */,
 				899229FC242815E90086E2F4 /* ZBSourceInfo.m */,
-				E1428E6E27791624005B0885 /* ZBCanister.swift */,
+				E1428E6E27791624005B0885 /* Canister.swift */,
 			);
 			path = JSONParsing;
 			sourceTree = "<group>";
@@ -930,7 +930,7 @@
 		89EAD0B7259F9F5A0061FC3C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				E1428E7D277A2731005B0885 /* ZBSourceTableViewCell.swift */,
+				E1428E7D277A2731005B0885 /* SourceTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1193,7 +1193,7 @@
 				75823619249E7DCA003713DD /* ZBSettingsTableViewCell.m in Sources */,
 				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
-				E193C66A277A47E700B2469E /* ZBSourceTableViewCell.swift in Sources */,
+				E193C66A277A47E700B2469E /* SourceTableViewCell.swift in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */,
 				4EC7F28527B28D770078F953 /* Command.swift in Sources */,
 				75D0A77F24A014D2007D84EF /* ZBPreferencesViewController.m in Sources */,
@@ -1238,7 +1238,7 @@
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
 				4EC7F28F27B2B55C0078F953 /* URLController.swift in Sources */,
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
-				E1428E6F27791624005B0885 /* ZBCanister.swift in Sources */,
+				E1428E6F27791624005B0885 /* Canister.swift in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageViewController.mm in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
 				4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */,

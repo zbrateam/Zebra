@@ -1,5 +1,5 @@
 //
-//  ZBCanister.swift
+//  Canister.swift
 //  Zebra
 //
 //  Created by Amy While on 26/12/2021.
@@ -9,16 +9,17 @@
 import Foundation
 import Evander
 
-@objc public class ZBCanister: NSObject {
+@objc(ZBCanister)
+class Canister: NSObject {
     
-    @objc public static let shared = ZBCanister()
+    @objc public static let shared = Canister()
     @objc public var repos: [ZBDummySource] {
         safeRepos.raw
     }
     
     static let canisterQueue: DispatchQueue = {
-        let queue = DispatchQueue(label: "xyz.willy.Zebra/Canister", qos: .utility)
-        queue.setSpecific(key: ZBCanister.queueKey, value: ZBCanister.queueContext)
+        let queue = DispatchQueue(label: "xyz.willy.Zebra.canister-queue", qos: .utility)
+        queue.setSpecific(key: queueKey, value: queueContext)
         return queue
     }()
     public static let queueKey = DispatchSpecificKey<Int>()

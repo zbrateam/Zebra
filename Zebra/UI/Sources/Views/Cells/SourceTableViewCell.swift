@@ -1,5 +1,5 @@
 //
-//  ZBSourceTableViewCell.swift
+//  SourceTableViewCell.swift
 //  Zebra
 //
 //  Created by Amy While on 27/12/2021.
@@ -9,7 +9,8 @@
 import UIKit
 import Evander
 
-@objc class ZBSourceTableViewCell: UITableViewCell {
+@objc(ZBSourceTableViewCell)
+class SourceTableViewCell: UITableViewCell {
     
     private var iconLink: URL?
     
