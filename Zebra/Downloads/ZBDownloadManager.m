@@ -172,7 +172,7 @@
                         [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
                         [self->downloadDelegate startedPackageDownload:package];
                     }
-                    else if (error) {
+                    else {
                         [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Couldn't authorize download for %@.", @""), package.name] atLevel:ZBLogLevelError];
                         [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Reason: %@.", @""), error.localizedDescription] atLevel:ZBLogLevelError];
                     }
@@ -225,7 +225,9 @@
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (data && !error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        NSInteger statusCode = httpResponse.statusCode;
+        if (data && !error && statusCode == 200) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
             if ([json valueForKey:@"url"]) {
                 NSURL *downloadURL = [NSURL URLWithString:json[@"url"]];
@@ -242,8 +244,10 @@
                 completion(NULL, badURL);
             }
         }
-        else if (error) {
-            completion(NULL, error);
+        else {
+            completion(nil, error ?: [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:@{
+                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", statusCode]
+            }]);
         }
     }];
     

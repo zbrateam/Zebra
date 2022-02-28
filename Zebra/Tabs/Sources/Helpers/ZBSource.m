@@ -328,8 +328,10 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             
             completion(userInfo, nil);
         }
-        else if (error) {
-            completion(nil, error);
+        else {
+            completion(nil, error ?: [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:@{
+                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", statusCode]
+            }]);
         }
     }];
     
@@ -360,8 +362,10 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             
             completion(sourceInfo, nil);
         }
-        else if (error) {
-            completion(nil, error);
+        else {
+            completion(nil, error ?: [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:@{
+                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", statusCode]
+            }]);
         }
     }];
     

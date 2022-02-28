@@ -235,7 +235,7 @@
                 self->communitySourceCache = sources;
             }
         }
-        else if (error) {
+        else {
             ZBLog(@"[Zebra] Error while trying to access community sources: %@", error);
         }
         
