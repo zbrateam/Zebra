@@ -82,7 +82,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-#if TARGET_OS_IOS
+#if !TARGET_OS_MACCATALYST
     if (self.allowRefresh) {
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
