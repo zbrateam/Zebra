@@ -68,7 +68,7 @@
         };
         [sources addObject:source];
     }
-    [sources sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES]]];
+    [sources sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES selector:@selector(localizedStandardCompare:)]]];
     if ([outdatedFilteredSources count]) {
         [filteredSources removeObjectsForKeys:outdatedFilteredSources];
         [ZBSettings setFilteredSources:filteredSources];
