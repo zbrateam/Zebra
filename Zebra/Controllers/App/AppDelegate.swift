@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		setenv("PATH", Device.path.cString, 1)
 
-		ZBPlainsController.setUp()
+		do {
+			try PlainsController.setUp()
+		} catch {
+			os_log("[Zebra] Plains setup failed. %@", error.localizedDescription)
+		}
 
 		return true
 	}
@@ -28,15 +33,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	// MARK: - UISceneSession Lifecycle
 
 	func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+		if let userActivity = options.userActivities.first {
+			switch userActivity.activityType {
+			case PackageSceneDelegate.activityType:
+				return UISceneConfiguration(name: "Package", sessionRole: .windowApplication)
+
+			default: break
+			}
+		}
 		return UISceneConfiguration(name: "App", sessionRole: .windowApplication)
 	}
 
 	// MARK: - Menu
-
-	private struct LinkMenuItem {
-		let title: String
-		let url: String
-	}
 
 	@IBAction private func openLink(_ sender: UIKeyCommand) {
 		let urlString = sender.propertyList as! String
@@ -55,11 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	@IBAction private func openDataDirectory() {
-		openFileURL(ZBPlainsController.dataURL)
+		openFileURL(PlainsController.dataURL)
 	}
 
 	@IBAction private func openCachesDirectory() {
-		openFileURL(ZBPlainsController.cacheURL)
+		openFileURL(PlainsController.cacheURL)
 	}
 
 	override func buildMenu(with builder: UIMenuBuilder) {
@@ -153,22 +161,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			builder.insertChild(searchMenu, atStartOfMenu: .view)
 
 			// Add links to Help menu
-			let links = [
-				LinkMenuItem(title: .localize("Get Help"),
-										 url: "https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"),
-				LinkMenuItem(title: .localize("Zebra Website"),
-										 url: "https://getzbra.com/"),
-				LinkMenuItem(title: .localize("What’s New in Zebra"),
-										 url: "https://github.com/zbrateam/Zebra/releases"),
-				LinkMenuItem(title: .localize("Join Discord"),
-										 url: "https://discord.gg/6CPtHBU"),
-				LinkMenuItem(title: .localize("@ZebraTeam on Twitter"),
-										 url: "https://twitter.com/getzebra")
+			let links: [(title: String, url: String)] = [
+				(.localize("Get Help"),              "https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"),
+				(.localize("Zebra Website"),         "https://getzbra.com/"),
+				(.localize("What’s New in Zebra"),   "https://github.com/zbrateam/Zebra/releases"),
+				(.localize("Join Discord"),          "https://discord.gg/6CPtHBU"),
+				(.localize("@ZebraTeam on Twitter"), "https://twitter.com/getzebra")
 			]
-			let helpLinks = links.map { item in
-				UICommand(title: item.title,
+			let helpLinks = links.map { title, url in
+				UICommand(title: title,
 									action: #selector(self.openLink),
-									propertyList: item.url)
+									propertyList: url)
 			}
 			let helpMenu = UIMenu(options: .displayInline,
 														children: helpLinks)

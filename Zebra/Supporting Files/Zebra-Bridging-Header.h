@@ -8,12 +8,10 @@
 #import <WebKit/WebKit.h>
 #import "Headers/MobileGestalt.h"
 
+#import <Plains/Plains.h>
+
 #import "ZBSettings.h"
 #import "Model/ZBDummySource.h"
-
-#import <Plains/Model/PLSource.h>
-// #import <Plains/Model/PLPackage.h>
-#import "ZBPlainsController.h"
 
 #import "ZBHomeViewController.h"
 #import "ZBSourceListViewController.h"
@@ -27,11 +25,3 @@
 @interface WKWebView (Private)
 @property (setter=_setApplicationNameForUserAgent:, copy, nullable) NSString * _applicationNameForUserAgent;
 @end
-
-#ifndef PLPACKAGE_H
-@interface PLPackage : NSObject
-- (NSURL *_Nullable)depictionURL;
-- (NSURL *_Nullable)nativeDepictionURL;
-- (NSString *_Nullable)longDescription;
-@end
-#endif

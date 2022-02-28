@@ -46,6 +46,7 @@
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
 		4E9FC8892790637F00934FFE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC8882790637F00934FFE /* Preferences.swift */; };
 		4E9FC89227910AD200934FFE /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC89127910AD200934FFE /* Font.swift */; };
+		4EA26EA227CC87810019A5AA /* PlainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EA127CC87810019A5AA /* PlainsController.swift */; };
 		4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27727B272EC0078F953 /* SlingshotController.swift */; };
 		4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27E27B275F70078F953 /* String+Localization.swift */; };
 		4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */; };
@@ -59,7 +60,6 @@
 		4EC7F29127B3701D0078F953 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29027B3701D0078F953 /* AppDelegate.swift */; };
 		4EC7F29327B3714A0078F953 /* AppSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29227B3714A0078F953 /* AppSceneDelegate.swift */; };
 		4EC7F29527B393870078F953 /* UIApplication+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29427B393870078F953 /* UIApplication+Additions.swift */; };
-		4EC7F29A27B3960A0078F953 /* ZBPlainsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29927B3960A0078F953 /* ZBPlainsController.mm */; };
 		4EC7F29C27B3A19F0078F953 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29B27B3A19F0078F953 /* RootViewController.swift */; };
 		4EC7F29E27B3A5930078F953 /* MacSidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29D27B3A5930078F953 /* MacSidebarViewController.swift */; };
 		4EC7F2A027B53D990078F953 /* FileImportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29F27B53D990078F953 /* FileImportController.swift */; };
@@ -245,6 +245,7 @@
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		4E9FC89127910AD200934FFE /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		4EA26EA127CC87810019A5AA /* PlainsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainsController.swift; sourceTree = "<group>"; };
 		4EC7F27727B272EC0078F953 /* SlingshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlingshotController.swift; sourceTree = "<group>"; };
 		4EC7F27E27B275F70078F953 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
@@ -258,8 +259,6 @@
 		4EC7F29027B3701D0078F953 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EC7F29227B3714A0078F953 /* AppSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneDelegate.swift; sourceTree = "<group>"; };
 		4EC7F29427B393870078F953 /* UIApplication+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Additions.swift"; sourceTree = "<group>"; };
-		4EC7F29827B3960A0078F953 /* ZBPlainsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPlainsController.h; sourceTree = "<group>"; };
-		4EC7F29927B3960A0078F953 /* ZBPlainsController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPlainsController.mm; sourceTree = "<group>"; };
 		4EC7F29B27B3A19F0078F953 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		4EC7F29D27B3A5930078F953 /* MacSidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSidebarViewController.swift; sourceTree = "<group>"; };
 		4EC7F29F27B53D990078F953 /* FileImportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportController.swift; sourceTree = "<group>"; };
@@ -511,8 +510,7 @@
 		4EC7F2A227B555B40078F953 /* Plains */ = {
 			isa = PBXGroup;
 			children = (
-				4EC7F29827B3960A0078F953 /* ZBPlainsController.h */,
-				4EC7F29927B3960A0078F953 /* ZBPlainsController.mm */,
+				4EA26EA127CC87810019A5AA /* PlainsController.swift */,
 			);
 			path = Plains;
 			sourceTree = "<group>";
@@ -1336,11 +1334,11 @@
 				8916AC2323CAAECC008BA02C /* ZBChangelogViewController.m in Sources */,
 				89FBA8532643721500F97910 /* PLSource+Zebra.mm in Sources */,
 				369CF11322DA2361007EA0F7 /* ZBPackageFilesViewController.mm in Sources */,
+				4EA26EA227CC87810019A5AA /* PlainsController.swift in Sources */,
 				367D80F522C3D1CF00581D60 /* ZBSettingsViewController.m in Sources */,
 				8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */,
 				49452C28246A414900F45C2D /* ZBActionButton.m in Sources */,
 				891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */,
-				4EC7F29A27B3960A0078F953 /* ZBPlainsController.mm in Sources */,
 				89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */,
 				895CB40326617D7A0013A21A /* ZBLanguageSettingsViewController.m in Sources */,
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
