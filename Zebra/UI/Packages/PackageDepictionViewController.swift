@@ -1,5 +1,5 @@
 //
-//  ZBPackageDepictionViewControllerSwift.swift
+//  PackageDepictionViewController.swift
 //  Zebra
 //
 //  Created by Amy While on 28/12/2021.
@@ -11,10 +11,13 @@ import UIKit
 import DepictionKit
 import Evander
 
-@objc public class ZBPackageDepictionViewController: UIViewController {
+@objc(ZBPackageDepictionViewController)
+class PackageDepictionViewController: UIViewController {
     
     private let package: PLPackage
     private var depictionDisplay: DepictionDisplay
+
+	private var webViewContentSizeObserver: NSKeyValueObservation?
     
     private enum DepictionDisplay {
         // Internet is not available or the package has no depictions set
@@ -173,12 +176,6 @@ import Evander
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        if depictionDisplay == .web {
-            webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
-        }
-    }
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -204,6 +201,8 @@ import Evander
             }
             return
         }
+			
+			webViewContentSizeObserver = nil
         switch depictionDisplay {
         case .offline:
             offlineDepictionView.isHidden = false
@@ -218,6 +217,12 @@ import Evander
             let request = NSMutableURLRequest(url: url)
             request.allHTTPHeaderFields = URLController.webHeaders
             webView._applicationNameForUserAgent = URLController.webUserAgent
+					webViewContentSizeObserver = webView.scrollView.observe(\.contentSize) { _, change in
+						if self.webViewHeightAnchor.constant != self.webView.scrollView.contentSize.height {
+							self.webViewHeightAnchor.constant = self.webView.scrollView.contentSize.height
+							self.view.layoutIfNeeded()
+						}
+					}
             webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
             webView.load(request as URLRequest)
         case .native:
@@ -246,7 +251,7 @@ import Evander
     }
 }
 
-extension ZBPackageDepictionViewController: WKNavigationDelegate {
+extension PackageDepictionViewController: WKNavigationDelegate {
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.isHidden = false
         loadingDepictionStackView.isHidden = true
@@ -266,7 +271,7 @@ extension ZBPackageDepictionViewController: WKNavigationDelegate {
     }
 }
 
-extension ZBPackageDepictionViewController: UIScrollViewDelegate {
+extension PackageDepictionViewController: UIScrollViewDelegate {
     public func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         nil
     }
@@ -275,17 +280,7 @@ extension ZBPackageDepictionViewController: UIScrollViewDelegate {
     }
 }
 
-// WKWebView contentSize Observer
-extension ZBPackageDepictionViewController {
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if (object as? UIScrollView) == self.webView.scrollView && keyPath == "contentSize" && self.webViewHeightAnchor.constant != self.webView.scrollView.contentSize.height {
-            self.webViewHeightAnchor.constant = self.webView.scrollView.contentSize.height
-            self.view.layoutIfNeeded()
-        }
-    }
-}
-
-extension ZBPackageDepictionViewController: DepictionDelegate {
+extension PackageDepictionViewController: DepictionDelegate {
     
     public func handleAction(action: DepictionAction) {
         

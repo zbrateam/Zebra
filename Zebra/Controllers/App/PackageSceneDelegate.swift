@@ -8,11 +8,9 @@
 
 import UIKit
 
-class PackageSceneDelegate: UIResponder, UIWindowSceneDelegate {
+class PackageSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
 	static let activityType = "Package"
-
-	var window: UIWindow?
 
 	private var navigationController: UINavigationController? {
 		window?.rootViewController as? UINavigationController
@@ -41,12 +39,6 @@ class PackageSceneDelegate: UIResponder, UIWindowSceneDelegate {
 #endif
 
 		updateState(scene: scene, activity: connectionOptions.userActivities.first)
-	}
-
-	func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-		for item in URLContexts {
-			URLController.open(url: item.url, sender: window!.rootViewController!)
-		}
 	}
 
 	func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {

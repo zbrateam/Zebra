@@ -8,11 +8,10 @@
 
 import UIKit
 
-class AppSceneDelegate: UIResponder, UIWindowSceneDelegate, IdentifiableSceneDelegate {
+class AppSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
 	static let activityType = "App"
 
-	var window: UIWindow?
 	var toolbarItems = [NSToolbarItem.Identifier]() {
 		didSet { updateToolbar() }
 	}
@@ -51,12 +50,6 @@ class AppSceneDelegate: UIResponder, UIWindowSceneDelegate, IdentifiableSceneDel
 		}
 		for item in toolbarItems {
 			toolbar.insertItem(withItemIdentifier: item, at: toolbar.items.count)
-		}
-	}
-
-	func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-		for item in URLContexts {
-			URLController.open(url: item.url, sender: window!.rootViewController!)
 		}
 	}
 

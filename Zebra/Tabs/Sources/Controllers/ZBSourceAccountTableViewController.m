@@ -6,7 +6,6 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
 #import "Zebra-Swift.h"
 #import "ZBSourceAccountTableViewController.h"
@@ -55,9 +54,7 @@
     self.navigationItem.title = NSLocalizedString(@"My Account", @"");
     
     if (self.presentingViewController) {
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone actionHandler:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }];
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone target:self action:@selector(done:)];
         self.navigationItem.rightBarButtonItem = doneButton;
     }
     
@@ -133,7 +130,11 @@
 }
 
 - (void)signOut:(id)sender {
-//    [keychain removeItemForKey:[source repositoryURI]];
+    //    [keychain removeItemForKey:[source repositoryURI]];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)done:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

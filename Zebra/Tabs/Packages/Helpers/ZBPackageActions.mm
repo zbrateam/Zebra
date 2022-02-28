@@ -14,7 +14,6 @@
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageViewController.h"
 #import "ZBPackageListViewController.h"
-#import "UIAlertController+Zebra.h"
 #import "ZBPurchaseInfo.h"
 #import "ZBTabBarController.h"
 

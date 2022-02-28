@@ -18,10 +18,5 @@ extern NSString * const ZBUserEndedScreenCaptureNotification;
 
 @interface ZBAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UIDropInteractionDelegate>
 @property (strong, nonatomic) UIWindow *window;
-+ (NSString *)bundleID;
-+ (NSString *)cacheDirectory;
-+ (void)sendAlertFrom:(UIViewController *)vc message:(NSString *)message;
-+ (void)sendErrorToTabController:(NSString *)error;
-+ (ZBTabBarController *)tabBarController;
 @end
 

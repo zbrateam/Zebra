@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import SDWebImage
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		} catch {
 			os_log("[Zebra] Plains setup failed. %@", error.localizedDescription)
 		}
+
+		SDImageCache.shared.config.maxDiskAge = 1 * 24 * 60 * 60 // 1 day
 
 		return true
 	}

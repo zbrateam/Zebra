@@ -10,8 +10,6 @@
 @class PLPackage;
 #import <UIKit/UIKit.h>
 
-#import "UIBarButtonItem+blocks.h"
-
 typedef NS_OPTIONS(NSUInteger, ZBPackageActionType) {
     ZBPackageActionInstall = 1 << 1,
     ZBPackageActionUpgrade = 1 << 2,

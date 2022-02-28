@@ -124,7 +124,7 @@
 
 - (void)resetSourcesCache:(id)sender {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Clear Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information and Zebra will restart. Your sources will not be deleted.", @"") callback:^{
-        NSString *cacheDirectory = [ZBAppDelegate cacheDirectory];
+        NSString *cacheDirectory = nil;//[ZBAppDelegate cacheDirectory];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"lists"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"logs"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"archives"] error:nil];
@@ -149,7 +149,7 @@
 
 - (void)eraseAllSources:(id)sender {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources? All of your sources will be removed and Zebra will restart.", @"") callback:^{
-        NSString *cacheDirectory = [ZBAppDelegate cacheDirectory];
+        NSString *cacheDirectory = nil;//[ZBAppDelegate cacheDirectory];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"zebra.sources"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"lists"] error:nil];
         [ZBDeviceCommands relaunchZebra];
@@ -165,7 +165,7 @@
         }
         [defaults synchronize];
         
-        NSString *cacheDirectory = [ZBAppDelegate cacheDirectory];
+        NSString *cacheDirectory = nil;//[ZBAppDelegate cacheDirectory];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"zebra.sources"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"lists"] error:nil];
         [ZBDeviceCommands relaunchZebra];
