@@ -240,8 +240,9 @@
 }
 
 - (void)sharePackages {
-    NSArray *packages = [self.databaseManager installedPackages:NO];
-    [packages sortedArrayUsingSelector:@selector(name)];
+    NSArray *packages = [[self.databaseManager installedPackages:NO] sortedArrayUsingDescriptors:@[
+        [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]
+    ]];
     
     NSMutableArray *descriptions = [NSMutableArray new];
     for (ZBPackage *package in packages) {
