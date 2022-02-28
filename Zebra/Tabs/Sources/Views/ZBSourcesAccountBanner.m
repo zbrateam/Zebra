@@ -41,7 +41,7 @@
         return NULL;
     }
     
-    [self.button addTarget:owner action:@selector(accountButtonPressed:) forControlEvents:UIControlEventTouchDown];
+    [self.button addTarget:owner action:@selector(accountButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     [self applyStyle];
     
