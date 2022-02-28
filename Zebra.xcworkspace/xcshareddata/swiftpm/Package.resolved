@@ -15,8 +15,17 @@
         "repositoryURL": "https://github.com/elihwyma/Evander",
         "state": {
           "branch": "main",
-          "revision": "39f3d4401396cd84271de7ed43a86722f8600caa",
+          "revision": "c664e3ec96b3f05447c9e9033abb8a8bf6045c12",
           "version": null
+        }
+      },
+      {
+        "package": "SDWebImage",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImage",
+        "state": {
+          "branch": null,
+          "revision": "2c53f531f1bedd253f55d85105409c28ed4a922c",
+          "version": "5.12.3"
         }
       }
     ]
