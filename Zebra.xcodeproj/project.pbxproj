@@ -49,6 +49,7 @@
 		4E5F8274274FAFE40074A0BC /* NSObject+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */; };
 		4E9FC849278E679000934FFE /* UIImage+UIKitImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC848278E679000934FFE /* UIImage+UIKitImage.m */; };
 		4E9FC84C278EA57100934FFE /* ZBChangelogEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC84B278EA57100934FFE /* ZBChangelogEntryCell.m */; };
+		4EA26E9727CBA3190019A5AA /* ZBHomeCopyableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26E9627CBA3190019A5AA /* ZBHomeCopyableFooterView.m */; };
 		4EC7F26927AE34E00078F953 /* ZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F26827AE34E00078F953 /* ZBCommand.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
@@ -245,6 +246,8 @@
 		4E9FC848278E679000934FFE /* UIImage+UIKitImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIKitImage.m"; sourceTree = "<group>"; };
 		4E9FC84A278EA57100934FFE /* ZBChangelogEntryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBChangelogEntryCell.h; sourceTree = "<group>"; };
 		4E9FC84B278EA57100934FFE /* ZBChangelogEntryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangelogEntryCell.m; sourceTree = "<group>"; };
+		4EA26E9527CBA3190019A5AA /* ZBHomeCopyableFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBHomeCopyableFooterView.h; sourceTree = "<group>"; };
+		4EA26E9627CBA3190019A5AA /* ZBHomeCopyableFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBHomeCopyableFooterView.m; sourceTree = "<group>"; };
 		4EC7F26727AE34E00078F953 /* ZBCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommand.h; sourceTree = "<group>"; };
 		4EC7F26827AE34E00078F953 /* ZBCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCommand.m; sourceTree = "<group>"; };
 		4EC7F26F27AE35030078F953 /* ZBCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommandDelegate.h; sourceTree = "<group>"; };
@@ -556,6 +559,15 @@
 				4E413949278DC8F90006AB8B /* sourcesicon@3x.png */,
 			);
 			path = "File Type Icons";
+			sourceTree = "<group>";
+		};
+		4EA26E9427CBA2EC0019A5AA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4EA26E9527CBA3190019A5AA /* ZBHomeCopyableFooterView.h */,
+				4EA26E9627CBA3190019A5AA /* ZBHomeCopyableFooterView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		8900FA512201EC6800476310 /* Helpers */ = {
@@ -918,6 +930,7 @@
 			children = (
 				3671B52022CB07F9008FD737 /* ZBHomeTableViewController.h */,
 				3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */,
+				4EA26E9427CBA2EC0019A5AA /* Views */,
 				8916AC2023CAAECC008BA02C /* Changelog */,
 				8916AC1C23CAAE5C008BA02C /* Community Sources */,
 				895A808023637C3F00C166AC /* Credits */,
@@ -1269,7 +1282,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "set -e\nif [[ $PLATFORM_NAME = *simulator ]]; then\n\tcp -ra \"${SCRIPT_INPUT_FILE_0}\"/* \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nelse\n\texit 0\nfi\n";
+			shellScript = "set -e\nif [[ $PLATFORM_NAME = *simulator ]]; then\n\tcp -a \"${SCRIPT_INPUT_FILE_0}\"/* \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nelse\n\texit 0\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1357,6 +1370,7 @@
 				4E5F8274274FAFE40074A0BC /* NSObject+Zebra.m in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Progress.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
+				4EA26E9727CBA3190019A5AA /* ZBHomeCopyableFooterView.m in Sources */,
 				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
 				BFC6DB1E236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m in Sources */,
 				8944916F21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m in Sources */,

@@ -17,6 +17,7 @@
 #import "ZBChangelogTableViewController.h"
 #import "ZBThemeManager.h"
 #import "ZBAppDelegate.h"
+#import "ZBHomeCopyableFooterView.h"
 
 typedef enum ZBHomeOrder : NSUInteger {
     ZBWelcome,
@@ -67,6 +68,7 @@ typedef enum ZBInfoOrder : NSUInteger {
     
     [self.navigationItem setTitle:NSLocalizedString(@"Home", @"")];
     self.defaults = [NSUserDefaults standardUserDefaults];
+    [self.tableView registerClass:[ZBHomeCopyableFooterView class] forHeaderFooterViewReuseIdentifier:@"infoFooter"];
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
@@ -432,9 +434,11 @@ typedef enum ZBInfoOrder : NSUInteger {
     return NULL;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-    footer.textLabel.textAlignment = NSTextAlignmentCenter;
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == ZBInfo) {
+        return [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"infoFooter"];
+    }
+    return NULL;
 }
 
 - (void)setImageSize:(UIImageView *)imageView {
