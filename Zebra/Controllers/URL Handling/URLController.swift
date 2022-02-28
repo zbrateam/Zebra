@@ -17,12 +17,13 @@ class URLController: NSObject {
 	@objc static let webUserAgent: String = {
 		let infoPlist = Bundle.main.infoDictionary!
 		let device = UIDevice.current
-		let userAgent = "Zebra/\(infoPlist["CFBundleShortVersionString"]!) (\(device.hardwarePlatform); \(device.osName) \(device.systemVersion)"
-#if targetEnvironment(macCatalyst)
+		// Zebra/2.0 (iPhone; iOS 14.8.1)
+		var userAgent = "Zebra/\(infoPlist["CFBundleShortVersionString"]!) (\(device.hardwarePlatform); \(device.osName) \(device.systemVersion))"
+		#if !targetEnvironment(macCatalyst)
+		// Prepend Cydia token on iOS for compatibility.
+		userAgent = "Cydia/1.1.32 \(userAgent)"
+		#endif
 		return userAgent
-#else
-		return "Cydia/1.1.32 \(userAgent)"
-#endif
 	}()
 
 	@objc static let aptUserAgent = "Telesphoreo (Zebra) APT-HTTP/1.0.592"
@@ -47,7 +48,49 @@ class URLController: NSObject {
 	// MARK: - UI
 
 	@objc(openURL:sender:)
-	class func open(url: URL, sender: UIViewController) {
+	@discardableResult
+	class func open(url: URL, sender: UIViewController? = nil) -> Bool {
+		let actualSender: UIViewController
+		if let sender = sender {
+			actualSender = sender
+		} else {
+			if let sceneSession = UIApplication.shared.runningSceneSessions(withIdentifier: AppSceneDelegate.activityType).first,
+				 let delegate = sceneSession.scene?.delegate as? AppSceneDelegate,
+				 let rootViewController = delegate.window?.rootViewController {
+				actualSender = rootViewController
+			} else {
+				// Can’t handle this, we don’t know where to present.
+				return false
+			}
+		}
+
+		switch url.scheme {
+		case "zbra":
+			// TODO
+			break
+
+		case "file":
+			switch url.pathExtension {
+			case "deb":
+				let activity = NSUserActivity(activityType: PackageSceneDelegate.activityType)
+				activity.userInfo = [UserActivityUserInfoKey.url: url.absoluteString]
+				UIApplication.shared.activateScene(userActivity: activity,
+																					 requestedBy: actualSender.view.window?.windowScene,
+																					 asSingleton: false,
+																					 withProminentPresentation: true)
+				return true
+
+			default: break
+			}
+
+		default:
+			openExternal(url: url, sender: actualSender)
+			return true
+		}
+		return false
+	}
+
+	private class func openExternal(url: URL, sender: UIViewController) {
 		#if targetEnvironment(macCatalyst)
 		// Safari view controller just does this anyway on macOS.
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -55,7 +98,6 @@ class URLController: NSObject {
 		// Safari view controller can only open http/https urls.
 		guard url.scheme == "http" || url.scheme == "https" else {
 			UIApplication.shared.open(url, options: [:], completionHandler: nil)
-			return
 		}
 
 		// Is there an app installed that opens this kind of link? If so, open with that. If not, open

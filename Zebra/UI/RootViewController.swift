@@ -139,6 +139,15 @@ class RootViewController: UISplitViewController {
 		UIMenuSystem.main.setNeedsRebuild()
 	}
 
+	// MARK: - Toolbar
+
+	@IBAction func goBack() {
+		#if targetEnvironment(macCatalyst)
+		let secondaryNavigationController = viewController(for: .secondary) as! UINavigationController
+		secondaryNavigationController.popViewController(animated: true)
+		#endif
+	}
+
 	// MARK: - Application Menu
 
 	@IBAction func openAbout() {
@@ -152,15 +161,7 @@ class RootViewController: UISplitViewController {
 	// MARK: - File Menu
 
 	@IBAction func openPackage() {
-		// TODO: This
-		let viewController: UIDocumentPickerViewController
-		if #available(iOS 14, *) {
-			viewController = UIDocumentPickerViewController(forOpeningContentTypes: [ .package ])
-		} else {
-			viewController = UIDocumentPickerViewController(documentTypes: [ UTType.package.identifier ], in: .import)
-		}
-//		viewController.delegate = self
-		present(viewController, animated: true, completion: nil)
+		showOpenPicker(types: [.debArchive])
 	}
 
 	// MARK: - View Menu
@@ -177,15 +178,7 @@ class RootViewController: UISplitViewController {
 	// MARK: - Sources Menu
 
 	@IBAction func importSources() {
-		// TODO: This
-		let viewController: UIDocumentPickerViewController
-		if #available(iOS 14, *) {
-			viewController = UIDocumentPickerViewController(forOpeningContentTypes: [ .sourcesList, .sourcesFile ])
-		} else {
-			viewController = UIDocumentPickerViewController(documentTypes: [ UTType.sourcesList.identifier, UTType.sourcesFile.identifier ], in: .import)
-		}
-//		viewController.delegate = self
-		present(viewController, animated: true, completion: nil)
+		showOpenPicker(types: [.sourcesList, .sourcesFile])
 	}
 
 	@IBAction func exportSources() {
@@ -196,16 +189,57 @@ class RootViewController: UISplitViewController {
 		} else {
 			viewController = UIDocumentPickerViewController(urls: [], in: .moveToService)
 		}
-//		viewController.delegate = self
+		viewController.delegate = self
 		present(viewController, animated: true, completion: nil)
 	}
 
+//	private let sourceManager = PLSourceManager()
+
 	@IBAction func refreshSources() {
-		// TODO: This
+//		sourceManager.refreshSources()
 	}
 
 	@IBAction func addSource() {
 		// TODO: This
+	}
+
+	// MARK: - Files
+
+	private func showOpenPicker(types: [UTType]) {
+		let viewController: UIDocumentPickerViewController
+		if #available(iOS 14, *) {
+			viewController = UIDocumentPickerViewController(forOpeningContentTypes: types, asCopy: false)
+		} else {
+			let identifiers = types.map { item in item.identifier }
+			viewController = UIDocumentPickerViewController(documentTypes: identifiers, in: .moveToService)
+		}
+		viewController.delegate = self
+		present(viewController, animated: true, completion: nil)
+	}
+
+	private func handleOpenFile(itemProvider: NSItemProvider, filename: String? = nil) {
+		Task(priority: .userInitiated) {
+			do {
+				try await FileImportController.handleFile(itemProvider: itemProvider, filename: filename)
+			} catch {
+				await MainActor.run {
+					self.displayErrorDialog(title: .localize("Couldn’t open the file because an error occurred."),
+																	error: error)
+				}
+			}
+		}
+	}
+
+	private func displayErrorDialog(title: String, message: String? = nil, error: Error) {
+		let body = [error.localizedDescription, (error as NSError).localizedRecoverySuggestion ?? "", message ?? ""]
+			.filter { item in !item.isEmpty }
+			.joined(separator: "\n\n")
+
+		let alertController = UIAlertController(title: title,
+																						message: body.isEmpty ? nil : body,
+																						preferredStyle: .alert)
+		alertController.addAction(UIAlertAction(title: .ok, style: .cancel))
+		present(alertController, animated: true)
 	}
 
 }
@@ -230,23 +264,42 @@ extension RootViewController: UINavigationControllerDelegate {
 extension RootViewController: UIDropInteractionDelegate {
 
 	func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
-		let types = FileImportController.supportedTypes.map { item in item.identifier }
-		return session.items.count == 1 && session.hasItemsConforming(toTypeIdentifiers: types)
+		if session.items.count == 1,
+			 let item = session.items.first,
+			 FileImportController.isSupportedType(itemProvider: item.itemProvider) {
+			return true
+		}
+		return false
 	}
 
 	func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
-		return UIDropProposal(operation: .copy)
+		if let item = session.items.first,
+			 FileImportController.isSupportedType(itemProvider: item.itemProvider) {
+			return UIDropProposal(operation: .copy)
+		}
+		return UIDropProposal(operation: .cancel)
 	}
 
 	func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
-		guard let item = session.items.first else {
+		guard let item = session.items.first,
+					FileImportController.isSupportedType(itemProvider: item.itemProvider) else {
 			return
 		}
+		handleOpenFile(itemProvider: item.itemProvider)
+	}
 
-		Task(priority: .userInitiated) {
-			// TODO: Handle error
-			try! await FileImportController.handleFile(itemProvider: item.itemProvider)
+}
+
+extension RootViewController: UIDocumentPickerDelegate {
+
+	@available(iOS 14, *)
+	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+		guard let url = urls.first,
+			 let itemProvider = NSItemProvider(contentsOf: url),
+			 FileImportController.isSupportedType(itemProvider: itemProvider) else {
+			return
 		}
+		handleOpenFile(itemProvider: itemProvider, filename: url.lastPathComponent)
 	}
 
 }

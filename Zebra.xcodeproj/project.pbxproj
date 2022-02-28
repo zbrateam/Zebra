@@ -39,6 +39,7 @@
 		4E1A1C8827B6B9BF00B6DC9A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E1A1C8627B6B9BF00B6DC9A /* InfoPlist.strings */; };
 		4E1A1C9027B6B9F600B6DC9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E1A1C8E27B6B9F600B6DC9A /* LaunchScreen.storyboard */; };
 		4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */; };
+		4E1A1C9427B7B17700B6DC9A /* PackageSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */; };
 		4E9FC8742790555800934FFE /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9FC87D2790569800934FFE /* DepictionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC87C2790569800934FFE /* DepictionKit.framework */; };
@@ -46,7 +47,9 @@
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
 		4E9FC8892790637F00934FFE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC8882790637F00934FFE /* Preferences.swift */; };
 		4E9FC89227910AD200934FFE /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC89127910AD200934FFE /* Font.swift */; };
+		4EA26E8E27C9CC070019A5AA /* NSUserActivity+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26E8D27C9CC070019A5AA /* NSUserActivity+Additions.swift */; };
 		4EA26EA227CC87810019A5AA /* PlainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EA127CC87810019A5AA /* PlainsController.swift */; };
+		4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EA527CCBD3B0019A5AA /* LoadingViewController.swift */; };
 		4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27727B272EC0078F953 /* SlingshotController.swift */; };
 		4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27E27B275F70078F953 /* String+Localization.swift */; };
 		4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */; };
@@ -113,7 +116,6 @@
 		89C5FDF021B1B13800A10E58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDEF21B1B13800A10E58 /* main.m */; };
 		89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.mm */; };
 		89D97AFE25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D97AFD25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m */; };
-		89DCC2C7260D725F00768096 /* ZBLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DCC2C6260D725F00768096 /* ZBLoadingViewController.m */; };
 		89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */; };
 		89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */; };
 		89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89EA4ED1241B166D008DFE15 /* ZBFilterSettingsTableViewController.m */; };
@@ -240,12 +242,15 @@
 		4E1A1C8727B6B9BF00B6DC9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4E1A1C8F27B6B9F600B6DC9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSToolbarItem+AppItems.swift"; sourceTree = "<group>"; };
+		4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSceneDelegate.swift; sourceTree = "<group>"; };
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC87C2790569800934FFE /* DepictionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DepictionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		4E9FC89127910AD200934FFE /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		4EA26E8D27C9CC070019A5AA /* NSUserActivity+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserActivity+Additions.swift"; sourceTree = "<group>"; };
 		4EA26EA127CC87810019A5AA /* PlainsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainsController.swift; sourceTree = "<group>"; };
+		4EA26EA527CCBD3B0019A5AA /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		4EC7F27727B272EC0078F953 /* SlingshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlingshotController.swift; sourceTree = "<group>"; };
 		4EC7F27E27B275F70078F953 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
@@ -394,8 +399,6 @@
 		89CCC6CC239D696600B7D85C /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89D97AFC25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceBulkAddViewController.h; sourceTree = "<group>"; };
 		89D97AFD25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceBulkAddViewController.m; sourceTree = "<group>"; };
-		89DCC2C5260D725F00768096 /* ZBLoadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLoadingViewController.h; sourceTree = "<group>"; };
-		89DCC2C6260D725F00768096 /* ZBLoadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLoadingViewController.m; sourceTree = "<group>"; };
 		89E3BD952428565100BF81A4 /* ZBSectionSelectorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSectionSelectorTableViewController.h; sourceTree = "<group>"; };
 		89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSectionSelectorTableViewController.m; sourceTree = "<group>"; };
 		89E3BD9824285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAuthorSelectorTableViewController.h; sourceTree = "<group>"; };
@@ -548,6 +551,7 @@
 				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.mm */,
 				4EC7F29027B3701D0078F953 /* AppDelegate.swift */,
 				4EC7F29227B3714A0078F953 /* AppSceneDelegate.swift */,
+				4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -679,8 +683,7 @@
 				9E1C85A522A38DCB00D93D14 /* ZBTab.h */,
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
 				89A1B734223C97210053D0E2 /* ZBTabBarController.mm */,
-				89DCC2C5260D725F00768096 /* ZBLoadingViewController.h */,
-				89DCC2C6260D725F00768096 /* ZBLoadingViewController.m */,
+				4EA26EA527CCBD3B0019A5AA /* LoadingViewController.swift */,
 				891ED4B02614F6EB005B926B /* ZBSidebarController.h */,
 				894EAB54261D5C4C00552235 /* ZBSidebarController.mm */,
 				4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */,
@@ -866,6 +869,7 @@
 				4EC7F28A27B2985A0078F953 /* String+Extensions.swift */,
 				4EC7F28C27B29AB20078F953 /* Darwin+Extensions.swift */,
 				4EC7F29427B393870078F953 /* UIApplication+Additions.swift */,
+				4EA26E8D27C9CC070019A5AA /* NSUserActivity+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1341,10 +1345,10 @@
 				891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */,
 				89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */,
 				895CB40326617D7A0013A21A /* ZBLanguageSettingsViewController.m in Sources */,
+				4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */,
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
 				4EC7F28F27B2B55C0078F953 /* URLController.swift in Sources */,
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
-				89DCC2C7260D725F00768096 /* ZBLoadingViewController.m in Sources */,
 				E1428E6F27791624005B0885 /* ZBCanister.swift in Sources */,
 				89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageViewController.mm in Sources */,
@@ -1364,6 +1368,8 @@
 				E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */,
 				894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */,
+				4EA26E8E27C9CC070019A5AA /* NSUserActivity+Additions.swift in Sources */,
+				4E1A1C9427B7B17700B6DC9A /* PackageSceneDelegate.swift in Sources */,
 				499B0E25246B8437008825E4 /* ZBBoldTableViewHeaderView.m in Sources */,
 				891551582560A496005AF405 /* ZBPackageFilterViewController.m in Sources */,
 				896B2B53259FA2170082A62E /* ZBSourceListViewController.mm in Sources */,
@@ -1650,7 +1656,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APP_NAME = Zebra;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1682,7 +1687,6 @@
 					"\"${SRCROOT}/Vendor/plains/\"",
 				);
 				INFOPLIST_FILE = "Zebra/Supporting Files/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "$(DISPLAY_NAME)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Zebra Team. All rights reserved.";
@@ -1732,7 +1736,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APP_NAME = Zebra;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1762,7 +1765,6 @@
 					"\"${SRCROOT}/Vendor/plains/\"",
 				);
 				INFOPLIST_FILE = "Zebra/Supporting Files/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "$(DISPLAY_NAME)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Zebra Team. All rights reserved.";

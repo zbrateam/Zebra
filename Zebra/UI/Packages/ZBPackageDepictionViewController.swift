@@ -211,13 +211,10 @@ import Evander
             NSLog("[Zebra] Long Description = \(package.longDescription()) Height = \(descriptionLabel.bounds)")
         case .web:
             webDepictionView.isHidden = false
-            let url = URL(string: "https://chariz.com/buy/aemulo")!
-            /*
             guard let url = package.depictionURL() else {
                 depictionDisplay = .offline
                 return setDepiction()
             }
-            */
             let request = NSMutableURLRequest(url: url)
             request.allHTTPHeaderFields = URLController.webHeaders
             webView._applicationNameForUserAgent = URLController.webUserAgent

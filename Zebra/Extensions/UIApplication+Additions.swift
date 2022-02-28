@@ -9,8 +9,17 @@ import UIKit
 
 extension UIApplication {
 
+	func runningSceneSessions(withIdentifier identifier: String) -> Set<UISceneSession> {
+		return openSessions.filter { session in
+			if let delegate = session.scene?.delegate as? IdentifiableSceneDelegate {
+				return type(of: delegate).activityType == identifier
+			}
+			return false
+		}
+	}
+
 	func activateScene(userActivity: NSUserActivity,
-										 requestedByScene requestingScene: UIScene? = nil,
+										 requestedBy requestingScene: UIScene? = nil,
 										 asSingleton: Bool = true,
 										 withProminentPresentation prominentPresentation: Bool = false) {
 		let options: UIScene.ActivationRequestOptions
@@ -29,17 +38,7 @@ extension UIApplication {
 
 		// Find an existing scene, if one exists. If it does, the activate call will bring that into
 		// focus instead of creating a new scene.
-		let sceneSession: UISceneSession?
-		if asSingleton {
-			sceneSession = openSessions.first(where: { session in
-				if let delegate = session.scene?.delegate as? IdentifiableSceneDelegate {
-					return type(of: delegate).activityType == userActivity.activityType
-				}
-				return false
-			})
-		} else {
-			sceneSession = nil
-		}
+		let sceneSession = asSingleton ? runningSceneSessions(withIdentifier: userActivity.activityType).first : nil
 		requestSceneSessionActivation(sceneSession,
 																	userActivity: userActivity,
 																	options: options,

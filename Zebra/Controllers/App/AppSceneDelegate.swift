@@ -8,7 +8,9 @@
 
 import UIKit
 
-class AppSceneDelegate: UIResponder, UIWindowSceneDelegate {
+class AppSceneDelegate: UIResponder, UIWindowSceneDelegate, IdentifiableSceneDelegate {
+
+	static let activityType = "App"
 
 	var window: UIWindow?
 	var toolbarItems = [NSToolbarItem.Identifier]() {
@@ -16,11 +18,11 @@ class AppSceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-		guard let windowScene = scene as? UIWindowScene else {
+		guard let scene = scene as? UIWindowScene else {
 			return
 		}
 
-		window = UIWindow(windowScene: windowScene)
+		window = UIWindow(windowScene: scene)
 		window!.tintColor = .accent
 		window!.rootViewController = RootViewController()
 		window!.makeKeyAndVisible()
@@ -32,10 +34,10 @@ class AppSceneDelegate: UIResponder, UIWindowSceneDelegate {
 		toolbar.displayMode = .iconOnly
 		toolbar.delegate = self
 
-		windowScene.sizeRestrictions?.minimumSize = CGSize(width: 1170, height: 720)
+		scene.sizeRestrictions?.minimumSize = CGSize(width: 1170, height: 720)
 
-		windowScene.titlebar?.toolbar = toolbar
-		windowScene.titlebar?.toolbarStyle = .unified
+		scene.titlebar?.toolbar = toolbar
+		scene.titlebar?.toolbarStyle = .unified
 #endif
 	}
 
@@ -44,19 +46,17 @@ class AppSceneDelegate: UIResponder, UIWindowSceneDelegate {
 			return
 		}
 
-		let currentIdentifiers = toolbar.items.map { item in item.itemIdentifier }
-		let difference = currentIdentifiers.difference(from: toolbarItems).inferringMoves()
-		for item in difference {
-			switch item {
-			case .insert(let offset, let element, let associatedWith):
-				if let associatedWith = associatedWith {
-					toolbar.removeItem(at: associatedWith)
-				}
-				toolbar.insertItem(withItemIdentifier: element, at: offset)
+		for _ in toolbar.items {
+			toolbar.removeItem(at: 0)
+		}
+		for item in toolbarItems {
+			toolbar.insertItem(withItemIdentifier: item, at: toolbar.items.count)
+		}
+	}
 
-			case .remove(let offset, _, _):
-				toolbar.removeItem(at: offset)
-			}
+	func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+		for item in URLContexts {
+			URLController.open(url: item.url, sender: window!.rootViewController!)
 		}
 	}
 
@@ -81,9 +81,17 @@ extension AppSceneDelegate: NSToolbarDelegate {
 		let item = NSToolbarItem(itemIdentifier: itemIdentifier)
 
 		switch itemIdentifier {
-			
-		default: return nil
+		case .back:
+			item.isBordered = true
+			item.isNavigational = true
+			item.action = #selector(RootViewController.goBack)
+			item.image = UIImage(systemName: "chevron.backward")
+			item.label = .back
+
+		default: break
 		}
+
+		return item
 	}
 
 }
