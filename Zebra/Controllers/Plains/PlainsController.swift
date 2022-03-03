@@ -32,7 +32,7 @@ class PlainsController {
 		config.set(string: (cacheURL/"logs").path, forKey: "Dir::Log")
 		config.set(string: cacheURL.path, forKey: "Dir::Cache")
 		config.set(string: dataURL.path, forKey: "Dir::State")
-		config.set(string: (etcPrefixURL/"etc/apt"), forKey: "Dir::Etc")
+		config.set(string: (etcPrefixURL/"etc/apt").path, forKey: "Dir::Etc")
 		config.set(string: (dataURL/"zebra.sources").path, forKey: "Plains::SourcesList")
 		config.set(string: (dpkgStateURL/"status").path, forKey: "Dir::State::status")
 		config.set(string: (dpkgDataURL/"tupletable").path, forKey: "Dir::dpkg::tupletable")
