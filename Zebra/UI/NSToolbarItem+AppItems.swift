@@ -8,6 +8,8 @@
 
 import UIKit
 
+#if targetEnvironment(macCatalyst)
 extension NSToolbarItem.Identifier {
 	static let back = NSToolbarItem.Identifier(rawValue: "back")
 }
+#endif

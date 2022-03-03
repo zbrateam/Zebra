@@ -28,9 +28,13 @@ class Device: NSObject {
 	}()
 
 	@objc static let primaryDebianArchitecture: String = {
-		// TODO: We should ask dpkg instead of hardcoding
-		#if targetEnvironment(macCatalyst)
-		return "darwin"
+		// TODO: We could ask dpkg instead of hardcoding? (dpkg --print-architecture)
+		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
+		#if arch(x86_64)
+		return "darwin-amd64"
+		#else
+		return "darwin-arm64"
+		#endif
 		#else
 		return "iphoneos-arm"
 		#endif

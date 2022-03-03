@@ -39,6 +39,7 @@
 		4E1A1C9027B6B9F600B6DC9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E1A1C8E27B6B9F600B6DC9A /* LaunchScreen.storyboard */; };
 		4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */; };
 		4E1A1C9427B7B17700B6DC9A /* PackageSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */; };
+		4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339AE227D08F7800F013C1 /* FileTypes.swift */; };
 		4E9FC8742790555800934FFE /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
@@ -48,6 +49,7 @@
 		4EA26EA227CC87810019A5AA /* PlainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EA127CC87810019A5AA /* PlainsController.swift */; };
 		4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EA527CCBD3B0019A5AA /* LoadingViewController.swift */; };
 		4EA26EB727CCDAC80019A5AA /* BaseSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EB627CCDAC80019A5AA /* BaseSceneDelegate.swift */; };
+		4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */; };
 		4EA26EC127CCF52E0019A5AA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC027CCF52E0019A5AA /* SDWebImage */; };
 		4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC327CCF6500019A5AA /* DepictionKit */; };
 		4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27727B272EC0078F953 /* SlingshotController.swift */; };
@@ -122,8 +124,6 @@
 		E193C67C277A8E0100B2469E /* PackageDepictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C67B277A8E0100B2469E /* PackageDepictionViewController.swift */; };
 		E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E193C67D277A91C900B2469E /* WebKit.framework */; };
 		E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C6A1277B93AA00B2469E /* HelionTheme.swift */; };
-		E1A14730277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1472F277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd */; platformFilter = ios; };
-		E1A14732277E5024003B78F1 /* libapt-pkg.6.0.0-macOS.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A14731277E5024003B78F1 /* libapt-pkg.6.0.0-macOS.tbd */; platformFilter = maccatalyst; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +204,7 @@
 		4E1A1C8F27B6B9F600B6DC9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSToolbarItem+AppItems.swift"; sourceTree = "<group>"; };
 		4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSceneDelegate.swift; sourceTree = "<group>"; };
+		4E339AE227D08F7800F013C1 /* FileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypes.swift; sourceTree = "<group>"; };
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -212,6 +213,7 @@
 		4EA26EA127CC87810019A5AA /* PlainsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainsController.swift; sourceTree = "<group>"; };
 		4EA26EA527CCBD3B0019A5AA /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		4EA26EB627CCDAC80019A5AA /* BaseSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSceneDelegate.swift; sourceTree = "<group>"; };
+		4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		4EA26EC227CCF5430019A5AA /* DepictionKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DepictionKit; path = Vendor/DepictionKit; sourceTree = "<group>"; };
 		4EC7F27727B272EC0078F953 /* SlingshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlingshotController.swift; sourceTree = "<group>"; };
 		4EC7F27E27B275F70078F953 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
@@ -383,8 +385,6 @@
 		E193C67B277A8E0100B2469E /* PackageDepictionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PackageDepictionViewController.swift; path = Zebra/UI/Packages/PackageDepictionViewController.swift; sourceTree = SOURCE_ROOT; };
 		E193C67D277A91C900B2469E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/iOSSupport/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		E193C6A1277B93AA00B2469E /* HelionTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelionTheme.swift; sourceTree = "<group>"; };
-		E1A1472F277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libapt-pkg.6.0.0-iOS.tbd"; path = "Vendor/Plains/libapt-pkg.6.0.0-iOS.tbd"; sourceTree = "<group>"; };
-		E1A14731277E5024003B78F1 /* libapt-pkg.6.0.0-macOS.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libapt-pkg.6.0.0-macOS.tbd"; path = "Vendor/Plains/libapt-pkg.6.0.0-macOS.tbd"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -399,8 +399,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1A14732277E5024003B78F1 /* libapt-pkg.6.0.0-macOS.tbd in Frameworks */,
-				E1A14730277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd in Frameworks */,
 				E1428E7927794FC4005B0885 /* Evander in Frameworks */,
 				4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */,
 				4EA26EC127CCF52E0019A5AA /* SDWebImage in Frameworks */,
@@ -449,6 +447,14 @@
 			path = "Catalyst Helper";
 			sourceTree = "<group>";
 		};
+		4EA26EB827CCEEAE0019A5AA /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+				4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */,
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
 		4EC7F2A127B555A20078F953 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,6 +500,7 @@
 			children = (
 				4EC7F28E27B2B55C0078F953 /* URLController.swift */,
 				4EC7F29F27B53D990078F953 /* FileImportController.swift */,
+				4E339AE227D08F7800F013C1 /* FileTypes.swift */,
 			);
 			path = "URL Handling";
 			sourceTree = "<group>";
@@ -870,8 +877,6 @@
 			isa = PBXGroup;
 			children = (
 				4E9FC8732790555800934FFE /* Plains.framework */,
-				E1A14731277E5024003B78F1 /* libapt-pkg.6.0.0-macOS.tbd */,
-				E1A1472F277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd */,
 				E193C67D277A91C900B2469E /* WebKit.framework */,
 				898C50422649F9E0002CDC09 /* MessageUI.framework */,
 				893F857323C027E9005C4CF6 /* libcompression.tbd */,
@@ -949,6 +954,7 @@
 			isa = PBXGroup;
 			children = (
 				89E8633621D5A1420081E485 /* Home */,
+				4EA26EB827CCEEAE0019A5AA /* Browse */,
 				896F11B421B230A40017B581 /* Sources */,
 				896F11B321B2309A0017B581 /* Packages */,
 			);
@@ -1200,6 +1206,7 @@
 				4EC7F29C27B3A19F0078F953 /* RootViewController.swift in Sources */,
 				4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */,
 				4EA26EB727CCDAC80019A5AA /* BaseSceneDelegate.swift in Sources */,
+				4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */,
 				499935F72496BDD2009A5BF9 /* UIViewController+Extensions.m in Sources */,
 				49009A642471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m in Sources */,
 				3671B52222CB07F9008FD737 /* ZBHomeViewController.m in Sources */,
@@ -1210,6 +1217,7 @@
 				89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */,
 				4E9FC887279061D600934FFE /* Color.swift in Sources */,
 				36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */,
+				4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */,
 				896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */,
 				4EC7F2A027B53D990078F953 /* FileImportController.swift in Sources */,
 				895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */,
@@ -1551,11 +1559,11 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "Zebra/Supporting Files/macOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N2LN9ZT493;
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1631,11 +1639,11 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "Zebra/Supporting Files/macOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = N2LN9ZT493;
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				FRAMEWORK_SEARCH_PATHS = (

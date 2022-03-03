@@ -12,9 +12,11 @@ class AppSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
 	static let activityType = "App"
 
+	#if targetEnvironment(macCatalyst)
 	var toolbarItems = [NSToolbarItem.Identifier]() {
 		didSet { updateToolbar() }
 	}
+	#endif
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 		guard let scene = scene as? UIWindowScene else {
@@ -28,7 +30,7 @@ class AppSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
 		scene.title = "Zebra"
 
-#if targetEnvironment(macCatalyst)
+		#if targetEnvironment(macCatalyst)
 		let toolbar = NSToolbar(identifier: "main")
 		toolbar.displayMode = .iconOnly
 		toolbar.delegate = self
@@ -37,8 +39,13 @@ class AppSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
 		scene.titlebar?.toolbar = toolbar
 		scene.titlebar?.toolbarStyle = .unified
-#endif
+		#endif
 	}
+
+}
+
+#if targetEnvironment(macCatalyst)
+extension AppSceneDelegate: NSToolbarDelegate {
 
 	private func updateToolbar() {
 		guard let toolbar = window?.windowScene?.titlebar?.toolbar else {
@@ -52,11 +59,6 @@ class AppSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 			toolbar.insertItem(withItemIdentifier: item, at: toolbar.items.count)
 		}
 	}
-
-}
-
-#if targetEnvironment(macCatalyst)
-extension AppSceneDelegate: NSToolbarDelegate {
 
 	func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
 		toolbarItems

@@ -13,7 +13,13 @@ protocol RootViewControllerDelegate: AnyObject {
 	func selectTab(_ tab: RootViewController.AppTab)
 }
 
-class RootViewController: UISplitViewController {
+#if targetEnvironment(macCatalyst)
+typealias RootViewControllerSuperclass = UISplitViewController
+#else
+typealias RootViewControllerSuperclass = UITabBarController
+#endif
+
+class RootViewController: RootViewControllerSuperclass {
 
 	enum AppTab: Int, CaseIterable {
 		case home, browse, installed, me
@@ -64,7 +70,11 @@ class RootViewController: UISplitViewController {
 	private var currentTab: AppTab?
 
 	init() {
+		#if targetEnvironment(macCatalyst)
 		super.init(style: .doubleColumn)
+		#else
+		super.init(nibName: nil, bundle: nil)
+		#endif
 	}
 
 	required init?(coder: NSCoder) {
@@ -92,6 +102,11 @@ class RootViewController: UISplitViewController {
 		setViewController(secondaryNavigationController, for: .secondary)
 		#else
 		// Tab bar controller
+		viewControllers = AppTab.allCases.map { item in
+			let viewController = UINavigationController(rootViewController: item.viewController)
+			viewController.tabBarItem = UITabBarItem(title: item.name, image: item.icon, selectedImage: nil)
+			return viewController
+		}
 		#endif
 
 		view.addInteraction(UIDropInteraction(delegate: self))
@@ -161,7 +176,7 @@ class RootViewController: UISplitViewController {
 	// MARK: - File Menu
 
 	@IBAction func openPackage() {
-		showOpenPicker(types: [.debArchive])
+		showOpenPicker(types: [kUTTypeDebArchive])
 	}
 
 	// MARK: - View Menu
@@ -178,7 +193,7 @@ class RootViewController: UISplitViewController {
 	// MARK: - Sources Menu
 
 	@IBAction func importSources() {
-		showOpenPicker(types: [.sourcesList, .sourcesFile])
+		showOpenPicker(types: [kUTTypeSourcesList, kUTTypeSourcesFile])
 	}
 
 	@IBAction func exportSources() {
@@ -205,13 +220,13 @@ class RootViewController: UISplitViewController {
 
 	// MARK: - Files
 
-	private func showOpenPicker(types: [UTType]) {
+	private func showOpenPicker(types: [String]) {
 		let viewController: UIDocumentPickerViewController
 		if #available(iOS 14, *) {
-			viewController = UIDocumentPickerViewController(forOpeningContentTypes: types, asCopy: false)
+			let actualTypes = types.map { item in UTType(item)! }
+			viewController = UIDocumentPickerViewController(forOpeningContentTypes: actualTypes, asCopy: false)
 		} else {
-			let identifiers = types.map { item in item.identifier }
-			viewController = UIDocumentPickerViewController(documentTypes: identifiers, in: .moveToService)
+			viewController = UIDocumentPickerViewController(documentTypes: types, in: .moveToService)
 		}
 		viewController.delegate = self
 		present(viewController, animated: true, completion: nil)
@@ -292,7 +307,6 @@ extension RootViewController: UIDropInteractionDelegate {
 
 extension RootViewController: UIDocumentPickerDelegate {
 
-	@available(iOS 14, *)
 	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
 		guard let url = urls.first,
 			 let itemProvider = NSItemProvider(contentsOf: url),

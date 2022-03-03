@@ -31,9 +31,10 @@ class DeviceCommands: NSObject {
 			return
 			#else
 			do {
-				if try await Command.execute("sync", arguments: [], asRoot: true) != nil &&
-					try await Command.execute("ldrestart", arguments: [], asRoot: true) != nil {
-					return
+				if try await Command.execute("sync", arguments: [], asRoot: true) != nil {
+					if try await Command.execute("ldrestart", arguments: [], asRoot: true) != nil {
+						return
+					}
 				}
 			} catch {
 				// Fall through

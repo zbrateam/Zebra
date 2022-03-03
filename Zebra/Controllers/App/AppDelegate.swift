@@ -15,7 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 		#if targetEnvironment(macCatalyst)
-		let helperBundleURL = Bundle.main.privateFrameworksURL!.appendingPathComponent("ZebraCatalystHelper.framework")
+		let helperBundleURL = Bundle.main.privateFrameworksURL!
+			.appendingPathComponent("ZebraCatalystHelper.framework")
 		let helperBundle = Bundle(url: helperBundleURL)
 		helperBundle?.load()
 		#endif
@@ -58,9 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		#if targetEnvironment(macCatalyst)
 		let finalURL = url
 		#else
-		var components = URLComponents(url: "filza://view")
+		var components = URLComponents(string: "filza://view")!
 		components.path = url.path
-		let finalURL = components.url
+		let finalURL = components.url!
 		#endif
 		UIApplication.shared.open(finalURL, options: [:], completionHandler: nil)
 	}

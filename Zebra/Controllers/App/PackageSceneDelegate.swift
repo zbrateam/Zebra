@@ -81,6 +81,7 @@ class PackageSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 					}
 
 		do {
+			_ = try url.checkResourceIsReachable()
 			let package = try PLPackageManager.shared.addDebFile(url)
 			navigationController?.viewControllers = [ZBPackageViewController(package: package)]
 

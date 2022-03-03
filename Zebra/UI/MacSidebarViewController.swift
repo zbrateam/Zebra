@@ -8,8 +8,7 @@
 
 import UIKit
 
-//@available(*, unavailable)
-//@available(macCatalyst, introduced: 14.0)
+#if targetEnvironment(macCatalyst)
 class MacSidebarViewController: UITableViewController {
 
 	private typealias AppTab = RootViewController.AppTab
@@ -61,3 +60,4 @@ extension MacSidebarViewController: RootViewControllerDelegate {
 	}
 
 }
+#endif

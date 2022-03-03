@@ -98,6 +98,7 @@ class URLController: NSObject {
 		// Safari view controller can only open http/https urls.
 		guard url.scheme == "http" || url.scheme == "https" else {
 			UIApplication.shared.open(url, options: [:], completionHandler: nil)
+			return
 		}
 
 		// Is there an app installed that opens this kind of link? If so, open with that. If not, open

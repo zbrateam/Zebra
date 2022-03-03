@@ -26,15 +26,27 @@ class PlainsController {
 																							attributes: [:])
 		}
 
+		// Figure out dpkg state path
+		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
+		let dpkgStateURL = URL(fileURLWithPath: "/opt/procursus/var/lib/dpkg", isDirectory: true)
+		#else
+		let dpkgStateURL = URL(fileURLWithPath: "/var/lib/dpkg", isDirectory: true)
+		#endif
+
 		// Set directories
 		config.set(string: cacheURL.appendingPathComponent("logs").path, forKey: "Dir::Log")
-		config.set(string: cacheURL.appendingPathComponent("lists").path, forKey: "Dir::State::Lists")
+		config.set(string: cacheURL.appendingPathComponent("apt").path, forKey: "Dir::State")
+		config.set(string: dpkgStateURL.appendingPathComponent("status").path, forKey: "Dir::State::status")
+		config.set(string: dpkgStateURL.appendingPathComponent("extended_states").path, forKey: "Dir::State::extended_states")
 		config.set(string: cacheURL.path, forKey: "Dir::Cache")
 		config.set(string: cacheURL.appendingPathComponent("zebra.sources").path, forKey: "Plains::SourcesList")
 
 		// Set slingshot path
 		config.set(string: SlingshotController.superslingPath, forKey: "Plains::Slingshot")
 		config.set(string: SlingshotController.superslingPath, forKey: "Dir::Bin::dpkg")
+
+		// Set the primary architecture
+		config.set(string: Device.primaryDebianArchitecture, forKey: "APT::Architecture")
 
 		// Allow unsigned repos only on iOS
 		#if !targetEnvironment(macCatalyst)
@@ -55,12 +67,12 @@ class PlainsController {
 
 		// Reset the default compression type ordering
 		let compressors: [(ext: String, program: String)] = [
-			("zst", "zstd"),
-			("xz", "xz"),
+			("zst",  "zstd"),
+			("xz",   "xz"),
 			("lzma", "lzma"),
-			("lz4", "lz4"),
-			("bz2", "bzip2"),
-			("gz", "gzip")
+			("lz4",  "lz4"),
+			("bz2",  "bzip2"),
+			("gz",   "gzip")
 		]
 		for (ext, program) in compressors {
 			config.set(string: program, forKey: "Acquire::CompressionTypes::\(ext)")
