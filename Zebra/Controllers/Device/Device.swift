@@ -15,6 +15,18 @@ class Device: NSObject {
 
 	// MARK: - Environment
 
+	static let distroRootPrefix: String = {
+		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
+		return "/opt/procursus"
+		#else
+		// TODO: Implement rootless
+		return "/usr"
+		#endif
+	}()
+
+	static let distroEtcPrefix = distroRootPrefix == "/usr" ? "/" : distroRootPrefix
+	static let distroVarPrefix = distroRootPrefix == "/usr" ? "/" : distroRootPrefix
+
 	@objc static let path: String = {
 		// Construct a safe PATH. This will be set app-wide.
 		// There is some commented code here for Procursus prefixed “rootless” bootstrap in future.

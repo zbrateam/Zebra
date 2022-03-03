@@ -29,7 +29,7 @@ include $(THEOS)/makefiles/common.mk
 XCODEPROJ_NAME = Zebra
 
 Zebra_XCODEFLAGS = PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' PRODUCT_BUNDLE_IDENTIFIER=$(PRODUCT_BUNDLE_IDENTIFIER) APP_NAME=$(APP_NAME) LIBEXEC_FOLDER='@\"$(LIBEXEC_FOLDER)\"'
-Zebra_CODESIGN_FLAGS = -SZebra/iOS.entitlements
+Zebra_CODESIGN_FLAGS = "-SZebra/Supporting Files/iOS.entitlements"
 
 include $(THEOS_MAKE_PATH)/xcodeproj.mk
 
@@ -40,10 +40,10 @@ SUBPROJECTS = Supersling #Relaunch
 
 ifeq ($(ALPHA), 1)
 before-package::
-	sed -i '' 's/^Name:.*/Name: Zebra (ALPHA)/g;s/^Package:.*/Package: xyz.willy.zebralpha/g' $(THEOS_STAGING_DIR)/DEBIAN/control
+	sed -Ei '' 's/^Name: Zebra/Name: Zebra [ALPHA]/g;s/^Package: (.*)$/Package: \1alpha/g' $(THEOS_STAGING_DIR)/DEBIAN/control
 else ifeq ($(BETA), 1)
 before-package::
-	sed -i '' 's/^Name:.*/Name: Zebra (BETA)/g;s/^Package:.*/Package: xyz.willy.zebeta/g' $(THEOS_STAGING_DIR)/DEBIAN/control
+	sed -Ei '' 's/^Name: Zebra/Name: Zebra [BETA]/g;s/^Package: (.*)$/Package: \1beta/g' $(THEOS_STAGING_DIR)/DEBIAN/control
 endif
 
 after-stage::

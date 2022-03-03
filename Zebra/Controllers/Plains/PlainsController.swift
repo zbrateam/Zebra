@@ -11,35 +11,33 @@ import os.log
 
 class PlainsController {
 
-	static let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-		.appendingPathComponent(Bundle.main.bundleIdentifier!, isDirectory: true)
-	static let dataURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-		.appendingPathComponent(Bundle.main.bundleIdentifier!, isDirectory: true)
+	static let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! / Bundle.main.bundleIdentifier!
+	static let dataURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! / Bundle.main.bundleIdentifier!
 
 	class func setUp() throws {
 		let config = PLConfig.shared
 
 		// Create directories
-		for path in ["logs", "lists", "archives", "archives/partial"] {
-			try FileManager.default.createDirectory(at: cacheURL.appendingPathComponent(path),
+		for path in ["logs", "archives", "archives/partial"] {
+			try FileManager.default.createDirectory(at: cacheURL/path,
 																							withIntermediateDirectories: true,
 																							attributes: [:])
 		}
 
-		// Figure out dpkg state path
-		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
-		let dpkgStateURL = URL(fileURLWithPath: "/opt/procursus/var/lib/dpkg", isDirectory: true)
-		#else
-		let dpkgStateURL = URL(fileURLWithPath: "/var/lib/dpkg", isDirectory: true)
-		#endif
-
 		// Set directories
-		config.set(string: cacheURL.appendingPathComponent("logs").path, forKey: "Dir::Log")
-		config.set(string: cacheURL.appendingPathComponent("apt").path, forKey: "Dir::State")
-		config.set(string: dpkgStateURL.appendingPathComponent("status").path, forKey: "Dir::State::status")
-		config.set(string: dpkgStateURL.appendingPathComponent("extended_states").path, forKey: "Dir::State::extended_states")
+		let dpkgStateURL = URL(fileURLWithPath: Device.distroVarPrefix, isDirectory: true)/"var/lib/dpkg"
+		let dpkgDataURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"share/dpkg"
+		let etcPrefixURL = URL(fileURLWithPath: Device.distroEtcPrefix, isDirectory: true)
+
+		config.set(string: (cacheURL/"logs").path, forKey: "Dir::Log")
 		config.set(string: cacheURL.path, forKey: "Dir::Cache")
-		config.set(string: cacheURL.appendingPathComponent("zebra.sources").path, forKey: "Plains::SourcesList")
+		config.set(string: dataURL.path, forKey: "Dir::State")
+		config.set(string: (etcPrefixURL/"etc/apt"), forKey: "Dir::Etc")
+		config.set(string: (dataURL/"zebra.sources").path, forKey: "Plains::SourcesList")
+		config.set(string: (dpkgStateURL/"status").path, forKey: "Dir::State::status")
+		config.set(string: (dpkgDataURL/"tupletable").path, forKey: "Dir::dpkg::tupletable")
+		config.set(string: (dpkgDataURL/"triplettable").path, forKey: "Dir::dpkg::triplettable")
+		config.set(string: (dpkgDataURL/"cputable").path, forKey: "Dir::dpkg::cputable")
 
 		// Set slingshot path
 		config.set(string: SlingshotController.superslingPath, forKey: "Plains::Slingshot")
@@ -76,6 +74,60 @@ class PlainsController {
 		]
 		for (ext, program) in compressors {
 			config.set(string: program, forKey: "Acquire::CompressionTypes::\(ext)")
+		}
+
+		#if DEBUG
+		let debugKeys = [
+			"Debug::Acquire::cdrom",
+			"Debug::Acquire::Ftp",
+			"Debug::Acquire::gpgv",
+			"Debug::Acquire::netrc",
+			"Debug::Acquire::Progress",
+			"Debug::Acquire::Retries",
+			"Debug::Acquire::SrvRecs",
+			"Debug::Acquire::Transaction",
+			"Debug::APT::FTPArchive::Clean",
+			"Debug::APT::Progress::PackageManagerFd",
+			"Debug::aptcdrom",
+			"Debug::AptMark::Minimize",
+			"Debug::EDSP::WriteSolution",
+			"Debug::GetListOfFilesInDir",
+			"Debug::Hashes",
+			"Debug::identcdrom",
+			"Debug::InstallProgress::Fancy",
+			"Debug::Locking",
+			"Debug::NoDropPrivs",
+			"Debug::NoLocking",
+			"Debug::Phasing",
+			"Debug::pkgAcqArchive::NoQueue",
+			"Debug::pkgAcquire::Auth",
+			"Debug::pkgAcquire::Diffs",
+			"Debug::pkgAcquire::Worker",
+			"Debug::pkgAcquire",
+			"Debug::pkgAutoRemove",
+			"Debug::pkgCacheGen",
+			"Debug::pkgDepCache::AutoInstall",
+			"Debug::pkgDepCache::Marker",
+			"Debug::pkgDpkgPm",
+			"Debug::pkgDPkgPM",
+			"Debug::pkgDPkgProgressReporting",
+			"Debug::pkgInitConfig",
+			"Debug::pkgOrderList",
+			"Debug::pkgPackageManager",
+			"Debug::pkgPolicy",
+			"Debug::pkgProblemResolver::ShowScores",
+			"Debug::pkgProblemResolver",
+			"Debug::RunScripts",
+			"Debug::SetupAPTPartialDirectory::AssumeGood"
+		]
+		for key in debugKeys {
+			config.set(boolean: true, forKey: key)
+		}
+		#endif
+
+		// Go ahead and start doing APT stuff
+		if !config.initializeAPT() {
+			return
 		}
 
 		// Load the database

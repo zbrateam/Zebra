@@ -114,19 +114,22 @@ class RootViewController: RootViewControllerSuperclass {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
 		selectTab(.home)
 	}
 
 	// MARK: - Tabs
 
+	#if targetEnvironment(macCatalyst)
+	var selectedViewController: UIViewController? {
+		viewController(for: .secondary)
+	}
+	#endif
+
 	func selectTab(_ tab: AppTab) {
 		if tab == currentTab {
 			// We’re already on this tab, just pop to root.
-			#if targetEnvironment(macCatalyst)
-			let navigationController = viewController(for: .secondary) as! UINavigationController
-			#else
-			let navigationController = tabBarController!.selectedViewController as! UINavigationController
-			#endif
+			let navigationController = selectedViewController as! UINavigationController
 			navigationController.popToRootViewController(animated: true)
 			return
 		}
@@ -139,6 +142,7 @@ class RootViewController: RootViewControllerSuperclass {
 		secondaryNavigationController.viewControllers = [tab.viewController]
 		#else
 		// Select tab bar item
+		selectedViewController = viewControllers![tab.rawValue]
 		#endif
 
 		// Update UI
@@ -156,12 +160,12 @@ class RootViewController: RootViewControllerSuperclass {
 
 	// MARK: - Toolbar
 
+	#if targetEnvironment(macCatalyst)
 	@IBAction func goBack() {
-		#if targetEnvironment(macCatalyst)
-		let secondaryNavigationController = viewController(for: .secondary) as! UINavigationController
+		let secondaryNavigationController = selectedViewController as! UINavigationController
 		secondaryNavigationController.popViewController(animated: true)
-		#endif
 	}
+	#endif
 
 	// MARK: - Application Menu
 

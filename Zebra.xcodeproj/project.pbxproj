@@ -40,6 +40,7 @@
 		4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */; };
 		4E1A1C9427B7B17700B6DC9A /* PackageSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */; };
 		4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339AE227D08F7800F013C1 /* FileTypes.swift */; };
+		4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339B7F27D0E45300F013C1 /* URL+Additions.swift */; };
 		4E9FC8742790555800934FFE /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
@@ -205,6 +206,7 @@
 		4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSToolbarItem+AppItems.swift"; sourceTree = "<group>"; };
 		4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSceneDelegate.swift; sourceTree = "<group>"; };
 		4E339AE227D08F7800F013C1 /* FileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypes.swift; sourceTree = "<group>"; };
+		4E339B7F27D0E45300F013C1 /* URL+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Additions.swift"; sourceTree = "<group>"; };
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -809,6 +811,7 @@
 				4EC7F28C27B29AB20078F953 /* Darwin+Extensions.swift */,
 				4EC7F29427B393870078F953 /* UIApplication+Additions.swift */,
 				4EA26E8D27C9CC070019A5AA /* NSUserActivity+Additions.swift */,
+				4E339B7F27D0E45300F013C1 /* URL+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1273,6 +1276,7 @@
 				4EC7F29327B3714A0078F953 /* AppSceneDelegate.swift in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,
 				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
+				4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1552,6 +1556,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APP_NAME = Zebra;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1579,8 +1584,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/Zebra\"",
-					"\"${SRCROOT}/Vendor/plains/Plains\"",
-					"\"${SRCROOT}/Vendor/plains/\"",
+					"\"${SRCROOT}/Vendor/Plains/Plains\"",
+					"\"${SRCROOT}/Vendor/Plains/\"",
 				);
 				INFOPLIST_FILE = "Zebra/Supporting Files/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -1632,6 +1637,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APP_NAME = Zebra;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1657,8 +1663,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/Zebra\"",
-					"\"${SRCROOT}/Vendor/plains/Plains\"",
-					"\"${SRCROOT}/Vendor/plains/\"",
+					"\"${SRCROOT}/Vendor/Plains/Plains\"",
+					"\"${SRCROOT}/Vendor/Plains/\"",
 				);
 				INFOPLIST_FILE = "Zebra/Supporting Files/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
