@@ -45,7 +45,7 @@ class RootViewController: RootViewControllerSuperclass {
 		var viewController: UIViewController {
 			switch self {
 			case .home:      return ZBHomeViewController()
-			case .browse:    return ZBSourceListViewController()
+			case .browse:    return BrowseViewController()
 			case .installed: return ZBPackageListViewController()
 			case .me:        return ZBSettingsViewController()
 			}
@@ -105,6 +105,7 @@ class RootViewController: RootViewControllerSuperclass {
 		viewControllers = AppTab.allCases.map { item in
 			let viewController = UINavigationController(rootViewController: item.viewController)
 			viewController.tabBarItem = UITabBarItem(title: item.name, image: item.icon, selectedImage: nil)
+			viewController.navigationBar.prefersLargeTitles = true
 			return viewController
 		}
 		#endif

@@ -27,5 +27,6 @@ public extension String {
 	static var forward: String    { .localize("Forward",  bundle: uikitBundle) }
 	static var `continue`: String { .localize("Continue", bundle: uikitBundle) }
 	static var add: String        { .localize("Add",      bundle: uikitBundle) }
+	static var copy: String       { .localize("Copy",     bundle: uikitBundle) }
 #endif
 }

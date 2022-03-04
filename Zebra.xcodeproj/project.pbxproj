@@ -45,7 +45,7 @@
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
 		4E9FC8892790637F00934FFE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC8882790637F00934FFE /* Preferences.swift */; };
-		4E9FC89227910AD200934FFE /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC89127910AD200934FFE /* Font.swift */; };
+		4E9FC89227910AD200934FFE /* UIFont+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC89127910AD200934FFE /* UIFont+Additions.swift */; };
 		4EA26E8E27C9CC070019A5AA /* NSUserActivity+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26E8D27C9CC070019A5AA /* NSUserActivity+Additions.swift */; };
 		4EA26EA227CC87810019A5AA /* PlainsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EA127CC87810019A5AA /* PlainsController.swift */; };
 		4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EA527CCBD3B0019A5AA /* LoadingViewController.swift */; };
@@ -53,6 +53,16 @@
 		4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */; };
 		4EA26EC127CCF52E0019A5AA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC027CCF52E0019A5AA /* SDWebImage */; };
 		4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC327CCF6500019A5AA /* DepictionKit */; };
+		4EBA840527D0FC0B00766DBE /* RedditNewsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */; };
+		4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840727D104A300766DBE /* HTTPRequest.swift */; };
+		4EBA840A27D10DB100766DBE /* SourceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */; };
+		4EBA840C27D1F9A100766DBE /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840B27D1F9A100766DBE /* SectionHeaderView.swift */; };
+		4EBA840E27D21F4700766DBE /* InfoFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840D27D21F4700766DBE /* InfoFooterView.swift */; };
+		4EBA841027D22F1300766DBE /* UINavigationBarAppearance+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840F27D22F1300766DBE /* UINavigationBarAppearance+Extensions.swift */; };
+		4EBA841227D253AC00766DBE /* CarouselCollectionViewContainingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841127D253AC00766DBE /* CarouselCollectionViewContainingCell.swift */; };
+		4EBA841527D2575A00766DBE /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841427D2575A00766DBE /* CarouselViewController.swift */; };
+		4EBA841727D260B500766DBE /* CarouselItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841627D260B500766DBE /* CarouselItemCollectionViewCell.swift */; };
+		4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841827D260D100766DBE /* CarouselItem.swift */; };
 		4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27727B272EC0078F953 /* SlingshotController.swift */; };
 		4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27E27B275F70078F953 /* String+Localization.swift */; };
 		4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */; };
@@ -210,13 +220,23 @@
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		4E9FC89127910AD200934FFE /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		4E9FC89127910AD200934FFE /* UIFont+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Additions.swift"; sourceTree = "<group>"; };
 		4EA26E8D27C9CC070019A5AA /* NSUserActivity+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserActivity+Additions.swift"; sourceTree = "<group>"; };
 		4EA26EA127CC87810019A5AA /* PlainsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainsController.swift; sourceTree = "<group>"; };
 		4EA26EA527CCBD3B0019A5AA /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		4EA26EB627CCDAC80019A5AA /* BaseSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSceneDelegate.swift; sourceTree = "<group>"; };
 		4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		4EA26EC227CCF5430019A5AA /* DepictionKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DepictionKit; path = Vendor/DepictionKit; sourceTree = "<group>"; };
+		4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditNewsFetcher.swift; sourceTree = "<group>"; };
+		4EBA840727D104A300766DBE /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCollectionViewCell.swift; sourceTree = "<group>"; };
+		4EBA840B27D1F9A100766DBE /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		4EBA840D27D21F4700766DBE /* InfoFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoFooterView.swift; sourceTree = "<group>"; };
+		4EBA840F27D22F1300766DBE /* UINavigationBarAppearance+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBarAppearance+Extensions.swift"; sourceTree = "<group>"; };
+		4EBA841127D253AC00766DBE /* CarouselCollectionViewContainingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCollectionViewContainingCell.swift; sourceTree = "<group>"; };
+		4EBA841427D2575A00766DBE /* CarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
+		4EBA841627D260B500766DBE /* CarouselItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		4EBA841827D260D100766DBE /* CarouselItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselItem.swift; sourceTree = "<group>"; };
 		4EC7F27727B272EC0078F953 /* SlingshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlingshotController.swift; sourceTree = "<group>"; };
 		4EC7F27E27B275F70078F953 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
@@ -453,13 +473,35 @@
 			isa = PBXGroup;
 			children = (
 				4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */,
+				4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */,
+				4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */,
 			);
 			path = Browse;
+			sourceTree = "<group>";
+		};
+		4EBA840627D1049700766DBE /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				4EBA840727D104A300766DBE /* HTTPRequest.swift */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
+		4EBA841327D253B000766DBE /* Carousel */ = {
+			isa = PBXGroup;
+			children = (
+				4EBA841827D260D100766DBE /* CarouselItem.swift */,
+				4EBA841427D2575A00766DBE /* CarouselViewController.swift */,
+				4EBA841627D260B500766DBE /* CarouselItemCollectionViewCell.swift */,
+				4EBA841127D253AC00766DBE /* CarouselCollectionViewContainingCell.swift */,
+			);
+			path = Carousel;
 			sourceTree = "<group>";
 		};
 		4EC7F2A127B555A20078F953 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4EBA840627D1049700766DBE /* HTTP */,
 				4EC7F2A627B556040078F953 /* App */,
 				893952FC220B5CE400995109 /* Console */,
 				4EC7F2A327B555BD0078F953 /* Device */,
@@ -618,6 +660,7 @@
 				4EC7F29B27B3A19F0078F953 /* RootViewController.swift */,
 				4EC7F29D27B3A5930078F953 /* MacSidebarViewController.swift */,
 				893884DF2550C20200365326 /* Common */,
+				4EBA841327D253B000766DBE /* Carousel */,
 				89829D462620CE2E00BB780D /* Console */,
 				89E47661260D4DCE009152C1 /* Home */,
 				89114C67254C95B5003A7362 /* Packages */,
@@ -665,6 +708,8 @@
 				893CCD21256457A900656810 /* ZBSelectionViewController.m */,
 				89B701D32641CAAA00F50DAD /* ZBErrorViewController.h */,
 				89B701D42641CAAA00F50DAD /* ZBErrorViewController.mm */,
+				4EBA840B27D1F9A100766DBE /* SectionHeaderView.swift */,
+				4EBA840D27D21F4700766DBE /* InfoFooterView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -794,7 +839,7 @@
 			isa = PBXGroup;
 			children = (
 				4E9FC886279061D600934FFE /* Color.swift */,
-				4E9FC89127910AD200934FFE /* Font.swift */,
+				4E9FC89127910AD200934FFE /* UIFont+Additions.swift */,
 				8937CA2F23C3DFD400A4644C /* UINavigationBar+Extensions.h */,
 				8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */,
 				89AD450223CA4F010008831F /* UIImageView+Zebra.h */,
@@ -812,6 +857,7 @@
 				4EC7F29427B393870078F953 /* UIApplication+Additions.swift */,
 				4EA26E8D27C9CC070019A5AA /* NSUserActivity+Additions.swift */,
 				4E339B7F27D0E45300F013C1 /* URL+Additions.swift */,
+				4EBA840F27D22F1300766DBE /* UINavigationBarAppearance+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1192,6 +1238,7 @@
 				4EC7F28727B291F30078F953 /* Device.swift in Sources */,
 				894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.mm in Sources */,
+				4EBA840A27D10DB100766DBE /* SourceCollectionViewCell.swift in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */,
 				4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */,
 				499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */,
@@ -1218,16 +1265,20 @@
 				89B701D52641CAAA00F50DAD /* ZBErrorViewController.mm in Sources */,
 				894EAB55261D5C4C00552235 /* ZBSidebarController.mm in Sources */,
 				89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */,
+				4EBA841227D253AC00766DBE /* CarouselCollectionViewContainingCell.swift in Sources */,
 				4E9FC887279061D600934FFE /* Color.swift in Sources */,
 				36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */,
 				4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */,
 				896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */,
 				4EC7F2A027B53D990078F953 /* FileImportController.swift in Sources */,
+				4EBA841527D2575A00766DBE /* CarouselViewController.swift in Sources */,
 				895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */,
 				4E9FC8892790637F00934FFE /* Preferences.swift in Sources */,
 				4EC7F29E27B3A5930078F953 /* MacSidebarViewController.swift in Sources */,
+				4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */,
+				4EBA840C27D1F9A100766DBE /* SectionHeaderView.swift in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
-				4E9FC89227910AD200934FFE /* Font.swift in Sources */,
+				4E9FC89227910AD200934FFE /* UIFont+Additions.swift in Sources */,
 				E193C67C277A8E0100B2469E /* PackageDepictionViewController.swift in Sources */,
 				4EC7F29527B393870078F953 /* UIApplication+Additions.swift in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */,
@@ -1248,6 +1299,7 @@
 				4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */,
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
 				4EC7F28F27B2B55C0078F953 /* URLController.swift in Sources */,
+				4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */,
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
 				E1428E6F27791624005B0885 /* Canister.swift in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageViewController.mm in Sources */,
@@ -1264,6 +1316,7 @@
 				89A75F602606ECF100FB6422 /* ZBSourceViewController.mm in Sources */,
 				89BAE2EE261A8F1D0063BA22 /* PLPackage+Zebra.mm in Sources */,
 				4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */,
+				4EBA840527D0FC0B00766DBE /* RedditNewsFetcher.swift in Sources */,
 				E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */,
 				894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */,
@@ -1272,9 +1325,12 @@
 				499B0E25246B8437008825E4 /* ZBBoldTableViewHeaderView.m in Sources */,
 				891551582560A496005AF405 /* ZBPackageFilterViewController.m in Sources */,
 				896B2B53259FA2170082A62E /* ZBSourceListViewController.mm in Sources */,
+				4EBA840E27D21F4700766DBE /* InfoFooterView.swift in Sources */,
+				4EBA841727D260B500766DBE /* CarouselItemCollectionViewCell.swift in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.mm in Sources */,
 				4EC7F29327B3714A0078F953 /* AppSceneDelegate.swift in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,
+				4EBA841027D22F1300766DBE /* UINavigationBarAppearance+Extensions.swift in Sources */,
 				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
 				4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */,
 			);
