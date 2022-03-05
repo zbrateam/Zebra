@@ -9,41 +9,19 @@
 import UIKit
 import os.log
 
-class BrowseViewController: UICollectionViewController {
+class BrowseViewController: ListCollectionViewController {
 
 	private var sources = [PLSource]()
 
 	private var newsItems: [CarouselItem]?
 
-	init() {
-		let layout = UICollectionViewFlowLayout()
-		layout.itemSize = CGSize(width: 320, height: 57)
-		layout.minimumInteritemSpacing = 0
-		layout.minimumLineSpacing = 0
-		layout.sectionHeadersPinToVisibleBounds = true
-		super.init(collectionViewLayout: layout)
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		title = .localize("Browse")
-		navigationItem.standardAppearance = .withoutSeparator
 
-		collectionView.backgroundColor = .systemBackground
-		collectionView.alwaysBounceVertical = true
 		collectionView.register(SourceCollectionViewCell.self, forCellWithReuseIdentifier: "SourceCell")
 		collectionView.register(CarouselCollectionViewContainingCell.self, forCellWithReuseIdentifier: "CarouselCell")
-		collectionView.register(UICollectionReusableView.self,
-														forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-														withReuseIdentifier: "EmptyHeader")
-		collectionView.register(SectionHeaderView.self,
-														forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-														withReuseIdentifier: "Header")
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -64,10 +42,6 @@ class BrowseViewController: UICollectionViewController {
 		NotificationCenter.default.removeObserver(self, name: PLSourceManager.sourceListDidUpdateNotification, object: nil)
 	}
 
-	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-		collectionViewLayout.invalidateLayout()
-	}
-
 	// MARK: - Sources
 
 	@objc private func sourcesDidUpdate() {
@@ -77,6 +51,13 @@ class BrowseViewController: UICollectionViewController {
 	}
 
 	// MARK: - News
+
+	private var carouselViewController: CarouselViewController? {
+		if let cell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? CarouselCollectionViewContainingCell {
+			return cell.viewController
+		}
+		return nil
+	}
 
 	private func fetchNews() {
 		Task(priority: .medium) {
@@ -94,19 +75,20 @@ class BrowseViewController: UICollectionViewController {
 															imageURL: item.thumbnail)
 				}
 				await MainActor.run {
-					self.collectionView.reloadItems(at: [
-						IndexPath(item: 0, section: 0)
-					])
+					self.carouselViewController?.items = newsItems!
 				}
 			} catch {
 				os_log("Loading news failed: %@", String(describing: error))
+				await MainActor.run {
+					self.carouselViewController?.isError = true
+				}
 			}
 		}
 	}
 
 }
 
-extension BrowseViewController: UICollectionViewDelegateFlowLayout { // UICollectionViewDataSource, UICollectionViewDelegate
+extension BrowseViewController { // UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 
 	private enum Section: Int, CaseIterable {
 		case news, sources
@@ -138,16 +120,23 @@ extension BrowseViewController: UICollectionViewDelegateFlowLayout { // UICollec
 		}
 	}
 
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		switch Section(rawValue: indexPath.section)! {
 		case .news:
 			return CGSize(width: collectionView.frame.size.width, height: CarouselViewController.height)
 
 		case .sources:
-			let layout = collectionViewLayout as! UICollectionViewFlowLayout
-			var size = layout.itemSize
-			size.width = collectionView.frame.size.width - collectionView.safeAreaInsets.left - collectionView.safeAreaInsets.right
-			return size
+			return super.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
+		}
+	}
+
+	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+		switch Section(rawValue: section)! {
+		case .news:
+			return .zero
+
+		case .sources:
+			return super.collectionView(collectionView, layout: collectionViewLayout, insetForSectionAt: section)
 		}
 	}
 
@@ -163,7 +152,7 @@ extension BrowseViewController: UICollectionViewDelegateFlowLayout { // UICollec
 		}
 	}
 
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 		switch Section(rawValue: section)! {
 		case .news:
 			return .zero

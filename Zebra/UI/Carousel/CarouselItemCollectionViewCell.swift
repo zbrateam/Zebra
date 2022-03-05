@@ -20,13 +20,14 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 	private var titleLabel: UILabel!
 	private var detailLabel: UILabel!
 	private var chevronImageView: UIImageView!
+	private var highlightView: UIView!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
 		imageView = UIImageView(frame: bounds)
 		imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		imageView.backgroundColor = .tertiarySystemBackground
+		imageView.backgroundColor = .systemBackground
 		imageView.contentMode = .scaleAspectFill
 		imageView.clipsToBounds = true
 		imageView.layer.cornerRadius = 20
@@ -37,11 +38,20 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 
 		let overlayView = UIView(frame: bounds)
 		overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		overlayView.backgroundColor = .black.withAlphaComponent(0.1)
+		overlayView.backgroundColor = .black.withAlphaComponent(0.25)
 		overlayView.clipsToBounds = true
 		overlayView.layer.cornerRadius = 20
 		overlayView.layer.cornerCurve = .continuous
 		contentView.addSubview(overlayView)
+
+		highlightView = UIView(frame: bounds)
+		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		highlightView.backgroundColor = .black.withAlphaComponent(0.4)
+		highlightView.alpha = 0
+		highlightView.clipsToBounds = true
+		highlightView.layer.cornerRadius = 20
+		highlightView.layer.cornerCurve = .continuous
+		contentView.addSubview(highlightView)
 
 		titleLabel = UILabel()
 		titleLabel.font = .preferredFont(forTextStyle: .title2, weight: .bold)
@@ -50,7 +60,7 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 
 		detailLabel = UILabel()
 		detailLabel.font = .preferredFont(forTextStyle: .subheadline, weight: .bold)
-		detailLabel.textColor = UIColor(white: 163 / 255, alpha: 0.8)
+		detailLabel.textColor = UIColor(white: 0.9, alpha: 0.9)
 
 		let labelStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
 		labelStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +87,18 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 		titleLabel.text = item.title
 		detailLabel.text = item.subtitle
 		imageView.sd_setImage(with: item.imageURL)
+	}
+
+	override var isHighlighted: Bool {
+		didSet {
+			if isHighlighted {
+				highlightView.alpha = 1
+			} else {
+				UIView.animate(withDuration: 0.3) {
+					self.highlightView.alpha = 0
+				}
+			}
+		}
 	}
 
 }

@@ -10,4 +10,11 @@ extension String {
 	var cString: UnsafeMutablePointer<CChar>? {
 		withCString(strdup)
 	}
+
+	func replacingOccurrences(regex: String, with replacement: String, options: CompareOptions = []) -> Self {
+		replacingOccurrences(of: regex,
+												 with: replacement,
+												 options: options.union(.regularExpression),
+												 range: startIndex..<endIndex)
+	}
 }

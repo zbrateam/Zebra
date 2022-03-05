@@ -15,7 +15,6 @@
 		367D80F522C3D1CF00581D60 /* ZBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F322C3D1CF00581D60 /* ZBSettingsViewController.m */; };
 		369CF11322DA2361007EA0F7 /* ZBPackageFilesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 369CF11222DA2361007EA0F7 /* ZBPackageFilesViewController.mm */; };
 		36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FA230A1616002694BE /* ZBUserInfo.m */; };
-		36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FF230A485B002694BE /* ZBRedditPosts.m */; };
 		36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */; };
 		49009A642471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49009A622471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m */; };
 		49009A652471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49009A632471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib */; };
@@ -63,6 +62,8 @@
 		4EBA841527D2575A00766DBE /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841427D2575A00766DBE /* CarouselViewController.swift */; };
 		4EBA841727D260B500766DBE /* CarouselItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841627D260B500766DBE /* CarouselItemCollectionViewCell.swift */; };
 		4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841827D260D100766DBE /* CarouselItem.swift */; };
+		4EBA841B27D3119800766DBE /* IconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841A27D3119800766DBE /* IconImageView.swift */; };
+		4EBA841E27D33EBE00766DBE /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */; };
 		4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27727B272EC0078F953 /* SlingshotController.swift */; };
 		4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27E27B275F70078F953 /* String+Localization.swift */; };
 		4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */; };
@@ -178,8 +179,6 @@
 		369CF11222DA2361007EA0F7 /* ZBPackageFilesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPackageFilesViewController.mm; sourceTree = "<group>"; };
 		36A1D8F9230A1616002694BE /* ZBUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUserInfo.h; sourceTree = "<group>"; };
 		36A1D8FA230A1616002694BE /* ZBUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBUserInfo.m; sourceTree = "<group>"; };
-		36A1D8FF230A485B002694BE /* ZBRedditPosts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBRedditPosts.m; sourceTree = "<group>"; };
-		36A1D900230A485B002694BE /* ZBRedditPosts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBRedditPosts.h; sourceTree = "<group>"; };
 		36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBPurchaseInfo.m; sourceTree = "<group>"; };
 		36A1D903230A56A5002694BE /* ZBPurchaseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBPurchaseInfo.h; sourceTree = "<group>"; };
 		49009A612471D442005CA2E2 /* ZBScreenshotCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBScreenshotCollectionViewCell.h; sourceTree = "<group>"; };
@@ -237,6 +236,8 @@
 		4EBA841427D2575A00766DBE /* CarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
 		4EBA841627D260B500766DBE /* CarouselItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EBA841827D260D100766DBE /* CarouselItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselItem.swift; sourceTree = "<group>"; };
+		4EBA841A27D3119800766DBE /* IconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageView.swift; sourceTree = "<group>"; };
+		4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		4EC7F27727B272EC0078F953 /* SlingshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlingshotController.swift; sourceTree = "<group>"; };
 		4EC7F27E27B275F70078F953 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
@@ -448,8 +449,6 @@
 			children = (
 				36A1D8F9230A1616002694BE /* ZBUserInfo.h */,
 				36A1D8FA230A1616002694BE /* ZBUserInfo.m */,
-				36A1D900230A485B002694BE /* ZBRedditPosts.h */,
-				36A1D8FF230A485B002694BE /* ZBRedditPosts.m */,
 				36A1D903230A56A5002694BE /* ZBPurchaseInfo.h */,
 				36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */,
 				899229FB242815E90086E2F4 /* ZBSourceInfo.h */,
@@ -496,6 +495,14 @@
 				4EBA841127D253AC00766DBE /* CarouselCollectionViewContainingCell.swift */,
 			);
 			path = Carousel;
+			sourceTree = "<group>";
+		};
+		4EBA841C27D33EAC00766DBE /* List */ = {
+			isa = PBXGroup;
+			children = (
+				4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		4EC7F2A127B555A20078F953 /* Controllers */ = {
@@ -663,6 +670,7 @@
 				4EBA841327D253B000766DBE /* Carousel */,
 				89829D462620CE2E00BB780D /* Console */,
 				89E47661260D4DCE009152C1 /* Home */,
+				4EBA841C27D33EAC00766DBE /* List */,
 				89114C67254C95B5003A7362 /* Packages */,
 				8987E0E9261B96FD00859BA8 /* Queue */,
 				8983790425507D760066DCA7 /* Search */,
@@ -710,6 +718,7 @@
 				89B701D42641CAAA00F50DAD /* ZBErrorViewController.mm */,
 				4EBA840B27D1F9A100766DBE /* SectionHeaderView.swift */,
 				4EBA840D27D21F4700766DBE /* InfoFooterView.swift */,
+				4EBA841A27D3119800766DBE /* IconImageView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1267,7 +1276,6 @@
 				89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */,
 				4EBA841227D253AC00766DBE /* CarouselCollectionViewContainingCell.swift in Sources */,
 				4E9FC887279061D600934FFE /* Color.swift in Sources */,
-				36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */,
 				4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */,
 				896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */,
 				4EC7F2A027B53D990078F953 /* FileImportController.swift in Sources */,
@@ -1276,6 +1284,7 @@
 				4E9FC8892790637F00934FFE /* Preferences.swift in Sources */,
 				4EC7F29E27B3A5930078F953 /* MacSidebarViewController.swift in Sources */,
 				4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */,
+				4EBA841B27D3119800766DBE /* IconImageView.swift in Sources */,
 				4EBA840C27D1F9A100766DBE /* SectionHeaderView.swift in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
 				4E9FC89227910AD200934FFE /* UIFont+Additions.swift in Sources */,
@@ -1330,6 +1339,7 @@
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.mm in Sources */,
 				4EC7F29327B3714A0078F953 /* AppSceneDelegate.swift in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,
+				4EBA841E27D33EBE00766DBE /* ListCollectionViewController.swift in Sources */,
 				4EBA841027D22F1300766DBE /* UINavigationBarAppearance+Extensions.swift in Sources */,
 				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
 				4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */,
@@ -1541,7 +1551,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1598,7 +1608,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1652,7 +1662,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1731,7 +1741,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

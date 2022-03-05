@@ -14,7 +14,7 @@ class SourceCollectionViewCell: UICollectionViewCell {
 		didSet { updateSource() }
 	}
 
-	private var imageView: UIImageView!
+	private var imageView: IconImageView!
 	private var titleLabel: UILabel!
 	private var detailLabel: UILabel!
 	private var chevronImageView: UIImageView!
@@ -22,7 +22,7 @@ class SourceCollectionViewCell: UICollectionViewCell {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
-		imageView = UIImageView()
+		imageView = IconImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 
 		titleLabel = UILabel()
@@ -65,10 +65,37 @@ class SourceCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func updateSource() {
-		titleLabel.text = [source?.origin, source?.uri.host, .localize("Untitled")]
-			.first(where: { item in item?.isEmpty == false })!
 		detailLabel.text = source?.uri.absoluteString
-		imageView.sd_setImage(with: source?.iconURL)
+
+		if let host = source?.uri.host,
+			 let image = UIImage(named: "Repo Icons/\(host)") {
+			imageView.image = image
+		} else {
+			imageView.imageURL = source?.iconURL
+		}
+
+		let pointSize = UIFont.preferredFont(forTextStyle: .body).pointSize
+		let symbolConfig = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .small)
+		if let messages = source?.messages,
+			 !messages.isEmpty {
+			titleLabel.text = .localize("Failed to load")
+			titleLabel.textColor = .systemRed
+			chevronImageView.image = UIImage(systemName: "exclamationmark.circle",
+																			 withConfiguration: symbolConfig.configurationWithoutScale())
+			chevronImageView.tintColor = .systemRed
+		} else {
+			titleLabel.text = source?.origin ?? .localize("Untitled")
+			titleLabel.textColor = .label
+			chevronImageView.image = UIImage(systemName: "chevron.right",
+																			 withConfiguration: symbolConfig)
+			chevronImageView.tintColor = .tertiaryLabel
+		}
+	}
+
+	override var isHighlighted: Bool {
+		didSet {
+			backgroundColor = isHighlighted ? .systemGray4 : nil
+		}
 	}
 
 }

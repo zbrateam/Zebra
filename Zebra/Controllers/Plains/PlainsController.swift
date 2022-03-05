@@ -45,6 +45,7 @@ class PlainsController {
 
 		// Set the primary architecture
 		config.set(string: Device.primaryDebianArchitecture, forKey: "APT::Architecture")
+		config.set(string: Device.primaryDebianArchitecture, forKey: "APT::Architectures::")
 
 		// Allow unsigned repos only on iOS
 		#if !targetEnvironment(macCatalyst)

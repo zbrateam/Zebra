@@ -31,7 +31,7 @@ class URLController: NSObject {
 	@objc static var webHeaders: [String: String] {
 		[
 			"User-Agent": webUserAgent,
-			"X-Firmware": UIDevice.current.systemVersion,
+			"X-Firmware": UIDevice.current.osVersion,
 			"X-Machine": UIDevice.current.machine,
 			"Payment-Provider": "API",
 			"Tint-Color": (UIColor.accent ?? UIColor.link).hexString,
@@ -47,9 +47,12 @@ class URLController: NSObject {
 
 	// MARK: - UI
 
-	@objc(openURL:sender:)
 	@discardableResult
-	class func open(url: URL, sender: UIViewController? = nil) -> Bool {
+	class func open(url: URL, sender: UIViewController? = nil, webSchemesOnly: Bool = false) -> Bool {
+		if webSchemesOnly && url.scheme != "http" && url.scheme != "https" {
+			return false
+		}
+
 		let actualSender: UIViewController
 		if let sender = sender {
 			actualSender = sender
@@ -88,6 +91,12 @@ class URLController: NSObject {
 			return true
 		}
 		return false
+	}
+
+	@objc(openURL:sender:)
+	@discardableResult
+	class func __openURLObjC(url: URL, sender: UIViewController) -> Bool {
+		open(url: url, sender: sender)
 	}
 
 	private class func openExternal(url: URL, sender: UIViewController) {
