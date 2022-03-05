@@ -65,7 +65,18 @@ class SourceCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func updateSource() {
-		detailLabel.text = source?.uri.absoluteString
+		if let url = source?.uri {
+			var urlString = url.absoluteString
+			if urlString.starts(with: "http://") || urlString.starts(with: "https://") {
+				urlString = urlString.replacingOccurrences(regex: "^https?://", with: "")
+			}
+			if urlString.last == "/" {
+				urlString.removeLast()
+			}
+			detailLabel.text = urlString
+		} else {
+			detailLabel.text = nil
+		}
 
 		if let host = source?.uri.host,
 			 let image = UIImage(named: "Repo Icons/\(host)") {

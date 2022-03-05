@@ -105,7 +105,7 @@ class URLController: NSObject {
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		#else
 		// Safari view controller can only open http/https urls.
-		guard url.scheme == "http" || url.scheme == "https" else {
+		guard (url.scheme == "http" || url.scheme == "https") && Workspace.isSafariDefaultBrowser() else {
 			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			return
 		}

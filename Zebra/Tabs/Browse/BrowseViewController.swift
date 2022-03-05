@@ -46,8 +46,47 @@ class BrowseViewController: ListCollectionViewController {
 
 	@objc private func sourcesDidUpdate() {
 		sources = PLSourceManager.shared.sources
-			.sorted(by: { a, b in a.label < b.label })
+			.sorted(by: { a, b in a.origin < b.origin })
 		collectionView.reloadData()
+	}
+
+	@objc private func copySource(_ sender: UICommand) {
+		let item = sources[sender.propertyList as! Int]
+		UIPasteboard.general.string = item.uri.absoluteString
+	}
+
+	@objc private func shareSource(_ sender: UICommand) {
+		let index = sender.propertyList as! Int
+		guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 1)) else {
+			return
+		}
+		let item = sources[index]
+		let viewController = UIActivityViewController(activityItems: [item.uri], applicationActivities: nil)
+		viewController.popoverPresentationController?.sourceView = cell
+		viewController.popoverPresentationController?.sourceRect = cell.bounds
+		present(viewController, animated: true, completion: nil)
+	}
+
+	@objc private func openSourceInSafari(_ sender: UICommand) {
+		let item = sources[sender.propertyList as! Int]
+		var url = URLComponents(url: item.uri, resolvingAgainstBaseURL: true)!
+		url.path = "/"
+		URLController.open(url: url.url!, sender: self, webSchemesOnly: true)
+	}
+
+	@objc private func removeSource(_ sender: UICommand) {
+		let index = sender.propertyList as! Int
+		remove(source: sources[index])
+	}
+
+	private func remove(source: PLSource) {
+		let index = sources.firstIndex(of: source)
+		PLSourceManager.shared.removeSource(source)
+		if let index = index {
+			collectionView.deleteItems(at: [ IndexPath(item: index, section: 1) ])
+		} else {
+			collectionView.reloadData()
+		}
 	}
 
 	// MARK: - News
@@ -100,7 +139,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch Section(rawValue: section)! {
-		case .news:    return 1
+		case .news:    return ZBSettings.wantsCommunityNews() ? 1 : 0
 		case .sources: return sources.count
 		}
 	}
@@ -137,6 +176,49 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 
 		case .sources:
 			return super.collectionView(collectionView, layout: collectionViewLayout, insetForSectionAt: section)
+		}
+	}
+
+	override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+		switch Section(rawValue: indexPath.section)! {
+		case .news:
+			return nil
+
+		case .sources:
+			let item = sources[indexPath.item]
+			return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: nil, actionProvider: { _ in
+				UIMenu(children: [
+					UICommand(title: .openInBrowser,
+										image: UIImage(systemName: "safari"),
+										action: #selector(self.openSourceInSafari),
+										propertyList: indexPath.item),
+					UICommand(title: .copy,
+										image: UIImage(systemName: "doc.on.doc"),
+										action: #selector(self.copySource),
+										propertyList: indexPath.item),
+					UICommand(title: .share,
+										image: UIImage(systemName: "square.and.arrow.up"),
+										action: #selector(self.shareSource),
+										propertyList: indexPath.item)
+				] + (item.canRemove ? [
+					UICommand(title: .delete,
+										image: UIImage(systemName: "trash"),
+										action: #selector(self.removeSource),
+										propertyList: indexPath.item,
+										attributes: .destructive)
+				] : []))
+			})
+		}
+	}
+
+	override func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
+		switch Section(rawValue: indexPath.section)! {
+		case .news:
+			return false
+
+		case .sources:
+			let item = sources[indexPath.item]
+			return item.canRemove
 		}
 	}
 

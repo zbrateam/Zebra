@@ -64,6 +64,7 @@
 		4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841827D260D100766DBE /* CarouselItem.swift */; };
 		4EBA841B27D3119800766DBE /* IconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841A27D3119800766DBE /* IconImageView.swift */; };
 		4EBA841E27D33EBE00766DBE /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */; };
+		4EBA842227D38B7400766DBE /* ZBWorkspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA842127D38B7400766DBE /* ZBWorkspace.m */; };
 		4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27727B272EC0078F953 /* SlingshotController.swift */; };
 		4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27E27B275F70078F953 /* String+Localization.swift */; };
 		4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */; };
@@ -238,6 +239,8 @@
 		4EBA841827D260D100766DBE /* CarouselItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselItem.swift; sourceTree = "<group>"; };
 		4EBA841A27D3119800766DBE /* IconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageView.swift; sourceTree = "<group>"; };
 		4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
+		4EBA842027D38B7400766DBE /* ZBWorkspace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWorkspace.h; sourceTree = "<group>"; };
+		4EBA842127D38B7400766DBE /* ZBWorkspace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWorkspace.m; sourceTree = "<group>"; };
 		4EC7F27727B272EC0078F953 /* SlingshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlingshotController.swift; sourceTree = "<group>"; };
 		4EC7F27E27B275F70078F953 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
@@ -503,6 +506,15 @@
 				4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		4EBA841F27D38B4E00766DBE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4EBA842027D38B7400766DBE /* ZBWorkspace.h */,
+				4EBA842127D38B7400766DBE /* ZBWorkspace.m */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		4EC7F2A127B555A20078F953 /* Controllers */ = {
@@ -904,6 +916,7 @@
 				892F4E1D25337D3D00BAB3A5 /* Model */,
 				89FEBC1B22C293E100B58662 /* Tabs */,
 				89337A2F253652D50065C4C1 /* UI */,
+				4EBA841F27D38B4E00766DBE /* Utilities */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
 				4EC7F2A827B556360078F953 /* Supporting Files */,
 			);
@@ -1259,6 +1272,7 @@
 				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				E193C66A277A47E700B2469E /* SourceTableViewCell.swift in Sources */,
+				4EBA842227D38B7400766DBE /* ZBWorkspace.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */,
 				4EC7F28527B28D770078F953 /* Command.swift in Sources */,
 				75D0A77F24A014D2007D84EF /* ZBPreferencesViewController.m in Sources */,

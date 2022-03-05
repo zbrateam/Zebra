@@ -101,11 +101,21 @@ class CarouselViewController: UICollectionViewController {
 	}
 
 	@objc private func copyItem(_ sender: UICommand) {
-		guard let urlString = sender.propertyList as? String,
-					let url = URL(string: urlString) else {
+		let index = sender.propertyList as! Int
+		let item = items[index]
+		UIPasteboard.general.url = item.url
+	}
+
+	@objc private func shareItem(_ sender: UICommand) {
+		let index = sender.propertyList as! Int
+		guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) else {
 			return
 		}
-		UIPasteboard.general.url = url
+		let item = items[index]
+		let viewController = UIActivityViewController(activityItems: [item.url], applicationActivities: nil)
+		viewController.popoverPresentationController?.sourceView = cell
+		viewController.popoverPresentationController?.sourceRect = cell.bounds
+		present(viewController, animated: true, completion: nil)
 	}
 
 }
@@ -127,7 +137,6 @@ extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UIColl
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-		let item = items[indexPath.item]
 		return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
 			// TODO
 			return nil
@@ -136,7 +145,11 @@ extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UIColl
 				UICommand(title: .copy,
 									image: UIImage(systemName: "doc.on.doc"),
 									action: #selector(self.copyItem),
-									propertyList: item.url.absoluteString)
+									propertyList: indexPath.item),
+				UICommand(title: .share,
+									image: UIImage(systemName: "square.and.arrow.up"),
+									action: #selector(self.shareItem),
+									propertyList: indexPath.item)
 			])
 		})
 	}

@@ -16,6 +16,11 @@ public extension String {
 		NSLocalizedString(key, tableName: tableName, bundle: bundle ?? .main, comment: comment)
 	}
 
+	static var openInBrowser: String {
+		let app = Workspace.appNameForOpening(url: URL(string: "https://")!) ?? "Safari"
+		return String(format: .localize("Open in %@"), app)
+	}
+
 #if os(iOS)
 	private static let uikitBundle = Bundle(for: UIView.self)
 
@@ -28,5 +33,7 @@ public extension String {
 	static var `continue`: String { .localize("Continue", bundle: uikitBundle) }
 	static var add: String        { .localize("Add",      bundle: uikitBundle) }
 	static var copy: String       { .localize("Copy",     bundle: uikitBundle) }
+	static var delete: String     { .localize("Delete",   bundle: uikitBundle) }
+	static var share: String      { .localize("Share",    bundle: uikitBundle) }
 #endif
 }
