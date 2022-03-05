@@ -14,14 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBTabBarController : UITabBarController <UIGestureRecognizerDelegate>
-@property (nonatomic, strong) NSString * _Nullable forwardToPackageID;
-@property (nonatomic, strong) NSString * _Nullable forwardedSourceBaseURL;
-- (void)openQueue:(BOOL)openPopup;
-- (void)updateQueueBar;
-- (void)forwardToPackage;
-- (void)updateQueueBarPackageCount;
-- (void)closeQueue;
-- (void)refreshSources:(BOOL)userRequested;
+
 @end
 
 NS_ASSUME_NONNULL_END

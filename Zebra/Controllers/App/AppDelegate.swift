@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		SDImageCache.shared.config.maxDiskAge = 1 * 24 * 60 * 60 // 1 day
 
+		UITabBarItem.appearance().badgeColor = .badge
+
 		return true
 	}
 

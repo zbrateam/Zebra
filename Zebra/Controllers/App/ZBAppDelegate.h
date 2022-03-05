@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class ZBTabBarController;
-
 extern NSString * const ZBUserWillTakeScreenshotNotification;
 extern NSString * const ZBUserDidTakeScreenshotNotification;
 
