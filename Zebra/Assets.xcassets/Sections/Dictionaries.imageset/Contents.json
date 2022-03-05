@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "Dictionaries.pdf",
+      "filename" : "Dictionaries.png",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "template-rendering-intent" : "original"
   }
 }

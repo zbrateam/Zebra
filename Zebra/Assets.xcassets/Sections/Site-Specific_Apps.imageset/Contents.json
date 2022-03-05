@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "Site-Specific_Apps.pdf",
+      "filename" : "Site_Specific_Apps.png",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "template-rendering-intent" : "original"
   }
 }

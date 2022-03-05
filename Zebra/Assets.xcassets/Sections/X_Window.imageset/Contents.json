@@ -1,15 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "X_Window.pdf",
+      "filename" : "X_Window.png",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "template-rendering-intent" : "original"
   }
 }
