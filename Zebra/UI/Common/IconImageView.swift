@@ -30,6 +30,7 @@ class IconImageView: UIView {
 		backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		backgroundView.clipsToBounds = true
 		backgroundView.backgroundColor = .secondarySystemBackground
+		backgroundView.layer.cornerCurve = .continuous
 		addSubview(backgroundView)
 
 		imageView = UIImageView(frame: bounds)
@@ -39,6 +40,7 @@ class IconImageView: UIView {
 		imageView.layer.cornerCurve = .continuous
 		imageView.layer.minificationFilter = .trilinear
 		imageView.layer.magnificationFilter = .trilinear
+		imageView.sd_imageTransition = .fade(duration: 0.2)
 		addSubview(imageView)
 
 		borderView = UIView(frame: bounds)
@@ -56,7 +58,7 @@ class IconImageView: UIView {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
-		let cornerRadius = (13 / 60) * frame.size.width
+		let cornerRadius = 0.2237 * frame.size.width
 		backgroundView.layer.cornerRadius = cornerRadius
 		imageView.layer.cornerRadius = cornerRadius
 		borderView.layer.cornerRadius = cornerRadius

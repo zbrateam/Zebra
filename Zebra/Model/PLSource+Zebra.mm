@@ -22,7 +22,7 @@
         imageName = components[0];
     }
     
-    UIImage *sectionImage = [UIImage imageNamed:imageName] ?: [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Applications/Zebra.app/Sections/%@.png", imageName]] ?: [UIImage imageNamed:@"Unknown"];
+    UIImage *sectionImage = [UIImage imageNamed:imageName] ?: [UIImage imageNamed:@"Unknown"];
     return sectionImage;
 }
 

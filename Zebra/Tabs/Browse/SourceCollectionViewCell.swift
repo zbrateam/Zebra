@@ -80,6 +80,7 @@ class SourceCollectionViewCell: UICollectionViewCell {
 
 		if let host = source?.uri.host,
 			 let image = UIImage(named: "Repo Icons/\(host)") {
+			imageView.imageURL = nil
 			imageView.image = image
 		} else {
 			imageView.imageURL = source?.iconURL

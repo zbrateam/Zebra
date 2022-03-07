@@ -48,7 +48,6 @@ endif
 
 after-stage::
 	chmod 6755 $(THEOS_STAGING_DIR)/usr/libexec/$(LIBEXEC_FOLDER)/supersling
-	$(ECHO_NOTHING)mkdir -p '$(THEOS_STAGING_DIR)/Applications/$(subst ",,$(APP_NAME)).app/Sections'$(ECHO_END)
 	$(ECHO_NOTHING)rm -f '$(THEOS_STAGING_DIR)/Applications/$(subst ",,$(APP_NAME)).app/Installed.pack'$(ECHO_END)
 
 ifdef NO_LAUNCH

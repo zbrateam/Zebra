@@ -18,6 +18,7 @@
 #import "ZBPackageListViewController.h"
 #import "ZBPackageViewController.h"
 #import "ZBSettingsViewController.h"
+#import "ZBSourceAddViewController.h"
 #import "ZBWorkspace.h"
 
 @interface UIApplication ()

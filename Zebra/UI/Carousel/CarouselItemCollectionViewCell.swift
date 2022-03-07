@@ -34,11 +34,16 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 		imageView.layer.cornerCurve = .continuous
 		imageView.layer.minificationFilter = .trilinear
 		imageView.layer.magnificationFilter = .trilinear
+		imageView.sd_imageTransition = .fade(duration: 0.2)
 		contentView.addSubview(imageView)
 
-		let overlayView = UIView(frame: bounds)
+		let overlayView = GradientView(frame: bounds)
 		overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		overlayView.backgroundColor = .black.withAlphaComponent(0.25)
+		overlayView.colors = [
+			.black.withAlphaComponent(0.15),
+			.black.withAlphaComponent(0.25),
+			.black.withAlphaComponent(0.45)
+		]
 		overlayView.clipsToBounds = true
 		overlayView.layer.cornerRadius = 20
 		overlayView.layer.cornerCurve = .continuous
@@ -57,10 +62,18 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 		titleLabel.font = .preferredFont(forTextStyle: .title2, weight: .bold)
 		titleLabel.textColor = .white
 		titleLabel.numberOfLines = 2
+		titleLabel.layer.shadowColor = UIColor.black.cgColor
+		titleLabel.layer.shadowOffset = .zero
+		titleLabel.layer.shadowRadius = 3
+		titleLabel.layer.shadowOpacity = 0.5
 
 		detailLabel = UILabel()
 		detailLabel.font = .preferredFont(forTextStyle: .subheadline, weight: .bold)
 		detailLabel.textColor = UIColor(white: 0.9, alpha: 0.9)
+		detailLabel.layer.shadowColor = UIColor.black.cgColor
+		detailLabel.layer.shadowOffset = .zero
+		detailLabel.layer.shadowRadius = 3
+		detailLabel.layer.shadowOpacity = 0.5
 
 		let labelStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
 		labelStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,10 +85,7 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 		NSLayoutConstraint.activate([
 			labelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
 			labelStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-			labelStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-
-			imageView.widthAnchor.constraint(equalToConstant: 40),
-			imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+			labelStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
 		])
 	}
 
@@ -86,7 +96,10 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 	private func updateItem() {
 		titleLabel.text = item.title
 		detailLabel.text = item.subtitle
-		imageView.sd_setImage(with: item.imageURL)
+		imageView.sd_setImage(with: item.imageURL,
+													placeholderImage: UIImage(named: "banner-fallback"),
+													options: .delayPlaceholder,
+													context: nil)
 	}
 
 	override var isHighlighted: Bool {

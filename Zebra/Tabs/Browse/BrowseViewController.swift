@@ -22,6 +22,12 @@ class BrowseViewController: ListCollectionViewController {
 
 		collectionView.register(SourceCollectionViewCell.self, forCellWithReuseIdentifier: "SourceCell")
 		collectionView.register(CarouselCollectionViewContainingCell.self, forCellWithReuseIdentifier: "CarouselCell")
+
+		#if !targetEnvironment(macCatalyst)
+		let refreshControl = UIRefreshControl()
+		refreshControl.addTarget(nil, action: #selector(RootViewController.refreshSources), for: .valueChanged)
+		collectionView.refreshControl = refreshControl
+		#endif
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -45,9 +51,20 @@ class BrowseViewController: ListCollectionViewController {
 	// MARK: - Sources
 
 	@objc private func sourcesDidUpdate() {
-		sources = PLSourceManager.shared.sources
-			.sorted(by: { a, b in a.origin < b.origin })
-		collectionView.reloadData()
+		DispatchQueue.main.async {
+			self.sources = PLSourceManager.shared.sources
+				.sorted(by: { a, b in a.origin < b.origin })
+			self.collectionView.reloadData()
+
+			#if !targetEnvironment(macCatalyst)
+			self.collectionView.refreshControl?.endRefreshing()
+			#endif
+		}
+	}
+
+	@objc private func addSource(_ sender: UIButton) {
+		let viewController = UINavigationController(rootViewController: ZBSourceAddViewController())
+		present(viewController, animated: true)
 	}
 
 	@objc private func copySource(_ sender: UICommand) {
@@ -101,18 +118,14 @@ class BrowseViewController: ListCollectionViewController {
 	private func fetchNews() {
 		Task(priority: .medium) {
 			do {
-				let news = try await RedditNewsFetcher.fetch()
-				newsItems = news.map { item in
-					var cleanedTitle = item.title
-					if item.title.starts(with: "["),
-						 let bracketIndex = item.title.range(of: "] ") {
-						cleanedTitle = String(item.title.suffix(from: bracketIndex.upperBound))
+				if let cachedNews = try RedditNewsFetcher.getCached() {
+					newsItems = cachedNews
+					await MainActor.run {
+						self.carouselViewController?.items = cachedNews
 					}
-					return CarouselItem(title: cleanedTitle,
-															subtitle: item.tag,
-															url: item.url,
-															imageURL: item.thumbnail)
 				}
+
+				newsItems = try await RedditNewsFetcher.fetch()
 				await MainActor.run {
 					self.carouselViewController?.items = newsItems!
 				}
@@ -230,6 +243,15 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 		case .sources:
 			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
 			view.title = .localize("Sources")
+			view.buttons = [
+				SectionHeaderButton(title: .localize("Export"),
+														target: nil,
+														action: #selector(RootViewController.exportSources)),
+				SectionHeaderButton(title: .add,
+														image: UIImage(systemName: "plus"),
+														target: self,
+														action: #selector(addSource))
+			]
 			return view
 		}
 	}

@@ -27,6 +27,9 @@ class Device: NSObject {
 	static let distroEtcPrefix = distroRootPrefix == "/usr" ? "/" : distroRootPrefix
 	static let distroVarPrefix = distroRootPrefix == "/usr" ? "/" : distroRootPrefix
 
+	static let cacheURL = FileManager.default.url(for: .cachesDirectory) / Bundle.main.bundleIdentifier!
+	static let dataURL = FileManager.default.url(for: .applicationSupportDirectory) / Bundle.main.bundleIdentifier!
+
 	@objc static let path: String = {
 		// Construct a safe PATH. This will be set app-wide.
 		// There is some commented code here for Procursus prefixed “rootless” bootstrap in future.

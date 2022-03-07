@@ -11,11 +11,10 @@ import os.log
 
 class PlainsController {
 
-	static let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! / Bundle.main.bundleIdentifier!
-	static let dataURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first! / Bundle.main.bundleIdentifier!
-
 	class func setUp() throws {
 		let config = PLConfig.shared
+		let cacheURL = Device.cacheURL
+		let dataURL = Device.dataURL
 
 		// Create directories
 		for path in ["logs", "archives", "archives/partial"] {
@@ -23,6 +22,9 @@ class PlainsController {
 																							withIntermediateDirectories: true,
 																							attributes: [:])
 		}
+		try FileManager.default.createDirectory(at: dataURL,
+																						withIntermediateDirectories: true,
+																						attributes: [:])
 
 		// Set directories
 		let dpkgStateURL = URL(fileURLWithPath: Device.distroVarPrefix, isDirectory: true)/"var/lib/dpkg"

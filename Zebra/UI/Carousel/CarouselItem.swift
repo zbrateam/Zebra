@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CarouselItem {
+struct CarouselItem: Codable {
 	let title: String
 	let subtitle: String?
 	let url: URL

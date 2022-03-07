@@ -74,13 +74,6 @@ struct RedditMediaSource: Codable {
 	}
 }
 
-struct RedditNewsItem {
-	let title: String
-	let url: URL
-	let thumbnail: URL?
-	let tag: String?
-}
-
 fileprivate extension String {
 	var redditAPIUnescaped: String {
 		self
@@ -92,7 +85,19 @@ fileprivate extension String {
 
 class RedditNewsFetcher {
 
-	static func fetch() async throws -> [RedditNewsItem] {
+	private static let cacheURL = Device.cacheURL/"reddit-news.json"
+
+	static func getCached() -> [CarouselItem]? {
+		do {
+			let json = try Data(contentsOf: cacheURL)
+			return try JSONDecoder().decode([CarouselItem].self, from: json)
+		} catch {
+			// Ignore error, therefore ignoring the local cache
+			return nil
+		}
+	}
+
+	static func fetch() async throws -> [CarouselItem] {
 		var url = URLComponents(string: "https://www.reddit.com/r/jailbreak/search.json")!
 		url.queryItems = [
 			URLQueryItem(name: "q", value: "subreddit:jailbreak (flair:Release OR flair:Update OR flair:Upcoming OR flair:News)"),
@@ -103,10 +108,9 @@ class RedditNewsFetcher {
 		let request = URLRequest(url: url.url!)
 
 		let json: RedditData<RedditListing<RedditPost>> = try await HTTPRequest.json(for: request)
-
-		return json.data.children
+		let items = (json.data.children as [RedditData<RedditPost>])
 			.sorted(by: { a, b in a.data.created > b.data.created })
-			.compactMap { item in
+			.compactMap { item -> CarouselItem? in
 				guard let permalink = item.data.permalink else {
 					return nil
 				}
@@ -130,11 +134,20 @@ class RedditNewsFetcher {
 					}
 				}
 
-				return RedditNewsItem(title: item.data.title.redditAPIUnescaped,
-															url: url.url!,
-															thumbnail: thumbnailURL,
-															tag: item.data.linkFlairCSSClass)
+				var cleanedTitle = item.data.title.redditAPIUnescaped
+				if cleanedTitle.starts(with: "["),
+					 let bracketIndex = cleanedTitle.range(of: "] ") {
+					cleanedTitle = String(cleanedTitle.suffix(from: bracketIndex.upperBound))
+				}
+				return CarouselItem(title: cleanedTitle,
+														subtitle: item.data.linkFlairCSSClass,
+														url: url.url!,
+														imageURL: thumbnailURL)
 			}
+
+		let cacheJSON = try JSONEncoder().encode(items)
+		try cacheJSON.write(to: cacheURL, options: .atomic)
+		return items
 	}
 
 }

@@ -15,7 +15,12 @@ class SectionHeaderView: UICollectionReusableView {
 		set { label.text = newValue }
 	}
 
+	var buttons: [SectionHeaderButton] = [] {
+		didSet { updateButtons() }
+	}
+
 	private var label: UILabel!
+	private var buttonsStackView: UIStackView!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -30,9 +35,14 @@ class SectionHeaderView: UICollectionReusableView {
 		label.font = .preferredFont(forTextStyle: .title2, weight: .bold)
 		label.textColor = .label
 
-		let stackView = UIStackView(arrangedSubviews: [label])
+		buttonsStackView = UIStackView()
+		buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
+		buttonsStackView.spacing = 4
+
+		let stackView = UIStackView(arrangedSubviews: [label, UIView(), buttonsStackView])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.spacing = 15
+		stackView.alignment = .center
 		addSubview(stackView)
 
 		NSLayoutConstraint.activate([
@@ -45,6 +55,17 @@ class SectionHeaderView: UICollectionReusableView {
 
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	private func updateButtons() {
+		for item in buttonsStackView.arrangedSubviews {
+			item.removeFromSuperview()
+			buttonsStackView.removeArrangedSubview(item)
+		}
+		for item in buttons {
+			buttonsStackView.addSubview(item)
+			buttonsStackView.addArrangedSubview(item)
+		}
 	}
 
 }

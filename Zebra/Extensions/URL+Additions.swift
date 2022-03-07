@@ -13,3 +13,9 @@ extension URL {
 		lhs.appendingPathComponent(rhs)
 	}
 }
+
+extension FileManager {
+	func url(for searchPath: SearchPathDirectory, in domainMask: SearchPathDomainMask = .userDomainMask) -> URL {
+		urls(for: searchPath, in: domainMask).first!
+	}
+}

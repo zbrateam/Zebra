@@ -69,6 +69,8 @@ class RootViewController: RootViewControllerSuperclass {
 	private weak var navigationDelegate: RootViewControllerDelegate?
 	private var currentTab: AppTab?
 
+	private let sourceManager = PLSourceManager.shared
+
 	init() {
 		#if targetEnvironment(macCatalyst)
 		super.init(style: .doubleColumn)
@@ -202,21 +204,20 @@ class RootViewController: RootViewControllerSuperclass {
 	}
 
 	@IBAction func exportSources() {
-		// TODO: This
-		let viewController: UIDocumentPickerViewController
-		if #available(iOS 14, *) {
-			viewController = UIDocumentPickerViewController(forExporting: [])
-		} else {
-			viewController = UIDocumentPickerViewController(urls: [], in: .moveToService)
+		guard let sourcesFile = PLConfig.shared.string(forKey: "Plains::SourcesList") else {
+			return
 		}
-		viewController.delegate = self
-		present(viewController, animated: true, completion: nil)
+		let sourcesURL = URL(fileURLWithPath: sourcesFile)
+		guard (try? sourcesURL.checkResourceIsReachable()) == true else {
+			return
+		}
+		showSavePicker(url: sourcesURL)
 	}
 
-//	private let sourceManager = PLSourceManager()
-
 	@IBAction func refreshSources() {
-//		sourceManager.refreshSources()
+		DispatchQueue.global(qos: .userInitiated).async {
+			self.sourceManager.refreshSources()
+		}
 	}
 
 	@IBAction func addSource() {
@@ -234,6 +235,16 @@ class RootViewController: RootViewControllerSuperclass {
 			viewController = UIDocumentPickerViewController(documentTypes: types, in: .moveToService)
 		}
 		viewController.delegate = self
+		present(viewController, animated: true, completion: nil)
+	}
+
+	private func showSavePicker(url: URL) {
+		let viewController: UIDocumentPickerViewController
+		if #available(iOS 14, *) {
+			viewController = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
+		} else {
+			viewController = UIDocumentPickerViewController(urls: [url], in: .exportToService)
+		}
 		present(viewController, animated: true, completion: nil)
 	}
 

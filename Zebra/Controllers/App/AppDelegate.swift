@@ -69,11 +69,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	@IBAction private func openDataDirectory() {
-		openFileURL(PlainsController.dataURL)
+		openFileURL(Device.dataURL)
 	}
 
 	@IBAction private func openCachesDirectory() {
-		openFileURL(PlainsController.cacheURL)
+		openFileURL(Device.cacheURL)
 	}
 
 	override func buildMenu(with builder: UIMenuBuilder) {
