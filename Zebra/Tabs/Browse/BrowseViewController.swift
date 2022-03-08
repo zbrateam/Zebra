@@ -265,11 +265,15 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 			case UICollectionView.elementKindSectionFooter:
 				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath) as! InfoFooterView
 				let numberFormatter = NumberFormatter()
+				numberFormatter.numberStyle = .decimal
+				let packageCount = PLPackageManager.shared.packages.count
 				view.text = String(format: "%@ • %@",
 													 String.localizedStringWithFormat(.localize("%@ Sources"),
+																														NSDecimalNumber(value: sources.count),
 																														numberFormatter.string(for: sources.count) ?? "0"),
 													 String.localizedStringWithFormat(.localize("%@ Packages"),
-																														numberFormatter.string(for: PLPackageManager.shared.packages.count) ?? "0"))
+																														NSDecimalNumber(value: packageCount),
+																														numberFormatter.string(for: packageCount) ?? "0"))
 				return view
 
 			default: fatalError()
