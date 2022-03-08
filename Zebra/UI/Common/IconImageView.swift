@@ -75,6 +75,8 @@ class IconImageView: UIView {
 	}
 
 	private func updateImageURL() {
+		imageView.sd_cancelCurrentImageLoad()
+
 		guard let imageURL = imageURL,
 					var url = URLComponents(url: imageURL, resolvingAgainstBaseURL: true) else {
 			imageView.sd_setImage(with: nil)
@@ -98,7 +100,6 @@ class IconImageView: UIView {
 			url.path = pathComponents.joined(separator: "/")
 			imageView.sd_setImage(with: url.url!) { image, _, _, _ in
 				if image == nil {
-
 					self.imageView.sd_setImage(with: imageURL)
 				}
 			}

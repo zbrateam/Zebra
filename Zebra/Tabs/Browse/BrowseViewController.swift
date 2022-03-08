@@ -53,7 +53,7 @@ class BrowseViewController: ListCollectionViewController {
 	@objc private func sourcesDidUpdate() {
 		DispatchQueue.main.async {
 			self.sources = PLSourceManager.shared.sources
-				.sorted(by: { a, b in a.origin < b.origin })
+				.sorted(by: { a, b in a.origin.localizedStandardCompare(b.origin) == .orderedAscending })
 			self.collectionView.reloadData()
 
 			#if !targetEnvironment(macCatalyst)
@@ -118,7 +118,7 @@ class BrowseViewController: ListCollectionViewController {
 	private func fetchNews() {
 		Task(priority: .medium) {
 			do {
-				if let cachedNews = try RedditNewsFetcher.getCached() {
+				if let cachedNews = RedditNewsFetcher.getCached() {
 					newsItems = cachedNews
 					await MainActor.run {
 						self.carouselViewController?.items = cachedNews
@@ -153,7 +153,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch Section(rawValue: section)! {
 		case .news:    return ZBSettings.wantsCommunityNews() ? 1 : 0
-		case .sources: return sources.count
+		case .sources: return sources.count + 1
 		}
 	}
 
@@ -167,7 +167,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 
 		case .sources:
 			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SourceCell", for: indexPath) as! SourceCollectionViewCell
-			cell.source = sources[indexPath.item]
+			cell.source = indexPath.item == 0 ? nil : sources[indexPath.item - 1]
 			return cell
 		}
 	}
@@ -198,26 +198,29 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 			return nil
 
 		case .sources:
-			let item = sources[indexPath.item]
+			if indexPath.item == 0 {
+				return nil
+			}
+			let item = sources[indexPath.item - 1]
 			return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: nil, actionProvider: { _ in
 				UIMenu(children: [
 					UICommand(title: .openInBrowser,
 										image: UIImage(systemName: "safari"),
 										action: #selector(self.openSourceInSafari),
-										propertyList: indexPath.item),
+										propertyList: indexPath.item - 1),
 					UICommand(title: .copy,
 										image: UIImage(systemName: "doc.on.doc"),
 										action: #selector(self.copySource),
-										propertyList: indexPath.item),
+										propertyList: indexPath.item - 1),
 					UICommand(title: .share,
 										image: UIImage(systemName: "square.and.arrow.up"),
 										action: #selector(self.shareSource),
-										propertyList: indexPath.item)
+										propertyList: indexPath.item - 1)
 				] + (item.canRemove ? [
 					UICommand(title: .delete,
 										image: UIImage(systemName: "trash"),
 										action: #selector(self.removeSource),
-										propertyList: indexPath.item,
+										propertyList: indexPath.item - 1,
 										attributes: .destructive)
 				] : []))
 			})
@@ -230,7 +233,10 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 			return false
 
 		case .sources:
-			let item = sources[indexPath.item]
+			if indexPath.item == 0 {
+				return false
+			}
+			let item = sources[indexPath.item - 1]
 			return item.canRemove
 		}
 	}
@@ -238,25 +244,50 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		switch Section(rawValue: indexPath.section)! {
 		case .news:
-			return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "EmptyHeader", for: indexPath)
+			return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
 
 		case .sources:
-			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
-			view.title = .localize("Sources")
-			view.buttons = [
-				SectionHeaderButton(title: .localize("Export"),
-														target: nil,
-														action: #selector(RootViewController.exportSources)),
-				SectionHeaderButton(title: .add,
-														image: UIImage(systemName: "plus"),
-														target: self,
-														action: #selector(addSource))
-			]
-			return view
+			switch kind {
+			case UICollectionView.elementKindSectionHeader:
+				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
+				view.title = .localize("Sources")
+				view.buttons = [
+					SectionHeaderButton(title: .localize("Export"),
+															target: nil,
+															action: #selector(RootViewController.exportSources)),
+					SectionHeaderButton(title: .add,
+															image: UIImage(systemName: "plus"),
+															target: self,
+															action: #selector(addSource))
+				]
+				return view
+
+			case UICollectionView.elementKindSectionFooter:
+				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath) as! InfoFooterView
+				let numberFormatter = NumberFormatter()
+				view.text = String(format: "%@ • %@",
+													 String.localizedStringWithFormat(.localize("%@ Sources"),
+																														numberFormatter.string(for: sources.count) ?? "0"),
+													 String.localizedStringWithFormat(.localize("%@ Packages"),
+																														numberFormatter.string(for: PLPackageManager.shared.packages.count) ?? "0"))
+				return view
+
+			default: fatalError()
+			}
 		}
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+		switch Section(rawValue: section)! {
+		case .news:
+			return .zero
+
+		case .sources:
+			return CGSize(width: collectionView.frame.size.width, height: 52)
+		}
+	}
+
+	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
 		switch Section(rawValue: section)! {
 		case .news:
 			return .zero

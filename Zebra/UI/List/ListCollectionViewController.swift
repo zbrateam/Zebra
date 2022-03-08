@@ -33,10 +33,13 @@ class ListCollectionViewController: UICollectionViewController {
 		collectionView.alwaysBounceVertical = true
 		collectionView.register(UICollectionReusableView.self,
 														forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-														withReuseIdentifier: "EmptyHeader")
+														withReuseIdentifier: "Empty")
 		collectionView.register(SectionHeaderView.self,
 														forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
 														withReuseIdentifier: "Header")
+		collectionView.register(InfoFooterView.self,
+														forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+														withReuseIdentifier: "Footer")
 	}
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -69,10 +72,14 @@ extension ListCollectionViewController: UICollectionViewDelegateFlowLayout { // 
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-		collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "EmptyHeader", for: indexPath)
+		collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
 	}
 
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+		.zero
+	}
+
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
 		.zero
 	}
 

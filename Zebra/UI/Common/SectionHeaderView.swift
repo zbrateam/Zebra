@@ -28,6 +28,7 @@ class SectionHeaderView: UICollectionReusableView {
 		let effectView = UIToolbar()
 		effectView.frame = bounds
 		effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		effectView.delegate = self
 		addSubview(effectView)
 
 		label = UILabel()
@@ -66,6 +67,14 @@ class SectionHeaderView: UICollectionReusableView {
 			buttonsStackView.addSubview(item)
 			buttonsStackView.addArrangedSubview(item)
 		}
+	}
+
+}
+
+extension SectionHeaderView: UIToolbarDelegate {
+
+	func position(for bar: UIBarPositioning) -> UIBarPosition {
+		.top
 	}
 
 }

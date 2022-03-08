@@ -10,7 +10,7 @@ import UIKit
 
 class InfoFooterView: UICollectionReusableView {
 
-	var title: String? {
+	var text: String? {
 		get { label.text }
 		set { label.text = newValue }
 	}
@@ -22,13 +22,15 @@ class InfoFooterView: UICollectionReusableView {
 
 		label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = .preferredFont(forTextStyle: .title2, weight: .bold)
-		label.textColor = .label
+		label.font = .preferredFont(forTextStyle: .footnote)
+		label.textAlignment = .center
+		label.textColor = .secondaryLabel
+		addSubview(label)
 
 		NSLayoutConstraint.activate([
-			label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-			label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-			label.topAnchor.constraint(equalTo: self.topAnchor, constant: 6),
+			label.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+			label.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
+			label.topAnchor.constraint(equalTo: self.topAnchor, constant: 2),
 			label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6),
 		])
 	}

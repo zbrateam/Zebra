@@ -15,15 +15,27 @@ class SourceCollectionViewCell: UICollectionViewCell {
 	}
 
 	private var imageView: IconImageView!
+	private var symbolImageView: UIImageView!
 	private var titleLabel: UILabel!
+	private var detailImageView: UIImageView!
 	private var detailLabel: UILabel!
 	private var chevronImageView: UIImageView!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
+		let imageContainer = UIView()
+		imageContainer.translatesAutoresizingMaskIntoConstraints = false
+
 		imageView = IconImageView()
-		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		imageContainer.addSubview(imageView)
+
+		symbolImageView = UIImageView()
+		symbolImageView.translatesAutoresizingMaskIntoConstraints = false
+		symbolImageView.contentMode = .scaleAspectFit
+		symbolImageView.tintColor = .secondaryLabel
+		imageContainer.addSubview(symbolImageView)
 
 		titleLabel = UILabel()
 		titleLabel.font = .preferredFont(forTextStyle: .headline)
@@ -33,7 +45,16 @@ class SourceCollectionViewCell: UICollectionViewCell {
 		detailLabel.font = .preferredFont(forTextStyle: .footnote)
 		detailLabel.textColor = .secondaryLabel
 
-		let labelStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
+		detailImageView = UIImageView()
+		detailImageView.translatesAutoresizingMaskIntoConstraints = false
+		detailImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: detailLabel.font, scale: .small)
+		detailImageView.tintColor = .secondaryLabel
+
+		let detailStackView = UIStackView(arrangedSubviews: [detailImageView, detailLabel])
+		detailStackView.spacing = 4
+		detailStackView.alignment = .center
+
+		let labelStackView = UIStackView(arrangedSubviews: [titleLabel, detailStackView])
 		labelStackView.translatesAutoresizingMaskIntoConstraints = false
 		labelStackView.axis = .vertical
 		labelStackView.spacing = 3
@@ -43,7 +64,10 @@ class SourceCollectionViewCell: UICollectionViewCell {
 		chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
 		chevronImageView.tintColor = .tertiaryLabel
 
-		let mainStackView = UIStackView(arrangedSubviews: [imageView, labelStackView, chevronImageView])
+		let pointSize = UIFont.preferredFont(forTextStyle: .body).pointSize
+		chevronImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .small)
+
+		let mainStackView = UIStackView(arrangedSubviews: [imageContainer, labelStackView, chevronImageView])
 		mainStackView.translatesAutoresizingMaskIntoConstraints = false
 		mainStackView.alignment = .center
 		mainStackView.spacing = 12
@@ -56,7 +80,12 @@ class SourceCollectionViewCell: UICollectionViewCell {
 			mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
 
 			imageView.widthAnchor.constraint(equalToConstant: 40),
-			imageView.heightAnchor.constraint(equalToConstant: 40)
+			imageView.heightAnchor.constraint(equalToConstant: 40),
+
+			symbolImageView.widthAnchor.constraint(equalToConstant: 30),
+			symbolImageView.heightAnchor.constraint(equalToConstant: 30),
+			symbolImageView.centerXAnchor.constraint(equalTo: imageContainer.centerXAnchor),
+			symbolImageView.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor)
 		])
 	}
 
@@ -64,8 +93,14 @@ class SourceCollectionViewCell: UICollectionViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	override func prepareForReuse() {
+		source = nil
+		super.prepareForReuse()
+	}
+
 	private func updateSource() {
-		if let url = source?.uri {
+		if let source = source {
+			let url = source.uri
 			var urlString = url.absoluteString
 			if urlString.starts(with: "http://") || urlString.starts(with: "https://") {
 				urlString = urlString.replacingOccurrences(regex: "^https?://", with: "")
@@ -74,33 +109,37 @@ class SourceCollectionViewCell: UICollectionViewCell {
 				urlString.removeLast()
 			}
 			detailLabel.text = urlString
-		} else {
-			detailLabel.text = nil
-		}
 
-		if let host = source?.uri.host,
-			 let image = UIImage(named: "Repo Icons/\(host)") {
+			if let host = source.uri.host,
+				 let image = UIImage(named: "Repo Icons/\(host)") {
+				imageView.imageURL = nil
+				imageView.image = image
+			} else {
+				imageView.imageURL = source.iconURL
+			}
+
+			imageView.isHidden = false
+			symbolImageView.isHidden = true
+
+			if source.messages.isEmpty {
+				titleLabel.text = source.origin
+				titleLabel.textColor = .label
+				detailImageView.image = UIImage(systemName: "lock.slash.fill")
+				detailImageView.isHidden = url.scheme == "https"
+			} else {
+				titleLabel.text = .localize("Failed to load")
+				titleLabel.textColor = .systemRed
+				detailImageView.image = UIImage(systemName: "exclamationmark.circle")
+				detailImageView.isHidden = false
+			}
+		} else {
+			titleLabel.text = .localize("All Packages")
+			detailLabel.text = .localize("Browse packages from all installed sources.")
 			imageView.imageURL = nil
-			imageView.image = image
-		} else {
-			imageView.imageURL = source?.iconURL
-		}
-
-		let pointSize = UIFont.preferredFont(forTextStyle: .body).pointSize
-		let symbolConfig = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .small)
-		if let messages = source?.messages,
-			 !messages.isEmpty {
-			titleLabel.text = .localize("Failed to load")
-			titleLabel.textColor = .systemRed
-			chevronImageView.image = UIImage(systemName: "exclamationmark.circle",
-																			 withConfiguration: symbolConfig.configurationWithoutScale())
-			chevronImageView.tintColor = .systemRed
-		} else {
-			titleLabel.text = source?.origin ?? .localize("Untitled")
-			titleLabel.textColor = .label
-			chevronImageView.image = UIImage(systemName: "chevron.right",
-																			 withConfiguration: symbolConfig)
-			chevronImageView.tintColor = .tertiaryLabel
+			imageView.isHidden = true
+			symbolImageView.image = UIImage(named: "zebra.wrench")
+			symbolImageView.isHidden = false
+			detailImageView.isHidden = true
 		}
 	}
 

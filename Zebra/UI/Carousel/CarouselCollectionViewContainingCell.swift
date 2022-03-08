@@ -34,6 +34,7 @@ class CarouselCollectionViewContainingCell: UICollectionViewCell {
 		let effectView = UIToolbar()
 		effectView.frame = bounds
 		effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		effectView.setShadowImage(UIImage(), forToolbarPosition: .any)
 		contentView.addSubview(effectView)
 
 		viewController = CarouselViewController()

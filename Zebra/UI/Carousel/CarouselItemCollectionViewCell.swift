@@ -12,7 +12,7 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 
 	static let size = CGSize(width: 314, height: 175)
 
-	var item: CarouselItem! {
+	var item: CarouselItem? {
 		didSet { updateItem() }
 	}
 
@@ -93,10 +93,16 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	override func prepareForReuse() {
+		item = nil
+		imageView.sd_cancelCurrentImageLoad()
+		super.prepareForReuse()
+	}
+
 	private func updateItem() {
-		titleLabel.text = item.title
-		detailLabel.text = item.subtitle
-		imageView.sd_setImage(with: item.imageURL,
+		titleLabel.text = item?.title
+		detailLabel.text = item?.subtitle
+		imageView.sd_setImage(with: item?.imageURL,
 													placeholderImage: UIImage(named: "banner-fallback"),
 													options: .delayPlaceholder,
 													context: nil)
