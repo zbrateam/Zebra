@@ -140,6 +140,13 @@
 		E193C67C277A8E0100B2469E /* PackageDepictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C67B277A8E0100B2469E /* PackageDepictionViewController.swift */; };
 		E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E193C67D277A91C900B2469E /* WebKit.framework */; };
 		E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C6A1277B93AA00B2469E /* HelionTheme.swift */; };
+		F057924627D7BC2500E9B477 /* PromotedPackageCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F057924527D7BC2500E9B477 /* PromotedPackageCarouselViewController.swift */; };
+		F057924827D7BC6D00E9B477 /* PromotedPackageCarouselItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F057924727D7BC6D00E9B477 /* PromotedPackageCarouselItem.swift */; };
+		F057924A27D7BDBD00E9B477 /* PromotedPackageCarouselItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F057924927D7BDBD00E9B477 /* PromotedPackageCarouselItemCollectionViewCell.swift */; };
+		F057924C27D7C2D800E9B477 /* PromotedPackagesCarouselCollectionViewContainingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F057924B27D7C2D800E9B477 /* PromotedPackagesCarouselCollectionViewContainingCell.swift */; };
+		F057924E27D7C37500E9B477 /* PromotedPackagesFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F057924D27D7C37500E9B477 /* PromotedPackagesFetcher.swift */; };
+		F0C1243427D7A2C50041022E /* SourceSectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1243327D7A2C50041022E /* SourceSectionsViewController.swift */; };
+		F0C1243627D7A52B0041022E /* SourceSectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C1243527D7A52B0041022E /* SourceSectionCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,7 +229,7 @@
 		4E339B7F27D0E45300F013C1 /* URL+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Additions.swift"; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
 		4E840B3A27D6484900039938 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		4E840B3F27D6F77400039938 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		4E840B3F27D6F77400039938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -417,6 +424,13 @@
 		E193C67B277A8E0100B2469E /* PackageDepictionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PackageDepictionViewController.swift; path = Zebra/UI/Packages/PackageDepictionViewController.swift; sourceTree = SOURCE_ROOT; };
 		E193C67D277A91C900B2469E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/iOSSupport/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		E193C6A1277B93AA00B2469E /* HelionTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelionTheme.swift; sourceTree = "<group>"; };
+		F057924527D7BC2500E9B477 /* PromotedPackageCarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotedPackageCarouselViewController.swift; sourceTree = "<group>"; };
+		F057924727D7BC6D00E9B477 /* PromotedPackageCarouselItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotedPackageCarouselItem.swift; sourceTree = "<group>"; };
+		F057924927D7BDBD00E9B477 /* PromotedPackageCarouselItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotedPackageCarouselItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		F057924B27D7C2D800E9B477 /* PromotedPackagesCarouselCollectionViewContainingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotedPackagesCarouselCollectionViewContainingCell.swift; sourceTree = "<group>"; };
+		F057924D27D7C37500E9B477 /* PromotedPackagesFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotedPackagesFetcher.swift; sourceTree = "<group>"; };
+		F0C1243327D7A2C50041022E /* SourceSectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceSectionsViewController.swift; sourceTree = "<group>"; };
+		F0C1243527D7A52B0041022E /* SourceSectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceSectionCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -683,6 +697,7 @@
 		89337A2F253652D50065C4C1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F0C1243727D7BBBA0041022E /* PromotedPackagesCarousel */,
 				4EC7F29B27B3A19F0078F953 /* RootViewController.swift */,
 				4EC7F29D27B3A5930078F953 /* MacSidebarViewController.swift */,
 				893884DF2550C20200365326 /* Common */,
@@ -984,6 +999,7 @@
 		89EAD0B5259F9F330061FC3C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				F0C1243227D7A2AF0041022E /* Sections */,
 				89EAD0B6259F9F540061FC3C /* Views */,
 				896B2B51259FA2170082A62E /* ZBSourceListViewController.h */,
 				896B2B52259FA2170082A62E /* ZBSourceListViewController.mm */,
@@ -1077,6 +1093,27 @@
 				4EA26EC227CCF5430019A5AA /* DepictionKit */,
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		F0C1243227D7A2AF0041022E /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				F0C1243327D7A2C50041022E /* SourceSectionsViewController.swift */,
+				F0C1243527D7A52B0041022E /* SourceSectionCollectionViewCell.swift */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
+		F0C1243727D7BBBA0041022E /* PromotedPackagesCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				F057924527D7BC2500E9B477 /* PromotedPackageCarouselViewController.swift */,
+				F057924727D7BC6D00E9B477 /* PromotedPackageCarouselItem.swift */,
+				F057924927D7BDBD00E9B477 /* PromotedPackageCarouselItemCollectionViewCell.swift */,
+				F057924B27D7C2D800E9B477 /* PromotedPackagesCarouselCollectionViewContainingCell.swift */,
+				F057924D27D7C37500E9B477 /* PromotedPackagesFetcher.swift */,
+			);
+			path = PromotedPackagesCarousel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1264,12 +1301,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				895A808823637C5100C166AC /* ZBCreditsViewController.m in Sources */,
+				F0C1243627D7A52B0041022E /* SourceSectionCollectionViewCell.swift in Sources */,
 				89D97AFE25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.mm in Sources */,
 				4EC7F29127B3701D0078F953 /* AppDelegate.swift in Sources */,
 				4EC7F28727B291F30078F953 /* Device.swift in Sources */,
 				894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.mm in Sources */,
+				F0C1243427D7A2C50041022E /* SourceSectionsViewController.swift in Sources */,
+				F057924827D7BC6D00E9B477 /* PromotedPackageCarouselItem.swift in Sources */,
 				4EBA840A27D10DB100766DBE /* SourceCollectionViewCell.swift in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */,
 				4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */,
@@ -1309,6 +1349,8 @@
 				895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */,
 				4E9FC8892790637F00934FFE /* Preferences.swift in Sources */,
 				4EC7F29E27B3A5930078F953 /* MacSidebarViewController.swift in Sources */,
+				F057924627D7BC2500E9B477 /* PromotedPackageCarouselViewController.swift in Sources */,
+				F057924A27D7BDBD00E9B477 /* PromotedPackageCarouselItemCollectionViewCell.swift in Sources */,
 				4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */,
 				4EBA841B27D3119800766DBE /* IconImageView.swift in Sources */,
 				4EBA840C27D1F9A100766DBE /* SectionHeaderView.swift in Sources */,
@@ -1319,6 +1361,7 @@
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */,
 				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,
 				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,
+				F057924C27D7C2D800E9B477 /* PromotedPackagesCarouselCollectionViewContainingCell.swift in Sources */,
 				4910B3A82426BD5C00306C5C /* ZBSourceAccountBanner.m in Sources */,
 				4EC7F28D27B29AB20078F953 /* Darwin+Extensions.swift in Sources */,
 				8916AC2323CAAECC008BA02C /* ZBChangelogViewController.m in Sources */,
@@ -1339,6 +1382,7 @@
 				E1428E6F27791624005B0885 /* Canister.swift in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageViewController.mm in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
+				F057924E27D7C37500E9B477 /* PromotedPackagesFetcher.swift in Sources */,
 				4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */,
 				8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */,
 				89308E2723FF4BBB00D4641D /* ZBResetViewController.m in Sources */,
@@ -1668,7 +1712,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = N2LN9ZT493;
+				DEVELOPMENT_TEAM = 83N6DS825G;
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1749,7 +1793,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = N2LN9ZT493;
+				DEVELOPMENT_TEAM = 83N6DS825G;
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				FRAMEWORK_SEARCH_PATHS = (
