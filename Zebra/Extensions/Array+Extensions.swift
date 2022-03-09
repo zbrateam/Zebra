@@ -13,11 +13,9 @@ extension Array where Element == String {
 }
 
 extension Array where Element == Optional<UnsafeMutablePointer<CChar>> {
-	func free() {
+	func deallocate() {
 		for item in self {
-			if let item = item {
-				Darwin.free(item)
-			}
+			item?.deallocate()
 		}
 	}
 }
