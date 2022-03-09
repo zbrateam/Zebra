@@ -12,6 +12,6 @@ SpacesInContainerLiterals: true
 ObjCSpaceAfterProperty: false
 ObjCSpaceBeforeProtocolList: true
 SortIncludes: true
-IndentWidth: 4
-TabWidth: 4
+IndentWidth: 2
+TabWidth: 2
 ObjCBlockIndentWidth: 4

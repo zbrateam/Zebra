@@ -59,7 +59,7 @@ extension PromotedPackagesCarouselViewController {
 
 	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let item = bannerItems[indexPath.item]
-		if let foundPackage = PLPackageManager.shared.packages.first(where: { item in item.identifier == item.package }) {
+		if let foundPackage = PLPackageManager.shared.packages.first(where: { package in package.identifier == item.package }) {
 			let controller = ZBPackageViewController(package: foundPackage)
 			parent?.navigationController?.pushViewController(controller, animated: true)
 		} else {
