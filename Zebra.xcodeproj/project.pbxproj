@@ -43,6 +43,9 @@
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
 		4E840B3B27D6484900039938 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3A27D6484900039938 /* GradientView.swift */; };
 		4E840B3E27D6F77400039938 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 4E840B4027D6F77400039938 /* Localizable.stringsdict */; };
+		4E840B4227D7142E00039938 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4127D7142E00039938 /* HomeViewController.swift */; };
+		4E840B4427D7150000039938 /* SourceRefreshController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4327D7150000039938 /* SourceRefreshController.swift */; };
+		4E840B4627D73D3100039938 /* SourceHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4527D73D3100039938 /* SourceHTTPClient.swift */; };
 		4E9FC8742790555800934FFE /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
@@ -222,7 +225,10 @@
 		4E339B7F27D0E45300F013C1 /* URL+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Additions.swift"; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
 		4E840B3A27D6484900039938 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		4E840B3F27D6F77400039938 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		4E840B3F27D6F77400039938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		4E840B4127D7142E00039938 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		4E840B4327D7150000039938 /* SourceRefreshController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRefreshController.swift; sourceTree = "<group>"; };
+		4E840B4527D73D3100039938 /* SourceHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceHTTPClient.swift; sourceTree = "<group>"; };
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -543,6 +549,8 @@
 			isa = PBXGroup;
 			children = (
 				4EA26EA127CC87810019A5AA /* PlainsController.swift */,
+				4E840B4327D7150000039938 /* SourceRefreshController.swift */,
+				4E840B4527D73D3100039938 /* SourceHTTPClient.swift */,
 			);
 			path = Plains;
 			sourceTree = "<group>";
@@ -948,6 +956,7 @@
 		89E8633621D5A1420081E485 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4E840B4127D7142E00039938 /* HomeViewController.swift */,
 				367D80EF22C3D17F00581D60 /* Settings */,
 			);
 			path = Home;
@@ -1299,6 +1308,7 @@
 				89B701D52641CAAA00F50DAD /* ZBErrorViewController.mm in Sources */,
 				894EAB55261D5C4C00552235 /* ZBSidebarController.mm in Sources */,
 				89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */,
+				4E840B4227D7142E00039938 /* HomeViewController.swift in Sources */,
 				4EBA841227D253AC00766DBE /* CarouselCollectionViewContainingCell.swift in Sources */,
 				4E9FC887279061D600934FFE /* Color.swift in Sources */,
 				4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */,
@@ -1344,6 +1354,7 @@
 				89308E2723FF4BBB00D4641D /* ZBResetViewController.m in Sources */,
 				89ADD1222561AEFC00DF2241 /* ZBPackageFilter.m in Sources */,
 				898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.mm in Sources */,
+				4E840B4627D73D3100039938 /* SourceHTTPClient.swift in Sources */,
 				4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.mm in Sources */,
 				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,
@@ -1362,6 +1373,7 @@
 				896B2B53259FA2170082A62E /* ZBSourceListViewController.mm in Sources */,
 				4EBA840E27D21F4700766DBE /* InfoFooterView.swift in Sources */,
 				4EBA841727D260B500766DBE /* CarouselItemCollectionViewCell.swift in Sources */,
+				4E840B4427D7150000039938 /* SourceRefreshController.swift in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.mm in Sources */,
 				4EC7F29327B3714A0078F953 /* AppSceneDelegate.swift in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,

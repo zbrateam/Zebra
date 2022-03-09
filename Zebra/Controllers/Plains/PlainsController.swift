@@ -140,6 +140,9 @@ class PlainsController {
 
 		// Load the database
 		PLPackageManager.shared.import()
+
+		// Kick off a refresh
+		SourceRefreshController.shared.refresh(isUserRequested: false)
 	}
 
 }
