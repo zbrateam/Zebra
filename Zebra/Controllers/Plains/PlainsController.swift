@@ -22,13 +22,17 @@ class PlainsController {
 																							withIntermediateDirectories: true,
 																							attributes: [:])
 		}
-		try FileManager.default.createDirectory(at: dataURL,
-																						withIntermediateDirectories: true,
-																						attributes: [:])
+		for path in ["lists"] {
+			try FileManager.default.createDirectory(at: dataURL/path,
+																							withIntermediateDirectories: true,
+																							attributes: [:])
+		}
 
 		// Set directories
 		let dpkgStateURL = URL(fileURLWithPath: Device.distroVarPrefix, isDirectory: true)/"var/lib/dpkg"
 		let dpkgDataURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"share/dpkg"
+		let binURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"bin"
+		let libexecURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"libexec/apt"
 		let etcPrefixURL = URL(fileURLWithPath: Device.distroEtcPrefix, isDirectory: true)
 
 		config.set(string: (cacheURL/"logs").path, forKey: "Dir::Log")
@@ -41,6 +45,10 @@ class PlainsController {
 		config.set(string: (dpkgDataURL/"tupletable").path, forKey: "Dir::dpkg::tupletable")
 		config.set(string: (dpkgDataURL/"triplettable").path, forKey: "Dir::dpkg::triplettable")
 		config.set(string: (dpkgDataURL/"cputable").path, forKey: "Dir::dpkg::cputable")
+		config.set(string: (libexecURL/"methods").path, forKey: "Dir::Bin::Methods")
+		config.set(string: (libexecURL/"solvers").path, forKey: "Dir::Bin::Solvers")
+		config.set(string: (libexecURL/"planners").path, forKey: "Dir::Bin::Planners")
+		config.set(string: (binURL/"apt-key").path, forKey: "Dir::Bin::apt-key")
 
 		// Set slingshot path
 		config.set(string: SlingshotController.superslingPath, forKey: "Plains::Slingshot")
@@ -100,10 +108,7 @@ class PlainsController {
 			"Debug::identcdrom",
 			"Debug::InstallProgress::Fancy",
 			"Debug::Locking",
-			"Debug::NoDropPrivs",
-			"Debug::NoLocking",
 			"Debug::Phasing",
-			"Debug::pkgAcqArchive::NoQueue",
 			"Debug::pkgAcquire::Auth",
 			"Debug::pkgAcquire::Diffs",
 			"Debug::pkgAcquire::Worker",
@@ -121,8 +126,7 @@ class PlainsController {
 			"Debug::pkgPolicy",
 			"Debug::pkgProblemResolver::ShowScores",
 			"Debug::pkgProblemResolver",
-			"Debug::RunScripts",
-			"Debug::SetupAPTPartialDirectory::AssumeGood"
+			"Debug::RunScripts"
 		]
 		for key in debugKeys {
 			config.set(boolean: true, forKey: key)
