@@ -48,7 +48,19 @@ class Device: NSObject {
 	}()
 
 	@objc static let primaryDebianArchitecture: String = {
-		// TODO: We could ask dpkg instead of hardcoding? (dpkg --print-architecture)
+		// Cheat and say we’re on simulator.
+		#if targetEnvironment(simulator)
+		return "iphoneos-arm"
+		#else
+		// Ask dpkg what architecture we’re on. If this doesn’t work, either dpkg is broken, or we’re
+		// sandboxed for some reason.
+		let dpkgPath = (URL(fileURLWithPath: distroRootPrefix, isDirectory: true)/"bin/dpkg").path
+		if let result = try? Command.executeSync(dpkgPath, arguments: ["--print-architecture"]),
+			 !result.isEmpty {
+			return String(result[..<(result.firstIndex(of: "\n") ?? result.endIndex)])
+		}
+
+		// Fall back to making our best guess.
 		#if targetEnvironment(macCatalyst)
 		#if arch(x86_64)
 		return "darwin-amd64"
@@ -57,6 +69,7 @@ class Device: NSObject {
 		#endif
 		#else
 		return "iphoneos-arm"
+		#endif
 		#endif
 	}()
 
