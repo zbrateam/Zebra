@@ -8,24 +8,13 @@
 
 import UIKit
 
-class PromotedPackagesCarouselCollectionViewContainingCell: UICollectionViewCell {
-    weak var parentViewController: UIViewController? {
-        didSet {
-            if let parentViewController = parentViewController {
-                viewController.willMove(toParent: parentViewController)
-                parentViewController.addChild(viewController)
-            } else {
-                viewController.didMove(toParent: nil)
-            }
-        }
+class PromotedPackagesCarouselCollectionViewContainingCell: CarouselCollectionViewContainingCell {
+    var bannerItems: [PromotedPackageBanner] {
+        get { promotedViewController.bannerItems }
+        set { promotedViewController.bannerItems = newValue }
     }
 
-    var items: [PromotedPackageBanner] {
-        get { viewController.items }
-        set { viewController.items = newValue }
-    }
-
-    private(set) var viewController: PromotedPackagesCarouselViewController!
+    private(set) var promotedViewController: PromotedPackagesCarouselViewController!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,10 +25,10 @@ class PromotedPackagesCarouselCollectionViewContainingCell: UICollectionViewCell
         effectView.setShadowImage(UIImage(), forToolbarPosition: .any)
         contentView.addSubview(effectView)
 
-        viewController = PromotedPackagesCarouselViewController()
-        viewController.view.frame = bounds
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        contentView.addSubview(viewController.view)
+        promotedViewController = PromotedPackagesCarouselViewController()
+        promotedViewController.view.frame = bounds
+        promotedViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        contentView.addSubview(promotedViewController.view)
     }
 
     @available(*, unavailable)

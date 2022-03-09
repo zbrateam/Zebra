@@ -28,7 +28,7 @@ class SourceSectionViewController: ListCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = source.label
+        title = source.origin
 
         collectionView.register(SourceSectionCollectionViewCell.self, forCellWithReuseIdentifier: "SourceSectionCell")
         collectionView.register(PromotedPackagesCarouselCollectionViewContainingCell.self, forCellWithReuseIdentifier: "CarouselCell")
@@ -51,12 +51,9 @@ class SourceSectionViewController: ListCollectionViewController {
     private func setupSections() {
         DispatchQueue.main.async {
             self.sections = Array(self.source.sections.keys).sorted(by: { a, b in a.localizedStandardCompare(b) == .orderedAscending })
-            self.collectionView.performBatchUpdates(
-                {
-                    self.collectionView.reloadData()
-                }, completion: { (_: Bool) in
-                }
-            )
+            self.collectionView.performBatchUpdates({
+                self.collectionView.reloadData()
+            }, completion: { _ in })
         }
     }
 
@@ -64,7 +61,7 @@ class SourceSectionViewController: ListCollectionViewController {
 
     private var carouselViewController: PromotedPackagesCarouselViewController? {
         if let cell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? PromotedPackagesCarouselCollectionViewContainingCell {
-            return cell.viewController
+            return cell.promotedViewController
         }
         return nil
     }
@@ -75,13 +72,13 @@ class SourceSectionViewController: ListCollectionViewController {
                 if let packages = PromotedPackagesFetcher.getCached(repo: source.uri) {
                     promotedPackages = packages
                     await MainActor.run {
-                        self.carouselViewController?.items = packages
+                        self.carouselViewController?.bannerItems = packages
                     }
                 }
 
                 promotedPackages = try await PromotedPackagesFetcher.fetch(repo: source.uri)
                 await MainActor.run {
-                    self.carouselViewController?.items = promotedPackages!
+                    self.carouselViewController?.bannerItems = promotedPackages!
                 }
             } catch {
                 os_log("Loading Promoted packages failed: %@", String(describing: error))
@@ -114,7 +111,7 @@ extension SourceSectionViewController {
         case .featuredBanner:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarouselCell", for: indexPath) as! PromotedPackagesCarouselCollectionViewContainingCell
             cell.parentViewController = self
-            cell.items = promotedPackages ?? []
+            cell.bannerItems = promotedPackages ?? []
             return cell
 
         case .sections:
@@ -167,7 +164,7 @@ extension SourceSectionViewController {
     override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch Section(rawValue: indexPath.section) {
         case .featuredBanner:
-            return;
+            return
         case .sections:
             if indexPath.item == 0 {
                 // TODO: This is probably not the most efficient way to filter these
@@ -181,8 +178,8 @@ extension SourceSectionViewController {
                 navigationController?.pushViewController(controller, animated: true)
             }
 
-            return;
-        default:
+            return
+        case .none:
             return
         }
     }

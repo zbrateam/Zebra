@@ -8,11 +8,9 @@
 
 import Foundation
 class PromotedPackagesFetcher {
-    private static let cacheURL = Device.cacheURL / "reddit-news.json"
-
     static func getCached(repo: URL) -> [PromotedPackageBanner]? {
         do {
-            let json = try Data(contentsOf: Device.cacheURL / "\(getEscapedName(repo: repo.absoluteString))")
+            let json = try Data(contentsOf: Device.cacheURL / getEscapedName(repo: repo.absoluteString))
             return try JSONDecoder().decode([PromotedPackageBanner].self, from: json)
         } catch {
             // Ignore error, therefore ignoring the local cache

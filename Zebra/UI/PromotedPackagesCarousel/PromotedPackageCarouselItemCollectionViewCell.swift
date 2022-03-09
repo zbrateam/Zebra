@@ -8,10 +8,8 @@
 
 import UIKit
 
-class PromotedPackageCarouselItemCollectionViewCell: UICollectionViewCell {
-    static let size = CGSize(width: 314, height: 175)
-
-    var item: PromotedPackageBanner? {
+class PromotedPackageCarouselItemCollectionViewCell: CarouselItemCollectionViewCell {
+    var bannerItem: PromotedPackageBanner? {
         didSet { updateItem() }
     }
 
@@ -47,15 +45,6 @@ class PromotedPackageCarouselItemCollectionViewCell: UICollectionViewCell {
         overlayView.layer.cornerCurve = .continuous
         contentView.addSubview(overlayView)
 
-        highlightView = UIView(frame: bounds)
-        highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        highlightView.backgroundColor = .black.withAlphaComponent(0.4)
-        highlightView.alpha = 0
-        highlightView.clipsToBounds = true
-        highlightView.layer.cornerRadius = 20
-        highlightView.layer.cornerCurve = .continuous
-        contentView.addSubview(highlightView)
-
         titleLabel = UILabel()
         titleLabel.font = .preferredFont(forTextStyle: .title2, weight: .bold)
         titleLabel.textColor = .white
@@ -85,28 +74,16 @@ class PromotedPackageCarouselItemCollectionViewCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
-        item = nil
+        bannerItem = nil
         imageView.sd_cancelCurrentImageLoad()
         super.prepareForReuse()
     }
 
     private func updateItem() {
-        titleLabel.text = item?.title
-        imageView.sd_setImage(with: item?.url,
+        titleLabel.text = bannerItem?.title
+        imageView.sd_setImage(with: bannerItem?.url,
                               placeholderImage: UIImage(named: "banner-fallback"),
                               options: .delayPlaceholder,
                               context: nil)
-    }
-
-    override var isHighlighted: Bool {
-        didSet {
-            if isHighlighted {
-                highlightView.alpha = 1
-            } else {
-                UIView.animate(withDuration: 0.3) {
-                    self.highlightView.alpha = 0
-                }
-            }
-        }
     }
 }

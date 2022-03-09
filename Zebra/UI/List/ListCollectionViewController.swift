@@ -75,12 +75,10 @@ extension ListCollectionViewController: UICollectionViewDelegateFlowLayout { // 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
-            return view
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
 
         case UICollectionView.elementKindSectionFooter:
-            let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "EmptyFooter", for: indexPath)
-            return view
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "EmptyFooter", for: indexPath)
 
         default: fatalError()
         }

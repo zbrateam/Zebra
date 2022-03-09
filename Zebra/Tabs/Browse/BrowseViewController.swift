@@ -297,7 +297,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
     override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch Section(rawValue: indexPath.section) {
         case .news:
-            return;
+            return
         case .sources:
             if indexPath.item == 0 {
                 let controller = ZBPackageListViewController(packages: PLPackageManager.shared.packages)
@@ -307,9 +307,9 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
                 let controller = SourceSectionViewController(source: sources[indexPath.item - 1])
                 navigationController?.pushViewController(controller, animated: true)
             }
-            return;
-        default:
             return
+        case .none:
+            fatalError("Something was selected that wasn't supposed to be")
         }
     }
 }
