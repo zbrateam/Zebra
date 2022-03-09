@@ -19,8 +19,12 @@ class Device: NSObject {
 		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
 		return "/opt/procursus"
 		#else
-		// TODO: Implement rootless
-		return "/usr"
+		if #available(iOS 14.8, *),
+			 FileManager.default.fileExists(atPath: "/private/preboot/procursus") {
+			return "/private/preboot/procursus"
+		} else {
+			return "/usr"
+		}
 		#endif
 	}()
 
@@ -31,19 +35,32 @@ class Device: NSObject {
 	static let dataURL = FileManager.default.url(for: .applicationSupportDirectory) / Bundle.main.bundleIdentifier!
 
 	@objc static let path: String = {
-		// Construct a safe PATH. This will be set app-wide.
-		// There is some commented code here for Procursus prefixed “rootless” bootstrap in future.
-//		let prefix = URL(fileURLWithPath: "/", isDirectory: true)
-		let path = ["/usr/sbin", "/usr/bin", "/sbin", "/bin"]
-//		if (try? prefix.checkResourceIsReachable()) == true {
-//			let prefixedPath = path.map { item in "\(prefix)/\(item)" }
-//			path.insert(contentsOf: prefixedPath, at: 0)
-//		}
+		// Construct a safe PATH that includes the distro prefix. This will be set app-wide.
+		let prefix = URL(fileURLWithPath: distroRootPrefix, isDirectory: true)
+		var path = ["/usr/sbin", "/usr/bin", "/sbin", "/bin"]
+		if prefix.path != "/usr" && (try? prefix.checkResourceIsReachable()) == true {
+			path.insert(contentsOf: [
+				(prefix/"sbin").path,
+				(prefix/"bin").path
+			], at: 0)
+		}
 		return path.joined(separator: ":")
 	}()
 
 	@objc static let primaryDebianArchitecture: String = {
-		// TODO: We could ask dpkg instead of hardcoding? (dpkg --print-architecture)
+		// Cheat and say we’re on simulator.
+		#if targetEnvironment(simulator)
+		return "iphoneos-arm"
+		#else
+		// Ask dpkg what architecture we’re on. If this doesn’t work, either dpkg is broken, or we’re
+		// sandboxed for some reason.
+		let dpkgPath = (URL(fileURLWithPath: distroRootPrefix, isDirectory: true)/"bin/dpkg").path
+		if let result = try? Command.executeSync(dpkgPath, arguments: ["--print-architecture"]),
+			 !result.isEmpty {
+			return String(result[..<(result.firstIndex(of: "\n") ?? result.endIndex)])
+		}
+
+		// Fall back to making our best guess.
 		#if targetEnvironment(macCatalyst)
 		#if arch(x86_64)
 		return "darwin-amd64"
@@ -52,6 +69,7 @@ class Device: NSObject {
 		#endif
 		#else
 		return "iphoneos-arm"
+		#endif
 		#endif
 	}()
 

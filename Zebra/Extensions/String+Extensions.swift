@@ -8,7 +8,7 @@
 
 extension String {
 	var cString: UnsafeMutablePointer<CChar>? {
-		withCString(strdup)
+		strdup(self)
 	}
 
 	func replacingOccurrences(regex: String, with replacement: String, options: CompareOptions = []) -> Self {

@@ -1,5 +1,5 @@
 Package: com.getzbra.zebra2
-Name: Zebra 2 (iOS 13 – 15)
+Name: Zebra
 Version: 2.0~alpha4
 Architecture: iphoneos-arm
 Depends: firmware (>= 13.0), dpkg, uikittools, libapt-pkg5.0 (>= 1.8.0) | libapt-pkg6.0 (>= 2.3.0)
@@ -8,8 +8,6 @@ Replaces: xyz.willy.zebra
 Provides: xyz.willy.zebra
 Description: A Useful Package Manager
  THIS IS AN ALPHA VERSION OF ZEBRA NOT MEANT TO BE USED AS YOUR ONLY PACKAGE MANAGER. DO NOT INSTALL IT IF YOU ARE NOT COMFORTABLE WITH ANY ISSUES THAT MAY ARISE WHILE USING IT.
- .
- THIS VERSION OF ZEBRA IS CURRENTLY ONLY AVAILABLE TO USERS WITH A PROCURSUS BOOTSTRAP.
  .
  Zebra is a package manager for jailbroken iOS devices.
  .

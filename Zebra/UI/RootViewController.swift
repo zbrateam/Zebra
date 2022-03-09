@@ -44,7 +44,7 @@ class RootViewController: RootViewControllerSuperclass {
 
 		var viewController: UIViewController {
 			switch self {
-			case .home:      return ZBHomeViewController()
+			case .home:      return HomeViewController()
 			case .browse:    return BrowseViewController()
 			case .installed: return ZBPackageListViewController()
 			case .me:        return ZBSettingsViewController()
@@ -68,8 +68,6 @@ class RootViewController: RootViewControllerSuperclass {
 
 	private weak var navigationDelegate: RootViewControllerDelegate?
 	private var currentTab: AppTab?
-
-	private let sourceManager = PLSourceManager.shared
 
 	init() {
 		#if targetEnvironment(macCatalyst)
@@ -215,9 +213,7 @@ class RootViewController: RootViewControllerSuperclass {
 	}
 
 	@IBAction func refreshSources() {
-		DispatchQueue.global(qos: .userInitiated).async {
-			self.sourceManager.refreshSources()
-		}
+		SourceRefreshController.shared.refresh()
 	}
 
 	@IBAction func addSource() {

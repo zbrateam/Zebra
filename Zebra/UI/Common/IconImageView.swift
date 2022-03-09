@@ -76,10 +76,10 @@ class IconImageView: UIView {
 
 	private func updateImageURL() {
 		imageView.sd_cancelCurrentImageLoad()
+		imageView.image = nil
 
 		guard let imageURL = imageURL,
 					var url = URLComponents(url: imageURL, resolvingAgainstBaseURL: true) else {
-			imageView.sd_setImage(with: nil)
 			return
 		}
 

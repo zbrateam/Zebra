@@ -73,7 +73,7 @@ class BrowseViewController: ListCollectionViewController {
 
 	@objc private func shareSource(_ sender: UICommand) {
 		let index = sender.propertyList as! Int
-		guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 1)) else {
+		guard let cell = collectionView.cellForItem(at: IndexPath(item: index + 1, section: 1)) else {
 			return
 		}
 		let item = sources[index]
@@ -262,11 +262,15 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 			case UICollectionView.elementKindSectionFooter:
 				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath) as! InfoFooterView
 				let numberFormatter = NumberFormatter()
+				numberFormatter.numberStyle = .decimal
+				let packageCount = PLPackageManager.shared.packages.count
 				view.text = String(format: "%@ • %@",
 													 String.localizedStringWithFormat(.localize("%@ Sources"),
+																														NSDecimalNumber(value: sources.count),
 																														numberFormatter.string(for: sources.count) ?? "0"),
-								   				 String.localizedStringWithFormat(.localize("%@ Packages"),
-																														numberFormatter.string(for: PLPackageManager.shared.packages.count) ?? "0"))
+													 String.localizedStringWithFormat(.localize("%@ Packages"),
+																														NSDecimalNumber(value: packageCount),
+																														numberFormatter.string(for: packageCount) ?? "0"))
 				return view
 
 			default: fatalError()
