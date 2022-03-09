@@ -95,17 +95,23 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 
 	override func prepareForReuse() {
 		item = nil
-		imageView.sd_cancelCurrentImageLoad()
 		super.prepareForReuse()
 	}
 
 	private func updateItem() {
 		titleLabel.text = item?.title
 		detailLabel.text = item?.subtitle
-		imageView.sd_setImage(with: item?.imageURL,
-													placeholderImage: UIImage(named: "banner-fallback"),
-													options: .delayPlaceholder,
-													context: nil)
+		imageView.sd_cancelCurrentImageLoad()
+
+		if let imageURL = item?.imageURL {
+			imageView.image = nil
+			imageView.sd_setImage(with: imageURL,
+														placeholderImage: UIImage(named: "banner-fallback"),
+														options: .delayPlaceholder,
+														context: nil)
+		} else {
+			imageView.image = UIImage(named: "banner-fallback")
+		}
 	}
 
 	override var isHighlighted: Bool {

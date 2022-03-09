@@ -103,7 +103,7 @@ class CarouselViewController: UICollectionViewController {
 	@objc private func copyItem(_ sender: UICommand) {
 		let index = sender.propertyList as! Int
 		let item = items[index]
-		UIPasteboard.general.url = item.url
+		UIPasteboard.general.string = item.url.absoluteString
 	}
 
 	@objc private func shareItem(_ sender: UICommand) {

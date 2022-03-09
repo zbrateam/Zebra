@@ -74,7 +74,7 @@ class BrowseViewController: ListCollectionViewController {
 
 	@objc private func shareSource(_ sender: UICommand) {
 		let index = sender.propertyList as! Int
-		guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 1)) else {
+		guard let cell = collectionView.cellForItem(at: IndexPath(item: index + 1, section: 1)) else {
 			return
 		}
 		let item = sources[index]
