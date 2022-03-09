@@ -223,7 +223,6 @@ class PackageDepictionViewController: UIViewController {
 							self.view.layoutIfNeeded()
 						}
 					}
-            webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
             webView.load(request as URLRequest)
         case .native:
             webDepictionView.isHidden = false
