@@ -21,7 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		helperBundle?.load()
 		#endif
 
+		// Prepare a clean, safe environment.
 		setenv("PATH", Device.path.cString, 1)
+		unsetenv("DYLD_INSERT_LIBRARIES")
 
 		do {
 			try PlainsController.setUp()
