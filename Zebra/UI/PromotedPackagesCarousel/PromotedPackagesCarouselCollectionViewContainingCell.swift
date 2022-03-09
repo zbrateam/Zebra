@@ -9,30 +9,30 @@
 import UIKit
 
 class PromotedPackagesCarouselCollectionViewContainingCell: CarouselCollectionViewContainingCell {
-    var bannerItems: [PromotedPackageBanner] {
-        get { promotedViewController.bannerItems }
-        set { promotedViewController.bannerItems = newValue }
-    }
+	var bannerItems: [PromotedPackageBanner] {
+		get { promotedViewController.bannerItems }
+		set { promotedViewController.bannerItems = newValue }
+	}
 
-    private(set) var promotedViewController: PromotedPackagesCarouselViewController!
+	private(set) var promotedViewController: PromotedPackagesCarouselViewController!
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+	override init(frame: CGRect) {
+		super.init(frame: frame)
 
-        let effectView = UIToolbar()
-        effectView.frame = bounds
-        effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        effectView.setShadowImage(UIImage(), forToolbarPosition: .any)
-        contentView.addSubview(effectView)
+		let effectView = UIToolbar()
+		effectView.frame = bounds
+		effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		effectView.setShadowImage(UIImage(), forToolbarPosition: .any)
+		contentView.addSubview(effectView)
 
-        promotedViewController = PromotedPackagesCarouselViewController()
-        promotedViewController.view.frame = bounds
-        promotedViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        contentView.addSubview(promotedViewController.view)
-    }
+		promotedViewController = PromotedPackagesCarouselViewController()
+		promotedViewController.view.frame = bounds
+		promotedViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		contentView.addSubview(promotedViewController.view)
+	}
 
-    @available(*, unavailable)
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	@available(*, unavailable)
+	required init?(coder _: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 }
