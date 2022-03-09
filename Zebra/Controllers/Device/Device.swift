@@ -19,7 +19,7 @@ class Device: NSObject {
 		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
 		return "/opt/procursus"
 		#else
-		if #available(iOS 15, *),
+		if #available(iOS 14.8, *),
 			 FileManager.default.fileExists(atPath: "/private/preboot/procursus") {
 			return "/private/preboot/procursus"
 		} else {
@@ -35,8 +35,7 @@ class Device: NSObject {
 	static let dataURL = FileManager.default.url(for: .applicationSupportDirectory) / Bundle.main.bundleIdentifier!
 
 	@objc static let path: String = {
-		// Construct a safe PATH. This will be set app-wide.
-		// There is some commented code here for Procursus prefixed “rootless” bootstrap in future.
+		// Construct a safe PATH that includes the distro prefix. This will be set app-wide.
 		let prefix = URL(fileURLWithPath: distroRootPrefix, isDirectory: true)
 		var path = ["/usr/sbin", "/usr/bin", "/sbin", "/bin"]
 		if prefix.path != "/usr" && (try? prefix.checkResourceIsReachable()) == true {
