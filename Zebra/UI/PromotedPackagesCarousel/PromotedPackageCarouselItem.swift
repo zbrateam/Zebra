@@ -7,19 +7,20 @@
 //
 
 struct PromotedPackagesObject: Codable {
-	let productDataClass, itemSize: String
-	let itemCornerRadius: Int
-	let banners: [PromotedPackageBanner]
-	
-	enum CodingKeys: String, CodingKey {
-		case productDataClass = "class"
-		case itemSize, itemCornerRadius, banners
-	}
+    let productDataClass, itemSize: String
+    let itemCornerRadius: Int
+    let banners: [PromotedPackageBanner]
+
+    enum CodingKeys: String, CodingKey {
+        case productDataClass = "class"
+        case itemSize, itemCornerRadius, banners
+    }
 }
 
-	// MARK: - Banner
+// MARK: - Banner
+
 struct PromotedPackageBanner: Codable {
-	let title, package: String
-	let url: URL
-	let displayText, hideShadow: Bool?
+    let title, package: String
+    let url: URL
+    let displayText, hideShadow: Bool?
 }
