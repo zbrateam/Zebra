@@ -14,7 +14,9 @@ class PromotedPackagesCarouselCollectionViewContainingCell: CarouselCollectionVi
 		set { promotedViewController.bannerItems = newValue }
 	}
 
-	private(set) var promotedViewController: PromotedPackagesCarouselViewController!
+	var promotedViewController: PromotedPackagesCarouselViewController! {
+		viewController as! PromotedPackagesCarouselViewController?
+	}
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -25,7 +27,7 @@ class PromotedPackagesCarouselCollectionViewContainingCell: CarouselCollectionVi
 		effectView.setShadowImage(UIImage(), forToolbarPosition: .any)
 		contentView.addSubview(effectView)
 
-		promotedViewController = PromotedPackagesCarouselViewController()
+		viewController = PromotedPackagesCarouselViewController()
 		promotedViewController.view.frame = bounds
 		promotedViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		contentView.addSubview(promotedViewController.view)

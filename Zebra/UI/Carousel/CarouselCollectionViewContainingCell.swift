@@ -26,7 +26,7 @@ class CarouselCollectionViewContainingCell: UICollectionViewCell {
 		set { viewController.items = newValue }
 	}
 
-	private(set) var viewController: CarouselViewController!
+	internal var viewController: CarouselViewController!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)

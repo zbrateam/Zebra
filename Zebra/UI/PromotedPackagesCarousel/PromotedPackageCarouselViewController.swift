@@ -13,12 +13,9 @@ class PromotedPackagesCarouselViewController: CarouselViewController {
 		didSet { updateState() }
 	}
 
-	private var activityIndicator: UIActivityIndicatorView!
-	private var errorLabel: UILabel!
-
 	override init() {
 		super.init()
-		errorText = String.localize("Featured Unavailable")
+		errorText = .localize("Featured Unavailable")
 	}
 
 	@available(*, unavailable)
@@ -63,7 +60,12 @@ extension PromotedPackagesCarouselViewController {
 			let controller = ZBPackageViewController(package: foundPackage)
 			parent?.navigationController?.pushViewController(controller, animated: true)
 		} else {
-			// TODO: Show error about package not existing?
+			// TODO: Put this somewhere more global
+			let alertController = UIAlertController(title: .localize("Couldn’t open package because it wasn’t found in your installed sources."),
+																							message: .localize("You may need to refresh sources to see this package."),
+																							preferredStyle: .alert)
+			alertController.addAction(UIAlertAction(title: .ok, style: .cancel, handler: nil))
+			present(alertController, animated: true)
 		}
 	}
 }

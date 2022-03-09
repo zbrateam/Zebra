@@ -27,8 +27,8 @@ class CarouselViewController: UICollectionViewController {
 		didSet { errorLabel?.text = errorText }
 	}
 
-	private var activityIndicator: UIActivityIndicatorView!
-	private var errorLabel: UILabel!
+	internal var activityIndicator: UIActivityIndicatorView!
+	internal var errorLabel: UILabel!
 
 	init() {
 		let layout = UICollectionViewFlowLayout()
