@@ -19,8 +19,12 @@ class Device: NSObject {
 		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
 		return "/opt/procursus"
 		#else
-		// TODO: Implement rootless
-		return "/usr"
+		if #available(iOS 15, *),
+			 FileManager.default.fileExists(atPath: "/private/preboot/procursus") {
+			return "/private/preboot/procursus"
+		} else {
+			return "/usr"
+		}
 		#endif
 	}()
 
@@ -33,12 +37,14 @@ class Device: NSObject {
 	@objc static let path: String = {
 		// Construct a safe PATH. This will be set app-wide.
 		// There is some commented code here for Procursus prefixed “rootless” bootstrap in future.
-//		let prefix = URL(fileURLWithPath: "/", isDirectory: true)
-		let path = ["/usr/sbin", "/usr/bin", "/sbin", "/bin"]
-//		if (try? prefix.checkResourceIsReachable()) == true {
-//			let prefixedPath = path.map { item in "\(prefix)/\(item)" }
-//			path.insert(contentsOf: prefixedPath, at: 0)
-//		}
+		let prefix = URL(fileURLWithPath: distroRootPrefix, isDirectory: true)
+		var path = ["/usr/sbin", "/usr/bin", "/sbin", "/bin"]
+		if prefix.path != "/usr" && (try? prefix.checkResourceIsReachable()) == true {
+			path.insert(contentsOf: [
+				(prefix/"sbin").path,
+				(prefix/"bin").path
+			], at: 0)
+		}
 		return path.joined(separator: ":")
 	}()
 
