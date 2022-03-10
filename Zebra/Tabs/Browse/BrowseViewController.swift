@@ -6,11 +6,10 @@
 //  Copyright © 2022 Zebra Team. All rights reserved.
 //
 
-import UIKit
 import os.log
+import UIKit
 
 class BrowseViewController: ListCollectionViewController {
-
 	private var sources = [PLSource]()
 
 	private var newsItems: [CarouselItem]?
@@ -24,9 +23,9 @@ class BrowseViewController: ListCollectionViewController {
 		collectionView.register(CarouselCollectionViewContainingCell.self, forCellWithReuseIdentifier: "CarouselCell")
 
 		#if !targetEnvironment(macCatalyst)
-		let refreshControl = UIRefreshControl()
-		refreshControl.addTarget(nil, action: #selector(RootViewController.refreshSources), for: .valueChanged)
-		collectionView.refreshControl = refreshControl
+			let refreshControl = UIRefreshControl()
+			refreshControl.addTarget(nil, action: #selector(RootViewController.refreshSources), for: .valueChanged)
+			collectionView.refreshControl = refreshControl
 		#endif
 	}
 
@@ -57,12 +56,12 @@ class BrowseViewController: ListCollectionViewController {
 			self.collectionView.reloadData()
 
 			#if !targetEnvironment(macCatalyst)
-			self.collectionView.refreshControl?.endRefreshing()
+				self.collectionView.refreshControl?.endRefreshing()
 			#endif
 		}
 	}
 
-	@objc private func addSource(_ sender: UIButton) {
+	@objc private func addSource(_: UIButton) {
 		let viewController = UINavigationController(rootViewController: ZBSourceAddViewController())
 		present(viewController, animated: true)
 	}
@@ -100,7 +99,7 @@ class BrowseViewController: ListCollectionViewController {
 		let index = sources.firstIndex(of: source)
 		PLSourceManager.shared.removeSource(source)
 		if let index = index {
-			collectionView.deleteItems(at: [ IndexPath(item: index, section: 1) ])
+			collectionView.deleteItems(at: [IndexPath(item: index, section: 1)])
 		} else {
 			collectionView.reloadData()
 		}
@@ -137,22 +136,20 @@ class BrowseViewController: ListCollectionViewController {
 			}
 		}
 	}
-
 }
 
 extension BrowseViewController { // UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
-
 	private enum Section: Int, CaseIterable {
 		case news, sources
 	}
 
-	override func numberOfSections(in collectionView: UICollectionView) -> Int {
+	override func numberOfSections(in _: UICollectionView) -> Int {
 		Section.allCases.count
 	}
 
-	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	override func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch Section(rawValue: section)! {
-		case .news:    return ZBSettings.wantsCommunityNews() ? 1 : 0
+		case .news: return ZBSettings.wantsCommunityNews() ? 1 : 0
 		case .sources: return sources.count + 1
 		}
 	}
@@ -192,7 +189,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 		}
 	}
 
-	override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
 		switch Section(rawValue: indexPath.section)! {
 		case .news:
 			return nil
@@ -215,7 +212,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 					UICommand(title: .share,
 										image: UIImage(systemName: "square.and.arrow.up"),
 										action: #selector(self.shareSource),
-										propertyList: indexPath.item - 1)
+										propertyList: indexPath.item - 1),
 				] + (item.canRemove ? [
 					UICommand(title: .delete,
 										image: UIImage(systemName: "trash"),
@@ -227,7 +224,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 		}
 	}
 
-	override func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
+	override func collectionView(_: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
 		switch Section(rawValue: indexPath.section)! {
 		case .news:
 			return false
@@ -253,12 +250,12 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 				view.title = .localize("Sources")
 				view.buttons = [
 					SectionHeaderButton(title: .localize("Export"),
-															target: nil,
-															action: #selector(RootViewController.exportSources)),
+										target: nil,
+										action: #selector(RootViewController.exportSources)),
 					SectionHeaderButton(title: .add,
-															image: UIImage(systemName: "plus"),
-															target: self,
-															action: #selector(addSource))
+										image: UIImage(systemName: "plus"),
+										target: self,
+										action: #selector(addSource)),
 				]
 				return view
 
@@ -281,7 +278,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 		}
 	}
 
-	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 		switch Section(rawValue: section)! {
 		case .news:
 			return .zero
@@ -291,7 +288,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 		}
 	}
 
-	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
 		switch Section(rawValue: section)! {
 		case .news:
 			return .zero
@@ -301,4 +298,22 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 		}
 	}
 
+	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		switch Section(rawValue: indexPath.section) {
+		case .news:
+			return
+		case .sources:
+			if indexPath.item == 0 {
+				let controller = ZBPackageListViewController(packages: PLPackageManager.shared.packages)
+				controller.title = .localize("All Packages")
+				navigationController?.pushViewController(controller, animated: true)
+			} else {
+				let controller = SourceSectionViewController(source: sources[indexPath.item - 1])
+				navigationController?.pushViewController(controller, animated: true)
+			}
+			return
+		case .none:
+			fatalError("Something was selected that wasn't supposed to be")
+		}
+	}
 }

@@ -9,24 +9,26 @@
 import UIKit
 
 class CarouselViewController: UICollectionViewController {
-
 	static let height: CGFloat = CarouselItemCollectionViewCell.size.height + (15 * 2)
 
 	var items = [CarouselItem]() {
 		didSet { updateState() }
 	}
+
 	var isLoading = true {
 		didSet { updateState() }
 	}
+
 	var isError = false {
 		didSet { updateState() }
 	}
+
 	var errorText = String.localize("News Unavailable") {
 		didSet { errorLabel?.text = errorText }
 	}
 
-	private var activityIndicator: UIActivityIndicatorView!
-	private var errorLabel: UILabel!
+	internal var activityIndicator: UIActivityIndicatorView!
+	internal var errorLabel: UILabel!
 
 	init() {
 		let layout = UICollectionViewFlowLayout()
@@ -37,7 +39,8 @@ class CarouselViewController: UICollectionViewController {
 		super.init(collectionViewLayout: layout)
 	}
 
-	required init?(coder: NSCoder) {
+	@available(*, unavailable)
+	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
@@ -71,11 +74,11 @@ class CarouselViewController: UICollectionViewController {
 
 			errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-			errorLabel.widthAnchor.constraint(equalToConstant: 200)
+			errorLabel.widthAnchor.constraint(equalToConstant: 200),
 		])
 	}
 
-	private func updateState() {
+	func updateState() {
 		if !items.isEmpty {
 			if isLoading {
 				isLoading = false
@@ -117,16 +120,14 @@ class CarouselViewController: UICollectionViewController {
 		viewController.popoverPresentationController?.sourceRect = cell.bounds
 		present(viewController, animated: true, completion: nil)
 	}
-
 }
 
 extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UICollectionViewDataSource, UICollectionViewDelegate
-
-	override func numberOfSections(in collectionView: UICollectionView) -> Int {
+	override func numberOfSections(in _: UICollectionView) -> Int {
 		1
 	}
 
-	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
 		items.count
 	}
 
@@ -136,11 +137,11 @@ extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UIColl
 		return cell
 	}
 
-	override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
 		return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
-			// TODO
-			return nil
-		}, actionProvider: { menu in
+			// TODO:
+			nil
+		}, actionProvider: { _ in
 			UIMenu(children: [
 				UICommand(title: .copy,
 									image: UIImage(systemName: "doc.on.doc"),
@@ -149,16 +150,16 @@ extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UIColl
 				UICommand(title: .share,
 									image: UIImage(systemName: "square.and.arrow.up"),
 									action: #selector(self.shareItem),
-									propertyList: indexPath.item)
+									propertyList: indexPath.item),
 			])
 		})
 	}
 
-	override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+	override func collectionView(_: UICollectionView, shouldHighlightItemAt _: IndexPath) -> Bool {
 		true
 	}
 
-	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let item = items[indexPath.item]
 		URLController.open(url: item.url, sender: self, webSchemesOnly: true)
 	}
@@ -175,6 +176,4 @@ extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UIColl
 	override func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
 		return self.collectionView(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
 	}
-
 }
-

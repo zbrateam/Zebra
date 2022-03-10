@@ -6,11 +6,10 @@
 //  Copyright © 2022 Zebra Team. All rights reserved.
 //
 
-import UIKit
 import os.log
+import UIKit
 
 class ListCollectionViewController: UICollectionViewController {
-
 	init() {
 		let layout = UICollectionViewFlowLayout()
 		layout.itemSize = CGSize(width: 320, height: 57)
@@ -20,7 +19,8 @@ class ListCollectionViewController: UICollectionViewController {
 		super.init(collectionViewLayout: layout)
 	}
 
-	required init?(coder: NSCoder) {
+	@available(*, unavailable)
+	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
@@ -34,6 +34,9 @@ class ListCollectionViewController: UICollectionViewController {
 		collectionView.register(UICollectionReusableView.self,
 														forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
 														withReuseIdentifier: "Empty")
+		collectionView.register(UICollectionReusableView.self,
+														forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+														withReuseIdentifier: "EmptyFooter")
 		collectionView.register(SectionHeaderView.self,
 														forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
 														withReuseIdentifier: "Header")
@@ -42,15 +45,13 @@ class ListCollectionViewController: UICollectionViewController {
 														withReuseIdentifier: "Footer")
 	}
 
-	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+	override func viewWillTransition(to _: CGSize, with _: UIViewControllerTransitionCoordinator) {
 		collectionViewLayout.invalidateLayout()
 	}
-
 }
 
 extension ListCollectionViewController: UICollectionViewDelegateFlowLayout { // UICollectionViewDataSource, UICollectionViewDelegate
-
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
 		let layout = collectionViewLayout as! UICollectionViewFlowLayout
 		var size = layout.itemSize
 		size.width = collectionView.frame.size.width - collectionView.safeAreaInsets.left - collectionView.safeAreaInsets.right
@@ -64,7 +65,7 @@ extension ListCollectionViewController: UICollectionViewDelegateFlowLayout { // 
 		return size
 	}
 
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+	func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, insetForSectionAt _: Int) -> UIEdgeInsets {
 		UIEdgeInsets(top: 0,
 								 left: collectionView.safeAreaInsets.left,
 								 bottom: 0,
@@ -72,15 +73,22 @@ extension ListCollectionViewController: UICollectionViewDelegateFlowLayout { // 
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-		collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
+		switch kind {
+		case UICollectionView.elementKindSectionHeader:
+			return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
+
+		case UICollectionView.elementKindSectionFooter:
+			return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "EmptyFooter", for: indexPath)
+
+		default: fatalError()
+		}
 	}
 
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+	func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
 		.zero
 	}
 
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+	func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForFooterInSection _: Int) -> CGSize {
 		.zero
 	}
-
 }
