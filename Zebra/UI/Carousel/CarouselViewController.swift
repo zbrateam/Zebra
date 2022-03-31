@@ -98,7 +98,7 @@ class CarouselViewController: UICollectionViewController {
 			activityIndicator.stopAnimating()
 		}
 
-		if isError {
+		if isError && isLoading {
 			isLoading = false
 		}
 	}
