@@ -59,7 +59,7 @@ class RedditNewsFetcher {
 	}
 
 	static func fetch() async throws -> [CarouselItem] {
-		let request = URLRequest(url: URL(string: "https://zbrateam.github.io/reddit-news/reddit-news.json")!)
+		let request = URLRequest(url: URL(string: "https://zbrateam.github.io/reddit-news/reddit-news-relevance.json")!)
 
 		let json: RedditNewsRoot = try await HTTPRequest.json(for: request)
 		let items = json.data.compactMap { item in
