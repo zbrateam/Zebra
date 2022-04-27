@@ -9,23 +9,29 @@
 import Foundation
 
 enum SourceRefreshState {
-	case idle
+	case pending
 	case loading(progress: Double)
+	case loaded
 	case failed(errors: [String])
 }
 
 class SourceRefreshController {
 
-	static let automaticSourceRefreshInterval: TimeInterval = 5 * 60
+	private static let automaticSourceRefreshInterval: TimeInterval = 5 * 60
+
+	static let refreshProgressDidChangeNotification = Notification.Name(rawValue: "SourceRefreshProgressDidChangeNotification")
 
 	static let shared = SourceRefreshController()
 
 	private(set) var states = [String: SourceRefreshState]()
+	private(set) var refreshErrors = [PLError]()
+	private(set) var progress: Double = 0
 
 	private let queue = DispatchQueue(label: "xyz.willy.Zebra.source-refresh-queue", qos: .utility)
 
 	private init() {
 		NotificationCenter.default.addObserver(self, selector: #selector(sourcesListDidUpdate), name: PLSourceManager.sourceListDidUpdateNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(sourcesListDidPulse), name: PLSourceManager.sourceListDidPulseNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(sourcesListDidBeginUpdating), name: PLSourceManager.sourceListDidBeginUpdatingNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(sourceDidBeginUpdating), name: PLSourceManager.sourceDidBeginUpdatingNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(sourceDidFinishUpdating), name: PLSourceManager.sourceDidFinishUpdatingNotification, object: nil)
@@ -52,33 +58,58 @@ class SourceRefreshController {
 	// MARK: - Refresh state handling
 
 	@objc private func sourcesListDidUpdate(_ notification: Notification) {
-		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:]) \(PLConfig.shared.errorMessages)")
-		PLConfig.shared.clearErrors()
+		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:])")
+		handleProgressDidChange(userInfo: notification.userInfo)
+	}
+
+	@objc private func sourcesListDidPulse(_ notification: Notification) {
+		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:])")
+		handleProgressDidChange(userInfo: notification.userInfo)
 	}
 
 	@objc private func sourcesListDidBeginUpdating(_ notification: Notification) {
-		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:]) [\(PLConfig.shared.errorMessages)]")
-		PLConfig.shared.clearErrors()
+		refreshErrors.removeAll()
+		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:])")
+		handleProgressDidChange(userInfo: notification.userInfo)
 	}
 
 	@objc private func sourceDidBeginUpdating(_ notification: Notification) {
-		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:]) [\(PLConfig.shared.errorMessages)]")
-		PLConfig.shared.clearErrors()
+		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:])")
+		handleProgressDidChange(userInfo: notification.userInfo)
 	}
 
 	@objc private func sourceDidFinishUpdating(_ notification: Notification) {
-		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:]) [\(PLConfig.shared.errorMessages)]")
-		PLConfig.shared.clearErrors()
+		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:])")
+		handleProgressDidChange(userInfo: notification.userInfo)
 	}
 
 	@objc private func sourceDidFailUpdating(_ notification: Notification) {
-		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:]) [\(PLConfig.shared.errorMessages)]")
-		PLConfig.shared.clearErrors()
+		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:])")
+		handleProgressDidChange(userInfo: notification.userInfo)
 	}
 
 	@objc private func sourceDidFinishRefreshing(_ notification: Notification) {
-		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:]) [\(PLConfig.shared.errorMessages)]")
-		PLConfig.shared.clearErrors()
+		print("XXX \(notification.name) \(String(describing: notification.object)) \(notification.userInfo ?? [:])")
+		handleProgressDidChange(userInfo: notification.userInfo)
+	}
+
+	private func handleProgressDidChange(userInfo: [AnyHashable: Any]?) {
+		if let userInfo = userInfo {
+			if let percent = userInfo["percent"] as? Int {
+				print("XXX progress: \(percent)%")
+				progress = Double(percent) / 100
+			}
+		}
+
+		let errorMessages = PLErrorManager.shared.errorMessages
+		PLErrorManager.shared.clear()
+		refreshErrors.append(contentsOf: errorMessages)
+		#if DEBUG
+		for item in errorMessages {
+			print(item.description)
+		}
+		#endif
+		NotificationCenter.default.post(name: Self.refreshProgressDidChangeNotification, object: nil)
 	}
 
 	// MARK: - App lifecycle

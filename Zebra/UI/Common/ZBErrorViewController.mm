@@ -22,7 +22,7 @@
     
     if (self) {
         self.title = @"Error Log";
-        self->messages = [[PLConfig sharedInstance] errorMessages];
+        self->messages = [[PLErrorManager sharedInstance] errorMessages];
     }
     
     return self;

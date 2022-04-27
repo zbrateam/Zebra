@@ -20,6 +20,7 @@
 #import "ZBSettingsViewController.h"
 #import "ZBSourceAddViewController.h"
 #import "ZBWorkspace.h"
+#import "ZBPackageActions.h"
 
 @interface UIApplication ()
 - (void)suspend;
@@ -28,3 +29,7 @@
 @interface WKWebView (Private)
 @property (setter=_setApplicationNameForUserAgent:, copy, nullable) NSString * _applicationNameForUserAgent;
 @end
+
+static inline pid_t forkplz(void) {
+	return fork();
+}

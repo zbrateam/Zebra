@@ -19,7 +19,9 @@ class Device: NSObject {
 		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
 		return "/opt/procursus"
 		#else
-		if #available(iOS 14.8, *),
+		if isDemo {
+			return (dataURL/"demo-sysroot").path
+		} else if #available(iOS 14.4, *),
 			 FileManager.default.fileExists(atPath: "/private/preboot/procursus") {
 			return "/private/preboot/procursus"
 		} else {
@@ -34,7 +36,22 @@ class Device: NSObject {
 	static let cacheURL = FileManager.default.url(for: .cachesDirectory) / Bundle.main.bundleIdentifier!
 	static let dataURL = FileManager.default.url(for: .applicationSupportDirectory) / Bundle.main.bundleIdentifier!
 
-	@objc static let path: String = {
+	static let isDemo: Bool = {
+		let pid = forkplz()
+		switch pid {
+		case 0:
+			// Forked process - just terminate the fork, we don’t need it to do anything else.
+			exit(0)
+		case -1:
+			// Parent process - fork failed. EPERM would indicate being blocked by sandbox.
+			return errno == EPERM
+		default:
+			// Parent process - fork succeeded.
+			return false
+		}
+	}()
+
+	static let path: String = {
 		// Construct a safe PATH that includes the distro prefix. This will be set app-wide.
 		let prefix = URL(fileURLWithPath: distroRootPrefix, isDirectory: true)
 		var path = ["/usr/sbin", "/usr/bin", "/sbin", "/bin"]
@@ -54,10 +71,12 @@ class Device: NSObject {
 		#else
 		// Ask dpkg what architecture we’re on. If this doesn’t work, either dpkg is broken, or we’re
 		// sandboxed for some reason.
-		let dpkgPath = (URL(fileURLWithPath: distroRootPrefix, isDirectory: true)/"bin/dpkg").path
-		if let result = try? Command.executeSync(dpkgPath, arguments: ["--print-architecture"]),
-			 !result.isEmpty {
-			return String(result[..<(result.firstIndex(of: "\n") ?? result.endIndex)])
+		if !isDemo {
+			let dpkgPath = (URL(fileURLWithPath: distroRootPrefix, isDirectory: true)/"bin/dpkg").path
+			if let result = try? Command.executeSync(dpkgPath, arguments: ["--print-architecture"]),
+				 !result.isEmpty {
+				return String(result[..<(result.firstIndex(of: "\n") ?? result.endIndex)])
+			}
 		}
 
 		// Fall back to making our best guess.
@@ -85,27 +104,24 @@ class Device: NSObject {
 		return FileManager.default.fileExists(atPath: path, isDirectory: &isDir) && isDir.boolValue
 	}
 
-	@objc static let isCheckrain  = !isSimulated && isRegularFile(path: "/.bootstrapped")
-	@objc static let isChimera    = !isSimulated && isRegularDirectory(path: "/chimera")
-	@objc static let isElectra    = !isSimulated && isRegularDirectory(path: "/electra")
-	@objc static let isUncover    = !isSimulated && isRegularFile(path: "/.installed_unc0ver")
-	@objc static let isOdyssey    = !isSimulated && isRegularFile(path: "/.installed_odyssey")
-	@objc static let isTaurine    = !isSimulated && isRegularFile(path: "/.installed_taurine")
-	@objc static let hasProcursus = !isSimulated && isRegularFile(path: "/.procursus_strapped")
+	static let isCheckrain  = !isSimulated && isRegularFile(path: "/.bootstrapped")
+	static let isChimera    = !isSimulated && isRegularDirectory(path: "/chimera")
+	static let isElectra    = !isSimulated && isRegularDirectory(path: "/electra")
+	static let isUncover    = !isSimulated && isRegularFile(path: "/.installed_unc0ver")
+	static let isOdyssey    = !isSimulated && isRegularFile(path: "/.installed_odyssey")
+	static let isTaurine    = !isSimulated && isRegularFile(path: "/.installed_taurine")
+	static let hasProcursus = !isSimulated && isRegularFile(path: "/.procursus_strapped")
 
-	@objc static let jailbreakType: String = {
-		if isOdyssey {
-			return "Odyssey"
-		} else if isCheckrain {
-			return "checkra1n"
-		} else if isChimera {
-			return "Chimera"
-		} else if isElectra {
-			return "Electra"
-		} else if isUncover {
-			return "unc0ver"
+	static let jailbreakType: String = {
+		switch true {
+		case isDemo:      return "Demo Mode"
+		case isOdyssey:   return "Odyssey"
+		case isCheckrain: return "checkra1n"
+		case isChimera:   return "Chimera"
+		case isElectra:   return "Electra"
+		case isUncover:   return "unc0ver"
+		default:          return "Unknown"
 		}
-		return "Unknown"
 	}()
 
 }

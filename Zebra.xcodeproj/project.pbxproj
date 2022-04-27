@@ -46,6 +46,7 @@
 		4E840B4227D7142E00039938 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4127D7142E00039938 /* HomeViewController.swift */; };
 		4E840B4427D7150000039938 /* SourceRefreshController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4327D7150000039938 /* SourceRefreshController.swift */; };
 		4E840B4627D73D3100039938 /* SourceHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4527D73D3100039938 /* SourceHTTPClient.swift */; };
+		4E8F843527D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F843427D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift */; };
 		4E9FC8742790555800934FFE /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
@@ -58,6 +59,8 @@
 		4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */; };
 		4EA26EC127CCF52E0019A5AA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC027CCF52E0019A5AA /* SDWebImage */; };
 		4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC327CCF6500019A5AA /* DepictionKit */; };
+		4EA2F1DD27DA2A0D0080DC35 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */; };
+		4EA893DD27DDABD600E2EC7A /* sandboxed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4EA893DC27DDABD600E2EC7A /* sandboxed.json */; };
 		4EBA840527D0FC0B00766DBE /* RedditNewsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */; };
 		4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840727D104A300766DBE /* HTTPRequest.swift */; };
 		4EBA840A27D10DB100766DBE /* SourceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */; };
@@ -236,6 +239,7 @@
 		4E840B4127D7142E00039938 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4E840B4327D7150000039938 /* SourceRefreshController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRefreshController.swift; sourceTree = "<group>"; };
 		4E840B4527D73D3100039938 /* SourceHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceHTTPClient.swift; sourceTree = "<group>"; };
+		4E8F843427D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeErrorCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -246,6 +250,8 @@
 		4EA26EB627CCDAC80019A5AA /* BaseSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSceneDelegate.swift; sourceTree = "<group>"; };
 		4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		4EA26EC227CCF5430019A5AA /* DepictionKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DepictionKit; path = Vendor/DepictionKit; sourceTree = "<group>"; };
+		4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
+		4EA893DC27DDABD600E2EC7A /* sandboxed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sandboxed.json; sourceTree = "<group>"; };
 		4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditNewsFetcher.swift; sourceTree = "<group>"; };
 		4EBA840727D104A300766DBE /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -507,6 +513,14 @@
 			path = Browse;
 			sourceTree = "<group>";
 		};
+		4EA2F1DB27DA2A0D0080DC35 /* Demo Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */,
+			);
+			path = "Demo Resources";
+			sourceTree = "<group>";
+		};
 		4EBA840627D1049700766DBE /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -622,11 +636,13 @@
 		4EC7F2A827B556360078F953 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4EA2F1DB27DA2A0D0080DC35 /* Demo Resources */,
 				4EF9A52227B66758003B074F /* Resources */,
 				89C5FDEE21B1B13800A10E58 /* Info.plist */,
 				8908D508261250D800950353 /* macOS.entitlements */,
 				8939BDC1260E67F600EA5C98 /* iOS.entitlements */,
 				E1428E6D27791624005B0885 /* Zebra-Bridging-Header.h */,
+				4EA893DC27DDABD600E2EC7A /* sandboxed.json */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -972,6 +988,7 @@
 			isa = PBXGroup;
 			children = (
 				4E840B4127D7142E00039938 /* HomeViewController.swift */,
+				4E8F843427D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift */,
 				367D80EF22C3D17F00581D60 /* Settings */,
 			);
 			path = Home;
@@ -1286,10 +1303,12 @@
 				4910B3A02426BD2F00306C5C /* ZBSourceAccountBanner.xib in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				4E1A1C9027B6B9F600B6DC9A /* LaunchScreen.storyboard in Resources */,
+				4EA2F1DD27DA2A0D0080DC35 /* Installed.pack in Resources */,
 				00ED302E235C23C5005E8302 /* Localizable.strings in Resources */,
 				4E1A1C8827B6B9BF00B6DC9A /* InfoPlist.strings in Resources */,
 				4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
+				4EA893DD27DDABD600E2EC7A /* sandboxed.json in Resources */,
 				4E840B3E27D6F77400039938 /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1387,6 +1406,7 @@
 				4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */,
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
 				4EC7F28F27B2B55C0078F953 /* URLController.swift in Sources */,
+				4E8F843527D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift in Sources */,
 				4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */,
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
 				E1428E6F27791624005B0885 /* Canister.swift in Sources */,
@@ -1642,6 +1662,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LLVM_LTO = YES_THIN;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1654,6 +1675,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_OPTIMIZATION = space;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1699,6 +1721,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LLVM_LTO = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1774,6 +1797,7 @@
 					"-Xlinker",
 					"-allow_simulator_linking_to_macosx_dylibs",
 				);
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(APP_NAME)";

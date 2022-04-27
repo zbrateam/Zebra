@@ -1,0 +1,16 @@
+{
+	"children": [
+		{
+			"name": "HeadingView",
+			"properties": {
+				"text": "Why do I see a “You’re using a sandboxed demo of Zebra” message?"
+			}
+		},
+		{
+			"name": "TextView",
+			"properties": {
+				"text": "Zebra displays this message when it appears that the app doesn’t have the correct permissions to execute package installation operations on your device.\n\nIf you downloaded a “demo” version of Zebra, this is normal. Demo versions of Zebra are limited by sandboxing, a feature of iOS that protects your device by isolating apps from your personal data and the operating system.\n\nIf your device is definitely jailbroken, and you know that you’re not using a demo version of Zebra, either the jailbreak or files used by Zebra may be damaged. Try restarting your device, and then run the jailbreak again (if applicable to your jailbreak). If Zebra still displays this message, and you have another package manager installed, find Zebra in that package manager, and then choose to reinstall Zebra. If you’re still having problems, use the “Restore System” feature in your jailbreak app to reset all jailbreak changes and start over.\n\nIf you paid for Zebra, Cydia, or a jailbreak, unfortunately, you are a victim of a scam. All jailbreaks are free. Please call your bank (or any other payment service you used, such as PayPal) and file a chargeback case against the transaction(s). You should also uninstall any apps or provisioning profiles (iOS Settings &rarr; General &rarr; Profiles) you’ve installed on your device as part of your purchase."
+			}
+		}
+	]
+}

@@ -15,26 +15,49 @@ class PlainsController {
 		let config = PLConfig.shared
 		let cacheURL = Device.cacheURL
 		let dataURL = Device.dataURL
-
-		// Create directories
-		for path in ["logs", "archives", "archives/partial"] {
-			try FileManager.default.createDirectory(at: cacheURL/path,
-																							withIntermediateDirectories: true,
-																							attributes: [:])
-		}
-		for path in ["lists"] {
-			try FileManager.default.createDirectory(at: dataURL/path,
-																							withIntermediateDirectories: true,
-																							attributes: [:])
-		}
-
-		// Set directories
 		let dpkgStateURL = URL(fileURLWithPath: Device.distroVarPrefix, isDirectory: true)/"var/lib/dpkg"
 		let dpkgDataURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"share/dpkg"
 		let binURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"bin"
 		let libexecURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"libexec/apt"
 		let etcPrefixURL = URL(fileURLWithPath: Device.distroEtcPrefix, isDirectory: true)
 
+		// Create directories
+		let dirsToCreate = [
+			cacheURL/"logs",
+			cacheURL/"archives",
+			cacheURL/"archives/partial",
+			dataURL/"lists"
+		] + (Device.isDemo ? [
+			dpkgStateURL,
+			dpkgDataURL,
+			binURL,
+			libexecURL,
+			etcPrefixURL/"etc/apt/apt.conf.d",
+			etcPrefixURL/"etc/apt/preferences.d",
+			etcPrefixURL/"etc/apt/sources.list.d"
+		] : [])
+		for url in dirsToCreate {
+			try FileManager.default.createDirectory(at: url,
+																							withIntermediateDirectories: true,
+																							attributes: [:])
+		}
+
+		// Set up simulated environment if needed
+		if Device.isDemo {
+			let statusURL = dpkgStateURL/"status"
+			if (try? statusURL.checkResourceIsReachable()) != true {
+				try FileManager.default.copyItem(at: Bundle.main.url(forResource: "Installed", withExtension: "pack")!,
+																				 to: statusURL)
+			}
+			for item in ["tupletable", "triplettable", "cputable"] {
+				let url = dpkgDataURL/item
+				if (try? url.checkResourceIsReachable()) != true {
+					try Data().write(to: url)
+				}
+			}
+		}
+
+		// Set APT paths
 		config.set(string: (cacheURL/"logs").path, forKey: "Dir::Log")
 		config.set(string: cacheURL.path, forKey: "Dir::Cache")
 		config.set(string: dataURL.path, forKey: "Dir::State")
@@ -46,8 +69,8 @@ class PlainsController {
 		config.set(string: (dpkgDataURL/"triplettable").path, forKey: "Dir::dpkg::triplettable")
 		config.set(string: (dpkgDataURL/"cputable").path, forKey: "Dir::dpkg::cputable")
 		config.set(string: (libexecURL/"methods").path, forKey: "Dir::Bin::Methods")
-		config.set(string: (libexecURL/"solvers").path, forKey: "Dir::Bin::Solvers")
-		config.set(string: (libexecURL/"planners").path, forKey: "Dir::Bin::Planners")
+		config.set(string: (libexecURL/"solvers").path, forKey: "Dir::Bin::Solvers::")
+		config.set(string: (libexecURL/"planners").path, forKey: "Dir::Bin::Planners::")
 		config.set(string: (binURL/"apt-key").path, forKey: "Dir::Bin::apt-key")
 
 		// Set slingshot path
@@ -58,13 +81,16 @@ class PlainsController {
 		config.set(string: Device.primaryDebianArchitecture, forKey: "APT::Architecture")
 		config.set(string: Device.primaryDebianArchitecture, forKey: "APT::Architectures::")
 
+		// Set PATH that will be used when spawning dpkg
+		config.set(string: Device.path, forKey: "DPkg::Path")
+
 		// Allow unsigned repos only on iOS
-		#if !targetEnvironment(macCatalyst)
+		#if DEBUG || !targetEnvironment(macCatalyst)
 		config.set(boolean: true, forKey: "Acquire::AllowInsecureRepositories")
 		#endif
 
 		// Configure http method
-		config.set(string: URLController.aptUserAgent, forKey: "Acquire::http::User-Agent")
+		config.set(string: URLController.httpUserAgent, forKey: "Acquire::http::User-Agent")
 
 		// Configure finish fd
 		var finishFds: [Int32] = [0, 0]
@@ -90,35 +116,25 @@ class PlainsController {
 
 		#if DEBUG
 		let debugKeys = [
-			"Debug::Acquire::cdrom",
-			"Debug::Acquire::Ftp",
 			"Debug::Acquire::gpgv",
-			"Debug::Acquire::netrc",
 			"Debug::Acquire::Progress",
 			"Debug::Acquire::Retries",
 			"Debug::Acquire::SrvRecs",
 			"Debug::Acquire::Transaction",
-			"Debug::APT::FTPArchive::Clean",
 			"Debug::APT::Progress::PackageManagerFd",
-			"Debug::aptcdrom",
-			"Debug::AptMark::Minimize",
 			"Debug::EDSP::WriteSolution",
 			"Debug::GetListOfFilesInDir",
 			"Debug::Hashes",
-			"Debug::identcdrom",
-			"Debug::InstallProgress::Fancy",
 			"Debug::Locking",
 			"Debug::Phasing",
+			"Debug::pkgAcquire",
 			"Debug::pkgAcquire::Auth",
 			"Debug::pkgAcquire::Diffs",
 			"Debug::pkgAcquire::Worker",
-			"Debug::pkgAcquire",
 			"Debug::pkgAutoRemove",
 			"Debug::pkgCacheGen",
 			"Debug::pkgDepCache::AutoInstall",
 			"Debug::pkgDepCache::Marker",
-			"Debug::pkgDpkgPm",
-			"Debug::pkgDPkgPM",
 			"Debug::pkgDPkgProgressReporting",
 			"Debug::pkgInitConfig",
 			"Debug::pkgOrderList",

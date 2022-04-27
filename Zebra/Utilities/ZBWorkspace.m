@@ -48,7 +48,9 @@
 + (BOOL)isSafariDefaultBrowser {
 	NSURL *url = [NSURL URLWithString:@"https://"];
 	LSApplicationProxy *app = [[LSApplicationWorkspace defaultWorkspace] applicationsAvailableForOpeningURL:url].firstObject;
-	return [app.bundleIdentifier isEqualToString:@"com.apple.mobilesafari"];
+	// If we don’t have the right entitlement, we’ll get nil back. Just assume Safari is the default
+	// browser in that case.
+	return app == nil || [app.bundleIdentifier isEqualToString:@"com.apple.mobilesafari"];
 }
 #endif
 
