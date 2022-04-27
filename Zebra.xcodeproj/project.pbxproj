@@ -61,6 +61,7 @@
 		4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC327CCF6500019A5AA /* DepictionKit */; };
 		4EA2F1DD27DA2A0D0080DC35 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */; };
 		4EA893DD27DDABD600E2EC7A /* sandboxed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4EA893DC27DDABD600E2EC7A /* sandboxed.json */; };
+		4EA893DF27DF3D2100E2EC7A /* Dictionary+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA893DE27DF3D2100E2EC7A /* Dictionary+Extensions.swift */; };
 		4EBA840527D0FC0B00766DBE /* RedditNewsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */; };
 		4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840727D104A300766DBE /* HTTPRequest.swift */; };
 		4EBA840A27D10DB100766DBE /* SourceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */; };
@@ -252,6 +253,7 @@
 		4EA26EC227CCF5430019A5AA /* DepictionKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DepictionKit; path = Vendor/DepictionKit; sourceTree = "<group>"; };
 		4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
 		4EA893DC27DDABD600E2EC7A /* sandboxed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sandboxed.json; sourceTree = "<group>"; };
+		4EA893DE27DF3D2100E2EC7A /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
 		4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditNewsFetcher.swift; sourceTree = "<group>"; };
 		4EBA840727D104A300766DBE /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -921,6 +923,7 @@
 				4EC7F27E27B275F70078F953 /* String+Localization.swift */,
 				4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */,
 				4EC7F28827B2932F0078F953 /* Array+Extensions.swift */,
+				4EA893DE27DF3D2100E2EC7A /* Dictionary+Extensions.swift */,
 				4EC7F28A27B2985A0078F953 /* String+Extensions.swift */,
 				4EC7F28C27B29AB20078F953 /* Darwin+Extensions.swift */,
 				4EC7F29427B393870078F953 /* UIApplication+Additions.swift */,
@@ -1386,6 +1389,7 @@
 				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
 				4E9FC89227910AD200934FFE /* UIFont+Additions.swift in Sources */,
 				E193C67C277A8E0100B2469E /* PackageDepictionViewController.swift in Sources */,
+				4EA893DF27DF3D2100E2EC7A /* Dictionary+Extensions.swift in Sources */,
 				4EC7F29527B393870078F953 /* UIApplication+Additions.swift in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */,
 				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,

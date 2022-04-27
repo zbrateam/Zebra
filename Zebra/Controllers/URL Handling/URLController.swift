@@ -9,41 +9,126 @@
 import Foundation
 import SafariServices
 
+fileprivate protocol ClientHintValue {}
+extension String: ClientHintValue {}
+extension Int: ClientHintValue {}
+extension CGFloat: ClientHintValue {}
+extension Bool: ClientHintValue {}
+extension Dictionary: ClientHintValue where Key == String, Value == String {}
+
 @objc(ZBURLController)
 class URLController: NSObject {
 
 	// MARK: - Headers
 
-	@objc static let webUserAgent: String = {
-		let infoPlist = Bundle.main.infoDictionary!
-		let device = UIDevice.current
-		// Zebra/2.0 (iPhone; iOS 14.8.1)
-		var userAgent = "Zebra/\(infoPlist["CFBundleShortVersionString"]!) (\(device.hardwarePlatform); \(device.osName) \(device.systemVersion))"
-		#if !targetEnvironment(macCatalyst)
+	private static let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+
+	static let baseUserAgent = "Zebra/\(appVersion)"
+
+	// User agent used in web view requests.
+	static let webUserAgent: String = {
+		// Zebra/2.0
+		#if targetEnvironment(macCatalyst)
+		let compatToken = ""
+		#else
 		// Prepend Cydia token on iOS for compatibility.
-		userAgent = "Cydia/1.1.32 \(userAgent)"
+		let compatToken = "Cydia/1.1.32 "
 		#endif
-		return userAgent
+		return "\(compatToken)\(baseUserAgent)"
 	}()
 
-	@objc static let aptUserAgent = "Telesphoreo (Zebra) APT-HTTP/1.0.592"
+	// User agent used in non-browser requests.
+	static let httpUserAgent: String = {
+		// Zebra/2.0 (iPhone; iOS 14.8.1)
+		let device = UIDevice.current
+		return "\(baseUserAgent) (\(device.hardwarePlatform); \(device.osName) \(device.osVersion))"
+	}()
 
-	@objc static var webHeaders: [String: String] {
+	private static func makeClientHintHeaders(_ clientHints: [String: ClientHintValue]) -> [String: String] {
+		// https://www.rfc-editor.org/rfc/rfc8941
+		var result = [String: String]()
+		for (key, value) in clientHints {
+			if let value = value as? [String: String] {
+				result[key] = value
+					.map { key, value in "\"\(key)\";v=\"\(value)\"" }
+					.joined(separator: ", ")
+			}
+			if let value = value as? String {
+				result[key] = "\"\(value)\""
+			} else if let value = value as? Bool {
+				result[key] = value ? "?1" : "?0"
+			} else if let value = value as? NSNumber {
+				let formatter = NumberFormatter()
+				formatter.numberStyle = .decimal
+				formatter.locale = Locale(identifier: "en_US_POSIX")
+				result[key] = formatter.string(from: value)
+			}
+		}
+		return result
+	}
+
+	// Client hints always sent.
+	static let lowEntropyClientHints: [String: String] = {
+		let device = UIDevice.current
+		let screen = UIScreen.main
+		#if targetEnvironment(macCatalyst)
+		let isMobile = false
+		#else
+		let isMobile = screen.bounds.size.width < 500
+		#endif
+		return makeClientHintHeaders([
+			"Sec-CH-UA": ["Zebra": appVersion],
+			"Sec-CH-UA-Platform": device.osName,
+			"Sec-CH-UA-Mobile": isMobile,
+			// DPR is supposed to be high entropy, but I disagree that it reveals too much about the client…
+			// Sec-CH-DPR is the new name for DPR
+			"Sec-CH-DPR": screen.scale,
+			"DPR": screen.scale
+		])
+	}()
+
+	// More sensitive, fingerprintable, client hints only sent when requested.
+	static let highEntropyClientHints: [String: String] = {
+		let device = UIDevice.current
+		let screen = UIScreen.main
+		return makeClientHintHeaders([
+			"Sec-CH-UA-Platform-Version": device.osVersion,
+			"Sec-CH-UA-Full-Version": appVersion,
+			"Sec-CH-UA-Full-Version-List": ["Zebra": appVersion],
+			"Sec-CH-UA-Arch": device.architecture.clientHint,
+			"Sec-CH-UA-Bitness": device.bitness.rawValue,
+			"Sec-CH-UA-Model": device.machine
+		])
+	}()
+
+	// Headers used by non-browser, non-APT requests.
+	static var httpHeaders: [String: String] = {
 		[
-			"User-Agent": webUserAgent,
-			"X-Firmware": UIDevice.current.osVersion,
-			"X-Machine": UIDevice.current.machine,
+			"User-Agent": httpUserAgent
+		] + lowEntropyClientHints
+	}()
+
+	// Headers used by web views.
+	static var webHeaders: [String: String] {
+		httpHeaders + [
 			"Payment-Provider": "API",
-			"Tint-Color": (UIColor.accent ?? UIColor.link).hexString,
-			"Accept-Language": Locale.preferredLanguages.first!
+			"Tint-Color": (UIColor.accent ?? UIColor.link).hexString
 		]
 	}
 
-	@objc static let aptHeaders: [String: String] = [
-		"User-Agent": webUserAgent,
-		"X-Firmware": UIDevice.current.systemVersion,
-		"X-Machine": UIDevice.current.machine
-	]
+	// Headers used specifically by APT.
+	@objc static let aptHeaders: [String: String] = {
+		var headers = httpHeaders
+		let device = UIDevice.current
+		// Legacy Cydia headers (iOS compatibility)
+		#if !targetEnvironment(macCatalyst)
+		headers += [
+			"X-Firmware": device.osVersion,
+			"X-Machine": device.machine
+		]
+		#endif
+		return headers + lowEntropyClientHints + highEntropyClientHints
+	}()
 
 	// MARK: - UI
 

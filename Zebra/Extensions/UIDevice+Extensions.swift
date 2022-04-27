@@ -22,6 +22,22 @@ extension UTTagClass {
 fileprivate let udidFallback = "da39a3ee5e6b4b0d3255bfef95601890afd80709"
 fileprivate let machineFallback = "iPhone10,3"
 
+enum Bitness: Int {
+	case _64 = 64
+}
+
+enum Architecture: String {
+	case x86_64 = "x86_64"
+	case arm64 = "arm64"
+
+	var clientHint: String {
+		switch self {
+		case .x86_64: return "x86"
+		case .arm64:  return "arm"
+		}
+	}
+}
+
 @objc extension UIDevice {
 
 	@objc(zbra_udid)
@@ -102,6 +118,24 @@ fileprivate let machineFallback = "iPhone10,3"
 		}
 		#endif
 		return systemVersion
+	}
+
+	@nonobjc var bitness: Bitness {
+		// Don’t add a catch-all #else here, this will ensure any future archs not accounted for will
+		// throw a build error.
+		#if arch(x86_64) || arch(arm64)
+		._64
+		#endif
+	}
+
+	@nonobjc var architecture: Architecture {
+		// Don’t add a catch-all #else here, this will ensure any future archs not accounted for will
+		// throw a build error.
+		#if arch(x86_64)
+		return .x86_64
+		#elseif arch(arm64)
+		return .arm64
+		#endif
 	}
 
 	private func sysctlValue(key: String) -> String? {
