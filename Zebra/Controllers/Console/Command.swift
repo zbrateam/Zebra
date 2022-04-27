@@ -165,7 +165,7 @@ class Command {
 		}
 
 		let handleSourceEvent = { (source: DispatchSourceRead, fd: Int32, action: @escaping (String) -> ()) in
-			let buffer = UnsafeMutablePointer<CChar>.allocate(capacity: Int(BUFSIZ))
+			let buffer = UnsafeMutableRawPointer.allocate(byteCount: Int(BUFSIZ), alignment: MemoryLayout<CChar>.alignment)
 			let bytesRead = read(fd, buffer, Int(BUFSIZ))
 			switch bytesRead {
 			case -1:
@@ -187,10 +187,9 @@ class Command {
 
 			default:
 				// Read from output and notify delegate.
-				let data = Data(bytes: buffer, count: bytesRead)
-				if let string = String(data: data, encoding: .utf8) {
-					action(string)
-				}
+				// No need to cChar.deallocate() after, because it’s the same memory as buffer, not a copy.
+				let cChar = buffer.bindMemory(to: CChar.self, capacity: bytesRead)
+				action(String(cString: cChar))
 			}
 			buffer.deallocate()
 		}
@@ -271,9 +270,9 @@ class Command {
 		return WIFEXITED(status) ? WEXITSTATUS(status) : status
 	}
 
-	func execute(priority: TaskPriority = .userInitiated) async throws -> Int32 {
+	func execute() async throws -> Int32 {
 		return try await withCheckedThrowingContinuation { result in
-			Task(priority: priority) {
+			Task {
 				result.resume(returning: try executeSync())
 			}
 		}
