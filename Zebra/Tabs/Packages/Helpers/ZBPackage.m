@@ -22,6 +22,7 @@
 #import "ZBQueue.h"
 #import "ZBSettings.h"
 #import "ZBCommand.h"
+#import "ZBSafariAuthenticationSession.h"
 
 @import SDWebImage;
 
@@ -412,15 +413,15 @@
     return [tags containsObject:@"cydia::commercial"];
 }
 
-- (BOOL)mightRequirePayment API_AVAILABLE(ios(11.0)) {
+- (BOOL)mightRequirePayment {
     return [self requiresPayment] || ([[self source] sourceID] > 0 && [self isPaid] && [[self source] suppotsPaymentAPI]);
 }
 
-- (BOOL)requiresPayment API_AVAILABLE(ios(11.0)) {
+- (BOOL)requiresPayment {
     return self.requiresAuthorization || (checkedForPurchaseInfo && purchaseInfo);
 }
 
-- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion API_AVAILABLE(ios(11.0)) {
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion {
     //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
     if (![self mightRequirePayment]) {
         completion(NULL);
@@ -785,11 +786,11 @@
     return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
 }
 
-- (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+- (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion {
     [self purchase:YES completion:completion];
 }
 
-- (void)purchase:(BOOL)tryAgain completion:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+- (void)purchase:(BOOL)tryAgain completion:(void (^)(BOOL success, NSError *_Nullable error))completion {
     ZBSource *source = [self source];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
@@ -835,19 +836,21 @@
                             case 1: { // Action is required, pass this information on to the view controller
                                 NSURL *actionLink = [NSURL URLWithString:result[@"url"]];
                                 if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"https"])) {
-                                    static SFAuthenticationSession *session;
-                                    session = [[SFAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                                        if (callbackURL && !error) {
-                                            completion(YES, nil);
-                                        }
-                                        else if (error && !(error.domain == SFAuthenticationErrorDomain && error.code == SFAuthenticationErrorCanceledLogin)) {
-                                            NSString *localizedDescription = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), error.localizedDescription];
-                                            
-                                            NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
-                                            completion(NO, error);
-                                        }
-                                    }];
-                                    [session start];
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        static ZBSafariAuthenticationSession *session;
+                                        session = [[ZBSafariAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+                                            if (callbackURL && !error) {
+                                                completion(YES, nil);
+                                            }
+                                            else if (error && !(error.domain == ZBSafariAuthenticationErrorDomain && error.code == ZBSafariAuthenticationErrorCanceledLogin)) {
+                                                NSString *localizedDescription = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), error.localizedDescription];
+
+                                                NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+                                                completion(NO, error);
+                                            }
+                                        }];
+                                        [session start];
+                                    });
                                 }
                                 else {
                                     NSString *localizedDescription = [NSString stringWithFormat:NSLocalizedString(@"The Payment Provider responded with an improper payment URL: %@", @""), result[@"url"]];

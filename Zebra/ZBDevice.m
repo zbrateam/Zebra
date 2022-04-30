@@ -13,6 +13,7 @@
 #import "ZBQueue.h"
 #import "ZBAppDelegate.h"
 #import "MobileGestalt.h"
+#import "FBSSystemService.h"
 #import <UIKit/UIDevice.h>
 #import "ZBCommand.h"
 #import <sys/utsname.h>
@@ -21,6 +22,7 @@
 #import <sys/stat.h>
 #import <unistd.h>
 #import <dlfcn.h>
+#import <objc/runtime.h>
 @import SafariServices;
 @import LNPopupController;
 
@@ -297,6 +299,14 @@ static BOOL hasProcursus;
         safariVC.view.tintColor = tintColor;
     }
     [delegate presentViewController:safariVC animated:YES completion:nil];
+}
+
++ (void)openURL:(NSURL *_Nonnull)url inApplication:(NSString *_Nonnull)application {
+    Class $FBSSystemService = objc_getClass("FBSSystemService");
+    if (![$FBSSystemService instancesRespondToSelector:@selector(openURL:application:options:clientPort:withResult:)]) {
+        return;
+    }
+    [[$FBSSystemService sharedService] openURL:url application:application options:nil clientPort:0 withResult:nil];
 }
 
 + (BOOL)useIcon {

@@ -16,6 +16,7 @@
 #import "ZBUtils.h"
 #import "ZBUserInfo.h"
 #import "ZBSourceInfo.h"
+#import "ZBSafariAuthenticationSession.h"
 
 @interface ZBSource () {
     NSURL *paymentVendorURI;
@@ -156,7 +157,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
 }
 
-- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion {
     if (![self suppotsPaymentAPI]) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
         completion(NO, YES, error);
@@ -183,8 +184,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [components setQueryItems:queryItems];
     
     NSURL *url = [components URL];
-    static SFAuthenticationSession *session;
-    session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+    static ZBSafariAuthenticationSession *session;
+    session = [[ZBSafariAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
         if (callbackURL && !error) {
             NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
             NSArray *queryItems = urlComponents.queryItems;
@@ -194,31 +195,31 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             }
             NSString *token = queryByKeys[@"token"];
             NSString *payment = queryByKeys[@"payment_secret"];
-            
+
             UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
             [keychain setString:token forKey:self.repositoryURI];
-            
+
             NSString *key = [self.repositoryURI stringByAppendingString:@"payment"];
             [keychain setString:nil forKey:key];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                 [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                       authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                
+
                 [keychain setString:payment forKey:key];
-                
+
                 completion(YES, NO, NULL);
             });
         }
         else if (error) {
-            completion(NO, !(error.domain == SFAuthenticationErrorDomain && error.code == SFAuthenticationErrorCanceledLogin), error);
+            completion(NO, !(error.domain == ZBSafariAuthenticationErrorDomain && error.code == ZBSafariAuthenticationErrorCanceledLogin), error);
             return;
         }
     }];
-    
     [session start];
+
 }
 
-- (void)signOut API_AVAILABLE(ios(11.0)) {
+- (void)signOut {
     if (![self suppotsPaymentAPI]) {
 //        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
         return;
@@ -248,12 +249,12 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [signOutTask resume];
 }
 
-- (BOOL)isSignedIn API_AVAILABLE(ios(11.0)) {
+- (BOOL)isSignedIn {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    return [keychain stringForKey:self.repositoryURI] ? YES : NO;
+    return [keychain stringForKey:self.repositoryURI] != nil && [keychain stringForKey:[NSString stringWithFormat:@"%@payment", self.repositoryURI]] != nil;
 }
 
-- (NSString *)paymentSecret:(NSError **)error API_AVAILABLE(ios(11.0)) {
+- (NSString *)paymentSecret:(NSError **)error {
     __block NSString *paymentSecret = NULL;
     __block NSError *paymentError = NULL;
     
@@ -279,7 +280,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return paymentSecret;
 }
 
-- (NSURL *)paymentVendorURL API_AVAILABLE(ios(11.0)) {
+- (NSURL *)paymentVendorURL {
     if (self->paymentVendorURI && self->paymentVendorURI.host && self->paymentVendorURI.scheme) {
         return self->paymentVendorURI;
     }
@@ -289,13 +290,13 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return self->paymentVendorURI;
 }
 
-- (BOOL)suppotsPaymentAPI API_AVAILABLE(ios(11.0)) {
+- (BOOL)suppotsPaymentAPI {
     NSURL *paymentVendorURL = [self paymentVendorURL];
     
     return paymentVendorURL && paymentVendorURL.host && paymentVendorURL.scheme;
 }
 
-- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion API_AVAILABLE(ios(11.0)) {
+- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion {
     if (![self paymentVendorURL] || ![self isSignedIn]) return;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
@@ -330,7 +331,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         }
         else {
             completion(nil, error ?: [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:@{
-                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", statusCode]
+                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", (long)statusCode]
             }]);
         }
     }];
@@ -338,7 +339,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [task resume];
 }
 
-- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion API_AVAILABLE(ios(11.0)) {
+- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion {
     if (![self paymentVendorURL]) return;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
@@ -364,7 +365,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         }
         else {
             completion(nil, error ?: [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:@{
-                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", statusCode]
+                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", (long)statusCode]
             }]);
         }
     }];

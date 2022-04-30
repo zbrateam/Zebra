@@ -29,17 +29,13 @@
     self = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] objectAtIndex:0];
     self.source = source;
     self.owner = owner;
-    if (@available(iOS 11.0, *)) {
-        [self.source getSourceInfo:^(ZBSourceInfo * _Nonnull info, NSError * _Nonnull error) {
-            if (info && !error) {
-                self.sourceInfo = info;
-            }
-            
-            [self updateText];
-        }];
-    } else {
-        return NULL;
-    }
+    [self.source getSourceInfo:^(ZBSourceInfo * _Nonnull info, NSError * _Nonnull error) {
+        if (info && !error) {
+            self.sourceInfo = info;
+        }
+
+        [self updateText];
+    }];
     
     [self.button addTarget:owner action:@selector(accountButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -77,34 +73,32 @@
 - (void)updateText {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.activityIndicatorView startAnimating];
-        if (@available(iOS 11.0, *)) {
-            if ([self->source isSignedIn]) {
-                [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
-                [self->source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if (info && !error) {
-                            if (self->hideEmail) {
-                                self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@", @""), info.user.name];
-                            }
-                            else {
-                                self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@ (%@)", @""), info.user.name, info.user.email];
-                            }
+        if ([self->source isSignedIn]) {
+            [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
+            [self->source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (info && !error) {
+                        if (self->hideEmail) {
+                            self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@", @""), info.user.name];
                         }
                         else {
-                            self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
+                            self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@ (%@)", @""), info.user.name, info.user.email];
                         }
-                        [self.activityIndicatorView stopAnimating];
-                    });
-                }];
+                    }
+                    else {
+                        self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
+                    }
+                    [self.activityIndicatorView stopAnimating];
+                });
+            }];
+        } else {
+            [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
+            if (self->sourceInfo) {
+                self.descriptionLabel.text = self->sourceInfo.authenticationBanner.message;
             } else {
-                [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
-                if (self->sourceInfo) {
-                    self.descriptionLabel.text = self->sourceInfo.authenticationBanner.message;
-                } else {
-                    self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
-                }
-                [self.activityIndicatorView stopAnimating];
+                self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
             }
+            [self.activityIndicatorView stopAnimating];
         }
     });
 }

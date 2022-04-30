@@ -95,27 +95,25 @@
     
     ZBSource *source = [sources objectAtIndex:indexPath.row];
     
-    if (@available(iOS 11.0, *)) {
-        [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
-            if (!success || error) {
-                if (notify) {
-                    if (error) {
-                        [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not authenticate", @""), error.localizedDescription]];
-                    }
-                    else {
-                        [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
-                    }
+    [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+        if (!success || error) {
+            if (notify) {
+                if (error) {
+                    [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not authenticate", @""), error.localizedDescription]];
+                }
+                else {
+                    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
                 }
             }
-            else {
-                ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.navigationController pushViewController:accountController animated:YES];
-                });
-            }
-        }];
-    }
+        }
+        else {
+            ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController pushViewController:accountController animated:YES];
+            });
+        }
+    }];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {

@@ -36,6 +36,7 @@
 		4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */; };
 		49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
+		4E16A066281CD99000F35795 /* ZBSafariAuthenticationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16A065281CD99000F35795 /* ZBSafariAuthenticationSession.m */; };
 		4E413922278D98DC0006AB8B /* ZBAlternateIconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */; };
 		4E41394A278DC8F90006AB8B /* listicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413941278DC8F90006AB8B /* listicon.png */; };
 		4E41394B278DC8F90006AB8B /* listicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413942278DC8F90006AB8B /* listicon@3x.png */; };
@@ -227,6 +228,9 @@
 		49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSourceTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
+		4E16A064281CD99000F35795 /* ZBSafariAuthenticationSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSafariAuthenticationSession.h; sourceTree = "<group>"; };
+		4E16A065281CD99000F35795 /* ZBSafariAuthenticationSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSafariAuthenticationSession.m; sourceTree = "<group>"; };
+		4E16A06C281D842300F35795 /* FBSSystemService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBSSystemService.h; sourceTree = "<group>"; };
 		4E413920278D98DC0006AB8B /* ZBAlternateIconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAlternateIconCell.h; sourceTree = "<group>"; };
 		4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAlternateIconCell.m; sourceTree = "<group>"; };
 		4E413941278DC8F90006AB8B /* listicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listicon.png; sourceTree = "<group>"; };
@@ -687,6 +691,7 @@
 				A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */,
 				A5A7F1252462A66900461335 /* UIImage+Private.h */,
 				4E41396F278DD5770006AB8B /* UIView+Private.h */,
+				4E16A06C281D842300F35795 /* FBSSystemService.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -765,6 +770,8 @@
 				898E010D22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m */,
 				899BDCBA241DBB6300A2CC3A /* ZBSourceSelectTableViewController.h */,
 				899BDCBB241DBB6300A2CC3A /* ZBSourceSelectTableViewController.m */,
+				4E16A064281CD99000F35795 /* ZBSafariAuthenticationSession.h */,
+				4E16A065281CD99000F35795 /* ZBSafariAuthenticationSession.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1120,7 +1127,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = ZB;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				ORGANIZATIONNAME = "Zebra Team";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
@@ -1363,6 +1370,7 @@
 				897FFD4B23CFA4A30082DD31 /* ZBThemeManager.m in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */,
 				49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */,
+				4E16A066281CD99000F35795 /* ZBSafariAuthenticationSession.m in Sources */,
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
 				A53E54A5245B08740082BF69 /* ZBUtils.m in Sources */,

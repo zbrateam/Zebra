@@ -33,6 +33,7 @@
 + (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBCommandDelegate> * _Nullable)observer;
 
 + (void)openURL:(NSURL *_Nonnull)url delegate:(UIViewController <SFSafariViewControllerDelegate> *_Nonnull)delegate;
++ (void)openURL:(NSURL *_Nonnull)url inApplication:(NSString *_Nonnull)application;
 
 + (BOOL)isCheckrain;
 + (BOOL)isChimera;

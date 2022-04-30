@@ -271,12 +271,7 @@ typedef enum ZBInfoOrder : NSUInteger {
         case ZBWelcome:
             return 1;
         case ZBViews:
-            if (@available(iOS 11.0, *)) {
-                return 3;
-            }
-            else {
-                return 2;
-            }
+            return 3;
         case ZBLinks:
             return 3;
         case ZBInfo:
@@ -323,11 +318,9 @@ typedef enum ZBInfoOrder : NSUInteger {
                     image = [UIImage imageNamed:@"Repos"];
                     break;
                 case ZBStores:
-                    if (@available(iOS 11.0, *)) {
-                        text = NSLocalizedString(@"Stores", @"");
-                        image = [UIImage imageNamed:@"Stores"];
-                        break;
-                    }
+                    text = NSLocalizedString(@"Stores", @"");
+                    image = [UIImage imageNamed:@"Stores"];
+                    break;
                 case ZBWishList:
                     text = NSLocalizedString(@"Wish List", @"");
                     image = [UIImage imageNamed:@"Wishlist"];
@@ -480,11 +473,9 @@ typedef enum ZBInfoOrder : NSUInteger {
             break;
         }
         case ZBStores: {
-            if (@available(iOS 11.0, *)) {
-                ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
-                [[self navigationController] pushViewController:webController animated:YES];
-                break;
-            }
+            ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
+            [[self navigationController] pushViewController:webController animated:YES];
+            break;
         }
         case ZBWishList: {
             ZBWishListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];

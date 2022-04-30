@@ -25,6 +25,7 @@
 #import <dlfcn.h>
 #import <objc/runtime.h>
 #import "AccessibilityUtilities.h"
+#import "ZBSafariAuthenticationSession.h"
 
 @import LocalAuthentication;
 
@@ -242,7 +243,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    NSArray *choices = @[@"file", @"zbra"];
+    NSArray *choices = @[@"file", @"zbra", @"sileo"];
     int index = (int)[choices indexOfObject:[url scheme]];
     
     if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
@@ -355,6 +356,16 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 }
             }
             break;
+        }
+        case 2: { // sileo
+            if (@available(iOS 11, *)) {
+                // Let Sileo handle this URL.
+                [ZBDevice openURL:url inApplication:@"org.coolstar.SileoStore"];
+                return NO;
+            } else {
+                // Forward to current Safari auth session, if any.
+                [ZBSafariAuthenticationSession handleCallbackURL:url];
+            }
         }
         default: {
             return NO;
