@@ -3,7 +3,7 @@
 
 int main() {
 	// Ensure supersling permissions
-	if (lchown("/usr/libexec/zebra/supersling", 0, 0) != 0 || lchmod("/usr/libexec/zebra/supersling", 06775) != 0) {
+	if (lchown("/usr/libexec/zebra/supersling", 0, 0) != 0 || lchmod("/usr/libexec/zebra/supersling", 06755) != 0) {
 		errno_t error = errno;
 		NSLog(@"Failed to set permissions on supersling: %i: %s", error, strerror(error));
 		return 1;
