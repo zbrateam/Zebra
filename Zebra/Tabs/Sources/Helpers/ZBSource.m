@@ -202,7 +202,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             NSString *key = [self.repositoryURI stringByAppendingString:@"payment"];
             [keychain setString:nil forKey:key];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenUnlockedThisDeviceOnly
                       authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
 
                 [keychain setString:payment forKey:key];
@@ -251,7 +251,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 - (BOOL)isSignedIn {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    return [keychain stringForKey:self.repositoryURI] != nil && [keychain stringForKey:[NSString stringWithFormat:@"%@payment", self.repositoryURI]] != nil;
+    return [keychain stringForKey:self.repositoryURI] != nil && [keychain contains:[NSString stringWithFormat:@"%@payment", self.repositoryURI]];
 }
 
 - (NSString *)paymentSecret:(NSError **)error {
@@ -263,7 +263,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         NSString *paymentKeychainIdentifier = [NSString stringWithFormat:@"%@payment", [self repositoryURI]];
         
         UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenUnlockedThisDeviceOnly
               authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
         keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
         
