@@ -15,7 +15,7 @@ Zebra_CODESIGN_FLAGS = -SZebra/Zebra.entitlements
 
 include $(THEOS_MAKE_PATH)/xcodeproj.mk
 
-SUBPROJECTS = Supersling Firmware
+SUBPROJECTS = Firmware utils
 
 include $(THEOS_MAKE_PATH)/aggregate.mk
 

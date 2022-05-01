@@ -358,14 +358,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
             break;
         }
         case 2: { // sileo
-            if (@available(iOS 11, *)) {
-                // Let Sileo handle this URL.
-                [ZBDevice openURL:url inApplication:@"org.coolstar.SileoStore"];
-                return NO;
-            } else {
-                // Forward to current Safari auth session, if any.
-                [ZBSafariAuthenticationSession handleCallbackURL:url];
-            }
+            // Forward to current Safari auth session, if any.
+            [ZBSafariAuthenticationSession handleCallbackURL:url];
         }
         default: {
             return NO;

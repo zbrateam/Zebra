@@ -48,6 +48,7 @@ static ZBSafariAuthenticationSession *currentSession = nil;
                 // Rebuild the error with our error domain.
                 error = [NSError errorWithDomain:ZBSafariAuthenticationErrorDomain code:error.code userInfo:error.userInfo];
             }
+            [self _handleCallbackURL:callbackURL error:error];
         }];
         [session start];
         _session = session;

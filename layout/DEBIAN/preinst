@@ -5,3 +5,11 @@ if [ -d /var/mobile/Documents/xyz.willy.Zebra ];then
     cp -R /var/mobile/Documents/xyz.willy.Zebra "/var/mobile/Library/Application Support/"
     rm -rf /var/mobile/Documents/xyz.willy.Zebra
 fi
+
+# Prevent Zebra from choosing a sandbox path for its directory
+if [ -f /var/mobile/Containers/Data/Application/*/Documents/zebra.db ];then
+    DBPATH=$(ls /var/mobile/Containers/Data/Application/*/Documents/zebra.db)
+    ZBPATH=${DBPATH/Documents\/zebra.db/}
+    rm -rf ${ZBPATH}
+    echo "Removed sandboxed Zebra document directory"
+fi

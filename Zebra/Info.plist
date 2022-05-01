@@ -229,7 +229,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>zbra</string>
-				<string>sileo</string>
 			</array>
 		</dict>
 	</array>
