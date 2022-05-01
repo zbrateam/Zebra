@@ -16,7 +16,6 @@
 #import "ZBSource.h"
 #import "ZBNoScrollHeaderTableView.h"
 #import "ZBFeaturedCollectionViewCell.h"
-#import "UIImage+UIKitImage.h"
 @import SDWebImage;
 
 @interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIAdaptivePresentationControllerDelegate, SFSafariViewControllerDelegate>
