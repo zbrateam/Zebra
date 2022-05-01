@@ -126,7 +126,11 @@
         [self.view addSubview:accountBanner];
 
         accountBanner.translatesAutoresizingMaskIntoConstraints = NO;
-        [accountBanner.topAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
+        if (@available(iOS 11, *)) {
+            [accountBanner.topAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
+        } else {
+            [accountBanner.bottomAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
+        }
         [accountBanner.leadingAnchor constraintEqualToAnchor: self.view.leadingAnchor].active = YES;
         [accountBanner.widthAnchor constraintEqualToAnchor: self.view.widthAnchor].active = YES; // You can't use a trailing anchor with a UITableView apparently?
         [accountBanner.heightAnchor constraintEqualToConstant:75].active = YES;
