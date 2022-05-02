@@ -73,7 +73,7 @@
                         [self performAction:action forPackage:package checkPayment:NO completion:completion];
                     }
                     else if (error) {
-                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:[NSString stringWithFormat:@"%@%@%@", error.localizedRecoverySuggestion ?: @"", error.localizedRecoverySuggestion ? @"\n\n" : @"", error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
 
                         UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
                         [alert addAction:ok];

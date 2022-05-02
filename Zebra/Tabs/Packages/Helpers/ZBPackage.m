@@ -879,7 +879,9 @@
             [self purchase:NO completion:completion]; // Try again, but only try once
         }
         else if (!tryAgain) {
-            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:4122 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.", @"")}];
+            NSMutableDictionary <NSErrorUserInfoKey, id> *userInfo = [error.userInfo mutableCopy];
+            userInfo[NSLocalizedRecoverySuggestionErrorKey] = NSLocalizedString(@"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.", @"");
+            error = [NSError errorWithDomain:error.domain code:error.code userInfo:userInfo];
             completion(NO, error);
         }
         else if (error.domain != ZBSafariAuthenticationErrorDomain || error.code != ZBSafariAuthenticationErrorCanceledLogin) {

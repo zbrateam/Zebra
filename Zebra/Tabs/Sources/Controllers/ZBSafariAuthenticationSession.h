@@ -23,7 +23,7 @@ typedef void (^ZBSafariAuthenticationCompletionHandler)(NSURL *_Nullable callbac
 
 + (void)handleCallbackURL:(NSURL *)url;
 
-- (instancetype)initWithURL:(NSURL *)url callbackURLScheme:(nullable NSString *)callbackURLScheme completionHandler:(SFAuthenticationCompletionHandler)completionHandler;
+- (instancetype)initWithURL:(NSURL *)url callbackURLScheme:(nullable NSString *)callbackURLScheme completionHandler:(ZBSafariAuthenticationCompletionHandler)completionHandler;
 
 - (void)start;
 

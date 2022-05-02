@@ -17,6 +17,7 @@
 #import "ZBUserInfo.h"
 #import "ZBSourceInfo.h"
 #import "ZBSafariAuthenticationSession.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @interface ZBSource () {
     NSURL *paymentVendorURI;
@@ -264,20 +265,24 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 - (NSString *)paymentSecret:(NSError **)error {
     __block NSString *paymentSecret = NULL;
     __block NSError *paymentError = NULL;
+
+    // Payment secret is only applicable if the device is passcode protected.
+    LAContext *authContext = [[LAContext alloc] init];
+    if ([authContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&paymentError]) {
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            NSString *paymentKeychainIdentifier = [NSString stringWithFormat:@"%@payment", [self repositoryURI]];
+
+            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+            keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
+            paymentSecret = [keychain stringForKey:paymentKeychainIdentifier error:&paymentError];
+
+            dispatch_semaphore_signal(sema);
+        });
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    }
     
-    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSString *paymentKeychainIdentifier = [NSString stringWithFormat:@"%@payment", [self repositoryURI]];
-        
-        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-        keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
-        paymentSecret = [keychain stringForKey:paymentKeychainIdentifier error:&paymentError];
-        
-        dispatch_semaphore_signal(sema);
-    });
-    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    
-    if (paymentError) {
+    if (paymentError && paymentError.code != LAErrorPasscodeNotSet) {
         NSLog(@"[Zebra] Payment error: %@", paymentError);
         if (error) *error = [paymentError copy];
     }

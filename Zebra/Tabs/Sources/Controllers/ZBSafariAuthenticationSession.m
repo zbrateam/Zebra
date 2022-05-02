@@ -20,7 +20,7 @@ static ZBSafariAuthenticationSession *currentSession = nil;
 @implementation ZBSafariAuthenticationSession {
     NSURL *_url;
     NSString *_callbackURLScheme;
-    SFAuthenticationCompletionHandler _completionHandler;
+    ZBSafariAuthenticationCompletionHandler _completionHandler;
     id _session;
     SFSafariViewController *_safariViewController;
 }
@@ -29,7 +29,7 @@ static ZBSafariAuthenticationSession *currentSession = nil;
     [currentSession _handleCallbackURL:url error:nil];
 }
 
-- (instancetype)initWithURL:(NSURL *)url callbackURLScheme:(nullable NSString *)callbackURLScheme completionHandler:(SFAuthenticationCompletionHandler)completionHandler {
+- (instancetype)initWithURL:(NSURL *)url callbackURLScheme:(nullable NSString *)callbackURLScheme completionHandler:(ZBSafariAuthenticationCompletionHandler)completionHandler {
     self = [super init];
     if (self) {
         _url = url;
@@ -91,10 +91,6 @@ static ZBSafariAuthenticationSession *currentSession = nil;
         _completionHandler(nil, [NSError errorWithDomain:ZBSafariAuthenticationErrorDomain code:ZBSafariAuthenticationErrorCanceledLogin userInfo:nil]);
     }
     currentSession = nil;
-}
-
-- (NSArray<UIActivity *> *)safariViewController:(SFSafariViewController *)controller activityItemsForURL:(NSURL *)URL title:(NSString *)title {
-    return @[];
 }
 
 @end
