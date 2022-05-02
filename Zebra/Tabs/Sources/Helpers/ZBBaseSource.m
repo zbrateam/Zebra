@@ -256,97 +256,28 @@
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
-    
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-    NSMutableURLRequest *xzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.xz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [xzRequest setHTTPMethod:@"HEAD"];
-    
-    NSURLSessionDataTask *xzTask = [session dataTaskWithRequest:xzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
-            [session invalidateAndCancel];
-            
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
-        }
-        else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
-        }
-    }];
-    [xzTask resume];
-    
-    NSMutableURLRequest *bz2Request = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.bz2"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [bz2Request setHTTPMethod:@"HEAD"];
-    
-    NSURLSessionDataTask *bz2Task = [session dataTaskWithRequest:bz2Request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
-            [session invalidateAndCancel];
-            
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
-        }
-        else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
-        }
-    }];
-    [bz2Task resume];
-    
-    NSMutableURLRequest *gzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.gz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [gzRequest setHTTPMethod:@"HEAD"];
-    
-    NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
-            [session invalidateAndCancel];
-            
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
-        }
-        else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
-        }
-    }];
-    [gzTask resume];
-    
-    NSMutableURLRequest *lzmaRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.lzma"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [lzmaRequest setHTTPMethod:@"HEAD"];
-    
-    NSURLSessionDataTask *lzmaTask = [session dataTaskWithRequest:lzmaRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
-            [session invalidateAndCancel];
-            
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
-        }
-        else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
-        }
-    }];
-    [lzmaTask resume];
-    
-    NSMutableURLRequest *uncompressedRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [uncompressedRequest setHTTPMethod:@"HEAD"];
-    
-    NSURLSessionDataTask *uncompressedTask = [session dataTaskWithRequest:uncompressedRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
-            [session invalidateAndCancel];
-            
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
-        }
-        else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
-        }
-    }];
-    [uncompressedTask resume];
+
+    for (NSString *extension in @[@"xz", @"bz2", @"gz", @"lzma", @""]) {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[packagesDirectoryURL URLByAppendingPathComponent:@"Packages"] URLByAppendingPathExtension:extension] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+        [request setHTTPMethod:@"HEAD"];
+
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+            if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
+                [session invalidateAndCancel];
+
+                self->verificationStatus = ZBSourceExists;
+                if (completion) completion(self->verificationStatus);
+            }
+            else if (--tasks == 0) {
+                self->verificationStatus = ZBSourceImaginary;
+                self->_verificationError = error ?: [ZBDownloadManager errorForHTTPStatusCode:httpResponse.statusCode forFile:nil];
+                if (completion) completion(self->verificationStatus);
+            }
+        }];
+        [task resume];
+    }
 }
 
 - (BOOL)isNonBlacklistedMIMEType:(NSString *)mimeType {

@@ -724,12 +724,11 @@
                     title = NSLocalizedString(@"Failed to add source", @"");
                     [message appendString:NSLocalizedString(@"Unable to locate an APT repository at:", @"")];
                 }
-                [message appendString:@"\n"];
 
                 for (ZBBaseSource *source in imaginarySources) {
                     [urls addObject:[source repositoryURI]];
+                    [message appendFormat:@"\n%@%@%@", [source repositoryURI], [source verificationError] ? @": " : @"", [source verificationError].localizedDescription ?: @""];
                 }
-                [message appendString:[urls componentsJoinedByString:@"\n"]];
 
                 UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
 

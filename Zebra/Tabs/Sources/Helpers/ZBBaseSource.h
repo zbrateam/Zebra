@@ -67,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *baseFilename;
 
 @property ZBSourceVerificationStatus verificationStatus;
+@property (nonatomic) NSError *verificationError;
+
 @property (nonatomic) NSString *label;
 
 + (NSSet <ZBBaseSource *> *)baseSourcesFromURLs:(NSArray *)URLs;
