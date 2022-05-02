@@ -11,7 +11,6 @@
 		3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */; };
 		3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */; };
 		3639D19522CC600D0012E18F /* ZBNoScrollHeaderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3639D19422CC600D0012E18F /* ZBNoScrollHeaderTableView.m */; };
-		363FE2422287854F00B69929 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 363FE2412287854E00B69929 /* Security.framework */; };
 		363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE245228785AE00B69929 /* UICKeyChainStore.m */; };
 		363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */; };
 		363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBSourceAccountTableViewController.m */; };
@@ -37,6 +36,7 @@
 		49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
 		4E16A066281CD99000F35795 /* ZBSafariAuthenticationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16A065281CD99000F35795 /* ZBSafariAuthenticationSession.m */; };
+		4E2E6BE4281FC4080089E4FB /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2E6BE3281FC4080089E4FB /* SDWebImage */; };
 		4E413922278D98DC0006AB8B /* ZBAlternateIconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */; };
 		4E41394A278DC8F90006AB8B /* listicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413941278DC8F90006AB8B /* listicon.png */; };
 		4E41394B278DC8F90006AB8B /* listicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413942278DC8F90006AB8B /* listicon@3x.png */; };
@@ -53,8 +53,6 @@
 		4EC7F26927AE34E00078F953 /* ZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F26827AE34E00078F953 /* ZBCommand.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
-		890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171F2372398F000F0A32 /* SystemConfiguration.framework */; };
-		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
 		89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */; };
 		8916AC0E23CA9447008BA02C /* ZBRightIconTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8916AC0D23CA9447008BA02C /* ZBRightIconTableViewCell.xib */; };
 		8916AC1623CA947C008BA02C /* ZBRightIconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC1523CA947C008BA02C /* ZBRightIconTableViewCell.m */; };
@@ -69,9 +67,7 @@
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
 		893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */; };
-		89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 89463CDF2277B5C300A92FC5 /* libz.tbd */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
-		8954CC74265EF0CA0086E675 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8954CC6D265EEFF10086E675 /* MessageUI.framework */; };
 		8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */; };
 		895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsTableViewController.m */; };
 		895C2ADA2402303B0065F424 /* ZBSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895C2AD92402303B0065F424 /* ZBSearchTableViewController.m */; };
@@ -106,7 +102,6 @@
 		89DD26862201571900CD31A0 /* ZBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DD26852201571900CD31A0 /* ZBQueue.m */; };
 		89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */; };
 		89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */; };
-		89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E8633C21D5A8C00081E485 /* WebKit.framework */; };
 		89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637621D5AFA90081E485 /* package_depiction.html */; };
 		89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637721D5AFA90081E485 /* ios7.min.js */; };
 		89E8638521D5AFAA0081E485 /* ios7dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637D21D5AFAA0081E485 /* ios7dark.css */; };
@@ -116,8 +111,6 @@
 		89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F213BF23BED9D300F3E5E5 /* ZBBaseSource.m */; };
 		89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F8730223653D280070160A /* UIVisualEffectView+Theme.m */; };
 		9E06A9EF22D0842400DBBC38 /* ZBSourceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E06A9EE22D0842400DBBC38 /* ZBSourceTableViewCell.xib */; };
-		9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; };
-		9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */; };
 		9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */; };
 		9E54915622B7D2EA006FEA25 /* ZBRefreshableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */; };
@@ -132,33 +125,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		89E9806B2360DE34005A3C35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 53761325155AD0D5005750A4;
-			remoteInfo = "SDWebImage static";
-		};
-		89E9806D2360DE34005A3C35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 80B6DFEE2142B71600BCB334;
-			remoteInfo = SDWebImageMapKit;
-		};
 		89EB9361235BFCE30038BCEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 39DB52E51B5823330061C589;
 			remoteInfo = LNPopupController;
-		};
-		9E0D952B2358AFEF00C6C2B2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4A2CADFF1AB4BB5300B6BC39;
-			remoteInfo = SDWebImage;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -169,7 +141,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */,
 				89EB9369235BFDE00038BCEC /* LNPopupController.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -185,7 +156,6 @@
 		3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBFeaturedCollectionViewCell.xib; sourceTree = "<group>"; };
 		3639D19322CC600D0012E18F /* ZBNoScrollHeaderTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNoScrollHeaderTableView.h; sourceTree = "<group>"; };
 		3639D19422CC600D0012E18F /* ZBNoScrollHeaderTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBNoScrollHeaderTableView.m; sourceTree = "<group>"; };
-		363FE2412287854E00B69929 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		363FE244228785AD00B69929 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		363FE245228785AE00B69929 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
 		363FE24722878EF000B69929 /* UIBarButtonItem+blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+blocks.h"; sourceTree = "<group>"; };
@@ -256,8 +226,6 @@
 		7821AF6E2275F3A4006C0315 /* ZBAddSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAddSourceViewController.h; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueueViewController.m; sourceTree = "<group>"; };
-		8905171F2372398F000F0A32 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8905172123723995000F0A32 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8905455B243A8BEA001C03EA /* ZBPackageActionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionType.h; sourceTree = "<group>"; };
 		89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
@@ -307,17 +275,14 @@
 		893CB666236402EE00204E27 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6672364041500204E27 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893F51CB2447D83C00B2C64E /* control.sample */ = {isa = PBXFileReference; lastKnownFileType = text; path = control.sample; sourceTree = "<group>"; };
-		893F857323C027E9005C4CF6 /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
 		8942C8E823639D86002DE095 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89448816236A3FF200523D7C /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89448817236A41B800523D7C /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89448818236A5BFB00523D7C /* sr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sr; path = sr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8944916D21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceListTableViewController.h; sourceTree = "<group>"; };
 		8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceListTableViewController.m; sourceTree = "<group>"; };
-		89463CDF2277B5C300A92FC5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		895071972239E2FD004AE338 /* MobileGestalt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileGestalt.h; sourceTree = "<group>"; };
 		895071982239E414004AE338 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
-		8954CC6D265EEFF10086E675 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8958DF9D23EB9B0300A7B823 /* ZBAccentColorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAccentColorTableViewController.h; sourceTree = "<group>"; };
 		8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAccentColorTableViewController.m; sourceTree = "<group>"; };
 		8958F28123C2ED5100FB64D9 /* ZBSourceVerificationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceVerificationDelegate.h; sourceTree = "<group>"; };
@@ -397,7 +362,6 @@
 		89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSectionSelectorTableViewController.m; sourceTree = "<group>"; };
 		89E3BD9824285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAuthorSelectorTableViewController.h; sourceTree = "<group>"; };
 		89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAuthorSelectorTableViewController.m; sourceTree = "<group>"; };
-		89E8633C21D5A8C00081E485 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		89E8637621D5AFA90081E485 /* package_depiction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = package_depiction.html; sourceTree = "<group>"; };
 		89E8637721D5AFA90081E485 /* ios7.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ios7.min.js; sourceTree = "<group>"; };
 		89E8637D21D5AFAA0081E485 /* ios7dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7dark.css; sourceTree = "<group>"; };
@@ -414,11 +378,9 @@
 		96F1BEE92363DAB3009B0D27 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9E06A9EE22D0842400DBBC38 /* ZBSourceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBSourceTableViewCell.xib; sourceTree = "<group>"; };
 		9E084EC622A28B9200B23361 /* ZBColumn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBColumn.h; sourceTree = "<group>"; };
-		9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = Vendor/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
 		9E1C85A522A38DCB00D93D14 /* ZBTab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTab.h; sourceTree = "<group>"; };
 		9E1C85AE22A3903600D93D14 /* ZBChangesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBChangesTableViewController.h; sourceTree = "<group>"; };
 		9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangesTableViewController.m; sourceTree = "<group>"; };
-		9E2B413C22C86A31009BC12B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9E2B413E22C87074009BC12B /* UIAlertController+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Theme.h"; sourceTree = "<group>"; };
 		9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Theme.m"; sourceTree = "<group>"; };
 		9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRefreshableTableViewController.h; sourceTree = "<group>"; };
@@ -452,16 +414,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				363FE2422287854F00B69929 /* Security.framework in Frameworks */,
-				89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
-				890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */,
-				9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */,
-				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
-				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
+				4E2E6BE4281FC4080089E4FB /* SDWebImage in Frameworks */,
 				89EB9368235BFDE00038BCEC /* LNPopupController.framework in Frameworks */,
-				8954CC74265EF0CA0086E675 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -959,18 +915,9 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8954CC6D265EEFF10086E675 /* MessageUI.framework */,
-				893F857323C027E9005C4CF6 /* libcompression.tbd */,
-				8905172123723995000F0A32 /* libc++.tbd */,
-				8905171F2372398F000F0A32 /* SystemConfiguration.framework */,
 				89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */,
-				9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */,
-				9E2B413C22C86A31009BC12B /* UIKit.framework */,
-				363FE2412287854E00B69929 /* Security.framework */,
-				89463CDF2277B5C300A92FC5 /* libz.tbd */,
 				8997843F2242D25800C1138C /* libbz2.tbd */,
 				895071982239E414004AE338 /* libMobileGestalt.tbd */,
-				89E8633C21D5A8C00081E485 /* WebKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1061,16 +1008,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		9E0D95232358AFEE00C6C2B2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				89E9806C2360DE34005A3C35 /* libSDWebImage.a */,
-				9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */,
-				89E9806E2360DE34005A3C35 /* SDWebImageMapKit.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		9E1C85AD22A3900700D93D14 /* Changes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1109,6 +1046,7 @@
 			);
 			name = Zebra;
 			packageProductDependencies = (
+				4E2E6BE3281FC4080089E4FB /* SDWebImage */,
 			);
 			productName = Zebra;
 			productReference = 89C5FDDD21B1B13700A10E58 /* Zebra.app */;
@@ -1179,16 +1117,15 @@
 				ms,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
+			packageReferences = (
+				4E2E6BE2281FC4080089E4FB /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
 				{
 					ProductGroup = 89EB935E235BFCE30038BCEC /* Products */;
 					ProjectRef = 89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */;
-				},
-				{
-					ProductGroup = 9E0D95232358AFEE00C6C2B2 /* Products */;
-					ProjectRef = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1199,32 +1136,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		89E9806C2360DE34005A3C35 /* libSDWebImage.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSDWebImage.a;
-			remoteRef = 89E9806B2360DE34005A3C35 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		89E9806E2360DE34005A3C35 /* SDWebImageMapKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SDWebImageMapKit.framework;
-			remoteRef = 89E9806D2360DE34005A3C35 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		89EB9362235BFCE30038BCEC /* LNPopupController.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = LNPopupController.framework;
 			remoteRef = 89EB9361235BFCE30038BCEC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SDWebImage.framework;
-			remoteRef = 9E0D952B2358AFEF00C6C2B2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1675,6 +1591,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4E2E6BE2281FC4080089E4FB /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4E2E6BE3281FC4080089E4FB /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E2E6BE2281FC4080089E4FB /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 89C5FDD521B1B13700A10E58 /* Project object */;
 }
