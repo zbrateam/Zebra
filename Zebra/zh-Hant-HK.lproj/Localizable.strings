@@ -5,13 +5,11 @@
 "%@ depends on %@" = "%@ 需要 %@ 依賴包";
 
 /* (No Comment) */
-"%@ hasn't been modified" = "%@ 未被修改";
 
 /* (No Comment) */
 "ABC" = "名称";
 
 /* (No Comment) */
-"Abort" = "关于";
 
 /* (No Comment) */
 "Add" = "添加";
@@ -113,7 +111,6 @@
 "Console" = "控制臺";
 
 /* (No Comment) */
-"Continue" = "繼續";
 
 /* (No Comment) */
 "Contributors" = "貢獻者";
@@ -170,10 +167,9 @@
 "Downloading" = "下载中";
 
 /* (No Comment) */
-"Downloading Packages..." = "下載軟件包中.....";
+"Downloading Packages…" = "下載軟件包中…..";
 
 /* Downloads */
-"Downloads" = "下载";
 
 /* (No Comment) */
 "Edit" = "編輯";
@@ -203,7 +199,6 @@
 "Error verifying repository" = "驗證軟件源錯誤";
 
 /* (No Comment) */
-"Error while opening sources.list" = "打開軟件源列表時出現錯誤";
 
 /* (No Comment) */
 "Feature Type" = "推薦類型";
@@ -239,7 +234,6 @@
 "Ignore Updates" = "忽略更新";
 
 /* (No Comment) */
-"Ignored Upgrades" = "已忽略的更新";
 
 /* (No Comment) */
 "Imaging" = "圖像";
@@ -248,13 +242,11 @@
 "Importing local packages." = "正在導入本地軟件包。";
 
 /* (No Comment) */
-"Incorrect documents permissions." = "文檔權限不正確。";
 
 /* (No Comment) */
 "Info" = "信息";
 
 /* (No Comment) */
-"Information" = "信息";
 
 /* (No Comment) */
 "Install" = "安裝";
@@ -263,13 +255,12 @@
 "Installed Files" = "已安裝的文件";
 
 /* (No Comment) */
-"Installed Version" = "已安裝版本";
 
 /* (No Comment) */
 "Installing" = "安裝中";
 
 /* (No Comment) */
-"Installing Packages..." = "安裝軟件包中.....";
+"Installing Packages…" = "安裝軟件包中…..";
 
 /* (No Comment) */
 "Invalid URL" = "無效的 URL";
@@ -278,7 +269,6 @@
 "iOS 13" = "iOS 13";
 
 /* (No Comment) */
-"It may cause issues if you add it to Zebra resulting in possible restore." = "添加到 Zebra 可能會產生錯誤，導致設備需要重置。";
 
 /* (No Comment) */
 "Java" = "Java";
@@ -296,7 +286,6 @@
 "Loaded" = "已加载";
 
 /* (No Comment) */
-"Loading..." = "加載中……";
 
 /* (No Comment) */
 "Local Repository" = "本地軟件源";
@@ -350,7 +339,7 @@
 "No Results Found" = "沒有找到結果";
 
 /* (No Comment) */
-"Ok" = "好的";
+"OK" = "好的";
 
 /* (No Comment) */
 "OLED" = "OLED";
@@ -365,7 +354,6 @@
 "Orange" = "橙色";
 
 /* (No Comment) */
-"Package" = "軟件包";
 
 /* (No Comment) */
 "Package in Queue" = "队列中軟件包";
@@ -380,7 +368,7 @@
 "Packaging" = "軟件包";
 
 /* (No Comment) */
-"Performing actions" = "執行操作中......";
+"Performing actions" = "執行操作中……";
 
 /* (No Comment) */
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "請重新登錄用於購買此軟件包的帳戶(可能是%@)";
@@ -389,7 +377,7 @@
 "Please remove this repo from your sources.list file." = "請從您的sources.list刪除本軟件源.";
 
 /* (No Comment) */
-"Please Wait..." = "請稍後......";
+"Please Wait…" = "請稍後……";
 
 /* (No Comment) */
 "Productivity" = "生產力";
@@ -422,10 +410,10 @@
 "Reinstall" = "重新安裝";
 
 /* (No Comment) */
-"Reinstalling" = "重新安裝中.....";
+"Reinstalling" = "重新安裝中…..";
 
 /* (No Comment) */
-"Reinstalling Packages..." = "重新安裝軟件包中.....";
+"Reinstalling Packages…" = "重新安裝軟件包中…..";
 
 /* (No Comment) */
 "Remove" = "移除";
@@ -437,10 +425,10 @@
 "Removed by" = "被删除";
 
 /* (No Comment) */
-"Removing" = "移除中......";
+"Removing" = "移除中……";
 
 /* (No Comment) */
-"Removing Packages..." = "移除軟件包中......";
+"Removing Packages…" = "移除軟件包中……";
 
 /* (No Comment) */
 "Repo Featured" = "軟件源特色";
@@ -461,7 +449,6 @@
 "Restart SpringBoard" = "重啟 SpringBoard";
 
 /* (No Comment) */
-"Retry" = "重試";
 
 /* (No Comment) */
 "Return to Queue" = "返回隊列";
@@ -533,10 +520,8 @@
 "Themes" = "主题";
 
 /* (No Comment) */
-"This may take awhile and Zebra may crash. It is okay if it does." = "這可能需要壹段時間，斑馬可能崩潰。如果有也沒關系。";
 
 /* (No Comment) */
-"This search query is too short for the full search, please use a longer query." = "此搜索查詢太短，無法進行完整搜索，請使用更長的查詢。";
 
 /* (No Comment) */
 "Tint Color" = "色調";
@@ -563,13 +548,12 @@
 "Unknown" = "未知";
 
 /* (No Comment) */
-"Unknown error" = "未知錯誤";
 
 /* (No Comment) */
 "Unwish" = "不再希望";
 
 /* (No Comment) */
-"Updating icon cache asynchronously..." = "正在異步更新圖標緩存中…";
+"Updating icon cache asynchronously…" = "正在異步更新圖標緩存中…";
 
 /* (No Comment) */
 "Upgrade" = "更新";
@@ -578,10 +562,10 @@
 "Upgrade All" = "全部更新";
 
 /* (No Comment) */
-"Upgrading" = "更新中......";
+"Upgrading" = "更新中……";
 
 /* (No Comment) */
-"Upgrading Packages..." = "更新軟件包中......";
+"Upgrading Packages…" = "更新軟件包中……";
 
 /* (No Comment) */
 "Utilities" = "工具";

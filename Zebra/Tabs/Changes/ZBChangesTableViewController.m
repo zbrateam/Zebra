@@ -373,7 +373,7 @@
         cell.postTitle.text = [self stripTagsAndWhitespacesFromTitle:text];
         cell.postTag.text = [tag capitalizedString];
     } else {
-        cell.postTitle.text = @"Error";
+        cell.postTitle.text = NSLocalizedString(@"Error", @"");
     }
     if (post.url != nil) {
         [cell setRedditLink:[NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]]];

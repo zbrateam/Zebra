@@ -178,7 +178,7 @@
             [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
                 if (error) {
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Unable to set application icon" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+                    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:nil];
 
                     [alert addAction:ok];
                     [self.navigationController presentViewController:alert animated:YES completion:nil];

@@ -74,7 +74,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if (package == NULL) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Package Not Available", @"") message:NSLocalizedString(@"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.", @"") preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:action];
         
         [self presentViewController:alert animated:YES completion:nil];
@@ -720,7 +720,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)modifyPackage {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Deprecated Method" message:@"A tweak is calling a deprecated method, please contact the author of this tweak to get an update so that it will not crash Zebra in the future." preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:ok];
     
     [self presentViewController:alertController animated:YES completion:nil];

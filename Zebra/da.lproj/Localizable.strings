@@ -3,17 +3,14 @@
 "Cancel" = "Annuller";
 "Yes" = "Ja";
 "No" = "Nej";
-"Ok" = "Ok";
+"OK" = "OK";
 "Error" = "Fejl";
-"Retry" = "Prøv igen";
 "Edit" = "Rediger";
 "Close" = "Luk";
 "Done" = "Færdig";
-"Loading..." = "Indlæser...";
 "Clear" = "Ryd";
 "An Error Occurred" = "Der opstod en fejl";
 "Dismiss" = "Afvis";
-"Downloads" = "Overførsler";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "Fællesskabskilder";
 "You’ve added all of the community sources" = "Du har tilføjet alle fællesskabskilderne";
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
-"Utility source for %@" = "Værktøjsarkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
 "Import" = "Importer";
-"Verifying..." = "Verificerer...";
+"Verifying…" = "Verificerer…";
 "Confirm Import" = "Bekræft importering";
 "Import Sources" = "Importer kilder";
 "No sources to import" = "Ingen kilder at importere";
@@ -99,7 +95,6 @@
 "Repo Featured" = "Udvalgt Arkiv";
 "Random" = "Tilfældig";
 "Select Repos to be Featured" = "Vælg arkiver der skal vises";
-"Featured Repos" = "Udvalgte arkiver";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "Angiv URL for kilde";
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
 
-"Please Wait..." = "Vent Venligst...";
-"Verifying Source" = "Verificerer kilde";
-"Verifying Sources" = "Verificerer kilder";
+"Please Wait…" = "Vent Venligst…";
 "Updating Sources" = "Opdaterer kilder";
 
-"Unknown error" = "Ukendt fejl";
 "Invalid URL" = "Ugyldig Webadresse";
 "Invalid Source" = "Ugyldig kilde";
 "Tap to learn more" = "Tryk for mere";
-"No source URLs detected." = "Ingen kilde URL registreret.";
 "Unable to verify source" = "Kunne ikke bekræfte kilde";
-"Error verifying source" = "Fejl under verificering af kilde";
-"Error verifying sources" = "Fejl under verificering af kilder";
 "Failed to add source" = "Kunne ikke tilføje kilde";
 "Failed to add sources" = "Kunne ikke tilføje kilder";
 "You have already added this source." = "Du har allerede tilføjet denne kilde.";
-"You have already added these sources." = "Du har allerede tilføjet disse kilder.";
 "Unable to locate an APT repository at:" = "Kunne ikke finde et APT arkiv ved:";
 "Unable to locate APT repositories at:" = "Kunne ikke finde APT arkiver ved:";
 "Error while downloading %@: %@" = "Error while downloading %@: %@";
 
-"A total of %d files will be downloaded" = "%d filer vil blive downloadet";
+"A total of %lu files will be downloaded" = "%lu filer vil blive downloadet";
 
 "Could not parse %@ from %@" = "Kunne ikke fortolke %@ fra %@";
 "Could not find a download URL for" = "Kunne ikke finde et overførsels webadresse til";
 "Authorizing Download for %@" = "Authorizing Download for %@";
 "Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
 "Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunne ikke downloade kilden ved %@. Den kan være midlertidigt utilgængelig eller være tilføjet forkert.";
 
-"Please remove this source from your sources.list file." = "Fjern venligst denne kilde fra din sources.list fil.";
 
-"Error while opening sources.list" = "Fejl imens åbning af sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "Kilden %@ understøtter ikke din jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan måske fremkalde problemer hvis du tilføjer det til Zebra resultere i potentiel genoprettelse.";
 
-"%@ hasn't been modified" = "%@ er ikke blevet modificeret";
 
 "Install All" = "Install All";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Vælg version for opgradering:";
 "Select a version to downgrade to:" = "Vælg version for nedgradering:";
-"Package" = "Pakker";
-"Information" = "Information";
 "Upgrade All" = "Opgrader Alle";
 "Loaded" = "Indlæst";
 "ABC" = "ABC";
 "Date" = "Dato";
 "Size" = "Størrelse";
 "Available Upgrades" = "Tilgængelig Opgraderinger";
-"Ignored Upgrades" = "Ignorer Opgraderinger";
 "Recent" = "Nylig";
 "Source" = "Kilde";
 "Installed Files" = "Installeret Filer";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "Autentificere for at igangsætte køb.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Vær sød at logge ind på kontoen der er brugt til at købe denne pakke (Muligvis %@)";
 "More by this Developer" = "Mere fra denne Udvikler";
-"Installed Version" = "Installeret Udgave";
-"Installed Size" = "Installeret Størrelse";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Aktuel Version: %@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "Søgning";
-"This search query is too short for the full search, please use a longer query." = "Denne søgeforespørgsel er for kort til den fulde søgning. Brug en længere forespørgsel.";
 "No Results Found" = "Ingen Resultater Fundet";
 "Name" = "Navn";
 "Description" = "Beskrivelse";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "Konsol";
-"Performing Actions..." = "Udfører Handlinger...";
-"Updating icon cache asynchronously..." = "Opdaterer ikon cache asynkront...";
+"Performing Actions…" = "Udfører Handlinger…";
+"Updating icon cache asynchronously…" = "Opdaterer ikon cache asynkront…";
 "uicache is not available on the simulator" = "uicache is not available on the simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan tage et øjeblik og Zebra kan nedbryde. Det er okay hvis den gør.";
 "Close Zebra" = "Luk Zebra";
-"Closing Zebra..." = "Lukker Zebra...";
+"Closing Zebra…" = "Lukker Zebra…";
 "Restart SpringBoard" = "Genstart SpringBoard";
-"Restarting SpringBoard..." = "Genstarter SpringBoard...";
+"Restarting SpringBoard…" = "Genstarter SpringBoard…";
 "Parsing %@" = "Parser %@";
 "Starting Download" = "Starter download";
 "Downloading" = "Overfører";
 "Downloading %@" = "Downloader %@";
-"Downloading Packages..." = "Overfører Pakker...";
+"Downloading Packages…" = "Overfører Pakker…";
 "Download Completed" = "Download udført";
 "Installing" = "Installerer";
-"Installing Packages..." = "Installerer Pakker...";
+"Installing Packages…" = "Installerer Pakker…";
 "Removing" = "Fjerner";
-"Removing Packages..." = "Fjerner Pakker...";
+"Removing Packages…" = "Fjerner Pakker…";
 "Reinstalling" = "Geninstallerer";
-"Reinstalling Packages..." = "Geninstallerer Pakker...";
+"Reinstalling Packages…" = "Geninstallerer Pakker…";
 "Upgrading" = "Opgraderer";
-"Upgrading Packages..." = "Opgraderer Pakker...";
+"Upgrading Packages…" = "Opgraderer Pakker…";
 "Complete" = "Færdig";
 "Finished!" = "Færdiggjort!";
 "Return to Queue" = "Gå tilbage til Køen";
-"Returning to Queue..." = "Fortsætter til køen...";
+"Returning to Queue…" = "Fortsætter til køen…";
 "Importing local packages." = "Importere lokale pakker.";
 "Finished importing local packages." = "Færdiggjorde importen af lokale pakker.";
 "One or more packages failed to download." = "En eller flere pakker fejlede at overfører.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Gå tilbage til Køen\" for at gå tilbage til køen og prøve at gennemføre overførslen.";
 "Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
-"Done..." = "Færdig...";
+"Done…" = "Færdig…";
 "Done %@" = "Færdig %@";
-"Removing Zebra..." = "Fjerner Zebra...";
-"Installing Zebra..." = "Installerer Zebra...";
+"Removing Zebra…" = "Fjerner Zebra…";
+"Installing Zebra…" = "Installerer Zebra…";
 "Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
@@ -366,8 +340,6 @@
 "Remove" = "Fjern";
 "Upgrade" = "Opgrader";
 "Downgrade" = "Nedgrader";
-"Abort" = "Afbryd";
-"Continue" = "Fortsæt";
 "Download Size" = "Overførsels størrelse";
 "Confirm" = "Bekræft";
 "Issues" = "Problemer";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra kunne ikke udføre denne kommando, da rettighederne mangler. Tjek venligst rettighederne på filen placeret ved /usr/libexec/supersling og anmeld denne fejl på GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Kunne ikke finde su/sling. Tjek venligst at /usr/libexec/zebra/supersling findes.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling er ikke ejet af root:wheel. Tjek venligst rettighederne af filen placeret ved /usr/libexec/zebra/supersling.";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "FEJL: Processen skal genstartes. Prøv igen.";
 
-"Incorrect documents permissions." = "Ukorrekt dokument tilladelse.";
 
 "Could not determine device information." = "Kunne ikke fastslå enheds information.";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "Ændre udseendet når der swipes på tå et table view.";
 
-"Change the accent color that displays across Zebra." = "Ændre markeringsfarven der vises i Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Ændre stilen af Zebras mørk tilstand når den er aktiveret.";
 
-"Change the source of the featured packages on the homepage." = "Ændre kilden til udvalgte arkiver på hjemmeskærmen.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Arkivets Udvalgte\" vil vise tilfælde pakker fra arkiver der understøtter Udvalgte Arkiver API.";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
 
 "Unable to complete purchase" = "Unable to complete purchase";
-
 
 "Package Not Available" = "Package Not Available";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";

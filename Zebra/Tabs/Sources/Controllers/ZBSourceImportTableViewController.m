@@ -264,7 +264,7 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         for (ZBBaseSource *source in self->baseSources) {
-            self->titles[[source baseFilename]] = NSLocalizedString(@"Verifying...", @"");
+            self->titles[[source baseFilename]] = NSLocalizedString(@"Verifying…", @"");
         }
         
         [self->sourceManager verifySources:[NSSet setWithArray:self->baseSources] delegate:self];

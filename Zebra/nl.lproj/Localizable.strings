@@ -3,17 +3,14 @@
 "Cancel" = "Annuleer";
 "Yes" = "Ja";
 "No" = "Nee";
-"Ok" = "Oké";
+"OK" = "Oké";
 "Error" = "Fout";
-"Retry" = "Probeer opnieuw";
 "Edit" = "Wijzig";
 "Close" = "Sluit";
 "Done" = "Gereed";
-"Loading..." = "Laden...";
 "Clear" = "Wis";
 "An Error Occurred" = "Er is een fout opgetreden";
 "Dismiss" = "Negeer";
-"Downloads" = "Downloads";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "Gemeenschapsbronnen";
 "You’ve added all of the community sources" = "U heeft alle gemeenschapsbronnen toegevoegd";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
-"Utility source for %@" = "Benodigde bron voor %@";
 "Transfer Sources" = "Verplaats Bronnen";
 "Import" = "Importeer";
-"Verifying..." = "Verifiëren...";
+"Verifying…" = "Verifiëren…";
 "Confirm Import" = "Bevestig Importeren";
 "Import Sources" = "Importeer Bronnen";
 "No sources to import" = "Geen bronnen om te importeren";
@@ -99,7 +95,6 @@
 "Repo Featured" = "Uitgelichte Bron";
 "Random" = "Willekeurig";
 "Select Repos to be Featured" = "Selecteer een bron om deze uit te lichten";
-"Featured Repos" = "Aanbevolen Bronnen";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "Voer de bron-URL in";
 "Would you like to add the URL from your clipboard?" = "Wilt u de URL uit uw klembord toevoegen?";
 
-"Please Wait..." = "Even geduld...";
-"Verifying Source" = "Bron verifiëren";
-"Verifying Sources" = "Bronnen verifiëren";
+"Please Wait…" = "Even geduld…";
 "Updating Sources" = "Bronnen aan het updaten";
 
-"Unknown error" = "Onbekende fout";
 "Invalid URL" = "Ongeldige URL";
 "Invalid Source" = "Ongeldige Bron";
 "Tap to learn more" = "Tik om meer te leren";
-"No source URLs detected." = "Geen bron URLs gedetecteerd.";
 "Unable to verify source" = "Kan bron niet verifiëren";
-"Error verifying source" = "Fout verifiëren van bron";
-"Error verifying sources" = "Fout verifiëren van bronnen";
 "Failed to add source" = "Bron toevoegen mislukt";
 "Failed to add sources" = "Bronnen toevoegen mislukt";
 "You have already added this source." = "U heeft deze bron al toegevoegd.";
-"You have already added these sources." = "U heeft deze bronnen al toegevoegd.";
 "Unable to locate an APT repository at:" = "Kan de APT bron niet vinden op:";
 "Unable to locate APT repositories at:" = "Kan de APT bronnen niet vinden op:";
 "Error while downloading %@: %@" = "Fout bij het downloaden van %@: %@";
 
-"A total of %d files will be downloaded" = "Er worden in totaal %d bestanden gedownload";
+"A total of %lu files will be downloaded" = "Er worden in totaal %lu bestanden gedownload";
 
 "Could not parse %@ from %@" = "Kon %@ niet verwerken van %@";
 "Could not find a download URL for" = "Kan geen download link vinden voor";
 "Authorizing Download for %@" = "Download autoriseren voor %@";
 "Couldn't authorize download for %@." = "Kan downloaden van %@ niet toestaan.";
 "Reason: %@." = "Reden: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "De betalingsAPI wordt niet ondersteund op iOS 11.0 of lager";
 "Could not download Release file from %@. Reason: %@" = "Het pakkettenbestand %@ kan niet worden gedownload. Reden: %@";
 "Could not download Packages file from %@. Reason: %@" = "Het pakkettenbestand %@ kan niet worden gedownload. Reden: %@";
 "Could not download one or more files from %@. Reason: %@" = "Een of meerdere bestanden kon niet worden gedownload van %@. Reden: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kan de bron die is opgegeven bij %@ niet downloaden. Deze kan tijdelijk ontoegankelijk zijn of kan onjuist zijn toegevoegd.";
 
-"Please remove this source from your sources.list file." = "Verwijder alstublieft deze bron van uw sources.list bestand.";
 
-"Error while opening sources.list" = "Er is een fout opgetreden tijdens het openen van sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "De bron %@ is niet compatibel met uw jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze bron toevoegt, wat kan leiden tot een reset van Zebra.";
 
-"%@ hasn't been modified" = "%@ is niet gewijzigd";
 
 "Install All" = "Alles installeren";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "Selecteer een versie om te installeren:";
 "Select a version to upgrade to:" = "Selecteer een versie om naar op te waarderen:";
 "Select a version to downgrade to:" = "Selecteer een versie om naar te downgraden:";
-"Package" = "Pakket";
-"Information" = "Informatie";
 "Upgrade All" = "Waardeer alles op";
 "Loaded" = "Geladen";
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Grootte";
 "Available Upgrades" = "Beschikbare opwaarderingen";
-"Ignored Upgrades" = "Genegeerde opwaarderingen";
 "Recent" = "Recent";
 "Source" = "Bron";
 "Installed Files" = "Geïnstalleerde bestanden";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "Authenticeer uzelf om het pakket te kopen";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Log alstublieft in met het account dat dit pakket gekocht heeft. (Mogelijk %@)";
 "More by this Developer" = "Meer van deze ontwikkelaar";
-"Installed Version" = "Geïnstalleerde versie";
-"Installed Size" = "Geïnstalleerde grootte";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Geïnstalleerde versie: %@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "Zoek";
-"This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
 "No Results Found" = "Geen resultaten gevonden.";
 "Name" = "Naam";
 "Description" = "Beschrijving";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "Console";
-"Performing Actions..." = "Acties uitvoeren...";
-"Updating icon cache asynchronously..." = "De iconcache asynchroon aan het updaten...";
+"Performing Actions…" = "Acties uitvoeren…";
+"Updating icon cache asynchronously…" = "De iconcache asynchroon aan het updaten…";
 "uicache is not available on the simulator" = "uicache is niet beschikbaar op de simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
 "Close Zebra" = "Sluit Zebra";
-"Closing Zebra..." = "Zebra sluiten...";
+"Closing Zebra…" = "Zebra sluiten…";
 "Restart SpringBoard" = "Herstart SpringBoard";
-"Restarting SpringBoard..." = "SpringBoard herstarten...";
+"Restarting SpringBoard…" = "SpringBoard herstarten…";
 "Parsing %@" = "Verwerken %@";
 "Starting Download" = "Download Starten";
 "Downloading" = "Aan het downloaden";
 "Downloading %@" = "%@ aan het downloaden";
-"Downloading Packages..." = "Pakketten aan het downloaden...";
+"Downloading Packages…" = "Pakketten aan het downloaden…";
 "Download Completed" = "Download Voltooid";
 "Installing" = "Installeren";
-"Installing Packages..." = "Pakketten aan het installeren...";
+"Installing Packages…" = "Pakketten aan het installeren…";
 "Removing" = "Aan het verwijderen";
-"Removing Packages..." = "Pakketten aan het verwijderen...";
+"Removing Packages…" = "Pakketten aan het verwijderen…";
 "Reinstalling" = "Opnieuw aan het installeren";
-"Reinstalling Packages..." = "Pakketten opnieuw aan het installeren...";
+"Reinstalling Packages…" = "Pakketten opnieuw aan het installeren…";
 "Upgrading" = "Opwaarderen";
-"Upgrading Packages..." = "Pakketten aan het opwaarderen...";
+"Upgrading Packages…" = "Pakketten aan het opwaarderen…";
 "Complete" = "Compleet";
 "Finished!" = "Klaar!";
 "Return to Queue" = "Terug naar wachtrij";
-"Returning to Queue..." = "Terug naar wachtrij aan het gaan...";
+"Returning to Queue…" = "Terug naar wachtrij aan het gaan…";
 "Importing local packages." = "Lokale pakketten aan het importeren";
 "Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
 "Could not complete %@ process. Reason: %@." = "Kon het %@ proces niet voltooien. Reden: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Herstart Zebra en kijk of het probleem nog steeds aanhoudt. Als dit het geval is, gelieve een probleem via GitHub te versturen.";
-"Done..." = "Voltooid...";
+"Done…" = "Voltooid…";
 "Done %@" = "Voltooid %@";
-"Removing Zebra..." = "Zebra wordt verwijdert...";
-"Installing Zebra..." = "Zebra wordt geïnstalleerd...";
+"Removing Zebra…" = "Zebra wordt verwijdert…";
+"Installing Zebra…" = "Zebra wordt geïnstalleerd…";
 "Error while opening file:" = "Fout bij openen van bestand:";
 "Adding Payment Vendor URL for %@" = "URL van betalingsleverancier toevoegen voor %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "Dit apparaat is gesimuleerd, hier zijn de pakketten die in deze fase zouden worden gewijzigd:";
@@ -366,8 +340,6 @@
 "Remove" = "Verwijder";
 "Upgrade" = "Waardeer op";
 "Downgrade" = "Downgrade";
-"Abort" = "Breek af";
-"Continue" = "Doorgaan";
 "Download Size" = "Downloadgrootte";
 "Confirm" = "Bevestig";
 "Issues" = "Problemen";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra kon deze opdracht niet voltooien omdat het niet de juiste machtigingen heeft. Controleer de machtigingen in /usr/libexec/zebra/supersling en rapporteer dit probleem op GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Kan geen toegang krijgen tot su/sling. Controleer of /usr/libexec/zebra/supersling bestaat.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is geen eigendom van root:wheel. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "FOUT: proces moet opnieuw worden gestart. Probeer het opnieuw.";
 
-"Incorrect documents permissions." = "Incorrecte permissies voor dit document.";
 
 "Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "Verander het uiterlijk van tabel weergave veeg acties.";
 
-"Change the accent color that displays across Zebra." = "Wijzig de accent kleur die wordt weergegeven door Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Wijzig de stijl van de donkere modus van Zebra wanneer deze is ingeschakeld.";
 
-"Change the source of the featured packages on the homepage." = "Wijzig de bron van de aanbevolen pakketten op de startpagina.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Aanbevolen Bronnen\" zullen willekeurige pakketten weergeven van bronnen die de Featured Package API ondersteunen.";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Gegevens gedownload van deze bron zijn mogelijk niet versleuteld. Weet u zeker dat u deze wilt toevoegen?";
 
 "Unable to complete purchase" = "Kan aankoop niet voltooien";
-
 
 "Package Not Available" = "Pakket niet beschikbaar";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Het pakket dat u heeft opgevraagd is niet langer beschikbaar. Het kan zijn verwijderd uit uw bronnen of het opgevraagde pakket-ID was onjuist.";

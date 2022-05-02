@@ -205,7 +205,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
         }
         else {
             [self setProgressTextHidden:NO];
-            [self updateProgressText:NSLocalizedString(@"Performing Actions...", @"")];
+            [self updateProgressText:NSLocalizedString(@"Performing Actions…", @"")];
             
             for (ZBPackage *package in [queue packagesToInstall]) {
                 [installedPackageIdentifiers addObject:[package identifier]];
@@ -236,7 +236,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                     }
                     
                     if (![ZBDevice needsSimulation]) {
-                        ZBLog(@"[Zebra] Executing commands...");
+                        ZBLog(@"[Zebra] Executing commands…");
                         [self _runSuperslingCommand:command];
                     }
                     else {
@@ -276,13 +276,13 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                     finishOption = ZBConsoleFinishOptionReopen;
                 }
                 
-                ZBLog(@"[Zebra] modifying zebra...");
+                ZBLog(@"[Zebra] modifying zebra…");
                 if (queue.removingZebra) {
-                    [self postStatusUpdate:NSLocalizedString(@"Removing Zebra...", @"") atLevel:ZBLogLevelInfo];
+                    [self postStatusUpdate:NSLocalizedString(@"Removing Zebra…", @"") atLevel:ZBLogLevelInfo];
                     [self postStatusUpdate:@"Goodbye forever :(" atLevel:ZBLogLevelDescript];
                 }
                 else {
-                    [self postStatusUpdate:NSLocalizedString(@"Installing Zebra...", @"") atLevel:ZBLogLevelInfo];
+                    [self postStatusUpdate:NSLocalizedString(@"Installing Zebra…", @"") atLevel:ZBLogLevelInfo];
                 }
                 
                 NSString *path = queue.zebraPath;
@@ -321,7 +321,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     command.useFinishFd = YES;
     int status = [command execute];
     if (status < 0) {
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %s.", @""), [ZBDevice packageManagementBinary], strerror(status)];
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], [NSString stringWithUTF8String:strerror(status)]];
 
         NSLog(@"[Zebra] %@", message);
         [self writeToConsole:message atLevel:ZBLogLevelError];
@@ -423,7 +423,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 #pragma mark - Helper Methods
 
 - (void)updateIconCaches {
-    [self writeToConsole:NSLocalizedString(@"Updating icon cache asynchronously...", @"") atLevel:ZBLogLevelInfo];
+    [self writeToConsole:NSLocalizedString(@"Updating icon cache asynchronously…", @"") atLevel:ZBLogLevelInfo];
     NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"-p"];
     [arguments addObjectsFromArray:applicationBundlePaths];
     
@@ -441,26 +441,26 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     switch (stage) {
         case ZBStageDownload:
             [self updateTitle:NSLocalizedString(@"Downloading", @"")];
-            [self writeToConsole:NSLocalizedString(@"Downloading Packages...", @"") atLevel:ZBLogLevelInfo];
+            [self writeToConsole:NSLocalizedString(@"Downloading Packages…", @"") atLevel:ZBLogLevelInfo];
             
             [self setProgressTextHidden:NO];
             [self setProgressViewHidden:NO];
             break;
         case ZBStageInstall:
             [self updateTitle:NSLocalizedString(@"Installing", @"")];
-            [self writeToConsole:NSLocalizedString(@"Installing Packages...", @"") atLevel:ZBLogLevelInfo];
+            [self writeToConsole:NSLocalizedString(@"Installing Packages…", @"") atLevel:ZBLogLevelInfo];
             break;
         case ZBStageRemove:
             [self updateTitle:NSLocalizedString(@"Removing", @"")];
-            [self writeToConsole:NSLocalizedString(@"Removing Packages...", @"") atLevel:ZBLogLevelInfo];
+            [self writeToConsole:NSLocalizedString(@"Removing Packages…", @"") atLevel:ZBLogLevelInfo];
             break;
         case ZBStageReinstall:
             [self updateTitle:NSLocalizedString(@"Reinstalling", @"")];
-            [self writeToConsole:NSLocalizedString(@"Reinstalling Packages...", @"") atLevel:ZBLogLevelInfo];
+            [self writeToConsole:NSLocalizedString(@"Reinstalling Packages…", @"") atLevel:ZBLogLevelInfo];
             break;
         case ZBStageUpgrade:
             [self updateTitle:NSLocalizedString(@"Upgrading", @"")];
-            [self writeToConsole:NSLocalizedString(@"Upgrading Packages...", @"") atLevel:ZBLogLevelInfo];
+            [self writeToConsole:NSLocalizedString(@"Upgrading Packages…", @"") atLevel:ZBLogLevelInfo];
             break;
         case ZBStageFinished:
             [self updateTitle:NSLocalizedString(@"Complete", @"")];
@@ -615,7 +615,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
         dispatch_block_t finishBlock = nil;
 
         if (self->downloadFailed) {
-            [self updateProgressText:NSLocalizedString(@"Returning to Queue...", @"")];
+            [self updateProgressText:NSLocalizedString(@"Returning to Queue…", @"")];
             finishBlock = ^{
                 [self updateProgressText:nil];
                 [self returnToQueue];
@@ -626,7 +626,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
             case ZBConsoleFinishOptionClose:
             case ZBConsoleFinishOptionRefreshIconCache: {
                 // RefreshIconCache is redundant; we’re just treating it the same as Close.
-                [self updateProgressText:NSLocalizedString(@"Done...", @"")];
+                [self updateProgressText:NSLocalizedString(@"Done…", @"")];
                 finishBlock = ^{
                     [self updateProgressText:nil];
                     [self close];
@@ -635,7 +635,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
             }
 
             case ZBConsoleFinishOptionReopen: {
-                [self updateProgressText:NSLocalizedString(@"Closing Zebra...", @"")];
+                [self updateProgressText:NSLocalizedString(@"Closing Zebra…", @"")];
                 finishBlock = ^{
                     [self updateProgressText:nil];
                     [self closeZebra];
@@ -645,7 +645,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 
             case ZBConsoleFinishOptionRestartSpringBoard:
             case ZBConsoleFinishOptionReload: {
-                [self updateProgressText:NSLocalizedString(@"Restarting SpringBoard...", @"")];
+                [self updateProgressText:NSLocalizedString(@"Restarting SpringBoard…", @"")];
                 finishBlock = ^{
                     [self updateProgressText:nil];
                     [self restartSpringBoard];
@@ -654,7 +654,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
             }
 
             case ZBConsoleFinishOptionRebootDevice: {
-                [self updateProgressText:[NSString stringWithFormat:NSLocalizedString(@"Restarting %@...", @""), [UIDevice currentDevice].localizedModel]];
+                [self updateProgressText:[NSString stringWithFormat:NSLocalizedString(@"Restarting %@…", @""), [UIDevice currentDevice].localizedModel]];
                 finishBlock = ^{
                     [self updateProgressText:nil];
                     [self restartDevice];

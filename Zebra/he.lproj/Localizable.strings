@@ -3,17 +3,14 @@
 "Cancel" = "ביטול";
 "Yes" = "כן";
 "No" = "לא";
-"Ok" = "אישור";
+"OK" = "אישור";
 "Error" = "תקלה";
-"Retry" = "נסה שוב";
 "Edit" = "עריכה";
 "Close" = "סגור";
 "Done" = "סיום";
-"Loading..." = "טוען...";
 "Clear" = "נקה";
 "An Error Occurred" = "אירעה שגיאה";
 "Dismiss" = "סגור";
-"Downloads" = "הורדות";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "מקורות קהילתיים";
 "You’ve added all of the community sources" = "הוספת את כל המקורות הקהילתיים";
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
-"Utility source for %@" = "מקור כלים עבור %@";
 "Transfer Sources" = "ייבוא מקורות";
 "Import" = "ייבוא";
-"Verifying..." = "מאמת...";
+"Verifying…" = "מאמת…";
 "Confirm Import" = "אשר ייבוא";
 "Import Sources" = "ייבא מקורות";
 "No sources to import" = "אין מקורות לייבוא";
@@ -99,7 +95,6 @@
 "Repo Featured" = "המלצת מקור";
 "Random" = "אקראי";
 "Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
-"Featured Repos" = "מקורות מומלצים";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "הזן/י כתובת מקור";
 "Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
 
-"Please Wait..." = "נא להמתין...";
-"Verifying Source" = "מאמת מקור";
-"Verifying Sources" = "מאמת מקורות";
+"Please Wait…" = "נא להמתין…";
 "Updating Sources" = "מעדכן מקורות";
 
-"Unknown error" = "תקלה לא ידועה";
 "Invalid URL" = "כתובת לא תקינה";
 "Invalid Source" = "מקור לא תקין";
 "Tap to learn more" = "לחץ/י למידע נוסף";
-"No source URLs detected." = "לא זוהו כתובות מקורות.";
 "Unable to verify source" = "לא ניתן לאמת מקור";
-"Error verifying source" = "תקלה באימות המקור";
-"Error verifying sources" = "תקלה באימות מקורות";
 "Failed to add source" = "הוספת מקור נכשלה";
 "Failed to add sources" = "הוספת מקורות נכשלה";
 "You have already added this source." = "כבר הוספת את המקור הזה.";
-"You have already added these sources." = "כבר הוספת את המקורות האלו.";
 "Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
 "Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
 "Error while downloading %@: %@" = "תקלה בעת הורדת %@: %@";
 
-"A total of %d files will be downloaded" = "יורדו %d קבצים";
+"A total of %lu files will be downloaded" = "יורדו %lu קבצים";
 
 "Could not parse %@ from %@" = "לא ניתן לנתח את %@ מ-%@";
 "Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
 "Authorizing Download for %@" = "מאמת הורדה עבור %@";
 "Couldn't authorize download for %@." = "לא ניתן לאמת הורדה עבור %@.";
 "Reason: %@." = "סיבה: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "התמיכה של API התשלומים מוגבלת למכשירים הנמצאים בiOS גרסה 11.0 ומעלה";
 "Could not download Release file from %@. Reason: %@" = "לא היה ניתן להוריד קובץ שחרורים מ-%@. סיבה: %@";
 "Could not download Packages file from %@. Reason: %@" = "לא היה ניתן להוריד קובץ חבילות מ-%@. סיבה: %@";
 "Could not download one or more files from %@. Reason: %@" = "לא היה ניתן להוריד קובץ אחד או יותר מ-%@. סיבה: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "זברה נכשלה בהורדת המקור שהוגדר ב-%@. ייתכן שהוא אינו נגיש זמנית או שהוזן באופן שגוי.";
 
-"Please remove this source from your sources.list file." = "אנא הסר/י את מקור זה מקובץ ה-sources.list שלך.";
 
-"Error while opening sources.list" = "תקלה בפתיחת sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "המקור %@ אינו תואם לפריצה שלך.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "אם תוסיף/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
 
-"%@ hasn't been modified" = "לא בוצעו שינויים ב-%@";
 
 "Install All" = "התקן הכל";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "בחר/י גירסה להתקנה:";
 "Select a version to upgrade to:" = "בחר/י גירסה לעדכן אליה:";
 "Select a version to downgrade to:" = "בחר/י גירסה לעדכן אליה:";
-"Package" = "חבילה";
-"Information" = "מידע";
 "Upgrade All" = "עדכן הכל";
 "Loaded" = "נטען";
 "ABC" = "אבג";
 "Date" = "תאריך";
 "Size" = "גודל";
 "Available Upgrades" = "עדכונים זמינים";
-"Ignored Upgrades" = "עדכונים שנדחו";
 "Recent" = "אחרונים";
 "Source" = "מקור";
 "Installed Files" = "קבצים מותקנים";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "בצע/י אימות כדי להתחיל רכישה.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "אנא התחבר/י מחדש לחשבונך ששומש לרכישת חבילה זו (עלול להיות %@)";
 "More by this Developer" = "עוד ממפתח זה";
-"Installed Version" = "גירסה מותקנת";
-"Installed Size" = "גודל מותקן";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (גירסה מותקנת: %@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "חיפוש";
-"This search query is too short for the full search, please use a longer query." = "מושג חיפוש זה קצר מידיי עבור החיפוש המלא, אנא השתמש/י במושג ארוך יותר.";
 "No Results Found" = "לא נמצאו תוצאות";
 "Name" = "שם";
 "Description" = "תיאור";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "מסוף";
-"Performing Actions..." = "מבצע פעולות...";
-"Updating icon cache asynchronously..." = "מעדכן מטמון אייקונים באופן אסינכרוני...";
+"Performing Actions…" = "מבצע פעולות…";
+"Updating icon cache asynchronously…" = "מעדכן מטמון אייקונים באופן אסינכרוני…";
 "uicache is not available on the simulator" = "uicache אינו זמין בסימולטור";
-"This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
-"Closing Zebra..." = "סוגר את זברה...";
+"Closing Zebra…" = "סוגר את זברה…";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
-"Restarting SpringBoard..." = "מפעיל מחדש את מסך הבית...";
+"Restarting SpringBoard…" = "מפעיל מחדש את מסך הבית…";
 "Parsing %@" = "מנתח את %@";
 "Starting Download" = "מתחיל הורדה";
 "Downloading" = "מוריד";
 "Downloading %@" = "מוריד את %@";
-"Downloading Packages..." = "מוריד חבילות...";
+"Downloading Packages…" = "מוריד חבילות…";
 "Download Completed" = "ההורדה הושלמה";
 "Installing" = "מתקין";
-"Installing Packages..." = "מתקין חבילות...";
+"Installing Packages…" = "מתקין חבילות…";
 "Removing" = "מסיר";
-"Removing Packages..." = "מסיר חבילות...";
+"Removing Packages…" = "מסיר חבילות…";
 "Reinstalling" = "מתקין מחדש";
-"Reinstalling Packages..." = "מתקין מחדש חבילות...";
+"Reinstalling Packages…" = "מתקין מחדש חבילות…";
 "Upgrading" = "מעדכן";
-"Upgrading Packages..." = "מעדכן חבילות...";
+"Upgrading Packages…" = "מעדכן חבילות…";
 "Complete" = "הושלם";
 "Finished!" = "הושלם!";
 "Return to Queue" = "חזרה לתור";
-"Returning to Queue..." = "חוזר לתור...";
+"Returning to Queue…" = "חוזר לתור…";
 "Importing local packages." = "מייבא חבילות מקומיות.";
 "Finished importing local packages." = "ייבוא חבילות מקומיות הושלם.";
 "One or more packages failed to download." = "חבילה אחת או יותר נכשלו בהורדה.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
 "Could not complete %@ process. Reason: %@." = "לא ניתן להשלים את תהליך %@. סיבה: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "אנא אתחל/י את זברה, במידה והבעיה נמשכת, אנא דווח/י על הבעיה ב-GitHub.";
-"Done..." = "בוצע...";
+"Done…" = "בוצע…";
 "Done %@" = "סיים להוריד את %@";
-"Removing Zebra..." = "מסיר את זברה...";
-"Installing Zebra..." = "מתקין את זברה...";
+"Removing Zebra…" = "מסיר את זברה…";
+"Installing Zebra…" = "מתקין את זברה…";
 "Error while opening file:" = "תקלה בפתיחת קובץ:";
 "Adding Payment Vendor URL for %@" = "מוסיף כתובת ספק תשלום עבור %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "מכשיר זה מדומה, להלן החבילות שישונו בשלב זה:";
@@ -366,8 +340,6 @@
 "Remove" = "הסר";
 "Upgrade" = "עדכן";
 "Downgrade" = "שנמך";
-"Abort" = "ביטול";
-"Continue" = "המשך";
 "Download Size" = "גודל הורדה";
 "Confirm" = "אישור";
 "Issues" = "בעיות";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "זברה לא הצליחה להשלים פקודה זו מכיוון שאין לה את ההרשאות המתאימות. אנא אמת/י את ההרשאות הממוקמות ב- \n /usr/libexec/zebra/supersling ודווח/י על בעיה זו בעזרת GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "לא ניתן לגשת ל-su/sling. אנא ודא/י כי /usr/libexec/zebra/supersling קיים.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "הבעלות של su/sling אינה מוגדרת ל-root:wheel. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "תקלה: יש לאתחל את התהליך. אנא נסה/י שנית.";
 
-"Incorrect documents permissions." = "הרשאות מסמכים שגויות.";
 
 "Could not determine device information." = "לא ניתן לקבוע פרטי מכשיר.";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "הגדר את המראה של פעולות החלקה על תאי טבלאות.";
 
-"Change the accent color that displays across Zebra." = "שנה את צבע ההדגשה שמוצג ברחבי זברה.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "שנה את סגנון מצב הלילה של זברה כאשר הוא דולק.";
 
-"Change the source of the featured packages on the homepage." = "שנה את מקור החבילות המומלצות במסך הבית.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"המלצת מקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "הנתונים שהורדו ממקור זה עשויים להיות לא מוצפנים. האם ברצונך להוסיף אותו?";
 
 "Unable to complete purchase" = "לא ניתן להשלים רכישה";
-
 
 "Package Not Available" = "חבילה לא זמינה";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "החבילה שביקשת אינה זמינה יותר. ייתכן שהוסרה מהמקורות שלך או שמזהה החבילה היה שגוי.";

@@ -3,17 +3,14 @@
 "Cancel" = "रद्द करें";
 "Yes" = "Gctxc";
 "No" = "नहीं";
-"Ok" = "हनजी";
+"OK" = "हनजी";
 "Error" = "त्रुटि";
-"Retry" = "पुन: प्रयास करें";
 "Edit" = "संशोधन करें";
 "Close" = "बंद";
 "Done" = "समाप्त";
-"Loading..." = "लोड हो रहा है...";
 "Clear" = "साफ़";
 "An Error Occurred" = "कोई त्रुटि हुई।";
 "Dismiss" = "खारिज करें";
-"Downloads" = "डाउनलोड करें";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "सामुदायिक सूत्र";
 "You’ve added all of the community sources" = "आपने सभी सामुदायिक स्रोतों को जोड़ा है";
 "Transfer sources from %@ to Zebra" = "%@ Zebra से स्रोत स्थानांतरण";
-"Utility source for %@" = "%@ के लिए उपयोगिता स्रोत";
 "Transfer Sources" = "स्रोत स्थानांतरण";
 "Import" = "आयात";
-"Verifying..." = "जांचना";
+"Verifying…" = "जांचना";
 "Confirm Import" = "आयात की पुष्टि करें";
 "Import Sources" = "आयात सूत्र";
 "No sources to import" = "आयात करने के लिए कोई स्रोत नहीं";
@@ -99,7 +95,6 @@
 "Repo Featured" = "रेपो फीचर्ड";
 "Random" = "कोई भी";
 "Select Repos to be Featured" = "चुनिंदा के लिए सुधार का चयन करें";
-"Featured Repos" = "फीचर्ड रिपोज";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "Enter Source URL";
 "Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 
-"Please Wait..." = "Please Wait...";
-"Verifying Source" = "स्रोत का सत्यापन";
-"Verifying Sources" = "स्रोत का सत्यापन";
+"Please Wait…" = "Please Wait…";
 "Updating Sources" = "Updating Sources";
 
-"Unknown error" = "Unknown error";
 "Invalid URL" = "Invalid URL";
 "Invalid Source" = "Invalid Source";
 "Tap to learn more" = "Tap to learn more";
-"No source URLs detected." = "No source URLs detected.";
 "Unable to verify source" = "Unable to verify source";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
 "Failed to add source" = "Failed to add source";
 "Failed to add sources" = "Failed to add sources";
 "You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "You have already added these sources.";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 "Error while downloading %@: %@" = "Error while downloading %@: %@";
 
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %lu files will be downloaded" = "A total of %lu files will be downloaded";
 
 "Could not parse %@ from %@" = "Could not parse %@ from %@";
 "Could not find a download URL for" = "Could not find a download URL for";
 "Authorizing Download for %@" = "Authorizing Download for %@";
 "Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
 "Reason: %@." = "कारण: %@";
-"The Payment API is not supported on less than iOS 11.0" = "भुगतान API iOS 11.0 से कम पर समर्थित नहीं है";
 "Could not download Release file from %@. Reason: %@" = "%@ से रिलीज़ फ़ाइल डाउनलोड नहीं कर सका। कारण: %@";
 "Could not download Packages file from %@. Reason: %@" = "%@ से संकुल फ़ाइल को डाउनलोड नहीं किया जा सका। कारण: %@";
 "Could not download one or more files from %@. Reason: %@" = "%@ से एक या अधिक फ़ाइलों को डाउनलोड नहीं किया जा सका। कारण: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "ज़ेबरा %@ पर निर्दिष्ट स्रोत को डाउनलोड करने में असमर्थ था। यह अस्थायी रूप से दुर्गम हो सकता है या गलत तरीके से जोड़ा जा सकता है।";
 
-"Please remove this source from your sources.list file." = "कृपया इस स्रोत को अपनी स्रोत सूची फ़ाइल से हटा दें।";
 
-"Error while opening sources.list" = "स्रोत सूची खोलते समय त्रुटि";
 
-"The source %@ is incompatible with your jailbreak." = "स्रोत %@ आपके जेलब्रेक से असंगत है।";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "यदि आप इसे ज़ेबरा में जोड़ देते हैं तो यह संभव हो सकता है।";
 
-"%@ hasn't been modified" = "%@ संशोधित किया गया";
 
 "Install All" = "सभी स्थापित करें";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "स्थापित करने के लिए एक संस्करण का चयन करें:";
 "Select a version to upgrade to:" = "अपग्रेड करने के लिए एक संस्करण चुनें:";
 "Select a version to downgrade to:" = "निम्न करने के लिए एक संस्करण चुनें:";
-"Package" = "पैकेज:";
-"Information" = "जानकारी";
 "Upgrade All" = "सभी अपग्रेड करो";
 "Loaded" = "लदा हुआ";
 "ABC" = "ABC";
 "Date" = "दिनांक";
 "Size" = "आकार";
 "Available Upgrades" = "उपलब्ध उन्नयन";
-"Ignored Upgrades" = "उपेक्षित अपग्रेड";
 "Recent" = "हाल ही में";
 "Source" = "स्रोत";
 "Installed Files" = "स्थापित फ़ाइलें";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "खरीद शुरू करने के लिए प्रमाणीकरण।";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "खरीद शुरू करने के लिए प्रमाणीकरण।";
 "More by this Developer" = "इस डेवलपर द्वारा अधिक";
-"Installed Version" = "इस डेवलपर द्वारा अधिक";
-"Installed Size" = "स्थापित आकार";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (स्थापित संस्करण:%@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "Search";
-"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
 "No Results Found" = "No Results Found";
 "Name" = "Name";
 "Description" = "Description";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "Console";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"Performing Actions…" = "Performing Actions…";
+"Updating icon cache asynchronously…" = "Updating icon cache asynchronously…";
 "uicache is not available on the simulator" = "uicache is not available on the simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Close Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra…" = "Closing Zebra…";
 "Restart SpringBoard" = "Restart SpringBoard";
-"Restarting SpringBoard..." = "स्प्रिंगबोर्ड पुनर्प्रारंभ हो रहा है...";
+"Restarting SpringBoard…" = "स्प्रिंगबोर्ड पुनर्प्रारंभ हो रहा है…";
 "Parsing %@" = "पर्सन %@";
 "Starting Download" = "डाउनलोड प्रारम्भ हो रहा है";
 "Downloading" = "डाउनलोड कर रहा है";
 "Downloading %@" = "डाउनलोड कर रहा है %@";
-"Downloading Packages..." = "पैकेज डाउनलोड हो रहे हैं ...";
+"Downloading Packages…" = "पैकेज डाउनलोड हो रहे हैं …";
 "Download Completed" = "डाउनलोड सम्पन्न हुआ";
 "Installing" = "स्थापित कर रहा है";
-"Installing Packages..." = "पैकेज इंस्टॉल हो रहा है";
-"Removing" = "हटाया जा रहा हैं...";
-"Removing Packages..." = "पैकेज निकाल रहा है ...";
+"Installing Packages…" = "पैकेज इंस्टॉल हो रहा है";
+"Removing" = "हटाया जा रहा हैं…";
+"Removing Packages…" = "पैकेज निकाल रहा है …";
 "Reinstalling" = "पुन: स्थापित करें";
-"Reinstalling Packages..." = "पैकेज इंस्टॉल हो रहा है";
+"Reinstalling Packages…" = "पैकेज इंस्टॉल हो रहा है";
 "Upgrading" = "अपग्रेड कर रहा है…";
-"Upgrading Packages..." = "पैकेज अपग्रेड हो रहे हैं ...";
+"Upgrading Packages…" = "पैकेज अपग्रेड हो रहे हैं …";
 "Complete" = "पूर्ण";
 "Finished!" = "समाप्त";
 "Return to Queue" = "कतार में लौटें";
-"Returning to Queue..." = "कतार में लौटें";
+"Returning to Queue…" = "कतार में लौटें";
 "Importing local packages." = "स्थानीय परियोजना का आयात करना";
 "Finished importing local packages." = "स्थानीय परियोजना का आयात करना";
 "One or more packages failed to download." = "One or more packages failed to download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 "Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
-"Done..." = "Done...";
+"Done…" = "Done…";
 "Done %@" = "Done %@";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Removing Zebra…" = "Removing Zebra…";
+"Installing Zebra…" = "Installing Zebra…";
 "Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
@@ -366,8 +340,6 @@
 "Remove" = "Remove";
 "Upgrade" = "Upgrade";
 "Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
 "Download Size" = "Download Size";
 "Confirm" = "Confirm";
 "Issues" = "Issues";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
 
 "Could not determine device information." = "Could not determine device information.";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
 
 "Unable to complete purchase" = "Unable to complete purchase";
-
 
 "Package Not Available" = "Package Not Available";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";

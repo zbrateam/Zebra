@@ -60,7 +60,7 @@
             else if (!info.available) { // Package isn't available.
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Package not available", @"") message:NSLocalizedString(@"This package is no longer for sale and cannot be downloaded.", @"") preferredStyle:UIAlertControllerStyleAlert];
 
-                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:nil];
                 [alert addAction:ok];
 
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -75,7 +75,7 @@
                     else if (error) {
                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:[NSString stringWithFormat:@"%@%@%@", error.localizedRecoverySuggestion ?: @"", error.localizedRecoverySuggestion ? @"\n\n" : @"", error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
 
-                        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+                        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:nil];
                         [alert addAction:ok];
 
                         dispatch_async(dispatch_get_main_queue(), ^{

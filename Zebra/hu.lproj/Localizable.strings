@@ -3,17 +3,14 @@
 "Cancel" = "Mégse";
 "Yes" = "Igen";
 "No" = "Nem";
-"Ok" = "Ok";
+"OK" = "OK";
 "Error" = "Hiba";
-"Retry" = "Újra";
 "Edit" = "Szerkeszt";
 "Close" = "Bezár";
 "Done" = "Kész";
-"Loading..." = "Betöltés...";
 "Clear" = "Kiürít";
 "An Error Occurred" = "Hiba történt";
 "Dismiss" = "Mégsem";
-"Downloads" = "Letöltések";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "Közösségi források";
 "You’ve added all of the community sources" = "Ön már hozzáadta az összes közösségi forrást";
 "Transfer sources from %@ to Zebra" = "Források átvitele %@-ból a Zebrába";
-"Utility source for %@" = "Forrás a %@";
 "Transfer Sources" = "Források átvitele";
 "Import" = "Importálás";
-"Verifying..." = "Ellenőrzés...";
+"Verifying…" = "Ellenőrzés…";
 "Confirm Import" = "Importálás jóváhagyása";
 "Import Sources" = "Források importálása";
 "No sources to import" = "Nincs importálható forrás";
@@ -99,7 +95,6 @@
 "Repo Featured" = "Repo Featured";
 "Random" = "Véletlenszerű";
 "Select Repos to be Featured" = "Select Repos to be Featured";
-"Featured Repos" = "Kiemelt források";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "Forrás linkje";
 "Would you like to add the URL from your clipboard?" = "Szeretnéd a vágólapon lévő URL-t hozzáadni?";
 
-"Please Wait..." = "Kérlek, várj...";
-"Verifying Source" = "Forrás ellenőrzése";
-"Verifying Sources" = "Források ellenőrzése";
+"Please Wait…" = "Kérlek, várj…";
 "Updating Sources" = "Updating Sources";
 
-"Unknown error" = "Ismeretlen hiba";
 "Invalid URL" = "Érvénytelen URL";
 "Invalid Source" = "Invalid Source";
 "Tap to learn more" = "Tap to learn more";
-"No source URLs detected." = "No source URLs detected.";
 "Unable to verify source" = "Unable to verify source";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
 "Failed to add source" = "Failed to add source";
 "Failed to add sources" = "Failed to add sources";
 "You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "You have already added these sources.";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 "Error while downloading %@: %@" = "Error while downloading %@: %@";
 
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %lu files will be downloaded" = "A total of %lu files will be downloaded";
 
 "Could not parse %@ from %@" = "Could not parse %@ from %@";
 "Could not find a download URL for" = "Could not find a download URL for";
 "Authorizing Download for %@" = "Authorizing Download for %@";
 "Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
 "Reason: %@." = "Ok: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 
-"Error while opening sources.list" = "Hiba a forráslista megnyitásakor";
 
-"The source %@ is incompatible with your jailbreak." = "A %@ forrás nem kompatibilis a jelenlegi jailbreak-eddel.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
 
-"%@ hasn't been modified" = "%@ hasn't been modified";
 
 "Install All" = "Install All";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Select a version to upgrade to:";
 "Select a version to downgrade to:" = "Select a version to downgrade to:";
-"Package" = "Csomag";
-"Information" = "Információ";
 "Upgrade All" = "Összes frissítése";
 "Loaded" = "Betöltve";
 "ABC" = "ABC";
 "Date" = "Dátum";
 "Size" = "Méret";
 "Available Upgrades" = "Elérhető frissítések";
-"Ignored Upgrades" = "Figyelmen kívül hagyott frissítések";
 "Recent" = "Legutóbbi";
 "Source" = "Forrás";
 "Installed Files" = "Telepített fájlok";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "Azonosítsd magad a vásárláshoz.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Jelentkezz be újra a csomag megvásárlásához (%@ valószínűleg)";
 "More by this Developer" = "Több ettől a fejlesztőtől";
-"Installed Version" = "Telepített verzió";
-"Installed Size" = "Telepített méret";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Telepített verzió: %@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "Keresés";
-"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
 "No Results Found" = "Nincs találat";
 "Name" = "Név";
 "Description" = "Leírás";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "Konzol";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"Performing Actions…" = "Performing Actions…";
+"Updating icon cache asynchronously…" = "Updating icon cache asynchronously…";
 "uicache is not available on the simulator" = "uicache is not available on the simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Zebra bezárása";
-"Closing Zebra..." = "Zebra bezárása...";
+"Closing Zebra…" = "Zebra bezárása…";
 "Restart SpringBoard" = "SpringBoard újraindítása";
-"Restarting SpringBoard..." = "SpringBoard újraindítása...";
+"Restarting SpringBoard…" = "SpringBoard újraindítása…";
 "Parsing %@" = "Parsing %@";
 "Starting Download" = "Letöltés indítása";
 "Downloading" = "Letöltés";
 "Downloading %@" = "%@ letöltése";
-"Downloading Packages..." = "Csomagok letöltése...";
+"Downloading Packages…" = "Csomagok letöltése…";
 "Download Completed" = "Letöltés kész";
 "Installing" = "Telepítés";
-"Installing Packages..." = "Csomagok telepítése...";
+"Installing Packages…" = "Csomagok telepítése…";
 "Removing" = "Eltávolítás";
-"Removing Packages..." = "Csomagok eltávolítása...";
+"Removing Packages…" = "Csomagok eltávolítása…";
 "Reinstalling" = "Újratelepítés";
-"Reinstalling Packages..." = "Csomagok újratelepítése...";
+"Reinstalling Packages…" = "Csomagok újratelepítése…";
 "Upgrading" = "Frissítés";
-"Upgrading Packages..." = "Csomagok frissítése...";
+"Upgrading Packages…" = "Csomagok frissítése…";
 "Complete" = "Kész";
 "Finished!" = "Kész!";
 "Return to Queue" = "Vissza a várólistához";
-"Returning to Queue..." = "Vissza a várólistához...";
+"Returning to Queue…" = "Vissza a várólistához…";
 "Importing local packages." = "Helyi csomagok beolvasása.";
 "Finished importing local packages." = "Helyi csomagok beolvasása kész.";
 "One or more packages failed to download." = "Egy vagy több csomag letöltése sikertelen.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 "Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
-"Done..." = "Kész...";
+"Done…" = "Kész…";
 "Done %@" = "%@ kész";
-"Removing Zebra..." = "Zebra eltávolítása...";
-"Installing Zebra..." = "Zebra telepítése...";
+"Removing Zebra…" = "Zebra eltávolítása…";
+"Installing Zebra…" = "Zebra telepítése…";
 "Error while opening file:" = "Hiba a fájl megnyitása során:";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
@@ -366,8 +340,6 @@
 "Remove" = "Eltávolítás";
 "Upgrade" = "Frissítés";
 "Downgrade" = "Visszafejlesztés";
-"Abort" = "Megszakít";
-"Continue" = "Folytatás";
 "Download Size" = "Letöltési méret";
 "Confirm" = "Megerősít";
 "Issues" = "Problémák";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
 
 "Could not determine device information." = "Could not determine device information.";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
 
 "Unable to complete purchase" = "Unable to complete purchase";
-
 
 "Package Not Available" = "Package Not Available";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";

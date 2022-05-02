@@ -2,9 +2,8 @@
 
 "Cancel" = "Cancel";
 "No" = "No";
-"Ok" = "Ok";
+"OK" = "OK";
 "Error" = "Error";
-"Retry" = "Retry";
 "Edit" = "Edit";
 "Login" = "Login";
 "Close" = "Close";
@@ -22,7 +21,7 @@
 "Utility repo for %@" = "Utility repo for %@";
 "Transfer Sources" = "Transfer Sources";
 "Utilities" = "Utilities";
-"Please Wait..." = "Please Wait...";
+"Please Wait…" = "Please Wait…";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Stores" = "Stores";
 "Purchases" = "Purchases";
@@ -44,7 +43,6 @@
 
 "Settings" = "Settings";
 "Version" = "Version";
-"Information" = "Information";
 "Graphics" = "Graphics";
 "Featured" = "Featured";
 "News" = "News";
@@ -85,7 +83,6 @@
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Keychain" = "Clear Keychain";
 
-"Loading..." = "Loading...";
 
 "Resetting image cache completed" = "Resetting image cache completed";
 "Clearing keychain completed" = "Clearing keychain completed";
@@ -107,7 +104,7 @@
 "Add" = "Add";
 "Add Multiple" = "Add Multiple";
 "Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
-"Please Wait..." = "Please Wait...";
+"Please Wait…" = "Please Wait…";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify Repo" = "Unable to verify Repo";
 "Refresh" = "Refresh";
@@ -129,8 +126,6 @@
 "Ignore Updates" = "Ignore Updates";
 "Select Version" = "Select Version";
 "Select a version to upgrade to" = "Select a version to upgrade to";
-"Package" = "Package";
-"Information" = "Information";
 "Upgrade All" = "Upgrade All";
 "Loaded" = "Loaded";
 "ABC" = "ABC";
@@ -140,14 +135,12 @@
 "Clear" = "Clear";
 "Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
 "Available Upgrades" = "Available Upgrades";
-"Ignored Upgrades" = "Ignored Upgrades";
 "Recent" = "Recent";
 "Installed Files" = "Installed Files";
 "Modify" = "Modify";
 "Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
 "More by this Developer" = "More by this Developer";
-"Installed Version" = "Installed Version";
 
 "Add to Wish List" = "Add to Wish List";
 "Remove from Wish List" = "Remove from Wish List";
@@ -195,40 +188,33 @@
 
 "Search" = "Search";
 "Clear Search" = "Clear Search";
-"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
 "No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "Downloads";
-"Error while opening sources.list" = "Error while opening sources.list";
 "The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
 "Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
-"Incorrect documents permissions." = "Incorrect documents permissions.";
 "Could not determine device information." = "Could not determine device information.";
 "Could not find a download URL for" = "Could not find a download URL for";
-"%@ hasn't been modified" = "%@ hasn't been modified";
 "Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
 "Console" = "Console";
 "Performing actions" = "Performing actions";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Updating icon cache asynchronously…" = "Updating icon cache asynchronously…";
 "Close Zebra" = "Close Zebra";
 "Restart SpringBoard" = "Restart SpringBoard";
 "Downloading" = "Downloading";
-"Downloading Packages..." = "Downloading Packages...";
+"Downloading Packages…" = "Downloading Packages…";
 "Installing" = "Installing";
-"Installing Packages..." = "Installing Packages...";
+"Installing Packages…" = "Installing Packages…";
 "Removing" = "Removing";
-"Removing Packages..." = "Removing Packages...";
+"Removing Packages…" = "Removing Packages…";
 "Reinstalling" = "Reinstalling";
-"Reinstalling Packages..." = "Reinstalling Packages...";
+"Reinstalling Packages…" = "Reinstalling Packages…";
 "Upgrading" = "Upgrading";
-"Upgrading Packages..." = "Upgrading Packages...";
+"Upgrading Packages…" = "Upgrading Packages…";
 "Complete" = "Complete";
 "Finished!" = "Finished!";
 "Return to Queue" = "Return to Queue";
@@ -251,8 +237,6 @@
 "Remove" = "Remove";
 "Upgrade" = "Upgrade";
 "Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
 "Download Size" = "Download Size";
 "Could not resolve dependency for %@" = "Could not resolve dependency for %@";
 "%@ conflicts with %@" = "%@ conflicts with %@";

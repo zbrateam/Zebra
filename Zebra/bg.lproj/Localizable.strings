@@ -3,17 +3,14 @@
 "Cancel" = "Отказ";
 "Yes" = "Да";
 "No" = "Да";
-"Ok" = "Не";
+"OK" = "Не";
 "Error" = "Грешка";
-"Retry" = "Опитайте отново";
 "Edit" = "Редактиране";
 "Close" = "Затвори";
 "Done" = "Завършено";
-"Loading..." = "Зареждане…";
 "Clear" = "Изчисти";
 "An Error Occurred" = "Възникна грешка";
 "Dismiss" = "Dismiss";
-"Downloads" = "Изтегляния";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "Публични източници";
 "You’ve added all of the community sources" = "Добавихте всички източници";
 "Transfer sources from %@ to Zebra" = "Прехвърляне на източници от %@ към Zebra";
-"Utility source for %@" = "Полезен източник за %@";
 "Transfer Sources" = "Прехвърляне на източници";
 "Import" = "Импортиране";
-"Verifying..." = "Проверява се...";
+"Verifying…" = "Проверява се…";
 "Confirm Import" = "Потвърдете импортирането";
 "Import Sources" = "Импортиране на източници";
 "No sources to import" = "Няма източници за импортиране";
@@ -99,7 +95,6 @@
 "Repo Featured" = "Препоръчано хранилище";
 "Random" = "Случайно";
 "Select Repos to be Featured" = "Избери хранилища, които да бъдат препоръчани";
-"Featured Repos" = "Препоръчани хранилища";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "Въведете URL адрес на източника";
 "Would you like to add the URL from your clipboard?" = "Бихте ли желали да добавите URL адрес от буферната си памет?";
 
-"Please Wait..." = "Почакайте...";
-"Verifying Source" = "Проверка на източник";
-"Verifying Sources" = "Проверка на източници";
+"Please Wait…" = "Почакайте…";
 "Updating Sources" = "Осъвременяване на източниците";
 
-"Unknown error" = "Неизвестна грешка";
 "Invalid URL" = "Недействителен URL адрес";
 "Invalid Source" = "Недействителен източник";
 "Tap to learn more" = "Чукнете, за да научите повече";
-"No source URLs detected." = "Няма засечени URL адреси на източника.";
 "Unable to verify source" = "Невъзможно потвърждаване на източника";
-"Error verifying source" = "Грешка, потвърждавайки източник";
-"Error verifying sources" = "Грешка, потвърждавайки източниците";
 "Failed to add source" = "Неуспешно добавяне на източник";
 "Failed to add sources" = "Неуспешно добавяне на източници";
 "You have already added this source." = "Вече сте добавили този източник.";
-"You have already added these sources." = "Вече сте добавили тези източници.";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 "Error while downloading %@: %@" = "Error while downloading %@: %@";
 
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %lu files will be downloaded" = "A total of %lu files will be downloaded";
 
 "Could not parse %@ from %@" = "Could not parse %@ from %@";
 "Could not find a download URL for" = "Could not find a download URL for";
 "Authorizing Download for %@" = "Authorizing Download for %@";
 "Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
 "Reason: %@." = "Причина: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
-"Please remove this source from your sources.list file." = "Премахнете този източник от своя файл sources.list";
 
-"Error while opening sources.list" = "Грешка, отваряйки sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
 
-"%@ hasn't been modified" = "%@ е без промяна";
 
 "Install All" = "Инсталиране на всичко";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "Изберете версия за инсталиране:";
 "Select a version to upgrade to:" = "Изберете версия за надграждане до:";
 "Select a version to downgrade to:" = "Изберете версия за понижаване до:";
-"Package" = "Пакет";
-"Information" = "Информация";
 "Upgrade All" = "Актуализиране на всички";
 "Loaded" = "Заредено";
 "ABC" = "АБВ";
 "Date" = "Дата";
 "Size" = "Големина";
 "Available Upgrades" = "Налични ъпгрейди";
-"Ignored Upgrades" = "Игнорирани ъпгрейди";
 "Recent" = "Скорошни";
 "Source" = "Източник";
 "Installed Files" = "Инсталирани файлове";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "Влезте за да инициирате покупка.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Моля влезте в акаунта, който сте използвали за покупката на този пакет, отново (Възможно %@)";
 "More by this Developer" = "Още от този разработчик";
-"Installed Version" = "Инсталирана версия";
-"Installed Size" = "Инсталирана големина";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Инсталирана версия: %@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "Търсене";
-"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
 "No Results Found" = "Няма намерени резултати";
 "Name" = "Име";
 "Description" = "Описание";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "Конзола";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"Performing Actions…" = "Performing Actions…";
+"Updating icon cache asynchronously…" = "Updating icon cache asynchronously…";
 "uicache is not available on the simulator" = "uicache is not available on the simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Затворете Zebra";
-"Closing Zebra..." = "Затваряне на Zebra...";
+"Closing Zebra…" = "Затваряне на Zebra…";
 "Restart SpringBoard" = "Restart SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard…" = "Restarting SpringBoard…";
 "Parsing %@" = "Parsing %@";
 "Starting Download" = "Започване на изтеглянето";
 "Downloading" = "Изтегляне";
 "Downloading %@" = "Изтегля се %@";
-"Downloading Packages..." = "Изтегляне на пакети...";
+"Downloading Packages…" = "Изтегляне на пакети…";
 "Download Completed" = "Изтеглянето приключи";
 "Installing" = "Инсталиране";
-"Installing Packages..." = "Инсталиране на пакети...";
+"Installing Packages…" = "Инсталиране на пакети…";
 "Removing" = "Премахване";
-"Removing Packages..." = "Премахване на пакети...";
+"Removing Packages…" = "Премахване на пакети…";
 "Reinstalling" = "Преинсталиране";
-"Reinstalling Packages..." = "Реинсталиране на пакети...";
+"Reinstalling Packages…" = "Реинсталиране на пакети…";
 "Upgrading" = "Ъпгрейд";
-"Upgrading Packages..." = "Ъпгрейд на пакети...";
+"Upgrading Packages…" = "Ъпгрейд на пакети…";
 "Complete" = "Приключено";
 "Finished!" = "Завършено!";
 "Return to Queue" = "Връщане към опашка";
-"Returning to Queue..." = "Връщане към опашка...";
+"Returning to Queue…" = "Връщане към опашка…";
 "Importing local packages." = "Импортиране на локални пакети.";
 "Finished importing local packages." = "Край на импортирането на локални пакети.";
 "One or more packages failed to download." = "Един или повече пакети не можаха да бъдат изтеглени.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Натисни \"Връщане към опашка\", за да се върнеш към опашката ида направиш повторен опит за изтегляне.";
 "Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
-"Done..." = "Завършено...";
+"Done…" = "Завършено…";
 "Done %@" = "Завършено %@";
-"Removing Zebra..." = "Премахване на Zebra...";
-"Installing Zebra..." = "Инсталиране на Zebra...";
+"Removing Zebra…" = "Премахване на Zebra…";
+"Installing Zebra…" = "Инсталиране на Zebra…";
 "Error while opening file:" = "Грешка, отваряйки файл:";
 "Adding Payment Vendor URL for %@" = "Добавяне на URL адрес на доставчик на плащания за %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
@@ -366,8 +340,6 @@
 "Remove" = "Премахни";
 "Upgrade" = "Ъпгрейд";
 "Downgrade" = "Даунгрейд";
-"Abort" = "Прекъсни";
-"Continue" = "Продължи";
 "Download Size" = "Размер за сваляне";
 "Confirm" = "Потвърди";
 "Issues" = "Проблеми";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "ГРЕШКА: Процесът трябва да бъде рестартиран. Опитайте пак.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
 
 "Could not determine device information." = "Could not determine device information.";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
 
 "Unable to complete purchase" = "Unable to complete purchase";
-
 
 "Package Not Available" = "Package Not Available";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";

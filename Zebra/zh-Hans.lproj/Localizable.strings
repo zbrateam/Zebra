@@ -3,17 +3,14 @@
 "Cancel" = "取消";
 "Yes" = "是";
 "No" = "否";
-"Ok" = "确定";
+"OK" = "确定";
 "Error" = "错误";
-"Retry" = "重试";
 "Edit" = "编辑";
 "Close" = "关闭";
 "Done" = "完成";
-"Loading..." = "加载中……";
 "Clear" = "清空";
 "An Error Occurred" = "出现了一个错误";
 "Dismiss" = "忽略";
-"Downloads" = "下载";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "第三方软件源";
 "You’ve added all of the community sources" = "您已经添加了所有的第三方软件源";
 "Transfer sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
-"Utility source for %@" = "%@ 的工具软件源";
 "Transfer Sources" = "导入软件源";
 "Import" = "导入";
-"Verifying..." = "正在验证……";
+"Verifying…" = "正在验证……";
 "Confirm Import" = "确认导入";
 "Import Sources" = "导入软件源";
 "No sources to import" = "没有软件源要导入";
@@ -99,7 +95,6 @@
 "Repo Featured" = "精选软件源";
 "Random" = "随机";
 "Select Repos to be Featured" = "选择会被推荐的精选软件源";
-"Featured Repos" = "精选软件源";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "输入软件源地址";
 "Would you like to add the URL from your clipboard?" = "是否添加剪贴板中的软件源链接？";
 
-"Please Wait..." = "请稍候……";
-"Verifying Source" = "正在验证软件源";
-"Verifying Sources" = "正在验证软件源";
+"Please Wait…" = "请稍候……";
 "Updating Sources" = "正在更新软件源";
 
-"Unknown error" = "未知错误";
 "Invalid URL" = "无效的 URL";
 "Invalid Source" = "无效的软件源";
 "Tap to learn more" = "点击了解更多";
-"No source URLs detected." = "未检测到软件源 URL";
 "Unable to verify source" = "无法验证软件源";
-"Error verifying source" = "验证软件源时出错";
-"Error verifying sources" = "验证软件源时出错";
 "Failed to add source" = "添加软件源失败";
 "Failed to add sources" = "添加软件源失败";
 "You have already added this source." = "你已经添加过这个软件源";
-"You have already added these sources." = "你已经添加过这些软件源";
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
 "Error while downloading %@: %@" = "下载 %@ 时出错：%@";
 
-"A total of %d files will be downloaded" = "总共将下载%d个文件";
+"A total of %lu files will be downloaded" = "总共将下载%lu个文件";
 
 "Could not parse %@ from %@" = "无法解析 %@ 自 %@";
 "Could not find a download URL for" = "无法获取下载链接";
 "Authorizing Download for %@" = "正在获取下载 %@ 的授权";
 "Couldn't authorize download for %@." = "无法获取下载 %@ 的授权";
 "Reason: %@." = "原因：%@";
-"The Payment API is not supported on less than iOS 11.0" = "支付 API 不支持 iOS 11.0 以下的系统";
 "Could not download Release file from %@. Reason: %@" = "无法从 %@ 下载软件源信息。原因：%@";
 "Could not download Packages file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
 "Could not download one or more files from %@. Reason: %@" = "无法从 %@ 下载一个或多个文件。原因： %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra 无法下载在 %@ 软件源。该软件源可能暂时无法访问，或添加方式不正确。";
 
-"Please remove this source from your sources.list file." = "请将此软件源从 sources.list 文件中移除";
 
-"Error while opening sources.list" = "打开 sources.list 时错误";
 
-"The source %@ is incompatible with your jailbreak." = "软件源 %@ 与你的越狱不兼容";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "添加到 Zebra 可能会产生错误，导致设备需要重置。";
 
-"%@ hasn't been modified" = "%@ 未被修改";
 
 "Install All" = "全部安装";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "选择需要安装的版本：";
 "Select a version to upgrade to:" = "选择需要更新的版本：";
 "Select a version to downgrade to:" = "选择需要降级版本：";
-"Package" = "软件包";
-"Information" = "信息";
 "Upgrade All" = "全部更新";
 "Loaded" = "已加载";
 "ABC" = "名称";
 "Date" = "日期";
 "Size" = "大小";
 "Available Upgrades" = "可更新";
-"Ignored Upgrades" = "已忽略的更新";
 "Recent" = "最近";
 "Source" = "软件源";
 "Installed Files" = "已安装的文件";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "登录后购买";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "购买此软件包请重新登录你的账号（可能是 %@）";
 "More by this Developer" = "此开发者的更多软件包";
-"Installed Version" = "已安装版本";
-"Installed Size" = "安装大小";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "搜索";
-"This search query is too short for the full search, please use a longer query." = "你输入的文字太短，无法进行搜索，请输入更长的关键词。";
 "No Results Found" = "未找到结果";
 "Name" = "名称";
 "Description" = "说明";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "控制台";
-"Performing Actions..." = "正在执行操作……";
-"Updating icon cache asynchronously..." = "正在异步刷新图标缓存……";
+"Performing Actions…" = "正在执行操作……";
+"Updating icon cache asynchronously…" = "正在异步刷新图标缓存……";
 "uicache is not available on the simulator" = "模拟器上无法使用 uicache";
-"This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要一段时间，Zebra 可能会闪退，无需担心。";
 "Close Zebra" = "关闭 Zebra";
-"Closing Zebra..." = "正在关闭 Zebra ……";
+"Closing Zebra…" = "正在关闭 Zebra ……";
 "Restart SpringBoard" = "重启 SpringBoard";
-"Restarting SpringBoard..." = "正在重启 SpringBoard ……";
+"Restarting SpringBoard…" = "正在重启 SpringBoard ……";
 "Parsing %@" = "正在解析 %@";
 "Starting Download" = "正在开始下载";
 "Downloading" = "正在下载";
 "Downloading %@" = "正在下载 %@";
-"Downloading Packages..." = "正在下载软件包……";
+"Downloading Packages…" = "正在下载软件包……";
 "Download Completed" = "下载完成";
 "Installing" = "正在安装";
-"Installing Packages..." = "正在安装软件包……";
+"Installing Packages…" = "正在安装软件包……";
 "Removing" = "正在移除";
-"Removing Packages..." = "正在移除软件包……";
+"Removing Packages…" = "正在移除软件包……";
 "Reinstalling" = "正在重新安装";
-"Reinstalling Packages..." = "正在重新安装软件包……";
+"Reinstalling Packages…" = "正在重新安装软件包……";
 "Upgrading" = "正在更新";
-"Upgrading Packages..." = "正在更新软件包……";
+"Upgrading Packages…" = "正在更新软件包……";
 "Complete" = "完成";
 "Finished!" = "完成！";
 "Return to Queue" = "返回队列";
-"Returning to Queue..." = "正在返回队列……";
+"Returning to Queue…" = "正在返回队列……";
 "Importing local packages." = "正在导入本地软件包……";
 "Finished importing local packages." = "导入本地软件包完成";
 "One or more packages failed to download." = "一个或多个软件包下载失败";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载";
 "Could not complete %@ process. Reason: %@." = "无法完成 %@。原因：%@";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "请重启 Zebra 并查看问题是否仍然存在。如果是，请在 GitHub 上提交问题报告。";
-"Done..." = "完成……";
+"Done…" = "完成……";
 "Done %@" = "%@ 已完成";
-"Removing Zebra..." = "正在移除 Zebra ……";
-"Installing Zebra..." = "正在安装 Zebra ……";
+"Removing Zebra…" = "正在移除 Zebra ……";
+"Installing Zebra…" = "正在安装 Zebra ……";
 "Error while opening file:" = "打开文件时出错：";
 "Adding Payment Vendor URL for %@" = "正在为 %@ 添加付款服务 URL";
 "This device is simulated, here are the packages that would be modified in this stage:" = "此设备处于模拟状态，下面是本阶段将会被修改的软件包：";
@@ -366,8 +340,6 @@
 "Remove" = "移除";
 "Upgrade" = "更新";
 "Downgrade" = "降级";
-"Abort" = "停止";
-"Continue" = "继续";
 "Download Size" = "下载大小";
 "Confirm" = "确认";
 "Issues" = "问题";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "因为没有适当的权限，Zebra 无法完成此命令。 请验证位于 /usr/libexec/zebra/supersling 的权限，并在 GitHub 上报告这个问题。";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "无法访问 su/sling ，请验证 /usr/libexec/zebra/supersling 是否存在。";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 用户权限非 root:wheel ，请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
 
-"Incorrect documents permissions." = "文档权限不正确";
 
 "Could not determine device information." = "无法获取设备信息";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "配置表格视图滑动操作的外观";
 
-"Change the accent color that displays across Zebra." = "更改 Zebra 所有界面的主体颜色";
 
-"Change the style of Zebra's dark mode when it is enabled." = "启用时更改 Zebra 的黑暗模式主题";
 
-"Change the source of the featured packages on the homepage." = "更改主页上精选软件包的来源";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "“精选软件源”将从支持精选软件包 API 的软件源中随机显示软件包";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "从这个软件源下载的数据没未被加密，你确定要添加吗？";
 
 "Unable to complete purchase" = "无法完成购买操作";
-
 
 "Package Not Available" = "软件包不存在";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "你请求的软件包不存在，可能已经从软件源中被移除，或者请求的软件包ID不正确。";

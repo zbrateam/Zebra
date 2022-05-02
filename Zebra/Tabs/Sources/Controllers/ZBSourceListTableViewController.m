@@ -252,7 +252,7 @@
         }];
         [invalidSourceAlert addAction:deleteAction];
         
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:nil];
         [invalidSourceAlert addAction:okAction];
         
         [self presentViewController:invalidSourceAlert animated:YES completion:nil];
@@ -477,7 +477,7 @@
     if (!baseSource) {
         UIAlertController *malformed = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid URL", @"") message:NSLocalizedString(@"The URL you entered is not valid. Please check it and try again.", @"") preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:nil];
         [malformed addAction:ok];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -684,7 +684,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (!self->verifyPopup) {
             NSString *message = NSLocalizedString(multiple ? @"Verifying Sources" : @"Verifying Source", @"");
-            self->verifyPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait...", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+            self->verifyPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Please Wait…", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
         }
         
         [self presentViewController:self->verifyPopup animated:YES completion:nil];

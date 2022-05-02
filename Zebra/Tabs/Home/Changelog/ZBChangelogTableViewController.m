@@ -118,7 +118,7 @@
                           @"a { text-decoration: %@; }"
                           @"</style></head><body>%@</body></html>",
                           [ZBDevice buttonShapesEnabled] ? @"underline" : @"none",
-                          dataDict[@"body_html"] ?: @"Error"];
+                          dataDict[@"body_html"] ?: NSLocalizedString(@"Error", @"")];
         attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding] options:@{
             NSDocumentTypeDocumentOption: NSHTMLTextDocumentType
         } documentAttributes:nil error:nil];
@@ -133,7 +133,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSDictionary *jsonDict = releases[section];
-    return jsonDict[@"name"] ?: @"Error";
+    return jsonDict[@"name"] ?: NSLocalizedString(@"Error", @"");
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

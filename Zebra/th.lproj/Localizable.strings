@@ -3,17 +3,14 @@
 "Cancel" = "ยกเลิก";
 "Yes" = "ใช่";
 "No" = "ไม่";
-"Ok" = "ตกลง";
+"OK" = "ตกลง";
 "Error" = "ข้อผิดพลาด";
-"Retry" = "ลองอีกครั้ง";
 "Edit" = "แก้ไข";
 "Close" = "ปิด";
 "Done" = "เสร็จสิ้น";
-"Loading..." = "กำลังโหลด...";
 "Clear" = "ล้าง";
 "An Error Occurred" = "เกิดข้อผิดพลาด";
 "Dismiss" = "ปิด";
-"Downloads" = "ดาวน์โหลด";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "ซอร์สชุมชน";
 "You’ve added all of the community sources" = "คุณได้เพิ่มซอร์สชุมชนทั้งหมดแล้ว";
 "Transfer sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
-"Utility source for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
 "Import" = "นําเข้า";
-"Verifying..." = "กำลังตรวจสอบ...";
+"Verifying…" = "กำลังตรวจสอบ…";
 "Confirm Import" = "ยืนยันการนำเข้า";
 "Import Sources" = "นำเข้าซอร์ส";
 "No sources to import" = "ไม่มีซอร์สเพื่อนำเข้า";
@@ -99,7 +95,6 @@
 "Repo Featured" = "แนะนำโดยซอร์ส";
 "Random" = "สุ่ม";
 "Select Repos to be Featured" = "เลือกซอร์สไปแสดงโปรแกรมยอดนิยม";
-"Featured Repos" = "ซอร์สยอดนิยม";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "Masukkan URL Sumber";
 "Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
 
-"Please Wait..." = "โปรดรอ...";
-"Verifying Source" = "กำลังตรวจสอบซอร์ส";
-"Verifying Sources" = "Verifikacija izvora";
+"Please Wait…" = "โปรดรอ…";
 "Updating Sources" = "กำลังปรับปรุงซอร์ส";
 
-"Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 "Invalid URL" = "URL ผิด";
 "Invalid Source" = "ซอร์สไม่ถูกต้อง";
 "Tap to learn more" = "แตะเพื่ออ่านเพิ่มเติม";
-"No source URLs detected." = "ไม่พบ URL ของซอร์ส";
 "Unable to verify source" = "ไม่สามารถตรวจสอบซอร์สได้";
-"Error verifying source" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
-"Error verifying sources" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
 "Failed to add source" = "ไม่สามารถเพิ่มไฟล์";
 "Failed to add sources" = "ไม่สามารถเพิ่มซอร์สได้";
 "You have already added this source." = "คุณได้เพิ่มซอร์สนี้ไปแล้ว";
-"You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Error while downloading %@: %@" = "ข้อผิดพลาดขณะดาวน์โหลด %@: %@";
 
-"A total of %d files will be downloaded" = "%d ไฟล์จะถูกดาวน์โหลด";
+"A total of %lu files will be downloaded" = "%lu ไฟล์จะถูกดาวน์โหลด";
 
 "Could not parse %@ from %@" = "ไม่สามารถอ่าน %@ จาก %@";
 "Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
 "Authorizing Download for %@" = "กำลังยืนยันการดาวน์โหลด %@";
 "Couldn't authorize download for %@." = "ไม่สามารถยืนยันการดาวน์โหลด %@ ได้";
 "Reason: %@." = "สาเหตุ: %@";
-"The Payment API is not supported on less than iOS 11.0" = "API การซื้อขายไม่รองรับ iOS ที่ต่ำกว่า 11.0";
 "Could not download Release file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Release จาก %@ ได้ สาเหตุ: %@";
 "Could not download Packages file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Packages จาก %@ ได้ สาเหตุ: %@";
 "Could not download one or more files from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์อย่างน้อยหนึ่ง จาก %@ ได้ สาเหตุ: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra ไม่สามารถดาวน์โหลดซอร์ส %@ ซึ่งอาจจะไม่สามารถเข้าถึงได้ชั่วขณะ หรือถูกเพิ่มมาแบบไม่ถูกต้อง";
 
-"Please remove this source from your sources.list file." = "โปรดลบซอร์สนี้จากไฟล์ sources.list ของคุณ";
 
-"Error while opening sources.list" = "เกิดข้อผิดพลาดในการเปิดไฟล์ sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "ซอร์สนี้ %@ ไม่รองรับโปรแกรมเจลเบรคของอุปกรณ์คุณ";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "อาจเกิดปัญหาได้หากซอร์สนี้ถูกเพิ่มลง Zebra และอาจถึงขั้นต้องล้างเครื่อง";
 
-"%@ hasn't been modified" = "%@ ไม่ได้ถูกแก้ไข";
 
 "Install All" = "ติดตั้งทั้งหมด";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "เลือกรุ่นที่จะทำการติดตั้ง:";
 "Select a version to upgrade to:" = "เลือกรุ่นที่ใหม่กว่าที่จะทำการติดตั้ง:";
 "Select a version to downgrade to:" = "เลือกรุ่นที่เก่ากว่าที่จะทำการติดตั้ง:";
-"Package" = "โปรแกรม";
-"Information" = "ข้อมูล";
 "Upgrade All" = "ปรับรุ่นใหม่ทั้งหมด";
 "Loaded" = "โหลดแล้ว";
 "ABC" = "กขค";
 "Date" = "วันที่";
 "Size" = "ขนาด";
 "Available Upgrades" = "รุ่นใหม่ที่มี";
-"Ignored Upgrades" = "รุ่นใหม่ที่ไม่เพิกเฉย";
 "Recent" = "เร็วๆ นี้";
 "Source" = "ซอร์ส";
 "Installed Files" = "ไฟล์ที่มาตอนติดตั้ง";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "ยืนยันตัวตนเพื่อเริ่มการซื้อ";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "กรุณาลงชื่อเข้าใช้บัญชีที่คุณใช้ในการซื้อโปรแกรมนี้อีกครั้ง (คาดว่าคือ %@)";
 "More by this Developer" = "โปรแกรมอื่นๆ จากนักพัฒนาคนนี้";
-"Installed Version" = "รุ่นที่ติดตั้ง";
-"Installed Size" = "ขนาดเมื่อติดตั้ง";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (รุ่นที่ติดตั้ง: %@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "ค้นหา";
-"This search query is too short for the full search, please use a longer query." = "ข้อความค้นหาสั้นเกินไปสำหรับการค้นหาเต็มรูปแบบ กรุณาใช้ความยาวมากกว่านี้";
 "No Results Found" = "ไม่พบรายการ";
 "Name" = "ชื่อ";
 "Description" = "คำอธิบาย";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "คอนโซล";
-"Performing Actions..." = "กำลังทำงาน...";
-"Updating icon cache asynchronously..." = "กำลังปรับปรุงแคชไอคอนใหม่...";
+"Performing Actions…" = "กำลังทำงาน…";
+"Updating icon cache asynchronously…" = "กำลังปรับปรุงแคชไอคอนใหม่…";
 "uicache is not available on the simulator" = "uicache ไม่รองรับในอุปกรณ์จำลอง";
-"This may take awhile and Zebra may crash. It is okay if it does." = "นี่อาจใช้เวลาสักพักและ Zebra อาจปิดตัวเองลง แต่จะไม่ส่งผลเสียอะไร";
 "Close Zebra" = "ปิด Zebra";
-"Closing Zebra..." = "ปิด Zebra...";
+"Closing Zebra…" = "ปิด Zebra…";
 "Restart SpringBoard" = "เริ่มการทำงาน SpringBoard ใหม่";
-"Restarting SpringBoard..." = "เริ่มการทำงาน SpringBoard ใหม่...";
+"Restarting SpringBoard…" = "เริ่มการทำงาน SpringBoard ใหม่…";
 "Parsing %@" = "อ่าน %@";
 "Starting Download" = "เริ่มต้นดาวน์โหลด";
 "Downloading" = "กำลังดาวน์โหลด";
 "Downloading %@" = "กำลังดาวน์โหลด %@";
-"Downloading Packages..." = "กำลังดาวน์โหลดโปรแกรม...";
+"Downloading Packages…" = "กำลังดาวน์โหลดโปรแกรม…";
 "Download Completed" = "การดาวน์โหลดเสร็จสิ้น";
 "Installing" = "กำลังติดตั้ง";
-"Installing Packages..." = "กำลังติดตั้งโปรแกรม...";
+"Installing Packages…" = "กำลังติดตั้งโปรแกรม…";
 "Removing" = "กำลังลบ";
-"Removing Packages..." = "กำลังลบโปรแกรม...";
+"Removing Packages…" = "กำลังลบโปรแกรม…";
 "Reinstalling" = "กำลังติดตั้งซ้ำ";
-"Reinstalling Packages..." = "กำลังติดตั้งโปรแกรมซ้ำ...";
+"Reinstalling Packages…" = "กำลังติดตั้งโปรแกรมซ้ำ…";
 "Upgrading" = "กำลังปรับปรุงรุ่น";
-"Upgrading Packages..." = "กำลังปรับปรุงรุ่นโปรแกรม...";
+"Upgrading Packages…" = "กำลังปรับปรุงรุ่นโปรแกรม…";
 "Complete" = "เสร็จสิ้น";
 "Finished!" = "เสร็จสิ้น!";
 "Return to Queue" = "กลับไปยังคิว";
-"Returning to Queue..." = "กลับไปยังคิว...";
+"Returning to Queue…" = "กลับไปยังคิว…";
 "Importing local packages." = "นำเข้าโปรแกรมจากในเครื่อง";
 "Finished importing local packages." = "เสร็จสิ้นการนำเข้าโปรแกรมจากในเครื่อง";
 "One or more packages failed to download." = "โปรแกรมหนึ่งตัวหรือมากกว่าไม่สามารถดาวน์โหลดมาได้";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
 "Could not complete %@ process. Reason: %@." = "ไม่สามารถทำขั้นตอน %@ ให้เสร็จ สาเหตุ: %@";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "กรุณาเริ่มต้นการทำงาน Zebra ใหม่และดูว่าปัญหายังอยู่หรือไม่ หากยังอยู่ กรุณาส่งปัญหาไปที่ GitHub";
-"Done..." = "เสร็จสิ้น...";
+"Done…" = "เสร็จสิ้น…";
 "Done %@" = "เสร็จสิ้น %@";
-"Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
-"Installing Zebra..." = "ติดตั้ง Zebra...";
+"Removing Zebra…" = "ถอนการติดตั้ง Zebra…";
+"Installing Zebra…" = "ติดตั้ง Zebra…";
 "Error while opening file:" = "เกิดข้อผิดพลาดในการเปิดไฟล์:";
 "Adding Payment Vendor URL for %@" = "เพิ่ม URL ของผู้วางขายสำหรับ %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "อุปกรณ์นี้อยู่ในโหมดจำลอง นี่คือโปรแกรมที่จะถูกปรับแก้ในขั้นตอนนี้:";
@@ -366,8 +340,6 @@
 "Remove" = "ลบ";
 "Upgrade" = "อัพเกรด";
 "Downgrade" = "ดาวน์เกรด";
-"Abort" = "หยุด";
-"Continue" = "ทำต่อ";
 "Download Size" = "ขนาดดาวน์โหลด";
 "Confirm" = "ยืนยัน";
 "Issues" = "ปัญหา";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra ไม่สามารถดำเนินการคำสั่งนี้ได้เนื่องจากสิทธิ์การเข้าถึงไม่ถูกต้อง กรุณาตรวจสอบสิทธิ์การเข้าถึงของไฟล์ /usr/libexec/zebra/supersling และรายงานปัญหานี้ไปที่ GitHub";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "ไม่สามารถเข้าถึง su/sling ได้ กรุณาตรวจสอบให้แน่ใจว่าไฟล์ /usr/libexec/zebra/supersling มีอยู่";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ไม่ได้อยู่ภายใต้สิทธิ์ root:wheel กรุณาตรวจสอบให้แน่ใจว่าสิทธิ์การเข้าถึงของไฟล์ดังกล่าวที่อยู่ใน /usr/libexec/zebra/supersling นั้นถูกต้อง";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "ข้อผิดพลาด: โปรแกรมนี้จำเป็นต้องเริ่มใหม่ กรุณาลองอีกครั้ง";
 
-"Incorrect documents permissions." = "สิทธิ์การเข้าถึงที่อยู่เอกสารไม่ถูกต้อง";
 
 "Could not determine device information." = "ไม่สามารถอ่านข้อมูลของอุปกรณ์ได้";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "ปรับลักษณะของคำสั่งเมื่อปัดขวา";
 
-"Change the accent color that displays across Zebra." = "เปลี่ยนสีหลักของ Zebra";
 
-"Change the style of Zebra's dark mode when it is enabled." = "เปลี่ยนรูปแบบโหมดมืดของ Zebra เมื่อเปิดใช้งาน";
 
-"Change the source of the featured packages on the homepage." = "เปลี่ยนแหล่งที่มาของโปรแกรมยอดนิยมในหน้าหลัก";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"ซอร์สยอดนิยม\" จะแสดงผลโปรแกรมแบบสุ่มจากซอร์สที่รองรับ API แสดงผลโปรแกรมยอดนิยม";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "ข้อมูลที่ถูกดาวน์โหลดมาจากซอร์สนี้อาจไม่มีการเข้ารหัส คุณแน่ใจหรือไม่ที่จะเพิ่ม?";
 
 "Unable to complete purchase" = "ไม่สามารถทำการซื้อได้";
-
 
 "Package Not Available" = "ไม่มีโปรแกรม";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "ไม่มีโปรแกรมที่คุณต้องการ มันอาจถูกลบไปจากซอร์สของคุณ หรือ ID ของโปรแกรมที่ร้องขอนั้นไม่ถูกต้อง";

@@ -3,17 +3,14 @@
 "Cancel" = "lǝɔuɐƆ";
 "Yes" = "sǝ⅄";
 "No" = "oN";
-"Ok" = "ʞO";
+"OK" = "ʞO";
 "Error" = "ɹoɹɹƎ";
-"Retry" = "ʎɹʇǝɹ";
 "Edit" = "ʇᴉpƎ";
 "Close" = "ǝsolƆ";
 "Done" = "ǝuoᗡ";
-"Loading..." = "˙˙˙ƃuᴉpɐo⅂";
 "Clear" = "ɹɐǝʅϽ";
 "An Error Occurred" = "pǝɹɹnɔɔO ɹoɹɹƎ u∀";
 "Dismiss" = "ssᴉɯsᴉᗡ";
-"Downloads" = "spɐoʅuʍoᗡ";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "sǝɔɹnoS ʎʇıunɯɯoϽ";
 "You’ve added all of the community sources" = "sǝɔɹnos ʎʇıunɯɯoɔ ǝɥʇ ɟo ןןɐ pǝppɐ ǝʌ’noʎ";
 "Transfer sources from %@ to Zebra" = "ɐɹqǝZ oʇ %@ ɯoɹɟ sǝɔɹnos ɹǝɟsuɐɹ⊥";
-"Utility source for %@" = "%@ ɹoɟ ǝɔɹnos ʎʇıןıʇ∩";
 "Transfer Sources" = "sǝɔɹnoS ɹǝɟsuɐɹ⊥";
 "Import" = "ʇɹodɯI";
-"Verifying..." = "˙˙˙ƃuıʎɟıɹǝΛ";
+"Verifying…" = "˙˙˙ƃuıʎɟıɹǝΛ";
 "Confirm Import" = "ʇɹodɯI ɯɹıɟuoϽ";
 "Import Sources" = "sǝɔɹnoS ʇɹodɯI";
 "No sources to import" = "ʇɹodɯı oʇ sǝɔɹnos oN";
@@ -99,7 +95,6 @@
 "Repo Featured" = "pǝɹnʇɐǝℲ odǝᴚ";
 "Random" = "ɯopuɐᴚ";
 "Select Repos to be Featured" = "pǝɹnʇɐǝℲ ǝq oʇ sodǝᴚ ʇɔǝןǝS";
-"Featured Repos" = "sodǝᴚ pǝɹnʇɐǝℲ";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "˥ᴚ∩ ǝɔɹnoS ɹǝʇuƎ";
 "Would you like to add the URL from your clipboard?" = "¿pɹɐoqdıןɔ ɹnoʎ ɯoɹɟ ˥ᴚ∩ ǝɥʇ ppɐ oʇ ǝʞıן noʎ pןnoM";
 
-"Please Wait..." = "˙˙˙ʇıɐM ǝsɐǝןԀ";
-"Verifying Source" = "ǝɔɹnoS ƃuıʎɟıɹǝΛ";
-"Verifying Sources" = "sǝɔɹnoS ƃuıʎɟıɹǝΛ";
+"Please Wait…" = "˙˙˙ʇıɐM ǝsɐǝןԀ";
 "Updating Sources" = "sǝɔɹnoS ƃuıʇɐpd∩";
 
-"Unknown error" = "ɹoɹɹǝ uʍouʞu∩";
 "Invalid URL" = "˥ᴚ∩ pıןɐʌuI";
 "Invalid Source" = "ǝɔɹnoS pıןɐʌuI";
 "Tap to learn more" = "ǝɹoɯ uɹɐǝן oʇ dɐ⊥";
-"No source URLs detected." = "˙pǝʇɔǝʇǝp s˥ᴚ∩ ǝɔɹnos oN";
 "Unable to verify source" = "ǝɔɹnos ʎɟıɹǝʌ oʇ ǝןqɐu∩";
-"Error verifying source" = "ǝɔɹnos ƃuıʎɟıɹǝʌ ɹoɹɹƎ";
-"Error verifying sources" = "sǝɔɹnos ƃuıʎɟıɹǝʌ ɹoɹɹƎ";
 "Failed to add source" = "ǝɔɹnos ppɐ oʇ pǝןıɐℲ";
 "Failed to add sources" = "sǝɔɹnos ppɐ oʇ pǝןıɐℲ";
 "You have already added this source." = "˙ǝɔɹnos sıɥʇ pǝppɐ ʎpɐǝɹןɐ ǝʌɐɥ noʎ";
-"You have already added these sources." = "˙sǝɔɹnos ǝsǝɥʇ pǝppɐ ʎpɐǝɹןɐ ǝʌɐɥ noʎ";
 "Unable to locate an APT repository at:" = ":ʇɐ ʎɹoʇısodǝɹ ⊥Ԁ∀ uɐ ǝʇɐɔoן oʇ ǝןqɐu∩";
 "Unable to locate APT repositories at:" = ":ʇɐ sǝıɹoʇısodǝɹ ⊥Ԁ∀ ǝʇɐɔoן oʇ ǝןqɐu∩";
 "Error while downloading %@: %@" = "%@ :%@ ƃuıpɐoןuʍop ǝןıɥʍ ɹoɹɹƎ";
 
-"A total of %d files will be downloaded" = "pǝpɐoןuʍop ǝq ןןıʍ sǝןıɟ %d ɟo ןɐʇoʇ ∀";
+"A total of %lu files will be downloaded" = "pǝpɐoןuʍop ǝq ןןıʍ sǝןıɟ %lu ɟo ןɐʇoʇ ∀";
 
 "Could not parse %@ from %@" = "%@ ɯoɹɟ %@ ǝsɹɐd ʇou pןnoϽ";
 "Could not find a download URL for" = "ɹoɟ ˥ᴚ∩ pɐoןuʍop ɐ puıɟ ʇou pןnoϽ";
 "Authorizing Download for %@" = "%@ ɹoɟ pɐoןuʍoᗡ ƃuızıɹoɥʇn∀";
 "Couldn't authorize download for %@." = "˙%@ ɹoɟ pɐoןuʍop ǝzıɹoɥʇnɐ ʇ,upןnoϽ";
 "Reason: %@." = "˙%@ :uosɐǝᴚ";
-"The Payment API is not supported on less than iOS 11.0" = "0˙11 SOı uɐɥʇ ssǝן uo pǝʇɹoddns ʇou sı IԀ∀ ʇuǝɯʎɐԀ ǝɥ⊥";
 "Could not download Release file from %@. Reason: %@" = "%@ :uosɐǝᴚ ˙%@ ɯoɹɟ ǝןıɟ ǝsɐǝןǝᴚ pɐoןuʍop ʇou pןnoϽ";
 "Could not download Packages file from %@. Reason: %@" = "%@ :uosɐǝᴚ ˙%@ ɯoɹɟ ǝןıɟ sǝƃɐʞɔɐԀ pɐoןuʍop ʇou pןnoϽ";
 "Could not download one or more files from %@. Reason: %@" = "%@ :uosɐǝᴚ ˙%@ ɯoɹɟ sǝןıɟ ǝɹoɯ ɹo ǝuo pɐoןuʍop ʇou pןnoϽ";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "˙ʎןʇɔǝɹɹoɔuı pǝppɐ uǝǝq ǝʌɐɥ pןnoɔ ɹo ǝןqıssǝɔɔɐuı ʎןıɹɐɹodɯǝʇ ǝq ʎɐɯ ʇI ˙%@ ʇɐ pǝıɟıɔǝds ǝɔɹnos ǝɥʇ pɐoןuʍop oʇ ǝןqɐun sɐʍ ɐɹqǝZ";
 
-"Please remove this source from your sources.list file." = "˙ǝןıɟ ʇsıן˙sǝɔɹnos ɹnoʎ ɯoɹɟ ǝɔɹnos sıɥʇ ǝʌoɯǝɹ ǝsɐǝןԀ";
 
-"Error while opening sources.list" = "ʇsıן˙sǝɔɹnos ƃuıuǝdo ǝןıɥʍ ɹoɹɹƎ";
 
-"The source %@ is incompatible with your jailbreak." = "˙ʞɐǝɹqןıɐɾ ɹnoʎ ɥʇıʍ ǝןqıʇɐdɯoɔuı sı %@ ǝɔɹnos ǝɥ⊥";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "˙ǝɹoʇsǝɹ ǝןqıssod uı ƃuıʇןnsǝɹ ɐɹqǝZ oʇ ʇı ppɐ noʎ ɟı sǝnssı ǝsnɐɔ ʎɐɯ ʇI";
 
-"%@ hasn't been modified" = "pǝıɟıpoɯ uǝǝq ʇ,usɐɥ %@";
 
 "Install All" = "ןן∀ ןןɐʇsuI";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = ":ןןɐʇsuı oʇ uoısɹǝʌ ɐ ʇɔǝןǝS";
 "Select a version to upgrade to:" = ":oʇ ǝpɐɹƃdn oʇ uoısɹǝʌ ɐ ʇɔǝןǝS";
 "Select a version to downgrade to:" = ":oʇ ǝpɐɹƃuʍop oʇ uoısɹǝʌ ɐ ʇɔǝןǝS";
-"Package" = "ǝƃɐʞɔɐԀ";
-"Information" = "uoıʇɐɯɹoɟuI";
 "Upgrade All" = "ןן∀ ǝpɐɹƃd∩";
 "Loaded" = "pǝpɐo˥";
 "ABC" = "Ͻq∀";
 "Date" = "ǝʇɐᗡ";
 "Size" = "ǝzıS";
 "Available Upgrades" = "sǝpɐɹƃd∩ ǝןqɐןıɐʌ∀";
-"Ignored Upgrades" = "sǝpɐɹƃd∩ pǝɹouƃI";
 "Recent" = "ʇuǝɔǝᴚ";
 "Source" = "ǝɔɹnoS";
 "Installed Files" = "sǝןıℲ pǝןןɐʇsuI";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "˙ǝsɐɥɔɹnd ǝʇɐıʇıuı oʇ ǝʇɐɔıʇuǝɥʇn∀";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "(%@ ʎןqıssoԀ) ǝƃɐʞɔɐd sıɥʇ ǝsɐɥɔɹnd oʇ pǝsn sı ʇɐɥʇ ʇunoɔɔɐ ɹnoʎ uıƃoןǝɹ ǝsɐǝןԀ";
 "More by this Developer" = "ɹǝdoןǝʌǝᗡ sıɥʇ ʎq ǝɹoW";
-"Installed Version" = "uoısɹǝΛ pǝןןɐʇsuI";
-"Installed Size" = "ǝzıS pǝןןɐʇsuI";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "(%@ :uoısɹǝΛ pǝןןɐʇsuI) %@";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "ɥɔɹɐǝS";
-"This search query is too short for the full search, please use a longer query." = "˙ʎɹǝnb ɹǝƃuoן ɐ ǝsn ǝsɐǝןd 'ɥɔɹɐǝs ןןnɟ ǝɥʇ ɹoɟ ʇɹoɥs ooʇ sı ʎɹǝnb ɥɔɹɐǝs sıɥ⊥";
 "No Results Found" = "punoℲ sʇןnsǝᴚ oN";
 "Name" = "ǝɯɐN";
 "Description" = "uoıʇdıɹɔsǝᗡ";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "ǝןosuoϽ";
-"Performing Actions..." = "˙˙˙suoıʇɔ∀ ƃuıɯɹoɟɹǝԀ";
-"Updating icon cache asynchronously..." = "˙˙˙ʎןsnouoɹɥɔuʎsɐ ǝɥɔɐɔ uoɔı ƃuıʇɐpd∩";
+"Performing Actions…" = "˙˙˙suoıʇɔ∀ ƃuıɯɹoɟɹǝԀ";
+"Updating icon cache asynchronously…" = "˙˙˙ʎןsnouoɹɥɔuʎsɐ ǝɥɔɐɔ uoɔı ƃuıʇɐpd∩";
 "uicache is not available on the simulator" = "ɹoʇɐןnɯıs ǝɥʇ uo ǝןqɐןıɐʌɐ ʇou sı ǝɥɔɐɔın";
-"This may take awhile and Zebra may crash. It is okay if it does." = "˙sǝop ʇı ɟı ʎɐʞo sı ʇI ˙ɥsɐɹɔ ʎɐɯ ɐɹqǝZ puɐ ǝןıɥʍɐ ǝʞɐʇ ʎɐɯ sıɥ⊥";
 "Close Zebra" = "ɐɹqǝZ ǝsoןϽ";
-"Closing Zebra..." = "˙˙˙ɐɹqǝZ ƃuısoןϽ";
+"Closing Zebra…" = "˙˙˙ɐɹqǝZ ƃuısoןϽ";
 "Restart SpringBoard" = "pɹɐoqƃuıɹdS ʇɹɐʇsǝᴚ";
-"Restarting SpringBoard..." = "˙˙˙pɹɐoqƃuıɹdS ƃuıʇɹɐʇsǝᴚ";
+"Restarting SpringBoard…" = "˙˙˙pɹɐoqƃuıɹdS ƃuıʇɹɐʇsǝᴚ";
 "Parsing %@" = "%@ ƃuısɹɐԀ";
 "Starting Download" = "pɐoןuʍoᗡ ƃuıʇɹɐʇS";
 "Downloading" = "ƃuıpɐoןuʍoᗡ";
 "Downloading %@" = "%@ ƃuıpɐoןuʍoᗡ";
-"Downloading Packages..." = "˙˙˙sǝƃɐʞɔɐԀ ƃuıpɐoןuʍoᗡ";
+"Downloading Packages…" = "˙˙˙sǝƃɐʞɔɐԀ ƃuıpɐoןuʍoᗡ";
 "Download Completed" = "pǝʇǝןdɯoϽ pɐoןuʍoᗡ";
 "Installing" = "ƃuıןןɐʇsuI";
-"Installing Packages..." = "˙˙˙sǝƃɐʞɔɐԀ ƃuıןןɐʇsuI";
+"Installing Packages…" = "˙˙˙sǝƃɐʞɔɐԀ ƃuıןןɐʇsuI";
 "Removing" = "ƃuıʌoɯǝᴚ";
-"Removing Packages..." = "˙˙˙sǝƃɐʞɔɐԀ ƃuıʌoɯǝᴚ";
+"Removing Packages…" = "˙˙˙sǝƃɐʞɔɐԀ ƃuıʌoɯǝᴚ";
 "Reinstalling" = "ƃuıןןɐʇsuıǝᴚ";
-"Reinstalling Packages..." = "˙˙˙sǝƃɐʞɔɐԀ ƃuıןןɐʇsuıǝᴚ";
+"Reinstalling Packages…" = "˙˙˙sǝƃɐʞɔɐԀ ƃuıןןɐʇsuıǝᴚ";
 "Upgrading" = "ƃuıpɐɹƃd∩";
-"Upgrading Packages..." = "˙˙˙sǝƃɐʞɔɐԀ ƃuıpɐɹƃd∩";
+"Upgrading Packages…" = "˙˙˙sǝƃɐʞɔɐԀ ƃuıpɐɹƃd∩";
 "Complete" = "ǝʇǝןdɯoϽ";
 "Finished!" = "¡pǝɥsıuıℲ";
 "Return to Queue" = "ǝnǝnὉ oʇ uɹnʇǝᴚ";
-"Returning to Queue..." = "˙˙˙ǝnǝnὉ oʇ ƃuıuɹnʇǝᴚ";
+"Returning to Queue…" = "˙˙˙ǝnǝnὉ oʇ ƃuıuɹnʇǝᴚ";
 "Importing local packages." = "˙sǝƃɐʞɔɐd ןɐɔoן ƃuıʇɹodɯI";
 "Finished importing local packages." = "˙sǝƃɐʞɔɐd ןɐɔoן ƃuıʇɹodɯı pǝɥsıuıℲ";
 "One or more packages failed to download." = "˙pɐoןuʍop oʇ pǝןıɐɟ sǝƃɐʞɔɐd ǝɹoɯ ɹo ǝuO";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "˙pɐoןuʍop ǝɥʇ ʎɹʇǝɹ puɐ ǝnǝnὉ ǝɥʇ oʇ uɹnʇǝɹ oʇ „ǝnǝnὉ oʇ uɹnʇǝᴚ„ ʞɔıןϽ";
 "Could not complete %@ process. Reason: %@." = "˙%@ :uosɐǝᴚ ˙ssǝɔoɹd %@ ǝʇǝןdɯoɔ ʇou pןnoϽ";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "˙qnHʇıƃ uo ǝnssı uɐ ǝןıɟ ǝsɐǝןd 'os ɟI ˙sʇsısɹǝd ןןıʇs ǝnssı ǝɥʇ ɟı ǝǝs puɐ ɐɹqǝZ ʇɹɐʇsǝɹ ǝsɐǝןԀ";
-"Done..." = "˙˙˙ǝuoᗡ";
+"Done…" = "˙˙˙ǝuoᗡ";
 "Done %@" = "%@ ǝuoᗡ";
-"Removing Zebra..." = "˙˙˙ɐɹqǝZ ƃuıʌoɯǝᴚ";
-"Installing Zebra..." = "˙˙˙ɐɹqǝZ ƃuıןןɐʇsuI";
+"Removing Zebra…" = "˙˙˙ɐɹqǝZ ƃuıʌoɯǝᴚ";
+"Installing Zebra…" = "˙˙˙ɐɹqǝZ ƃuıןןɐʇsuI";
 "Error while opening file:" = ":ǝןıɟ ƃuıuǝdo ǝןıɥʍ ɹoɹɹƎ";
 "Adding Payment Vendor URL for %@" = "%@ ɹoɟ ˥ᴚ∩ ɹopuǝΛ ʇuǝɯʎɐԀ ƃuıpp∀";
 "This device is simulated, here are the packages that would be modified in this stage:" = ":ǝƃɐʇs sıɥʇ uı pǝıɟıpoɯ ǝq pןnoʍ ʇɐɥʇ sǝƃɐʞɔɐd ǝɥʇ ǝɹɐ ǝɹǝɥ 'pǝʇɐןnɯıs sı ǝɔıʌǝp sıɥ⊥";
@@ -366,8 +340,6 @@
 "Remove" = "ǝʌoɯǝᴚ";
 "Upgrade" = "ǝpɐɹƃd∩";
 "Downgrade" = "ǝpɐɹƃuʍoᗡ";
-"Abort" = "ʇɹoq∀";
-"Continue" = "ǝnuıʇuoϽ";
 "Download Size" = "ǝzıS pɐoןuʍoᗡ";
 "Confirm" = "ɯɹıɟuoϽ";
 "Issues" = "sǝnssI";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "˙qnHʇıƃ uo ǝnssı sıɥʇ ʇɹodǝɹ puɐ ƃuıןsɹǝdns/ɐɹqǝz/ɔǝxǝqıן/ɹsn/ ʇɐ pǝʇɐɔoן suoıssıɯɹǝd ǝɥʇ ʎɟıɹǝʌ ǝsɐǝןԀ ˙suoıssıɯɹǝd ɹǝdoɹd ǝɥʇ ǝʌɐɥ ʇou sǝop ʇı ǝsnɐɔǝq puɐɯɯoɔ sıɥʇ ǝʇǝןdɯoɔ oʇ ǝןqɐun sɐʍ ɐɹqǝZ";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "˙sʇsıxǝ ƃuıןsɹǝdns/ɐɹqǝz/ɔǝxǝqıן/ɹsn/ ʇɐɥʇ ʎɟıɹǝʌ ǝsɐǝןԀ ˙ƃuıןs/ns ssǝɔɔɐ oʇ ǝןqɐu∩";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "˙ƃuıןsɹǝdns/ɐɹqǝz/ɔǝxǝqıן/ɹsn/ ʇɐ pǝʇɐɔoן ǝןıɟ ǝɥʇ ɟo suoıssıɯɹǝd ǝɥʇ ʎɟıɹǝʌ ǝsɐǝןԀ ˙ןǝǝɥʍ:ʇooɹ ʎq pǝuʍo ʇou sı ƃuıןs/ns";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "˙uıɐƃɐ ʎɹʇ ǝsɐǝןԀ ˙pǝʇɹɐʇsǝɹ ǝq ʇsnɯ ssǝɔoɹԀ :ᴚOᴚᴚƎ";
 
-"Incorrect documents permissions." = "˙suoıssıɯɹǝd sʇuǝɯnɔop ʇɔǝɹɹoɔuI";
 
 "Could not determine device information." = "˙uoıʇɐɯɹoɟuı ǝɔıʌǝp ǝuıɯɹǝʇǝp ʇou pןnoϽ";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "˙suoıʇɔɐ ǝdıʍs ʍǝıʌ ǝןqɐʇ ɟo ǝɔuɐɹɐǝddɐ ǝɥʇ ǝɹnƃıɟuoϽ";
 
-"Change the accent color that displays across Zebra." = "˙ɐɹqǝZ ssoɹɔɐ sʎɐןdsıp ʇɐɥʇ ɹoןoɔ ʇuǝɔɔɐ ǝɥʇ ǝƃuɐɥϽ";
 
-"Change the style of Zebra's dark mode when it is enabled." = "˙pǝןqɐuǝ sı ʇı uǝɥʍ ǝpoɯ ʞɹɐp s,ɐɹqǝZ ɟo ǝןʎʇs ǝɥʇ ǝƃuɐɥϽ";
 
-"Change the source of the featured packages on the homepage." = "˙ǝƃɐdǝɯoɥ ǝɥʇ uo sǝƃɐʞɔɐd pǝɹnʇɐǝɟ ǝɥʇ ɟo ǝɔɹnos ǝɥʇ ǝƃuɐɥϽ";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "˙IԀ∀ ǝƃɐʞɔɐԀ pǝɹnʇɐǝℲ ǝɥʇ ʇɹoddns ʇɐɥʇ sodǝɹ ɯoɹɟ sǝƃɐʞɔɐd ɯopuɐɹ ʎɐןdsıp ןןıʍ „pǝɹnʇɐǝℲ odǝᴚ„";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "¿ʇı ppɐ oʇ ʇuɐʍ noʎ ǝɹns noʎ ǝɹ∀ ˙pǝʇdʎɹɔuǝ ǝq ʇou ʇɥƃıɯ ʎɹoʇısodǝɹ sıɥʇ ɯoɹɟ pǝpɐoןuʍop ɐʇɐᗡ";
 
 "Unable to complete purchase" = "ǝsɐɥɔɹnd ǝʇǝןdɯoɔ oʇ ǝןqɐu∩";
-
 
 "Package Not Available" = "ǝןqɐןıɐʌ∀ ʇoN ǝƃɐʞɔɐԀ";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "˙ʇɔǝɹɹoɔuı sɐʍ pǝʇsǝnbǝɹ ᗡI ǝƃɐʞɔɐd ǝɥʇ ɹo sǝɔɹnos ɹnoʎ ɯoɹɟ pǝʌoɯǝɹ uǝǝq ǝʌɐɥ ʇɥƃıɯ ʇI ˙ǝןqɐןıɐʌɐ ɹǝƃuoן ou sı ʇsǝnbǝɹ noʎ ǝƃɐʞɔɐd ǝɥ⊥";

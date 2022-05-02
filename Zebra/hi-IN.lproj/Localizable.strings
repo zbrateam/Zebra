@@ -3,13 +3,11 @@
 "Cancel" = "Cancel";
 "Yes" = "Yes";
 "No" = "No";
-"Ok" = "Ok";
+"OK" = "OK";
 "Error" = "Error";
-"Retry" = "Retry";
 "Edit" = "Edit";
 "Close" = "Close";
 "Done" = "Done";
-"Loading..." = "Loading...";
 
 // Home
 
@@ -30,10 +28,7 @@
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Transfer Sources";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
 
 // Credits
 
@@ -85,7 +80,6 @@
 "Repo Featured" = "Repo Featured";
 "Random" = "Random";
 "Select Repos to be Featured" = "Select Repos to be Featured";
-"Featured Repos" = "Featured Repos";
 
 // Advanced
 
@@ -121,19 +115,14 @@
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Locally installed packages";
 "Unknown" = "Unknown";
-"No source URLs detected." = "No source URLs detected.";
 "You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
-"Unknown error" = "Unknown error";
 "Invalid URL" = "Invalid URL";
 "Enter Source URL" = "Enter Source URL";
 "Add Sources" = "Add Sources";
 "Add" = "Add";
 "Add Multiple" = "Add Multiple";
 "Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
-"Please Wait..." = "Please Wait...";
+"Please Wait…" = "Please Wait…";
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify source" = "Unable to verify source";
 "Refresh" = "Refresh";
@@ -151,7 +140,6 @@
 "Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
 
-
 // Packages
 
 "Version" = "Version";
@@ -161,8 +149,6 @@
 "Select Version" = "Select Version";
 "Select a version to upgrade to:" = "Select a version to upgrade to:";
 "Select a version to downgrade to:" = "Select a version to downgrade to:";
-"Package" = "Package";
-"Information" = "Information";
 "Upgrade All" = "Upgrade All";
 "Loaded" = "Loaded";
 "ABC" = "ABC";
@@ -171,7 +157,6 @@
 "Clear" = "Clear";
 "Are you sure you want to clear Queue?" = "Are you sure you want to clear Queue?";
 "Available Upgrades" = "Available Upgrades";
-"Ignored Upgrades" = "Ignored Upgrades";
 "Recent" = "Recent";
 "Source" = "Source";
 "Installed Files" = "Installed Files";
@@ -179,8 +164,6 @@
 "Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
 "More by this Developer" = "More by this Developer";
-"Installed Version" = "Installed Version";
-"Installed Size" = "Installed Size";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
@@ -244,56 +227,47 @@
 
 "Search" = "Search";
 "Clear Search" = "Clear Search";
-"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
 "No Results Found" = "No Results Found";
 
 // Downloads
 
-"Downloads" = "Downloads";
-"Error while opening sources.list" = "Error while opening sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
-"Incorrect documents permissions." = "Incorrect documents permissions.";
 "Could not determine device information." = "Could not determine device information.";
 "Could not find a download URL for" = "Could not find a download URL for";
-"%@ hasn't been modified" = "%@ hasn't been modified";
 "Could not parse %@ from %@" = "Could not parse %@ from %@";
 
 // Console
 
 "Console" = "Console";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Performing Actions…" = "Performing Actions…";
+"Updating icon cache asynchronously…" = "Updating icon cache asynchronously…";
 "Close Zebra" = "Close Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra…" = "Closing Zebra…";
 "Restart SpringBoard" = "Restart SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard…" = "Restarting SpringBoard…";
 "Parsing" = "Parsing";
 "Starting Download" = "Starting Download";
 "Downloading" = "Downloading";
-"Downloading Packages..." = "Downloading Packages...";
+"Downloading Packages…" = "Downloading Packages…";
 "Download Completed" = "Download Completed";
 "Installing" = "Installing";
-"Installing Packages..." = "Installing Packages...";
+"Installing Packages…" = "Installing Packages…";
 "Removing" = "Removing";
-"Removing Packages..." = "Removing Packages...";
+"Removing Packages…" = "Removing Packages…";
 "Reinstalling" = "Reinstalling";
-"Reinstalling Packages..." = "Reinstalling Packages...";
+"Reinstalling Packages…" = "Reinstalling Packages…";
 "Upgrading" = "Upgrading";
-"Upgrading Packages..." = "Upgrading Packages...";
+"Upgrading Packages…" = "Upgrading Packages…";
 "Complete" = "Complete";
 "Finished!" = "Finished!";
 "Return to Queue" = "Return to Queue";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue…" = "Returning to Queue…";
 "Importing local packages." = "Importing local packages.";
 "Finished importing local packages." = "Finished importing local packages.";
 "One or more packages failed to download." = "One or more packages failed to download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
-"Done..." = "Done...";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Done…" = "Done…";
+"Removing Zebra…" = "Removing Zebra…";
+"Installing Zebra…" = "Installing Zebra…";
 
 // Queue Bar
 
@@ -310,8 +284,6 @@
 "Remove" = "Remove";
 "Upgrade" = "Upgrade";
 "Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
 "Download Size" = "Download Size";
 "Confirm" = "Confirm";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
@@ -336,7 +308,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
@@ -356,11 +327,8 @@
 
 "Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 

@@ -422,7 +422,7 @@
         sqlite3_finalize(statement);
         
         // Check for updates
-        NSLog(@"[Zebra] Checking for updates...");
+        NSLog(@"[Zebra] Checking for updates…");
         NSMutableArray *found = [NSMutableArray new];
         
         createTable(database, 2);

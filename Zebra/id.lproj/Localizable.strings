@@ -3,17 +3,14 @@
 "Cancel" = "Batal";
 "Yes" = "Ya";
 "No" = "Tidak";
-"Ok" = "Oke";
+"OK" = "Oke";
 "Error" = "Galat";
-"Retry" = "Coba lagi";
 "Edit" = "Edit";
 "Close" = "Tutup";
 "Done" = "Selesai";
-"Loading..." = "Memuat...";
 "Clear" = "Bersihkan";
 "An Error Occurred" = "Terjadi kesalahan";
 "Dismiss" = "Tutup";
-"Downloads" = "Unduhan";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "Sumber Komunitas";
 "You’ve added all of the community sources" = "Anda telah menambahkan semua sumber komunitas";
 "Transfer sources from %@ to Zebra" = "Transfer sumber dari %@ ke Zebra";
-"Utility source for %@" = "Sumber utilitas untuk %@";
 "Transfer Sources" = "Transfer Sumber";
 "Import" = "Impor";
-"Verifying..." = "Memverifikasi...";
+"Verifying…" = "Memverifikasi…";
 "Confirm Import" = "Konfirmasi impor";
 "Import Sources" = "Import Sumber";
 "No sources to import" = "Tidak ada sumber untuk diimpor";
@@ -99,7 +95,6 @@
 "Repo Featured" = "Repo Unggulan";
 "Random" = "Acak";
 "Select Repos to be Featured" = "Pilih Repo untuk Diunggulkan";
-"Featured Repos" = "Repo Unggulan";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "Masukkan URL Sumber";
 "Would you like to add the URL from your clipboard?" = "Apakah anda ingin menambahkan URL dari clipboard anda?";
 
-"Please Wait..." = "Tunggu Sebentar...";
-"Verifying Source" = "Memverifikasi Sumber";
-"Verifying Sources" = "Memverifikasi Sumber";
+"Please Wait…" = "Tunggu Sebentar…";
 "Updating Sources" = "Memperbarui Sumber";
 
-"Unknown error" = "Kesalahan tidak diketahui";
 "Invalid URL" = "URL tidak valid";
 "Invalid Source" = "Sumber Tidak Valid";
 "Tap to learn more" = "Ketuk untuk mempelajari lebih lanjut";
-"No source URLs detected." = "Tidak ada URL sumber yang terdeteksi.";
 "Unable to verify source" = "Tidak dapat memverifikasi sumber";
-"Error verifying source" = "Galat memverifikasi sumber";
-"Error verifying sources" = "Galat memverifikasi sumber";
 "Failed to add source" = "Gagal untuk menambahkan sumber";
 "Failed to add sources" = "Gagal untuk menambahkan sumber";
 "You have already added this source." = "Kamu sudah menambahkan sumber ini.";
-"You have already added these sources." = "Kamu sudah menambahkan sumber ini.";
 "Unable to locate an APT repository at:" = "Tidak dapat menemukan repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat menemukan repositori APT di:";
 "Error while downloading %@: %@" = "Kesalahan saat mengunduh %@: %@";
 
-"A total of %d files will be downloaded" = "Total %d file akan diunduh";
+"A total of %lu files will be downloaded" = "Total %lu file akan diunduh";
 
 "Could not parse %@ from %@" = "Tidak dapat mengurai %@ dari %@";
 "Could not find a download URL for" = "Tidak dapat mencari URL unduhan untuk";
 "Authorizing Download for %@" = "Otorisasi Unduh untuk %@";
 "Couldn't authorize download for %@." = "Tidak dapat mengotorisasi unduhan untuk %@.";
 "Reason: %@." = "Alasan: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "API Pembayaran tidak didukung pada iOS 11.0 kebawah";
 "Could not download Release file from %@. Reason: %@" = "Tidak dapat mengunduh file Rilis dari %@. Alasan: %@";
 "Could not download Packages file from %@. Reason: %@" = "Tidak dapat mengunduh file Paket dari %@. Alasan: %@";
 "Could not download one or more files from %@. Reason: %@" = "Tidak dapat mengunduh satu atau lebih file dari %@. Alasan: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra tidak dapat mengunduh sumber yang ditentukan di %@. Mungkin sementara tidak dapat diakses atau mungkin ditambahkan secara tidak benar.";
 
-"Please remove this source from your sources.list file." = "Mohon hapus sumber ini dari sources.list file anda.";
 
-"Error while opening sources.list" = "Galat ketika membuka sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "Sumber %@ tidak kompatibel dengan jailbreak anda.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ini dapat menyebabkan masalah jika Anda menambahkannya ke Zebra yang menghasilkan kemungkinan pemulihan.";
 
-"%@ hasn't been modified" = "%@ belum dimodifikasi";
 
 "Install All" = "Pasang semua";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "Pilih versi untuk di pasang:";
 "Select a version to upgrade to:" = "Pilih versi untuk di tingkatkan ke:";
 "Select a version to downgrade to:" = "Pilih versi untuk didowngrade ke:";
-"Package" = "Paket";
-"Information" = "Informasi";
 "Upgrade All" = "Tingkatkan Semua";
 "Loaded" = "Loaded";
 "ABC" = "ABC";
 "Date" = "Tanggal";
 "Size" = "Ukuran";
 "Available Upgrades" = "Peningkatan Yang Tersedia";
-"Ignored Upgrades" = "Abaikan Peningkatan";
 "Recent" = "Terkini";
 "Source" = "Sumber";
 "Installed Files" = "Menginstall Files";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "Otentikasi untuk memulai pembelian.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Mohon login kembali ke akun anda yang digunakan untuk membeli paket ini (Mungkin %@)";
 "More by this Developer" = "Lainnya dari Developer ini";
-"Installed Version" = "Versi Terpasang";
-"Installed Size" = "Ukuran Terpasang";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Terpasang Versi: %@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "Pencarian";
-"This search query is too short for the full search, please use a longer query." = "Pencarian pertanyaan ini terlalu pendek untuk pencarian lengkap, silakan gunakan pertanyaan yang lebih panjang.";
 "No Results Found" = "Tidak Ada Hasil Yang Ditemukan";
 "Name" = "Nama";
 "Description" = "Deskripsi";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "Konsol";
-"Performing Actions..." = "Melakukan Tindakan...";
-"Updating icon cache asynchronously..." = "Mengupdate icon cache asynchronously...";
+"Performing Actions…" = "Melakukan Tindakan…";
+"Updating icon cache asynchronously…" = "Mengupdate icon cache asynchronously…";
 "uicache is not available on the simulator" = "uicache tidak tersedia di simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Ini mungkin membutuhkan waktu dan Zebra mungkin macet. Tidak apa-apa jika itu terjadi.";
 "Close Zebra" = "Tutup Zebra";
-"Closing Zebra..." = "Menutup Zebra...";
+"Closing Zebra…" = "Menutup Zebra…";
 "Restart SpringBoard" = "Mulai ulang SpringBoard";
-"Restarting SpringBoard..." = "Mulai ulang SpringBoard...";
+"Restarting SpringBoard…" = "Mulai ulang SpringBoard…";
 "Parsing %@" = "Parsing %@";
 "Starting Download" = "Sedang memulai Unduhan";
 "Downloading" = "Mengunduh";
 "Downloading %@" = "Mengunduh %@";
-"Downloading Packages..." = "Mengunduh paket...";
+"Downloading Packages…" = "Mengunduh paket…";
 "Download Completed" = "Unduhan Selesai";
 "Installing" = "Memasang";
-"Installing Packages..." = "Memasang Paket...";
+"Installing Packages…" = "Memasang Paket…";
 "Removing" = "Menghapus";
-"Removing Packages..." = "Menghapus Paket...";
+"Removing Packages…" = "Menghapus Paket…";
 "Reinstalling" = "Instal Ulang";
-"Reinstalling Packages..." = "Memasang Ulang Paket...";
+"Reinstalling Packages…" = "Memasang Ulang Paket…";
 "Upgrading" = "Meningkatkan";
-"Upgrading Packages..." = "Meningkatkan Paket...";
+"Upgrading Packages…" = "Meningkatkan Paket…";
 "Complete" = "Selesai";
 "Finished!" = "Selesai!";
 "Return to Queue" = "Kembali ke Antrian";
-"Returning to Queue..." = "Kembali ke Antrian...";
+"Returning to Queue…" = "Kembali ke Antrian…";
 "Importing local packages." = "Mengimpor paket lokal.";
 "Finished importing local packages." = "Selesai mengimpor paket lokal.";
 "One or more packages failed to download." = "Satu atau lebih paket gagal untuk diunduh.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Kembali ke Antrian\" untuk kembali ke antrian dan coba download ulang.";
 "Could not complete %@ process. Reason: %@." = "Tidak dapat menyelesaikan proses %@. Alasan: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Silakan mulai ulang Zebra dan lihat apakah masalahnya masih ada. Jika demikian, silakan ajukan masalah pada GitHub.";
-"Done..." = "Selesai...";
+"Done…" = "Selesai…";
 "Done %@" = "Selesai %@";
-"Removing Zebra..." = "Menghapus Zebra...";
-"Installing Zebra..." = "Memasang Zebra...";
+"Removing Zebra…" = "Menghapus Zebra…";
+"Installing Zebra…" = "Memasang Zebra…";
 "Error while opening file:" = "Kesalahan saat membuka file:";
 "Adding Payment Vendor URL for %@" = "Menambahkan URL Vendor Pembayaran untuk %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "Perangkat ini disimulasikan, berikut adalah paket-paket yang akan dimodifikasi pada tahap ini:";
@@ -366,8 +340,6 @@
 "Remove" = "Hapus";
 "Upgrade" = "Meningkatkan";
 "Downgrade" = "Turunkan";
-"Abort" = "Batalkan";
-"Continue" = "Lanjutkan";
 "Download Size" = "Ukuran Unduhan";
 "Confirm" = "Konfirmasi";
 "Issues" = "Isu";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra tidak dapat menyelesaikan perintah ini karena tidak memiliki izin yang tepat. Harap verifikasi izin yang berada di / usr / libexec / zebra / supersling dan laporkan masalah ini di GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Tidak dapat mengakses su / sling. Harap verifikasi bahwa /usr/libexec/zebra/supersling ada.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling tidak dimiliki oleh root: wheel. Harap verifikasi izin file yang terletak di /usr/libexec/zebra/supersling.";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "GALAT: Proses harus dimulai ulang. Silakan coba lagi.";
 
-"Incorrect documents permissions." = "Izin dokumen salah.";
 
 "Could not determine device information." = "Tidak dapat menentukan informasi perangkat.";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "Mengkonfigurasi tampilan tabel view swipe actions.";
 
-"Change the accent color that displays across Zebra." = "Ubah warna aksen yang ditampilkan di seluruh Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Ubah gaya mode gelap Zebra saat diaktifkan.";
 
-"Change the source of the featured packages on the homepage." = "Ubah sumber paket unggulan di beranda.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Unggulan\" akan menampilkan paket acak dari repos yang mendukung API Paket Unggulan.";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data yang diunduh dari repositori ini mungkin tidak dienkripsi. Anda yakin ingin menambahkannya?";
 
 "Unable to complete purchase" = "Tidak dapat menyelesaikan pembelian";
-
 
 "Package Not Available" = "Paket Tidak Tersedia";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paket yang Anda minta tidak lagi tersedia. Itu mungkin telah dihapus dari sumber Anda atau ID paket yang diminta salah.";

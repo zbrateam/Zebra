@@ -3,17 +3,14 @@
 "Cancel" = "Zrušiť";
 "Yes" = "Áno";
 "No" = "Nie";
-"Ok" = "OK";
+"OK" = "OK";
 "Error" = "Chyba";
-"Retry" = "Znova";
 "Edit" = "Upraviť";
 "Close" = "Zavrieť";
 "Done" = "Hotovo";
-"Loading..." = "Načítanie...";
 "Clear" = "Vyčistiť";
 "An Error Occurred" = "Vyskytla sa chyba";
 "Dismiss" = "Zrušiť";
-"Downloads" = "Stiahnuté";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "Zdroje Komunity";
 "You’ve added all of the community sources" = "Pridali ste všetky zdroje komunity\n";
 "Transfer sources from %@ to Zebra" = "Presunúť všetky repozitára z %@ do Zebry";
-"Utility source for %@" = "Repozitár nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
 "Import" = "Importovať";
-"Verifying..." = "Overuje sa...";
+"Verifying…" = "Overuje sa…";
 "Confirm Import" = "Potvrďte import";
 "Import Sources" = "Importovať Zdroje";
 "No sources to import" = "Žiadne zdroju na import";
@@ -99,7 +95,6 @@
 "Repo Featured" = "Odporúčané balíčky repozitára";
 "Random" = "Náhodné";
 "Select Repos to be Featured" = "Vyber repozitára, ktoré budú odporúčané";
-"Featured Repos" = "Odporúčané Repozitáre";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "Zadajte URL adresu zdroja";
 "Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
 
-"Please Wait..." = "Prosím čakajťe...";
-"Verifying Source" = "Overovanie Zdroja";
-"Verifying Sources" = "Overovanie Zdrojov";
+"Please Wait…" = "Prosím čakajťe…";
 "Updating Sources" = "Zdroje sa aktualizujú\n\n";
 
-"Unknown error" = "Neznáma chyba";
 "Invalid URL" = "Chybné URL";
 "Invalid Source" = "Invalid Source";
 "Tap to learn more" = "Tap to learn more";
-"No source URLs detected." = "Neboli zistené žiadne URL adresy zdrojov.";
 "Unable to verify source" = "Nepodarilo sa overiť zdoj";
-"Error verifying source" = "Chyba pri overovaní repozitára";
-"Error verifying sources" = "Chyba pri overovaní repozitárov";
 "Failed to add source" = "Pridanie zdroja zlyhalo";
 "Failed to add sources" = "Pridanie zdrojov zlyhalo";
 "You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "Tieto repozitáre ste už pridali.";
 "Unable to locate an APT repository at:" = "Nemožno nájsť úložisko APT na:";
 "Unable to locate APT repositories at:" = "Nemožno nájsť úložiska APT na:";
 "Error while downloading %@: %@" = "Error while downloading %@: %@";
 
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %lu files will be downloaded" = "A total of %lu files will be downloaded";
 
 "Could not parse %@ from %@" = "Nepodarilo sa analyzovať %@ z %@";
 "Could not find a download URL for" = "Nepodarilo sa nájsť webovú adresu pre stiahnutie súboru";
 "Authorizing Download for %@" = "Authorizing Download for %@";
 "Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
 "Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
-"Please remove this source from your sources.list file." = "Odstráňte tento repozitár zo sources.list súboru.";
 
-"Error while opening sources.list" = "Chyba pri otváraní sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "Repozitár %@ nie je kompatibilný s vaším Jailbreakom.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ak ho pridáte do aplikácie Zebra, môže to spôsobiť problémy, čo môže mať za následok nutné obnovenie softvéru.";
 
-"%@ hasn't been modified" = "%@ nebol zmenený";
 
 "Install All" = "Install All";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Vyberte verziu, na ktorú chcete aktualizovať:";
 "Select a version to downgrade to:" = "Vyberte verziu, na ktorú sa chcete vrátiť:";
-"Package" = "Balíček";
-"Information" = "Informácie";
 "Upgrade All" = "Aktualizovať všetko";
 "Loaded" = "Načítané";
 "ABC" = "ABC";
 "Date" = "Dátum";
 "Size" = "Veľkosť";
 "Available Upgrades" = "Dostupné aktualizácie";
-"Ignored Upgrades" = "Ignorované aktualizácie";
 "Recent" = "Nedávne";
 "Source" = "Zdroj";
 "Installed Files" = "Nainštalované súbory";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "Autorizuj se pro nákup.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Znova prihláste svoj účet, ktorý sa používa na zakúpenie tohto balíčka (Prípadne %@)";
 "More by this Developer" = "Viac od tohto vývojára";
-"Installed Version" = "Inštalovaná verzia";
-"Installed Size" = "Nainštalovaná veľkosť";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Nainštalovaná Verzia: %@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "Hľadanie";
-"This search query is too short for the full search, please use a longer query." = "Tento vyhľadávací dopyt je príliš krátky na úplné vyhľadávanie. Použite dlhší dopyt.";
 "No Results Found" = "Neboli nájdené žiadne výsledky";
 "Name" = "Name";
 "Description" = "Description";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "Konzola";
-"Performing Actions..." = "Vykonávanie akcií...";
-"Updating icon cache asynchronously..." = "Asynchrónna aktualizácia icon cache...";
+"Performing Actions…" = "Vykonávanie akcií…";
+"Updating icon cache asynchronously…" = "Asynchrónna aktualizácia icon cache…";
 "uicache is not available on the simulator" = "uicache is not available on the simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Môže to chvíľu trvať a Zebra môže spadnúť. Ak sa to stane, je to v poriadku.";
 "Close Zebra" = "Zatvoriť Zebra";
-"Closing Zebra..." = "Zatváram Zebru...";
+"Closing Zebra…" = "Zatváram Zebru…";
 "Restart SpringBoard" = "Reštart SpringBoardu";
-"Restarting SpringBoard..." = "Reštartujem Springboard...";
+"Restarting SpringBoard…" = "Reštartujem Springboard…";
 "Parsing %@" = "Parsing %@";
 "Starting Download" = "Starting Download";
 "Downloading" = "Stahovanie";
 "Downloading %@" = "Downloading %@";
-"Downloading Packages..." = "Sťahujú sa balíčky ...";
+"Downloading Packages…" = "Sťahujú sa balíčky …";
 "Download Completed" = "Sťahovanie dokončené";
 "Installing" = "Inštalovanie";
-"Installing Packages..." = "Inštalácia balíčkov ...";
+"Installing Packages…" = "Inštalácia balíčkov …";
 "Removing" = "Odštraňovanie";
-"Removing Packages..." = "Odstraňujú sa balíčky ...";
+"Removing Packages…" = "Odstraňujú sa balíčky …";
 "Reinstalling" = "Preinštalovánie";
-"Reinstalling Packages..." = "Preinštalovanie balíkov ...";
+"Reinstalling Packages…" = "Preinštalovanie balíkov …";
 "Upgrading" = "Aktualizovanie";
-"Upgrading Packages..." = "Aktualizujú sa balíčky";
+"Upgrading Packages…" = "Aktualizujú sa balíčky";
 "Complete" = "Dokončené";
 "Finished!" = "Hotovo!";
 "Return to Queue" = "Návrat do fronty";
-"Returning to Queue..." = "Vraciam do Fronty...";
+"Returning to Queue…" = "Vraciam do Fronty…";
 "Importing local packages." = "Import miestnych balíčkov.";
 "Finished importing local packages." = "Importovanie miestnych balíčkov bolo dokončené.";
 "One or more packages failed to download." = "Nepodarilo sa stiahnuť jeden alebo viac balíčkov.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do fronty\" pre vrátenie do fronty a opakujte sťahovanie";
 "Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
-"Done..." = "Hotovo...";
+"Done…" = "Hotovo…";
 "Done %@" = "Done %@";
-"Removing Zebra..." = "Odstraniť Zebru...";
-"Installing Zebra..." = "Inštalácia zebry...";
+"Removing Zebra…" = "Odstraniť Zebru…";
+"Installing Zebra…" = "Inštalácia zebry…";
 "Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
@@ -366,8 +340,6 @@
 "Remove" = "Odstrániť";
 "Upgrade" = "Aktualizovať";
 "Downgrade" = "Downgrade";
-"Abort" = "Prerušiť";
-"Continue" = "Ďalej";
 "Download Size" = "Veľkosť sťahovania";
 "Confirm" = "Potvrdiť";
 "Issues" = "Problémy";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nedokázala splniť tento príkaz, pretože nemá správne oprávnenia. Skontrolujte oprávnenia umiestnené na adrese / usr / libexec / zebra / supersling a nahláste tento problém na serveri GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Nie je možné získať prístup k su/sling. Skontrolujte, či existuje /usr/libexec/zebra/supersling.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nevlastní root:wheel. Overte oprávnenia súboru umiestneného v /usr/libexec/zebra/supersling.";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "CHYBA: Proces sa musí reštartovať. Prosím skúste to znova.";
 
-"Incorrect documents permissions." = "Chybné oprávnenia dokumentu.";
 
 "Could not determine device information." = "Informácie o zariadení sa nepodarilo zistiť.";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "Nastaví vzhľad akcií pretiahnutím.";
 
-"Change the accent color that displays across Zebra." = "Zmení doplnkovú farbu.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Zmení vzhľad tmavého režimu Zebry.";
 
-"Change the source of the featured packages on the homepage." = "Zmení zdroj odporúčaných balíčkov na domovskej stránke.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Návrhy repozitára\" zobrazí náhodné balíčky z repozitárov, ktoré podporujú Featured Package API.";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
 
 "Unable to complete purchase" = "Unable to complete purchase";
-
 
 "Package Not Available" = "Package Not Available";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";

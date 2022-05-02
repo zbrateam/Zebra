@@ -2,9 +2,8 @@
 
 "Cancel" = "Cancelar";
 "No" = "No";
-"Ok" = "Ok";
+"OK" = "OK";
 "Error" = "Error";
-"Retry" = "Reintentar";
 "Edit" = "Editar";
 "Login" = "Iniciar sesión";
 "Close" = "Cerrar";
@@ -27,7 +26,7 @@
 "Utility repo for %@" = "Repositorio de utilidad para %@";
 "Transfer Sources" = "Transferir fuentes";
 "Utilities" = "Utilidades";
-"Please Wait..." = "Por favor espere...";
+"Please Wait…" = "Por favor espere…";
 "Verifying Source(s)" = "Verificando fuente(s)";
 "Stores" = "Tiendas";
 "Purchases" = "Compras";
@@ -42,7 +41,6 @@
 
 "Settings" = "Ajustes";
 "Version" = "Versión";
-"Information" = "Información";
 "Graphics" = "Gráficos";
 "Featured" = "Destacados";
 "News" = "Noticias";
@@ -83,7 +81,6 @@
 "Clear Image Cache" = "Limpiar caché de imágenes";
 "Clear Keychain" = "Limpiar llavero";
 
-"Loading..." = "Cargando...";
 
 "Resetting image cache completed" = "Reseteo de caché de imagen completado";
 "Clearing keychain completed" = "Limpieza de llavero completada";
@@ -105,7 +102,7 @@
 "Add" = "Añadir";
 "Add Multiple…" = "Añadir múltiples";
 "Would you like to add the URL from your clipboard?" = "¿Te gustaría añadir la dirección URL del portapapeles?";
-"Please Wait..." = "Por favor espere...";
+"Please Wait…" = "Por favor espere…";
 "Verifying Source(s)" = "Verificando fuente(s)";
 "Unable to verify Repo" = "No es posible verificar el repositorio";
 "Refresh" = "Actualizar";
@@ -127,8 +124,6 @@
 "Ignore Updates" = "Ignorar actualizaciones";
 "Select Version" = "Seleccionar versión";
 "Select a version to upgrade to" = "Seleccionar versión a actualizar";
-"Package" = "Paquete";
-"Information" = "Información";
 "Upgrade All" = "Actualizar todo";
 "Loaded" = "Cargado";
 "ABC" = "ABC";
@@ -138,14 +133,12 @@
 "Clear" = "Limpiar";
 "Are you sure you want to clear Queue?" = "¿Estas seguro de que quieres limpiar la cola?";
 "Available Upgrades" = "Actualizaciones disponibles";
-"Ignored Upgrades" = "Actualizaciones ignoradas";
 "Recent" = "Recientes";
 "Installed Files" = "Archivos instalados";
 "Modify" = "Modificar";
 "Authenticate to initiate purchase." = "Autenticar para iniciar la compra.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Por favor inicia sesión con la cuenta usada para comprar este paquete (posiblemente %@)";
 "More by this Developer" = "Más de este desarrollador";
-"Installed Version" = "Versión instalada";
 
 "Add to Wish List" = "Agregar a la lista de deseos";
 "Remove from Wish List" = "Quitar de la lista de deseos";
@@ -154,40 +147,33 @@
 
 "Search" = "Buscar";
 "Clear Search" = "Limpiar búsqueda";
-"This search query is too short for the full search, please use a longer query." = "Esta consulta es muy corta para realizar la búsqueda, por favor usa una mas larga";
 "No Results Found" = "No se encontró ningún resultado";
 
 // Downloads
 
-"Downloads" = "Descargas";
-"Error while opening sources.list" = "Error al abrir sources.list";
 "The repo %@ is incompatible with your jailbreak." = "El repositorio %@ no es compatible con tu jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Puede causar problemas si lo agregas a Zebra, resultando en una posible restauración.";
 "Please remove this repo from your sources.list file." = "Por favor quita este repositorio de tu archivo sources.list";
-"Incorrect documents permissions." = "Permisos incorrectos de documentos.";
 "Could not determine device information." = "No se pudo determinar la información del dispositivo.";
 "Could not find a download URL for" = "No se pudo encontrar la dirección URL de descarga para";
-"%@ hasn't been modified" = "%@ no ha sido modificado";
 "Could not parse %@ from %@" = "No se pudo analizar %@ de %@";
 
 // Console
 
 "Console" = "Consola";
 "Performing actions" = "Realizando acciones";
-"Updating icon cache asynchronously..." = "Actualizando caché de iconos asincrónicamente...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Esto puede tardar un momento y Zebra puede cerrarse. Es normal si ocurre.";
+"Updating icon cache asynchronously…" = "Actualizando caché de iconos asincrónicamente…";
 "Close Zebra" = "Cerrar Zebra";
 "Restart SpringBoard" = "Reiniciar SpringBoard";
 "Downloading" = "Descargando";
-"Downloading Packages..." = "Descargando paquetes...";
+"Downloading Packages…" = "Descargando paquetes…";
 "Installing" = "Instalando";
-"Installing Packages..." = "Instalando paquetes...";
+"Installing Packages…" = "Instalando paquetes…";
 "Removing" = "Quitando";
-"Removing Packages..." = "Quitando paquetes...";
+"Removing Packages…" = "Quitando paquetes…";
 "Reinstalling" = "Reinstalando";
-"Reinstalling Packages..." = "Reinstalando paquetes...";
+"Reinstalling Packages…" = "Reinstalando paquetes…";
 "Upgrading" = "Actualizando";
-"Upgrading Packages..." = "Actualizando paquetes...";
+"Upgrading Packages…" = "Actualizando paquetes…";
 "Complete" = "Completo";
 "Finished!" = "¡Terminado!";
 "Return to Queue" = "Regresar a la cola";
@@ -205,8 +191,6 @@
 "Remove" = "Quitar";
 "Upgrade" = "Actualizar";
 "Downgrade" = "Degradar";
-"Abort" = "Abortar";
-"Continue" = "Continuar";
 "Download Size" = "Tamaño de descarga";
 "Could not resolve dependency for %@" = "No se pudo resolver la dependencia para %@";
 "%@ conflicts with %@" = "%@ hace conflicto con %@";

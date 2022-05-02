@@ -3,17 +3,14 @@
 "Cancel" = "Avbryt";
 "Yes" = "Ja";
 "No" = "Nej";
-"Ok" = "Ok";
+"OK" = "OK";
 "Error" = "Fel";
-"Retry" = "Försök igen";
 "Edit" = "Ändra";
 "Close" = "Stäng";
 "Done" = "Klar";
-"Loading..." = "Laddar...";
 "Clear" = "Rensa";
 "An Error Occurred" = "Ett fel uppstod";
 "Dismiss" = "Avfärda";
-"Downloads" = "Nedladdningar";
 
 // Home
 
@@ -36,10 +33,9 @@
 "Community Sources" = "Gemenskapskällor";
 "You’ve added all of the community sources" = "Du har lagt till alla gemenskapskällor";
 "Transfer sources from %@ to Zebra" = "Överför källor från %@ till Zebra";
-"Utility source for %@" = "Verktygskälla för %@";
 "Transfer Sources" = "Överför källor";
 "Import" = "Importera";
-"Verifying..." = "Verifierar...";
+"Verifying…" = "Verifierar…";
 "Confirm Import" = "Bekräfta importering";
 "Import Sources" = "Importera källor";
 "No sources to import" = "Inga källor att importera";
@@ -99,7 +95,6 @@
 "Repo Featured" = "Utvalt av förråd";
 "Random" = "Slumpmässigt";
 "Select Repos to be Featured" = "Välj förråd att välja ut från";
-"Featured Repos" = "Utvalda förråd";
 
 // Reset
 
@@ -161,35 +156,27 @@
 "Enter Source URL" = "Ange käll-URL";
 "Would you like to add the URL from your clipboard?" = "Vill du lägga till URL:en från ditt urklipp?";
 
-"Please Wait..." = "Vänta...";
-"Verifying Source" = "Verifierar källa";
-"Verifying Sources" = "Verifierar källor";
+"Please Wait…" = "Vänta…";
 "Updating Sources" = "Uppdaterar källor";
 
-"Unknown error" = "Okänt fel";
 "Invalid URL" = "Ogiltig URL";
 "Invalid Source" = "Ogiltig källa";
 "Tap to learn more" = "Tryck för mer information";
-"No source URLs detected." = "Inga käll-URL:er upptäcktes.";
 "Unable to verify source" = "Kunde inte verifiera källa";
-"Error verifying source" = "Fel när källan skulle verifieras";
-"Error verifying sources" = "Fel när källorna skulle verifieras";
 "Failed to add source" = "Misslyckades att lägga till källa";
 "Failed to add sources" = "Misslyckades att lägga till källor";
 "You have already added this source." = "Du har redan lagt till denna källa.";
-"You have already added these sources." = "Du har redan lagt till dessa källor.";
 "Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
 "Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
 "Error while downloading %@: %@" = "Fel när %@ skulle laddas ner: %@";
 
-"A total of %d files will be downloaded" = "Totalt %d filer kommer att laddas ner";
+"A total of %lu files will be downloaded" = "Totalt %lu filer kommer att laddas ner";
 
 "Could not parse %@ from %@" = "Kunde inte tolka %@ från %@";
 "Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
 "Authorizing Download for %@" = "Auktoriserar nedladdning för %@";
 "Couldn't authorize download for %@." = "Kunde inte auktorisera nedladdning för %@.";
 "Reason: %@." = "Anledning: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "Betalnings-API:et stöds inte på iOS-versioner under 11.0";
 "Could not download Release file from %@. Reason: %@" = "Kunde inte ladda ner filen Release från %@. Anledning: %@";
 "Could not download Packages file from %@. Reason: %@" = "Kunde inte ladda ner filen Packages från %@. Anledning: %@";
 "Could not download one or more files from %@. Reason: %@" = "Kunde inte ladda ner en eller flera filer från %@. Anledning: %@";
@@ -200,14 +187,9 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunde inte ladda ner källan på %@. Den kan vara tillfälligt otillgänglig eller ha lagts till felaktigt.";
 
-"Please remove this source from your sources.list file." = "Ta bort den här källan från din sources.list-fil.";
 
-"Error while opening sources.list" = "Fel när sources.list skulle öppnas";
 
-"The source %@ is incompatible with your jailbreak." = "Källan %@ är inkompatibel med din jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan orsaka problem om du lägger till det i Zebra och eventuellt resultera i återställning.";
 
-"%@ hasn't been modified" = "%@ har inte ändrats";
 
 "Install All" = "Installera alla";
 
@@ -222,15 +204,12 @@
 "Select a version to install:" = "Välj en version att installera:";
 "Select a version to upgrade to:" = "Välj en version att uppgradera till:";
 "Select a version to downgrade to:" = "Välj en version att nedgradera till:";
-"Package" = "Paket";
-"Information" = "Information";
 "Upgrade All" = "Uppgradera alla";
 "Loaded" = "laddat";
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Storlek";
 "Available Upgrades" = "Tillgängliga uppgraderingar";
-"Ignored Upgrades" = "Ignorerade uppgraderingar";
 "Recent" = "Senaste";
 "Source" = "Källa";
 "Installed Files" = "Installerade filer";
@@ -238,8 +217,6 @@
 "Authenticate to initiate purchase." = "Autentisera för att initiera köp.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Logga in igen med ditt konto som används för att köpa det här paketet (Eventuellt %@)";
 "More by this Developer" = "Mer av den här utvecklaren";
-"Installed Version" = "Installerad version";
-"Installed Size" = "Installerad storlek";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installerad version: %@)";
@@ -302,7 +279,6 @@
 // Search
 
 "Search" = "Sök";
-"This search query is too short for the full search, please use a longer query." = "Det här sökordet är för kort för fullständig sökning, använd ett längre sökord.";
 "No Results Found" = "Inga resultat hittades";
 "Name" = "Namn";
 "Description" = "Beskrivning";
@@ -311,42 +287,40 @@
 // Console
 
 "Console" = "Konsol";
-"Performing Actions..." = "Utför åtgärder...";
-"Updating icon cache asynchronously..." = "Uppdaterar ikoncachen asynkront...";
+"Performing Actions…" = "Utför åtgärder…";
+"Updating icon cache asynchronously…" = "Uppdaterar ikoncachen asynkront…";
 "uicache is not available on the simulator" = "uicache är inte tillgängligt i simulatorn";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Det kan ta en stund och Zebra kan krascha. Det är okej om det gör det.";
 "Close Zebra" = "Stäng Zebra";
-"Closing Zebra..." = "Stänger Zebra...";
+"Closing Zebra…" = "Stänger Zebra…";
 "Restart SpringBoard" = "Starta om SpringBoard";
-"Restarting SpringBoard..." = "Startar om SpringBoard...";
+"Restarting SpringBoard…" = "Startar om SpringBoard…";
 "Parsing %@" = "Tolkar %@";
 "Starting Download" = "Startar nedladdning";
 "Downloading" = "Laddar ner";
 "Downloading %@" = "Laddar ner %@";
-"Downloading Packages..." = "Laddar ner paket...";
+"Downloading Packages…" = "Laddar ner paket…";
 "Download Completed" = "Nedladdning slutförd";
 "Installing" = "Installerar";
-"Installing Packages..." = "Installerar paket...";
+"Installing Packages…" = "Installerar paket…";
 "Removing" = "Tar bort";
-"Removing Packages..." = "Tar bort paket...";
+"Removing Packages…" = "Tar bort paket…";
 "Reinstalling" = "Installerar om";
-"Reinstalling Packages..." = "Installerar om paket...";
+"Reinstalling Packages…" = "Installerar om paket…";
 "Upgrading" = "Uppgraderar";
-"Upgrading Packages..." = "Uppgraderar paket...";
+"Upgrading Packages…" = "Uppgraderar paket…";
 "Complete" = "Färdig";
 "Finished!" = "Klart!";
 "Return to Queue" = "Återgå till kön";
-"Returning to Queue..." = "Återgår till kön...";
+"Returning to Queue…" = "Återgår till kön…";
 "Importing local packages." = "Importerar lokala paket.";
 "Finished importing local packages." = "Importerade lokala paket.";
 "One or more packages failed to download." = "Ett eller flera paket kunde inte laddas ner.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
 "Could not complete %@ process. Reason: %@." = "Kunde inte slutföra processen %@. Anledning: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Starta om Zebra och se om problemet fortfarande kvarstår. Om så är fallet, rapportera problemet på GitHub.";
-"Done..." = "Klar...";
+"Done…" = "Klar…";
 "Done %@" = "Klar %@";
-"Removing Zebra..." = "Tar bort Zebra...";
-"Installing Zebra..." = "Installerar Zebra...";
+"Removing Zebra…" = "Tar bort Zebra…";
+"Installing Zebra…" = "Installerar Zebra…";
 "Error while opening file:" = "Fel när filen skulle öppnas:";
 "Adding Payment Vendor URL for %@" = "Lägger till betalningsleverantörens URL för %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "Denna enhet är simulerad, här är paketen som skulle ha ändrats i detta steg:";
@@ -366,8 +340,6 @@
 "Remove" = "Ta bort";
 "Upgrade" = "Uppgradera";
 "Downgrade" = "Nedgradera";
-"Abort" = "Avbryt";
-"Continue" = "Fortsätt";
 "Download Size" = "Nedladdningsstorlek";
 "Confirm" = "Bekräfta";
 "Issues" = "Problem";
@@ -394,7 +366,6 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra kunde inte slutföra det här kommandot eftersom det inte har rätt behörigheter. Verifiera behörigheterna på /usr/libexec/zebra/supersling och rapportera det här problemet på GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Kunde inte komma åt su/sling. Verifiera att /usr/libexec/zebra/supersling finns.";
 
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ägs inte av root:wheel. Verifiera behörigheterna för filen på /usr/libexec/zebra/supersling.";
 
@@ -414,7 +385,6 @@
 
 "ERROR: Process must be restarted. Please try again." = "FEL: Processen måste startas om. Var god försök igen.";
 
-"Incorrect documents permissions." = "Felaktiga dokumentbehörigheter.";
 
 "Could not determine device information." = "Kunde inte avgöra enhetsinformation.";
 
@@ -428,11 +398,8 @@
 
 "Configure the appearance of table view swipe actions." = "Konfigurera utseendet på svepåtgärder i tabellvyer.";
 
-"Change the accent color that displays across Zebra." = "Ändra accentfärgen som visas i Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Ändra stilen för Zebras mörka läge när det är aktiverat.";
 
-"Change the source of the featured packages on the homepage." = "Ändra källan för de utvalda paketen på startsidan.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Utvalt av förråd\" kommer att visa slumpmässiga paket från förråd som stöder API:et för utvalda paket.";
 
@@ -480,7 +447,6 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data som laddas ner från detta förråd kanske inte är krypterade. Är du säker på att du vill lägga till det?";
 
 "Unable to complete purchase" = "Kunde inte slutföra köpet";
-
 
 "Package Not Available" = "Paket inte tillgängligt";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paketet du begär är inte längre tillgängligt. Det kan ha tagits bort från dina källor, eller så var det begärda paket-ID:t felaktigt.";
