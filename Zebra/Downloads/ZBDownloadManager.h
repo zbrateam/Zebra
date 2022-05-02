@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, weak) id <ZBDownloadDelegate> downloadDelegate;
 + (NSDictionary *)headers;
++ (NSError *)errorForHTTPStatusCode:(NSUInteger)statusCode forFile:(nullable NSString *)file;
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate;
 - (void)downloadSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching;
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages;

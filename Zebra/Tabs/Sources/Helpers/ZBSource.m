@@ -17,6 +17,7 @@
 #import "ZBUserInfo.h"
 #import "ZBSourceInfo.h"
 #import "ZBSafariAuthenticationSession.h"
+#import "ZBDownloadManager.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 
 @interface ZBSource () {
@@ -339,9 +340,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             completion(userInfo, nil);
         }
         else {
-            completion(nil, error ?: [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:@{
-                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", (long)statusCode]
-            }]);
+            completion(nil, error ?: [ZBDownloadManager errorForHTTPStatusCode:statusCode forFile:nil]);
         }
     }];
     
@@ -373,9 +372,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             completion(sourceInfo, nil);
         }
         else {
-            completion(nil, error ?: [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:@{
-                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", (long)statusCode]
-            }]);
+            completion(nil, error ?: [ZBDownloadManager errorForHTTPStatusCode:statusCode forFile:nil]);
         }
     }];
     

@@ -46,6 +46,15 @@
     return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo (Zebra) APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
 }
 
++ (NSError *)errorForHTTPStatusCode:(NSUInteger)statusCode forFile:(nullable NSString *)file {
+    NSString *reasonPhrase = [[NSHTTPURLResponse localizedStringForStatusCode:statusCode] localizedCapitalizedString];
+    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:@{
+        NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%lu %@%@%@", (unsigned long)statusCode, reasonPhrase, file ? @": " : @"", file ?: @""]
+    }];
+
+    return error;
+}
+
 - (NSDictionary *)headers {
     //For tweak compatibility...ugh...Going to remove in 1.2 betas
     return [[self class] headers];
@@ -241,9 +250,7 @@
             }
         }
         else {
-            completion(nil, error ?: [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorBadServerResponse userInfo:@{
-                NSLocalizedDescriptionKey: [NSString stringWithFormat:@"HTTP %li", (long)statusCode]
-            }]);
+            completion(nil, error ?: [ZBDownloadManager errorForHTTPStatusCode:statusCode forFile:nil]);
         }
     }];
     
@@ -521,7 +528,7 @@
                         error = [[NSError alloc] initWithDomain:NSURLErrorDomain code:1234 userInfo:@{NSLocalizedDescriptionKey: @"Requested MIME Type is not identical to MIME type received"}];
                     }
                     else {
-                        error = [self errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
+                        error = [self.class errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
                     }
                     
                     [self task:downloadTask completedDownloadedForFile:[[response URL] absoluteString] fromSource:source withError:error];
@@ -554,7 +561,7 @@
             if (source) {
                 if (downloadFailed) {
                     NSString *suggestedFilename = [response suggestedFilename];
-                    NSError *error = [self errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
+                    NSError *error = [self.class errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
                     
                     [self task:downloadTask completedDownloadedForFile:[[response URL] absoluteString] fromSource:source withError:error];
                 }
@@ -588,7 +595,7 @@
             
             NSString *suggestedFilename = [response suggestedFilename];
             if (downloadFailed) {
-                NSError *error = [self errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
+                NSError *error = [self.class errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
                 
                 [downloadDelegate finishedPackageDownload:package withError:error];
                 
@@ -909,13 +916,6 @@
         default:
             return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unknown BZ2 Error (%d)", bzError], @"Failing-File": file}];
     }
-}
-
-- (NSError *)errorForHTTPStatusCode:(NSUInteger)statusCode forFile:(NSString *)file {
-    NSString *reasonPhrase = [[NSHTTPURLResponse localizedStringForStatusCode:statusCode] localizedCapitalizedString];
-    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%lu %@: %@", (unsigned long)statusCode, reasonPhrase, file]}];
-    
-    return error;
 }
 
 - (void)cancelTasksForSource:(ZBBaseSource *)source {

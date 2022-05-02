@@ -23,6 +23,7 @@
 #import "ZBSettings.h"
 #import "ZBCommand.h"
 #import "ZBSafariAuthenticationSession.h"
+#import "ZBDownloadManager.h"
 
 @import SDWebImage;
 
@@ -861,6 +862,8 @@
                                 break;
                             }
                         }
+                    } else {
+                        completion(NO, error ?: [ZBDownloadManager errorForHTTPStatusCode:statusCode forFile:nil]);
                     }
                 }];
                 
