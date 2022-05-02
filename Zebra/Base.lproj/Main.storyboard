@@ -681,7 +681,7 @@
                                     <action selector="settingsButtonTapped:" destination="hAX-u8-Al6" id="u9x-LH-PZ2"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="Dark" landscapeImage="Dark" largeContentSizeImage="Dark" id="2dE-CN-evu">
+                            <barButtonItem image="theme-toggle" landscapeImage="theme-toggle" largeContentSizeImage="theme-toggle" id="2dE-CN-evu">
                                 <connections>
                                     <action selector="toggleTheme:" destination="hAX-u8-Al6" id="rwD-0S-3ae"/>
                                 </connections>
@@ -1347,7 +1347,6 @@
     <resources>
         <image name="Changes" width="30" height="30"/>
         <image name="Chevron Down" width="27.5" height="17"/>
-        <image name="Dark" width="24" height="24"/>
         <image name="Home" width="25" height="25"/>
         <image name="Installed" width="14" height="14"/>
         <image name="Packages" width="25" height="25"/>
@@ -1356,6 +1355,7 @@
         <image name="Settings" width="30" height="30"/>
         <image name="Sources" width="25" height="25"/>
         <image name="Unknown" width="29" height="29"/>
+        <image name="theme-toggle" width="24" height="24"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

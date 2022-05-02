@@ -288,11 +288,11 @@
 }
 
 - (UIImage *)toggleImage {
-    if ([self darkMode]) {
-        return [UIImage imageNamed:@"Dark"];
-    } else {
-        return [UIImage imageNamed:@"Light"];
+    UIImage *image = [UIImage imageNamed:@"theme-toggle"];
+    if (self.darkMode) {
+        image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationUpMirrored];
     }
+    return image;
 }
 
 @end
