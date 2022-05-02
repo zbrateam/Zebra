@@ -168,27 +168,35 @@
 }
 
 - (void)accountButtonPressed:(id)sender {
-    [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
-        if (!success || error) {
-            if (notify) {
-                if (error) {
-                    if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:NSLocalizedString(@"Could not authenticate: %@", @""), error.localizedDescription]];
-                }
-                else {
-                    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
+    void (^completion)(void) = ^{
+        ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->source];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
+
+        [self presentViewController:navController animated:YES completion:nil];
+    };
+
+    if ([source isSignedIn]) {
+        completion();
+    } else {
+        [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+            if (!success || error) {
+                if (notify) {
+                    if (error) {
+                        if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:NSLocalizedString(@"Could not authenticate: %@", @""), error.localizedDescription]];
+                    }
+                    else {
+                        [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
+                    }
                 }
             }
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
-                ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->source];
-                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
-                
-                [self presentViewController:navController animated:YES completion:nil];
-            });
-        }
-    }];
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
+                    completion();
+                });
+            }
+        }];
+    }
 }
 
 - (void)checkFeaturedPackages {

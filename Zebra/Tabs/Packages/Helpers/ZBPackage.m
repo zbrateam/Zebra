@@ -799,13 +799,13 @@
             NSError *error;
             NSString *secret = [source paymentSecret:&error];
             
-            if (secret && !error) {
+            if (!error) {
                 NSURL *purchaseURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/purchase", [self identifier]]];
                 
                 NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
                 NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:purchaseURL];
                 
-                NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[source repositoryURI]], @"payment_secret": secret, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+                NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[source repositoryURI]], @"payment_secret": secret ?: [NSNull null], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
                 NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
                 
                 [request setHTTPMethod:@"POST"];
@@ -867,7 +867,7 @@
                 [task resume];
                 return;
             }
-            else if (error && error.code == -128) { // I believe this error means that the user cancelled authentication prompt
+            else if (error.code == errSecUserCanceled) {
                 return;
             }
         }
@@ -882,7 +882,7 @@
             NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:4122 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.", @"")}];
             completion(NO, error);
         }
-        else {
+        else if (error.domain != ZBSafariAuthenticationErrorDomain || error.code != ZBSafariAuthenticationErrorCanceledLogin) {
             completion(NO, error);
         }
     }];

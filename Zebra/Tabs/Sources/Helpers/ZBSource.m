@@ -164,11 +164,14 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         return;
     }
     
-    if ([self isSignedIn]) {
+    if ([self isSignedIn] && [self hasPaymentSecret]) {
         completion(YES, NO, nil);
         return;
     }
-    
+
+    // Sign out in the background, in case the provider is signed in but payment secret was missing.
+    [self signOut];
+
     NSURLComponents *components = [NSURLComponents componentsWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
     if (![components.scheme isEqualToString:@"https"]) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source's payment vendor URL is not secure", @"")}];
@@ -204,7 +207,6 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                 [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenUnlockedThisDeviceOnly
                       authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-
                 [keychain setString:payment forKey:key];
 
                 completion(YES, NO, NULL);
@@ -229,15 +231,15 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         return;
     }
     
-    NSURL *URL = [[self paymentVendorURL] URLByAppendingPathComponent:@"sign_out"];
-    if (!URL || ![URL.scheme isEqualToString:@"https"]) {
-//        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source's payment vendor URL is not secure", @"")}];
-        return;
-    }
-    
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     NSDictionary *question = @{@"token": [keychain stringForKey:[self repositoryURI]] ?: @"none"};
     [keychain removeItemForKey:[self repositoryURI]];
+    [keychain removeItemForKey:[NSString stringWithFormat:@"%@payment", [self repositoryURI]]];
+
+    NSURL *URL = [[self paymentVendorURL] URLByAppendingPathComponent:@"sign_out"];
+    if (!URL || ![URL.scheme isEqualToString:@"https"]) {
+        return;
+    }
     
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
     
@@ -251,7 +253,12 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 - (BOOL)isSignedIn {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    return [keychain stringForKey:self.repositoryURI] != nil && [keychain contains:[NSString stringWithFormat:@"%@payment", self.repositoryURI]];
+    return [keychain stringForKey:self.repositoryURI] != nil;
+}
+
+- (BOOL)hasPaymentSecret {
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    return [keychain contains:[NSString stringWithFormat:@"%@payment", [self repositoryURI]]];
 }
 
 - (NSString *)paymentSecret:(NSError **)error {
@@ -263,10 +270,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         NSString *paymentKeychainIdentifier = [NSString stringWithFormat:@"%@payment", [self repositoryURI]];
         
         UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenUnlockedThisDeviceOnly
-              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
         keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
-        
         paymentSecret = [keychain stringForKey:paymentKeychainIdentifier error:&paymentError];
         
         dispatch_semaphore_signal(sema);
