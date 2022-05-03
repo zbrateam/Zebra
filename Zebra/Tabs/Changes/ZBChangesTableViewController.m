@@ -26,7 +26,6 @@
 @interface ZBChangesTableViewController () {
     NSUserDefaults *defaults;
     NSArray *packages;
-    NSArray *availableOptions;
     NSMutableArray *sectionIndexTitles;
     int totalNumberOfPackages;
     int numberOfPackages;
@@ -34,6 +33,7 @@
 }
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @property (nonatomic, weak) SFSafariViewController *previewSafariVC;
+@property (nonatomic, strong, nullable) NSMutableArray <ZBRedditPost *> *redditPosts;
 @end
 
 @implementation ZBChangesTableViewController
@@ -64,7 +64,6 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     self.redditPosts = [NSMutableArray new];
-    availableOptions = @[@"release", @"update", @"upcoming", @"news"];
     defaults = [NSUserDefaults standardUserDefaults];
     [self startSettingHeader];
     self.batchLoadCount = 250;
@@ -99,21 +98,12 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.redditPosts removeAllObjects];
         NSMutableURLRequest *request = [NSMutableURLRequest new];
-        [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak/search.json?q=subreddit:jailbreak%20%28flair%3ARelease+OR+flair%3AUpdate+OR+flair%3AUpcoming+OR+flair%3ANews%29&restrict_sr=on&sort=relevance&t=month"]];
-        [request setHTTPMethod:@"GET"];
+        [request setURL:[NSURL URLWithString:@"https://api.getzbra.com/reddit-news/new.json"]];
         [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (data) {
                 NSError *err = nil;
                 ZBRedditPosts *redditPosts = [ZBRedditPosts fromData:data error:&err];
-                for (ZBChild *child in redditPosts.data.children) {
-                    [self.redditPosts addObject:child.data];
-                }
-
-                // Re-sort by date, so most recent posts show at the start. We could just ask Reddit
-                // to return results sorted by date, but then it won’t take relevancy into account.
-                [self.redditPosts sortUsingComparator:^NSComparisonResult (ZBChildData *a, ZBChildData *b) {
-                    return [b.created compare:a.created];
-                }];
+                [self.redditPosts replaceObjectsInRange:NSMakeRange(0, self.redditPosts.count) withObjectsFromArray:redditPosts.data];
             }
             if (error) {
                 NSLog(@"[Zebra] Error retrieving news JSON %@", error);
@@ -284,11 +274,22 @@
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
-        ZBChildData *post = [weakSelf.redditPosts objectAtIndex:indexPath.row];
-        
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]];
-        weakSelf.previewSafariVC = (SFSafariViewController *)[[SFSafariViewController alloc] initWithURL:url];
-        
+        ZBRedditPost *post = weakSelf.redditPosts[indexPath.row];
+        NSURL *url = [NSURL URLWithString:post.url];
+        if (!url) {
+            weakSelf.previewSafariVC = nil;
+            return nil;
+        }
+
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+        UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+        if (@available(iOS 10, *)) {
+            safariVC.preferredBarTintColor = [UIColor groupedTableViewBackgroundColor];
+            safariVC.preferredControlTintColor = tintColor;
+        } else {
+            safariVC.view.tintColor = tintColor;
+        }
+        weakSelf.previewSafariVC = safariVC;
         return weakSelf.previewSafariVC;
     } actionProvider:nil];
 }
@@ -332,12 +333,8 @@
         CGPoint locationCell = [self.collectionView convertPoint:location fromView:self.view];
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:locationCell];
         if ([self.redditPosts count] && indexPath.row < [self.redditPosts count]) {
-            ZBChildData *post = [self.redditPosts objectAtIndex:indexPath.row];
-            
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]];
-            SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
-            
-            return sfVC;
+            ZBRedditPost *post = self.redditPosts[indexPath.row];
+            return [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:post.url]];
         }
         return NULL;
     }
@@ -354,87 +351,16 @@
 }
 
 #pragma mark News
+
 - (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBNewsCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"newsCell" forIndexPath:indexPath];
-    ZBChildData *post = [self.redditPosts objectAtIndex:indexPath.row];
-    NSURL *url;
-    if (post.title != nil) {
-        NSString *text = post.title;
-        text = [text stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-        text = [text stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
-        text = [text stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
-
-        NSString *tag = post.linkFlairCSSClass;
-
-        cell.postTitle.text = [self stripTagsAndWhitespacesFromTitle:text];
-        cell.postTag.text = [tag capitalizedString];
-    } else {
-        cell.postTitle.text = NSLocalizedString(@"Error", @"");
-    }
-    if (post.url != nil) {
-        [cell setRedditLink:[NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]]];
-        [cell setRedditID:post.identifier];
-    } else {
-        [cell setRedditLink:[NSURL URLWithString:@"https://reddit.com/r/jailbreak"]];
-    }
-    
-    if (post.preview.images.count) {
-        ZBImage *first = post.preview.images[0];
-        if (first.source != nil) {
-            NSString *link = first.source.url;
-            link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-            url = [NSURL URLWithString:link];
-        }
-    } else if (post.mediaMetadata.count) {
-        for (ZBMediaMetadatum *item in post.mediaMetadata.allValues) {
-            if ([item.type isEqualToString:@"Image"] && item.source != nil) {
-                NSString *link = item.source.url;
-                link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-                url = [NSURL URLWithString:link];
-                break;
-            }
-        }
-    }
-
-    if ([post.thumbnail isEqualToString:@"nsfw"]) {
-        [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
-    } else if (url) {
-        [cell.backgroundImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    }else if (post.thumbnail != nil && ([post.thumbnail isEqualToString:@"self"] || [post.thumbnail isEqualToString:@"default"])) {
-        [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
-    } else {
-        [cell.backgroundImage sd_setImageWithURL:[NSURL URLWithString:post.thumbnail] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    }
+    ZBRedditPost *post = self.redditPosts[indexPath.row];
+    cell.postTitle.text = post.title;
+    cell.postTag.text = [post.tags capitalizedString];
+    cell.redditLink = [NSURL URLWithString:post.url] ?: [NSURL URLWithString:@"https://www.reddit.com/r/jailbreak"];
+    [cell.backgroundImage sd_setImageWithURL:[NSURL URLWithString:post.thumbnail] placeholderImage:[UIImage imageNamed:@"banner"]];
     return cell;
 }
-
-- (NSString *)stripTagsAndWhitespacesFromTitle:(NSString *)title {
-    NSUInteger lastCloseTagIndex = [title rangeOfString:@"]" options:NSBackwardsSearch].location;
-    if (lastCloseTagIndex != NSNotFound) {
-        title = [title substringFromIndex:lastCloseTagIndex + 1];
-    }
-    title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    return title;
-}
-
-//- (NSArray *)getTags:(NSString *)body {
-//    body = [body lowercaseString];
-//    NSArray *tokens = [body componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-//    NSMutableArray *cleanedStrings = [NSMutableArray new];
-//    for (NSString *cut in tokens) {
-//        if ([cut hasPrefix:@"["] && [cut hasSuffix:@"]"]) {
-//            NSString *cutCopy = [cut copy];
-//            cutCopy = [cut substringFromIndex:1];
-//            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
-//            if ([cutCopy containsString:@"]["]) {
-//                [cleanedStrings addObjectsFromArray:[cutCopy componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-//            } else {
-//                [cleanedStrings addObject:cutCopy];
-//            }
-//        }
-//    }
-//    return cleanedStrings;
-//}
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -449,20 +375,13 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    UIApplication *application = [UIApplication sharedApplication];
     ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    if ([application canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"apollo://reddit.com/%@", cell.redditID]]]) {
-        [application openURL:[NSURL URLWithString:[NSString stringWithFormat:@"apollo://reddit.com/%@", cell.redditID]]];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"apollo:"]]) {
+        // Change https:// to apollo:// and open that.
+        NSURL *url = [NSURL URLWithString:[@"apollo" stringByAppendingString:[cell.redditLink.absoluteString substringFromIndex:cell.redditLink.scheme.length]]];
+        [[UIApplication sharedApplication] openURL:url];
     } else {
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:cell.redditLink entersReaderIfAvailable:NO];
-        safariVC.delegate = self;
-        if (@available(iOS 10.0, *)) {
-            [safariVC setPreferredBarTintColor:[UIColor groupedTableViewBackgroundColor]];
-            [safariVC setPreferredControlTintColor:[UIColor accentColor]];
-        } else {
-            [safariVC.view setTintColor:[UIColor accentColor]];
-        }
-        [self presentViewController:safariVC animated:YES completion:nil];
+        [ZBDevice openURL:cell.redditLink delegate:self];
     }
 }
 
@@ -473,15 +392,6 @@
         [self.redditPosts removeAllObjects];
         [self hideHeader];
     }
-}
-
-#pragma mark - SFSafariViewController delegate methods
-- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
-    // Load finished
-}
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    // Done button pressed
 }
 
 - (void)scrollToTop {
