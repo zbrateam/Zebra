@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "lnpopupcontroller",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zbrateam/LNPopupController.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6264d7c5fe562703d3425e83a0dff2d2b481d9b4"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage",
