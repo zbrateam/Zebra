@@ -187,7 +187,6 @@
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
 		4E16A064281CD99000F35795 /* ZBSafariAuthenticationSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSafariAuthenticationSession.h; sourceTree = "<group>"; };
 		4E16A065281CD99000F35795 /* ZBSafariAuthenticationSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSafariAuthenticationSession.m; sourceTree = "<group>"; };
-		4E16A06C281D842300F35795 /* FBSSystemService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBSSystemService.h; sourceTree = "<group>"; };
 		4E413920278D98DC0006AB8B /* ZBAlternateIconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAlternateIconCell.h; sourceTree = "<group>"; };
 		4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAlternateIconCell.m; sourceTree = "<group>"; };
 		4E413941278DC8F90006AB8B /* listicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listicon.png; sourceTree = "<group>"; };
@@ -631,7 +630,6 @@
 				A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */,
 				A5A7F1252462A66900461335 /* UIImage+Private.h */,
 				4E41396F278DD5770006AB8B /* UIView+Private.h */,
-				4E16A06C281D842300F35795 /* FBSSystemService.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
