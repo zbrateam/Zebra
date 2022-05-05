@@ -7,3 +7,4 @@ Index/
 xcuserdata/
 update.sh
 ipas/
+*.private.h
