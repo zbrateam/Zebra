@@ -411,27 +411,24 @@
 - (BOOL)checkForInvalidRepo:(NSString *)baseURL {
     NSURL *url = [NSURL URLWithString:baseURL];
     NSString *host = [url host];
-    
-    if ([ZBDevice isOdyssey]) { // odyssey
+
+    switch ([ZBDevice jailbreak]) {
+    case ZBJailbreakOdyssey:
         return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.bingner.com"]);
-    }
-    if ([ZBDevice isCheckrain]) { // checkra1n
+    case ZBJailbreakCheckrain:
         return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"]);
-    }
-    if ([ZBDevice isChimera]) { // chimera
+    case ZBJailbreakChimera:
         return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
-    }
-    if ([ZBDevice isUncover]) { // uncover
+    case ZBJailbreakUncover:
         return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
-    }
-    if ([ZBDevice isElectra]) { // electra
+    case ZBJailbreakElectra:
         return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
+    default:
+        if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
+            return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
+        }
+        return NO;
     }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
-        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
-    }
-    
-    return NO;
 }
 
 - (NSString *)guessMIMETypeForFile:(NSString *)path {

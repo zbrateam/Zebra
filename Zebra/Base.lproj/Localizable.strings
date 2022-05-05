@@ -448,3 +448,16 @@
 "This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
 
 "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+
+// Error Reporting
+"Error Reports" = "Error Reports";
+"Sorry that Zebra crashed." = "Sorry that Zebra crashed.";
+"Would you like to send this and all future error reports to the Zebra Team? Reports are anonymous and provide technical details of what led to the error." = "Would you like to send this and all future error reports to the Zebra Team? Reports are anonymous and provide technical details of what led to the error.";
+"About Error Reporting & Privacy…" = "About Error Reporting & Privacy…";
+"Help improve Zebra by sending a report to the Zebra Team when the app encounters errors." = "Help improve Zebra by sending a report to the Zebra Team when the app encounters errors.";
+"Error reports contain technical details of what led to the error. This may include details about your packages, sources, and settings. We try to ensure error reports are anonymous, with no uniquely identifying information about yourself, your device, or payment vendors you’ve logged into, however it is possible for such information to be unintentionally included on occasion." = "Error reports contain technical details of what led to the error. This may include details about your packages, sources, and settings. We try to ensure error reports are anonymous, with no uniquely identifying information about yourself, your device, or payment vendors you’ve logged into, however it is possible for such information to be unintentionally included on occasion.";
+"Error reports are processed and stored by Sentry. To review their policies, visit https://sentry.io/legal." = "Error reports are processed and stored by Sentry. To review their policies, visit https://sentry.io/legal.";
+"Send" = "Send";
+"Don’t Send" = "Don’t Send";
+"Send Error Reports" = "Send Error Reports";
+"Don’t Send Error Reports" = "Don’t Send Error Reports";

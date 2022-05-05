@@ -38,6 +38,8 @@
 		4E16A066281CD99000F35795 /* ZBSafariAuthenticationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16A065281CD99000F35795 /* ZBSafariAuthenticationSession.m */; };
 		4E2E6BE4281FC4080089E4FB /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2E6BE3281FC4080089E4FB /* SDWebImage */; };
 		4E2E6BFA2820E5CF0089E4FB /* LNPopupController-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2E6BF92820E5CF0089E4FB /* LNPopupController-Static */; };
+		4E2E6C0028216A4D0089E4FB /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2E6BFF28216A4D0089E4FB /* Sentry */; };
+		4E2E6C042826734B0089E4FB /* ZBLabelTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2E6C032826734B0089E4FB /* ZBLabelTextView.m */; };
 		4E413922278D98DC0006AB8B /* ZBAlternateIconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */; };
 		4E41394A278DC8F90006AB8B /* listicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413941278DC8F90006AB8B /* listicon.png */; };
 		4E41394B278DC8F90006AB8B /* listicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413942278DC8F90006AB8B /* listicon@3x.png */; };
@@ -48,6 +50,7 @@
 		4E413950278DC8F90006AB8B /* debicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413947278DC8F90006AB8B /* debicon.png */; };
 		4E413951278DC8F90006AB8B /* debicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413948278DC8F90006AB8B /* debicon@3x.png */; };
 		4E413952278DC8F90006AB8B /* sourcesicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413949278DC8F90006AB8B /* sourcesicon@3x.png */; };
+		4E451A672834CC0800F6C282 /* ZBSettingsErrorReportingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E451A662834CC0800F6C282 /* ZBSettingsErrorReportingViewController.m */; };
 		4E5F8274274FAFE40074A0BC /* NSObject+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */; };
 		4E9FC84C278EA57100934FFE /* ZBChangelogEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC84B278EA57100934FFE /* ZBChangelogEntryCell.m */; };
 		4EA26E9727CBA3190019A5AA /* ZBHomeCopyableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26E9627CBA3190019A5AA /* ZBHomeCopyableFooterView.m */; };
@@ -187,6 +190,8 @@
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
 		4E16A064281CD99000F35795 /* ZBSafariAuthenticationSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSafariAuthenticationSession.h; sourceTree = "<group>"; };
 		4E16A065281CD99000F35795 /* ZBSafariAuthenticationSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSafariAuthenticationSession.m; sourceTree = "<group>"; };
+		4E2E6C022826734B0089E4FB /* ZBLabelTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLabelTextView.h; sourceTree = "<group>"; };
+		4E2E6C032826734B0089E4FB /* ZBLabelTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLabelTextView.m; sourceTree = "<group>"; };
 		4E413920278D98DC0006AB8B /* ZBAlternateIconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAlternateIconCell.h; sourceTree = "<group>"; };
 		4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAlternateIconCell.m; sourceTree = "<group>"; };
 		4E413941278DC8F90006AB8B /* listicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listicon.png; sourceTree = "<group>"; };
@@ -199,6 +204,8 @@
 		4E413948278DC8F90006AB8B /* debicon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "debicon@3x.png"; sourceTree = "<group>"; };
 		4E413949278DC8F90006AB8B /* sourcesicon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sourcesicon@3x.png"; sourceTree = "<group>"; };
 		4E41396F278DD5770006AB8B /* UIView+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Private.h"; sourceTree = "<group>"; };
+		4E451A652834CC0800F6C282 /* ZBSettingsErrorReportingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsErrorReportingViewController.h; sourceTree = "<group>"; };
+		4E451A662834CC0800F6C282 /* ZBSettingsErrorReportingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsErrorReportingViewController.m; sourceTree = "<group>"; };
 		4E5F8272274FAFE40074A0BC /* NSObject+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Zebra.h"; sourceTree = "<group>"; };
 		4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Zebra.m"; sourceTree = "<group>"; };
 		4E9FC846278E675500934FFE /* ZBLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLog.h; sourceTree = "<group>"; };
@@ -400,6 +407,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E2E6C0028216A4D0089E4FB /* Sentry in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				4E2E6BE4281FC4080089E4FB /* SDWebImage in Frameworks */,
@@ -445,6 +453,8 @@
 				367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */,
 				BFC6DB1C236D9B9000DA5534 /* ZBSettingsSelectionTableViewController.h */,
 				BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */,
+				4E451A652834CC0800F6C282 /* ZBSettingsErrorReportingViewController.h */,
+				4E451A662834CC0800F6C282 /* ZBSettingsErrorReportingViewController.m */,
 				8916AC1823CAAE51008BA02C /* App Icon */,
 				8916AC2923CAB0DD008BA02C /* Cells */,
 				8916AC2423CAAF07008BA02C /* Display */,
@@ -970,6 +980,8 @@
 				9E1C85A522A38DCB00D93D14 /* ZBTab.h */,
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
 				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
+				4E2E6C022826734B0089E4FB /* ZBLabelTextView.h */,
+				4E2E6C032826734B0089E4FB /* ZBLabelTextView.m */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -1024,6 +1036,7 @@
 			packageProductDependencies = (
 				4E2E6BE3281FC4080089E4FB /* SDWebImage */,
 				4E2E6BF92820E5CF0089E4FB /* LNPopupController-Static */,
+				4E2E6BFF28216A4D0089E4FB /* Sentry */,
 			);
 			productName = Zebra;
 			productReference = 89C5FDDD21B1B13700A10E58 /* Zebra.app */;
@@ -1097,6 +1110,7 @@
 			packageReferences = (
 				4E2E6BE2281FC4080089E4FB /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				4E2E6BF82820E5CF0089E4FB /* XCRemoteSwiftPackageReference "LNPopupController" */,
+				4E2E6BFE28216A4D0089E4FB /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
 			projectDirPath = "";
@@ -1176,6 +1190,7 @@
 				8997A9FA24035021001894BF /* ZBProxyPackage.m in Sources */,
 				363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */,
 				896F11C321B231900017B581 /* ZBSource.m in Sources */,
+				4E451A672834CC0800F6C282 /* ZBSettingsErrorReportingViewController.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
 				898E010E22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m in Sources */,
 				8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */,
@@ -1229,6 +1244,7 @@
 				365CAE2D22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m in Sources */,
 				89C4244D24411C1100FE5ED8 /* UIAlertController+Show.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageDepictionViewController.m in Sources */,
+				4E2E6C042826734B0089E4FB /* ZBLabelTextView.m in Sources */,
 				4E9FC84C278EA57100934FFE /* ZBChangelogEntryCell.m in Sources */,
 				89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
@@ -1383,7 +1399,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LLVM_LTO = YES_THIN;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1443,6 +1458,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LLVM_LTO = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1569,6 +1585,14 @@
 				kind = branch;
 			};
 		};
+		4E2E6BFE28216A4D0089E4FB /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1581,6 +1605,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E2E6BF82820E5CF0089E4FB /* XCRemoteSwiftPackageReference "LNPopupController" */;
 			productName = "LNPopupController-Static";
+		};
+		4E2E6BFF28216A4D0089E4FB /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E2E6BFE28216A4D0089E4FB /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

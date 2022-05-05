@@ -23,15 +23,10 @@
 #import <dlfcn.h>
 #import <objc/runtime.h>
 @import SafariServices;
-@import LNPopupController;
 
-static BOOL isCheckrain;
-static BOOL isChimera;
-static BOOL isElectra;
-static BOOL isUncover;
-static BOOL isOdyssey;
-static BOOL isTaurine;
-static BOOL hasProcursus;
+static BOOL isStashed = NO;
+static ZBJailbreak jailbreak = ZBJailbreakUnknown;
+static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 @implementation ZBDevice
 
@@ -60,9 +55,11 @@ static BOOL hasProcursus;
     stat("/usr/libexec/zebra/supersling", &path_stat);
     
     if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
-        NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")}];
-        *error = cannotAccessError;
-        
+        if (error) {
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
+                NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")
+            }];
+        }
         return YES; //If the uid/gid aren't 0 then theres a problem
     }
     
@@ -70,9 +67,11 @@ static BOOL hasProcursus;
     BOOL cannot_set_uid = (path_stat.st_mode & S_ISUID) == 0;
     BOOL cannot_set_gid = (path_stat.st_mode & S_ISGID) == 0;
     if (cannot_set_uid || cannot_set_gid) {
-        NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:52 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")}];
-        *error = cannotAccessError;
-        
+        if (error) {
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:52 userInfo:@{
+                NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")
+            }];
+        }
         return YES;
     }
     
@@ -212,24 +211,75 @@ static BOOL hasProcursus;
 + (void)load {
     [super load];
 
-    if (![self needsSimulation]) {
-        isCheckrain  = [self _isRegularFile:@"/.bootstrapped"];
-        isChimera    = [self _isRegularDirectory:@"/chimera"];
-        isElectra    = [self _isRegularDirectory:@"/electra"];
-        isUncover    = [self _isRegularFile:@"/.installed_unc0ver"];
-        isOdyssey    = [self _isRegularFile:@"/.installed_odyssey"];
-        isTaurine    = [self _isRegularFile:@"/.installed_taurine"];
-        hasProcursus = [self _isRegularFile:@"/.procursus_strapped"];
+    if (self.needsSimulation) {
+        jailbreak = ZBJailbreakSimulated;
+    } else if ([self _isRegularFile:@"/var/checkra1n.dmg"] || [self _isRegularDirectory:@"/binpack"]) {
+        jailbreak = ZBJailbreakCheckrain;
+    } else if ([self _isRegularFile:@"/.installed_unc0ver"]) {
+        jailbreak = ZBJailbreakUncover;
+    } else if ([self _isRegularDirectory:@"/electra"]) {
+        jailbreak = ZBJailbreakElectra;
+    } else if ([self _isRegularDirectory:@"/chimera"]) {
+        jailbreak = ZBJailbreakChimera;
+    } else if ([self _isRegularFile:@"/.installed_odyssey"]) {
+        jailbreak = ZBJailbreakOdyssey;
+    } else if ([self _isRegularFile:@"/.installed_taurine"]) {
+        jailbreak = ZBJailbreakTaurine;
+    } else if (@available(iOS 11, *)) {
+        jailbreak = ZBJailbreakUnknown;
+    } else {
+        jailbreak = ZBJailbreakLegacy;
+    }
+
+    if (self.needsSimulation) {
+        bootstrap = ZBBootstrapSimulated;
+    } else if (@available(iOS 11, *)) {
+        if ([self _isRegularFile:@"/.procursus_strapped"]) {
+            bootstrap = ZBBootstrapProcursus;
+        } else {
+            bootstrap = ZBBootstrapElucubratus;
+        }
+    } else {
+        bootstrap = ZBBootstrapTelesphoreo;
+        isStashed = [self _isRegularDirectory:@"/var/stash"] && ![self _isRegularFile:@"/.cydia_no_stash"];
     }
 }
 
-+ (BOOL)isCheckrain  { return isCheckrain; }
-+ (BOOL)isChimera    { return isChimera; }
-+ (BOOL)isElectra    { return isElectra; }
-+ (BOOL)isUncover    { return isUncover; }
-+ (BOOL)isOdyssey    { return isOdyssey; }
-+ (BOOL)isTaurine    { return isTaurine; }
-+ (BOOL)hasProcursus { return hasProcursus; }
++ (BOOL)isStashed {
+    return isStashed;
+}
+
++ (ZBBootstrap)bootstrap {
+    return bootstrap;
+}
+
++ (ZBJailbreak)jailbreak {
+    return jailbreak;
+}
+
++ (NSString *)bootstrapName {
+    switch (bootstrap) {
+    case ZBBootstrapUnknown:     return @"Unknown";
+    case ZBBootstrapSimulated:   return @"Simulated";
+    case ZBBootstrapTelesphoreo: return @"Telesphoreo";
+    case ZBBootstrapProcursus:   return @"Procursus";
+    case ZBBootstrapElucubratus: return @"Elucubratus";
+    }
+}
+
++ (NSString *)jailbreakName {
+    switch (jailbreak) {
+    case ZBJailbreakUnknown:   return @"Unknown";
+    case ZBJailbreakSimulated: return @"Simulated";
+    case ZBJailbreakLegacy:    return @"Legacy Jailbreak";
+    case ZBJailbreakCheckrain: return @"checkra1n";
+    case ZBJailbreakUncover:   return @"unc0ver";
+    case ZBJailbreakElectra:   return @"Electra";
+    case ZBJailbreakChimera:   return @"Chimera";
+    case ZBJailbreakOdyssey:   return @"Odyssey";
+    case ZBJailbreakTaurine:   return @"Taurine";
+    }
+}
 
 + (NSString *)packageManagementBinary {
     static NSString *packageManagementBinary = nil;

@@ -106,7 +106,7 @@
         NSDictionary *dict = @{@"type" : @"transfer",
                                 @"name" : @"Sileo",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
-                                @"url"  : [ZBDevice isCheckrain] ? @"file:///etc/apt/sileo.list.d/" : @"file:///etc/apt/sources.list.d/",
+                                @"url"  : [ZBDevice jailbreak] == ZBJailbreakCheckrain ? @"file:///etc/apt/sileo.list.d/" : @"file:///etc/apt/sources.list.d/",
                                 @"ext"  : @"sources",
                                 @"icon" : @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
@@ -116,8 +116,8 @@
 
 - (NSArray *)utilitySources {
     NSMutableArray *result = [NSMutableArray new];
-    if ([ZBDevice isCheckrain]) {
-        if ([ZBDevice hasProcursus]) {
+    if ([ZBDevice jailbreak] == ZBJailbreakCheckrain) {
+        if ([ZBDevice bootstrap] == ZBBootstrapProcursus) {
             NSDictionary *dict = @{@"type": @"utility",
                                    @"name": @"Procursus",
                                    @"url" : @"https://apt.procurs.us/",
@@ -131,7 +131,7 @@
             [result addObject:dict];
         }
     }
-    else if ([ZBDevice isTaurine]) {
+    else if ([ZBDevice jailbreak] == ZBJailbreakTaurine) {
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Procursus",
                                @"url" : @"https://apt.procurs.us/",
@@ -144,14 +144,14 @@
                                @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
         [result addObject:dict2];
     }
-    else if ([ZBDevice isUncover]) { // unc0ver or checkra1n
+    else if ([ZBDevice jailbreak] == ZBJailbreakUncover) { // unc0ver or checkra1n
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Bingner/Elucubratus",
                                @"url" : @"https://apt.bingner.com/",
                                @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
         [result addObject:dict];
     }
-    else if ([ZBDevice isOdyssey]) {
+    else if ([ZBDevice jailbreak] == ZBJailbreakOdyssey) {
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Procursus",
                                @"url" : @"https://apt.procurs.us/",
@@ -164,21 +164,21 @@
                                @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
         [result addObject:dict2];
     }
-    else if ([ZBDevice isChimera]) {
+    else if ([ZBDevice jailbreak] == ZBJailbreakChimera) {
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Chimera",
                                @"url" : @"https://repo.chimera.sh/",
                                @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
         [result addObject:dict];
     }
-    else if ([ZBDevice isElectra]) { // electra
+    else if ([ZBDevice jailbreak] == ZBJailbreakElectra) { // electra
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Electra's iOS Utilities",
                                @"url" : @"https://electrarepo64.coolstar.org/",
                                @"icon": @"https://electrarepo64.coolstar.org/CydiaIcon.png"};
         [result addObject:dict];
     }
-    else if ([ZBDevice hasProcursus]) { // Unknown JB but it has procursus
+    else if ([ZBDevice bootstrap] == ZBBootstrapProcursus) { // Unknown JB but it has procursus
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Procursus",
                                @"url" : @"https://apt.procurs.us/",

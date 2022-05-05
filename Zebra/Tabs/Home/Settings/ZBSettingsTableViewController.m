@@ -15,7 +15,7 @@
 #import "ZBFilterSettingsTableViewController.h"
 #import "ZBLanguageSettingsTableViewController.h"
 #import "ZBSourceSelectTableViewController.h"
-
+#import "ZBSettingsErrorReportingViewController.h"
 #import "ZBSettings.h"
 #import "ZBQueue.h"
 #import "ZBSource.h"
@@ -142,8 +142,9 @@ enum ZBMiscOrder {
             return 1;
         }
         case ZBSources:
-        case ZBReset:
             return 2;
+        case ZBReset:
+            return 3;
         default:
             return 0;
     }
@@ -334,9 +335,25 @@ enum ZBMiscOrder {
             return cell;
         }
         case ZBReset: {
-            cell.textLabel.text = indexPath.row == 0 ? NSLocalizedString(@"Reset", @"") : NSLocalizedString(@"Open Documents Directory", @"");
-            cell.textLabel.textColor = indexPath.row == 0 ? [UIColor primaryTextColor] : [UIColor accentColor] ?: [UIColor systemBlueColor];
-            cell.accessoryType = indexPath.row == 0 ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.detailTextLabel.text = nil;
+            switch (indexPath.row) {
+            case 0: {
+                cell.textLabel.text = NSLocalizedString(@"Error Reports", @"");
+                NSArray *labels = @[@"", NSLocalizedString(@"Don’t Send", @""), NSLocalizedString(@"Send", @"")];
+                cell.detailTextLabel.text = labels[[ZBSettings sendErrorReports] + 1];
+                break;
+            }
+            case 1:
+                cell.textLabel.text = NSLocalizedString(@"Reset", @"");
+                break;
+            case 2:
+                cell.textLabel.text = NSLocalizedString(@"Open Documents Directory", @"");
+                cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                break;
+            }
             return cell;
         }
     }
@@ -444,9 +461,12 @@ enum ZBMiscOrder {
         case ZBReset: {
             switch (indexPath.row) {
                 case 0:
-                    [self resetSettings];
+                    [self errorReportingSettings];
                     break;
                 case 1:
+                    [self resetSettings];
+                    break;
+                case 2:
                     [self openDocumentsDirectory];
                     break;
             }
@@ -528,9 +548,13 @@ enum ZBMiscOrder {
     [[self navigationController] pushViewController:selectSource animated:YES];
 }
 
+- (void)errorReportingSettings {
+    ZBSettingsErrorReportingViewController *controller = [[ZBSettingsErrorReportingViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 - (void)resetSettings {
     ZBSettingsResetTableViewController *advancedController = [[ZBSettingsResetTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    
     [[self navigationController] pushViewController:advancedController animated:YES];
 }
 

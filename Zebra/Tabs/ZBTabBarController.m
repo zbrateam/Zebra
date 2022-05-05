@@ -19,9 +19,12 @@
 #import "ZBTab.h"
 #import "ZBQueueViewController.h"
 #import "ZBDevice.h"
-
+#import "UIAlertController+Private.h"
+#import "ZBLabelTextView.h"
+#import "ZBSettingsErrorReportingViewController.h"
 
 @import LNPopupController;
+@import Sentry;
 
 @interface ZBTabBarController () {
     NSMutableArray *errorMessages;
@@ -98,6 +101,8 @@
         
         ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
         [self presentViewController:refreshController animated:YES completion:nil];
+    } else if ([ZBSettings sendErrorReports] == ZBSendErrorReportsUnspecified && [SentrySDK crashedLastRun]) {
+        [self _showErrorReportPrompt];
     }
     
     //poor hack to get the tab bar to re-layout
@@ -305,6 +310,69 @@
             }];
         }
     });
+}
+
+#pragma mark - Crash reporting
+
+- (void)_showErrorReportPrompt {
+    // Ask for consent to send this and future crash reports.
+    NSString *title = NSLocalizedString(@"Sorry that Zebra crashed.", @"");
+    NSString *message = NSLocalizedString(@"Would you like to send this and all future error reports to the Zebra Team? Reports are anonymous and provide technical details of what led to the error.", @"");
+    NSString *linkText = NSLocalizedString(@"About Error Reporting & Privacy…", @"");
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Don’t Send", @"")
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction *action) {
+        ZBSettings.sendErrorReports = @(ZBSendErrorReportsNo);
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Send", @"")
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+        ZBSettings.sendErrorReports = @(ZBSendErrorReportsYes);
+    }]];
+
+    alertController.contentViewController = [[UIViewController alloc] init];
+
+    UIView *contentView = alertController.contentViewController.view;
+    contentView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    UIFont *font = [UIFont preferredFontForTextStyle:@"UICTFontTextStyleShortFootnote"];
+    ZBLabelTextView *textView = [[ZBLabelTextView alloc] init];
+    textView.translatesAutoresizingMaskIntoConstraints = NO;
+    textView.textContainerInset = UIEdgeInsetsMake(round(font.ascender - font.lineHeight), 15, 18, 15);
+
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", message, linkText] attributes:@{
+        NSForegroundColorAttributeName: [UIColor primaryTextColor],
+        NSFontAttributeName: font,
+        NSParagraphStyleAttributeName: paragraphStyle
+    }];
+    [attributedString addAttribute:NSLinkAttributeName
+                             value:[NSURL URLWithString:@"zbra:"]
+                             range:NSMakeRange(attributedString.string.length - linkText.length, linkText.length)];
+    textView.attributedText = attributedString;
+    textView.linkHandler = ^(NSURL *url) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self _showErrorReportMoreInfo];
+        }];
+    };
+    [contentView addSubview:textView];
+    [NSLayoutConstraint activateConstraints:@[
+        [textView.leadingAnchor constraintEqualToAnchor:contentView.leadingAnchor],
+        [textView.trailingAnchor constraintEqualToAnchor:contentView.trailingAnchor],
+        [textView.topAnchor constraintEqualToAnchor:contentView.topAnchor],
+        [textView.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor]
+    ]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)_showErrorReportMoreInfo {
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[ZBSettingsErrorReportingViewController alloc] init]];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end

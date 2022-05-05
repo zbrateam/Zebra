@@ -11,36 +11,56 @@
 
 @import SafariServices;
 
+typedef NS_ENUM(NSUInteger, ZBJailbreak) {
+    ZBJailbreakUnknown,
+    ZBJailbreakSimulated,
+    ZBJailbreakLegacy,
+    ZBJailbreakCheckrain,
+    ZBJailbreakUncover,
+    ZBJailbreakElectra,
+    ZBJailbreakChimera,
+    ZBJailbreakOdyssey,
+    ZBJailbreakTaurine
+};
+
+typedef NS_ENUM(NSUInteger, ZBBootstrap) {
+    ZBBootstrapUnknown,
+    ZBBootstrapSimulated,
+    ZBBootstrapTelesphoreo,
+    ZBBootstrapProcursus,
+    ZBBootstrapElucubratus
+};
+
 @interface UIApplication ()
 - (void)suspend;
 @end
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ZBDevice : NSObject
 + (BOOL)needsSimulation;
-+ (BOOL)isSlingshotBroken:(NSError *_Nullable*_Nullable)error;
-+ (NSString *_Nullable)UDID;
-+ (NSString *_Nullable)deviceModelID;
-+ (NSString *_Nullable)machineID;
-+ (NSString *_Nonnull)deviceType;
-+ (NSString *_Nonnull)debianArchitecture;
-+ (NSString *_Nullable)packageManagementBinary;
-+ (NSString *_Nonnull)path;
++ (BOOL)isSlingshotBroken:(NSError * _Nullable *)error;
++ (nullable NSString *)UDID;
++ (nullable NSString *)deviceModelID;
++ (nullable NSString *)machineID;
++ (NSString *)deviceType;
++ (NSString *)debianArchitecture;
++ (nullable NSString *)packageManagementBinary;
++ (NSString *)path;
 
 + (void)hapticButton;
 
 + (void)restartSpringBoard;
 + (void)restartDevice;
-+ (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBCommandDelegate> * _Nullable)observer;
++ (void)uicache:(nullable NSArray *)arguments observer:(nullable NSObject <ZBCommandDelegate> *)observer;
 
-+ (void)openURL:(NSURL *_Nonnull)url delegate:(UIViewController <SFSafariViewControllerDelegate> *_Nonnull)delegate;
++ (void)openURL:(NSURL *)url delegate:(UIViewController <SFSafariViewControllerDelegate> *)delegate;
 
-+ (BOOL)isCheckrain;
-+ (BOOL)isChimera;
-+ (BOOL)isElectra;
-+ (BOOL)isUncover;
-+ (BOOL)isOdyssey;
-+ (BOOL)isTaurine;
-+ (BOOL)hasProcursus;
++ (BOOL)isStashed;
++ (ZBBootstrap)bootstrap;
++ (ZBJailbreak)jailbreak;
++ (NSString *)bootstrapName;
++ (NSString *)jailbreakName;
 
 + (BOOL)useIcon;
 
@@ -52,3 +72,5 @@
 + (BOOL)buttonShapesEnabled;
 
 @end
+
+NS_ASSUME_NONNULL_END

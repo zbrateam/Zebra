@@ -47,11 +47,11 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(self.title, @"");
-    
+
     selectedValue = (NSInteger)[ZBSettings performSelector:settingsGetter];
-    
+
     NSIndexPath *selectedIndex = [NSIndexPath indexPathForRow:selectedValue inSection:0];
-    NSString *selectedOption = [options objectAtIndex:selectedValue];
+    NSString *selectedOption = selectedValue < 0 ? nil : options[selectedValue];
     
     self->selectedIndex = selectedIndex;
     self->selectedOption = selectedOption;

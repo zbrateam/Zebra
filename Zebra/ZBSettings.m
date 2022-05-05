@@ -50,6 +50,8 @@ NSString *const WishlistKey = @"Wishlist";
 
 NSString *const PackageSortingTypeKey = @"PackageSortingType";
 
+NSString *const SendErrorReportsKey = @"SendErrorReports";
+
 + (void)load {
     [super load];
     
@@ -589,6 +591,17 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:sortingType forKey:PackageSortingTypeKey];
+}
+
+#pragma mark - Error Reports
+
++ (ZBSendErrorReports)sendErrorReports {
+    NSNumber *value = [[NSUserDefaults standardUserDefaults] objectForKey:SendErrorReportsKey];
+    return (value ?: @-1).integerValue;
+}
+
++ (void)setSendErrorReports:(NSNumber *)sendErrorReports {
+    [[NSUserDefaults standardUserDefaults] setObject:sendErrorReports forKey:SendErrorReportsKey];
 }
 
 @end

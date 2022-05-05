@@ -27,7 +27,11 @@
 #import "AccessibilityUtilities.h"
 #import "ZBSafariAuthenticationSession.h"
 
-@import LocalAuthentication;
+#if __has_include("ZebraKeys.private.h")
+#import "ZebraKeys.private.h"
+#endif
+
+@import Sentry;
 
 @interface ZBAppDelegate () {
     NSString *forwardToPackageID;
@@ -45,6 +49,8 @@ NSString *const ZBUserDidTakeScreenshotNotification = @"DidTakeScreenshotNotific
 
 NSString *const ZBUserStartedScreenCaptureNotification = @"StartedScreenCaptureNotification";
 NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotification";
+
+#pragma mark - Constants
 
 + (NSString *)bundleID {
     return [[NSBundle mainBundle] bundleIdentifier];
@@ -148,6 +154,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
 }
 
+#pragma mark - Alerts
+
 + (void)sendAlertFrom:(UIViewController *)vc title:(NSString *)title message:(NSString *)message actionLabel:(NSString *)actionLabel okLabel:(NSString *)okLabel block:(void (^)(void))block {
     UIViewController *trueVC = vc ? vc : [self tabBarController];
     if (trueVC != NULL) {
@@ -179,13 +187,18 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self sendErrorToTabController:error actionLabel:nil block:NULL];
 }
 
+#pragma mark - App Delegate
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [self _configureErrorReporting];
+    [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:SendErrorReportsKey options:kNilOptions context:nil];
+
     setenv("PATH", [ZBDevice path].UTF8String, 1);
 
     NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
-    
-    [self setupSDWebImageCache];
+
+    [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
     
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
@@ -388,33 +401,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-}
-
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-- (void)setupSDWebImageCache {
-    [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
-}
+#pragma mark - Screenshot
 
 - (void)registerForScreenshotNotifications {
     dlopen("/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities", RTLD_NOW);
@@ -455,6 +442,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
 }
 
+#pragma mark - Tab Bar Controller
+
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)navigationController {
     static UITableViewController *previousController = nil;
     UITableViewController *currentController = [navigationController viewControllers][0];
@@ -469,6 +458,51 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         #pragma clang diagnostic pop
     }
     previousController = [navigationController viewControllers][0]; // Should set the previousController to the rootVC
+}
+
+#pragma mark - Error Reporting
+
+- (void)_configureErrorReporting {
+#if !defined(DEBUG) && defined(SENTRY_DSN)
+    static SentryEvent *eventPendingReport = nil;
+    [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
+        options.dsn = SENTRY_DSN;
+        options.beforeSend = ^SentryEvent * _Nullable (SentryEvent *event) {
+            switch ([ZBSettings sendErrorReports]) {
+            case ZBSendErrorReportsUnspecified:
+                // Hold onto this event so we can send it if the user consents.
+                eventPendingReport = event;
+                return nil;
+            case ZBSendErrorReportsNo:
+                return nil;
+            case ZBSendErrorReportsYes:
+                return event;
+            }
+        };
+    }];
+    [SentrySDK configureScope:^(SentryScope *scope) {
+        scope.tags = @{
+            @"bootstrap": [ZBDevice bootstrapName],
+            @"jailbreak": [ZBDevice jailbreakName],
+            @"has_slingshot": @(![ZBDevice isSlingshotBroken:nil]),
+            @"is_stashed": @([ZBDevice isStashed]),
+        };
+    }];
+
+    if (eventPendingReport && [ZBSettings sendErrorReports] != ZBSendErrorReportsUnspecified) {
+        // User has now responded to consent prompt. It’ll either be sent or discarded here.
+        [SentrySDK captureEvent:eventPendingReport];
+        eventPendingReport = nil;
+    }
+#endif
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:SendErrorReportsKey]) {
+        [self _configureErrorReporting];
+        return;
+    }
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 @end

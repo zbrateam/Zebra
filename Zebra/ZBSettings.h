@@ -74,7 +74,17 @@ typedef enum : NSUInteger {
     ZBSortingTypeInstalledSize
 } ZBSortingType;
 
+#pragma mark - Error Reports
+
+typedef NS_ENUM(NSInteger, ZBSendErrorReports) {
+    ZBSendErrorReportsUnspecified = -1,
+    ZBSendErrorReportsNo,
+    ZBSendErrorReportsYes
+};
+
 NS_ASSUME_NONNULL_BEGIN
+
+extern NSString *const SendErrorReportsKey;
 
 @interface ZBSettings : NSObject
 
@@ -176,6 +186,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ZBSortingType)packageSortingType;
 + (void)setPackageSortingType:(ZBSortingType)sortingType;
+
+#pragma mark - Error Reports
+
++ (ZBSendErrorReports)sendErrorReports;
++ (void)setSendErrorReports:(NSNumber *)sendErrorReports;
 
 @end
 

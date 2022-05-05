@@ -10,7 +10,8 @@
 #define UIAlertController_Private_h
 
 @interface UIAlertController (Private)
-@property (setter=_setIndexesOfActionSectionSeparators:, getter=_indexesOfActionSectionSeparators, nonatomic, copy) NSIndexSet * indexesOfActionSectionSeparators API_AVAILABLE(ios(10.0));
+@property (nonatomic, copy, getter=_indexesOfActionSectionSeparators, setter=_setIndexesOfActionSectionSeparators:) NSIndexSet *indexesOfActionSectionSeparators API_AVAILABLE(ios(10.0));
+@property (nonatomic, retain) UIViewController *contentViewController;
 @end
 
 #endif /* UIAlertController_Private_h */
