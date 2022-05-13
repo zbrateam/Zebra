@@ -304,7 +304,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             if (!error) {
                 if ([completed isEqualToString:@"complete"]) {
                     //body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight
-                    NSString *question = @"var body = document.body, html = document.documentElement; var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight); height";
+                    NSString *question = @"var body = document.body, html = document.documentElement; var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.offsetHeight); height";
                     [webView evaluateJavaScript:question completionHandler:^(id _Nullable height, NSError * _Nullable error) {
                         [self layoutDepictionWebView:webView height:[height floatValue]];
                     }];
