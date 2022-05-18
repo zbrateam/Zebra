@@ -13,6 +13,7 @@
 #import "ZBDevice.h"
 #import "UIColor+GlobalColors.h"
 #import "ZBSource.h"
+#import "ZBPaymentVendor.h"
 #import "ZBSourceTableViewCell.h"
 #import "ZBDatabaseManager.h"
 #import "ZBSourceManager.h"
@@ -95,7 +96,7 @@
     
     ZBSource *source = [sources objectAtIndex:indexPath.row];
     
-    [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+    [source.paymentVendor authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
         if (!success || error) {
             if (notify) {
                 if (error) {

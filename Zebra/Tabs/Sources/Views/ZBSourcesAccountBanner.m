@@ -9,6 +9,7 @@
 #import "ZBSourcesAccountBanner.h"
 #import "UIColor+GlobalColors.h"
 #import "ZBSource.h"
+#import "ZBPaymentVendor.h"
 #import "ZBSourceInfo.h"
 #import "ZBUserInfo.h"
 #import "ZBAppDelegate.h"
@@ -29,11 +30,10 @@
     self = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] objectAtIndex:0];
     self.source = source;
     self.owner = owner;
-    [self.source getSourceInfo:^(ZBSourceInfo * _Nonnull info, NSError * _Nonnull error) {
+    [self.source.paymentVendor getSourceInfo:^(ZBSourceInfo * _Nonnull info, NSError * _Nonnull error) {
         if (info && !error) {
             self.sourceInfo = info;
         }
-
         [self updateText];
     }];
     
@@ -73,9 +73,9 @@
 - (void)updateText {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.activityIndicatorView startAnimating];
-        if ([self->source isSignedIn]) {
+        if ([self->source.paymentVendor isSignedIn]) {
             [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
-            [self->source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
+            [self->source.paymentVendor getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (info && !error) {
                         if (self->hideEmail) {

@@ -8,17 +8,10 @@
 
 #import "ZBSource.h"
 #import "ZBSourceManager.h"
-#import "UICKeyChainStore.h"
-#import "ZBAppDelegate.h"
 #import "ZBDatabaseManager.h"
 #import "ZBColumn.h"
-#import "ZBDevice.h"
 #import "ZBUtils.h"
-#import "ZBUserInfo.h"
-#import "ZBSourceInfo.h"
-#import "ZBSafariAuthenticationSession.h"
-#import "ZBDownloadManager.h"
-#import <LocalAuthentication/LocalAuthentication.h>
+#import "ZBPaymentVendor.h"
 
 @interface ZBSource () {
     NSURL *paymentVendorURI;
@@ -136,6 +129,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setSourceID:sqlite3_column_int(statement, ZBSourceColumnSourceID)];
         [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
+        self.paymentVendor = [[ZBPaymentVendor alloc] initWithRepositoryURI:self.repositoryURI paymentVendorURL:self.paymentVendorURL];
     }
     
     return self;
@@ -159,224 +153,18 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
 }
 
-- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion {
-    if (![self suppotsPaymentAPI]) {
-        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
-        completion(NO, YES, error);
-        return;
-    }
-    
-    if ([self isSignedIn] && [self hasPaymentSecret]) {
-        completion(YES, NO, nil);
-        return;
-    }
-
-    // Sign out in the background, in case the provider is signed in but payment secret was missing.
-    [self signOut];
-
-    NSURLComponents *components = [NSURLComponents componentsWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
-    if (![components.scheme isEqualToString:@"https"]) {
-        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source's payment vendor URL is not secure", @"")}];
-        completion(NO, YES, error);
-        return;
-    }
-    
-    NSMutableArray *queryItems = [components queryItems] ? [[components queryItems] mutableCopy] : [NSMutableArray new];
-    NSURLQueryItem *udid = [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]];
-    NSURLQueryItem *model = [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]];
-    [queryItems addObject:udid];
-    [queryItems addObject:model];
-    [components setQueryItems:queryItems];
-    
-    NSURL *url = [components URL];
-    static ZBSafariAuthenticationSession *session;
-    session = [[ZBSafariAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-        if (callbackURL && !error) {
-            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-            NSArray *queryItems = urlComponents.queryItems;
-            NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-            for (NSURLQueryItem *q in queryItems) {
-                [queryByKeys setValue:[q value] forKey:[q name]];
-            }
-            NSString *token = queryByKeys[@"token"];
-            NSString *payment = queryByKeys[@"payment_secret"];
-
-            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-            [keychain setString:token forKey:self.repositoryURI];
-
-            NSString *key = [self.repositoryURI stringByAppendingString:@"payment"];
-            [keychain setString:nil forKey:key];
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenUnlockedThisDeviceOnly
-                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                [keychain setString:payment forKey:key];
-
-                completion(YES, NO, NULL);
-            });
-        }
-        else if (error) {
-            completion(NO, !(error.domain == ZBSafariAuthenticationErrorDomain && error.code == ZBSafariAuthenticationErrorCanceledLogin), error);
-            return;
-        }
-    }];
-    [session start];
-
-}
-
-- (void)signOut {
-    if (![self suppotsPaymentAPI]) {
-//        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
-        return;
-    }
-    
-    if (![self isSignedIn]) {
-        return;
-    }
-    
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    NSDictionary *question = @{@"token": [keychain stringForKey:[self repositoryURI]] ?: @"none"};
-    [keychain removeItemForKey:[self repositoryURI]];
-    [keychain removeItemForKey:[NSString stringWithFormat:@"%@payment", [self repositoryURI]]];
-
-    NSURL *URL = [[self paymentVendorURL] URLByAppendingPathComponent:@"sign_out"];
-    if (!URL || ![URL.scheme isEqualToString:@"https"]) {
-        return;
-    }
-    
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
-    
-    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
-    [urlRequest setHTTPMethod:@"POST"];
-    [urlRequest setHTTPBody:requestData];
-    
-    NSURLSessionDataTask *signOutTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest]; // This will silently fail if there is an error
-    [signOutTask resume];
-}
-
-- (BOOL)isSignedIn {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    return [keychain stringForKey:self.repositoryURI] != nil;
-}
-
-- (BOOL)hasPaymentSecret {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    return [keychain contains:[NSString stringWithFormat:@"%@payment", [self repositoryURI]]];
-}
-
-- (NSString *)paymentSecret:(NSError **)error {
-    __block NSString *paymentSecret = NULL;
-    __block NSError *paymentError = NULL;
-
-    // Payment secret is only applicable if the device is passcode protected.
-    LAContext *authContext = [[LAContext alloc] init];
-    if ([authContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&paymentError]) {
-        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            NSString *paymentKeychainIdentifier = [NSString stringWithFormat:@"%@payment", [self repositoryURI]];
-
-            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-            keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
-            paymentSecret = [keychain stringForKey:paymentKeychainIdentifier error:&paymentError];
-
-            dispatch_semaphore_signal(sema);
-        });
-        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-    }
-    
-    if (paymentError && paymentError.code != LAErrorPasscodeNotSet) {
-        NSLog(@"[Zebra] Payment error: %@", paymentError);
-        if (error) *error = [paymentError copy];
-    }
-    return paymentSecret;
-}
-
 - (NSURL *)paymentVendorURL {
     if (self->paymentVendorURI && self->paymentVendorURI.host && self->paymentVendorURI.scheme) {
         return self->paymentVendorURI;
     }
-    
+
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     self->paymentVendorURI = [databaseManager paymentVendorURLForSource:self];
     return self->paymentVendorURI;
 }
 
-- (BOOL)suppotsPaymentAPI {
-    NSURL *paymentVendorURL = [self paymentVendorURL];
-    
-    return paymentVendorURL && paymentVendorURL.host && paymentVendorURL.scheme;
-}
-
-- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion {
-    if (![self paymentVendorURL] || ![self isSignedIn]) return;
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
-    
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    
-    NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[self repositoryURI]], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-    
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:requestData];
-    
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
-        NSInteger statusCode = [httpReponse statusCode];
-        
-        if (statusCode == 200 && !error) {
-            NSError *parseError = NULL;
-            ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseError];
-            
-            if (parseError || userInfo.error) {
-                parseError ? completion(nil, parseError) : completion(nil, [NSError errorWithDomain:NSURLErrorDomain code:343 userInfo:@{NSLocalizedDescriptionKey: userInfo.error}]);
-                return;
-            }
-            
-            completion(userInfo, nil);
-        }
-        else {
-            completion(nil, error ?: [ZBDownloadManager errorForHTTPStatusCode:statusCode forFile:nil]);
-        }
-    }];
-    
-    [task resume];
-}
-
-- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion {
-    if (![self paymentVendorURL]) return;
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"info"]];
-    
-    [request setHTTPMethod:@"GET"];
-    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
-        NSInteger statusCode = [httpReponse statusCode];
-        
-        if (statusCode == 200 && !error) {
-            NSError *parseError = NULL;
-            ZBSourceInfo *sourceInfo = [ZBSourceInfo fromData:data error:&parseError];
-            
-            if (parseError) {
-                completion(nil, parseError);
-                return;
-            }
-            
-            completion(sourceInfo, nil);
-        }
-        else {
-            completion(nil, error ?: [ZBDownloadManager errorForHTTPStatusCode:statusCode forFile:nil]);
-        }
-    }];
-    
-    [task resume];
+- (BOOL)supportsPaymentAPI {
+    return self.paymentVendor.supportsPaymentAPI;
 }
 
 @end

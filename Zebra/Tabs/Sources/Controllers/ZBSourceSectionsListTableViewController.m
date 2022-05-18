@@ -19,6 +19,7 @@
 #import "ZBPackageTableViewCell.h"
 #import "ZBSource.h"
 #import "ZBSourceManager.h"
+#import "ZBPaymentVendor.h"
 #import "UIBarButtonItem+blocks.h"
 #import "UIImageView+Zebra.h"
 
@@ -175,10 +176,10 @@
         [self presentViewController:navController animated:YES completion:nil];
     };
 
-    if ([source isSignedIn]) {
+    if ([source.paymentVendor isSignedIn]) {
         completion();
     } else {
-        [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+        [source.paymentVendor authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
             if (!success || error) {
                 if (notify) {
                     if (error) {

@@ -7,8 +7,7 @@
 //
 
 @class UIImage;
-@class ZBUserInfo;
-@class ZBSourceInfo;
+@class ZBPaymentVendor;
 
 #import "ZBBaseSource.h"
 
@@ -32,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL checkedSupportGETPackageInfo;
 @property (nonatomic) NSURL *iconURL;
 
+@property (nonatomic, strong) ZBPaymentVendor *paymentVendor;
+
 + (ZBSource *)sourceMatchingSourceID:(int)sourceID;
 + (ZBSource *)localSource:(int)sourceID;
 + (ZBSource *)sourceFromBaseURL:(NSString *)baseURL;
@@ -42,14 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Modern Payment API
 
-- (NSString *)paymentSecret:(NSError **)error;
-- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion;
-- (void)signOut;
-- (BOOL)isSignedIn;
 - (NSURL *)paymentVendorURL;
-- (BOOL)suppotsPaymentAPI;
-- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion;
-- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion;
+- (BOOL)supportsPaymentAPI;
 
 @end
 

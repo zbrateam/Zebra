@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceManager : NSObject
 @property (nonatomic) NSMutableSet <ZBBaseSource *> *verifiedSources;
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 + (NSString *_Nullable)debLineForURL:(NSURL *)URL;
 - (NSMutableDictionary <NSNumber *, ZBSource *> *)sources;
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;

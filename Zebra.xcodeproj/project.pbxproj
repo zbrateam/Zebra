@@ -34,6 +34,7 @@
 		4E16A066281CD99000F35795 /* ZBSafariAuthenticationSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16A065281CD99000F35795 /* ZBSafariAuthenticationSession.m */; };
 		4E2E6BE4281FC4080089E4FB /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2E6BE3281FC4080089E4FB /* SDWebImage */; };
 		4E2E6BFA2820E5CF0089E4FB /* LNPopupController-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2E6BF92820E5CF0089E4FB /* LNPopupController-Static */; };
+		4E2E6BFD2820FBCF0089E4FB /* ZBPaymentVendorError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2E6BFC2820FBCF0089E4FB /* ZBPaymentVendorError.m */; };
 		4E2E6C0028216A4D0089E4FB /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2E6BFF28216A4D0089E4FB /* Sentry */; };
 		4E2E6C042826734B0089E4FB /* ZBLabelTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2E6C032826734B0089E4FB /* ZBLabelTextView.m */; };
 		4E413922278D98DC0006AB8B /* ZBAlternateIconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */; };
@@ -47,6 +48,7 @@
 		4E413951278DC8F90006AB8B /* debicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413948278DC8F90006AB8B /* debicon@3x.png */; };
 		4E413952278DC8F90006AB8B /* sourcesicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413949278DC8F90006AB8B /* sourcesicon@3x.png */; };
 		4E451A672834CC0800F6C282 /* ZBSettingsErrorReportingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E451A662834CC0800F6C282 /* ZBSettingsErrorReportingViewController.m */; };
+		4E451A6A2834D3C600F6C282 /* ZBPaymentVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E451A692834D3C600F6C282 /* ZBPaymentVendor.m */; };
 		4E5F8274274FAFE40074A0BC /* NSObject+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */; };
 		4E9FC84C278EA57100934FFE /* ZBChangelogEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC84B278EA57100934FFE /* ZBChangelogEntryCell.m */; };
 		4EA26E9727CBA3190019A5AA /* ZBHomeCopyableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26E9627CBA3190019A5AA /* ZBHomeCopyableFooterView.m */; };
@@ -179,6 +181,8 @@
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
 		4E16A064281CD99000F35795 /* ZBSafariAuthenticationSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSafariAuthenticationSession.h; sourceTree = "<group>"; };
 		4E16A065281CD99000F35795 /* ZBSafariAuthenticationSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSafariAuthenticationSession.m; sourceTree = "<group>"; };
+		4E2E6BFB2820FBCF0089E4FB /* ZBPaymentVendorError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPaymentVendorError.h; sourceTree = "<group>"; };
+		4E2E6BFC2820FBCF0089E4FB /* ZBPaymentVendorError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPaymentVendorError.m; sourceTree = "<group>"; };
 		4E2E6C022826734B0089E4FB /* ZBLabelTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLabelTextView.h; sourceTree = "<group>"; };
 		4E2E6C032826734B0089E4FB /* ZBLabelTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLabelTextView.m; sourceTree = "<group>"; };
 		4E413920278D98DC0006AB8B /* ZBAlternateIconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAlternateIconCell.h; sourceTree = "<group>"; };
@@ -195,6 +199,8 @@
 		4E41396F278DD5770006AB8B /* UIView+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Private.h"; sourceTree = "<group>"; };
 		4E451A652834CC0800F6C282 /* ZBSettingsErrorReportingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsErrorReportingViewController.h; sourceTree = "<group>"; };
 		4E451A662834CC0800F6C282 /* ZBSettingsErrorReportingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsErrorReportingViewController.m; sourceTree = "<group>"; };
+		4E451A682834D3C600F6C282 /* ZBPaymentVendor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPaymentVendor.h; sourceTree = "<group>"; };
+		4E451A692834D3C600F6C282 /* ZBPaymentVendor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPaymentVendor.m; sourceTree = "<group>"; };
 		4E5F8272274FAFE40074A0BC /* NSObject+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Zebra.h"; sourceTree = "<group>"; };
 		4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Zebra.m"; sourceTree = "<group>"; };
 		4E9FC846278E675500934FFE /* ZBLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLog.h; sourceTree = "<group>"; };
@@ -471,6 +477,8 @@
 				36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */,
 				899229FB242815E90086E2F4 /* ZBSourceInfo.h */,
 				899229FC242815E90086E2F4 /* ZBSourceInfo.m */,
+				4E451A682834D3C600F6C282 /* ZBPaymentVendor.h */,
+				4E451A692834D3C600F6C282 /* ZBPaymentVendor.m */,
 			);
 			path = JSONParsing;
 			sourceTree = "<group>";
@@ -685,6 +693,8 @@
 				896F11BC21B231490017B581 /* ZBSourceManager.m */,
 				8958F28823C3C2CC00FB64D9 /* ZBSourceVerificationStatus.h */,
 				8958F28123C2ED5100FB64D9 /* ZBSourceVerificationDelegate.h */,
+				4E2E6BFB2820FBCF0089E4FB /* ZBPaymentVendorError.h */,
+				4E2E6BFC2820FBCF0089E4FB /* ZBPaymentVendorError.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1021,7 +1031,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = ZB;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "Zebra Team";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
@@ -1204,6 +1214,7 @@
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
 				8997A9F224031007001894BF /* ZBSearchResultsTableViewController.m in Sources */,
 				896F11BD21B231490017B581 /* ZBSourceManager.m in Sources */,
+				4E451A6A2834D3C600F6C282 /* ZBPaymentVendor.m in Sources */,
 				4EC7F26927AE34E00078F953 /* ZBCommand.m in Sources */,
 				365CAE2D22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m in Sources */,
 				89C4244D24411C1100FE5ED8 /* UIAlertController+Show.m in Sources */,
@@ -1213,6 +1224,7 @@
 				89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
 				89308E2723FF4BBB00D4641D /* ZBSettingsResetTableViewController.m in Sources */,
+				4E2E6BFD2820FBCF0089E4FB /* ZBPaymentVendorError.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
 				363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */,
@@ -1461,7 +1473,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.26;
+				MARKETING_VERSION = 1.1.27;
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
@@ -1498,7 +1510,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.26;
+				MARKETING_VERSION = 1.1.27;
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;

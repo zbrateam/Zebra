@@ -14,16 +14,14 @@
 #import "ZBUtils.h"
 #import "vercmp.h"
 #import "ZBSource.h"
+#import "ZBPaymentVendor.h"
 #import "ZBAppDelegate.h"
 #import "ZBDatabaseManager.h"
 #import "ZBColumn.h"
-#import "ZBPurchaseInfo.h"
-#import "UICKeyChainStore.h"
 #import "ZBQueue.h"
 #import "ZBSettings.h"
 #import "ZBCommand.h"
 #import "ZBSafariAuthenticationSession.h"
-#import "ZBDownloadManager.h"
 
 @import SDWebImage;
 
@@ -415,7 +413,7 @@
 }
 
 - (BOOL)mightRequirePayment {
-    return [self requiresPayment] || ([[self source] sourceID] > 0 && [self isPaid] && [[self source] suppotsPaymentAPI]);
+    return [self requiresPayment] || ([[self source] sourceID] > 0 && [self isPaid] && [[self source] supportsPaymentAPI]);
 }
 
 - (BOOL)requiresPayment {
@@ -423,91 +421,27 @@
 }
 
 - (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion {
-    //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
+    // Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
     if (![self mightRequirePayment]) {
-        completion(NULL);
-        
-        purchaseInfo = NULL;
+        completion(nil);
+        purchaseInfo = nil;
         self.requiresAuthorization = NO;
         return;
     }
     
     checkedForPurchaseInfo = YES;
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    
-    NSURL *packageInfoURL = [[[self source] paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/info", [self identifier]]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
-    
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    
-    NSString *token = [keychain stringForKey:[[self source] repositoryURI]];
-    NSDictionary *requestJSON;
-    if (token) {
-        requestJSON = @{@"token": token, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-    }
-    else {
-        requestJSON = @{@"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-    }
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
 
-    // Attempt GET when logged out. Helps the payment provider cache the unauthenticated response
-    // when the UDID/model are not needed.
-    BOOL attemptGET = !token && (!self.source.checkedSupportGETPackageInfo || self.source.supportsGETPackageInfo);
-    if (attemptGET) {
-        [request setHTTPMethod:@"GET"];
-    } else {
-        [request setHTTPMethod:@"POST"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-        [request setHTTPBody:requestData];
-    }
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
-        NSInteger statusCode = [httpReponse statusCode];
-
-        if (attemptGET) {
-            self.source.checkedSupportGETPackageInfo = YES;
-        }
-        
-        if (error || data == nil || statusCode >= 300) {
-            if (attemptGET) {
-                // Retry as POST.
-                self.source.supportsGETPackageInfo = NO;
-                [self purchaseInfo:completion];
-            } else {
-                completion(NULL);
-                self->purchaseInfo = NULL;
-                self.requiresAuthorization = NO;
-            }
+    [self.source.paymentVendor getInfoForPackage:self.identifier completion:^(ZBPurchaseInfo * _Nonnull info, NSError * _Nonnull error) {
+        if (error) {
+            completion(nil);
+            self->purchaseInfo = nil;
+            self.requiresAuthorization = NO;
             return;
         }
-
-        NSError *error2;
-        ZBPurchaseInfo *info = [ZBPurchaseInfo fromData:data error:&error2];
-        if (error2) {
-            if (attemptGET) {
-                // Retry as POST.
-                self.source.supportsGETPackageInfo = NO;
-                [self purchaseInfo:completion];
-            } else {
-                completion(NULL);
-                self->purchaseInfo = NULL;
-                self.requiresAuthorization = NO;
-            }
-            return;
-        }
-
         completion(info);
-
         self->purchaseInfo = info;
         self.requiresAuthorization = YES;
     }];
-    
-    [task resume];
 }
 
 - (NSString * _Nullable)getField:(NSString *)field {
@@ -794,90 +728,25 @@
 - (void)purchase:(BOOL)tryAgain completion:(void (^)(BOOL success, NSError *_Nullable error))completion {
     ZBSource *source = [self source];
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if ([source isSignedIn]) { //Check if we have an access token
-        if ([self mightRequirePayment]) { //Just a small double check to make sure the package is paid and the source supports payment
-            NSError *error;
-            NSString *secret = [source paymentSecret:&error];
-            
-            if (!error) {
-                NSURL *purchaseURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/purchase", [self identifier]]];
-                
-                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:purchaseURL];
-                
-                NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[source repositoryURI]], @"payment_secret": secret ?: [NSNull null], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-                NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-                
-                [request setHTTPMethod:@"POST"];
-                [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-                [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-                [request setHTTPBody:requestData];
-                
-                NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                    NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
-                    NSInteger statusCode = [httpReponse statusCode];
-                    
-                    if (statusCode == 200 && !error) {
-                        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        NSInteger status = [result[@"status"] integerValue];
-                        switch (status) {
-                            case -1: { // An error occurred, payment api doesn't specify that an error must exist here but we may as well check it
-                                NSString *localizedDescription = [result objectForKey:@"error"] ?: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"");
-                                
-                                NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
-                                completion(NO, error);
-                                break;
-                            }
-                            case 0: { // Success, queue the package for install
-                                completion(YES, nil);
-                                break;
-                            }
-                            case 1: { // Action is required, pass this information on to the view controller
-                                NSURL *actionLink = [NSURL URLWithString:result[@"url"]];
-                                if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"https"])) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        static ZBSafariAuthenticationSession *session;
-                                        session = [[ZBSafariAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                                            if (callbackURL && !error) {
-                                                completion(YES, nil);
-                                            }
-                                            else if (error && !(error.domain == ZBSafariAuthenticationErrorDomain && error.code == ZBSafariAuthenticationErrorCanceledLogin)) {
-                                                NSString *localizedDescription = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), error.localizedDescription];
+    if ([self mightRequirePayment] && [source.paymentVendor isSignedIn]) { // Check if we have an access token
+        NSError *error;
+        NSString *secret = [source.paymentVendor paymentSecret:&error];
 
-                                                NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
-                                                completion(NO, error);
-                                            }
-                                        }];
-                                        [session start];
-                                    });
-                                }
-                                else {
-                                    NSString *localizedDescription = [NSString stringWithFormat:NSLocalizedString(@"The Payment Provider responded with an improper payment URL: %@", @""), result[@"url"]];
-                                    
-                                    NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
-                                    completion(NO, error);
-                                }
-                                break;
-                            }
-                        }
-                    } else {
-                        completion(NO, error ?: [ZBDownloadManager errorForHTTPStatusCode:statusCode forFile:nil]);
-                    }
-                }];
-                
-                [task resume];
-                return;
-            }
-            else if (error.code == errSecUserCanceled) {
-                return;
-            }
+        if (!error) {
+            [self.source.paymentVendor initiatePurchaseForPackage:self.identifier
+                                                    paymentSecret:secret
+                                                       completion:^(NSError * _Nullable error) {
+                completion(error == nil, error);
+            }];
+            return;
+        }
+        else if (error.code == errSecUserCanceled) {
+            return;
         }
     }
     
     // Should only run if we don't have a payment secret or if we aren't logged in.
-    [[self source] authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+    [self.source.paymentVendor authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
         if (tryAgain && success && !error) {
             [self purchase:NO completion:completion]; // Try again, but only try once
         }

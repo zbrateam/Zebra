@@ -18,6 +18,7 @@
 #import "ZBAppDelegate.h"
 #import "UIColor+GlobalColors.h"
 #import "ZBSource.h"
+#import "ZBPaymentVendor.h"
 #import "ZBDatabaseManager.h"
 #import "ZBPackageActions.h"
 
@@ -91,7 +92,7 @@
 - (void)getPurchases {
     loading = YES;
     
-    [source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
+    [source.paymentVendor getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
@@ -137,7 +138,7 @@
 }
 
 - (void)signOut:(id)sender {
-    [keychain removeItemForKey:[source repositoryURI]];
+    [self.source.paymentVendor clearKeychainEntries];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -241,7 +242,7 @@
     if (indexPath.section == 0 && indexPath.row == 2) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        [source signOut];
+        [source.paymentVendor signOut];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
 
