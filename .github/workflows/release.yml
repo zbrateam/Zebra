@@ -37,7 +37,7 @@ jobs:
       run: gh release upload '${{ github.event.release.tag_name }}' '${{ steps.package_build.outputs.package }}'
 
     - name: Clone Safari
-      run: git clone https://zbrabot:${{ secrets.BOT_TOKEN }}@github.com/zbrateam/Safari.git ~/website
+      run: git clone https://zbrabot:${{ secrets.BOT_TOKEN }}@github.com/zbrateam/zbrateam.github.io.git ~/website
 
     - name: Copy package to repo
       if: "!github.event.release.prerelease"
