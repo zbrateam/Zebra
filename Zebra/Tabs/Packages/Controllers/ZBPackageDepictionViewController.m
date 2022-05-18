@@ -91,11 +91,8 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBUpdateNavigationButtons" object:nil];
 
     self.navigationItem.title = package.name;
-    if (@available(iOS 11.0, *)) {
+    if (@available(iOS 11, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
-    else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
     self.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
@@ -106,32 +103,20 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [self setPackage];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    
+    configuration.applicationNameForUserAgent = self._userAgent;
     configuration.allowsInlineMediaPlayback = YES;
-    if (@available(iOS 10.0, *)) {
+    if (@available(iOS 10, *)) {
+        configuration.dataDetectorTypes = WKDataDetectorTypeLink;
         configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAudio;
-    }
-    
-    switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight:
-            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Light", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
-            break;
-        case ZBInterfaceStyleDark:
-            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Dark", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
-            break;
-        case ZBInterfaceStylePureBlack:
-            configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Pure-Black", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
-            break;
     }
     
     webViewSize = 0;
     webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 300) configuration:configuration];
-    webView.translatesAutoresizingMaskIntoConstraints = NO;
     webView.scrollView.scrollEnabled = NO;
     webView.opaque = NO;
     webView.backgroundColor = [UIColor tableViewBackgroundColor];
     
-    progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
+    progressView = [[UIProgressView alloc] initWithFrame:CGRectZero];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.tableView.tableHeaderView addSubview:progressView];
@@ -145,12 +130,8 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     progressView.tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     
     webView.navigationDelegate = self;
-    
-    if (package.depictionURL && ([package.depictionURL.scheme isEqualToString:@"http"] || [package.depictionURL.scheme isEqualToString:@"https"])) {
-        [self prepDepictionLoading:[package depictionURL]];
-    } else {
-        [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
-    }
+
+    [self prepDepictionLoading:[package depictionURL]];
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
     [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
 }
@@ -167,38 +148,58 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     return [self.navigationController.viewControllers[0] isEqual:self];
 }
 
-- (void)prepDepictionLoading:(NSURL *)url {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *machineIdentifier = [ZBDevice machineID];
+- (NSString *)_userAgent {
+    return [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) %@", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion], self._themeName];
+}
 
-    //Set theme settings and user agent
+- (NSString *)_themeName {
     switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight: {
-            [request setValue:@"Light" forHTTPHeaderField:@"Theme"];
-            [request setValue:[NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Light", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-            break;
-        }
-        case ZBInterfaceStyleDark: {
-            [request setValue:@"Dark" forHTTPHeaderField:@"Theme"];
-            [request setValue:[NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Dark", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-            break;
-        }
-        case ZBInterfaceStylePureBlack: {
-            [request setValue:@"Pure-Black" forHTTPHeaderField:@"Theme"];
-            [request setValue:[NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Pure-Black", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-            break;
-        }
+    case ZBInterfaceStyleLight:
+        return @"Light";
+    case ZBInterfaceStyleDark:
+        return @"Dark";
+    case ZBInterfaceStylePureBlack:
+        return @"Pure-Black";
     }
-    
-    [request setValue:version forHTTPHeaderField:@"X-Firmware"];
-    [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
-    [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-    [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
-    [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
-    
-    webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [webView loadRequest:request];
+}
+
+- (void)prepDepictionLoading:(NSURL *)url {
+    webView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    webView.scrollView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+
+    // Set theme settings and user agent
+    if (url && ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+        [request setValue:self._themeName forHTTPHeaderField:@"Theme"];
+        [request setValue:[[UIDevice currentDevice] systemVersion] forHTTPHeaderField:@"X-Firmware"];
+        [request setValue:[ZBDevice machineID] forHTTPHeaderField:@"X-Machine"];
+        [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
+        [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
+        [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
+        [webView loadRequest:request];
+    } else {
+        NSMutableString *body = [package.longDescription ?: @"" mutableCopy];
+        [body replaceOccurrencesOfString:@"&" withString:@"&amp;" options:kNilOptions range:NSMakeRange(0, body.length)];
+        [body replaceOccurrencesOfString:@"<" withString:@"&lt;" options:kNilOptions range:NSMakeRange(0, body.length)];
+        [body replaceOccurrencesOfString:@">" withString:@"&gt;" options:kNilOptions range:NSMakeRange(0, body.length)];
+        NSString *css = [NSString stringWithFormat:
+                         @"body { margin: 15px 20px; font: -apple-system-body; background: transparent; color: %@; white-space: pre-line; }"
+                         @"a { color: %@; }",
+                         [UIColor hexStringFromColor:[UIColor primaryTextColor]],
+                         [UIColor hexStringFromColor:[UIColor accentColor]]];
+        NSString *html = [NSString stringWithFormat:
+                          @"<!DOCTYPE html>"
+                          @"<html>"
+                          @"<head>"
+                              @"<meta charset=\"utf-8\">"
+                              @"<meta name=\"viewport\" content=\"initial-scale=1, maximum-scale=1, user-scalable=0\">"
+                              @"<base target=\"_blank\">"
+                              @"<style>%@</style>"
+                          @"</head>"
+                          @"<body>%@</body>"
+                          @"</html>", css, body];
+        [webView loadHTMLString:html baseURL:nil];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -236,87 +237,29 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     }
 }
 
-- (void)escape:(NSMutableString *)s {
-    [s replaceOccurrencesOfString:@"\r" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
-    [s replaceOccurrencesOfString:@"\n" withString:@"<br>" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
-    [s replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
-    [s replaceOccurrencesOfString:@"\'" withString:@"\\\'" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
-}
-
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    if (package == nil)
+    if (package == nil) {
         return;
-    
-    [self performSelector:@selector(layoutDepictionWebView:) withObject:webView afterDelay:1.0];
-    
-    NSString *js = @"var meta = document.createElement('meta'); meta.name = 'viewport'; meta.content = 'initial-scale=1, maximum-scale=1, user-scalable=0'; var head = document.getElementsByTagName('head')[0]; head.appendChild(meta);";
-    [webView evaluateJavaScript:js completionHandler:nil];
-    
-    if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"].absoluteString]) {
-        if ([ZBSettings interfaceStyle] >= ZBInterfaceStyleDark) {
-            NSString *path = [[NSBundle mainBundle] pathForResource:[ZBSettings interfaceStyle] == ZBInterfaceStylePureBlack ? @"ios7oled" : @"ios7dark" ofType:@"css"];
-
-            NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
-            cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
-                                  style.innerHTML = '%@'; \
-                                  document.head.appendChild(style)",
-                                  cssData];
-            [webView evaluateJavaScript:jsString
-                      completionHandler:^(id _Nullable result, NSError *_Nullable error) {
-                          if (error) {
-                              ZBLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
-                          }
-                      }];
-        }
-        
-        if (![[package shortDescription] isEqualToString:@""] && [package shortDescription] != NULL) {
-            [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
-            
-            NSString *originalDescription = [package longDescription];
-            NSMutableString *description = [NSMutableString stringWithCapacity:originalDescription.length];
-            [description appendString:originalDescription];
-            
-            [self escape:description];
-            
-            NSDataDetector *linkDetector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:nil];
-            NSArray *matches = [linkDetector matchesInString:description options:0 range:NSMakeRange(0, description.length)];
-            NSUInteger rangeShift = 0;
-            for (NSTextCheckingResult *result in matches) {
-                NSString *urlString = result.URL.absoluteString;
-                NSUInteger before = result.range.length;
-                NSString *anchor = [NSString stringWithFormat:@"<a href=\\\"%@\\\">%@</a>", urlString, urlString];
-                [description replaceCharactersInRange:NSMakeRange(result.range.location + rangeShift, result.range.length) withString:anchor];
-                rangeShift += anchor.length - before;
-            }
-            
-            [webView evaluateJavaScript:[NSString stringWithFormat:@"document.getElementById('desc').innerHTML = \"%@\";", description] completionHandler:nil];
-        } else {
-            [webView evaluateJavaScript:@"var element = document.getElementById('desc-holder').outerHTML = '';" completionHandler:nil];
-        }
     }
+    [self performSelector:@selector(layoutDepictionWebView:) withObject:webView afterDelay:1.0];
 }
 
 - (void)layoutDepictionWebView:(WKWebView *)webView {
-    if (webView) {
-        [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
-            if (!error) {
-                if ([completed isEqualToString:@"complete"]) {
-                    //body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight
-                    NSString *question = @"var body = document.body, html = document.documentElement; var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight); height";
-                    [webView evaluateJavaScript:question completionHandler:^(id _Nullable height, NSError * _Nullable error) {
-                        [self layoutDepictionWebView:webView height:[height floatValue]];
-                    }];
-                }
-            }
-        }];
-    }
+    [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
+        if ([completed isEqualToString:@"complete"]) {
+            NSString *question = @"var body = document.body, html = document.documentElement; Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight)";
+            [webView evaluateJavaScript:question completionHandler:^(id _Nullable height, NSError * _Nullable error) {
+                [self layoutDepictionWebView:webView height:[height floatValue]];
+            }];
+        }
+    }];
 }
 
 - (void)layoutDepictionWebView:(WKWebView *)webView height:(CGFloat)height {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [webView setFrame:CGRectMake(webView.frame.origin.x, webView.frame.origin.y, webView.frame.size.width, height)];
+        CGRect frame = webView.frame;
+        frame.size.height = height;
+        webView.frame = frame;
         [self.tableView beginUpdates];
         [self.tableView setTableFooterView:webView];
         [self.tableView endUpdates];
@@ -324,15 +267,12 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    NSURLRequest *request = [navigationAction request];
-    NSURL *url = [request URL];
-    
     WKNavigationType type = navigationAction.navigationType;
-    
-    if ([navigationAction.request.URL isEqual:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]] || (type == -1 && [navigationAction.request.URL isEqual:[package depictionURL]])) {
+    NSURL *url = navigationAction.request.URL;
+    if (type == WKNavigationTypeOther && [url isEqual:[NSURL URLWithString:@"about:blank"]]) {
         decisionHandler(WKNavigationActionPolicyAllow);
-    } else if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
-        if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+    } else {
+        if (type != WKNavigationTypeOther && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
             [ZBDevice openURL:url delegate:self];
             decisionHandler(WKNavigationActionPolicyCancel);
         } else if ([[url scheme] isEqualToString:@"mailto"]) {
@@ -341,13 +281,13 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         } else {
             decisionHandler(WKNavigationActionPolicyAllow);
         }
-    } else {
-        decisionHandler(WKNavigationActionPolicyCancel);
     }
 }
 
-- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error{
-    [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    if (![webView.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
+        [self prepDepictionLoading:nil];
+    }
 }
 
 - (void)configureNavButton {
@@ -393,14 +333,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     return [ZBPackageActions menuElementsForPackage:package inTableView:tableView];
 }
 
-- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
-    // Load finished
-}
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    // Done button pressed
-}
-
 - (void)reloadDepiction {
     UIColor *tableViewBackgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self prepDepictionLoading:webView.URL];
@@ -410,7 +342,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     self.tableView.tableHeaderView.backgroundColor = tableViewBackgroundColor;
     self.tableView.tableFooterView.backgroundColor = tableViewBackgroundColor;
     self.packageName.textColor = [UIColor primaryTextColor];
-    webView.backgroundColor = tableViewBackgroundColor;
 }
 
 - (NSArray *)packageInfoOrder {
@@ -557,7 +488,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    // handle any error
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
