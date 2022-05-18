@@ -247,7 +247,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)layoutDepictionWebView:(WKWebView *)webView {
     [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
         if ([completed isEqualToString:@"complete"]) {
-            NSString *question = @"var body = document.body, html = document.documentElement; Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight)";
+            NSString *question = @"var body = document.body, html = document.documentElement; Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.offsetHeight)";
             [webView evaluateJavaScript:question completionHandler:^(id _Nullable height, NSError * _Nullable error) {
                 [self layoutDepictionWebView:webView height:[height floatValue]];
             }];
