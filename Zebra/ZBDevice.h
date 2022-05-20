@@ -38,6 +38,12 @@ typedef NS_ENUM(NSUInteger, ZBBootstrap) {
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDevice : NSObject
+
++ (NSString *)userAgent;
++ (NSString *)downloadUserAgent;
++ (NSString *)webUserAgent;
++ (NSString *)themeName;
+
 + (BOOL)needsSimulation;
 + (BOOL)isSlingshotBroken:(NSError * _Nullable *)error;
 + (nullable NSString *)UDID;

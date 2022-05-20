@@ -30,6 +30,30 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 @implementation ZBDevice
 
++ (NSString *)userAgent {
+    return [NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
+}
+
++ (NSString *)downloadUserAgent {
+    return @"Telesphoreo (Zebra) APT-HTTP/1.0.592";
+}
+
++ (NSString *)webUserAgent {
+    return [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) %@",
+            PACKAGE_VERSION,
+            [ZBDevice deviceType],
+            [UIDevice currentDevice].systemVersion,
+            self.themeName];
+}
+
++ (NSString *)themeName {
+    switch ([ZBSettings interfaceStyle]) {
+    case ZBInterfaceStyleLight:     return @"Light";
+    case ZBInterfaceStyleDark:      return @"Dark";
+    case ZBInterfaceStylePureBlack: return @"Pure-Black";
+    }
+}
+
 + (BOOL)needsSimulation {
 #if TARGET_OS_SIMULATOR
     return YES;
@@ -319,7 +343,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         return @"iPad";
     }
     if ([model hasPrefix:@"iPod"]) {
-        return @"iPod";
+        return @"iPod touch";
     }
     return @"iPhone/iPod";
 }

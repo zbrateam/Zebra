@@ -7,7 +7,6 @@
 //
 
 #import "ZBDownloadManager.h"
-#import "UICKeyChainStore.h"
 
 #import "ZBDevice.h"
 #import "ZBLog.h"
@@ -17,6 +16,7 @@
 #import "ZBBaseSource.h"
 #import "ZBSource.h"
 #import "ZBSourceManager.h"
+#import "ZBPaymentVendor.h"
 
 #import <bzlib.h>
 #import <zlib.h>
@@ -43,7 +43,7 @@
     NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
     
-    return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo (Zebra) APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+    return @{@"X-Cydia-ID" : udid, @"User-Agent" : [ZBDevice downloadUserAgent], @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
 }
 
 + (NSError *)errorForHTTPStatusCode:(NSUInteger)statusCode forFile:(nullable NSString *)file {
@@ -172,9 +172,14 @@
             [downloadDelegate startedPackageDownload:package];
         } else if (package.requiresAuthorization) {
             [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Authorizing Download for %@", @""), package.name] atLevel:ZBLogLevelDescript];
-            [self authorizeDownloadForPackage:package completion:^(NSURL *downloadURL, NSError *error) {
-                if (downloadURL && !error) {
-                    NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:downloadURL];
+            [package.source.paymentVendor authorizeDownloadForPackage:package.identifier
+                                                               params:@{
+                @"version": package.version,
+                @"repo": source.repositoryURI
+            }
+                                                           completion:^(NSURL * _Nullable url, NSError * _Nullable error) {
+                if (url && !error) {
+                    NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:url];
                     [downloadTask resume];
                     
                     [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
@@ -204,57 +209,6 @@
         failedTasks = 0;
         [self->downloadDelegate finishedAllDownloads];
     }
-}
-
-- (void)authorizeDownloadForPackage:(ZBPackage *)package completion:(void (^)(NSURL *downloadURL, NSError *error))completion {
-    ZBSource *source = [package source];
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    
-    NSDictionary *question = @{
-                    @"token": [keychain stringForKey:[source repositoryURI]] ?: @"none",
-                    @"udid": [ZBDevice UDID],
-                    @"device": [ZBDevice deviceModelID],
-                    @"version": package.version,
-                    @"repo": [source repositoryURI]
-    };
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
-    
-    NSURL *requestURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/authorize_download", [package identifier]]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:requestData];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        NSInteger statusCode = httpResponse.statusCode;
-        if (data && !error && statusCode == 200) {
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            if ([json valueForKey:@"url"]) {
-                NSURL *downloadURL = [NSURL URLWithString:json[@"url"]];
-                if (downloadURL && [[downloadURL scheme] isEqualToString:@"https"]) {
-                    completion(downloadURL, NULL);
-                }
-                else {
-                    NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Couldn't parse download URL for paid package"}];
-                    completion(NULL, badURL);
-                }
-            }
-            else {
-                NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Did not receive download URL for paid package"}];
-                completion(NULL, badURL);
-            }
-        }
-        else {
-            completion(nil, error ?: [ZBDownloadManager errorForHTTPStatusCode:statusCode forFile:nil]);
-        }
-    }];
-    
-    [task resume];
 }
 
 #pragma mark - Handling Downloaded Files

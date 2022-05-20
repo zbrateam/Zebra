@@ -7,7 +7,6 @@
 //
 
 #import "ZBStoresListTableViewController.h"
-#import "UICKeyChainStore.h"
 
 #import "ZBAppDelegate.h"
 #import "ZBDevice.h"
@@ -23,7 +22,6 @@
 
 @interface ZBStoresListTableViewController () {
     NSArray <ZBSource *> *sources;
-    UICKeyChainStore *keychain;
     NSString *callbackURI;
 }
 @end
@@ -32,8 +30,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES selector:@selector(localizedStandardCompare:)];
     sources = [[[ZBDatabaseManager sharedInstance] sourcesWithPaymentEndpoint] sortedArrayUsingDescriptors:@[descriptor]];

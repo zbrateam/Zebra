@@ -27,7 +27,6 @@
 
 @interface ZBSourceSectionsListTableViewController () {
     CGSize bannerSize;
-    UICKeyChainStore *keychain;
     ZBDatabaseManager *databaseManager;
     BOOL editOnly;
 }
@@ -71,9 +70,7 @@
     
     databaseManager = [ZBDatabaseManager sharedInstance];
     sectionReadout = [databaseManager sectionReadoutForSource:source];
-    sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    if (!editOnly) keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    
+    sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];    
     filteredSections = [[[ZBSettings filteredSources] objectForKey:[source baseFilename]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];
     

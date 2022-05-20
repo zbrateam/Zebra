@@ -11,7 +11,6 @@
 #import "ZBDevice.h"
 #import "ZBSettings.h"
 #import "ZBPackageDepictionViewController.h"
-#import "UICKeyChainStore.h"
 #import "ZBQueue.h"
 #import "ZBDatabaseManager.h"
 #import <SafariServices/SafariServices.h>
@@ -103,7 +102,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [self setPackage];
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    configuration.applicationNameForUserAgent = self._userAgent;
+    configuration.applicationNameForUserAgent = [ZBDevice webUserAgent];
     configuration.allowsInlineMediaPlayback = YES;
     if (@available(iOS 10, *)) {
         configuration.dataDetectorTypes = WKDataDetectorTypeLink;
@@ -148,21 +147,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     return [self.navigationController.viewControllers[0] isEqual:self];
 }
 
-- (NSString *)_userAgent {
-    return [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) %@", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion], self._themeName];
-}
-
-- (NSString *)_themeName {
-    switch ([ZBSettings interfaceStyle]) {
-    case ZBInterfaceStyleLight:
-        return @"Light";
-    case ZBInterfaceStyleDark:
-        return @"Dark";
-    case ZBInterfaceStylePureBlack:
-        return @"Pure-Black";
-    }
-}
-
 - (void)prepDepictionLoading:(NSURL *)url {
     webView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     webView.scrollView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
@@ -170,8 +154,8 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     // Set theme settings and user agent
     if (url && ([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"])) {
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-        [request setValue:self._themeName forHTTPHeaderField:@"Theme"];
-        [request setValue:[[UIDevice currentDevice] systemVersion] forHTTPHeaderField:@"X-Firmware"];
+        [request setValue:[ZBDevice themeName] forHTTPHeaderField:@"Theme"];
+        [request setValue:[UIDevice currentDevice].systemVersion forHTTPHeaderField:@"X-Firmware"];
         [request setValue:[ZBDevice machineID] forHTTPHeaderField:@"X-Machine"];
         [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
         [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];

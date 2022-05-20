@@ -727,39 +727,41 @@
 
 - (void)purchase:(BOOL)tryAgain completion:(void (^)(BOOL success, NSError *_Nullable error))completion {
     ZBSource *source = [self source];
+
+    void (^authenticate)(void) = ^{
+        // Should only run if we don't have a payment secret or if we aren't logged in.
+        [self.source.paymentVendor authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+            if (tryAgain && success && !error) {
+                [self purchase:NO completion:completion]; // Try again, but only try once
+            }
+            else if (!tryAgain) {
+                NSMutableDictionary <NSErrorUserInfoKey, id> *userInfo = [error.userInfo mutableCopy];
+                userInfo[NSLocalizedRecoverySuggestionErrorKey] = NSLocalizedString(@"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.", @"");
+                error = [NSError errorWithDomain:error.domain code:error.code userInfo:userInfo];
+                completion(NO, error);
+            }
+            else if (error.domain != ZBSafariAuthenticationErrorDomain || error.code != ZBSafariAuthenticationErrorCanceledLogin) {
+                completion(NO, error);
+            }
+        }];
+    };
     
     if ([self mightRequirePayment] && [source.paymentVendor isSignedIn]) { // Check if we have an access token
-        NSError *error;
-        NSString *secret = [source.paymentVendor paymentSecret:&error];
-
-        if (!error) {
-            [self.source.paymentVendor initiatePurchaseForPackage:self.identifier
-                                                    paymentSecret:secret
-                                                       completion:^(NSError * _Nullable error) {
-                completion(error == nil, error);
-            }];
-            return;
-        }
-        else if (error.code == errSecUserCanceled) {
-            return;
-        }
+        [source.paymentVendor getPaymentSecret:^(NSString * _Nullable secret, NSError * _Nullable error) {
+            if (!error) {
+                [self.source.paymentVendor initiatePurchaseForPackage:self.identifier
+                                                        paymentSecret:secret
+                                                           completion:^(NSError * _Nullable error) {
+                    completion(error == nil, error);
+                }];
+                return;
+            } else if (error.code != errSecUserCanceled) {
+                authenticate();
+            }
+        }];
+        return;
     }
-    
-    // Should only run if we don't have a payment secret or if we aren't logged in.
-    [self.source.paymentVendor authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
-        if (tryAgain && success && !error) {
-            [self purchase:NO completion:completion]; // Try again, but only try once
-        }
-        else if (!tryAgain) {
-            NSMutableDictionary <NSErrorUserInfoKey, id> *userInfo = [error.userInfo mutableCopy];
-            userInfo[NSLocalizedRecoverySuggestionErrorKey] = NSLocalizedString(@"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.", @"");
-            error = [NSError errorWithDomain:error.domain code:error.code userInfo:userInfo];
-            completion(NO, error);
-        }
-        else if (error.domain != ZBSafariAuthenticationErrorDomain || error.code != ZBSafariAuthenticationErrorCanceledLogin) {
-            completion(NO, error);
-        }
-    }];
+    authenticate();
 }
 
 @end

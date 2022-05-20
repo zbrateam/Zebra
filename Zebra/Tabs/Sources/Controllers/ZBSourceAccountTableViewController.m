@@ -6,7 +6,6 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "UICKeyChainStore.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
 #import "ZBSourceTableViewCell.h"
@@ -26,7 +25,6 @@
 
 @interface ZBSourceAccountTableViewController () {
     ZBDatabaseManager *databaseManager;
-    UICKeyChainStore *keychain;
     NSDictionary *accountInfo;
     NSArray <ZBPackage *> *purchases;
     NSString *userName;
@@ -55,8 +53,7 @@
     [super viewDidLoad];
     
     self->databaseManager = [ZBDatabaseManager sharedInstance];
-    self->keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    
+
     self.navigationItem.title = NSLocalizedString(@"My Account", @"");
     
     if (self.presentingViewController) {
