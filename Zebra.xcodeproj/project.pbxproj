@@ -477,8 +477,8 @@
 				36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */,
 				899229FB242815E90086E2F4 /* ZBSourceInfo.h */,
 				899229FC242815E90086E2F4 /* ZBSourceInfo.m */,
-				4E451A682834D3C600F6C282 /* ZBPaymentVendor.h */,
-				4E451A692834D3C600F6C282 /* ZBPaymentVendor.m */,
+				4E2E6BFB2820FBCF0089E4FB /* ZBPaymentVendorError.h */,
+				4E2E6BFC2820FBCF0089E4FB /* ZBPaymentVendorError.m */,
 			);
 			path = JSONParsing;
 			sourceTree = "<group>";
@@ -693,8 +693,8 @@
 				896F11BC21B231490017B581 /* ZBSourceManager.m */,
 				8958F28823C3C2CC00FB64D9 /* ZBSourceVerificationStatus.h */,
 				8958F28123C2ED5100FB64D9 /* ZBSourceVerificationDelegate.h */,
-				4E2E6BFB2820FBCF0089E4FB /* ZBPaymentVendorError.h */,
-				4E2E6BFC2820FBCF0089E4FB /* ZBPaymentVendorError.m */,
+				4E451A682834D3C600F6C282 /* ZBPaymentVendor.h */,
+				4E451A692834D3C600F6C282 /* ZBPaymentVendor.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
