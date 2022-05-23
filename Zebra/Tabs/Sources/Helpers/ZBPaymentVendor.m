@@ -266,17 +266,12 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
                                                        path:[NSString stringWithFormat:@"package/%@/info", packageID]
                                                        body:body];
     [[_urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        error = error ?: [self _errorWithBody:data response:response];
-        if (error) {
-            completion(nil, error);
-            return;
-        }
-
-        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
         if (attemptGET) {
             self.source.checkedSupportGETPackageInfo = YES;
         }
-        if (error || data == nil || httpReponse.statusCode >= 300) {
+
+        error = error ?: [self _errorWithBody:data response:response];
+        if (error || data == nil) {
             if (attemptGET) {
                 // Retry as POST.
                 self.source.supportsGETPackageInfo = NO;
