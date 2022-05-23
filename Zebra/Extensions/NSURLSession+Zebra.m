@@ -15,7 +15,7 @@
     static NSURLSession *session;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSURLSessionConfiguration *configuration = [[NSURLSessionConfiguration ephemeralSessionConfiguration] mutableCopy];
+        NSURLSessionConfiguration *configuration = [[NSURLSessionConfiguration ephemeralSessionConfiguration] copy];
         // Disable setting or storing cookies. Requests made via zbra_standardSession shouldn’t be
         // using cookies.
         configuration.HTTPCookieStorage = nil;
@@ -36,7 +36,7 @@
     static NSURLSession *session;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSURLSessionConfiguration *configuration = [[NSURLSessionConfiguration defaultSessionConfiguration] mutableCopy];
+        NSURLSessionConfiguration *configuration = [[NSURLSessionConfiguration defaultSessionConfiguration] copy];
         configuration.HTTPMaximumConnectionsPerHost = 8;
         configuration.HTTPAdditionalHeaders = @{
             @"User-Agent": [ZBDevice downloadUserAgent],

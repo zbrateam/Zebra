@@ -85,7 +85,7 @@
     self->ignore = !useCaching;
     [downloadDelegate startedDownloads];
     
-    NSURLSessionConfiguration *configuration = [[NSURLSession zbra_downloadSession].configuration mutableCopy];
+    NSURLSessionConfiguration *configuration = [[NSURLSession zbra_downloadSession].configuration copy];
     if (!configuration.HTTPAdditionalHeaders) {
         [self postStatusUpdate:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Could not determine device information.", @"")] atLevel:ZBLogLevelError];
         return;
