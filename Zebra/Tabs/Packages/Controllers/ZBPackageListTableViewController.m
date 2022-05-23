@@ -264,22 +264,6 @@
     UIPopoverPresentationController *popController = [controller popoverPresentationController];
     popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
     popController.barButtonItem = self.navigationItem.leftBarButtonItem;
-    
-    // access the completion handler
-    controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *error) {
-        // react to the completion
-        if (completed) {
-            // user shared an item
-            ZBLog(@"We used activity type %@", activityType);
-        } else {
-            // user cancelled
-            ZBLog(@"We didn't want to share anything after all.");
-        }
-        
-        if (error) {
-            ZBLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
-        }
-    };
 }
 
 - (void)upgradeAll {
