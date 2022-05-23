@@ -17,7 +17,7 @@ static UIFont *monospace, *monospaceBold;
         CGFloat size = 11.0;
         if (@available(iOS 13, *)) {
             monospace = [UIFont monospacedSystemFontOfSize:size weight:UIFontWeightRegular];
-            monospaceBold = [UIFont monospacedSystemFontOfSize:size weight:UIFontWeightBold];
+            monospaceBold = [UIFont monospacedSystemFontOfSize:size weight:UIFontWeightSemibold];
         } else {
             monospace = [UIFont fontWithName:@"Menlo-Regular" size:size];
             monospaceBold = [UIFont fontWithName:@"Menlo-Bold" size:size];
