@@ -86,7 +86,7 @@
                         }
                     }
                     else {
-                        self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
+                        self.descriptionLabel.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"An Error Occurred", @""), error.localizedDescription];
                     }
                     [self.activityIndicatorView stopAnimating];
                 });

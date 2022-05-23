@@ -95,14 +95,7 @@
                 UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
 
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    if (self.presentingViewController) {
-                        [self signOut:self];
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }
-                    else {
-                        [self signOut:self];
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
+                    [self signOut:self];
                 }];
                 [errorAlert addAction:okAction];
 
@@ -136,7 +129,14 @@
 
 - (void)signOut:(id)sender {
     [self.source.paymentVendor clearKeychainEntries];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
+
+    if (self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - Table view data source
@@ -238,17 +238,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 2) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-        [source.paymentVendor signOut];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
-
-        if (self.presentingViewController) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        else {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
+        [self signOut:self];
     }
     else if (indexPath.section == 1 && purchases.count && !loading) {
         [self performSegueWithIdentifier:@"seguePurchasesToPackageDepiction" sender:indexPath];
