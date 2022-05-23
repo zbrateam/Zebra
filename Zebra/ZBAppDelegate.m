@@ -455,7 +455,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 #pragma mark - Error Reporting
 
 - (void)_configureErrorReporting {
-#if !defined(DEBUG) && defined(SENTRY_DSN)
+#if !DEBUG
+#ifdef SENTRY_DSN
     static SentryEvent *eventPendingReport = nil;
     [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
         options.dsn = SENTRY_DSN;
@@ -486,6 +487,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [SentrySDK captureEvent:eventPendingReport];
         eventPendingReport = nil;
     }
+#else
+#error SENTRY_DSN required for release build but is currently not set.
+#endif
 #endif
 }
 
