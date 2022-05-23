@@ -22,6 +22,7 @@
 #import "ZBColumn.h"
 #import "ZBQueue.h"
 #import "ZBProxyPackage.h"
+#import "NSURLSession+Zebra.h"
 
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;
@@ -315,7 +316,7 @@
                     if ([source.repositoryURI hasPrefix:@"https"]) {
                         NSURL *url = [NSURL URLWithString:[source.repositoryURI stringByAppendingPathComponent:@"payment_endpoint"]];
 
-                        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                        NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                             NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                             endpoint = [endpoint stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

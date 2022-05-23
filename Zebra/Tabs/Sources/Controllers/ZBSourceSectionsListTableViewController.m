@@ -22,6 +22,7 @@
 #import "ZBPaymentVendor.h"
 #import "UIBarButtonItem+blocks.h"
 #import "UIImageView+Zebra.h"
+#import "NSURLSession+Zebra.h"
 
 @import SDWebImage;
 
@@ -203,8 +204,7 @@
     [self.tableView layoutIfNeeded];
     if (!source.checkedSupportFeaturedPackages || source.supportsFeaturedPackages) {
         NSURL *requestURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [[[NSURLSession zbra_standardSession] dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
             self->source.checkedSupportFeaturedPackages = YES;
             if (data == nil || httpResponse.statusCode >= 300) {

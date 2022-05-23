@@ -18,6 +18,7 @@
 #import "ZBPurchaseInfo.h"
 #import "ZBPaymentVendorError.h"
 #import "ZBTokenManager.h"
+#import "NSURLSession+Zebra.h"
 @import LocalAuthentication;
 
 NSErrorDomain const ZBPaymentVendorErrorDomain = @"ZBPaymentVendorErrorDomain";
@@ -36,7 +37,7 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
     if (self) {
         _repositoryURI = [repositoryURI copy];
         _paymentVendorURL = [paymentVendorURL copy];
-        _urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+        _urlSession = [NSURLSession zbra_standardSession];
     }
     return self;
 }
@@ -57,7 +58,6 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
 - (NSMutableURLRequest *)_requestWithMethod:(NSString *)method path:(NSString *)path body:(nullable NSDictionary *)body {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[_paymentVendorURL URLByAppendingPathComponent:path]];
     request.HTTPMethod = method;
-    [request setValue:[ZBDevice userAgent] forHTTPHeaderField:@"User-Agent"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     if (![method isEqualToString:@"GET"] && body) {
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -148,7 +148,7 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
     }
 
     NSMutableArray *queryItems = [[components queryItems] mutableCopy] ?: [NSMutableArray array];
-    [queryItems arrayByAddingObjectsFromArray:@[
+    [queryItems addObjectsFromArray:@[
         [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]],
         [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]]
     ]];

@@ -18,6 +18,7 @@
 #import "ZBThemeManager.h"
 #import "ZBAppDelegate.h"
 #import "ZBHomeCopyableFooterView.h"
+#import "NSURLSession+Zebra.h"
 
 typedef enum ZBHomeOrder : NSUInteger {
     ZBWelcome,
@@ -146,34 +147,33 @@ typedef enum ZBInfoOrder : NSUInteger {
             dispatch_group_enter(group);
             NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:source.repositoryURI]];
             NSURL *checkingURL = requestURL;
-            NSURLSession *session = [NSURLSession sharedSession];
-            [[session dataTaskWithURL:checkingURL
-                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                        source.checkedSupportFeaturedPackages = YES;
-                        if (data == nil || httpResponse.statusCode >= 300) {
-                            source.supportsFeaturedPackages = NO;
-                            dispatch_group_leave(group);
-                            return;
-                        }
+            [[[NSURLSession zbra_standardSession] dataTaskWithURL:checkingURL
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                source.checkedSupportFeaturedPackages = YES;
+                if (data == nil || httpResponse.statusCode >= 300) {
+                    source.supportsFeaturedPackages = NO;
+                    dispatch_group_leave(group);
+                    return;
+                }
 
-                        NSError *jsonError;
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
-                        if (jsonError) {
-                            source.supportsFeaturedPackages = NO;
-                            dispatch_group_leave(group);
-                            return;
-                        }
-                        source.supportsFeaturedPackages = YES;
+                NSError *jsonError;
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
+                if (jsonError) {
+                    source.supportsFeaturedPackages = NO;
+                    dispatch_group_leave(group);
+                    return;
+                }
+                source.supportsFeaturedPackages = YES;
 
-                        if ([json objectForKey:@"banners"]) {
-                            NSArray *banners = [json objectForKey:@"banners"];
-                            if (banners.count) {
-                                [featuredItems setObject:banners forKey:[source baseFilename]];
-                            }
-                        }
-                        dispatch_group_leave(group);
-                    }] resume];
+                if ([json objectForKey:@"banners"]) {
+                    NSArray *banners = [json objectForKey:@"banners"];
+                    if (banners.count) {
+                        [featuredItems setObject:banners forKey:[source baseFilename]];
+                    }
+                }
+                dispatch_group_leave(group);
+            }] resume];
         }
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{

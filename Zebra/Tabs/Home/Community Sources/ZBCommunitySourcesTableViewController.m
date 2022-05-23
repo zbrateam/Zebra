@@ -17,6 +17,7 @@
 #import "ZBSourceTableViewCell.h"
 #import "ZBSource.h"
 #import "ZBSourceImportTableViewController.h"
+#import "NSURLSession+Zebra.h"
 
 @interface ZBCommunitySourcesTableViewController () {
     NSArray <NSDictionary *> *communitySourceCache;
@@ -216,8 +217,8 @@
 - (void)fetchCommunitySources {
     communitySourceCache = [NSMutableArray new];
     
-    NSURL *url = [NSURL URLWithString:@"https://getzbra.com/api/sources.json"];
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURL *url = [NSURL URLWithString:@"https://api.getzbra.com/sources.json"];
+    NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSMutableArray *sources = [NSMutableArray new];
         if (data && !error) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];

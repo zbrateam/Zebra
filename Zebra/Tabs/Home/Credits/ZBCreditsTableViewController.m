@@ -10,6 +10,7 @@
 #import "UIColor+GlobalColors.h"
 #import "ZBDevice.h"
 #import "ZBSettings.h"
+#import "NSURLSession+Zebra.h"
 
 @interface ZBCreditsTableViewController ()
 
@@ -44,9 +45,9 @@
 - (void)fetchCredits {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:@"https://getzbra.com/api/credits.json"]];
+    [request setURL:[NSURL URLWithString:@"https://api.getzbra.com/credits.json"]];
 
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data && !error) {
             self->credits = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"sections"];
         }

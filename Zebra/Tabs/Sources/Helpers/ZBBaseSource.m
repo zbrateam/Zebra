@@ -12,6 +12,7 @@
 #import "ZBDownloadManager.h"
 #import "ZBSourceManager.h"
 #import "ZBAppDelegate.h"
+#import "NSURLSession+Zebra.h"
 
 @implementation ZBBaseSource
 
@@ -253,16 +254,14 @@
     completion(ZBSourceVerifying);
     
     __block int tasks = 5;
-    
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSession zbra_downloadSession].configuration];
 
     for (NSString *extension in @[@"xz", @"bz2", @"gz", @"lzma", @""]) {
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[packagesDirectoryURL URLByAppendingPathComponent:@"Packages"] URLByAppendingPathExtension:extension] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
         [request setHTTPMethod:@"HEAD"];
 
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSURLSessionDataTask *task = [[NSURLSession zbra_downloadSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
             if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
                 [session invalidateAndCancel];
@@ -286,14 +285,10 @@
 
 - (void)getLabel:(void (^)(NSString *label))completion {
     if (![label isEqualToString:repositoryURI]) completion(label);
-    
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+
     NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    
-    NSURLSessionDataTask *releaseTask = [session dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+
+    NSURLSessionDataTask *releaseTask = [[NSURLSession zbra_downloadSession] dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSString *releaseFile = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
         __block NSString *label = NULL;

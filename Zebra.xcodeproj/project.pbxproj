@@ -50,6 +50,7 @@
 		4E451A6A2834D3C600F6C282 /* ZBPaymentVendor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E451A692834D3C600F6C282 /* ZBPaymentVendor.m */; };
 		4E451A6D2837402900F6C282 /* ZBTokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E451A6C2837402900F6C282 /* ZBTokenManager.m */; };
 		4E5F8274274FAFE40074A0BC /* NSObject+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */; };
+		4E873D4F2838C7F600737732 /* NSURLSession+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E873D4E2838C7F600737732 /* NSURLSession+Zebra.m */; };
 		4E9FC84C278EA57100934FFE /* ZBChangelogEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC84B278EA57100934FFE /* ZBChangelogEntryCell.m */; };
 		4EA26E9727CBA3190019A5AA /* ZBHomeCopyableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26E9627CBA3190019A5AA /* ZBHomeCopyableFooterView.m */; };
 		4EC7F26927AE34E00078F953 /* ZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F26827AE34E00078F953 /* ZBCommand.m */; };
@@ -203,6 +204,8 @@
 		4E451A6C2837402900F6C282 /* ZBTokenManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTokenManager.m; sourceTree = "<group>"; };
 		4E5F8272274FAFE40074A0BC /* NSObject+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Zebra.h"; sourceTree = "<group>"; };
 		4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Zebra.m"; sourceTree = "<group>"; };
+		4E873D4D2838C7F600737732 /* NSURLSession+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+Zebra.h"; sourceTree = "<group>"; };
+		4E873D4E2838C7F600737732 /* NSURLSession+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+Zebra.m"; sourceTree = "<group>"; };
 		4E9FC846278E675500934FFE /* ZBLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLog.h; sourceTree = "<group>"; };
 		4E9FC84A278EA57100934FFE /* ZBChangelogEntryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBChangelogEntryCell.h; sourceTree = "<group>"; };
 		4E9FC84B278EA57100934FFE /* ZBChangelogEntryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangelogEntryCell.m; sourceTree = "<group>"; };
@@ -793,6 +796,8 @@
 				A5122E6824641D3E0059E434 /* ZBTableViewController.m */,
 				4E5F8272274FAFE40074A0BC /* NSObject+Zebra.h */,
 				4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */,
+				4E873D4D2838C7F600737732 /* NSURLSession+Zebra.h */,
+				4E873D4E2838C7F600737732 /* NSURLSession+Zebra.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1205,6 +1210,7 @@
 				4910B3A82426BD5C00306C5C /* ZBSourcesAccountBanner.m in Sources */,
 				8916AC2323CAAECC008BA02C /* ZBChangelogTableViewController.m in Sources */,
 				369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */,
+				4E873D4F2838C7F600737732 /* NSURLSession+Zebra.m in Sources */,
 				367D80F522C3D1CF00581D60 /* ZBSettingsTableViewController.m in Sources */,
 				9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */,
 				8916AC1623CA947C008BA02C /* ZBRightIconTableViewCell.m in Sources */,

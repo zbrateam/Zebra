@@ -13,6 +13,7 @@
 #import "ZBSettings.h"
 #import "UIColor+GlobalColors.h"
 #import "ZBChangelogEntryCell.h"
+#import "NSURLSession+Zebra.h"
 
 @interface ZBChangelogTableViewController ()
 
@@ -57,7 +58,7 @@
     [request setURL:[NSURL URLWithString:@"https://api.github.com/repos/zbrateam/Zebra/releases"]];
     [request setValue:@"application/vnd.github.v3.html" forHTTPHeaderField:@"Accept"];
     
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data && !error) {
             NSMutableArray *allReleases = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
             NSRange r1 = [PACKAGE_VERSION rangeOfString:@"~"];

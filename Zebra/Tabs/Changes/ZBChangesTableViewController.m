@@ -20,6 +20,7 @@
 #import "ZBPackageTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 #import "UIColor+GlobalColors.h"
+#import "NSURLSession+Zebra.h"
 
 @import SDWebImage;
 
@@ -99,7 +100,7 @@
         [self.redditPosts removeAllObjects];
         NSMutableURLRequest *request = [NSMutableURLRequest new];
         [request setURL:[NSURL URLWithString:@"https://api.getzbra.com/reddit-news/new.json"]];
-        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        [[[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (data) {
                 NSError *err = nil;
                 ZBRedditPosts *redditPosts = [ZBRedditPosts fromData:data error:&err];

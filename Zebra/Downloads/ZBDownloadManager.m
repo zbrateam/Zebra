@@ -17,6 +17,7 @@
 #import "ZBSource.h"
 #import "ZBSourceManager.h"
 #import "ZBPaymentVendor.h"
+#import "NSURLSession+Zebra.h"
 
 #import <bzlib.h>
 #import <zlib.h>
@@ -39,11 +40,8 @@
 #pragma mark - Initializers
 
 + (NSDictionary *)headers {
-    NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *udid = [ZBDevice UDID];
-    NSString *machineIdentifier = [ZBDevice machineID];
-    
-    return @{@"X-Cydia-ID" : udid, @"User-Agent" : [ZBDevice downloadUserAgent], @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+    //For tweak compatibility...ugh...Going to remove in 1.2 betas
+    return [NSURLSession zbra_downloadSession].configuration.HTTPAdditionalHeaders;
 }
 
 + (NSError *)errorForHTTPStatusCode:(NSUInteger)statusCode forFile:(nullable NSString *)file {
@@ -57,7 +55,7 @@
 
 - (NSDictionary *)headers {
     //For tweak compatibility...ugh...Going to remove in 1.2 betas
-    return [[self class] headers];
+    return [NSURLSession zbra_downloadSession].configuration.HTTPAdditionalHeaders;
 }
 
 - (id)init {
@@ -87,16 +85,13 @@
     self->ignore = !useCaching;
     [downloadDelegate startedDownloads];
     
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    NSDictionary *headers = [ZBDownloadManager headers];
-    if (headers == NULL) {
+    NSURLSessionConfiguration *configuration = [[NSURLSession zbra_downloadSession].configuration mutableCopy];
+    if (!configuration.HTTPAdditionalHeaders) {
         [self postStatusUpdate:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Could not determine device information.", @"")] atLevel:ZBLogLevelError];
         return;
     }
-    configuration.HTTPAdditionalHeaders = headers;
     configuration.timeoutIntervalForRequest = [ZBSettings sourceRefreshTimeout];
-    
+
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBBaseSource *source in sources) {
         NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
@@ -125,7 +120,7 @@
     }
     
     NSURLSessionTask *packagesTask = [session downloadTaskWithRequest:packagesRequest];
-    
+
     source.packagesTaskIdentifier = packagesTask.taskIdentifier;
     [sourceTasksMap setObject:source forKey:@(packagesTask.taskIdentifier)];
     [packagesTask resume];
@@ -139,13 +134,8 @@
 
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages {
     [downloadDelegate startedDownloads];
-    
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
-//    configuration.timeoutIntervalForRequest = 30;
-//    configuration.timeoutIntervalForResource = 1;
-    
-    session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+
+    session = [NSURLSession sessionWithConfiguration:[NSURLSession zbra_downloadSession].configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
         ZBSource *source = [package source];
         NSString *filename = [package filename];
