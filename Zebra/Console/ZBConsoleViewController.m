@@ -757,7 +757,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     }
     totalProgress /= downloadMap.count;
     [self updateProgress:totalProgress];
-    [self updateProgressText:[NSString stringWithFormat: @"%@: %.1f%% ", NSLocalizedString(@"Downloading", @""), totalProgress * 100]];
+    [self updateProgressText:[NSString stringWithFormat: @"%@: %.0f%% ", NSLocalizedString(@"Downloading", @""), totalProgress * 100]];
 }
 
 - (void)finishedPackageDownload:(ZBPackage *)package withError:(NSError *_Nullable)error {

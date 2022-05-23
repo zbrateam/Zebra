@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@（已安装大小：%@）";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "%d字节";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "%d KB";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f KB";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f MB";
-
 "Add to Wish List" = "加入心愿单";
 "Remove from Wish List" = "从心愿单中移除";
 

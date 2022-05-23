@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Instalētais lielums: %@)";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "%d baiti";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "%d KB";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f KB";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f MB";
-
 "Add to Wish List" = "Pievienot vēlmju sarakstam";
 "Remove from Wish List" = "Noņemt no vēlmju sarakstam";
 

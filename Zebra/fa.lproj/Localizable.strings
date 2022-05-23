@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (حجم بعد از نصب: %@)";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "%d بایت";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "%d کیلوبایت";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f کیلوبایت";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f مگابایت";
-
 "Add to Wish List" = "اضافه  کردن به خرید های آینده";
 "Remove from Wish List" = "حذف از خرید های آینده";
 

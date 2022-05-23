@@ -27,7 +27,7 @@ NSErrorDomain const ZBTokenManagerErrorDomain = @"ZBTokenManagerErrorDomain";
 }
 
 + (NSError *)_errorForOSStatus:(OSStatus)status {
-    NSString *description = [NSString stringWithFormat:@"Error %i", status];
+    NSString *description = [NSString stringWithFormat:@"Error %i", (int)status];
     if (@available(iOS 11.3, *)) {
         description = (NSString *)CFBridgingRelease(SecCopyErrorMessageString(status, nil));
     }

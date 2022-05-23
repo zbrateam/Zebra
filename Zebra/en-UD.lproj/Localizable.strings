@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "(%@ :ǝzıS pǝןןɐʇsuI) %@";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "sǝʇʎq %d";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "qʞ %d";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "qʞ %.2f";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "qW %.2f";
-
 "Add to Wish List" = "ʇsı˥ ɥsıM oʇ pp∀";
 "Remove from Wish List" = "ʇsı˥ ɥsıM ɯoɹɟ ǝʌoɯǝᴚ";
 

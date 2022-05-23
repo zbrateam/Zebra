@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (स्थापित आकार:%@)";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "%d बाइट्स";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "%d KB";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f KB";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f MB";
-
 "Add to Wish List" = "इच्छा सूचि में डालें";
 "Remove from Wish List" = "विश लिस्ट से निकालें";
 

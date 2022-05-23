@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Aktuel Størrelse: %@)";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "%d KB";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f KB";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f MB";
-
 "Add to Wish List" = "Tilføj til Ønskelisten";
 "Remove from Wish List" = "Fjern fra Ønskelisten";
 

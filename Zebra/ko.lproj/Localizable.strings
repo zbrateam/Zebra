@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (설치된 크기: %@)";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "%d 바이트";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "%d KB";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f KB";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f MB";
-
 "Add to Wish List" = "위시 리스트에 추가";
 "Remove from Wish List" = "위시 리스트에서 제거";
 

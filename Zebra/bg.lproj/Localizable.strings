@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Инсталирана големина: %@)";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "%d байта";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "%d КБ";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f КБ";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f МБ";
-
 "Add to Wish List" = "Добави към списък с желания";
 "Remove from Wish List" = "Премахване от списъка с желания";
 

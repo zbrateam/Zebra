@@ -15,6 +15,7 @@
 #import "ZBDatabaseManager.h"
 #import "ZBDevice.h"
 #import "ZBStage.h"
+#import "ZBUtils.h"
 
 @interface ZBQueue ()
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, NSMutableArray <ZBPackage *> *> *managedQueue;
@@ -540,16 +541,7 @@
         totalDownloadSize += [package downloadSize];
     }
     if (totalDownloadSize > 0) {
-        NSString *unit = @"bytes";
-        if (totalDownloadSize > 1024 * 1024) {
-            totalDownloadSize /= 1024 * 1024;
-            unit = @"MB";
-        }
-        else if (totalDownloadSize > 1024) {
-            totalDownloadSize /= 1024;
-            unit = @"KB";
-        }
-        return [NSString stringWithFormat:@"%.2f %@", totalDownloadSize, unit];
+        return [NSByteCountFormatter stringFromByteCount:totalDownloadSize countStyle:NSByteCountFormatterCountStyleFile];
     }
     
     return NULL;

@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (الحجم المثبت: %@)";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "%d بايت";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "%d ك.ب.";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f ك.ب.";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f م.ب.";
-
 "Add to Wish List" = "إضافة إلى قائمة الأمنيات";
 "Remove from Wish List" = "إزالة من قائمة الأمنيات";
 

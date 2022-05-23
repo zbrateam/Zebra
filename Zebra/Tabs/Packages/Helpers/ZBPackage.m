@@ -494,24 +494,13 @@
 }
 
 - (NSString *)downloadSizeString {
-    if (downloadSize <= 0) return NULL;
-    double size = (double)downloadSize;
-    if (size > 1024 * 1024) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024 / 1024];
-    }
-    if (size > 1024) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.2f KB", @""), size / 1024];
-    }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), downloadSize];
+    if (downloadSize <= 0) return nil;
+    return [NSByteCountFormatter stringFromByteCount:downloadSize countStyle:NSByteCountFormatterCountStyleFile];
 }
 
 - (NSString *)installedSizeString {
-    if (installedSize <= 0) return NULL;
-    double size = (double)installedSize;
-    if (size > 1024) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];
-    }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), installedSize];
+    if (installedSize <= 0) return nil;
+    return [NSByteCountFormatter stringFromByteCount:installedSize * 1024 countStyle:NSByteCountFormatterCountStyleFile];
 }
 
 - (BOOL)isInstalled:(BOOL)strict {

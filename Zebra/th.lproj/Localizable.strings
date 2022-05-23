@@ -224,15 +224,6 @@
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (ขนาดเมื่อติดตั้ง: %@)";
 
-//Package size in bytes (no deceimal)
-"%d bytes" = "%d ไบต์";
-//Package size in Kilobytes (no decimal)
-"%d KB" = "%d กิโลไบต์";
-//Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f กิโลไบต์";
-//Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f เมกะไบต์";
-
 "Add to Wish List" = "เพิ่มในรายการอยากได้";
 "Remove from Wish List" = "ลบจากรายการอยากได้";
 
