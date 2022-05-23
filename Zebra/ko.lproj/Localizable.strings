@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "다운로드 URL을 찾을 수 없습니다: ";
 "Authorizing Download for %@" = "%@(을)를 인증하여 다운로드 중..";
 "Couldn't authorize download for %@." = "%@(을)를 인증하여 다운로드하지 못했습니다.";
-"Reason: %@." = "이유: %@";
+"Reason: %@" = "이유: %@";
 "Could not download Release file from %@. Reason: %@" = "%@에서 Release 파일을 다운로드할 수 없습니다. 이유: %@";
 "Could not download Packages file from %@. Reason: %@" = "%@에서 Packages 파일을 다운로드할 수 없습니다.\n이유: %@";
 "Could not download one or more files from %@. Reason: %@" = "%@에서 한개 또는 그 이상의 파일을 다운로드할 수 없습니다.\n이유: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "로컬 패키지 가져오기 완료.";
 "One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
-"Could not complete %@ process. Reason: %@." = "%@ 작업을 완료할 수 없습니다. 이유: %@";
+"Could not complete %@ process. Reason: %@" = "%@ 작업을 완료할 수 없습니다. 이유: %@";
 "Done…" = "완료…";
 "Done %@" = "%@ 완료";
 "Removing Zebra…" = "Zebra 제거중…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling이 uid 또는 gid를 설정할 권한이 없습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
 
-"Error while creating documents directory: %@." = "문서 디렉토리를 만들던 도중 오류가 발생했습니다: %@";
+"Error while creating documents directory: %@" = "문서 디렉토리를 만들던 도중 오류가 발생했습니다: %@";
 
-"Error while creating lists directory: %@." = "소스 정보를 보관할 디렉토리를 만들던 도중 오류가 발생했습니다: %@";
+"Error while creating lists directory: %@" = "소스 정보를 보관할 디렉토리를 만들던 도중 오류가 발생했습니다: %@";
 
-"Error while creating sources.list: %@." = "sources.list를 만들던 도중 오류가 발생했습니다: %@";
+"Error while creating sources.list: %@" = "sources.list를 만들던 도중 오류가 발생했습니다: %@";
 
-"Error while creating debs directory: %@." = "debs 디렉토리를 만들던 도중 오류가 발생하였습니다: %@";
+"Error while creating debs directory: %@" = "debs 디렉토리를 만들던 도중 오류가 발생하였습니다: %@";
 
 "Could not respring. Please respring manually." = "리스프링할 수 없습니다. 수동으로 리스프링해주세요.";
 

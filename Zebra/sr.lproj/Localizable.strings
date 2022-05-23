@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
 "Authorizing Download for %@" = "Autorizovano skidanje za %@";
 "Couldn't authorize download for %@." = "Nije moguće autorizovati skidanje za %@.";
-"Reason: %@." = "Razlog: %@.";
+"Reason: %@" = "Razlog: %@";
 "Could not download Release file from %@. Reason: %@" = "Nije moguće skinuti Paket sa %@. Razlog: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nije moguće skinuti Paket sa %@. Razlog: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nije moguće skinuti jedan ili više Paketa sa %@. Razlog: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Završeno importovanje lokalnih paketa.";
 "One or more packages failed to download." = "Jedan ili više paketa nisu preuzeti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
-"Could not complete %@ process. Reason: %@." = "Nemoguće završiti %@ proces. Razlog: %@.";
+"Could not complete %@ process. Reason: %@" = "Nemoguće završiti %@ proces. Razlog: %@";
 "Done…" = "Uradjeno…";
 "Done %@" = "Urađeno %@";
 "Removing Zebra…" = "Uklanjam Zerbu…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ne pripada korisniku root: wheel. Please verify Molimo vas proverite ovlašćenja nad fajlovima u folderu /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Greška prilikom kreiranja direktorijuma: %@.";
+"Error while creating documents directory: %@" = "Greška prilikom kreiranja direktorijuma: %@";
 
-"Error while creating lists directory: %@." = "Greška prilikom kreiranja direktorijuma liste: %@.";
+"Error while creating lists directory: %@" = "Greška prilikom kreiranja direktorijuma liste: %@";
 
-"Error while creating sources.list: %@." = "Greška prilikom kreiranja sources.list: %@.";
+"Error while creating sources.list: %@" = "Greška prilikom kreiranja sources.list: %@";
 
-"Error while creating debs directory: %@." = "Greška prilikom kreiranja debs direktorijuma: %@.";
+"Error while creating debs directory: %@" = "Greška prilikom kreiranja debs direktorijuma: %@";
 
 "Could not respring. Please respring manually." = "Ne može se respringovati. Molimo vas probajte manuelno.";
 

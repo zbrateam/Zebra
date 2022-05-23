@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Neaptiktas atsisiuntimo adresas";
 "Authorizing Download for %@" = "Autorizuojamas atsiuntimas %@";
 "Couldn't authorize download for %@." = "Nepavyko autorizuoti atsiuntimo %@.";
-"Reason: %@." = "Priežastis: %@.";
+"Reason: %@" = "Priežastis: %@";
 "Could not download Release file from %@. Reason: %@" = "Nepavyko atsiųsti 'Release' failo iš %@. Priežastis: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nepavyko atsiųsti paketų failo iš %@. Priežastis: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nepavyko atsiųsti vieno ar kelių failų iš %@. Priežastis: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Pabaigta importuoti vietinius paketus.";
 "One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
-"Could not complete %@ process. Reason: %@." = "Nepavyko užbaigti %@ proceso. Priežastis: %@.";
+"Could not complete %@ process. Reason: %@" = "Nepavyko užbaigti %@ proceso. Priežastis: %@";
 "Done…" = "Atlikta…";
 "Done %@" = "Atlikta %@";
 "Removing Zebra…" = "Šalinama Zebra…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling neturi leidimų nustatyti uid ar gid. Prašome patikrinti leidimus failo, kuris randasi /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Įvyko klaida kuriant dokumentų direktoriją: %@.";
+"Error while creating documents directory: %@" = "Įvyko klaida kuriant dokumentų direktoriją: %@";
 
-"Error while creating lists directory: %@." = "Įvyko klaida kuriant direktorijų sąrašą: %@.";
+"Error while creating lists directory: %@" = "Įvyko klaida kuriant direktorijų sąrašą: %@";
 
-"Error while creating sources.list: %@." = "Įvyko klaida kuriant sources.list: %@.";
+"Error while creating sources.list: %@" = "Įvyko klaida kuriant sources.list: %@";
 
-"Error while creating debs directory: %@." = "Įvyko klaida kuriant 'debs' direktoriją: %@.";
+"Error while creating debs directory: %@" = "Įvyko klaida kuriant 'debs' direktoriją: %@";
 
 "Could not respring. Please respring manually." = "Nepavyko padaryti respring. Prašome padaryti respring, rankiniu būdu.";
 

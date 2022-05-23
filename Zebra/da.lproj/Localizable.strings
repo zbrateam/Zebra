@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Kunne ikke finde et overførsels webadresse til";
 "Authorizing Download for %@" = "Authorizing Download for %@";
 "Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
+"Reason: %@" = "Reason: %@";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Færdiggjorde importen af lokale pakker.";
 "One or more packages failed to download." = "En eller flere pakker fejlede at overfører.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Gå tilbage til Køen\" for at gå tilbage til køen og prøve at gennemføre overførslen.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Could not complete %@ process. Reason: %@" = "Could not complete %@ process. Reason: %@";
 "Done…" = "Færdig…";
 "Done %@" = "Færdig %@";
 "Removing Zebra…" = "Fjerner Zebra…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har ikke tilladelse til at ændre uid eller gid. Tjek venligst rettighederne af filen placeret ved /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@" = "Error while creating documents directory: %@";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@" = "Error while creating lists directory: %@";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@" = "Error while creating sources.list: %@";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@" = "Error while creating debs directory: %@";
 
 "Could not respring. Please respring manually." = "Kunne ikke udføre respring. Respring manuelt.";
 

@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Nu s-a putut găsi un URL de descărcare pentru";
 "Authorizing Download for %@" = "Autorizarea descărcării pentru %@";
 "Couldn't authorize download for %@." = "Nu s-a putut autoriza descărcarea pentru %@.";
-"Reason: %@." = "Motiv: %@.";
+"Reason: %@" = "Motiv: %@";
 "Could not download Release file from %@. Reason: %@" = "Nu s-a putut descărca fișierul de lansare de la %@. Motiv: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nu s-a putut descărca fișierul Packages de la %@. Motiv: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nu s-au putut descărca unul sau mai multe fișiere de la %@. Motiv: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Se termină importul pachetelor locale.";
 "One or more packages failed to download." = "Unul sau mai multe pachete nu s-au descarcat.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Faceți clic pe \"Revenire la coadă\" pentru a reveni la coadă și reîncercați descărcarea.";
-"Could not complete %@ process. Reason: %@." = "Imposibil de terminat procesul %@. Motivul: %@.";
+"Could not complete %@ process. Reason: %@" = "Imposibil de terminat procesul %@. Motivul: %@";
 "Done…" = "Gata…";
 "Done %@" = "Terminat %@";
 "Removing Zebra…" = "Se îndepărteaza Zebra…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nu are permisiuni sa seteze uid sau gid. Te rog verifica permisiunile pentru fisierul localizat la /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@" = "Error while creating documents directory: %@";
 
-"Error while creating lists directory: %@." = "Eroare la crearea directorului de liste: %@.";
+"Error while creating lists directory: %@" = "Eroare la crearea directorului de liste: %@";
 
-"Error while creating sources.list: %@." = "Eroare la crearea sources.list: %@.";
+"Error while creating sources.list: %@" = "Eroare la crearea sources.list: %@";
 
-"Error while creating debs directory: %@." = "Eroare la crearea directorului debs: %@.";
+"Error while creating debs directory: %@" = "Eroare la crearea directorului debs: %@";
 
 "Could not respring. Please respring manually." = "Nu am putut sa facem respring. Te rog sa faci respring manual.";
 

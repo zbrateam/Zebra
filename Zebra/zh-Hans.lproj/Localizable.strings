@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "无法获取下载链接";
 "Authorizing Download for %@" = "正在获取下载 %@ 的授权";
 "Couldn't authorize download for %@." = "无法获取下载 %@ 的授权";
-"Reason: %@." = "原因：%@";
+"Reason: %@" = "原因：%@";
 "Could not download Release file from %@. Reason: %@" = "无法从 %@ 下载软件源信息。原因：%@";
 "Could not download Packages file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
 "Could not download one or more files from %@. Reason: %@" = "无法从 %@ 下载一个或多个文件。原因： %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "导入本地软件包完成";
 "One or more packages failed to download." = "一个或多个软件包下载失败";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载";
-"Could not complete %@ process. Reason: %@." = "无法完成 %@。原因：%@";
+"Could not complete %@ process. Reason: %@" = "无法完成 %@。原因：%@";
 "Done…" = "完成……";
 "Done %@" = "%@ 已完成";
 "Removing Zebra…" = "正在移除 Zebra ……";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限，请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
-"Error while creating documents directory: %@." = "创建文档目录时出错：%@";
+"Error while creating documents directory: %@" = "创建文档目录时出错：%@";
 
-"Error while creating lists directory: %@." = "创建列表目录时出错：%@";
+"Error while creating lists directory: %@" = "创建列表目录时出错：%@";
 
-"Error while creating sources.list: %@." = "创建 sources.list 时出错：%@";
+"Error while creating sources.list: %@" = "创建 sources.list 时出错：%@";
 
-"Error while creating debs directory: %@." = "创建 debs 目录时出错：%@";
+"Error while creating debs directory: %@" = "创建 debs 目录时出错：%@";
 
 "Could not respring. Please respring manually." = "自动 Respring 失败，请手动 Respring 。";
 

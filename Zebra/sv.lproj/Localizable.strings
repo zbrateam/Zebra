@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
 "Authorizing Download for %@" = "Auktoriserar nedladdning för %@";
 "Couldn't authorize download for %@." = "Kunde inte auktorisera nedladdning för %@.";
-"Reason: %@." = "Anledning: %@.";
+"Reason: %@" = "Anledning: %@";
 "Could not download Release file from %@. Reason: %@" = "Kunde inte ladda ner filen Release från %@. Anledning: %@";
 "Could not download Packages file from %@. Reason: %@" = "Kunde inte ladda ner filen Packages från %@. Anledning: %@";
 "Could not download one or more files from %@. Reason: %@" = "Kunde inte ladda ner en eller flera filer från %@. Anledning: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Importerade lokala paket.";
 "One or more packages failed to download." = "Ett eller flera paket kunde inte laddas ner.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
-"Could not complete %@ process. Reason: %@." = "Kunde inte slutföra processen %@. Anledning: %@.";
+"Could not complete %@ process. Reason: %@" = "Kunde inte slutföra processen %@. Anledning: %@";
 "Done…" = "Klar…";
 "Done %@" = "Klar %@";
 "Removing Zebra…" = "Tar bort Zebra…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har inte behörighet att ställa in uid eller gid. Verifiera behörigheterna för filen på /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Fel när dokumentkatalogen skulle skapas: %@.";
+"Error while creating documents directory: %@" = "Fel när dokumentkatalogen skulle skapas: %@";
 
-"Error while creating lists directory: %@." = "Fel när katalogen lists skulle skapas: %@.";
+"Error while creating lists directory: %@" = "Fel när katalogen lists skulle skapas: %@";
 
-"Error while creating sources.list: %@." = "Fel när sources.list skulle skapas: %@.";
+"Error while creating sources.list: %@" = "Fel när sources.list skulle skapas: %@";
 
-"Error while creating debs directory: %@." = "Fel när katalogen debs skulle skapas: %@.";
+"Error while creating debs directory: %@" = "Fel när katalogen debs skulle skapas: %@";
 
 "Could not respring. Please respring manually." = "Kunde inte starta om SpringBoard. Vänligen gör det manuellt.";
 

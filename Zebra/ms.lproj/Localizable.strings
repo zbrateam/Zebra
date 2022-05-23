@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Tidak dapat mencari URL muat turun untuk";
 "Authorizing Download for %@" = "Mengizinkan Muat turun untuk %@";
 "Couldn't authorize download for %@." = "Tidak dapat membenarkan muat turun untuk %@.";
-"Reason: %@." = "Sebab: %@.";
+"Reason: %@" = "Sebab: %@";
 "Could not download Release file from %@. Reason: %@" = "Tidak dapat memuat turun Fail pelepasan dari %@. Sebab: %@";
 "Could not download Packages file from %@. Reason: %@" = "Tidak dapat memuat turun Fail pakej dari %@. Sebab: %@";
 "Could not download one or more files from %@. Reason: %@" = "Tidak dapat memuat turun satu atau lebih fail dari %@. Sebab: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Selesai mengimport pakej tempatan.";
 "One or more packages failed to download." = "Satu atau lebih pakej gagal dimuat turun.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Kembali ke Turutan\" untuk kembali ke Turutan dan cuba muat turun semula.";
-"Could not complete %@ process. Reason: %@." = "Tidak dapat menyelesaikan proses %@. Sebab: %@.";
+"Could not complete %@ process. Reason: %@" = "Tidak dapat menyelesaikan proses %@. Sebab: %@";
 "Done…" = "Selesai…";
 "Done %@" = "Done %@";
 "Removing Zebra…" = "Mengeluarkan Zebra…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling tidak mempunyai kebenaran untuk menetapkan uid atau gid. Sila sahkan kebenaran fail yang terdapat di /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Ralat semasa membuat direktori dokumen: %@.";
+"Error while creating documents directory: %@" = "Ralat semasa membuat direktori dokumen: %@";
 
-"Error while creating lists directory: %@." = "Ralat semasa membuat direktori senarai: %@.";
+"Error while creating lists directory: %@" = "Ralat semasa membuat direktori senarai: %@";
 
-"Error while creating sources.list: %@." = "Ralat semasa membuat source.list: %@.";
+"Error while creating sources.list: %@" = "Ralat semasa membuat source.list: %@";
 
-"Error while creating debs directory: %@." = "Ralat semasa membuat direktori debs: %@.";
+"Error while creating debs directory: %@" = "Ralat semasa membuat direktori debs: %@";
 
 "Could not respring. Please respring manually." = "Tidak dapat respring. Sila respring secara manual.";
 

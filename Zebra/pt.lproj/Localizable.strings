@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Não foi possível encontrar um URL de download para";
 "Authorizing Download for %@" = "A autorizar descarga para %@";
 "Couldn't authorize download for %@." = "Não foi possível autorizar o download de %@.";
-"Reason: %@." = "Motivo: %@.";
+"Reason: %@" = "Motivo: %@";
 "Could not download Release file from %@. Reason: %@" = "Não foi possível descarregar o arquivo do lançamento do %@. Motivo: %@";
 "Could not download Packages file from %@. Reason: %@" = "Não foi possível descarregar o arquivo de pacotes de %@. Motivo: %@";
 "Could not download one or more files from %@. Reason: %@" = "Não foi possível descarregar um ou mais arquivos do %@. Motivo: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Importação de pacotes locais terminado.";
 "One or more packages failed to download." = "Um ou mais pacotes falharam o download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clica \"Voltar à Fila\" para voltar a Fila e tentar novamente.";
-"Could not complete %@ process. Reason: %@." = "Não foi possível completar o processo %@. Motivo: %@.";
+"Could not complete %@ process. Reason: %@" = "Não foi possível completar o processo %@. Motivo: %@";
 "Done…" = "Concluído…";
 "Done %@" = "Concluído %@";
 "Removing Zebra…" = "Removendo Zebra…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling não tem permissão para definir o uid ou gid. Por favor, verifique as permissões do arquivo localizado em /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Erro ao criar o diretório de documentos: %@.";
+"Error while creating documents directory: %@" = "Erro ao criar o diretório de documentos: %@";
 
-"Error while creating lists directory: %@." = "Erro ao criar o diretório das listas: %@.";
+"Error while creating lists directory: %@" = "Erro ao criar o diretório das listas: %@";
 
-"Error while creating sources.list: %@." = "Erro ao criar sources.list: %@.";
+"Error while creating sources.list: %@" = "Erro ao criar sources.list: %@";
 
-"Error while creating debs directory: %@." = "Erro ao criar diretório de debs: %@.";
+"Error while creating debs directory: %@" = "Erro ao criar diretório de debs: %@";
 
 "Could not respring. Please respring manually." = "O \"respring\" não foi possível. Por favor, faça-o manualmente.";
 

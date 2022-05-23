@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
 "Authorizing Download for %@" = "กำลังยืนยันการดาวน์โหลด %@";
 "Couldn't authorize download for %@." = "ไม่สามารถยืนยันการดาวน์โหลด %@ ได้";
-"Reason: %@." = "สาเหตุ: %@";
+"Reason: %@" = "สาเหตุ: %@";
 "Could not download Release file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Release จาก %@ ได้ สาเหตุ: %@";
 "Could not download Packages file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Packages จาก %@ ได้ สาเหตุ: %@";
 "Could not download one or more files from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์อย่างน้อยหนึ่ง จาก %@ ได้ สาเหตุ: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "เสร็จสิ้นการนำเข้าโปรแกรมจากในเครื่อง";
 "One or more packages failed to download." = "โปรแกรมหนึ่งตัวหรือมากกว่าไม่สามารถดาวน์โหลดมาได้";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
-"Could not complete %@ process. Reason: %@." = "ไม่สามารถทำขั้นตอน %@ ให้เสร็จ สาเหตุ: %@";
+"Could not complete %@ process. Reason: %@" = "ไม่สามารถทำขั้นตอน %@ ให้เสร็จ สาเหตุ: %@";
 "Done…" = "เสร็จสิ้น…";
 "Done %@" = "เสร็จสิ้น %@";
 "Removing Zebra…" = "ถอนการติดตั้ง Zebra…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ยังไม่มีสิทธิ์ในการกำหนดค่า uid or gid กรุณาตรวจสอบให้แน่ใจว่าสิทธ์การเข้าถึงของไฟล์ดังกล่าวที่อยู่ใน /usr/libexec/zebra/supersling นั้นถูกต้อง";
 
-"Error while creating documents directory: %@." = "เกิดข้อผิดพลาดขณะเปิดที่อยู่ข้อมูลของโปรแกรม: %@";
+"Error while creating documents directory: %@" = "เกิดข้อผิดพลาดขณะเปิดที่อยู่ข้อมูลของโปรแกรม: %@";
 
-"Error while creating lists directory: %@." = "เกิดข้อผิดพลาดขณะการสร้างที่อยู่: %@";
+"Error while creating lists directory: %@" = "เกิดข้อผิดพลาดขณะการสร้างที่อยู่: %@";
 
-"Error while creating sources.list: %@." = "เกิดข้อผิดพลาดในการเปิดไฟล์ sources.list: %@";
+"Error while creating sources.list: %@" = "เกิดข้อผิดพลาดในการเปิดไฟล์ sources.list: %@";
 
-"Error while creating debs directory: %@." = "เกิดข้อผิดพลาดขณะการสร้างที่อยู่ไฟล์ deb: %@";
+"Error while creating debs directory: %@" = "เกิดข้อผิดพลาดขณะการสร้างที่อยู่ไฟล์ deb: %@";
 
 "Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวเอง";
 

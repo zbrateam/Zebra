@@ -321,7 +321,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     command.useFinishFd = YES;
     int status = [command execute];
     if (status < 0) {
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], [NSString stringWithUTF8String:strerror(status)]];
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@", @""), [ZBDevice packageManagementBinary], [NSString stringWithUTF8String:strerror(status)]];
 
         NSLog(@"[Zebra] %@", message);
         [self writeToConsole:message atLevel:ZBLogLevelError];

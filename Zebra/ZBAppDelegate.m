@@ -72,8 +72,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating documents directory: %@.", @""), error.localizedDescription]];
-            NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating documents directory: %@", @""), error.localizedDescription]];
+            NSLog(@"[Zebra] Error while creating documents directory: %@", error.localizedDescription);
         }
     }
     
@@ -94,8 +94,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating lists directory: %@.", @""), error.localizedDescription]];
-            NSLog(@"[Zebra] Error while creating lists directory: %@.", error.localizedDescription);
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating lists directory: %@", @""), error.localizedDescription]];
+            NSLog(@"[Zebra] Error while creating lists directory: %@", error.localizedDescription);
         }
     }
     return lists;
@@ -113,8 +113,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating sources.list: %@.", @""), error.localizedDescription]];
-            NSLog(@"[Zebra] Error while creating sources.list: %@.", error.localizedDescription);
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating sources.list: %@", @""), error.localizedDescription]];
+            NSLog(@"[Zebra] Error while creating sources.list: %@", error.localizedDescription);
         }
     }
     return lists;
@@ -134,8 +134,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating debs directory: %@.", @""), error.localizedDescription]];
-            NSLog(@"[Zebra] Error while creating debs directory: %@.", error.localizedDescription);
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating debs directory: %@", @""), error.localizedDescription]];
+            NSLog(@"[Zebra] Error while creating debs directory: %@", error.localizedDescription);
         }
     }
     return debs;
@@ -195,25 +195,18 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 
     setenv("PATH", [ZBDevice path].UTF8String, 1);
 
-    NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
-    NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
-
     [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
     
-    if (@available(iOS 10.0, *)) {
-        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    if (@available(iOS 10, *)) {
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionBadge
+                                                                            completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (error) {
-                NSLog(@"[Zebra] Error: %@", error.localizedDescription);
-            } else if (!granted) {
-                NSLog(@"[Zebra] Authorization was not granted.");
-            } else {
-                NSLog(@"[Zebra] Notification access granted.");
+                NSLog(@"[Zebra] Failed to register for notifications: %@", error);
             }
         }];
     } else {
-        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil]];            
-        }
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge
+                                                                                        categories:nil]];
     }
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
@@ -243,10 +236,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
     }
     
-    if (@available(iOS 11.0, *)) {
+    if (@available(iOS 11, *)) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
-    }
-    else {
+    } else {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenDidConnectNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenDidDisconnectNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenModeDidChangeNotification object:nil];

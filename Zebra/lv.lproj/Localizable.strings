@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
 "Authorizing Download for %@" = "Autorizējam lejupielādi no %@";
 "Couldn't authorize download for %@." = "Nevarējam autorizēt lejuplādi no %@.";
-"Reason: %@." = "Iemesls: %@.";
+"Reason: %@" = "Iemesls: %@";
 "Could not download Release file from %@. Reason: %@" = "Nevarēja lejupielādēt Pelease failu no %@. Iemesls: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nevarēja lejupielādēt Pakešu failu no %@. Iemesls: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nevarēja lejupielādēt vienu vai vairāk failu no %@. Iemesls: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Pabeidza importēt vietējās paketes.";
 "One or more packages failed to download." = "Neizdevās lejupielādēt vienu vai vairāk paketes.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
-"Could not complete %@ process. Reason: %@." = "Nevarēja pabeigt procesu %@. Iemesls: %@.";
+"Could not complete %@ process. Reason: %@" = "Nevarēja pabeigt procesu %@. Iemesls: %@";
 "Done…" = "Gatavs…";
 "Done %@" = "Pabeidza %@";
 "Removing Zebra…" = "Atinstalē zebra…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nav atļaujas iestatīt uid vai gid. Lūdzu, pārbaudiet faila atļaujas, kuras atrodas mapē /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Kļūda izveidojot dokumentu direktoriju: %@.";
+"Error while creating documents directory: %@" = "Kļūda izveidojot dokumentu direktoriju: %@";
 
-"Error while creating lists directory: %@." = "Kļūda izveidojot listu direktoriju: %@.";
+"Error while creating lists directory: %@" = "Kļūda izveidojot listu direktoriju: %@";
 
-"Error while creating sources.list: %@." = "Ķlūda veidojot sources.list: %@.";
+"Error while creating sources.list: %@" = "Ķlūda veidojot sources.list: %@";
 
-"Error while creating debs directory: %@." = "Kļūda izveidojot debu direktoriju: %@.";
+"Error while creating debs directory: %@" = "Kļūda izveidojot debu direktoriju: %@";
 
 "Could not respring. Please respring manually." = "Nevarēja respringot. Lūdzu, respringo manuāli.";
 

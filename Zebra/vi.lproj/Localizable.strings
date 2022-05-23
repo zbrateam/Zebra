@@ -177,7 +177,7 @@
 "Could not find a download URL for" = "Không thể tìm thấy URL tải xuống cho";
 "Authorizing Download for %@" = "Ủy quyền tải xuống cho %@";
 "Couldn't authorize download for %@." = "Không thể ủy quyền tải xuống cho %@.";
-"Reason: %@." = "Lí do: %@.";
+"Reason: %@" = "Lí do: %@";
 "Could not download Release file from %@. Reason: %@" = "Không thể tải danh sách gói từ %@. Lí do: %@";
 "Could not download Packages file from %@. Reason: %@" = "Không thể tải gói từ %@. Lý do: %@";
 "Could not download one or more files from %@. Reason: %@" = "Không thể tải một hoặc nhiều file từ %@. Lí do: %@";
@@ -317,7 +317,7 @@
 "Finished importing local packages." = "Hoàn tất thêm các gói cục bộ.";
 "One or more packages failed to download." = "Một hoặc nhiều gói không thể tải xuống.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng chờ\" để trở về hàng chờ và thử tải lại.";
-"Could not complete %@ process. Reason: %@." = "Không thể hoàn tất quá trình %@. Lí do: %@.";
+"Could not complete %@ process. Reason: %@" = "Không thể hoàn tất quá trình %@. Lí do: %@";
 "Done…" = "Xong…";
 "Done %@" = "Xong %@";
 "Removing Zebra…" = "Đang xoá Zebra…";
@@ -372,13 +372,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"su/sling\" không được phép đặt uid hoặc gid. Vui lòng xác minh các quyền của tệp nằm ở \"/usr/libexec/zebra/supersling\".";
 
-"Error while creating documents directory: %@." = "Lỗi khi tạo thư mục tài liệu: %@.";
+"Error while creating documents directory: %@" = "Lỗi khi tạo thư mục tài liệu: %@";
 
-"Error while creating lists directory: %@." = "Lỗi khi tạo danh sách thư mục: %@.";
+"Error while creating lists directory: %@" = "Lỗi khi tạo danh sách thư mục: %@";
 
-"Error while creating sources.list: %@." = "Lỗi khi tạo sources.list: %@.";
+"Error while creating sources.list: %@" = "Lỗi khi tạo sources.list: %@";
 
-"Error while creating debs directory: %@." = "Lỗi khi tạo thư mục debs: %@.";
+"Error while creating debs directory: %@" = "Lỗi khi tạo thư mục debs: %@";
 
 "Could not respring. Please respring manually." = "Không thể khởi động lại SpringBoard. Vui lòng khởi động lại thủ công.";
 

@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Could not find a download URL for";
 "Authorizing Download for %@" = "Authorizing Download for %@";
 "Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Причина: %@.";
+"Reason: %@" = "Причина: %@";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Край на импортирането на локални пакети.";
 "One or more packages failed to download." = "Един или повече пакети не можаха да бъдат изтеглени.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Натисни \"Връщане към опашка\", за да се върнеш към опашката ида направиш повторен опит за изтегляне.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Could not complete %@ process. Reason: %@" = "Could not complete %@ process. Reason: %@";
 "Done…" = "Завършено…";
 "Done %@" = "Завършено %@";
 "Removing Zebra…" = "Премахване на Zebra…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@" = "Error while creating documents directory: %@";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@" = "Error while creating lists directory: %@";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@" = "Error while creating sources.list: %@";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@" = "Error while creating debs directory: %@";
 
 "Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 

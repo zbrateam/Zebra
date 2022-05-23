@@ -177,7 +177,7 @@
                 }
                 else {
                     [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Couldn't authorize download for %@.", @""), package.name] atLevel:ZBLogLevelError];
-                    [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Reason: %@.", @""), error.localizedDescription] atLevel:ZBLogLevelError];
+                    [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Reason: %@", @""), error.localizedDescription] atLevel:ZBLogLevelError];
                 }
             }];
         } else {

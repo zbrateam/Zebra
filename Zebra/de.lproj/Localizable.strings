@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Konnte keine Download-URL finden für";
 "Authorizing Download for %@" = "Download für %@ wird autorisiert";
 "Couldn't authorize download for %@." = "Download für %@ konnte nicht autorisiert werden.";
-"Reason: %@." = "Grund: %@";
+"Reason: %@" = "Grund: %@";
 "Could not download Release file from %@. Reason: %@" = "Die Release-Datei von %@ konnte nicht herunterladen werden. Grund: %@";
 "Could not download Packages file from %@. Reason: %@" = "Die Packages Datei von %@ konnte nicht herunterladen werden. Grund: %@";
 "Could not download one or more files from %@. Reason: %@" = "Eine oder mehrere Dateien von %@ konnten nicht heruntergeladen werden. Grund: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Lokale Pakete wurden erfolgreich importiert.";
 "One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \"Zurück zur Warteschlange\", um zur Warteschlange zurückzukehren und versuche es erneut.";
-"Could not complete %@ process. Reason: %@." = "Prozess %@ konnte nicht abgeschlossen werden. Grund: %@.";
+"Could not complete %@ process. Reason: %@" = "Prozess %@ konnte nicht abgeschlossen werden. Grund: %@";
 "Done…" = "Fertigstellen…";
 "Done %@" = "%@ ist abgeschlossen";
 "Removing Zebra…" = "Zebra wird entfernt …";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling verfügt nicht über die Berechtigung, die „uid” oder „gid” festzulegen. Bitte überprüfen Sie die Berechtigungen der Datei unter /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Fehler beim Erstellen des Dokumentenverzeichnis: %@.";
+"Error while creating documents directory: %@" = "Fehler beim Erstellen des Dokumentenverzeichnis: %@";
 
-"Error while creating lists directory: %@." = "Fehler beim Erstellen des lists Verzeichnisses: %@.";
+"Error while creating lists directory: %@" = "Fehler beim Erstellen des lists Verzeichnisses: %@";
 
-"Error while creating sources.list: %@." = "Fehler beim Erstellen der sources.list Datei: %@.";
+"Error while creating sources.list: %@" = "Fehler beim Erstellen der sources.list Datei: %@";
 
-"Error while creating debs directory: %@." = "Fehler beim Erstellen des Debs-Verzeichnisses: %@.";
+"Error while creating debs directory: %@" = "Fehler beim Erstellen des Debs-Verzeichnisses: %@";
 
 "Could not respring. Please respring manually." = "SpringBoard konnte nicht neugestartet werden. Bitte versuche den Neustart manuell durchzuführen.";
 

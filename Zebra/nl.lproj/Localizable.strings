@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "Kan geen download link vinden voor";
 "Authorizing Download for %@" = "Download autoriseren voor %@";
 "Couldn't authorize download for %@." = "Kan downloaden van %@ niet toestaan.";
-"Reason: %@." = "Reden: %@.";
+"Reason: %@" = "Reden: %@";
 "Could not download Release file from %@. Reason: %@" = "Het pakkettenbestand %@ kan niet worden gedownload. Reden: %@";
 "Could not download Packages file from %@. Reason: %@" = "Het pakkettenbestand %@ kan niet worden gedownload. Reden: %@";
 "Could not download one or more files from %@. Reason: %@" = "Een of meerdere bestanden kon niet worden gedownload van %@. Reden: %@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
-"Could not complete %@ process. Reason: %@." = "Kon het %@ proces niet voltooien. Reden: %@.";
+"Could not complete %@ process. Reason: %@" = "Kon het %@ proces niet voltooien. Reden: %@";
 "Done…" = "Voltooid…";
 "Done %@" = "Voltooid %@";
 "Removing Zebra…" = "Zebra wordt verwijdert…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling heeft geen toestemming om de uid of gid in te stellen. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Fout bij het aanmaken van de documentenmap: %@.";
+"Error while creating documents directory: %@" = "Fout bij het aanmaken van de documentenmap: %@";
 
-"Error while creating lists directory: %@." = "Fout bij het aanmaken van de lijsten map: %@.";
+"Error while creating lists directory: %@" = "Fout bij het aanmaken van de lijsten map: %@";
 
-"Error while creating sources.list: %@." = "Er is een fout opgetreden tijdens het aanmaken van sources.list: %@.";
+"Error while creating sources.list: %@" = "Er is een fout opgetreden tijdens het aanmaken van sources.list: %@";
 
-"Error while creating debs directory: %@." = "Fout bij het aanmaken van de debs map: %@.";
+"Error while creating debs directory: %@" = "Fout bij het aanmaken van de debs map: %@";
 
 "Could not respring. Please respring manually." = "Kon systeem niet herladen. Laad systeem handmatig opnieuw.";
 

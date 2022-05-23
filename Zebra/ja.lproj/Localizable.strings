@@ -176,7 +176,7 @@
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
 "Authorizing Download for %@" = "%@ のダウンロードを承認しています";
 "Couldn't authorize download for %@." = "%@ のダウンロードを承認できませんでした。";
-"Reason: %@." = "理由: %@";
+"Reason: %@" = "理由: %@";
 "Could not download Release file from %@. Reason: %@" = "リリースファイルを %@ からダウンロードできませんでした。理由：%@";
 "Could not download Packages file from %@. Reason: %@" = "パッケージファイルを%@からダウンロードできませんでした。理由：%@";
 "Could not download one or more files from %@. Reason: %@" = "一つ以上のファイルを%@からダウンロードできませんでした。理由：%@";
@@ -316,7 +316,7 @@
 "Finished importing local packages." = "ローカルパッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
-"Could not complete %@ process. Reason: %@." = "%@ を完了できませんでした。 理由：%@";
+"Could not complete %@ process. Reason: %@" = "%@ を完了できませんでした。 理由：%@";
 "Done…" = "完了…";
 "Done %@" = "%@ のダウンロードを完了";
 "Removing Zebra…" = "Zebra を削除しています…";
@@ -371,13 +371,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
 
-"Error while creating documents directory: %@." = "ドキュメントディレクトリの作成中にエラーが発生しました：%@";
+"Error while creating documents directory: %@" = "ドキュメントディレクトリの作成中にエラーが発生しました：%@";
 
-"Error while creating lists directory: %@." = "リストディレクトリの作成中にエラーが発生しました：%@";
+"Error while creating lists directory: %@" = "リストディレクトリの作成中にエラーが発生しました：%@";
 
-"Error while creating sources.list: %@." = "sources.list の作成中にエラーが発生しました：%@";
+"Error while creating sources.list: %@" = "sources.list の作成中にエラーが発生しました：%@";
 
-"Error while creating debs directory: %@." = "debs ディレクトリの作成中にエラーが発生しました：%@";
+"Error while creating debs directory: %@" = "debs ディレクトリの作成中にエラーが発生しました：%@";
 
 "Could not respring. Please respring manually." = "リスプリング できませんでした。 手動で リスプリング してください。";
 
