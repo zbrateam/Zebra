@@ -27,6 +27,7 @@ jobs:
       env:
         THEOS: theos
       run: |
+        echo "$ZEBRAKEYS_PRIVATE_H" > Zebra/ZebraKeys.private.h
         gmake package FINALPACKAGE=1
         echo "::set-output name=package::$(basename $(cat .theos/last_package))"
 
