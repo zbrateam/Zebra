@@ -586,6 +586,17 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+#if DEBUG
+    NSURLRequest *request = task.currentRequest;
+    NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+    NSDictionary *prefixes = @{
+        @200: @"🆗",
+        @304: @"👍",
+        @404: @"🤷‍♀️"
+    };
+    NSLog(@"[DownloadManager] %@ %@ %@ → %li %@", prefixes[@(response.statusCode)] ?: @"❌", request.HTTPMethod, request.URL, response.statusCode, error ?: @"");
+#endif
+
     NSNumber *taskIdentifier = @(task.taskIdentifier);
     if (error && error.code != NSURLErrorCancelled) {
         ZBPackage *package = packageTasksMap[taskIdentifier];
