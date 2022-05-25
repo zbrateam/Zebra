@@ -10,6 +10,8 @@ import UIKit
 
 class HomeViewController: ListCollectionViewController {
 
+	private var progressBar: UIProgressView!
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -21,6 +23,17 @@ class HomeViewController: ListCollectionViewController {
 		refreshControl.addTarget(nil, action: #selector(RootViewController.refreshSources), for: .valueChanged)
 		collectionView.refreshControl = refreshControl
 #endif
+
+		// TODO: Remove
+		progressBar = UIProgressView(progressViewStyle: .default)
+		progressBar.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(progressBar)
+
+		NSLayoutConstraint.activate([
+			progressBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			progressBar.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+			progressBar.widthAnchor.constraint(equalToConstant: 300)
+		])
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +52,7 @@ class HomeViewController: ListCollectionViewController {
 	@objc private func refreshProgressDidChange() {
 		DispatchQueue.main.async {
 			self.collectionView.reloadData()
-			self.title = "\(String.localize("Home")) \(Int(SourceRefreshController.shared.progress * 100))%"
+			self.progressBar.progress = Float(SourceRefreshController.shared.progress.fractionCompleted)
 		}
 	}
 

@@ -78,7 +78,7 @@
         @"text": @"Help translate Zebra!",
         @"type": @(ZBPreferencesCellTypeDisclosure),
         @"action": @"showCrowdIn",
-        @"icon": [UIImage imageNamed:@"Translations"]
+//        @"icon": [UIImage imageNamed:@"Translations"]
     }]];
     
     return specifiers;

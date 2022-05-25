@@ -85,7 +85,7 @@
             @"text": @"",//TODO: [UIColor localizedNameForAccentColor:color],
             @"type": @(ZBPreferencesCellTypeSelection),
             @"action": @"selectAccentColor:",
-            @"icon": images[color]
+//            @"icon": images[color]
         }];
     }
     [specifiers addObject:colors];

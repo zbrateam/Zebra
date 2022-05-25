@@ -40,6 +40,9 @@ class PlainsController {
 			try FileManager.default.createDirectory(at: url,
 																							withIntermediateDirectories: true,
 																							attributes: [:])
+			// TODO: Set 0700 mode when parent dir is owned by current user
+//																								.posixPermissions: 0700
+//																							])
 		}
 
 		// Set up simulated environment if needed
@@ -145,7 +148,7 @@ class PlainsController {
 			"Debug::RunScripts"
 		]
 		for key in debugKeys {
-			config.set(boolean: true, forKey: key)
+//			config.set(boolean: true, forKey: key)
 		}
 		#endif
 

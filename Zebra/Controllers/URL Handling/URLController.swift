@@ -118,16 +118,27 @@ class URLController: NSObject {
 
 	// Headers used specifically by APT.
 	@objc static let aptHeaders: [String: String] = {
-		var headers = httpHeaders
-		let device = UIDevice.current
+#if targetEnvironment(macCatalyst)
+		let headers = httpHeaders
+#else
 		// Legacy Cydia headers (iOS compatibility)
-		#if !targetEnvironment(macCatalyst)
-		headers += [
+		let device = UIDevice.current
+		let headers = httpHeaders + [
 			"X-Firmware": device.osVersion,
 			"X-Machine": device.machine
 		]
-		#endif
+#endif
 		return headers + lowEntropyClientHints + highEntropyClientHints
+	}()
+
+	// Headers for repos that need legacy compatibility.
+	static let legacyAPTHeaders: [String: String] = {
+		let device = UIDevice.current
+		return [
+			"User-Agent": "Telesphoreo (Zebra) APT-HTTP/1.0.592",
+			"X-Firmware": device.osVersion,
+			"X-Machine": device.machine
+		]
 	}()
 
 	// MARK: - UI

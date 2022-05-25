@@ -9,26 +9,33 @@
 import Foundation
 import UniformTypeIdentifiers
 
+private extension NSItemProvider {
+	func hasRepresentationConforming(toAnyType types: [UTType]) -> Bool {
+		return types.contains { hasRepresentationConforming(toTypeIdentifier: $0.identifier) }
+	}
+}
+
 class FileImportController {
 
-	static let supportedTypes: [String] = [kUTTypeDebArchive, kUTTypeSourcesList, kUTTypeSourcesFile]
+	static let supportedTypes: [UTType] = [.debArchive, .sourcesList, .sourcesFile]
+	static let packageTypes: [UTType] = [.debArchive]
+	static let sourcesTypes: [UTType] = [.sourcesList, .sourcesFile]
 
 	class func isSupportedType(itemProvider: NSItemProvider) -> Bool {
-		return supportedTypes.contains { type in itemProvider.hasRepresentationConforming(toTypeIdentifier: type) }
+		return supportedTypes.contains { type in itemProvider.hasRepresentationConforming(toTypeIdentifier: type.identifier) }
 	}
 
 	class func handleFile(itemProvider: NSItemProvider, filename: String?) async throws {
-		if itemProvider.hasRepresentationConforming(toTypeIdentifier: kUTTypeDebArchive) {
+		if itemProvider.hasRepresentationConforming(toAnyType: packageTypes) {
 			try await handleDebFile(itemProvider: itemProvider, filename: filename)
-		} else if itemProvider.hasRepresentationConforming(toTypeIdentifier: kUTTypeSourcesList)
-								|| itemProvider.hasRepresentationConforming(toTypeIdentifier: kUTTypeSourcesFile) {
+		} else if itemProvider.hasRepresentationConforming(toAnyType: sourcesTypes) {
 			try await handleSourcesFile(itemProvider: itemProvider)
 		}
 	}
 
 	private class func handleDebFile(itemProvider: NSItemProvider, filename: String?) async throws {
 		let url = try await withCheckedThrowingContinuation { (result: CheckedContinuation<URL, Error>) in
-			itemProvider.loadInPlaceFileRepresentation(forTypeIdentifier: kUTTypeDebArchive) { url, isInPlace, error in
+			itemProvider.loadInPlaceFileRepresentation(forTypeIdentifier: UTType.debArchive.identifier) { url, isInPlace, error in
 				if let error = error {
 					result.resume(throwing: error)
 					return
@@ -71,8 +78,8 @@ class FileImportController {
 
 	private class func handleSourcesFile(itemProvider: NSItemProvider) async throws {
 		let data = try await withCheckedThrowingContinuation { (result: CheckedContinuation<Data, Error>) in
-			let type = [kUTTypeSourcesList, kUTTypeSourcesFile].first(where: { type in itemProvider.hasRepresentationConforming(toTypeIdentifier: type) })!
-			itemProvider.loadDataRepresentation(forTypeIdentifier: type) { data, error in
+			let type = sourcesTypes.first(where: { type in itemProvider.hasRepresentationConforming(toTypeIdentifier: type.identifier) })!
+			itemProvider.loadDataRepresentation(forTypeIdentifier: type.identifier) { data, error in
 				if let error = error {
 					result.resume(throwing: error)
 					return

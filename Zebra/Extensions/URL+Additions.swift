@@ -10,7 +10,7 @@ import Foundation
 
 extension URL {
 	static func / (lhs: URL, rhs: String) -> URL {
-		lhs.appendingPathComponent(rhs)
+		rhs == ".." ? lhs.deletingLastPathComponent() : lhs.appendingPathComponent(rhs)
 	}
 }
 

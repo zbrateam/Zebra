@@ -13,6 +13,8 @@ class ListCollectionViewController: UICollectionViewController {
 	init() {
 		let layout = UICollectionViewFlowLayout()
 		layout.itemSize = CGSize(width: 320, height: 57)
+//		layout.estimatedItemSize = CGSize(width: 320,
+//																			height: UICollectionViewFlowLayout.automaticSize.height)
 		layout.minimumInteritemSpacing = 0
 		layout.minimumLineSpacing = 0
 		layout.sectionHeadersPinToVisibleBounds = true
@@ -45,9 +47,18 @@ class ListCollectionViewController: UICollectionViewController {
 														withReuseIdentifier: "Footer")
 	}
 
-	override func viewWillTransition(to _: CGSize, with _: UIViewControllerTransitionCoordinator) {
+	override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+		super.willTransition(to: newCollection, with: coordinator)
 		collectionViewLayout.invalidateLayout()
 	}
+
+//	override func viewWillLayoutSubviews() {
+//		super.viewWillLayoutSubviews()
+//
+//		let layout = collectionViewLayout as! UICollectionViewFlowLayout
+//		layout.itemSize.width = collectionView.frame.size.width
+//		layout.estimatedItemSize.width = collectionView.frame.size.width
+//	}
 }
 
 extension ListCollectionViewController: UICollectionViewDelegateFlowLayout { // UICollectionViewDataSource, UICollectionViewDelegate

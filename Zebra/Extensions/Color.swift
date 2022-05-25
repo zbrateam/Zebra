@@ -26,19 +26,19 @@ enum AccentColor: Int, CaseIterable {
 
 	var name: String {
 		switch self {
-		case .aquaVelvet:     return "Aqua Velvet"
-		case .cornflowerBlue: return "Cornflower Blue"
-		case .emeraldCity:    return "Emerald City"
-		case .goldenTainoi:   return "Golden Tainoi"
-		case .irisBlue:       return "Iris Blue"
-		case .lotusPink:      return "Lotus Pink"
-		case .monochrome:     return "Monochrome"
-		case .mountainMeadow: return "Mountain Meadow"
-		case .pastelRed:      return "Pastel Red"
-		case .purpleHeart:    return "Purple Heart"
-		case .royalBlue:      return "Royal Blue"
-		case .shark:          return "Shark"
-		case .storm:          return "Storm"
+		case .aquaVelvet:     return .localize("Aqua Velvet")
+		case .cornflowerBlue: return .localize("Cornflower Blue")
+		case .emeraldCity:    return .localize("Emerald City")
+		case .goldenTainoi:   return .localize("Golden Tainoi")
+		case .irisBlue:       return .localize("Iris Blue")
+		case .lotusPink:      return .localize("Lotus Pink")
+		case .monochrome:     return .localize("Monochrome")
+		case .mountainMeadow: return .localize("Mountain Meadow")
+		case .pastelRed:      return .localize("Pastel Red")
+		case .purpleHeart:    return .localize("Purple Heart")
+		case .royalBlue:      return .localize("Royal Blue")
+		case .shark:          return .localize("Shark")
+		case .storm:          return .localize("Storm")
 		}
 	}
 

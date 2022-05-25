@@ -181,7 +181,7 @@ class RootViewController: RootViewControllerSuperclass {
 	// MARK: - File Menu
 
 	@IBAction func openPackage() {
-		showOpenPicker(types: [kUTTypeDebArchive])
+		showOpenPicker(types: FileImportController.packageTypes)
 	}
 
 	// MARK: - View Menu
@@ -198,7 +198,7 @@ class RootViewController: RootViewControllerSuperclass {
 	// MARK: - Sources Menu
 
 	@IBAction func importSources() {
-		showOpenPicker(types: [kUTTypeSourcesList, kUTTypeSourcesFile])
+		showOpenPicker(types: FileImportController.sourcesTypes)
 	}
 
 	@IBAction func exportSources() {
@@ -222,25 +222,14 @@ class RootViewController: RootViewControllerSuperclass {
 
 	// MARK: - Files
 
-	private func showOpenPicker(types: [String]) {
-		let viewController: UIDocumentPickerViewController
-		if #available(iOS 14, *) {
-			let actualTypes = types.map { item in UTType(item)! }
-			viewController = UIDocumentPickerViewController(forOpeningContentTypes: actualTypes, asCopy: false)
-		} else {
-			viewController = UIDocumentPickerViewController(documentTypes: types, in: .moveToService)
-		}
+	private func showOpenPicker(types: [UTType]) {
+		let viewController = UIDocumentPickerViewController(forOpeningContentTypes: types, asCopy: false)
 		viewController.delegate = self
 		present(viewController, animated: true, completion: nil)
 	}
 
 	private func showSavePicker(url: URL) {
-		let viewController: UIDocumentPickerViewController
-		if #available(iOS 14, *) {
-			viewController = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
-		} else {
-			viewController = UIDocumentPickerViewController(urls: [url], in: .exportToService)
-		}
+		let viewController = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
 		present(viewController, animated: true, completion: nil)
 	}
 

@@ -13,7 +13,6 @@ import UniformTypeIdentifiers
 import IOKit
 #endif
 
-@available(iOS 14, *)
 extension UTTagClass {
 	static let deviceModelCode = UTTagClass(rawValue: "com.apple.device-model-code")
 }

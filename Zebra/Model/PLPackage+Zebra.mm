@@ -16,49 +16,6 @@
 
 @implementation PLPackage (Zebra)
 
-- (BOOL)mightRequirePayment {
-    return NO;
-}
-
-- (ZBPackageActionType)possibleActions {
-    ZBPackageActionType action = 0;
-    
-    BOOL installed = self.installed;
-    if (self.source) {
-        if (installed) {
-            action |= ZBPackageActionReinstall;
-            if (self.hasUpdate) {
-                action |= ZBPackageActionUpgrade;
-            }
-            if (self.lesserVersions.count > 1) {
-                action |= ZBPackageActionDowngrade;
-            }
-        } else {
-            action |= ZBPackageActionInstall;
-        }
-    }
-    
-    if (installed) {
-        action |= ZBPackageActionRemove;
-    }
-    
-    return action;
-}
-
-- (NSUInteger)possibleExtraActions {
-    ZBPackageExtraActionType action = 0;
-    
-    if (self.installed) {
-        if (self.held) {
-            action |= ZBPackageExtraActionShowUpdates;
-        } else {
-            action |= ZBPackageExtraActionHideUpdates;
-        }
-    }
-    
-    return action;
-}
-
 - (void)setPackageIconForImageView:(UIImageView *)imageView {
     UIImage *sectionImage = [PLSource imageForSection:self.section];
     if (self.iconURL) {
