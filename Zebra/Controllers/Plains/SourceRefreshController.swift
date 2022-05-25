@@ -398,6 +398,9 @@ extension SourceRefreshController: URLSessionTaskDelegate, URLSessionDownloadDel
 		let job = runningJobs[index]
 		runningJobs.remove(at: index)
 		handleResponse(job: job, response: response)
+
+		// Process queue in case any jobs are pending.
+		processQueue()
 	}
 
 }
