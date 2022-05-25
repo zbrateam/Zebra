@@ -10,92 +10,9 @@ import Foundation
 import UniformTypeIdentifiers
 import os.log
 
-enum SourceRefreshState {
-	case pending
-	case loading(progress: Double)
-	case loaded
-	case failed(errors: [String])
-}
-
 class SourceRefreshController: NSObject, ProgressReporting {
 
-	private enum SourceFileKind {
-		case any, text, deb, gzip, bzip2, lzma, xz, zstd
-
-		var type: UTType {
-			switch self {
-			case .any:   return .data
-			case .text:  return .plainText
-			case .deb:   return .debArchive
-			case .gzip:  return .gzip
-			case .bzip2: return .bz2
-			case .lzma:  return .lzma
-			case .xz:    return .xz
-			case .zstd:  return .zstd
-			}
-		}
-
-		var `extension`: String? {
-			switch self {
-			case .text:  return nil
-			case .gzip:  return "gz"
-			case .bzip2: return "bz2"
-			case .lzma:  return "lzma"
-			case .xz:    return "xz"
-			case .zstd:  return "zst"
-			default:     return type.preferredFilenameExtension
-			}
-		}
-
-		var decompressorFormat: Decompressor.Format {
-			switch self {
-			case .gzip:  return .gzip
-			case .bzip2: return .bzip2
-			case .lzma:  return .lzma
-			case .xz:    return .xz
-			case .zstd:  return .zstd
-			default:     fatalError("Not a compressed file kind")
-			}
-		}
-	}
-
-	private enum SourceFile {
-		case inRelease, release, releaseGpg
-		case packages(kind: SourceFileKind)
-
-		var kind: SourceFileKind {
-			switch self {
-			case .inRelease:  return .any
-			case .release:    return .text
-			case .releaseGpg: return .any
-			case .packages(let kind): return kind
-			}
-		}
-
-		var name: String {
-			switch self {
-			case .inRelease:  return "InRelease"
-			case .release:    return "Release"
-			case .releaseGpg: return "Release.gpg"
-			case .packages(let kind):
-				if let ext = kind.extension {
-					return "Packages.\(ext)"
-				}
-				return "Packages"
-			}
-		}
-
-		var progressWeight: Int64 {
-			switch self {
-			case .inRelease:   return 100
-			case .release:     return 80
-			case .releaseGpg:  return 20
-			case .packages(_): return 900
-			}
-		}
-	}
-
-	private struct Job: Identifiable, Hashable, Equatable {
+	struct Job: Identifiable, Hashable, Equatable {
 		let task: URLSessionTask
 		let sourceUUID: String
 		let sourceFile: SourceFile
@@ -109,8 +26,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 		func hash(into hasher: inout Hasher) {
 			hasher.combine(task.taskIdentifier)
-			hasher.combine(sourceUUID.hashValue)
-			hasher.combine(sourceFile.name.hashValue)
+			hasher.combine(filename.hashValue)
 		}
 
 		static func == (lhs: Self, rhs: Self) -> Bool {
@@ -124,14 +40,14 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private static let automaticSourceRefreshInterval: TimeInterval = 5 * 60
 
 	private static let packagesTypePriority: [SourceFileKind] = [.zstd, .xz, .lzma, .bzip2, .gzip]
+	private static let parallelJobsCount = 16
 
 	static let refreshProgressDidChangeNotification = Notification.Name(rawValue: "SourceRefreshProgressDidChangeNotification")
 
 	static let shared = SourceRefreshController()
 
-	private(set) var states = [String: SourceRefreshState]()
-	private(set) var refreshErrors = [PLError]()
 	let progress = Progress()
+	private(set) var refreshErrors = [PLError]()
 
 	private let queue = DispatchQueue(label: "xyz.willy.Zebra.source-refresh-queue", qos: .utility)
 	private let decompressQueue = DispatchQueue(label: "xyz.willy.Zebra.source-decompress-queue", qos: .utility)
@@ -186,7 +102,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 		}
 	}
 
-	// MARK: - App lifecycle
+	// MARK: - App Lifecycle
 
 	@objc private func appDidBecomeActive() {
 		// If the app was in the background for a while, the data is likely to be outdated. Kick off
@@ -204,7 +120,8 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 	private func processQueue() {
 		queue.async {
-			while let job = self.pendingJobs.popLast() {
+			while self.runningJobs.count < Self.parallelJobsCount,
+						let job = self.pendingJobs.popLast() {
 				self.fetch(job: job)
 			}
 		}
@@ -215,8 +132,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 		os_log("[SourceRefreshController] Fetching: %@", String(describing: job.url))
 		#endif
 
-		let task = job.task
-		task.resume()
+		job.task.resume()
 		runningJobs.append(job)
 	}
 
@@ -225,6 +141,8 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			os_log("[SourceRefreshController] Invalid request?")
 			return
 		}
+		let rawContentType = response.value(forHTTPHeaderField: "Content-Type") ?? "application/octet-stream"
+		let contentType = String(rawContentType[..<(rawContentType.firstIndex(of: ";") ?? rawContentType.endIndex)])
 
 		#if DEBUG
 		let prefixes = [
@@ -232,16 +150,24 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			304: "👍",
 			404: "🤷‍♀️"
 		]
-		os_log("[SourceRefreshController] %@ %@ %@ %i",
+		os_log("[SourceRefreshController] %@ %@ %@ → %i (%@)",
 					 prefixes[response.statusCode] ?? "❌",
 					 request.httpMethod ?? "?",
 					 String(describing: response.url ?? job.url),
-					 response.statusCode)
+					 response.statusCode,
+					 contentType)
 		#endif
 
 		switch response.statusCode {
 		case 200:
 			// Ok! Let’s do what we need to do next for this type.
+			let validContentTypes = job.sourceFile.kind.contentTypes
+			if !validContentTypes.contains(contentType) {
+				// TODO: Push this to the UI
+				os_log("[SourceRefreshController] Invalid content type: %@ not in [%@]", contentType, validContentTypes.joined(separator: ", "))
+				break
+			}
+
 			switch job.sourceFile {
 			case .inRelease, .releaseGpg:
 				// Start fetching Packages.
@@ -255,38 +181,44 @@ class SourceRefreshController: NSObject, ProgressReporting {
 				// Decompress
 				self.decompress(job: job)
 			}
+			return
 
 		case 304:
 			// Not modified. Nothing to be done.
-			let totalUnits = self.currentRefreshJobs[job.sourceUUID]?.map(\.sourceFile.progressWeight).reduce(0, +) ?? 0
+			let totalUnits = self.currentRefreshJobs[job.sourceUUID]?
+				.map(\.sourceFile.progressWeight)
+				.reduce(0, +) ?? 0
 			self.progress.completedUnitCount += -totalUnits + 1000
 			self.cleanUp(sourceUUID: job.sourceUUID)
+			return
 
 		default:
-			// Unexpected status code.
-			switch job.sourceFile {
-			case .inRelease:
-				// Try split Release + Release.gpg.
+			// Unexpected status code. Fall through.
+			break
+		}
+
+		switch job.sourceFile {
+		case .inRelease:
+			// Try split Release + Release.gpg.
+			self.progress.completedUnitCount -= job.sourceFile.progressWeight
+			self.currentRefreshJobs[job.sourceUUID]?.remove(job)
+			continueJob(job, withSourceFile: .release)
+
+		case .release, .releaseGpg:
+			// Continue without the signature.
+			self.currentRefreshJobs[job.sourceUUID]?.remove(job)
+			continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
+
+		case .packages(let kind):
+			// Try next file kind. If we’ve reached the end, the repo is unusable.
+			if let index = Self.packagesTypePriority.firstIndex(of: kind)?.advanced(by: 1),
+				 index < Self.packagesTypePriority.endIndex {
 				self.progress.completedUnitCount -= job.sourceFile.progressWeight
-				self.currentRefreshJobs[job.sourceUUID]?.remove(job)
-				continueJob(job, withSourceFile: .release)
-
-			case .release, .releaseGpg:
-				// Continue without the signature.
-				self.currentRefreshJobs[job.sourceUUID]?.remove(job)
-				continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
-
-			case .packages(let kind):
-				// Try next file kind. If we’ve reached the end, the repo is unusable.
-				if let index = Self.packagesTypePriority.firstIndex(of: kind)?.advanced(by: 1),
-					 index < Self.packagesTypePriority.endIndex {
-					self.progress.completedUnitCount -= job.sourceFile.progressWeight
-					continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority[index]))
-				} else {
-					// TODO: Push this to the UI
-					os_log("[SourceRefreshController] Repo unusable: %@", job.sourceUUID)
-					self.cleanUp(sourceUUID: job.sourceUUID)
-				}
+				continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority[index]))
+			} else {
+				// TODO: Push this to the UI
+				os_log("[SourceRefreshController] Repo unusable: %@", job.sourceUUID)
+				self.cleanUp(sourceUUID: job.sourceUUID)
 			}
 		}
 	}
@@ -294,7 +226,20 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private func continueJob(_ job: Job, withSourceFile sourceFile: SourceFile) {
 		queue.async {
 			let source = PLSourceManager.shared.source(forUUID: job.sourceUUID)
-			let downloadURL = source.baseURI/sourceFile.name
+			let baseURL: URL
+			switch sourceFile {
+			case .inRelease, .release, .releaseGpg:
+				baseURL = source.baseURI
+			case .packages(_):
+				// TODO: Support multiple components/archs
+				if let component = source.components.first {
+					let architecture = source.architectures.first ?? Device.primaryDebianArchitecture
+					baseURL = source.baseURI/component/"binary-\(architecture)"
+				} else {
+					baseURL = source.baseURI
+				}
+			}
+			let downloadURL = baseURL/sourceFile.name
 			let destinationURL = Self.listsURL/(job.sourceUUID + sourceFile.name)
 
 			// TODO: Figure out how our progress unit counting works

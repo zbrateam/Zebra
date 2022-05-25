@@ -37,8 +37,7 @@ class Device: NSObject {
 	static let dataURL = FileManager.default.url(for: .applicationSupportDirectory) / Bundle.main.bundleIdentifier!
 
 	static let isDemo: Bool = {
-		let pid = forkplz()
-		switch pid {
+		switch forkplz() {
 		case 0:
 			// Forked process - just terminate the fork, we don’t need it to do anything else.
 			exit(0)

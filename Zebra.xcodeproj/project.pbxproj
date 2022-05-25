@@ -117,6 +117,9 @@
 		4EC7F29C27B3A19F0078F953 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29B27B3A19F0078F953 /* RootViewController.swift */; };
 		4EC7F29E27B3A5930078F953 /* MacSidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29D27B3A5930078F953 /* MacSidebarViewController.swift */; };
 		4EC7F2A027B53D990078F953 /* FileImportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29F27B53D990078F953 /* FileImportController.swift */; };
+		4EE3CC7D283E50A0007D2943 /* SourceFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3CC7C283E50A0007D2943 /* SourceFileHandler.swift */; };
+		4EE3CC7F283E50B1007D2943 /* SourceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3CC7E283E50B1007D2943 /* SourceFile.swift */; };
+		4EE3CC81283E5982007D2943 /* PackagesFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3CC80283E5982007D2943 /* PackagesFileHandler.swift */; };
 		75823619249E7DCA003713DD /* ZBSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75823618249E7DCA003713DD /* ZBSettingsTableViewCell.m */; };
 		75D0A77F24A014D2007D84EF /* ZBPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D0A77E24A014D2007D84EF /* ZBPreferencesViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */; };
@@ -372,6 +375,9 @@
 		4EC7F29B27B3A19F0078F953 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		4EC7F29D27B3A5930078F953 /* MacSidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacSidebarViewController.swift; sourceTree = "<group>"; };
 		4EC7F29F27B53D990078F953 /* FileImportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportController.swift; sourceTree = "<group>"; };
+		4EE3CC7C283E50A0007D2943 /* SourceFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileHandler.swift; sourceTree = "<group>"; };
+		4EE3CC7E283E50B1007D2943 /* SourceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFile.swift; sourceTree = "<group>"; };
+		4EE3CC80283E5982007D2943 /* PackagesFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesFileHandler.swift; sourceTree = "<group>"; };
 		75052D19249E3F2600C2F796 /* ZBSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewCell.h; sourceTree = "<group>"; };
 		75823618249E7DCA003713DD /* ZBSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewCell.m; sourceTree = "<group>"; };
 		75D0A77D24A013A7007D84EF /* ZBPreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPreferencesViewController.h; sourceTree = "<group>"; };
@@ -746,6 +752,7 @@
 		4EC7F2A227B555B40078F953 /* Plains */ = {
 			isa = PBXGroup;
 			children = (
+				4EE3CC7B283E5093007D2943 /* Source Files */,
 				4EB2350E283DFA2600713CBB /* Compression */,
 				4EA26EA127CC87810019A5AA /* PlainsController.swift */,
 				4E840B4327D7150000039938 /* SourceRefreshController.swift */,
@@ -817,6 +824,16 @@
 				4EA893DC27DDABD600E2EC7A /* sandboxed.json */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4EE3CC7B283E5093007D2943 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				4EE3CC7E283E50B1007D2943 /* SourceFile.swift */,
+				4EE3CC7C283E50A0007D2943 /* SourceFileHandler.swift */,
+				4EE3CC80283E5982007D2943 /* PackagesFileHandler.swift */,
+			);
+			path = "Source Files";
 			sourceTree = "<group>";
 		};
 		4EF9A52227B66758003B074F /* Resources */ = {
@@ -1627,6 +1644,7 @@
 				89B701D52641CAAA00F50DAD /* ZBErrorViewController.mm in Sources */,
 				894EAB55261D5C4C00552235 /* ZBSidebarController.mm in Sources */,
 				89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */,
+				4EE3CC7D283E50A0007D2943 /* SourceFileHandler.swift in Sources */,
 				4E840B4227D7142E00039938 /* HomeViewController.swift in Sources */,
 				4EBA841227D253AC00766DBE /* CarouselCollectionViewContainingCell.swift in Sources */,
 				4E9FC887279061D600934FFE /* Color.swift in Sources */,
@@ -1648,6 +1666,7 @@
 				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
 				4E9FC89227910AD200934FFE /* UIFont+Additions.swift in Sources */,
 				E193C67C277A8E0100B2469E /* PackageDepictionViewController.swift in Sources */,
+				4EE3CC7F283E50B1007D2943 /* SourceFile.swift in Sources */,
 				4EA893DF27DF3D2100E2EC7A /* Dictionary+Extensions.swift in Sources */,
 				4EC7F29527B393870078F953 /* UIApplication+Additions.swift in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */,
@@ -1663,6 +1682,7 @@
 				367D80F522C3D1CF00581D60 /* ZBSettingsViewController.m in Sources */,
 				8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */,
 				49452C28246A414900F45C2D /* ZBActionButton.m in Sources */,
+				4EE3CC81283E5982007D2943 /* PackagesFileHandler.swift in Sources */,
 				891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */,
 				89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */,
 				895CB40326617D7A0013A21A /* ZBLanguageSettingsViewController.m in Sources */,
