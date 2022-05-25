@@ -78,7 +78,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         case ZBSectionPureBlack:
             return 1;
         default:
-            return 0;
+            return 1;
     }
 }
 
@@ -260,6 +260,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     pureBlackMode = setting;
     [ZBSettings setPureBlackMode:setting];
     [self updateInterfaceStyle];
+    [self configureTheme];
 }
 
 - (void)updateInterfaceStyle {
@@ -267,7 +268,9 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     interfaceStyle = [ZBSettings interfaceStyle];
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
-    [self configureTheme];
+    if ([ZBThemeManager useCustomTheming]) {
+        [self configureTheme];
+    }
 }
 
 - (void)configureTheme {
@@ -280,7 +283,9 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             cell.backgroundColor = [UIColor cellBackgroundColor];
         }
     }];
-    [self.tableView reloadData];
+    if ([ZBThemeManager useCustomTheming]) {
+        [self.tableView reloadData];
+    }
 }
 
 @end
