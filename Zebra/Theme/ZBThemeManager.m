@@ -194,9 +194,6 @@
     [[UITableView appearance] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
     [[UITableViewCell appearance] setTintColor:[UIColor accentColor]];
-    UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    selectedBackgroundView.backgroundColor = [UIColor cellSelectedBackgroundColor];
-    [[UITableViewCell appearance] setSelectedBackgroundView:selectedBackgroundView];
     if ([ZBThemeManager useCustomTheming]) {
         [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
         [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class], [UITableView class]]] setTextColor:[UIColor primaryTextColor]];
