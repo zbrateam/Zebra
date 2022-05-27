@@ -11,9 +11,7 @@
 #import "ZBPackageChangelogTableViewController.h"
 #import "ZBScreenshotCollectionViewCell.h"
 #import "Zebra-Swift.h"
-
-#import <Plains/Model/PLPackage.h>
-
+#import <Plains/Plains.h>
 #import <SDWebImage/SDWebImage.h>
 
 @interface WKWebView ()

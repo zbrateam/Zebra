@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Plains/Model/PLSource.h>
+#import <Plains/Plains.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Plains
 
-extension PLPackage {
+extension Package {
 
 	// MARK: - Actions
 
@@ -20,7 +21,7 @@ extension PLPackage {
 	@objc var possibleActions: ZBPackageActionType {
 		var actions: ZBPackageActionType = []
 		if let _ = source {
-			if installed {
+			if isInstalled {
 				actions.insert(.reinstall)
 				if hasUpdate {
 					actions.insert(.upgrade)
@@ -32,7 +33,7 @@ extension PLPackage {
 				actions.insert(.install)
 			}
 		}
-		if installed {
+		if isInstalled {
 			actions.insert(.remove)
 		}
 		return actions
@@ -40,8 +41,8 @@ extension PLPackage {
 
 	@objc var possibleExtraActions: ZBPackageExtraActionType {
 		var actions: ZBPackageExtraActionType = []
-		if installed {
-			actions.insert(held ? .showUpdates : .hideUpdates)
+		if isInstalled {
+			actions.insert(isHeld ? .showUpdates : .hideUpdates)
 		}
 		return actions
 	}

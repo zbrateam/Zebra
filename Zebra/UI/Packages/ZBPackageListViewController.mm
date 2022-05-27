@@ -201,7 +201,7 @@
                 }
             } else {
                 [self->database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
-                    return package.installed && package.role < 5;
+                    return package.isInstalled && package.role < PLPackageRoleCydia;
                 } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
                     self.packages = packages;
                     self.updates = self->database.updates;
@@ -215,12 +215,7 @@
 - (void)showSpinner {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (!self->spinner) {
-            if (@available(iOS 13.0, macCatalyst 13.0, *)) {
-                self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
-            } else {
-                self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            }
-
+            self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
             self->spinner.hidesWhenStopped = YES;
             
             self.tableView.backgroundView = self->spinner;

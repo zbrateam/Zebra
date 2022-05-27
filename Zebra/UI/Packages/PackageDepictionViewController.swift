@@ -10,11 +10,12 @@ import WebKit
 import UIKit
 import DepictionKit
 import Evander
+import Plains
 
 @objc(ZBPackageDepictionViewController)
 class PackageDepictionViewController: UIViewController {
     
-    private let package: PLPackage
+    private let package: Package
     private var depictionDisplay: DepictionDisplay
 
 	private var webViewContentSizeObserver: NSKeyValueObservation?
@@ -157,7 +158,7 @@ class PackageDepictionViewController: UIViewController {
         return view
     }()
     
-    @objc public init(package: PLPackage) {
+    @objc public init(package: Package) {
         self.package = package
         depictionDisplay = .web
         /*

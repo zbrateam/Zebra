@@ -17,10 +17,7 @@
 
 #import "Zebra-Swift.h"
 
-#import <Plains/Queue/PLQueue.h>
-#import <Plains/Managers/PLPackageManager.h>
-#import <Plains/Managers/PLSourceManager.h>
-#import <Plains/Model/PLPackage.h>
+#import <Plains/Plains.h>
 
 @interface ZBSidebarController () {
     NSArray *titles;
@@ -105,8 +102,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueue:) name:PLQueueUpdateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUpdates:) name:PLDatabaseRefreshNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUpdates:) name:PLDatabaseImportNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRefreshIndicator) name:PLStartedSourceRefreshNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideRefreshIndicator) name:PLFinishedSourceRefreshNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRefreshIndicator) name:PLStartedSourceRefreshNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideRefreshIndicator) name:PLFinishedSourceRefreshNotification object:nil];
     }
     
     return self;
@@ -554,7 +551,7 @@
     }
     
     if (userRequested || needsUpdate) {
-        [[PLSourceManager sharedInstance] refreshSources];
+//        [[PLSourceManager sharedInstance] refreshSources];
     }
 }
 

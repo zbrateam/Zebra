@@ -8,14 +8,15 @@
 
 import os.log
 import UIKit
+import Plains
 
 class SourceSectionViewController: ListCollectionViewController {
-    private var source: PLSource
+    private var source: Source
     private var sections = [String]()
 
     private var promotedPackages: [PromotedPackageBanner]?
 
-    init(source: PLSource) {
+    init(source: Source) {
         self.source = source
         super.init()
     }
@@ -168,7 +169,7 @@ extension SourceSectionViewController {
         case .sections:
             if indexPath.item == 0 {
                 // TODO: This is probably not the most efficient way to filter these
-                let controller = ZBPackageListViewController(packages: PLPackageManager.shared.packages.filter { package in
+                let controller = ZBPackageListViewController(packages: PackageManager.shared.packages.filter { package in
                     package.source == self.source
                 })
                 controller.title = .localize("Packages")

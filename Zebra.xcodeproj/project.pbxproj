@@ -30,6 +30,10 @@
 		499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */; };
 		499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */; };
 		49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */; };
+		4E01F9352840B6780051A64F /* SwiftZSTD-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235A2283E180E00713CBB /* SwiftZSTD-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E01F9362840B67C0051A64F /* zstd_errors.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235B1283E18EB00713CBB /* zstd_errors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E01F9372840B67E0051A64F /* zstd.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235B0283E18EB00713CBB /* zstd.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E01F9382840B6850051A64F /* StreamHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235A7283E181000713CBB /* StreamHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E1A1C6627B69F9A00B6DC9A /* ZebraCatalystHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1A1C6327B69F9A00B6DC9A /* ZebraCatalystHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E1A1C7527B6A30100B6DC9A /* ZebraCatalystHelper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E1A1C7A27B6A3A900B6DC9A /* ZBAppSceneHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1A1C7827B6A3A900B6DC9A /* ZBAppSceneHelper.h */; };
@@ -48,7 +52,6 @@
 		4E840B4627D73D3100039938 /* SourceHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4527D73D3100039938 /* SourceHTTPClient.swift */; };
 		4E8D723927DB617A00B62753 /* PLPackage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8D723827DB617A00B62753 /* PLPackage+Additions.swift */; };
 		4E8F843527D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F843427D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift */; };
-		4E9FC8742790555800934FFE /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
 		4E9FC8892790637F00934FFE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC8882790637F00934FFE /* Preferences.swift */; };
@@ -101,6 +104,7 @@
 		4EBA841B27D3119800766DBE /* IconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841A27D3119800766DBE /* IconImageView.swift */; };
 		4EBA841E27D33EBE00766DBE /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */; };
 		4EBA842227D38B7400766DBE /* ZBWorkspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA842127D38B7400766DBE /* ZBWorkspace.m */; };
+		4EBF6FBB2841084600639096 /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
 		4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27727B272EC0078F953 /* SlingshotController.swift */; };
 		4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27E27B275F70078F953 /* String+Localization.swift */; };
 		4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */; };
@@ -359,6 +363,7 @@
 		4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		4EBA842027D38B7400766DBE /* ZBWorkspace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWorkspace.h; sourceTree = "<group>"; };
 		4EBA842127D38B7400766DBE /* ZBWorkspace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWorkspace.m; sourceTree = "<group>"; };
+		4EBF6FB92841084300639096 /* APT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = APT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EC7F27727B272EC0078F953 /* SlingshotController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlingshotController.swift; sourceTree = "<group>"; };
 		4EC7F27E27B275F70078F953 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		4EC7F28027B278F10078F953 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
@@ -568,6 +573,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EBF6FBB2841084600639096 /* Plains.framework in Frameworks */,
 				E1428E7927794FC4005B0885 /* Evander in Frameworks */,
 				4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */,
 				4EB2355B283DFCB100713CBB /* libSWCompression.a in Frameworks */,
@@ -576,7 +582,6 @@
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */,
 				E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */,
-				4E9FC8742790555800934FFE /* Plains.framework in Frameworks */,
 				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -690,8 +695,8 @@
 				4EB235A5283E181000713CBB /* ZSTDProcessorCommon.swift */,
 				4EB235A8283E181000713CBB /* ZSTDStream.swift */,
 				4EB235A2283E180E00713CBB /* SwiftZSTD-Bridging-Header.h */,
-				4EB235B1283E18EB00713CBB /* zstd_errors.h */,
 				4EB235B0283E18EB00713CBB /* zstd.h */,
+				4EB235B1283E18EB00713CBB /* zstd_errors.h */,
 			);
 			name = SwiftZSTD;
 			path = Vendor/SwiftZSTD;
@@ -1193,6 +1198,7 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4EBF6FB92841084300639096 /* APT.framework */,
 				4EB235B5283E1A7300713CBB /* libzstd.xcframework */,
 				4E9FC8732790555800934FFE /* Plains.framework */,
 				E193C67D277A91C900B2469E /* WebKit.framework */,
@@ -1342,6 +1348,17 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4E01F9342840B6630051A64F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E01F9352840B6780051A64F /* SwiftZSTD-Bridging-Header.h in Headers */,
+				4E01F9362840B67C0051A64F /* zstd_errors.h in Headers */,
+				4E01F9372840B67E0051A64F /* zstd.h in Headers */,
+				4E01F9382840B6850051A64F /* StreamHelpers.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E1A1C5C27B69F9A00B6DC9A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1393,6 +1410,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4EB2359F283E016E00713CBB /* Build configuration list for PBXNativeTarget "SwiftZSTD" */;
 			buildPhases = (
+				4E01F9342840B6630051A64F /* Headers */,
 				4EB23597283E016E00713CBB /* Sources */,
 				4EB23598283E016E00713CBB /* Frameworks */,
 				4EB23599283E016E00713CBB /* CopyFiles */,
@@ -1939,7 +1957,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1964,7 +1981,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -2118,14 +2134,13 @@
 				ASSETCATALOG_COMPILER_SKIP_APP_STORE_DEPLOYMENT = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "Zebra/Supporting Files/macOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEFINES_MODULE = NO;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = N2LN9ZT493;
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -2141,9 +2156,8 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"${SRCROOT}/Zebra\"",
-					"\"${SRCROOT}/Vendor/Plains/Plains\"",
-					"\"${SRCROOT}/Vendor/Plains/\"",
+					Zebra,
+					Vendor/Plains,
 				);
 				INFOPLIST_FILE = "Zebra/Supporting Files/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -2166,7 +2180,10 @@
 					"$(PROJECT_DIR)/Vendor/Plains",
 				);
 				MARKETING_VERSION = "2.0~alpha3";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fcxx-modules",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2176,7 +2193,7 @@
 					"-Xlinker",
 					"-allow_simulator_linking_to_macosx_dylibs",
 				);
-				OTHER_SWIFT_FLAGS = "-DDEBUG";
+				OTHER_SWIFT_FLAGS = "-Xcc -Wno-non-modular-include-in-framework-module";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(APP_NAME)";
@@ -2184,10 +2201,10 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "Zebra/Supporting Files/Zebra-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				SYSTEM_HEADER_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
@@ -2202,14 +2219,13 @@
 				ASSETCATALOG_COMPILER_SKIP_APP_STORE_DEPLOYMENT = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "Zebra/Supporting Files/macOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEFINES_MODULE = NO;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = N2LN9ZT493;
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -2223,9 +2239,8 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					"\"${SRCROOT}/Zebra\"",
-					"\"${SRCROOT}/Vendor/Plains/Plains\"",
-					"\"${SRCROOT}/Vendor/Plains/\"",
+					Zebra,
+					Vendor/Plains,
 				);
 				INFOPLIST_FILE = "Zebra/Supporting Files/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -2248,7 +2263,10 @@
 					"$(PROJECT_DIR)/Vendor/Plains",
 				);
 				MARKETING_VERSION = "2.0~alpha3";
-				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fcxx-modules",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2258,6 +2276,7 @@
 					"-Xlinker",
 					"-allow_simulator_linking_to_macosx_dylibs",
 				);
+				OTHER_SWIFT_FLAGS = "-Xcc -Wno-non-modular-include-in-framework-module";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(APP_NAME)";
@@ -2267,7 +2286,6 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Zebra/Supporting Files/Zebra-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				SYSTEM_HEADER_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;

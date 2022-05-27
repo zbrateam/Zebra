@@ -9,8 +9,7 @@
 #import "ZBPackageTableViewCell.h"
 
 #import "PLPackage+Zebra.h"
-#import <Plains/Model/PLSource.h>
-
+#import <Plains/Plains.h>
 #import "Zebra-Swift.h"
 #import "ZBPackageActions.h"
 
@@ -58,8 +57,8 @@
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
     if (self.showVersion)
         [info addObject:package.version];
-    if (self.showAuthor && package.authorName)
-        [info addObject:package.authorName];
+    if (self.showAuthor && package.author.name)
+        [info addObject:package.author.name];
     if (self.showSize)
         [info addObject:package.installedSizeString];
     if (self.showSource && package.source.origin)
@@ -67,9 +66,9 @@
     
     self.infoLabel.text = [info componentsJoinedByString:@" • "];
     
-    self.isInstalledImageView.hidden = !package.installed;
+    self.isInstalledImageView.hidden = !package.isInstalled;
     self.isFavoritedImageView.hidden = YES;
-    self.isPaidImageView.hidden = !package.paid;
+    self.isPaidImageView.hidden = !package.isPaid;
     
     [package setPackageIconForImageView:self.iconImageView];
 }

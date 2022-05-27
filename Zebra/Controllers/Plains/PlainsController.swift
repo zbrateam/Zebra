@@ -8,11 +8,12 @@
 
 import Foundation
 import os.log
+import Plains
 
 class PlainsController {
 
 	class func setUp() throws {
-		let config = PLConfig.shared
+		let config = PlainsConfig.shared
 		let cacheURL = Device.cacheURL
 		let dataURL = Device.dataURL
 		let dpkgStateURL = URL(fileURLWithPath: Device.distroVarPrefix, isDirectory: true)/"var/lib/dpkg"
@@ -158,7 +159,7 @@ class PlainsController {
 		}
 
 		// Load the database
-		PLPackageManager.shared.import()
+		PackageManager.shared.import()
 
 		// Kick off a refresh
 		SourceRefreshController.shared.refresh(isUserRequested: false)

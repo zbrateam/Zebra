@@ -8,6 +8,7 @@
 
 import UIKit
 import UniformTypeIdentifiers
+import Plains
 
 protocol RootViewControllerDelegate: AnyObject {
 	func selectTab(_ tab: RootViewController.AppTab)
@@ -202,11 +203,8 @@ class RootViewController: RootViewControllerSuperclass {
 	}
 
 	@IBAction func exportSources() {
-		guard let sourcesFile = PLConfig.shared.string(forKey: "Plains::SourcesList") else {
-			return
-		}
-		let sourcesURL = URL(fileURLWithPath: sourcesFile)
-		guard (try? sourcesURL.checkResourceIsReachable()) == true else {
+		guard let sourcesURL = PlainsConfig.shared.fileURL(forKey: "Plains::SourcesList"),
+					(try? sourcesURL.checkResourceIsReachable()) == true else {
 			return
 		}
 		showSavePicker(url: sourcesURL)

@@ -9,6 +9,7 @@
 import Foundation
 import UniformTypeIdentifiers
 import os.log
+import Plains
 
 class SourceRefreshController: NSObject, ProgressReporting {
 
@@ -47,7 +48,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	static let shared = SourceRefreshController()
 
 	let progress = Progress()
-	private(set) var refreshErrors = [PLError]()
+	private(set) var refreshErrors = [PlainsError]()
 
 	private let queue = DispatchQueue(label: "xyz.willy.Zebra.source-refresh-queue", qos: .utility)
 	private let decompressQueue = DispatchQueue(label: "xyz.willy.Zebra.source-decompress-queue", qos: .utility)
@@ -55,6 +56,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private var pendingJobs = [Job]()
 	private var runningJobs = [Job]()
 	private var currentRefreshJobs = [String: Set<Job>]()
+	private var currentProgress = [String: Progress]()
 	private var progressObserver: NSKeyValueObservation!
 
 	private override init() {
@@ -72,7 +74,9 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 		progressObserver = progress.observe(\.fractionCompleted) { progress, _ in
 			NotificationCenter.default.post(name: Self.refreshProgressDidChangeNotification, object: nil)
-			print("XXX progress: \(progress.fractionCompleted)")
+			if progress.completedUnitCount == progress.totalUnitCount - 1 && !progress.isCancelled {
+				self.finishRefresh()
+			}
 		}
 	}
 
@@ -84,11 +88,11 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			}
 			ZBSettings.updateLastSourceUpdate()
 
-			self.progress.totalUnitCount = Int64(PLSourceManager.shared.sources.count) * 1000
+			self.progress.totalUnitCount = Int64(SourceManager.shared.sources.count) + 1
 			self.progress.completedUnitCount = 0
 
 			// Start the state machine for each source with InRelease.
-			for source in PLSourceManager.shared.sources {
+			for source in SourceManager.shared.sources {
 				let sourceFile = SourceFile.inRelease
 				let downloadURL = source.baseURI/sourceFile.name
 				let destinationURL = Self.partialListsURL/(source.uuid + sourceFile.name)
@@ -97,6 +101,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 											sourceUUID: source.uuid,
 											sourceFile: sourceFile)
 				self.currentRefreshJobs[source.uuid] = [job]
+				self.currentProgress[source.uuid] = Progress(totalUnitCount: 1000, parent: self.progress, pendingUnitCount: 1)
 				self.continueJob(job, withSourceFile: .inRelease)
 			}
 		}
@@ -136,12 +141,10 @@ class SourceRefreshController: NSObject, ProgressReporting {
 		runningJobs.append(job)
 	}
 
-	private func handleResponse(job: Job, response: HTTPURLResponse) {
-		guard let request = job.task.currentRequest ?? job.task.originalRequest else {
-			os_log("[SourceRefreshController] Invalid request?")
-			return
-		}
-		let rawContentType = response.value(forHTTPHeaderField: "Content-Type") ?? "application/octet-stream"
+	private func handleResponse(job: Job, response: HTTPURLResponse?, error: Error?) {
+		let request = job.task.currentRequest ?? job.task.originalRequest!
+		let statusCode = response?.statusCode ?? 0
+		let rawContentType = response?.value(forHTTPHeaderField: "Content-Type") ?? "application/octet-stream"
 		let contentType = String(rawContentType[..<(rawContentType.firstIndex(of: ";") ?? rawContentType.endIndex)])
 
 		#if DEBUG
@@ -151,19 +154,20 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			404: "🤷‍♀️"
 		]
 		os_log("[SourceRefreshController] %@ %@ %@ → %i (%@)",
-					 prefixes[response.statusCode] ?? "❌",
+					 prefixes[statusCode] ?? "❌",
 					 request.httpMethod ?? "?",
-					 String(describing: response.url ?? job.url),
-					 response.statusCode,
+					 String(describing: response?.url ?? job.url),
+					 statusCode,
 					 contentType)
 		#endif
 
-		switch response.statusCode {
+		switch statusCode {
 		case 200:
 			// Ok! Let’s do what we need to do next for this type.
 			let validContentTypes = job.sourceFile.kind.contentTypes
 			if !validContentTypes.contains(contentType) {
-				// TODO: Push this to the UI
+				// TODO: Pass an error
+				self.giveUp(job: job)
 				os_log("[SourceRefreshController] Invalid content type: %@ not in [%@]", contentType, validContentTypes.joined(separator: ", "))
 				break
 			}
@@ -179,17 +183,13 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 			case .packages(_):
 				// Decompress
-				self.decompress(job: job)
+				decompress(job: job)
 			}
 			return
 
 		case 304:
 			// Not modified. Nothing to be done.
-			let totalUnits = self.currentRefreshJobs[job.sourceUUID]?
-				.map(\.sourceFile.progressWeight)
-				.reduce(0, +) ?? 0
-			self.progress.completedUnitCount += -totalUnits + 1000
-			self.cleanUp(sourceUUID: job.sourceUUID)
+			cleanUp(sourceUUID: job.sourceUUID)
 			return
 
 		default:
@@ -197,35 +197,43 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			break
 		}
 
+		if let error = error {
+			// Don’t bother continuing to try anything with this repo, it’ll probably just keep failing.
+			giveUp(job: job, error: error)
+			return
+		}
+
 		switch job.sourceFile {
 		case .inRelease:
 			// Try split Release + Release.gpg.
-			self.progress.completedUnitCount -= job.sourceFile.progressWeight
-			self.currentRefreshJobs[job.sourceUUID]?.remove(job)
+			currentProgress[job.sourceUUID]?.completedUnitCount -= job.sourceFile.progressWeight
+			currentRefreshJobs[job.sourceUUID]?.remove(job)
 			continueJob(job, withSourceFile: .release)
 
 		case .release, .releaseGpg:
 			// Continue without the signature.
-			self.currentRefreshJobs[job.sourceUUID]?.remove(job)
+			currentRefreshJobs[job.sourceUUID]?.remove(job)
 			continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
 
 		case .packages(let kind):
 			// Try next file kind. If we’ve reached the end, the repo is unusable.
 			if let index = Self.packagesTypePriority.firstIndex(of: kind)?.advanced(by: 1),
 				 index < Self.packagesTypePriority.endIndex {
-				self.progress.completedUnitCount -= job.sourceFile.progressWeight
+				currentProgress[job.sourceUUID]?.completedUnitCount -= job.sourceFile.progressWeight
 				continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority[index]))
 			} else {
-				// TODO: Push this to the UI
-				os_log("[SourceRefreshController] Repo unusable: %@", job.sourceUUID)
-				self.cleanUp(sourceUUID: job.sourceUUID)
+				// TODO: Pass an error
+				giveUp(job: job)
 			}
 		}
 	}
 
 	private func continueJob(_ job: Job, withSourceFile sourceFile: SourceFile) {
 		queue.async {
-			let source = PLSourceManager.shared.source(forUUID: job.sourceUUID)
+			guard let source = SourceManager.shared.source(forUUID: job.sourceUUID) else {
+				return
+			}
+
 			let baseURL: URL
 			switch sourceFile {
 			case .inRelease, .release, .releaseGpg:
@@ -242,14 +250,13 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			let downloadURL = baseURL/sourceFile.name
 			let destinationURL = Self.listsURL/(job.sourceUUID + sourceFile.name)
 
-			// TODO: Figure out how our progress unit counting works
-			self.progress.becomeCurrent(withPendingUnitCount: job.sourceFile.progressWeight)
 			let task = self.task(for: downloadURL, destinationURL: destinationURL)
-			self.progress.resignCurrent()
+			self.currentProgress[job.sourceUUID]?.addChild(task.progress, withPendingUnitCount: job.sourceFile.progressWeight)
 
 			let newJob = Job(task: task,
 											 sourceUUID: job.sourceUUID,
 											 sourceFile: sourceFile)
+
 			self.currentRefreshJobs[newJob.sourceUUID]?.insert(newJob)
 			self.pendingJobs.append(newJob)
 			self.processQueue()
@@ -321,6 +328,14 @@ class SourceRefreshController: NSObject, ProgressReporting {
 		}
 	}
 
+	private func giveUp(job: Job, error: Error? = nil) {
+		queue.async {
+			// TODO: Push error to the UI
+			os_log("[SourceRefreshController] Refresh failed for %@: %@", job.sourceUUID, String(describing: error))
+			self.cleanUp(sourceUUID: job.sourceUUID)
+		}
+	}
+
 	private func cleanUp(sourceUUID: String) {
 		queue.async {
 			for job in self.currentRefreshJobs[sourceUUID] ?? [] {
@@ -335,6 +350,10 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			}
 
 			self.currentRefreshJobs.removeValue(forKey: sourceUUID)
+
+			if let progress = self.currentProgress[sourceUUID] {
+				progress.completedUnitCount = progress.totalUnitCount
+			}
 
 			#if DEBUG
 			os_log("[SourceRefreshController] Done: %@", sourceUUID)
@@ -357,6 +376,21 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			}
 
 			self.cleanUp(sourceUUID: sourceUUID)
+		}
+	}
+
+	private func finishRefresh() {
+		queue.async {
+			#if DEBUG
+			os_log("[SourceRefreshController] Rebuilding APT cache…")
+			#endif
+
+			SourceManager.shared.rebuildCache()
+			self.progress.completedUnitCount = self.progress.totalUnitCount
+
+			#if DEBUG
+			os_log("[SourceRefreshController] Completed")
+			#endif
 		}
 	}
 
@@ -388,8 +422,7 @@ extension SourceRefreshController: URLSessionTaskDelegate, URLSessionDownloadDel
 	}
 
 	func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-		guard let index = runningJobs.firstIndex(where: { $0.id == task.taskIdentifier }),
-					let response = task.response as? HTTPURLResponse else {
+		guard let index = runningJobs.firstIndex(where: { $0.id == task.taskIdentifier }) else {
 			os_log("[SourceRefreshController] Job for task not found?")
 			return
 		}
@@ -397,7 +430,7 @@ extension SourceRefreshController: URLSessionTaskDelegate, URLSessionDownloadDel
 		// This is the last delegate method fired, so we can consider the job done now.
 		let job = runningJobs[index]
 		runningJobs.remove(at: index)
-		handleResponse(job: job, response: response)
+		handleResponse(job: job, response: task.response as? HTTPURLResponse, error: error)
 
 		// Process queue in case any jobs are pending.
 		processQueue()

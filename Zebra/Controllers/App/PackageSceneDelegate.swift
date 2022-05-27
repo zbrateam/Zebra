@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Plains
 
 class PackageSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
@@ -82,7 +83,7 @@ class PackageSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
 		do {
 			_ = try url.checkResourceIsReachable()
-			let package = try PLPackageManager.shared.addDebFile(url)
+			let package = try PackageManager.shared.addDebFile(url)
 			navigationController?.viewControllers = [ZBPackageViewController(package: package)]
 
 			let scene = window!.windowScene!

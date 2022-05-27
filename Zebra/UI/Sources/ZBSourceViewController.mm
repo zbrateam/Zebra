@@ -14,8 +14,7 @@
 
 #import "PLPackage+Zebra.h"
 #import "PLSource+Zebra.h"
-#import <Plains/Managers/PLPackageManager.h>
-#import <Plains/Managers/PLSourceManager.h>
+#import <Plains/Plains.h>
 
 @interface ZBSourceViewController () {
     NSArray <NSString *> *sections;

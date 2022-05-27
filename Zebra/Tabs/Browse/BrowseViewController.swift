@@ -8,9 +8,10 @@
 
 import os.log
 import UIKit
+import Plains
 
 class BrowseViewController: ListCollectionViewController {
-	private var sources = [PLSource]()
+	private var sources = [Source]()
 
 	private var newsItems: [CarouselItem]?
 
@@ -34,7 +35,7 @@ class BrowseViewController: ListCollectionViewController {
 
 		sourcesDidUpdate()
 
-		NotificationCenter.default.addObserver(self, selector: #selector(sourcesDidUpdate), name: PLSourceManager.sourceListDidUpdateNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(sourcesDidUpdate), name: SourceManager.sourceListDidUpdateNotification, object: nil)
 
 		if newsItems == nil {
 			fetchNews()
@@ -44,14 +45,14 @@ class BrowseViewController: ListCollectionViewController {
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 
-		NotificationCenter.default.removeObserver(self, name: PLSourceManager.sourceListDidUpdateNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: SourceManager.sourceListDidUpdateNotification, object: nil)
 	}
 
 	// MARK: - Sources
 
 	@objc private func sourcesDidUpdate() {
 		DispatchQueue.main.async {
-			self.sources = PLSourceManager.shared.sources
+			self.sources = SourceManager.shared.sources
 				.sorted(by: { a, b in a.origin.localizedStandardCompare(b.origin) == .orderedAscending })
 			self.collectionView.reloadData()
 
@@ -95,9 +96,9 @@ class BrowseViewController: ListCollectionViewController {
 		remove(source: sources[index])
 	}
 
-	private func remove(source: PLSource) {
+	private func remove(source: Source) {
 		let index = sources.firstIndex(of: source)
-		PLSourceManager.shared.removeSource(source)
+		SourceManager.shared.removeSource(source)
 		if let index = index {
 			collectionView.deleteItems(at: [IndexPath(item: index, section: 1)])
 		} else {
@@ -263,7 +264,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath) as! InfoFooterView
 				let numberFormatter = NumberFormatter()
 				numberFormatter.numberStyle = .decimal
-				let packageCount = PLPackageManager.shared.packages.count
+				let packageCount = PackageManager.shared.packages.count
 				view.text = String(format: "%@ • %@",
 													 String.localizedStringWithFormat(.localize("%@ Sources"),
 																														NSDecimalNumber(value: sources.count),
@@ -304,7 +305,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 			return
 		case .sources:
 			if indexPath.item == 0 {
-				let controller = ZBPackageListViewController(packages: PLPackageManager.shared.packages)
+				let controller = ZBPackageListViewController(packages: PackageManager.shared.packages)
 				controller.title = .localize("All Packages")
 				navigationController?.pushViewController(controller, animated: true)
 			} else {

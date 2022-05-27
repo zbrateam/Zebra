@@ -219,7 +219,7 @@
 - (void)addSelectedSources {
     PLSourceManager *sourceManager = [PLSourceManager sharedInstance];
     for (ZBDummySource *source in selectedSources) {
-        [sourceManager addSourceWithArchiveType:source.archiveType repositoryURI:source.repositoryURI distribution:source.distribution components:source.components];
+        [sourceManager addSourceWithURL:source.repositoryURI archiveType:source.archiveType suites:source.distribution components:source.components error:nil];
     }
     
     [self dismiss];

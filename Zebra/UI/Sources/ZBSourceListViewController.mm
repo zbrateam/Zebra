@@ -9,14 +9,13 @@
 #import "ZBSourceListViewController.h"
 #import <WebKit/WebKit.h>
 
-#import "Zebra-Swift.h"
 #import "ZBSourceViewController.h"
 #import "ZBSidebarController.h"
 #import "ZBSourceAddViewController.h"
 #import "ZBErrorViewController.h"
 
-#import <Plains/Managers/PLSourceManager.h>
-#import <Plains/Model/PLSource.h>
+#import <Plains/Plains.h>
+#import "Zebra-Swift.h"
 #import <SDWebImage/SDWebImage.h>
 
 @interface ZBSourceListViewController () {
@@ -52,10 +51,10 @@
         _ignoreNotifications = NO;
         _selectActionClass = [ZBSourceViewController class];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSources) name:PLSourceListUpdatedNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSourceDownloading:) name:PLStartedSourceDownloadNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failedSourceDownload:) name:PLFailedSourceDownloadNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSourceFinished:) name:PLFinishedSourceDownloadNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSources) name:PLSourceManager.sourceListDidUpdateNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSourceDownloading:) name:PLStartedSourceDownloadNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failedSourceDownload:) name:PLFailedSourceDownloadNotification object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSourceFinished:) name:PLFinishedSourceDownloadNotification object:nil];
     }
     
     return self;
@@ -147,7 +146,7 @@
 
 - (void)refreshSources {
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        [self->sourceManager refreshSources];
+//        [self->sourceManager refreshSources];
 #if TARGET_OS_IOS
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];

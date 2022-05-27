@@ -18,7 +18,7 @@
 #import "ZBTabBarController.h"
 
 #import "PLPackage+Zebra.h"
-#import <Plains/Queue/PLQueue.h>
+#import <Plains/Plains.h>
 
 @implementation ZBPackageActions
 
@@ -27,11 +27,11 @@
 + (void)performExtraAction:(ZBPackageExtraActionType)action forPackage:(PLPackage *)package completion:(void (^)(ZBPackageExtraActionType action))completion {
     switch (action) {
         case ZBPackageExtraActionShowUpdates:
-            package.held = NO;
+            package.isHeld = NO;
             if (completion) completion(action);
             break;
         case ZBPackageExtraActionHideUpdates:
-            package.held = YES;
+            package.isHeld = YES;
             if (completion) completion(action);
             break;
 //        case ZBPackageExtraActionAddFavorite:

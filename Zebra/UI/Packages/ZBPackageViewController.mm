@@ -19,7 +19,7 @@
 #import "ZBSidebarController.h"
 
 #import "PLPackage+Zebra.h"
-#import <Plains/Managers/PLPackageManager.h>
+#import <Plains/Plains.h>
 #import <WebKit/WebKit.h>
 
 #import <SDWebImage/SDWebImage.h>
@@ -139,7 +139,7 @@
     [self configureNavigationItems];
     
     // Tagline label tapping
-    if (self.package.hasTagline && (self.package.authorName || self.package.maintainerName)) { // Only enable the tap recognizer if there is a tagline
+    if (self.package.hasTagline && (self.package.author.name || self.package.maintainer.name)) { // Only enable the tap recognizer if there is a tagline
         UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAuthorName)];
         self.tagLineLabel.userInteractionEnabled = YES;
         [self.tagLineLabel addGestureRecognizer:gestureRecognizer];
@@ -185,7 +185,7 @@
     if (self.package.hasTagline) {
         self.tagLineLabel.text = self.package.shortDescription;
     } else {
-        self.tagLineLabel.text = self.package.authorName ?: self.package.maintainerName;
+        self.tagLineLabel.text = self.package.author.name ?: self.package.maintainer.name;
     }
     [self.package setPackageIconForImageView:self.iconImageView];
     self.packageInformation = [self.package information];
@@ -223,7 +223,7 @@
 
 - (void)showAuthorName {
     [UIView transitionWithView:self.tagLineLabel duration:0.25f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        self.tagLineLabel.text = self.package.authorName ?: self.package.maintainerName;
+        self.tagLineLabel.text = self.package.author.name ?: self.package.maintainer.name;
     } completion:nil];
 }
 

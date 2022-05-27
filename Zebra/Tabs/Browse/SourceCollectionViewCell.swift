@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import Plains
 
 class SourceCollectionViewCell: UICollectionViewCell {
 
-	var source: PLSource! {
+	var source: Source! {
 		didSet { updateSource() }
 	}
 

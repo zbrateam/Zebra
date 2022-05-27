@@ -14,10 +14,9 @@
 #import "UINavigationBar+Extensions.h"
 #import "UIViewController+Extensions.h"
 #import <WebKit/WebKit.h>
-#import "Zebra-Swift.h"
 
-#import <Plains/Model/PLSource.h>
-#import <Plains/Managers/PLSourceManager.h>
+#import <Plains/Plains.h>
+#import "Zebra-Swift.h"
 #import <SDWebImage/SDWebImage.h>
 
 @interface ZBSourceImportViewController () {
@@ -345,7 +344,7 @@
             if (dummySource.components) [sourceDict setObject:dummySource.components forKey:@"Components"];
             [sourceDicts addObject:sourceDict];
         }
-        [self->sourceManager addSources:sourceDicts];
+//        [self->sourceManager addSources:sourceDicts];
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }];

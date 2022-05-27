@@ -24,6 +24,7 @@ fileprivate enum RedditNewsTag: String, Codable {
 	case release = "release"
 	case releaseFree = "release,free"
 	case releasePaid = "release,paid"
+	case releaseJailbreak = "jbrelease"
 	case update = "update"
 	case updateFree = "update,free"
 	case updatePaid = "update,paid"
@@ -35,6 +36,7 @@ fileprivate enum RedditNewsTag: String, Codable {
 		case .release:     return .localize("Release")
 		case .releaseFree: return .localize("Free Release")
 		case .releasePaid: return .localize("Paid Release")
+		case .releaseJailbreak: return .localize("Jailbreak Release")
 		case .update:      return .localize("Update")
 		case .updateFree:  return .localize("Free Update")
 		case .updatePaid:  return .localize("Paid Update")

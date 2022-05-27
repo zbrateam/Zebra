@@ -9,7 +9,7 @@
 #import "ZBPackageFilesViewController.h"
 
 #import "Zebra-Swift.h"
-#import <Plains/Model/PLPackage.h>
+#import <Plains/Plains.h>
 
 @interface ZBPackageFilesViewController () {
     NSMutableArray *files;

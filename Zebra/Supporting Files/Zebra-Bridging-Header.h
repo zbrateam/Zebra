@@ -2,13 +2,9 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#define SWIFT
-
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 #import "Headers/MobileGestalt.h"
-
-#import <Plains/Plains.h>
 
 #import "ZBSettings.h"
 #import "Model/ZBDummySource.h"

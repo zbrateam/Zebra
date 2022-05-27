@@ -8,7 +8,7 @@
 
 #import "ZBPackageSupportViewController.h"
 #import "Zebra-Swift.h"
-#import <Plains/Model/PLPackage.h>
+#import <Plains/Plains.h>
 
 @interface ZBPackageSupportViewController ()
 @property (nonatomic, strong) PLPackage *package;
@@ -38,16 +38,16 @@
     // This is a temporary support view, will be replaced with a redesigned view in a later beta
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Support" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    if (self.package.authorEmail) {
-        UIAlertAction *authorAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ (Author)", self.package.authorName] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self sendEmailTo:self.package.authorEmail];
+    if (self.package.author.email) {
+        UIAlertAction *authorAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ (Author)", self.package.author.name] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self sendEmailTo:self.package.author.email];
         }];
         [alert addAction:authorAction];
     }
     
-    if (self.package.maintainerEmail) {
-        UIAlertAction *authorAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ (Maintainer)", self.package.maintainerName] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self sendEmailTo:self.package.maintainerEmail];
+    if (self.package.maintainer.email) {
+        UIAlertAction *authorAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@ (Maintainer)", self.package.maintainer.name] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self sendEmailTo:self.package.maintainer.email];
         }];
         [alert addAction:authorAction];
     }

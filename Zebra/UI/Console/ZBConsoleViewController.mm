@@ -10,8 +10,7 @@
 
 #import "Zebra-Swift.h"
 
-#import <Plains/Managers/PLPackageManager.h>
-#import <Plains/Queue/PLQueue.h>
+#import <Plains/Plains.h>
 
 typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     ZBConsoleFinishOptionClose,

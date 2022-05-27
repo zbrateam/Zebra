@@ -8,6 +8,7 @@
 
 import UIKit
 import Evander
+import Plains
 
 @objc(ZBSourceTableViewCell)
 class SourceTableViewCell: UITableViewCell {
@@ -133,7 +134,7 @@ class SourceTableViewCell: UITableViewCell {
         iconLink = nil
     }
         
-    @objc public func setSource(_ source: PLSource) {
+    @objc public func setSource(_ source: Source) {
         sourceLabel.text = source.origin
         urlLabel.text  = source.uri.absoluteString
         

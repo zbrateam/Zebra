@@ -17,8 +17,7 @@
 #import "ZBPackageActions.h"
 #import "ZBPackageViewController.h"
 
-#import <Plains/Model/PLPackage.h>
-#import <Plains/Managers/PLPackageManager.h>
+#import <Plains/Plains.h>
 
 @interface ZBSearchViewController () {
     NSMutableArray *recentSearches;
