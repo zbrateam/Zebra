@@ -8,26 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		00ED302E235C23C5005E8302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00ED302C235C23C5005E8302 /* Localizable.strings */; };
-		3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */; };
 		3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */; };
-		363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBSourceAccountTableViewController.m */; };
-		3671B52222CB07F9008FD737 /* ZBHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3671B52122CB07F9008FD737 /* ZBHomeViewController.m */; };
-		367D80F522C3D1CF00581D60 /* ZBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F322C3D1CF00581D60 /* ZBSettingsViewController.m */; };
-		369CF11322DA2361007EA0F7 /* ZBPackageFilesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 369CF11222DA2361007EA0F7 /* ZBPackageFilesViewController.mm */; };
-		36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FA230A1616002694BE /* ZBUserInfo.m */; };
-		36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */; };
-		49009A642471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49009A622471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m */; };
 		49009A652471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49009A632471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib */; };
-		4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4902F53A246E15C6007B7E25 /* ZBLinkTableViewCell.m */; };
 		4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4902F53B246E15C6007B7E25 /* ZBLinkTableViewCell.xib */; };
 		4910B3A02426BD2F00306C5C /* ZBSourceAccountBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4910B39F2426BD2F00306C5C /* ZBSourceAccountBanner.xib */; };
-		4910B3A82426BD5C00306C5C /* ZBSourceAccountBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910B3A72426BD5C00306C5C /* ZBSourceAccountBanner.m */; };
-		493C3240227A905800603FB9 /* ZBPackageTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.mm */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
-		49452C28246A414900F45C2D /* ZBActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49452C27246A414900F45C2D /* ZBActionButton.m */; };
-		499935F72496BDD2009A5BF9 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 499935F62496BDD2009A5BF9 /* UIViewController+Extensions.m */; };
-		499B0E25246B8437008825E4 /* ZBBoldTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */; };
-		499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */; };
 		499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */; };
 		49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */; };
 		4E01F9352840B6780051A64F /* SwiftZSTD-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235A2283E180E00713CBB /* SwiftZSTD-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -42,6 +27,8 @@
 		4E1A1C9027B6B9F600B6DC9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E1A1C8E27B6B9F600B6DC9A /* LaunchScreen.storyboard */; };
 		4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */; };
 		4E1A1C9427B7B17700B6DC9A /* PackageSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */; };
+		4E1F060828411A47006B3F0C /* PackageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F060728411A47006B3F0C /* PackageViewController.swift */; };
+		4E1F060A28411A93006B3F0C /* PackageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F060928411A93006B3F0C /* PackageListViewController.swift */; };
 		4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339AE227D08F7800F013C1 /* FileTypes.swift */; };
 		4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339B7F27D0E45300F013C1 /* URL+Additions.swift */; };
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
@@ -124,56 +111,18 @@
 		4EE3CC7D283E50A0007D2943 /* SourceFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3CC7C283E50A0007D2943 /* SourceFileHandler.swift */; };
 		4EE3CC7F283E50B1007D2943 /* SourceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3CC7E283E50B1007D2943 /* SourceFile.swift */; };
 		4EE3CC81283E5982007D2943 /* PackagesFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3CC80283E5982007D2943 /* PackagesFileHandler.swift */; };
-		75823619249E7DCA003713DD /* ZBSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75823618249E7DCA003713DD /* ZBSettingsTableViewCell.m */; };
-		75D0A77F24A014D2007D84EF /* ZBPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D0A77E24A014D2007D84EF /* ZBPreferencesViewController.m */; };
-		8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */; };
-		8903B866264F7351005B1098 /* ZBAppIconSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8903B865264F7351005B1098 /* ZBAppIconSettingsViewController.m */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
-		891551582560A496005AF405 /* ZBPackageFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891551572560A496005AF405 /* ZBPackageFilterViewController.m */; };
 		8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8915515B2560A4F0005AF405 /* ZBPartialPresentationController.m */; };
-		89159FB021F8E5FD0012C8FE /* ZBPackageViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89159FAF21F8E5FD0012C8FE /* ZBPackageViewController.mm */; };
-		8916AC2323CAAECC008BA02C /* ZBChangelogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2223CAAECC008BA02C /* ZBChangelogViewController.m */; };
-		8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsViewController.m */; };
 		891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 891D1BAC26290FB1006839F7 /* ZBDummySource.m */; };
 		8927D52123C29CCA00A7987E /* ZBSourceImportViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportViewController.mm */; };
-		89308E2723FF4BBB00D4641D /* ZBResetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89308E2623FF4BBB00D4641D /* ZBResetViewController.m */; };
 		8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89374959248603D700CE0520 /* ZBSourceAddViewController.mm */; };
-		8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */; };
-		893952FF220B5D0100995109 /* ZBConsoleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.mm */; };
-		893CCD22256457A900656810 /* ZBSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893CCD21256457A900656810 /* ZBSelectionViewController.m */; };
-		894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894893ED2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m */; };
-		894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894894002471CF9B00E2FF97 /* ZBChangelogTableViewCell.m */; };
 		894894032471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894894012471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib */; };
-		894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */; };
-		894EAB55261D5C4C00552235 /* ZBSidebarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 894EAB54261D5C4C00552235 /* ZBSidebarController.mm */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
-		895A808823637C5100C166AC /* ZBCreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsViewController.m */; };
-		895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 895C2AD92402303B0065F424 /* ZBSearchViewController.mm */; };
-		895CB40326617D7A0013A21A /* ZBLanguageSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895CB40226617D7A0013A21A /* ZBLanguageSettingsViewController.m */; };
-		896B2B53259FA2170082A62E /* ZBSourceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 896B2B52259FA2170082A62E /* ZBSourceListViewController.mm */; };
-		896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 896B2B5D259FA7180082A62E /* ZBSourceFilter.m */; };
 		898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898C50422649F9E0002CDC09 /* MessageUI.framework */; };
-		898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.mm */; };
-		899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 899229FC242815E90086E2F4 /* ZBSourceInfo.m */; };
-		89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1297A247B49F000C7310B /* UINavigationController+SBS.m */; };
-		89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.mm */; };
-		89A75F602606ECF100FB6422 /* ZBSourceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89A75F5F2606ECF100FB6422 /* ZBSourceViewController.mm */; };
-		89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD450323CA4F010008831F /* UIImageView+Zebra.m */; };
 		89AD450F23CA6D260008831F /* ZBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD450E23CA6D260008831F /* ZBSettings.m */; };
-		89ADD1222561AEFC00DF2241 /* ZBPackageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ADD1212561AEFC00DF2241 /* ZBPackageFilter.m */; };
 		89B312882465D9640027FE29 /* ZBPackageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B312822465D9640027FE29 /* ZBPackageViewController.xib */; };
-		89B701D52641CAAA00F50DAD /* ZBErrorViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89B701D42641CAAA00F50DAD /* ZBErrorViewController.mm */; };
-		89BAE2EE261A8F1D0063BA22 /* PLPackage+Zebra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89BAE2ED261A8F1D0063BA22 /* PLPackage+Zebra.mm */; };
-		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.mm */; };
 		89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE921B1B13800A10E58 /* Assets.xcassets */; };
-		89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.mm */; };
 		89D97AFE25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D97AFD25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m */; };
-		89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */; };
-		89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */; };
-		89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89EA4ED1241B166D008DFE15 /* ZBFilterSettingsTableViewController.m */; };
-		89FBA8532643721500F97910 /* PLSource+Zebra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89FBA8522643721500F97910 /* PLSource+Zebra.mm */; };
-		8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA226AF248BC4E100596838 /* ZBNotificationManager.m */; };
-		9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActions.mm */; };
 		E1428E6F27791624005B0885 /* Canister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E6E27791624005B0885 /* Canister.swift */; };
 		E1428E7927794FC4005B0885 /* Evander in Frameworks */ = {isa = PBXBuildFile; productRef = E1428E7827794FC4005B0885 /* Evander */; };
 		E193C66A277A47E700B2469E /* SourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E7D277A2731005B0885 /* SourceTableViewCell.swift */; };
@@ -297,6 +246,8 @@
 		4E1A1C8F27B6B9F600B6DC9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSToolbarItem+AppItems.swift"; sourceTree = "<group>"; };
 		4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSceneDelegate.swift; sourceTree = "<group>"; };
+		4E1F060728411A47006B3F0C /* PackageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageViewController.swift; sourceTree = "<group>"; };
+		4E1F060928411A93006B3F0C /* PackageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageListViewController.swift; sourceTree = "<group>"; };
 		4E339AE227D08F7800F013C1 /* FileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypes.swift; sourceTree = "<group>"; };
 		4E339B7F27D0E45300F013C1 /* URL+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Additions.swift"; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
@@ -881,6 +832,8 @@
 				898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.mm */,
 				369CF11122DA2361007EA0F7 /* ZBPackageFilesViewController.h */,
 				369CF11222DA2361007EA0F7 /* ZBPackageFilesViewController.mm */,
+				4E1F060728411A47006B3F0C /* PackageViewController.swift */,
+				4E1F060928411A93006B3F0C /* PackageListViewController.swift */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1619,49 +1572,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				895A808823637C5100C166AC /* ZBCreditsViewController.m in Sources */,
 				F0C1243627D7A52B0041022E /* SourceSectionCollectionViewCell.swift in Sources */,
 				89D97AFE25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m in Sources */,
-				893952FF220B5D0100995109 /* ZBConsoleViewController.mm in Sources */,
 				4EB2350B283DCE1400713CBB /* RFC822DateFormatter.swift in Sources */,
 				4E8D723927DB617A00B62753 /* PLPackage+Additions.swift in Sources */,
 				4EC7F29127B3701D0078F953 /* AppDelegate.swift in Sources */,
 				4EB23509283D2F5F00713CBB /* URLSession+Additions.swift in Sources */,
 				4EC7F28727B291F30078F953 /* Device.swift in Sources */,
-				894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.mm in Sources */,
 				F0C1243427D7A2C50041022E /* SourceSectionsViewController.swift in Sources */,
 				F057924827D7BC6D00E9B477 /* PromotedPackageCarouselItem.swift in Sources */,
 				4EBA840A27D10DB100766DBE /* SourceCollectionViewCell.swift in Sources */,
-				8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */,
 				4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */,
-				499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */,
-				8903B866264F7351005B1098 /* ZBAppIconSettingsViewController.m in Sources */,
 				4EC7F28927B2932F0078F953 /* Array+Extensions.swift in Sources */,
-				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
-				893CCD22256457A900656810 /* ZBSelectionViewController.m in Sources */,
-				75823619249E7DCA003713DD /* ZBSettingsTableViewCell.m in Sources */,
 				4E840B3B27D6484900039938 /* GradientView.swift in Sources */,
-				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,
-				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				4EB2350D283DEA8C00713CBB /* Decompressor.swift in Sources */,
 				E193C66A277A47E700B2469E /* SourceTableViewCell.swift in Sources */,
 				4EBA842227D38B7400766DBE /* ZBWorkspace.m in Sources */,
-				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */,
 				4EC7F28527B28D770078F953 /* Command.swift in Sources */,
-				75D0A77F24A014D2007D84EF /* ZBPreferencesViewController.m in Sources */,
 				4EC7F29C27B3A19F0078F953 /* RootViewController.swift in Sources */,
-				4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */,
 				4EA26EB727CCDAC80019A5AA /* BaseSceneDelegate.swift in Sources */,
 				4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */,
-				499935F72496BDD2009A5BF9 /* UIViewController+Extensions.m in Sources */,
-				49009A642471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m in Sources */,
-				3671B52222CB07F9008FD737 /* ZBHomeViewController.m in Sources */,
+				4E1F060828411A47006B3F0C /* PackageViewController.swift in Sources */,
 				4EC7F28327B28D3C0078F953 /* DeviceCommands.swift in Sources */,
 				89AD450F23CA6D260008831F /* ZBSettings.m in Sources */,
-				89B701D52641CAAA00F50DAD /* ZBErrorViewController.mm in Sources */,
-				894EAB55261D5C4C00552235 /* ZBSidebarController.mm in Sources */,
-				89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */,
 				4EE3CC7D283E50A0007D2943 /* SourceFileHandler.swift in Sources */,
 				4E840B4227D7142E00039938 /* HomeViewController.swift in Sources */,
 				4EBA841227D253AC00766DBE /* CarouselCollectionViewContainingCell.swift in Sources */,
@@ -1670,82 +1604,50 @@
 				4EB23512283DFA5500713CBB /* Bzip2Decompressor.swift in Sources */,
 				4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */,
 				4EB2354F283DFB8B00713CBB /* ZstdDecompressor.swift in Sources */,
-				896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */,
 				4EC7F2A027B53D990078F953 /* FileImportController.swift in Sources */,
 				4EBA841527D2575A00766DBE /* CarouselViewController.swift in Sources */,
-				895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */,
 				4E9FC8892790637F00934FFE /* Preferences.swift in Sources */,
+				4E1F060A28411A93006B3F0C /* PackageListViewController.swift in Sources */,
 				4EC7F29E27B3A5930078F953 /* MacSidebarViewController.swift in Sources */,
 				F057924627D7BC2500E9B477 /* PromotedPackageCarouselViewController.swift in Sources */,
 				F057924A27D7BDBD00E9B477 /* PromotedPackageCarouselItemCollectionViewCell.swift in Sources */,
 				4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */,
 				4EBA841B27D3119800766DBE /* IconImageView.swift in Sources */,
 				4EBA840C27D1F9A100766DBE /* SectionHeaderView.swift in Sources */,
-				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
 				4E9FC89227910AD200934FFE /* UIFont+Additions.swift in Sources */,
 				E193C67C277A8E0100B2469E /* PackageDepictionViewController.swift in Sources */,
 				4EE3CC7F283E50B1007D2943 /* SourceFile.swift in Sources */,
 				4EA893DF27DF3D2100E2EC7A /* Dictionary+Extensions.swift in Sources */,
 				4EC7F29527B393870078F953 /* UIApplication+Additions.swift in Sources */,
-				9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */,
-				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,
-				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,
 				F057924C27D7C2D800E9B477 /* PromotedPackagesCarouselCollectionViewContainingCell.swift in Sources */,
-				4910B3A82426BD5C00306C5C /* ZBSourceAccountBanner.m in Sources */,
 				4EC7F28D27B29AB20078F953 /* Darwin+Extensions.swift in Sources */,
-				8916AC2323CAAECC008BA02C /* ZBChangelogViewController.m in Sources */,
-				89FBA8532643721500F97910 /* PLSource+Zebra.mm in Sources */,
-				369CF11322DA2361007EA0F7 /* ZBPackageFilesViewController.mm in Sources */,
 				4EA26EA227CC87810019A5AA /* PlainsController.swift in Sources */,
-				367D80F522C3D1CF00581D60 /* ZBSettingsViewController.m in Sources */,
 				8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */,
-				49452C28246A414900F45C2D /* ZBActionButton.m in Sources */,
 				4EE3CC81283E5982007D2943 /* PackagesFileHandler.swift in Sources */,
 				891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */,
-				89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */,
-				895CB40326617D7A0013A21A /* ZBLanguageSettingsViewController.m in Sources */,
 				4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */,
-				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
 				4EC7F28F27B2B55C0078F953 /* URLController.swift in Sources */,
 				4E8F843527D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift in Sources */,
 				4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */,
-				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
 				E1428E6F27791624005B0885 /* Canister.swift in Sources */,
-				89159FB021F8E5FD0012C8FE /* ZBPackageViewController.mm in Sources */,
-				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
 				F057924E27D7C37500E9B477 /* PromotedPackagesFetcher.swift in Sources */,
 				4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */,
 				8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */,
-				89308E2723FF4BBB00D4641D /* ZBResetViewController.m in Sources */,
-				89ADD1222561AEFC00DF2241 /* ZBPackageFilter.m in Sources */,
-				898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.mm in Sources */,
 				4E840B4627D73D3100039938 /* SourceHTTPClient.swift in Sources */,
 				4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */,
-				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.mm in Sources */,
 				4EB23510283DFA3500713CBB /* AppleDecompressor.swift in Sources */,
-				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,
 				4EC7F28B27B2985A0078F953 /* String+Extensions.swift in Sources */,
-				89A75F602606ECF100FB6422 /* ZBSourceViewController.mm in Sources */,
-				89BAE2EE261A8F1D0063BA22 /* PLPackage+Zebra.mm in Sources */,
 				4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */,
 				4EBA840527D0FC0B00766DBE /* RedditNewsFetcher.swift in Sources */,
 				E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */,
-				363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */,
-				894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */,
 				4EA26E8E27C9CC070019A5AA /* NSUserActivity+Additions.swift in Sources */,
 				4E1A1C9427B7B17700B6DC9A /* PackageSceneDelegate.swift in Sources */,
-				499B0E25246B8437008825E4 /* ZBBoldTableViewHeaderView.m in Sources */,
-				891551582560A496005AF405 /* ZBPackageFilterViewController.m in Sources */,
-				896B2B53259FA2170082A62E /* ZBSourceListViewController.mm in Sources */,
 				4EBA840E27D21F4700766DBE /* InfoFooterView.swift in Sources */,
 				4EBA841727D260B500766DBE /* CarouselItemCollectionViewCell.swift in Sources */,
 				4E840B4427D7150000039938 /* SourceRefreshController.swift in Sources */,
-				493C3240227A905800603FB9 /* ZBPackageTableViewCell.mm in Sources */,
 				4EC7F29327B3714A0078F953 /* AppSceneDelegate.swift in Sources */,
-				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,
 				4EBA841E27D33EBE00766DBE /* ListCollectionViewController.swift in Sources */,
 				4EBA841027D22F1300766DBE /* UINavigationBarAppearance+Extensions.swift in Sources */,
-				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
 				4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -84,7 +84,8 @@ class PackageSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 		do {
 			_ = try url.checkResourceIsReachable()
 			let package = try PackageManager.shared.addDebFile(url)
-			navigationController?.viewControllers = [ZBPackageViewController(package: package)]
+			// TODO: Package vc class
+			// navigationController?.viewControllers = [ZBPackageViewController(package: package)]
 
 			let scene = window!.windowScene!
 			scene.title = url.lastPathComponent
@@ -98,7 +99,8 @@ class PackageSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
 	private func handleLoadFailed(scene: UIWindowScene, error: Error? = nil) {
 		if let viewController = navigationController?.viewControllers.first,
-			 type(of: viewController) == ZBPackageViewController.self {
+			 // TODO: Package vc class
+			 type(of: viewController) == UIViewController.self { // ZBPackageViewController.self {
 			// Just ignore, we already loaded something.
 			return
 		}

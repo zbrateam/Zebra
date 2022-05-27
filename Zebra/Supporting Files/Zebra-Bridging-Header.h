@@ -9,11 +9,6 @@
 #import "ZBSettings.h"
 #import "Model/ZBDummySource.h"
 
-#import "ZBHomeViewController.h"
-#import "ZBSourceListViewController.h"
-#import "ZBPackageListViewController.h"
-#import "ZBPackageViewController.h"
-#import "ZBSettingsViewController.h"
 #import "ZBSourceAddViewController.h"
 #import "ZBWorkspace.h"
 #import "ZBPackageActions.h"

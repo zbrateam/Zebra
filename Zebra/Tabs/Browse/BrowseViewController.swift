@@ -305,7 +305,8 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 			return
 		case .sources:
 			if indexPath.item == 0 {
-				let controller = ZBPackageListViewController(packages: PackageManager.shared.packages)
+				// TODO: Package list class
+				let controller = PackageListViewController()
 				controller.title = .localize("All Packages")
 				navigationController?.pushViewController(controller, animated: true)
 			} else {

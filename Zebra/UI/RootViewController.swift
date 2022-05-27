@@ -47,8 +47,8 @@ class RootViewController: RootViewControllerSuperclass {
 			switch self {
 			case .home:      return HomeViewController()
 			case .browse:    return BrowseViewController()
-			case .installed: return ZBPackageListViewController()
-			case .me:        return ZBSettingsViewController()
+			case .installed: return PackageListViewController()
+			case .me:        return UIViewController() // ZBSettingsViewController()
 			}
 		}
 	}

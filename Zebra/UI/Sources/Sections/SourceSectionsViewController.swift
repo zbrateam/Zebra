@@ -169,13 +169,11 @@ extension SourceSectionViewController {
         case .sections:
             if indexPath.item == 0 {
                 // TODO: This is probably not the most efficient way to filter these
-                let controller = ZBPackageListViewController(packages: PackageManager.shared.packages.filter { package in
-                    package.source == self.source
-                })
+                let controller = PackageListViewController(packages: PackageManager.shared.packages.filter { $0.source == source })
                 controller.title = .localize("Packages")
                 navigationController?.pushViewController(controller, animated: true)
             } else {
-                let controller = ZBPackageListViewController(source: source, section: sections[indexPath.item - 1])
+                let controller = PackageListViewController(source: source, section: sections[indexPath.item - 1])
                 navigationController?.pushViewController(controller, animated: true)
             }
 
