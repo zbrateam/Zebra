@@ -24,9 +24,9 @@ class BrowseViewController: ListCollectionViewController {
 		collectionView.register(CarouselCollectionViewContainingCell.self, forCellWithReuseIdentifier: "CarouselCell")
 
 		#if !targetEnvironment(macCatalyst)
-			let refreshControl = UIRefreshControl()
-			refreshControl.addTarget(nil, action: #selector(RootViewController.refreshSources), for: .valueChanged)
-			collectionView.refreshControl = refreshControl
+		let refreshControl = UIRefreshControl()
+		refreshControl.addTarget(nil, action: #selector(RootViewController.refreshSources), for: .valueChanged)
+		collectionView.refreshControl = refreshControl
 		#endif
 	}
 
@@ -150,7 +150,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 
 	override func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch Section(rawValue: section)! {
-		case .news: return ZBSettings.wantsCommunityNews() ? 1 : 0
+		case .news: return Preferences.showNewsCarousel ? 1 : 0
 		case .sources: return sources.count + 1
 		}
 	}
@@ -303,17 +303,11 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 		switch Section(rawValue: indexPath.section) {
 		case .news:
 			return
+
 		case .sources:
-			if indexPath.item == 0 {
-				// TODO: Package list class
-				let controller = PackageListViewController()
-				controller.title = .localize("All Packages")
-				navigationController?.pushViewController(controller, animated: true)
-			} else {
-				let controller = SourceSectionViewController(source: sources[indexPath.item - 1])
-				navigationController?.pushViewController(controller, animated: true)
-			}
-			return
+			let controller = SourceSectionViewController(source: indexPath.item == 0 ? nil : sources[indexPath.item - 1])
+			navigationController?.pushViewController(controller, animated: true)
+
 		case .none:
 			fatalError("Something was selected that wasn't supposed to be")
 		}

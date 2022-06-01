@@ -8,8 +8,8 @@
 
 import UIKit
 
-@objc(ZBAccentColor)
 enum AccentColor: Int, CaseIterable {
+	case system = -1
 	case aquaVelvet
 	case cornflowerBlue
 	case emeraldCity
@@ -26,6 +26,7 @@ enum AccentColor: Int, CaseIterable {
 
 	var name: String {
 		switch self {
+		case .system:         return .localize("System Default")
 		case .aquaVelvet:     return .localize("Aqua Velvet")
 		case .cornflowerBlue: return .localize("Cornflower Blue")
 		case .emeraldCity:    return .localize("Emerald City")
@@ -42,7 +43,12 @@ enum AccentColor: Int, CaseIterable {
 		}
 	}
 
-	var uiColor: UIColor { UIColor(named: name)! }
+	var uiColor: UIColor? {
+		switch self {
+			case .system: return nil
+			default:      return UIColor(named: name)
+		}
+	}
 }
 
 typealias ColorRGBAComponents = (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat)
@@ -112,27 +118,14 @@ extension UIColor {
 
 extension UIColor {
 
-	@objc(accentColor)
-	static var accent: UIColor? {
-		ZBSettings.usesSystemAccentColor ? nil : ZBSettings.accentColor.uiColor
-	}
+	static var accent: UIColor? { Preferences.accentColor.uiColor }
 
-	@objc func getAccentColor(_ accentColor: AccentColor, forInterfaceStyle userInterfaceStyle: UIUserInterfaceStyle) -> UIColor {
+	func accentColor(_ accentColor: AccentColor, forUserInterfaceStyle userInterfaceStyle: UIUserInterfaceStyle) -> UIColor? {
 		let traitCollection = UITraitCollection(userInterfaceStyle: userInterfaceStyle)
-		return accentColor.uiColor.resolvedColor(with: traitCollection)
+		return accentColor.uiColor?.resolvedColor(with: traitCollection)
 	}
 
-	@objc func localizedName(forAccentColor accentColor: AccentColor) -> String {
-		if ZBSettings.usesSystemAccentColor {
-			return NSLocalizedString("System", comment: "")
-		}
-		return NSLocalizedString(accentColor.name, comment: "")
-	}
-
-	@objc(badgeColor)
 	static var badge: UIColor { UIColor(named: "Badge Color")! }
-
-	@objc(imageBorderColor)
 	static var imageBorder: UIColor { UIColor(named: "Image Border Color")! }
 
 }

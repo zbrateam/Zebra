@@ -11,6 +11,7 @@ import UniformTypeIdentifiers
 
 #if targetEnvironment(macCatalyst)
 import IOKit
+import IOKit.ps
 #endif
 
 extension UTTagClass {
@@ -149,6 +150,71 @@ enum Architecture: String {
 			return String(cString: cChar)
 		}
 		return nil
+	}
+
+	var isPortable: Bool {
+		switch userInterfaceIdiom {
+		case .phone, .pad, .carPlay, .unspecified:
+			return true
+		case .tv:
+			return false
+		case .mac:
+#if targetEnvironment(macCatalyst)
+			if let powerSourcesInfo = IOPSCopyPowerSourcesInfo()?.takeUnretainedValue(),
+				 let powerSourcesList = IOPSCopyPowerSourcesList(powerSourcesInfo)?.takeUnretainedValue() as? [CFTypeRef] {
+				return powerSourcesList.contains {
+					let description = IOPSGetPowerSourceDescription(powerSourcesInfo, $0)?.takeUnretainedValue() as? [String: Any] ?? [:]
+					return description["Type"] as? String == "InternalBattery"
+				}
+			}
+#endif
+			return false
+		@unknown default:
+			return true
+		}
+	}
+
+	var deviceSymbolName: String {
+		switch UIDevice.current.userInterfaceIdiom {
+		case .phone, .carPlay, .unspecified:
+			return "iphone"
+		case .pad:
+			return "ipad"
+		case .tv:
+			return "display"
+		case .mac:
+			return UIDevice.current.isPortable ? "laptopcomputer" : "desktopcomputer"
+		@unknown default:
+			return "iphone"
+		}
+	}
+
+	private var isHomeBarDevice: Bool {
+		(MGCopyAnswer("HomeButtonType" as CFString).takeUnretainedValue() as? Int ?? 0) == 2
+	}
+
+	var specificDeviceSymbolName: String {
+		let machine = self.machine
+		if machine.hasPrefix("iPhone") {
+			return isHomeBarDevice ? "iphone" : "iphone.homebutton"
+		} else if machine.hasPrefix("iPad") {
+			return isHomeBarDevice ? "ipad" : "ipad.homebutton"
+		} else if machine.hasPrefix("iPod") {
+			return "ipodtouch"
+		} else if machine.hasPrefix("MacBook") {
+			return "laptopcomputer"
+		} else if machine.hasPrefix("iMac") {
+			return "desktopcomputer"
+		} else if machine.hasPrefix("Macmini") {
+			return "macmini"
+		} else if machine.hasPrefix("MacPro1,") || machine.hasPrefix("MacPro2,") || machine.hasPrefix("MacPro3,") || machine.hasPrefix("MacPro4,") || machine.hasPrefix("MacPro5,") {
+			return "macpro.gen1"
+		} else if machine.hasPrefix("MacPro6,") {
+			return "macpro.gen2"
+		} else if machine.hasPrefix("MacPro") {
+			return "macpro.gen3"
+		}
+		return deviceSymbolName
 	}
 
 }

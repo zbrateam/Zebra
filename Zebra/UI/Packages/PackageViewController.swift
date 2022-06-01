@@ -9,13 +9,13 @@
 import UIKit
 import Plains
 
-class PackageViewController: UICollectionViewController {
+class PackageViewController: UIViewController {
 
 	let package: Package
 
 	init(package: Package) {
 		self.package = package
-		super.init()
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	required init?(coder: NSCoder) {

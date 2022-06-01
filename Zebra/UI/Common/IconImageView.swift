@@ -13,11 +13,15 @@ class IconImageView: UIView {
 
 	var image: UIImage? {
 		get { imageView.image }
-		set { imageView.image = newValue }
+		set {
+			imageView.sd_cancelCurrentImageLoad()
+			imageView.image = newValue
+		}
 	}
 	var imageURL: URL? {
 		didSet { updateImageURL() }
 	}
+	var fallbackImage: UIImage?
 
 	private var backgroundView: UIView!
 	private var imageView: UIImageView!
@@ -74,18 +78,33 @@ class IconImageView: UIView {
 		borderView.layer.borderColor = UIColor.separator.cgColor
 	}
 
+	func setImageURL(_ imageURL: URL, fallbackImage: UIImage? = nil) {
+		self.fallbackImage = fallbackImage
+		self.imageURL = imageURL
+	}
+
+	private func loadImage(url: URL, completion: SDExternalCompletionBlock? = nil) {
+		imageView.sd_imageTransition = .fade(duration: 100)
+		imageView.sd_setImage(with: url,
+													placeholderImage: fallbackImage,
+													options: [.delayPlaceholder, .decodeFirstFrameOnly, .scaleDownLargeImages],
+													completed: completion)
+	}
+
 	private func updateImageURL() {
 		imageView.sd_cancelCurrentImageLoad()
-		imageView.image = nil
 
 		guard let imageURL = imageURL,
 					var url = URLComponents(url: imageURL, resolvingAgainstBaseURL: true) else {
+			imageView.image = fallbackImage
 			return
 		}
 
+		imageView.image = nil
+
 		let scale = window?.screen.scale ?? UIScreen.main.scale
 		if scale == 1 {
-			imageView.sd_setImage(with: imageURL)
+			loadImage(url: imageURL)
 		} else {
 			// Try native scale first, falling back to original url.
 			var fileBaseName = (imageURL.lastPathComponent as NSString).deletingPathExtension
@@ -98,8 +117,9 @@ class IconImageView: UIView {
 			pathComponents.removeLast()
 			pathComponents.append("\(fileBaseName)@\(numberFormatter.string(for: scale)!)x.\(imageURL.pathExtension)")
 			url.path = pathComponents.joined(separator: "/")
-			imageView.sd_setImage(with: url.url!) { image, _, _, _ in
+			loadImage(url: url.url!) { image, _, _, _ in
 				if image == nil {
+					// Fall back to original url.
 					self.imageView.sd_setImage(with: imageURL)
 				}
 			}

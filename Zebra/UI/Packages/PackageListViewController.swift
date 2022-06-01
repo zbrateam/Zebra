@@ -9,18 +9,259 @@
 import UIKit
 import Plains
 
+enum PackageListSwipeActionStyle: Int {
+	case text, icon
+}
+
+enum PackageListSort: Int {
+	case alpha, date, installedSize
+}
+
 class PackageListViewController: ListCollectionViewController {
 
-	var packages = [Package]()
-
-	convenience init(packages: [Package]) {
-		self.init()
-		self.packages = packages
+	enum Filter {
+		case fixed(packages: [Package])
+		case installed
+		case section(source: Source?, section: String?)
+		case search(query: String)
+		case favorites
 	}
 
-	convenience init(source: Source?, section: String?) {
-		// TODO: This init method
-		self.init()
+	var filter: Filter = .fixed(packages: []) {
+		didSet {
+			if isVisible {
+				updateFilter()
+			}
+		}
 	}
 
+	private var packages = [Package]() {
+		didSet { updatePackages() }
+	}
+	private var packagesByIndex = [String: [Package]]()
+	private var indexOrder = [String]()
+
+	private var isVisible = false
+
+	convenience init(filter: Filter) {
+		self.init()
+		self.filter = filter
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		let layout = collectionViewLayout as! UICollectionViewFlowLayout
+		layout.itemSize.height = 92
+
+		collectionView.register(PackageCollectionViewCell.self, forCellWithReuseIdentifier: "PackageCell")
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		isVisible = true
+		updateFilter()
+
+		NotificationCenter.default.addObserver(self, selector: #selector(updateFilter), name: PackageManager.databaseDidRefreshNotification, object: nil)
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		isVisible = false
+
+		NotificationCenter.default.removeObserver(self, name: PackageManager.databaseDidRefreshNotification, object: nil)
+	}
+
+	@objc private func updateFilter() {
+		Task {
+			let title: String
+			let packages: [Package]
+
+			let maxRole = Preferences.roleFilter
+			let roleFilter: (Package) -> Bool = { $0.role.rawValue <= maxRole.rawValue }
+
+			switch self.filter {
+			case .fixed(let fixedPackages):
+				title = .localize("Packages")
+				packages = fixedPackages
+
+			case .installed:
+				title = .localize("Installed")
+				packages = await PackageManager.shared
+					.fetchPackages {
+						$0.isInstalled && $0.role.rawValue < PackageRole.cydia.rawValue
+					}
+
+			case .section(let source, let section):
+				let filter: ((Package) -> Bool)?
+				if let section = section {
+					title = .localize(section)
+					if let source = source {
+						filter = { roleFilter($0) && $0.source == source && $0.section == section }
+					} else {
+						filter = { roleFilter($0) && $0.section == section }
+					}
+				} else if let source = source {
+					title = source.origin
+					filter = { roleFilter($0) && $0.source == source }
+				} else {
+					title = .localize("All Packages")
+					filter = roleFilter
+				}
+
+				if let filter = filter {
+					packages = await PackageManager.shared
+						.fetchPackages(matchingFilter: filter)
+				} else {
+					packages = PackageManager.shared.packages
+				}
+
+			case .search(let query):
+				title = .localize("Search")
+				packages = await PackageManager.shared
+					.fetchPackages {
+						roleFilter($0) &&
+						($0.identifier.localizedCaseInsensitiveContains(query) || $0.name.localizedCaseInsensitiveContains(query) ||
+						$0.shortDescription.localizedCaseInsensitiveContains(query) ||
+						($0.author?.name.localizedCaseInsensitiveContains(query) ?? false) ||
+						($0.maintainer?.name.localizedCaseInsensitiveContains(query) ?? false))
+					}
+
+			case .favorites:
+				title = .localize("Favorites")
+				let favoritePackageIDs = Preferences.favoritePackages
+				packages = await PackageManager.shared
+					.fetchPackages(matchingFilter: { favoritePackageIDs.contains($0.identifier) })
+			}
+
+			let sortedPackages = packages.sorted(by: { $0.name.localizedStandardCompare($1.name) == .orderedAscending })
+			await MainActor.run {
+				self.title = title
+				self.packages = sortedPackages
+			}
+		}
+	}
+
+	private func updatePackages() {
+		packagesByIndex = ["A": packages]
+		indexOrder = ["A"]
+		collectionView.reloadData()
+	}
+
+	// MARK: - Actions
+
+	@objc private func openInSafari(_ sender: UICommand) {
+		guard let indexPath = sender.propertyList as? [Int],
+					let package = packagesByIndex[indexOrder[indexPath[0]]]?[indexPath[1]],
+					let url = package.depictionURL ?? package.homepageURL else {
+			return
+		}
+		URLController.open(url: url)
+	}
+
+	@objc private func sharePackage(_ sender: UICommand) {
+		guard let indexPath = sender.propertyList as? [Int],
+					let package = packagesByIndex[indexOrder[indexPath[0]]]?[indexPath[1]],
+					let cell = collectionView.cellForItem(at: IndexPath(item: indexPath[1], section: indexPath[0])) else {
+			return
+		}
+
+		let text = String(format: .localize("%@ by %@"),
+											package.name,
+											package.author?.name ?? package.maintainer?.name ?? .localize("Unknown"))
+		let url = package.depictionURL ?? package.homepageURL
+
+		let viewController = UIActivityViewController(activityItems: [text, url as Any].compactMap { $0 },
+																									applicationActivities: nil)
+		viewController.popoverPresentationController?.sourceView = cell
+		viewController.popoverPresentationController?.sourceRect = cell.bounds
+		present(viewController, animated: true, completion: nil)
+	}
+
+}
+
+extension PackageListViewController { // UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+	override func numberOfSections(in _: UICollectionView) -> Int {
+		packagesByIndex.count
+	}
+
+	override func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		packagesByIndex[indexOrder[section]]!.count
+	}
+
+	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		let package = packagesByIndex[indexOrder[indexPath.section]]![indexPath.item]
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PackageCell", for: indexPath) as! PackageCollectionViewCell
+		cell.package = package
+		return cell
+	}
+
+	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
+		let package = packagesByIndex[indexOrder[indexPath.section]]![indexPath.item]
+		return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
+			PackageViewController(package: package)
+		}, actionProvider: { _ in
+			var items = [UIMenuElement]()
+			if (package.depictionURL ?? package.homepageURL) != nil {
+				items += [
+					UICommand(title: .openInBrowser,
+										image: UIImage(systemName: "safari"),
+										action: #selector(self.openInSafari),
+										propertyList: [indexPath.section, indexPath.item])
+				]
+			}
+			items += [
+				UICommand(title: .share,
+									image: UIImage(systemName: "square.and.arrow.up"),
+									action: #selector(self.sharePackage),
+									propertyList: [indexPath.section, indexPath.item])
+			]
+			return UIMenu(children: items)
+		})
+	}
+
+	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+		switch kind {
+		case UICollectionView.elementKindSectionHeader:
+			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
+			view.title = indexOrder[indexPath.section]
+			view.buttons = []
+			return view
+
+		case UICollectionView.elementKindSectionFooter:
+			if indexPath.section != packagesByIndex.count - 1 {
+				return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
+			}
+
+			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath) as! InfoFooterView
+			let numberFormatter = NumberFormatter()
+			numberFormatter.numberStyle = .decimal
+			let packageCount = packages.count
+			view.text = String.localizedStringWithFormat(.localize("%@ Packages"),
+																									 NSDecimalNumber(value: packageCount),
+																									 numberFormatter.string(for: packageCount) ?? "0")
+			return view
+
+		default: fatalError()
+		}
+	}
+
+	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+		return CGSize(width: collectionView.frame.size.width, height: 52)
+	}
+
+	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+		if section != packagesByIndex.count - 1 {
+			return .zero
+		}
+		return CGSize(width: collectionView.frame.size.width, height: 52)
+	}
+
+	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let package = packagesByIndex[indexOrder[indexPath.section]]![indexPath.item]
+		let viewController = PackageViewController(package: package)
+		navigationController?.pushViewController(viewController, animated: true)
+	}
 }

@@ -20,9 +20,15 @@ class InfoFooterView: UICollectionReusableView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
+		let textStyle: UIFont.TextStyle
+		switch UIDevice.current.userInterfaceIdiom {
+		case .mac: textStyle = .body
+		default:   textStyle = .footnote
+		}
+
 		label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = .preferredFont(forTextStyle: .footnote)
+		label.font = .preferredFont(forTextStyle: textStyle)
 		label.textAlignment = .center
 		label.textColor = .secondaryLabel
 		addSubview(label)

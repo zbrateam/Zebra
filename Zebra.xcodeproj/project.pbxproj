@@ -29,6 +29,8 @@
 		4E1A1C9427B7B17700B6DC9A /* PackageSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */; };
 		4E1F060828411A47006B3F0C /* PackageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F060728411A47006B3F0C /* PackageViewController.swift */; };
 		4E1F060A28411A93006B3F0C /* PackageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F060928411A93006B3F0C /* PackageListViewController.swift */; };
+		4E1F061328475943006B3F0C /* PackageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F061228475943006B3F0C /* PackageCollectionViewCell.swift */; };
+		4E1F061528477D5B006B3F0C /* SectionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F061428477D5B006B3F0C /* SectionIcon.swift */; };
 		4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339AE227D08F7800F013C1 /* FileTypes.swift */; };
 		4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339B7F27D0E45300F013C1 /* URL+Additions.swift */; };
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
@@ -36,7 +38,6 @@
 		4E840B3E27D6F77400039938 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 4E840B4027D6F77400039938 /* Localizable.stringsdict */; };
 		4E840B4227D7142E00039938 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4127D7142E00039938 /* HomeViewController.swift */; };
 		4E840B4427D7150000039938 /* SourceRefreshController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4327D7150000039938 /* SourceRefreshController.swift */; };
-		4E840B4627D73D3100039938 /* SourceHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B4527D73D3100039938 /* SourceHTTPClient.swift */; };
 		4E8D723927DB617A00B62753 /* PLPackage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8D723827DB617A00B62753 /* PLPackage+Additions.swift */; };
 		4E8F843527D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F843427D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift */; };
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -119,7 +120,6 @@
 		894894032471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894894012471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898C50422649F9E0002CDC09 /* MessageUI.framework */; };
-		89AD450F23CA6D260008831F /* ZBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD450E23CA6D260008831F /* ZBSettings.m */; };
 		89B312882465D9640027FE29 /* ZBPackageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B312822465D9640027FE29 /* ZBPackageViewController.xib */; };
 		89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE921B1B13800A10E58 /* Assets.xcassets */; };
 		89D97AFE25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D97AFD25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m */; };
@@ -248,6 +248,8 @@
 		4E1A1C9327B7B17700B6DC9A /* PackageSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageSceneDelegate.swift; sourceTree = "<group>"; };
 		4E1F060728411A47006B3F0C /* PackageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageViewController.swift; sourceTree = "<group>"; };
 		4E1F060928411A93006B3F0C /* PackageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageListViewController.swift; sourceTree = "<group>"; };
+		4E1F061228475943006B3F0C /* PackageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCollectionViewCell.swift; sourceTree = "<group>"; };
+		4E1F061428477D5B006B3F0C /* SectionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionIcon.swift; sourceTree = "<group>"; };
 		4E339AE227D08F7800F013C1 /* FileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypes.swift; sourceTree = "<group>"; };
 		4E339B7F27D0E45300F013C1 /* URL+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Additions.swift"; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
@@ -255,7 +257,6 @@
 		4E840B3F27D6F77400039938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		4E840B4127D7142E00039938 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4E840B4327D7150000039938 /* SourceRefreshController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceRefreshController.swift; sourceTree = "<group>"; };
-		4E840B4527D73D3100039938 /* SourceHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceHTTPClient.swift; sourceTree = "<group>"; };
 		4E8D723827DB617A00B62753 /* PLPackage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PLPackage+Additions.swift"; sourceTree = "<group>"; };
 		4E8F843427D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeErrorCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -441,7 +442,6 @@
 		89A75F5F2606ECF100FB6422 /* ZBSourceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSourceViewController.mm; sourceTree = "<group>"; };
 		89AD450223CA4F010008831F /* UIImageView+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Zebra.h"; sourceTree = "<group>"; };
 		89AD450323CA4F010008831F /* UIImageView+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Zebra.m"; sourceTree = "<group>"; };
-		89AD450E23CA6D260008831F /* ZBSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettings.m; sourceTree = "<group>"; };
 		89ADD1202561AEFC00DF2241 /* ZBPackageFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageFilter.h; sourceTree = "<group>"; };
 		89ADD1212561AEFC00DF2241 /* ZBPackageFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageFilter.m; sourceTree = "<group>"; };
 		89B312822465D9640027FE29 /* ZBPackageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBPackageViewController.xib; sourceTree = "<group>"; };
@@ -475,7 +475,6 @@
 		95B7FFF323643B74003616EC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96F1BEE92363DAB3009B0D27 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9E1C85A522A38DCB00D93D14 /* ZBTab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTab.h; sourceTree = "<group>"; };
-		9E87F358231A20350043E7F2 /* ZBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettings.h; sourceTree = "<group>"; };
 		9EAE364A2289224E004CBBA3 /* ZBPackageActions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPackageActions.mm; sourceTree = "<group>"; };
 		9EAE364C228922D2004CBBA3 /* ZBPackageActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActions.h; sourceTree = "<group>"; };
 		9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITabBarItem.h; sourceTree = "<group>"; };
@@ -685,6 +684,7 @@
 			children = (
 				4EBA842027D38B7400766DBE /* ZBWorkspace.h */,
 				4EBA842127D38B7400766DBE /* ZBWorkspace.m */,
+				4E1F061428477D5B006B3F0C /* SectionIcon.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -712,7 +712,6 @@
 				4EB2350E283DFA2600713CBB /* Compression */,
 				4EA26EA127CC87810019A5AA /* PlainsController.swift */,
 				4E840B4327D7150000039938 /* SourceRefreshController.swift */,
-				4E840B4527D73D3100039938 /* SourceHTTPClient.swift */,
 				4EB2350A283DCE1300713CBB /* RFC822DateFormatter.swift */,
 			);
 			path = Plains;
@@ -761,8 +760,6 @@
 		4EC7F2A727B556150078F953 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				9E87F358231A20350043E7F2 /* ZBSettings.h */,
-				89AD450E23CA6D260008831F /* ZBSettings.m */,
 				4E9FC8882790637F00934FFE /* Preferences.swift */,
 			);
 			path = Preferences;
@@ -834,6 +831,7 @@
 				369CF11222DA2361007EA0F7 /* ZBPackageFilesViewController.mm */,
 				4E1F060728411A47006B3F0C /* PackageViewController.swift */,
 				4E1F060928411A93006B3F0C /* PackageListViewController.swift */,
+				4E1F061228475943006B3F0C /* PackageCollectionViewCell.swift */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1595,12 +1593,12 @@
 				4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */,
 				4E1F060828411A47006B3F0C /* PackageViewController.swift in Sources */,
 				4EC7F28327B28D3C0078F953 /* DeviceCommands.swift in Sources */,
-				89AD450F23CA6D260008831F /* ZBSettings.m in Sources */,
 				4EE3CC7D283E50A0007D2943 /* SourceFileHandler.swift in Sources */,
 				4E840B4227D7142E00039938 /* HomeViewController.swift in Sources */,
 				4EBA841227D253AC00766DBE /* CarouselCollectionViewContainingCell.swift in Sources */,
 				4E9FC887279061D600934FFE /* Color.swift in Sources */,
 				4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */,
+				4E1F061328475943006B3F0C /* PackageCollectionViewCell.swift in Sources */,
 				4EB23512283DFA5500713CBB /* Bzip2Decompressor.swift in Sources */,
 				4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */,
 				4EB2354F283DFB8B00713CBB /* ZstdDecompressor.swift in Sources */,
@@ -1626,6 +1624,7 @@
 				4EE3CC81283E5982007D2943 /* PackagesFileHandler.swift in Sources */,
 				891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */,
 				4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */,
+				4E1F061528477D5B006B3F0C /* SectionIcon.swift in Sources */,
 				4EC7F28F27B2B55C0078F953 /* URLController.swift in Sources */,
 				4E8F843527D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift in Sources */,
 				4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */,
@@ -1633,7 +1632,6 @@
 				F057924E27D7C37500E9B477 /* PromotedPackagesFetcher.swift in Sources */,
 				4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */,
 				8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */,
-				4E840B4627D73D3100039938 /* SourceHTTPClient.swift in Sources */,
 				4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */,
 				4EB23510283DFA3500713CBB /* AppleDecompressor.swift in Sources */,
 				4EC7F28B27B2985A0078F953 /* String+Extensions.swift in Sources */,

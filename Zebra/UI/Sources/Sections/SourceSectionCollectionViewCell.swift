@@ -9,16 +9,32 @@
 import UIKit
 
 class SourceSectionCollectionViewCell: UICollectionViewCell {
-    var section: (String, NSNumber)! {
+	var section: (name: String, count: Int)! {
         didSet { updateSection() }
     }
+	var isSource = false
 
+	private var imageView: IconImageView!
+	private var symbolImageView: UIImageView!
     private var titleLabel: UILabel!
     private var detailLabel: UILabel!
     private var chevronImageView: UIImageView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+			let imageContainer = UIView()
+			imageContainer.translatesAutoresizingMaskIntoConstraints = false
+
+			imageView = IconImageView()
+			imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+			imageContainer.addSubview(imageView)
+
+			symbolImageView = UIImageView()
+			symbolImageView.translatesAutoresizingMaskIntoConstraints = false
+			symbolImageView.contentMode = .scaleAspectFit
+			symbolImageView.tintColor = .secondaryLabel
+			imageContainer.addSubview(symbolImageView)
 
         titleLabel = UILabel()
         titleLabel.font = .preferredFont(forTextStyle: .headline)
@@ -41,13 +57,21 @@ class SourceSectionCollectionViewCell: UICollectionViewCell {
         let pointSize = UIFont.preferredFont(forTextStyle: .body).pointSize
         chevronImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .small)
 
-        let mainStackView = UIStackView(arrangedSubviews: [labelStackView, chevronImageView])
+        let mainStackView = UIStackView(arrangedSubviews: [imageContainer, labelStackView, chevronImageView])
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.alignment = .center
         mainStackView.spacing = 12
         contentView.addSubview(mainStackView)
 
         NSLayoutConstraint.activate([
+					imageView.widthAnchor.constraint(equalToConstant: 38),
+					imageView.heightAnchor.constraint(equalToConstant: 38),
+
+					symbolImageView.widthAnchor.constraint(equalToConstant: 28),
+					symbolImageView.heightAnchor.constraint(equalToConstant: 28),
+					symbolImageView.centerXAnchor.constraint(equalTo: imageContainer.centerXAnchor),
+					symbolImageView.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor),
+
             mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
@@ -66,12 +90,18 @@ class SourceSectionCollectionViewCell: UICollectionViewCell {
     }
 
     private func updateSection() {
-        if let section = section {
-            titleLabel.text = section.0
-            detailLabel.text = section.1.stringValue
+        if let (name, count) = section {
+					titleLabel.text = .localize(name)
+					detailLabel.text = NumberFormatter.localizedString(from: count as NSNumber, number: .none)
+					imageView.image = SectionIcon.icon(for: name)
+					imageView.isHidden = false
+					symbolImageView.isHidden = true
         } else {
             titleLabel.text = .localize("All Packages")
-            detailLabel.text = .localize("Browse packages from this source.")
+					detailLabel.text = isSource ? .localize("Browse packages from this source.") : .localize("Browse packages from all installed sources.")
+					imageView.isHidden = true
+					symbolImageView.image = UIImage(named: "zebra.wrench")
+					symbolImageView.isHidden = false
         }
         // TODO: Add "All Packages"
     }

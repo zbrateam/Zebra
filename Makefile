@@ -1,3 +1,6 @@
+# TODO: Remove when we advance to beta
+ALPHA := 1
+
 ALPHA ?= 0
 BETA ?= 0
 

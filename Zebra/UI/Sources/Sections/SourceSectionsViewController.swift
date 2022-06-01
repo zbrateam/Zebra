@@ -11,12 +11,13 @@ import UIKit
 import Plains
 
 class SourceSectionViewController: ListCollectionViewController {
-    private var source: Source
+    private let source: Source?
+	private var countsBySection = [String: Int]()
     private var sections = [String]()
 
     private var promotedPackages: [PromotedPackageBanner]?
 
-    init(source: Source) {
+    init(source: Source?) {
         self.source = source
         super.init()
     }
@@ -29,7 +30,7 @@ class SourceSectionViewController: ListCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = source.origin
+			title = source?.origin ?? .localize("Sections")
 
         collectionView.register(SourceSectionCollectionViewCell.self, forCellWithReuseIdentifier: "SourceSectionCell")
         collectionView.register(PromotedPackagesCarouselCollectionViewContainingCell.self, forCellWithReuseIdentifier: "CarouselCell")
@@ -51,10 +52,21 @@ class SourceSectionViewController: ListCollectionViewController {
 
     private func setupSections() {
         DispatchQueue.main.async {
-            self.sections = Array(self.source.sections.keys).sorted(by: { a, b in a.localizedStandardCompare(b) == .orderedAscending })
+					if let source = self.source {
+						self.countsBySection = source.sections as! [String: Int]
+					} else {
+						var countsBySection = [String: Int]()
+						for package in PackageManager.shared.packages {
+							let section = package.cleanedSection ?? "Uncategorized"
+							countsBySection[section] = (countsBySection[section] ?? 0) + 1
+						}
+						self.countsBySection = countsBySection
+					}
+
+					self.sections = Array(self.countsBySection.keys).sorted(by: { $0.localizedStandardCompare($1) == .orderedAscending })
             self.collectionView.performBatchUpdates({
                 self.collectionView.reloadData()
-            }, completion: { _ in })
+            })
         }
     }
 
@@ -69,6 +81,10 @@ class SourceSectionViewController: ListCollectionViewController {
 
     private func fetchPromotedPackages() {
         Task(priority: .medium) {
+					guard let source = source else {
+						return
+					}
+
             do {
                 if let packages = PromotedPackagesFetcher.getCached(repo: source.uri) {
                     promotedPackages = packages
@@ -102,8 +118,8 @@ extension SourceSectionViewController {
 
     override func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch Section(rawValue: section)! {
-        case .featuredBanner: return ZBSettings.wantsCommunityNews() ? 1 : 0
-        case .sections: return sections.count + 1
+				case .featuredBanner: return source != nil && Preferences.showFeaturedCarousels ? 1 : 0
+        case .sections:       return sections.count + 1
         }
     }
 
@@ -117,7 +133,8 @@ extension SourceSectionViewController {
 
         case .sections:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SourceSectionCell", for: indexPath) as! SourceSectionCollectionViewCell
-            cell.section = indexPath.item == 0 ? nil : (sections[indexPath.item - 1], source.sections[sections[indexPath.item - 1]] ?? 0)
+					cell.isSource = indexPath.item != 0
+            cell.section = indexPath.item == 0 ? nil : (sections[indexPath.item - 1], countsBySection[sections[indexPath.item - 1]] ?? 0)
             return cell
         }
     }
@@ -167,16 +184,8 @@ extension SourceSectionViewController {
         case .featuredBanner:
             return
         case .sections:
-            if indexPath.item == 0 {
-                // TODO: This is probably not the most efficient way to filter these
-                let controller = PackageListViewController(packages: PackageManager.shared.packages.filter { $0.source == source })
-                controller.title = .localize("Packages")
-                navigationController?.pushViewController(controller, animated: true)
-            } else {
-                let controller = PackageListViewController(source: source, section: sections[indexPath.item - 1])
-                navigationController?.pushViewController(controller, animated: true)
-            }
-
+					let viewController = PackageListViewController(filter: .section(source: source, section: indexPath.item == 0 ? nil : sections[indexPath.item - 1]))
+            navigationController?.pushViewController(viewController, animated: true)
             return
         case .none:
             return

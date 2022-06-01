@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setenv("PATH", Device.path.cString, 1)
 		unsetenv("DYLD_INSERT_LIBRARIES")
 
-		ZBSettings.setUp()
+		Preferences.setUp()
 
 		do {
 			try PlainsController.setUp()

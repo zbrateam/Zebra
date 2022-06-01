@@ -82,11 +82,11 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 	func refresh(isUserRequested: Bool = true) {
 		queue.async {
-			if !isUserRequested && ZBSettings.lastSourceUpdate().distance(to: Date()) < Self.automaticSourceRefreshInterval {
+			if !isUserRequested && Preferences.lastSourceUpdate.distance(to: Date()) < Self.automaticSourceRefreshInterval {
 				// Don’t refresh, we already refreshed very recently.
 				return
 			}
-			ZBSettings.updateLastSourceUpdate()
+			Preferences.lastSourceUpdate = Date()
 
 			self.progress.totalUnitCount = Int64(SourceManager.shared.sources.count) + 1
 			self.progress.completedUnitCount = 0
@@ -112,13 +112,13 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	@objc private func appDidBecomeActive() {
 		// If the app was in the background for a while, the data is likely to be outdated. Kick off
 		// another refresh now.
-		refresh(isUserRequested: false)
-		print("XXX app became active")
+		if Preferences.refreshSourcesAutomatically {
+			refresh(isUserRequested: false)
+		}
 	}
 
 	@objc private func appWillResignActive() {
 		// TODO: Cancel any active refresh, although maybe we can continue in the background for a bit?
-		print("XXX app resigned active")
 	}
 
 	// MARK: - Job Lifecycle
@@ -266,7 +266,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private func task(for downloadURL: URL, destinationURL: URL) -> URLSessionDownloadTask {
 		var request = URLRequest(url: downloadURL,
 														 cachePolicy: .useProtocolCachePolicy,
-														 timeoutInterval: ZBSettings.sourceRefreshTimeout())
+														 timeoutInterval: Preferences.sourceRefreshTimeout)
 
 		// Handle legacy headers for specific repos that require them.
 		if downloadURL.host == "repo.dynastic.co" {
