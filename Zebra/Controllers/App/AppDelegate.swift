@@ -37,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		UITabBarItem.appearance().badgeColor = .badge
 
+		UIScrollView.appearance().keyboardDismissMode = .onDrag
+
 		return true
 	}
 

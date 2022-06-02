@@ -42,7 +42,7 @@ struct SectionIcon {
 		"Addons":             SectionIcon(image: .systemNamedImage("plus.app.fill"), gradient: .teal),
 		"Administration":     SectionIcon(image: .systemNamedImage("gearshape.fill"), gradient: .gray),
 		"Applications":       SectionIcon(image: .systemNamedImage("star.square.fill"), gradient: .blue),
-		"Archiving":          SectionIcon(image: .systemNamedImage("doc.zipper", "folder.fill"), gradient: .orange),
+		"Archiving":          SectionIcon(image: .systemNamedImage("doc.zipper"), gradient: .orange),
 		"Books":              SectionIcon(image: .systemNamedImage("books.vertical.fill"), gradient: .orange),
 		"Carrier Bundles":    SectionIcon(image: .systemNamedImage("antenna.radiowaves.left.and.right"), gradient: .green),
 		"Data Storage":       SectionIcon(image: .systemNamedImage("externaldrive.fill"), gradient: .gray),
@@ -83,7 +83,7 @@ struct SectionIcon {
 		"Themes":             SectionIcon(image: .systemNamedImage("paintbrush.fill"), gradient: .blue),
 		"Toys":               SectionIcon(image: .systemNamedImage("wand.and.stars"), gradient: .purple),
 		"Tweaks":             SectionIcon(image: .systemNamedImage("wrench.and.screwdriver.fill"), gradient: .yellow),
-		"Utilities":          SectionIcon(image: .systemNamedImage("suitcase.fill"), gradient: .teal),
+		"Utilities":          SectionIcon(image: .systemNamedImage("suitcase.fill", "latch.2.case.fill"), gradient: .teal),
 		"Wallpaper":          SectionIcon(image: .systemNamedImage("photo"), gradient: .purple),
 		"Widgets":            SectionIcon(image: .systemNamedImage("plus.app.fill"), gradient: .purple),
 		"XML":                SectionIcon(image: .systemNamedImage("chevron.left.slash.chevron.right"), gradient: .red),
@@ -91,7 +91,7 @@ struct SectionIcon {
 	]
 
 	private static let symbolConfiguration: UIImage.SymbolConfiguration = {
-		let baseConfiguration = UIImage.SymbolConfiguration(pointSize: 45, weight: .bold, scale: .large)
+		let baseConfiguration = UIImage.SymbolConfiguration(pointSize: 45, weight: .semibold, scale: .large)
 		if #available(iOS 15, *) {
 			return baseConfiguration
 				.applying(UIImage.SymbolConfiguration(hierarchicalColor: .white))
@@ -103,7 +103,7 @@ struct SectionIcon {
 	private static var cachedIcons = [String: UIImage]()
 
 	static func icon(for section: String?) -> UIImage? {
-		guard let section = section,
+		guard let section = section?.cleanedSectionName,
 					let sectionIcon = Self.sections[section] else {
 			return nil
 		}

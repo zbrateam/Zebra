@@ -35,11 +35,12 @@ class PackageListViewController: ListCollectionViewController {
 		}
 	}
 
+	private let collation = UILocalizedIndexedCollation.current()
+
 	private var packages = [Package]() {
 		didSet { updatePackages() }
 	}
-	private var packagesByIndex = [String: [Package]]()
-	private var indexOrder = [String]()
+	private var sectionIndexes = [Int]()
 
 	private var isVisible = false
 
@@ -55,6 +56,12 @@ class PackageListViewController: ListCollectionViewController {
 		layout.itemSize.height = 92
 
 		collectionView.register(PackageCollectionViewCell.self, forCellWithReuseIdentifier: "PackageCell")
+
+		let searchController = UISearchController()
+		searchController.delegate = self
+		searchController.searchResultsUpdater = self
+		searchController.searchBar.placeholder = .localize("Search")
+		navigationItem.searchController = searchController
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -82,7 +89,7 @@ class PackageListViewController: ListCollectionViewController {
 			let maxRole = Preferences.roleFilter
 			let roleFilter: (Package) -> Bool = { $0.role.rawValue <= maxRole.rawValue }
 
-			switch self.filter {
+			switch filter {
 			case .fixed(let fixedPackages):
 				title = .localize("Packages")
 				packages = fixedPackages
@@ -136,35 +143,59 @@ class PackageListViewController: ListCollectionViewController {
 					.fetchPackages(matchingFilter: { favoritePackageIDs.contains($0.identifier) })
 			}
 
-			let sortedPackages = packages.sorted(by: { $0.name.localizedStandardCompare($1.name) == .orderedAscending })
+			let sortedPackages = collation.sortedArray(from: packages, collationStringSelector: #selector(getter: Package.name)) as! [Package]
 			await MainActor.run {
 				self.title = title
+				navigationItem.searchController!.title = title
 				self.packages = sortedPackages
+
+				switch filter {
+				case .search(_):
+					navigationItem.hidesSearchBarWhenScrolling = false
+
+				default:
+					navigationItem.hidesSearchBarWhenScrolling = true
+				}
 			}
 		}
 	}
 
 	private func updatePackages() {
-		packagesByIndex = ["A": packages]
-		indexOrder = ["A"]
-		collectionView.reloadData()
+		collectionView.performBatchUpdates {
+			var sectionIndexes = Array(repeating: 0, count: collation.sectionTitles.count)
+			for package in packages {
+				let section = collation.section(for: package, collationStringSelector: #selector(getter: Package.name))
+				sectionIndexes[section] += 1
+			}
+			var tally = 0
+			for i in 0..<sectionIndexes.count {
+				let count = sectionIndexes[i]
+				sectionIndexes[i] = min(tally, packages.count - 1)
+				tally += count
+			}
+			self.sectionIndexes = sectionIndexes
+			collectionView.reloadData()
+		}
 	}
 
 	// MARK: - Actions
 
 	@objc private func openInSafari(_ sender: UICommand) {
-		guard let indexPath = sender.propertyList as? [Int],
-					let package = packagesByIndex[indexOrder[indexPath[0]]]?[indexPath[1]],
-					let url = package.depictionURL ?? package.homepageURL else {
+		guard let index = sender.propertyList as? Int else {
 			return
 		}
-		URLController.open(url: url)
+		let package = packages[index]
+		if let url = package.depictionURL ?? package.homepageURL {
+			URLController.open(url: url, sender: self, webSchemesOnly: true)
+		}
 	}
 
 	@objc private func sharePackage(_ sender: UICommand) {
-		guard let indexPath = sender.propertyList as? [Int],
-					let package = packagesByIndex[indexOrder[indexPath[0]]]?[indexPath[1]],
-					let cell = collectionView.cellForItem(at: IndexPath(item: indexPath[1], section: indexPath[0])) else {
+		guard let index = sender.propertyList as? Int else {
+			return
+		}
+		let package = packages[index]
+		guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) else {
 			return
 		}
 
@@ -184,22 +215,22 @@ class PackageListViewController: ListCollectionViewController {
 
 extension PackageListViewController { // UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 	override func numberOfSections(in _: UICollectionView) -> Int {
-		packagesByIndex.count
+		1
 	}
 
 	override func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		packagesByIndex[indexOrder[section]]!.count
+		packages.count
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let package = packagesByIndex[indexOrder[indexPath.section]]![indexPath.item]
+		let package = packages[indexPath.item]
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PackageCell", for: indexPath) as! PackageCollectionViewCell
 		cell.package = package
 		return cell
 	}
 
 	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
-		let package = packagesByIndex[indexOrder[indexPath.section]]![indexPath.item]
+		let package = packages[indexPath.item]
 		return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
 			PackageViewController(package: package)
 		}, actionProvider: { _ in
@@ -209,14 +240,14 @@ extension PackageListViewController { // UICollectionViewDataSource, UICollectio
 					UICommand(title: .openInBrowser,
 										image: UIImage(systemName: "safari"),
 										action: #selector(self.openInSafari),
-										propertyList: [indexPath.section, indexPath.item])
+										propertyList: indexPath.item)
 				]
 			}
 			items += [
 				UICommand(title: .share,
 									image: UIImage(systemName: "square.and.arrow.up"),
 									action: #selector(self.sharePackage),
-									propertyList: [indexPath.section, indexPath.item])
+									propertyList: indexPath.item)
 			]
 			return UIMenu(children: items)
 		})
@@ -225,15 +256,16 @@ extension PackageListViewController { // UICollectionViewDataSource, UICollectio
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		switch kind {
 		case UICollectionView.elementKindSectionHeader:
-			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
-			view.title = indexOrder[indexPath.section]
-			view.buttons = []
-			return view
+//			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
+//			view.title = indexOrder[indexPath.section]
+//			view.buttons = []
+//			return view
+			return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
 
 		case UICollectionView.elementKindSectionFooter:
-			if indexPath.section != packagesByIndex.count - 1 {
-				return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
-			}
+//			if indexPath.section != packagesByIndex.count - 1 {
+//				return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
+//			}
 
 			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath) as! InfoFooterView
 			let numberFormatter = NumberFormatter()
@@ -249,19 +281,51 @@ extension PackageListViewController { // UICollectionViewDataSource, UICollectio
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-		return CGSize(width: collectionView.frame.size.width, height: 52)
+		return .zero // CGSize(width: collectionView.frame.size.width, height: 52)
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-		if section != packagesByIndex.count - 1 {
-			return .zero
-		}
+//		if section != packagesByIndex.count - 1 {
+//			return .zero
+//		}
 		return CGSize(width: collectionView.frame.size.width, height: 52)
 	}
 
 	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		let package = packagesByIndex[indexOrder[indexPath.section]]![indexPath.item]
+		let package = packages[indexPath.item]
 		let viewController = PackageViewController(package: package)
 		navigationController?.pushViewController(viewController, animated: true)
 	}
+
+	override func indexTitles(for _: UICollectionView) -> [String]? {
+		return packages.isEmpty || sectionIndexes.isEmpty ? nil : collation.sectionIndexTitles
+	}
+
+	override func collectionView(_: UICollectionView, indexPathForIndexTitle _: String, at index: Int) -> IndexPath {
+		if packages.isEmpty || sectionIndexes.isEmpty {
+			return IndexPath(item: 0, section: 0)
+		}
+		let section = collation.section(forSectionIndexTitle: index)
+		if section >= sectionIndexes.count {
+			return IndexPath(item: 0, section: 0)
+		}
+		return IndexPath(item: sectionIndexes[section], section: 0)
+	}
+
+}
+
+extension PackageListViewController: UISearchControllerDelegate, UISearchResultsUpdating {
+
+	func willPresentSearchController(_ searchController: UISearchController) {
+		collectionView.indexDisplayMode = .alwaysHidden
+	}
+
+	func willDismissSearchController(_ searchController: UISearchController) {
+		collectionView.indexDisplayMode = .automatic
+	}
+
+	func updateSearchResults(for searchController: UISearchController) {
+
+	}
+
 }

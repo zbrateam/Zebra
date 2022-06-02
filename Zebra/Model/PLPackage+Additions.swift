@@ -11,14 +11,6 @@ import Plains
 
 extension Package {
 
-	var cleanedSection: String? {
-		section?.replacingOccurrences(of: "_", with: " ")
-	}
-
-	var baseSection: String? {
-		cleanedSection?.replacingOccurrences(regex: " \\(.*\\)$", with: "")
-	}
-
 	// MARK: - Actions
 
 	@objc var mightRequirePayment: Bool {

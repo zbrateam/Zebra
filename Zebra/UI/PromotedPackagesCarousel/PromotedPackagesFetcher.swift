@@ -31,7 +31,6 @@ class PromotedPackagesFetcher {
 	}
 
 	static func fetch(repo: URL) async throws -> [PromotedPackageBanner] {
-		// let requestUrl = URL(string: "https://chariz.com/api/sileo/featured.json")!
 		let requestUrl = repo/"sileo-featured.json"
 		let request = URLRequest(url: requestUrl)
 		do {

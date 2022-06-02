@@ -9,7 +9,7 @@
 import UIKit
 
 class SourceSectionCollectionViewCell: UICollectionViewCell {
-	var section: (name: String, count: Int)! {
+	var section: (name: String?, count: UInt)! {
         didSet { updateSection() }
     }
 	var isSource = false
@@ -17,7 +17,8 @@ class SourceSectionCollectionViewCell: UICollectionViewCell {
 	private var imageView: IconImageView!
 	private var symbolImageView: UIImageView!
     private var titleLabel: UILabel!
-    private var detailLabel: UILabel!
+	private var detailLabel: UILabel!
+	private var countLabel: UILabel!
     private var chevronImageView: UIImageView!
 
     override init(frame: CGRect) {
@@ -40,9 +41,13 @@ class SourceSectionCollectionViewCell: UICollectionViewCell {
         titleLabel.font = .preferredFont(forTextStyle: .headline)
         titleLabel.textColor = .label
 
-        detailLabel = UILabel()
-        detailLabel.font = .preferredFont(forTextStyle: .footnote)
-        detailLabel.textColor = .secondaryLabel
+			detailLabel = UILabel()
+			detailLabel.font = .preferredFont(forTextStyle: .footnote)
+			detailLabel.textColor = .secondaryLabel
+
+			countLabel = UILabel()
+			countLabel.font = .preferredFont(forTextStyle: .footnote)
+			countLabel.textColor = .secondaryLabel
 
         let labelStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,18 +62,18 @@ class SourceSectionCollectionViewCell: UICollectionViewCell {
         let pointSize = UIFont.preferredFont(forTextStyle: .body).pointSize
         chevronImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .small)
 
-        let mainStackView = UIStackView(arrangedSubviews: [imageContainer, labelStackView, chevronImageView])
+        let mainStackView = UIStackView(arrangedSubviews: [imageContainer, labelStackView, countLabel, chevronImageView])
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.alignment = .center
         mainStackView.spacing = 12
         contentView.addSubview(mainStackView)
 
         NSLayoutConstraint.activate([
-					imageView.widthAnchor.constraint(equalToConstant: 38),
-					imageView.heightAnchor.constraint(equalToConstant: 38),
+					imageView.widthAnchor.constraint(equalToConstant: 29),
+					imageView.heightAnchor.constraint(equalToConstant: 29),
 
-					symbolImageView.widthAnchor.constraint(equalToConstant: 28),
-					symbolImageView.heightAnchor.constraint(equalToConstant: 28),
+					symbolImageView.widthAnchor.constraint(equalToConstant: 23),
+					symbolImageView.heightAnchor.constraint(equalToConstant: 23),
 					symbolImageView.centerXAnchor.constraint(equalTo: imageContainer.centerXAnchor),
 					symbolImageView.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor),
 
@@ -91,19 +96,23 @@ class SourceSectionCollectionViewCell: UICollectionViewCell {
 
     private func updateSection() {
         if let (name, count) = section {
-					titleLabel.text = .localize(name)
-					detailLabel.text = NumberFormatter.localizedString(from: count as NSNumber, number: .none)
-					imageView.image = SectionIcon.icon(for: name)
-					imageView.isHidden = false
-					symbolImageView.isHidden = true
-        } else {
-            titleLabel.text = .localize("All Packages")
-					detailLabel.text = isSource ? .localize("Browse packages from this source.") : .localize("Browse packages from all installed sources.")
-					imageView.isHidden = true
-					symbolImageView.image = UIImage(named: "zebra.wrench")
-					symbolImageView.isHidden = false
+					if let name = name {
+						titleLabel.text = .localize(name)
+						detailLabel.isHidden = true
+						imageView.image = SectionIcon.icon(for: name)
+						imageView.isHidden = false
+						symbolImageView.isHidden = true
+					} else {
+						titleLabel.text = .localize("All Packages")
+						detailLabel.text = isSource ? .localize("Browse packages from this source.") : .localize("Browse packages from all installed sources.")
+						detailLabel.isHidden = false
+						imageView.isHidden = true
+						symbolImageView.image = UIImage(named: "zebra.wrench")
+						symbolImageView.isHidden = false
+					}
+
+					countLabel.text = NumberFormatter.localizedString(from: count as NSNumber, number: .none)
         }
-        // TODO: Add "All Packages"
     }
 
     override var isHighlighted: Bool {

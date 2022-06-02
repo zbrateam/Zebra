@@ -137,7 +137,9 @@ class URLController: NSObject {
 		return [
 			"User-Agent": "Telesphoreo (Zebra) APT-HTTP/1.0.592",
 			"X-Firmware": device.osVersion,
-			"X-Machine": device.machine
+			"X-Machine": device.machine,
+			"X-Unique-Id": device.udid,
+			"X-Cydia-Id": device.udid
 		]
 	}()
 

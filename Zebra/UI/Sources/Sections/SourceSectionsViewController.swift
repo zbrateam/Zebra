@@ -12,7 +12,8 @@ import Plains
 
 class SourceSectionViewController: ListCollectionViewController {
     private let source: Source?
-	private var countsBySection = [String: Int]()
+	private var totalCount: UInt = 0
+	private var countsBySection = [String: UInt]()
     private var sections = [String]()
 
     private var promotedPackages: [PromotedPackageBanner]?
@@ -30,13 +31,16 @@ class SourceSectionViewController: ListCollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-			title = source?.origin ?? .localize("Sections")
+			title = source?.origin ?? .localize("All Packages")
+
+			let layout = collectionViewLayout as! UICollectionViewFlowLayout
+			layout.itemSize.height = 52
 
         collectionView.register(SourceSectionCollectionViewCell.self, forCellWithReuseIdentifier: "SourceSectionCell")
         collectionView.register(PromotedPackagesCarouselCollectionViewContainingCell.self, forCellWithReuseIdentifier: "CarouselCell")
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if sections.isEmpty {
             setupSections()
@@ -51,22 +55,29 @@ class SourceSectionViewController: ListCollectionViewController {
     }
 
     private func setupSections() {
-        DispatchQueue.main.async {
-					if let source = self.source {
-						self.countsBySection = source.sections as! [String: Int]
+			Task {
+				var countsBySection = [String: UInt]()
+				var totalCount: UInt = 0
+					if let source = source {
+						countsBySection = source.sections as! [String: UInt]
+						totalCount = source.count
 					} else {
-						var countsBySection = [String: Int]()
-						for package in PackageManager.shared.packages {
-							let section = package.cleanedSection ?? "Uncategorized"
-							countsBySection[section] = (countsBySection[section] ?? 0) + 1
-						}
-						self.countsBySection = countsBySection
+						let packageManager = PackageManager.shared
+						countsBySection = packageManager.sections as! [String: UInt]
+						totalCount = packageManager.count
 					}
 
-					self.sections = Array(self.countsBySection.keys).sorted(by: { $0.localizedStandardCompare($1) == .orderedAscending })
-            self.collectionView.performBatchUpdates({
-                self.collectionView.reloadData()
+					let sections = Array(countsBySection.keys)
+					.sorted(by: { $0.localizedStandardCompare($1) == .orderedAscending })
+				await MainActor.run {
+            collectionView.performBatchUpdates({
+							self.sections = sections
+							self.countsBySection = countsBySection
+							self.totalCount = totalCount
+
+                collectionView.reloadData()
             })
+				}
         }
     }
 
@@ -134,7 +145,9 @@ extension SourceSectionViewController {
         case .sections:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SourceSectionCell", for: indexPath) as! SourceSectionCollectionViewCell
 					cell.isSource = indexPath.item != 0
-            cell.section = indexPath.item == 0 ? nil : (sections[indexPath.item - 1], countsBySection[sections[indexPath.item - 1]] ?? 0)
+            cell.section = indexPath.item == 0
+						? (nil, totalCount)
+						: (sections[indexPath.item - 1], countsBySection[sections[indexPath.item - 1]] ?? 0)
             return cell
         }
     }
@@ -159,13 +172,25 @@ extension SourceSectionViewController {
         }
     }
 
+	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+		switch kind {
+		case UICollectionView.elementKindSectionHeader:
+			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
+			view.title = .localize("Sections")
+			return view
+
+		default:
+			return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+		}
+	}
+
     override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch Section(rawValue: section)! {
         case .featuredBanner:
             return .zero
 
         case .sections:
-            return CGSize(width: collectionView.frame.size.width, height: 52)
+					return CGSize(width: collectionView.frame.size.width, height: 52)
         }
     }
 
@@ -183,10 +208,14 @@ extension SourceSectionViewController {
         switch Section(rawValue: indexPath.section) {
         case .featuredBanner:
             return
+
         case .sections:
 					let viewController = PackageListViewController(filter: .section(source: source, section: indexPath.item == 0 ? nil : sections[indexPath.item - 1]))
+					// Avoid doubling the name on the back button by changing
+					navigationItem.backButtonTitle = indexPath.item == 0 ? .back : nil
             navigationController?.pushViewController(viewController, animated: true)
             return
+
         case .none:
             return
         }
