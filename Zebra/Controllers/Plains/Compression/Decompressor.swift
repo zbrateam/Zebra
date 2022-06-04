@@ -8,6 +8,7 @@
 
 import Foundation
 import Compression
+import os.log
 
 internal protocol DecompressorProtocol: AnyObject {
 	static func decompress(url: URL, destinationURL: URL, format: Decompressor.Format) async throws
@@ -40,8 +41,13 @@ class Decompressor {
 		}
 	}
 
+	private static let signpostLog = OSLog(subsystem: "xyz.willy.zebra.decompressor", category: .pointsOfInterest)
+
 	class func decompress(url: URL, destinationURL: URL, format: Format) async throws {
+		let signpost = Signpost(log: signpostLog, name: "Decompress", format: "%@ (%@)", url.absoluteString, String(describing: format))
+		signpost.begin()
 		try await format.decompressorType.decompress(url: url, destinationURL: destinationURL, format: format)
 		try FileManager.default.removeItem(at: url)
+		signpost.end()
 	}
 }

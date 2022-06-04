@@ -41,6 +41,15 @@ enum SourceFileKind {
 		Set(type.tags[.mimeType] ?? []).union(["application/octet-stream", "text/plain"])
 	}
 
+	var isCompressed: Bool {
+		switch self {
+		case .gzip, .bzip2, .lzma, .xz, .zstd:
+			return true
+		case .any, .text, .deb:
+			return false
+		}
+	}
+
 	var decompressorFormat: Decompressor.Format {
 		switch self {
 		case .gzip:  return .gzip
@@ -81,10 +90,15 @@ enum SourceFile {
 
 	var progressWeight: Int64 {
 		switch self {
+		// Either InRelease or Release + Release.gpg.
 		case .inRelease:   return 100
+
+		// 80 + 20 = 100
 		case .release:     return 80
 		case .releaseGpg:  return 20
-		case .packages(_): return 900
+
+		// The remainder is the Packages file.
+		case .packages(_): return 800
 		}
 	}
 }

@@ -12,6 +12,7 @@ import Plains
 class HomeViewController: ListCollectionViewController {
 
 	private var progressBar: UIProgressView!
+	private var progressLabel: UILabel!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -30,10 +31,18 @@ class HomeViewController: ListCollectionViewController {
 		progressBar.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(progressBar)
 
+		progressLabel = UILabel()
+		progressLabel.translatesAutoresizingMaskIntoConstraints = false
+		progressLabel.font = .monospacedDigitSystemFont(ofSize: 0, weight: .medium)
+		view.addSubview(progressLabel)
+
 		NSLayoutConstraint.activate([
 			progressBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			progressBar.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-			progressBar.widthAnchor.constraint(equalToConstant: 300)
+			progressBar.widthAnchor.constraint(equalToConstant: 300),
+
+			progressLabel.centerXAnchor.constraint(equalTo: progressBar.centerXAnchor),
+			progressLabel.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 8),
 		])
 	}
 
@@ -53,12 +62,14 @@ class HomeViewController: ListCollectionViewController {
 	@objc private func refreshProgressDidChange() {
 		DispatchQueue.main.async {
 			self.collectionView.reloadData()
-			self.progressBar.progress = Float(SourceRefreshController.shared.progress.fractionCompleted)
+			let percent = SourceRefreshController.shared.progress.fractionCompleted
+			self.progressBar.progress = Float(percent)
+			self.progressLabel.text = NumberFormatter.localizedString(from: percent as NSNumber, number: .percent)
 		}
 	}
 
 	private var errorCount: Int {
-		// Filter to only errors. Warings are mostly annoying and not particularly useful.
+		// Filter to only errors. Warnings are mostly annoying and not particularly useful.
 		SourceRefreshController.shared.refreshErrors
 			.reduce(0, { count, item in
 				switch item.level {

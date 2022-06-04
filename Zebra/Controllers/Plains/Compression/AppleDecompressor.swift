@@ -35,6 +35,7 @@ class AppleDecompressor: DecompressorProtocol {
 			}
 		}
 
+		try outputFilter.finalize()
 		try sourceHandle.close()
 		try destinationHandle.close()
 	}
