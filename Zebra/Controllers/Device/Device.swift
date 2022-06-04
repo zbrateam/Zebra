@@ -33,10 +33,15 @@ class Device: NSObject {
 	static let distroEtcPrefix = distroRootPrefix == "/usr" ? "/" : distroRootPrefix
 	static let distroVarPrefix = distroRootPrefix == "/usr" ? "/" : distroRootPrefix
 
-	static let cacheURL = FileManager.default.url(for: .cachesDirectory) / Bundle.main.bundleIdentifier!
-	static let dataURL = FileManager.default.url(for: .applicationSupportDirectory) / Bundle.main.bundleIdentifier!
+	static let cacheURL = FileManager.default.url(for: .cachesDirectory)/Bundle.main.bundleIdentifier!
+	static let dataURL = FileManager.default.url(for: .applicationSupportDirectory)/Bundle.main.bundleIdentifier!
 
 	static let isDemo: Bool = {
+		#if targetEnvironment(macCatalyst)
+		return false
+		#elseif targetEnvironment(simulator)
+		return true
+		#else
 		switch forkplz() {
 		case 0:
 			// Forked process - just terminate the fork, we don’t need it to do anything else.
@@ -48,6 +53,7 @@ class Device: NSObject {
 			// Parent process - fork succeeded.
 			return false
 		}
+		#endif
 	}()
 
 	static let path: String = {
