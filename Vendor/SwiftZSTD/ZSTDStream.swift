@@ -26,77 +26,12 @@ public enum ZSTDStreamError : Error {
  */
 
 public class ZSTDStream {
-    // An Objective-C class instance wrapping C compression API. It can be nil
-    // if no compression operation has been performed using this instance yet.
-    var compOC : CompressionOC? = nil
     
     // An Objective-C class instance wrapping C compression API.  It can be nil
     // if no decompression operation has been performed using this instance yet.
-    var decompOC : DecompressionOC? = nil
+    private var decompOC : DecompressionOC? = nil
     
     public init() {}
-    
-    /**
-     * Start a compression operation using the given compression level.
-     * Compression level must be valid, and no compression operation can be already
-     * in progress
-     * - parameter compressionLevel: compression level to use
-     */
-    public func startCompression(compressionLevel : Int32) throws {
-        guard isValidCompressionLevel(compressionLevel) else {
-            throw ZSTDError.invalidCompressionLevel(cl: compressionLevel)
-        }
-        // Create a CompressionOC object if needed
-        if compOC == nil { compOC = CompressionOC() }
-        guard let unwrappedCompOC = compOC else { // failed to init CompressionOC
-            throw ZSTDStreamError.operationInitFailure
-        }
-        if (!unwrappedCompOC.start(compressionLevel)) {
-            throw ZSTDStreamError.operationAlreadyInProgress
-        }
-    }
-    
-    /**
-     * Process a chunk of data as part of a stream being compressed.
-     * Operation must have been started prior to calling this method.
-     * - parameter dataIn: chunk of input data to compress
-     * - returns: compressed chunk of output data
-     */
-    public func compressionProcess(dataIn : Data) throws -> Data {
-        return try compressionHelper(dataIn: dataIn, finalize: false)
-    }
-    
-    /**
-     * Process the last chunk of the stream being compressed and finalize the stream.
-     * Operation must have been started prior to calling this method.
-     * - parameter dataIn: chunk of data to add to the stream being compressed
-     * - returns: compressed chunk of output data
-     */
-    public func compressionFinalize(dataIn : Data) throws -> Data {
-        return try compressionHelper(dataIn: dataIn, finalize: true)
-    }
-    
-    /**
-     * A helper used by compression processing & finalization methods.
-     * - parameter dataIn: chunk of data to be compressed as part of the stream
-     * - parameter finalize: true if this is the last chunk
-     * - returns: compressed chunk of output data
-     */
-    fileprivate func compressionHelper(dataIn: Data, finalize: Bool) throws -> Data {
-        guard let unwrappedCompOC = compOC else { throw ZSTDStreamError.operationNotStarted }
-        guard unwrappedCompOC.inProgress else { throw ZSTDStreamError.operationNotStarted }
-
-        var rc : Int = 0
-        guard let retData = unwrappedCompOC.processData(dataIn, andFinalize: finalize, withErrorCode: &rc)
-        else {
-            if let errStr = getProcessorErrorString(rc) {
-                throw ZSTDError.libraryError(errMsg: errStr)
-            } else {
-                throw ZSTDError.unknownError
-            }
-        }
-        return retData
-    }
 
     /**
      * Start a decompression operation.

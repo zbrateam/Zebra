@@ -6,6 +6,7 @@
 @import WebKit;
 
 #import "MobileGestalt.h"
+#import <bzlib.h>
 
 #import "ZBDummySource.h"
 #import "ZBSourceAddViewController.h"

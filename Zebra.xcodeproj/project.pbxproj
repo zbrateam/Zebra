@@ -31,6 +31,7 @@
 		4E1F060A28411A93006B3F0C /* PackageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F060928411A93006B3F0C /* PackageListViewController.swift */; };
 		4E1F061328475943006B3F0C /* PackageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F061228475943006B3F0C /* PackageCollectionViewCell.swift */; };
 		4E1F061528477D5B006B3F0C /* SectionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F061428477D5B006B3F0C /* SectionIcon.swift */; };
+		4E2631782848A1730072B2BD /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2631772848A1730072B2BD /* libbz2.tbd */; };
 		4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339AE227D08F7800F013C1 /* FileTypes.swift */; };
 		4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339B7F27D0E45300F013C1 /* URL+Additions.swift */; };
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
@@ -60,20 +61,6 @@
 		4EB23510283DFA3500713CBB /* AppleDecompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2350F283DFA3500713CBB /* AppleDecompressor.swift */; };
 		4EB23512283DFA5500713CBB /* Bzip2Decompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23511283DFA5500713CBB /* Bzip2Decompressor.swift */; };
 		4EB2354F283DFB8B00713CBB /* ZstdDecompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2354E283DFB8B00713CBB /* ZstdDecompressor.swift */; };
-		4EB2355B283DFCB100713CBB /* libSWCompression.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB23554283DFC6E00713CBB /* libSWCompression.a */; };
-		4EB2357E283DFCE600713CBB /* BZip2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23561283DFCE600713CBB /* BZip2.swift */; };
-		4EB2357F283DFCE600713CBB /* BurrowsWheeler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23562283DFCE600713CBB /* BurrowsWheeler.swift */; };
-		4EB23581283DFCE600713CBB /* BZip2Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23564283DFCE600713CBB /* BZip2Error.swift */; };
-		4EB23582283DFCE600713CBB /* SuffixArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23565283DFCE600713CBB /* SuffixArray.swift */; };
-		4EB23583283DFCE600713CBB /* CheckSums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23567283DFCE600713CBB /* CheckSums.swift */; };
-		4EB23584283DFCE600713CBB /* BitReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23568283DFCE600713CBB /* BitReader.swift */; };
-		4EB23585283DFCE600713CBB /* HuffmanLength+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23569283DFCE600713CBB /* HuffmanLength+Comparable.swift */; };
-		4EB23589283DFCE600713CBB /* DecompressionAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2356D283DFCE600713CBB /* DecompressionAlgorithm.swift */; };
-		4EB2358B283DFCE600713CBB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2356F283DFCE600713CBB /* Extensions.swift */; };
-		4EB2358C283DFCE600713CBB /* CompressionAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23570283DFCE600713CBB /* CompressionAlgorithm.swift */; };
-		4EB2358D283DFCE600713CBB /* DecodingHuffmanTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23571283DFCE600713CBB /* DecodingHuffmanTree.swift */; };
-		4EB23594283DFCE600713CBB /* DataWithPointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23579283DFCE600713CBB /* DataWithPointer.swift */; };
-		4EB23595283DFCE600713CBB /* HuffmanLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2357A283DFCE600713CBB /* HuffmanLength.swift */; };
 		4EB235AB283E181100713CBB /* StreamHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB235A4283E180F00713CBB /* StreamHelpers.m */; };
 		4EB235AC283E181100713CBB /* ZSTDProcessorCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB235A5283E181000713CBB /* ZSTDProcessorCommon.swift */; };
 		4EB235AE283E181100713CBB /* ZSTDStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB235A8283E181000713CBB /* ZSTDStream.swift */; };
@@ -146,13 +133,6 @@
 			remoteGlobalIDString = 4E1A1C6027B69F9A00B6DC9A;
 			remoteInfo = ZebraCatalystHelper;
 		};
-		4EB2355C283DFCB100713CBB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 89C5FDD521B1B13700A10E58 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4EB23553283DFC6E00713CBB;
-			remoteInfo = SWCompression;
-		};
 		4EB235B3283E198F00713CBB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 89C5FDD521B1B13700A10E58 /* Project object */;
@@ -163,15 +143,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4EB23552283DFC6E00713CBB /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4EB23599283E016E00713CBB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -250,6 +221,7 @@
 		4E1F060928411A93006B3F0C /* PackageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageListViewController.swift; sourceTree = "<group>"; };
 		4E1F061228475943006B3F0C /* PackageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E1F061428477D5B006B3F0C /* SectionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionIcon.swift; sourceTree = "<group>"; };
+		4E2631772848A1730072B2BD /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/lib/libbz2.tbd; sourceTree = DEVELOPER_DIR; };
 		4E339AE227D08F7800F013C1 /* FileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypes.swift; sourceTree = "<group>"; };
 		4E339B7F27D0E45300F013C1 /* URL+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Additions.swift"; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
@@ -278,20 +250,6 @@
 		4EB2350F283DFA3500713CBB /* AppleDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDecompressor.swift; sourceTree = "<group>"; };
 		4EB23511283DFA5500713CBB /* Bzip2Decompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bzip2Decompressor.swift; sourceTree = "<group>"; };
 		4EB2354E283DFB8B00713CBB /* ZstdDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZstdDecompressor.swift; sourceTree = "<group>"; };
-		4EB23554283DFC6E00713CBB /* libSWCompression.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSWCompression.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EB23561283DFCE600713CBB /* BZip2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BZip2.swift; sourceTree = "<group>"; };
-		4EB23562283DFCE600713CBB /* BurrowsWheeler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BurrowsWheeler.swift; sourceTree = "<group>"; };
-		4EB23564283DFCE600713CBB /* BZip2Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BZip2Error.swift; sourceTree = "<group>"; };
-		4EB23565283DFCE600713CBB /* SuffixArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuffixArray.swift; sourceTree = "<group>"; };
-		4EB23567283DFCE600713CBB /* CheckSums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckSums.swift; sourceTree = "<group>"; };
-		4EB23568283DFCE600713CBB /* BitReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitReader.swift; sourceTree = "<group>"; };
-		4EB23569283DFCE600713CBB /* HuffmanLength+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HuffmanLength+Comparable.swift"; sourceTree = "<group>"; };
-		4EB2356D283DFCE600713CBB /* DecompressionAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecompressionAlgorithm.swift; sourceTree = "<group>"; };
-		4EB2356F283DFCE600713CBB /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		4EB23570283DFCE600713CBB /* CompressionAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompressionAlgorithm.swift; sourceTree = "<group>"; };
-		4EB23571283DFCE600713CBB /* DecodingHuffmanTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodingHuffmanTree.swift; sourceTree = "<group>"; };
-		4EB23579283DFCE600713CBB /* DataWithPointer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataWithPointer.swift; sourceTree = "<group>"; };
-		4EB2357A283DFCE600713CBB /* HuffmanLength.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HuffmanLength.swift; sourceTree = "<group>"; };
 		4EB2359B283E016E00713CBB /* libSwiftZSTD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSwiftZSTD.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EB235A2283E180E00713CBB /* SwiftZSTD-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftZSTD-Bridging-Header.h"; sourceTree = "<group>"; };
 		4EB235A4283E180F00713CBB /* StreamHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamHelpers.m; sourceTree = "<group>"; };
@@ -504,13 +462,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EB23551283DFC6E00713CBB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4EB23598283E016E00713CBB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -523,10 +474,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E2631782848A1730072B2BD /* libbz2.tbd in Frameworks */,
 				4EBF6FBB2841084600639096 /* Plains.framework in Frameworks */,
 				E1428E7927794FC4005B0885 /* Evander in Frameworks */,
 				4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */,
-				4EB2355B283DFCB100713CBB /* libSWCompression.a in Frameworks */,
 				4EA26EC127CCF52E0019A5AA /* SDWebImage in Frameworks */,
 				4EB235B2283E198F00713CBB /* libSwiftZSTD.a in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
@@ -598,43 +549,6 @@
 				4EB2354E283DFB8B00713CBB /* ZstdDecompressor.swift */,
 			);
 			path = Compression;
-			sourceTree = "<group>";
-		};
-		4EB23555283DFC6E00713CBB /* SWCompression */ = {
-			isa = PBXGroup;
-			children = (
-				4EB23566283DFCE600713CBB /* Common */,
-				4EB2355E283DFCE600713CBB /* Bzip2 */,
-			);
-			name = SWCompression;
-			path = Vendor/SWCompression;
-			sourceTree = "<group>";
-		};
-		4EB2355E283DFCE600713CBB /* Bzip2 */ = {
-			isa = PBXGroup;
-			children = (
-				4EB23562283DFCE600713CBB /* BurrowsWheeler.swift */,
-				4EB23561283DFCE600713CBB /* BZip2.swift */,
-				4EB23564283DFCE600713CBB /* BZip2Error.swift */,
-				4EB23565283DFCE600713CBB /* SuffixArray.swift */,
-			);
-			path = Bzip2;
-			sourceTree = "<group>";
-		};
-		4EB23566283DFCE600713CBB /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				4EB23568283DFCE600713CBB /* BitReader.swift */,
-				4EB23567283DFCE600713CBB /* CheckSums.swift */,
-				4EB23570283DFCE600713CBB /* CompressionAlgorithm.swift */,
-				4EB23579283DFCE600713CBB /* DataWithPointer.swift */,
-				4EB2356D283DFCE600713CBB /* DecompressionAlgorithm.swift */,
-				4EB23571283DFCE600713CBB /* DecodingHuffmanTree.swift */,
-				4EB2356F283DFCE600713CBB /* Extensions.swift */,
-				4EB2357A283DFCE600713CBB /* HuffmanLength.swift */,
-				4EB23569283DFCE600713CBB /* HuffmanLength+Comparable.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		4EB2359C283E016E00713CBB /* SwiftZSTD */ = {
@@ -1084,7 +998,6 @@
 			children = (
 				89C5FDDF21B1B13700A10E58 /* Zebra */,
 				4E1A1C6227B69F9A00B6DC9A /* Catalyst Helper */,
-				4EB23555283DFC6E00713CBB /* SWCompression */,
 				4EB2359C283E016E00713CBB /* SwiftZSTD */,
 				89C5FDDE21B1B13700A10E58 /* Products */,
 				E193C675277A532700B2469E /* Packages */,
@@ -1100,7 +1013,6 @@
 			children = (
 				89C5FDDD21B1B13700A10E58 /* Zebra.app */,
 				4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */,
-				4EB23554283DFC6E00713CBB /* libSWCompression.a */,
 				4EB2359B283E016E00713CBB /* libSwiftZSTD.a */,
 			);
 			name = Products;
@@ -1149,6 +1061,7 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E2631772848A1730072B2BD /* libbz2.tbd */,
 				4EBF6FB92841084300639096 /* APT.framework */,
 				4EB235B5283E1A7300713CBB /* libzstd.xcframework */,
 				4E9FC8732790555800934FFE /* Plains.framework */,
@@ -1340,23 +1253,6 @@
 			productReference = 4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4EB23553283DFC6E00713CBB /* SWCompression */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EB23558283DFC6E00713CBB /* Build configuration list for PBXNativeTarget "SWCompression" */;
-			buildPhases = (
-				4EB23550283DFC6E00713CBB /* Sources */,
-				4EB23551283DFC6E00713CBB /* Frameworks */,
-				4EB23552283DFC6E00713CBB /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SWCompression;
-			productName = SWCompression;
-			productReference = 4EB23554283DFC6E00713CBB /* libSWCompression.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		4EB2359A283E016E00713CBB /* SwiftZSTD */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4EB2359F283E016E00713CBB /* Build configuration list for PBXNativeTarget "SwiftZSTD" */;
@@ -1388,7 +1284,6 @@
 			);
 			dependencies = (
 				4E1A1C7727B6A31800B6DC9A /* PBXTargetDependency */,
-				4EB2355D283DFCB100713CBB /* PBXTargetDependency */,
 				4EB235B4283E198F00713CBB /* PBXTargetDependency */,
 			);
 			name = Zebra;
@@ -1415,9 +1310,6 @@
 				TargetAttributes = {
 					4E1A1C6027B69F9A00B6DC9A = {
 						CreatedOnToolsVersion = 13.2.1;
-					};
-					4EB23553283DFC6E00713CBB = {
-						CreatedOnToolsVersion = 13.4;
 					};
 					4EB2359A283E016E00713CBB = {
 						CreatedOnToolsVersion = 13.4;
@@ -1488,7 +1380,6 @@
 			targets = (
 				89C5FDDC21B1B13700A10E58 /* Zebra */,
 				4E1A1C6027B69F9A00B6DC9A /* ZebraCatalystHelper */,
-				4EB23553283DFC6E00713CBB /* SWCompression */,
 				4EB2359A283E016E00713CBB /* SwiftZSTD */,
 			);
 		};
@@ -1533,26 +1424,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E1A1C7B27B6A3A900B6DC9A /* ZBAppSceneHelper.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EB23550283DFC6E00713CBB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EB2358D283DFCE600713CBB /* DecodingHuffmanTree.swift in Sources */,
-				4EB23584283DFCE600713CBB /* BitReader.swift in Sources */,
-				4EB23583283DFCE600713CBB /* CheckSums.swift in Sources */,
-				4EB2357E283DFCE600713CBB /* BZip2.swift in Sources */,
-				4EB23585283DFCE600713CBB /* HuffmanLength+Comparable.swift in Sources */,
-				4EB23589283DFCE600713CBB /* DecompressionAlgorithm.swift in Sources */,
-				4EB23595283DFCE600713CBB /* HuffmanLength.swift in Sources */,
-				4EB2358B283DFCE600713CBB /* Extensions.swift in Sources */,
-				4EB2358C283DFCE600713CBB /* CompressionAlgorithm.swift in Sources */,
-				4EB23581283DFCE600713CBB /* BZip2Error.swift in Sources */,
-				4EB23582283DFCE600713CBB /* SuffixArray.swift in Sources */,
-				4EB2357F283DFCE600713CBB /* BurrowsWheeler.swift in Sources */,
-				4EB23594283DFCE600713CBB /* DataWithPointer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1658,11 +1529,6 @@
 			platformFilter = maccatalyst;
 			target = 4E1A1C6027B69F9A00B6DC9A /* ZebraCatalystHelper */;
 			targetProxy = 4E1A1C7627B6A31800B6DC9A /* PBXContainerItemProxy */;
-		};
-		4EB2355D283DFCB100713CBB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4EB23553283DFC6E00713CBB /* SWCompression */;
-			targetProxy = 4EB2355C283DFCB100713CBB /* PBXContainerItemProxy */;
 		};
 		4EB235B4283E198F00713CBB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1816,40 +1682,6 @@
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		4EB23559283DFC6E00713CBB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4EB2355A283DFC6E00713CBB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2198,15 +2030,6 @@
 			buildConfigurations = (
 				4E1A1C6727B69F9A00B6DC9A /* Debug */,
 				4E1A1C6827B69F9A00B6DC9A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		4EB23558283DFC6E00713CBB /* Build configuration list for PBXNativeTarget "SWCompression" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EB23559283DFC6E00713CBB /* Debug */,
-				4EB2355A283DFC6E00713CBB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

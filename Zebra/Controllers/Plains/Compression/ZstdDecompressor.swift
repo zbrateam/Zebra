@@ -10,7 +10,7 @@ import Foundation
 import SwiftZSTD
 
 class ZstdDecompressor: DecompressorProtocol {
-	private static let bufferSize = 32_768
+	private static let bufferSize = 65536
 
 	static func decompress(url: URL, destinationURL: URL, format: Decompressor.Format) async throws {
 		let sourceHandle = try FileHandle(forReadingFrom: url)
@@ -32,5 +32,8 @@ class ZstdDecompressor: DecompressorProtocol {
 				break
 			}
 		}
+
+		try sourceHandle.close()
+		try destinationHandle.close()
 	}
 }
