@@ -20,10 +20,12 @@ class Decompressor {
 
 		internal var decompressorType: DecompressorProtocol.Type {
 			switch self {
-			case .gzip, .lzma, .xz:
-				return AppleDecompressor.self
+			case .gzip:
+				return GzipDecompressor.self
 			case .bzip2:
 				return Bzip2Decompressor.self
+			case .lzma, .xz:
+				return AppleDecompressor.self
 			case .zstd:
 				return ZstdDecompressor.self
 			}
@@ -31,11 +33,9 @@ class Decompressor {
 
 		internal var algorithm: Algorithm? {
 			switch self {
-			case .gzip, .bzip2:
-				return .zlib
 			case .lzma, .xz:
 				return .lzma
-			case .zstd:
+			case .gzip, .bzip2, .zstd:
 				return nil
 			}
 		}

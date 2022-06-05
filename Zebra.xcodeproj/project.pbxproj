@@ -20,6 +20,7 @@
 		4E01F9372840B67E0051A64F /* zstd.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235B0283E18EB00713CBB /* zstd.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E01F9382840B6850051A64F /* StreamHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235A7283E181000713CBB /* StreamHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E138C64284B1BBC0058D94D /* Signpost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C63284B1BBC0058D94D /* Signpost.swift */; };
+		4E138C66284BC2B00058D94D /* GzipDecompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C65284BC2B00058D94D /* GzipDecompressor.swift */; };
 		4E1A1C6627B69F9A00B6DC9A /* ZebraCatalystHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1A1C6327B69F9A00B6DC9A /* ZebraCatalystHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E1A1C7527B6A30100B6DC9A /* ZebraCatalystHelper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E1A1C7A27B6A3A900B6DC9A /* ZBAppSceneHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1A1C7827B6A3A900B6DC9A /* ZBAppSceneHelper.h */; };
@@ -211,6 +212,7 @@
 		49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPackageDepictionViewController.mm; sourceTree = "<group>"; };
 		49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageDepictionViewController.xib; sourceTree = "<group>"; };
 		4E138C63284B1BBC0058D94D /* Signpost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signpost.swift; sourceTree = "<group>"; };
+		4E138C65284BC2B00058D94D /* GzipDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GzipDecompressor.swift; sourceTree = "<group>"; };
 		4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZebraCatalystHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E1A1C6327B69F9A00B6DC9A /* ZebraCatalystHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZebraCatalystHelper.h; sourceTree = "<group>"; };
 		4E1A1C7827B6A3A900B6DC9A /* ZBAppSceneHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppSceneHelper.h; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 			children = (
 				4EB2350C283DEA8C00713CBB /* Decompressor.swift */,
 				4EB2350F283DFA3500713CBB /* AppleDecompressor.swift */,
+				4E138C65284BC2B00058D94D /* GzipDecompressor.swift */,
 				4EB23511283DFA5500713CBB /* Bzip2Decompressor.swift */,
 				4EB2354E283DFB8B00713CBB /* ZstdDecompressor.swift */,
 			);
@@ -1473,6 +1476,7 @@
 				4EBA841227D253AC00766DBE /* CarouselCollectionViewContainingCell.swift in Sources */,
 				4E9FC887279061D600934FFE /* Color.swift in Sources */,
 				4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */,
+				4E138C66284BC2B00058D94D /* GzipDecompressor.swift in Sources */,
 				4E1F061328475943006B3F0C /* PackageCollectionViewCell.swift in Sources */,
 				4EB23512283DFA5500713CBB /* Bzip2Decompressor.swift in Sources */,
 				4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */,
