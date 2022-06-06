@@ -14,6 +14,10 @@ class Bzip2Decompressor: DecompressorProtocol {
 	struct Bzip2Error: Error {
 		private let errorString: String
 
+		init(errno: errno_t) {
+			errorString = String(utf8String: strerror(errno)) ?? "Unknown"
+		}
+
 		init?(error: inout Int32, handle: inout UnsafeMutableRawPointer?) {
 			if error >= 0 {
 				return nil
@@ -30,7 +34,7 @@ class Bzip2Decompressor: DecompressorProtocol {
 
 	static func decompress(url: URL, destinationURL: URL, format: Decompressor.Format) async throws {
 		guard let sourceHandle = fopen(url.path.cString, "rb") else {
-			throw NSError()
+			throw Bzip2Error(errno: EBADF)
 		}
 		defer { fclose(sourceHandle) }
 
