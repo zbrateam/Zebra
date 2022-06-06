@@ -10,6 +10,7 @@ import Foundation
 import UniformTypeIdentifiers
 import os.log
 import Plains
+import BackgroundTasks
 
 class SourceRefreshController: NSObject, ProgressReporting {
 
@@ -48,15 +49,15 @@ class SourceRefreshController: NSObject, ProgressReporting {
 		case generalError(sourceUUID: String, url: URL, error: Error)
 	}
 
+	private static let backgroundContinuationTaskIdentifier = "xyz.willy.Zebra.source-refresh-continuation-task"
+	private static let legacySourceHosts = ["repo.dynastic.co", "apt.bingner.com"]
+	private static let parallelJobsCount = 16
+	private static let appActivationSourceRefreshInterval: TimeInterval = 60 * 60
+
 	private static let listsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!
 	private static let partialListsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!/"partial"
 
-	private static let automaticSourceRefreshInterval: TimeInterval = 5 * 60
-
-	private static let legacySourceHosts = ["repo.dynastic.co", "apt.bingner.com"]
-
 	private static let packagesTypePriority: [SourceFileKind] = [.zstd, .xz, .lzma, .bzip2, .gzip]
-	private static let parallelJobsCount = 16
 
 	static let refreshProgressDidChangeNotification = Notification.Name(rawValue: "SourceRefreshProgressDidChangeNotification")
 
@@ -72,8 +73,9 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private var runningJobs = [Job]()
 	private var currentRefreshJobs = [String: Set<Job>]()
 	private var progressObserver: NSKeyValueObservation!
+	internal var backgroundTask: BGTask?
 
-	private let log = OSLog(subsystem: "xyz.willy.Zebra.source-refresh", category: "SourceRefreshOperation")
+	internal let log = OSLog(subsystem: "xyz.willy.Zebra.source-refresh", category: "SourceRefreshOperation")
 	private let signpostLog = OSLog(subsystem: "xyz.willy.Zebra.source-refresh", category: .pointsOfInterest)
 	private var signpost: Signpost?
 
@@ -92,15 +94,14 @@ class SourceRefreshController: NSObject, ProgressReporting {
 		session = URLSession(configuration: URLSession.download.configuration,
 												 delegate: self,
 												 delegateQueue: operationQueue)
+
+		self.registerBackgroundTask()
 	}
 
-	func refresh(isUserRequested: Bool = true) {
+	func refresh() {
 		queue.async {
-			if !isUserRequested && Preferences.lastSourceUpdate.distance(to: Date()) < Self.automaticSourceRefreshInterval {
-				// Don’t refresh, we already refreshed very recently.
-				return
-			}
 			Preferences.lastSourceUpdate = Date()
+			self.scheduleNextRefresh()
 
 			if self.progress.fractionCompleted < 1 && !self.progress.isCancelled {
 				self.progress.cancel()
@@ -151,14 +152,20 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 	@objc private func appDidBecomeActive() {
 		// If the app was in the background for a while, the data is likely to be outdated. Kick off
-		// another refresh now.
-		if Preferences.refreshSourcesAutomatically {
-			refresh(isUserRequested: false)
+		// another refresh now if it’s been long enough.
+		if Preferences.refreshSourcesAutomatically && Preferences.lastSourceUpdate.distance(to: Date()) > Self.appActivationSourceRefreshInterval {
+				refresh()
 		}
 	}
 
 	@objc private func appWillResignActive() {
-		// TODO: Cancel any active refresh, although maybe we can continue in the background for a bit?
+		// Tell the OS we want to keep going in the background.
+		UIApplication.shared.beginBackgroundTask(withName: Self.backgroundContinuationTaskIdentifier) {
+			// Timer expired, cancel now.
+			if self.isRefreshing {
+				self.progress.cancel()
+			}
+		}
 	}
 
 	// MARK: - Job Lifecycle
@@ -469,6 +476,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			os_log("Completed", log: self.log)
 			#endif
 
+			self.completeBackgroundRefresh()
 			self.signpost?.end()
 		}
 	}

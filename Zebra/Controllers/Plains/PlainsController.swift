@@ -161,9 +161,6 @@ class PlainsController {
 
 		// Load the database
 		PackageManager.shared.import()
-
-		// Kick off a refresh
-		SourceRefreshController.shared.refresh(isUserRequested: false)
 	}
 
 }
