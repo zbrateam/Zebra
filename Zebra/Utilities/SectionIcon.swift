@@ -91,7 +91,7 @@ struct SectionIcon {
 	]
 
 	private static let symbolConfiguration: UIImage.SymbolConfiguration = {
-		let baseConfiguration = UIImage.SymbolConfiguration(pointSize: 45, weight: .semibold, scale: .large)
+		let baseConfiguration = UIImage.SymbolConfiguration(pointSize: 45, weight: .medium, scale: .large)
 		if #available(iOS 15, *) {
 			return baseConfiguration
 				.applying(UIImage.SymbolConfiguration(hierarchicalColor: .white))
@@ -103,7 +103,7 @@ struct SectionIcon {
 	private static var cachedIcons = [String: UIImage]()
 
 	static func icon(for section: String?) -> UIImage? {
-		guard let section = section?.cleanedSectionName,
+		guard let section = section?.baseSectionName,
 					let sectionIcon = Self.sections[section] else {
 			return nil
 		}

@@ -62,7 +62,7 @@ class IconImageView: UIView {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
-		let cornerRadius = 0.2237 * frame.size.width
+		let cornerRadius = (13 / 60) * frame.size.width
 		backgroundView.layer.cornerRadius = cornerRadius
 		imageView.layer.cornerRadius = cornerRadius
 		borderView.layer.cornerRadius = cornerRadius
@@ -84,7 +84,7 @@ class IconImageView: UIView {
 	}
 
 	private func loadImage(url: URL, completion: SDExternalCompletionBlock? = nil) {
-		imageView.sd_imageTransition = .fade(duration: 100)
+		imageView.sd_imageTransition = .fade(duration: 0.2)
 		imageView.sd_setImage(with: url,
 													placeholderImage: fallbackImage,
 													options: [.delayPlaceholder, .decodeFirstFrameOnly, .scaleDownLargeImages],
@@ -102,8 +102,9 @@ class IconImageView: UIView {
 
 		imageView.image = nil
 
+		// TODO: The retina scaling fallback is broken
 		let scale = window?.screen.scale ?? UIScreen.main.scale
-		if scale == 1 {
+		if true||scale == 1 {
 			loadImage(url: imageURL)
 		} else {
 			// Try native scale first, falling back to original url.

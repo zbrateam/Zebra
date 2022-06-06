@@ -33,7 +33,7 @@ class SectionHeaderView: UICollectionReusableView {
 
 		label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = .preferredFont(forTextStyle: .title2, weight: .bold)
+		label.font = .preferredFont(forTextStyle: .headline)
 		label.textColor = .label
 
 		buttonsStackView = UIStackView()
