@@ -21,6 +21,9 @@ class SourceCollectionViewCell: UICollectionViewCell {
 	private var detailImageView: UIImageView!
 	private var detailLabel: UILabel!
 	private var chevronImageView: UIImageView!
+	private var progressView: ProgressDonut!
+
+	private var niceSourceURL: String?
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -62,13 +65,16 @@ class SourceCollectionViewCell: UICollectionViewCell {
 		labelStackView.alignment = .leading
 		labelStackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
+		progressView = ProgressDonut()
+		progressView.isHidden = true
+
 		chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
 		chevronImageView.tintColor = .tertiaryLabel
 
 		let pointSize = UIFont.preferredFont(forTextStyle: .body).pointSize
-		chevronImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .small)
+		chevronImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .medium)
 
-		let mainStackView = UIStackView(arrangedSubviews: [imageContainer, labelStackView, chevronImageView])
+		let mainStackView = UIStackView(arrangedSubviews: [imageContainer, labelStackView, progressView, chevronImageView])
 		mainStackView.translatesAutoresizingMaskIntoConstraints = false
 		mainStackView.alignment = .center
 		mainStackView.spacing = 12
@@ -99,6 +105,16 @@ class SourceCollectionViewCell: UICollectionViewCell {
 		super.prepareForReuse()
 	}
 
+	override func willMove(toSuperview newSuperview: UIView?) {
+		super.willMove(toSuperview: newSuperview)
+
+		if newSuperview == nil {
+			NotificationCenter.default.removeObserver(self, name: SourceRefreshController.refreshProgressDidChangeNotification, object: nil)
+		} else {
+			NotificationCenter.default.addObserver(self, selector: #selector(self.progressDidChange), name: SourceRefreshController.refreshProgressDidChangeNotification, object: nil)
+		}
+	}
+
 	private func updateSource() {
 		if let source = source {
 			let url = source.uri
@@ -109,7 +125,7 @@ class SourceCollectionViewCell: UICollectionViewCell {
 			if urlString.last == "/" {
 				urlString.removeLast()
 			}
-			detailLabel.text = urlString
+			niceSourceURL = urlString
 
 			if let host = source.uri.host,
 				 let image = UIImage(named: "Repo Icons/\(host)") {
@@ -121,18 +137,10 @@ class SourceCollectionViewCell: UICollectionViewCell {
 
 			imageView.isHidden = false
 			symbolImageView.isHidden = true
+			titleLabel.text = source.origin
+			titleLabel.textColor = .label
 
-			if source.messages.isEmpty {
-				titleLabel.text = source.origin
-				titleLabel.textColor = .label
-				detailImageView.image = UIImage(systemName: "lock.slash.fill")
-				detailImageView.isHidden = url.scheme == "https"
-			} else {
-				titleLabel.text = .localize("Failed to load")
-				titleLabel.textColor = .systemRed
-				detailImageView.image = UIImage(systemName: "exclamationmark.circle")
-				detailImageView.isHidden = false
-			}
+			updateProgress()
 		} else {
 			titleLabel.text = .localize("All Packages")
 			detailLabel.text = .localize("Browse packages from all installed sources.")
@@ -141,6 +149,39 @@ class SourceCollectionViewCell: UICollectionViewCell {
 			symbolImageView.image = UIImage(named: "zebra.wrench")
 			symbolImageView.isHidden = false
 			detailImageView.isHidden = true
+			progressView.isHidden = true
+		}
+	}
+
+	private func updateProgress() {
+		if let source = source {
+			let state = SourceRefreshController.shared.sourceStates[source.uuid]
+			if SourceRefreshController.shared.isRefreshing,
+				 let progress = state?.progress {
+				progressView.isHidden = false
+				progressView.progress = progress.fractionCompleted
+			} else {
+				progressView.isHidden = true
+			}
+
+			if let errors = state?.errors,
+				 !errors.isEmpty {
+				detailImageView.image = UIImage(systemName: "exclamationmark.circle")
+				detailImageView.isHidden = false
+				detailImageView.tintColor = .systemRed
+				detailLabel.text = .localize("Failed to load")
+				detailLabel.textColor = .systemRed
+			} else {
+				detailImageView.isHidden = true
+				detailLabel.text = niceSourceURL
+				detailLabel.textColor = .secondaryLabel
+			}
+		}
+	}
+
+	@objc private func progressDidChange() {
+		DispatchQueue.main.async {
+			self.updateProgress()
 		}
 	}
 

@@ -36,6 +36,12 @@ class SourceRefreshController: NSObject, ProgressReporting {
 		}
 	}
 
+	struct SourceState {
+		let sourceUUID: String
+		let progress: Progress
+		var errors = [Error]()
+	}
+
 	enum RefreshError: Error {
 		case errorResponse(sourceUUID: String, url: URL, statusCode: Int)
 		case invalidContentType(sourceUUID: String, url: URL, contentType: String)
@@ -57,7 +63,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	static let shared = SourceRefreshController()
 
 	private(set) var progress = Progress()
-	private(set) var refreshErrors = [PlainsError]()
+	private(set) var sourceStates = [String: SourceState]()
 
 	private let queue = DispatchQueue(label: "xyz.willy.Zebra.source-refresh-queue", qos: .utility)
 	private let decompressQueue = DispatchQueue(label: "xyz.willy.Zebra.source-decompress-queue", qos: .utility)
@@ -65,12 +71,14 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private var pendingJobs = [Job]()
 	private var runningJobs = [Job]()
 	private var currentRefreshJobs = [String: Set<Job>]()
-	private var currentProgress = [String: Progress]()
 	private var progressObserver: NSKeyValueObservation!
 
 	private let log = OSLog(subsystem: "xyz.willy.Zebra.source-refresh", category: "SourceRefreshOperation")
 	private let signpostLog = OSLog(subsystem: "xyz.willy.Zebra.source-refresh", category: .pointsOfInterest)
 	private var signpost: Signpost?
+
+	var isRefreshing: Bool { !progress.isFinished && !progress.isCancelled }
+	var refreshErrors: [Error] { sourceStates.values.reduce([], { $0 + $1.errors }) }
 
 	private override init() {
 		super.init()
@@ -98,31 +106,43 @@ class SourceRefreshController: NSObject, ProgressReporting {
 				self.progress.cancel()
 			}
 
-			self.signpost = Signpost(log: self.signpostLog, name: "SourceRefreshOperation", format: "Refresh")
-			self.signpost!.begin()
+			// Give the cancel() a run loop tick for notifications to be dealt with before we reset state.
+			self.queue.async {
+				self.signpost = Signpost(log: self.signpostLog, name: "SourceRefreshOperation", format: "Refresh")
+				self.signpost!.begin()
 
-			self.progress = Progress(totalUnitCount: Int64(SourceManager.shared.sources.count) + 1)
-			self.progressObserver = self.progress.observe(\.fractionCompleted) { progress, _ in
-				NotificationCenter.default.post(name: Self.refreshProgressDidChangeNotification, object: nil)
-				if progress.completedUnitCount == progress.totalUnitCount - 1 && !progress.isCancelled {
-					self.finishRefresh()
+				self.progressObserver = nil
+				self.sourceStates.removeAll()
+				self.pendingJobs.removeAll()
+				self.runningJobs.removeAll()
+				self.currentRefreshJobs.removeAll()
+
+				self.progress = Progress(totalUnitCount: Int64(SourceManager.shared.sources.count) + 1)
+				self.progressObserver = self.progress.observe(\.fractionCompleted) { progress, _ in
+					NotificationCenter.default.post(name: Self.refreshProgressDidChangeNotification, object: nil)
+					if progress.completedUnitCount == progress.totalUnitCount - 1 && !progress.isCancelled {
+						self.finishRefresh()
+					}
 				}
-			}
 
-			// Start the state machine for each source with InRelease.
-			for source in SourceManager.shared.sources {
-				let sourceFile = SourceFile.inRelease
-				let downloadURL = source.baseURI/sourceFile.name
-				let destinationURL = Self.partialListsURL/(source.uuid + sourceFile.name)
-				let task = self.task(for: downloadURL, destinationURL: destinationURL)
-				let job = Job(signpost: Signpost(log: self.signpostLog, name: "SourceRefreshJob", format: "%@", source.uuid),
-											task: task,
-											sourceUUID: source.uuid,
-											sourceFile: sourceFile)
-				job.signpost.begin()
-				self.currentRefreshJobs[source.uuid] = [job]
-				self.currentProgress[source.uuid] = Progress(totalUnitCount: 1000, parent: self.progress, pendingUnitCount: 1)
-				self.continueJob(job, withSourceFile: .inRelease)
+				// Start the state machine for each source with InRelease.
+				for source in SourceManager.shared.sources {
+					let sourceFile = SourceFile.inRelease
+					let downloadURL = source.baseURI/sourceFile.name
+					let destinationURL = Self.partialListsURL/(source.uuid + sourceFile.name)
+					let task = self.task(for: downloadURL, destinationURL: destinationURL)
+					let job = Job(signpost: Signpost(log: self.signpostLog, name: "SourceRefreshJob", format: "%@", source.uuid),
+												task: task,
+												sourceUUID: source.uuid,
+												sourceFile: sourceFile)
+					job.signpost.begin()
+					self.currentRefreshJobs[source.uuid] = [job]
+
+					let sourceState = SourceState(sourceUUID: source.uuid,
+																				progress: Progress(totalUnitCount: 1000, parent: self.progress, pendingUnitCount: 1))
+					self.sourceStates[source.uuid] = sourceState
+					self.continueJob(job, withSourceFile: .inRelease)
+				}
 			}
 		}
 	}
@@ -174,16 +194,26 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			304: "👍",
 			404: "🤷‍♀️"
 		]
-		os_log("%@ %@ %@ → %i (%@)",
+		os_log("%@ %@ %@ → %i (%@) %@",
 					 log: log,
 					 prefixes[statusCode] ?? "❌",
 					 request.httpMethod ?? "?",
 					 String(describing: response?.url ?? job.url),
 					 statusCode,
-					 contentType)
+					 contentType,
+					 error == nil ? "" : String(describing: error!))
 		#endif
 
 		job.signpost.event(format: "Process: %@", String(describing: job.url))
+
+		if let error = error {
+			// Don’t bother continuing to try anything with this repo, it’ll probably just keep failing.
+			giveUp(job: job,
+						 error: RefreshError.generalError(sourceUUID: job.sourceUUID,
+																							url: job.url,
+																							error: error))
+			return
+		}
 
 		switch statusCode {
 		case 200:
@@ -201,7 +231,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 				break
 			}
 
-			currentProgress[job.sourceUUID]?.completedUnitCount += job.sourceFile.progressWeight
+			sourceStates[job.sourceUUID]?.progress.completedUnitCount += job.sourceFile.progressWeight
 
 			switch job.sourceFile {
 			case .inRelease, .releaseGpg:
@@ -226,15 +256,6 @@ class SourceRefreshController: NSObject, ProgressReporting {
 		default:
 			// Unexpected status code. Fall through.
 			break
-		}
-
-		if let error = error {
-			// Don’t bother continuing to try anything with this repo, it’ll probably just keep failing.
-			giveUp(job: job,
-						 error: RefreshError.generalError(sourceUUID: job.sourceUUID,
-																							url: job.url,
-																							error: error))
-			return
 		}
 
 		switch job.sourceFile {
@@ -330,56 +351,56 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 		decompressQueue.async {
 			Task {
-					do {
-						let newSourceFile: SourceFile
-						switch job.sourceFile {
-						case .packages(_):
-							newSourceFile = .packages(kind: .text)
-						default:
-							newSourceFile = job.sourceFile
-						}
-
-						let uncompressedURL = job.partialURL/".."/(job.sourceUUID + newSourceFile.name)
-
-						job.signpost.event(format: "Decompress: %@", job.partialURL.lastPathComponent)
-
-						#if DEBUG
-						os_log("Decompressing: %@", log: self.log, job.partialURL.lastPathComponent)
-						let start = Date()
-						#endif
-
-						try await Decompressor.decompress(url: job.partialURL,
-																							destinationURL: uncompressedURL,
-																							format: job.sourceFile.kind.decompressorFormat)
-
-						#if DEBUG
-						os_log("Decompressed in %.3fms: %@", log: self.log, Date().timeIntervalSince(start) * 1000, job.partialURL.lastPathComponent)
-						job.signpost.event(format: "Decompress done: %@", job.partialURL.lastPathComponent)
-						#endif
-
-						self.queue.async {
-							// If that worked, we do a quick switcharoo to make the job now “uncompressed”
-							self.currentRefreshJobs[job.sourceUUID]?.remove(job)
-
-							let newJob = Job(signpost: job.signpost,
-															 task: job.task,
-															 sourceUUID: job.sourceUUID,
-															 sourceFile: newSourceFile)
-							self.currentRefreshJobs[job.sourceUUID]?.insert(newJob)
-							self.finalize(sourceUUID: job.sourceUUID)
-						}
-					} catch {
-						// TODO: Push this to the UI
-						os_log("Error decompressing: %@", log: self.log, String(describing: error))
+				do {
+					let newSourceFile: SourceFile
+					switch job.sourceFile {
+					case .packages(_):
+						newSourceFile = .packages(kind: .text)
+					default:
+						newSourceFile = job.sourceFile
 					}
+
+					let uncompressedURL = job.partialURL/".."/(job.sourceUUID + newSourceFile.name)
+
+					job.signpost.event(format: "Decompress: %@", job.partialURL.lastPathComponent)
+
+					#if DEBUG
+					os_log("Decompressing: %@", log: self.log, job.partialURL.lastPathComponent)
+					let start = Date()
+					#endif
+
+					try await Decompressor.decompress(url: job.partialURL,
+																						destinationURL: uncompressedURL,
+																						format: job.sourceFile.kind.decompressorFormat)
+
+					#if DEBUG
+					os_log("Decompressed in %.3fms: %@", log: self.log, Date().timeIntervalSince(start) * 1000, job.partialURL.lastPathComponent)
+					job.signpost.event(format: "Decompress done: %@", job.partialURL.lastPathComponent)
+					#endif
+
+					self.queue.async {
+						// If that worked, we do a quick switcharoo to make the job now “uncompressed”
+						self.currentRefreshJobs[job.sourceUUID]?.remove(job)
+
+						let newJob = Job(signpost: job.signpost,
+														 task: job.task,
+														 sourceUUID: job.sourceUUID,
+														 sourceFile: newSourceFile)
+						self.currentRefreshJobs[job.sourceUUID]?.insert(newJob)
+						self.finalize(sourceUUID: job.sourceUUID)
+					}
+				} catch {
+					os_log("Error decompressing: %@", log: self.log, String(describing: error))
+					self.sourceStates[job.sourceUUID]?.errors.append(error)
+				}
 			}
 		}
 	}
 
 	private func giveUp(job: Job, error: RefreshError) {
 		queue.async {
-			// TODO: Push error to the UI
 			os_log("Refresh failed: %@", log: self.log, job.sourceUUID, String(describing: error))
+			self.sourceStates[job.sourceUUID]?.errors.append(error)
 			self.cleanUp(sourceUUID: job.sourceUUID)
 		}
 	}
@@ -395,15 +416,15 @@ class SourceRefreshController: NSObject, ProgressReporting {
 						try FileManager.default.removeItem(at: job.partialURL)
 					}
 				} catch {
-					// TODO: Push this to the UI
 					os_log("Error cleaning up: %@", log: self.log, String(describing: error))
+					self.sourceStates[sourceUUID]?.errors.append(error)
 				}
 			}
 
 			self.currentRefreshJobs.removeValue(forKey: sourceUUID)
 
-			if let progress = self.currentProgress[sourceUUID] {
-				progress.completedUnitCount = progress.totalUnitCount
+			if let sourceState = self.sourceStates[sourceUUID] {
+				sourceState.progress.completedUnitCount = sourceState.progress.totalUnitCount
 			}
 
 			signpost?.end()
@@ -426,8 +447,8 @@ class SourceRefreshController: NSObject, ProgressReporting {
 						try FileManager.default.moveItem(at: job.partialURL, to: job.destinationURL)
 					}
 				} catch {
-					// TODO: Push this to the UI
 					os_log("Error finalizing: %@", log: self.log, String(describing: error))
+					self.sourceStates[sourceUUID]?.errors.append(error)
 				}
 			}
 

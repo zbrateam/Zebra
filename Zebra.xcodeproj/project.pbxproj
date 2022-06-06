@@ -21,6 +21,7 @@
 		4E01F9382840B6850051A64F /* StreamHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235A7283E181000713CBB /* StreamHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E138C64284B1BBC0058D94D /* Signpost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C63284B1BBC0058D94D /* Signpost.swift */; };
 		4E138C66284BC2B00058D94D /* GzipDecompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C65284BC2B00058D94D /* GzipDecompressor.swift */; };
+		4E138C68284C690C0058D94D /* ProgressDonut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C67284C690C0058D94D /* ProgressDonut.swift */; };
 		4E1A1C6627B69F9A00B6DC9A /* ZebraCatalystHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1A1C6327B69F9A00B6DC9A /* ZebraCatalystHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E1A1C7527B6A30100B6DC9A /* ZebraCatalystHelper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E1A1C7A27B6A3A900B6DC9A /* ZBAppSceneHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1A1C7827B6A3A900B6DC9A /* ZBAppSceneHelper.h */; };
@@ -213,6 +214,7 @@
 		49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageDepictionViewController.xib; sourceTree = "<group>"; };
 		4E138C63284B1BBC0058D94D /* Signpost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signpost.swift; sourceTree = "<group>"; };
 		4E138C65284BC2B00058D94D /* GzipDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GzipDecompressor.swift; sourceTree = "<group>"; };
+		4E138C67284C690C0058D94D /* ProgressDonut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDonut.swift; sourceTree = "<group>"; };
 		4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZebraCatalystHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E1A1C6327B69F9A00B6DC9A /* ZebraCatalystHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZebraCatalystHelper.h; sourceTree = "<group>"; };
 		4E1A1C7827B6A3A900B6DC9A /* ZBAppSceneHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppSceneHelper.h; sourceTree = "<group>"; };
@@ -845,6 +847,7 @@
 				4EBA840D27D21F4700766DBE /* InfoFooterView.swift */,
 				4EBA841A27D3119800766DBE /* IconImageView.swift */,
 				4E840B3A27D6484900039938 /* GradientView.swift */,
+				4E138C67284C690C0058D94D /* ProgressDonut.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1508,6 +1511,7 @@
 				4E8F843527D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift in Sources */,
 				4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */,
 				E1428E6F27791624005B0885 /* Canister.swift in Sources */,
+				4E138C68284C690C0058D94D /* ProgressDonut.swift in Sources */,
 				F057924E27D7C37500E9B477 /* PromotedPackagesFetcher.swift in Sources */,
 				4EC7F27F27B275F70078F953 /* String+Localization.swift in Sources */,
 				8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */,
@@ -1935,8 +1939,8 @@
 				);
 				OTHER_SWIFT_FLAGS = "-Xcc -Wno-non-modular-include-in-framework-module";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
-				PRODUCT_NAME = "$(APP_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2;
+				PRODUCT_NAME = Zebra;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTS_MACCATALYST = YES;
@@ -2018,8 +2022,8 @@
 				);
 				OTHER_SWIFT_FLAGS = "-Xcc -Wno-non-modular-include-in-framework-module";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
-				PRODUCT_NAME = "$(APP_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2;
+				PRODUCT_NAME = Zebra;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTS_MACCATALYST = YES;

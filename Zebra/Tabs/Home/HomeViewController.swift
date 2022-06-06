@@ -62,22 +62,29 @@ class HomeViewController: ListCollectionViewController {
 	@objc private func refreshProgressDidChange() {
 		DispatchQueue.main.async {
 			self.collectionView.reloadData()
-			let percent = SourceRefreshController.shared.progress.fractionCompleted
+
+			let progress = SourceRefreshController.shared.progress
+			let percent = progress.fractionCompleted
 			self.progressBar.progress = Float(percent)
 			self.progressLabel.text = NumberFormatter.localizedString(from: percent as NSNumber, number: .percent)
+
+			#if !targetEnvironment(macCatalyst)
+			let refreshControl = self.collectionView.refreshControl!
+			let isRefreshing = !progress.isFinished && !progress.isCancelled
+			if isRefreshing != refreshControl.isRefreshing {
+				if isRefreshing {
+					refreshControl.beginRefreshing()
+				} else {
+					refreshControl.endRefreshing()
+				}
+			}
+			#endif
 		}
 	}
 
-	private var errorCount: Int {
+	private var errorCount: UInt {
 		// Filter to only errors. Warnings are mostly annoying and not particularly useful.
-		SourceRefreshController.shared.refreshErrors
-			.reduce(0, { count, item in
-				switch item.level {
-				case .warning: return count
-				case .error:   return count + 1
-				@unknown default: fatalError()
-				}
-			})
+		UInt(SourceRefreshController.shared.refreshErrors.count) + ErrorManager.shared.errorCount(at: .error)
 	}
 
 }
@@ -108,7 +115,10 @@ extension HomeViewController {
 
 		case .error:
 			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ErrorCell", for: indexPath) as! HomeErrorCollectionViewCell
-			cell.text = String.localizedStringWithFormat(.localize("Zebra encountered %li errors."), errorCount)
+			let errorCount = self.errorCount
+			cell.text = String.localizedStringWithFormat(.localize("Zebra encountered %@ errors."),
+																									 NSDecimalNumber(value: errorCount),
+																									 NumberFormatter.localizedString(from: errorCount as NSNumber, number: .decimal))
 			return cell
 		}
 	}

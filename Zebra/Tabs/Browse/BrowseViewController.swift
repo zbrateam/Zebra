@@ -50,14 +50,31 @@ class BrowseViewController: ListCollectionViewController {
 
 	// MARK: - Sources
 
+	private func updateSources() {
+		self.sources = SourceManager.shared.sources
+			.sorted(by: { a, b in a.origin.localizedStandardCompare(b.origin) == .orderedAscending })
+		self.collectionView.reloadData()
+	}
+
 	@objc private func sourcesDidUpdate() {
 		DispatchQueue.main.async {
-			self.sources = SourceManager.shared.sources
-				.sorted(by: { a, b in a.origin.localizedStandardCompare(b.origin) == .orderedAscending })
-			self.collectionView.reloadData()
+			self.updateSources()
+		}
+	}
 
+	@objc private func refreshProgressDidChange() {
+		DispatchQueue.main.async {
 			#if !targetEnvironment(macCatalyst)
-				self.collectionView.refreshControl?.endRefreshing()
+			let refreshControl = self.collectionView.refreshControl!
+			let progress = SourceRefreshController.shared.progress
+			let isRefreshing = !progress.isFinished && !progress.isCancelled
+			if isRefreshing != refreshControl.isRefreshing {
+				if isRefreshing {
+					refreshControl.beginRefreshing()
+				} else {
+					refreshControl.endRefreshing()
+				}
+			}
 			#endif
 		}
 	}

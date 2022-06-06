@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Zebra encountered %li errors.</key>
+	<key>Zebra encountered %@ errors.</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
@@ -15,7 +15,7 @@
 			<key>one</key>
 			<string>Zebra encountered an error.</string>
 			<key>other</key>
-			<string>Zebra encountered %li errors.</string>
+			<string>Zebra encountered %@ errors.</string>
 		</dict>
 	</dict>
 	<key>%@ Sources</key>
