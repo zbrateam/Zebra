@@ -37,10 +37,8 @@ class Device: NSObject {
 	static let dataURL = FileManager.default.url(for: .applicationSupportDirectory)/Bundle.main.bundleIdentifier!
 
 	static let isDemo: Bool = {
-		#if targetEnvironment(macCatalyst)
+		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
 		return false
-		#elseif targetEnvironment(simulator)
-		return true
 		#else
 		switch forkplz() {
 		case 0:
