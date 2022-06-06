@@ -27,7 +27,8 @@ class PlainsController {
 			cacheURL/"logs",
 			cacheURL/"archives",
 			cacheURL/"archives/partial",
-			dataURL/"lists"
+			dataURL/"lists",
+			dataURL/"lists/partial"
 		] + (Device.isDemo ? [
 			dpkgStateURL,
 			dpkgDataURL,
