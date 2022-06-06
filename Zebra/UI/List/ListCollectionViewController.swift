@@ -13,8 +13,6 @@ class ListCollectionViewController: UICollectionViewController {
 	init() {
 		let layout = UICollectionViewFlowLayout()
 		layout.itemSize = CGSize(width: 320, height: 57)
-//		layout.estimatedItemSize = CGSize(width: 320,
-//																			height: UICollectionViewFlowLayout.automaticSize.height)
 		layout.minimumInteritemSpacing = 0
 		layout.minimumLineSpacing = 0
 		layout.sectionHeadersPinToVisibleBounds = true
@@ -52,28 +50,26 @@ class ListCollectionViewController: UICollectionViewController {
 		collectionViewLayout.invalidateLayout()
 	}
 
-//	override func viewWillLayoutSubviews() {
-//		super.viewWillLayoutSubviews()
-//
-//		let layout = collectionViewLayout as! UICollectionViewFlowLayout
-//		layout.itemSize.width = collectionView.frame.size.width
-//		layout.estimatedItemSize.width = collectionView.frame.size.width
-//	}
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+
+		var width = collectionView.frame.size.width - collectionView.safeAreaInsets.left - collectionView.safeAreaInsets.right
+		if width > 480 {
+			width /= round(width / 320)
+		}
+
+		let layout = collectionViewLayout as! UICollectionViewFlowLayout
+		if layout.itemSize.width != width {
+			layout.itemSize.width = width
+			layout.invalidateLayout()
+		}
+	}
 }
 
 extension ListCollectionViewController: UICollectionViewDelegateFlowLayout { // UICollectionViewDataSource, UICollectionViewDelegate
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
 		let layout = collectionViewLayout as! UICollectionViewFlowLayout
-		var size = layout.itemSize
-		size.width = collectionView.frame.size.width - collectionView.safeAreaInsets.left - collectionView.safeAreaInsets.right
-		if size.width > 1024 {
-			size.width /= 5
-		} else if size.width > 1000 {
-			size.width /= 4
-		} else if size.width > 480 {
-			size.width /= 3
-		}
-		return size
+		return layout.itemSize
 	}
 
 	func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, insetForSectionAt _: Int) -> UIEdgeInsets {
