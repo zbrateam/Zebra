@@ -101,7 +101,6 @@
 		4EC7F2A027B53D990078F953 /* FileImportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F29F27B53D990078F953 /* FileImportController.swift */; };
 		4EE3CC7D283E50A0007D2943 /* SourceFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3CC7C283E50A0007D2943 /* SourceFileHandler.swift */; };
 		4EE3CC7F283E50B1007D2943 /* SourceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3CC7E283E50B1007D2943 /* SourceFile.swift */; };
-		4EE3CC81283E5982007D2943 /* PackagesFileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3CC80283E5982007D2943 /* PackagesFileHandler.swift */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
 		8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8915515B2560A4F0005AF405 /* ZBPartialPresentationController.m */; };
 		891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 891D1BAC26290FB1006839F7 /* ZBDummySource.m */; };
@@ -298,7 +297,6 @@
 		4EC7F29F27B53D990078F953 /* FileImportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportController.swift; sourceTree = "<group>"; };
 		4EE3CC7C283E50A0007D2943 /* SourceFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFileHandler.swift; sourceTree = "<group>"; };
 		4EE3CC7E283E50B1007D2943 /* SourceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceFile.swift; sourceTree = "<group>"; };
-		4EE3CC80283E5982007D2943 /* PackagesFileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesFileHandler.swift; sourceTree = "<group>"; };
 		75052D19249E3F2600C2F796 /* ZBSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewCell.h; sourceTree = "<group>"; };
 		75823618249E7DCA003713DD /* ZBSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewCell.m; sourceTree = "<group>"; };
 		75D0A77D24A013A7007D84EF /* ZBPreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPreferencesViewController.h; sourceTree = "<group>"; };
@@ -706,7 +704,6 @@
 			children = (
 				4EE3CC7E283E50B1007D2943 /* SourceFile.swift */,
 				4EE3CC7C283E50A0007D2943 /* SourceFileHandler.swift */,
-				4EE3CC80283E5982007D2943 /* PackagesFileHandler.swift */,
 			);
 			path = "Source Files";
 			sourceTree = "<group>";
@@ -1503,7 +1500,6 @@
 				4EC7F28D27B29AB20078F953 /* Darwin+Extensions.swift in Sources */,
 				4EA26EA227CC87810019A5AA /* PlainsController.swift in Sources */,
 				8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */,
-				4EE3CC81283E5982007D2943 /* PackagesFileHandler.swift in Sources */,
 				891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */,
 				4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */,
 				4E1F061528477D5B006B3F0C /* SectionIcon.swift in Sources */,

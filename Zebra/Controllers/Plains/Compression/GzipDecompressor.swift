@@ -47,7 +47,7 @@ class GzipDecompressor: DecompressorProtocol {
 
 		var stream = z_stream()
 		defer { inflateEnd(&stream) }
-		var error = inflateInit2_(&stream, MAX_WBITS + 32, ZLIB_VERSION, Int32(MemoryLayout<z_stream>.size))//Int32(bufferSize))
+		var error = inflateInit2_(&stream, MAX_WBITS + 32, ZLIB_VERSION, Int32(MemoryLayout<z_stream>.size))
 
 		if let zlibError = ZlibError(stream: stream, error: error) {
 			throw zlibError

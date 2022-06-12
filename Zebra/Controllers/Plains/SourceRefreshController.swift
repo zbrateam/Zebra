@@ -75,7 +75,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private var progressObserver: NSKeyValueObservation!
 	internal var backgroundTask: BGTask?
 
-	internal let log = OSLog(subsystem: "xyz.willy.Zebra.source-refresh", category: "SourceRefreshOperation")
+	internal let logger = Logger(subsystem: "xyz.willy.Zebra.source-refresh", category: "SourceRefreshOperation")
 	private let signpostLog = OSLog(subsystem: "xyz.willy.Zebra.source-refresh", category: .pointsOfInterest)
 	private var signpost: Signpost?
 
@@ -181,7 +181,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 	private func fetch(job: Job) {
 		#if DEBUG
-		os_log("Fetching: %@", log: log, String(describing: job.url))
+		logger.debug("Fetching: \(job.url)")
 		#endif
 
 		job.signpost.event(format: "Fetch %@", String(describing: job.url))
@@ -201,14 +201,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			304: "👍",
 			404: "🤷‍♀️"
 		]
-		os_log("%@ %@ %@ → %i (%@) %@",
-					 log: log,
-					 prefixes[statusCode] ?? "❌",
-					 request.httpMethod ?? "?",
-					 String(describing: response?.url ?? job.url),
-					 statusCode,
-					 contentType,
-					 error == nil ? "" : String(describing: error!))
+		logger.debug("\(prefixes[statusCode] ?? "❌") \(request.httpMethod ?? "?") \(response?.url ?? job.url) → \(statusCode) \(contentType) \(error == nil ? "" : String(describing: error!))")
 		#endif
 
 		job.signpost.event(format: "Process: %@", String(describing: job.url))
@@ -231,10 +224,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 							 error: RefreshError.invalidContentType(sourceUUID: job.sourceUUID,
 																											url: job.url,
 																											contentType: contentType))
-				os_log("Invalid content type: %@ not in [%@]",
-							 log: log,
-							 contentType,
-							 validContentTypes.joined(separator: ", "))
+				logger.warning("Invalid content type \(contentType); not in \(validContentTypes)")
 				break
 			}
 
@@ -372,7 +362,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 					job.signpost.event(format: "Decompress: %@", job.partialURL.lastPathComponent)
 
 					#if DEBUG
-					os_log("Decompressing: %@", log: self.log, job.partialURL.lastPathComponent)
+					self.logger.debug("Decompressing: \(job.partialURL.lastPathComponent)")
 					let start = Date()
 					#endif
 
@@ -381,7 +371,8 @@ class SourceRefreshController: NSObject, ProgressReporting {
 																						format: job.sourceFile.kind.decompressorFormat)
 
 					#if DEBUG
-					os_log("Decompressed in %.3fms: %@", log: self.log, Date().timeIntervalSince(start) * 1000, job.partialURL.lastPathComponent)
+					let delta = Date().timeIntervalSince(start) * 1000
+					self.logger.debug("Decompressed in \(delta, format: .fixed(precision: 3))ms: \(job.partialURL.lastPathComponent)")
 					job.signpost.event(format: "Decompress done: %@", job.partialURL.lastPathComponent)
 					#endif
 
@@ -397,7 +388,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 						self.finalize(sourceUUID: job.sourceUUID)
 					}
 				} catch {
-					os_log("Error decompressing: %@", log: self.log, String(describing: error))
+					self.logger.warning("Error decompressing: \(String(describing: error))")
 					self.sourceStates[job.sourceUUID]?.errors.append(error)
 				}
 			}
@@ -406,7 +397,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 	private func giveUp(job: Job, error: RefreshError) {
 		queue.async {
-			os_log("Refresh failed: %@", log: self.log, job.sourceUUID, String(describing: error))
+			self.logger.warning("Refresh failed for \(job.sourceUUID): \(String(describing: error))")
 			self.sourceStates[job.sourceUUID]?.errors.append(error)
 			self.cleanUp(sourceUUID: job.sourceUUID)
 		}
@@ -423,7 +414,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 						try FileManager.default.removeItem(at: job.partialURL)
 					}
 				} catch {
-					os_log("Error cleaning up: %@", log: self.log, String(describing: error))
+					self.logger.warning("Error cleaning up for \(sourceUUID): \(String(describing: error))")
 					self.sourceStates[sourceUUID]?.errors.append(error)
 				}
 			}
@@ -437,7 +428,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			signpost?.end()
 
 			#if DEBUG
-			os_log("Done: %@", log: self.log, sourceUUID)
+			self.logger.debug("Done: \(sourceUUID)")
 			#endif
 		}
 	}
@@ -454,7 +445,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 						try FileManager.default.moveItem(at: job.partialURL, to: job.destinationURL)
 					}
 				} catch {
-					os_log("Error finalizing: %@", log: self.log, String(describing: error))
+					self.logger.warning("Error finalizing for \(sourceUUID): \(String(describing: error))")
 					self.sourceStates[sourceUUID]?.errors.append(error)
 				}
 			}
@@ -466,14 +457,14 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private func finishRefresh() {
 		queue.async {
 			#if DEBUG
-			os_log("Rebuilding APT cache…", log: self.log)
+			self.logger.debug("Rebuilding APT cache…")
 			#endif
 
 			SourceManager.shared.rebuildCache()
 			self.progress.completedUnitCount = self.progress.totalUnitCount
 
 			#if DEBUG
-			os_log("Completed", log: self.log)
+			self.logger.debug("Completed")
 			#endif
 
 			self.completeBackgroundRefresh()
@@ -488,7 +479,7 @@ extension SourceRefreshController: URLSessionTaskDelegate, URLSessionDownloadDel
 	func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
 		guard let job = runningJobs.first(where: { $0.id == downloadTask.taskIdentifier }),
 					let response = downloadTask.response as? HTTPURLResponse else {
-			os_log("Job for download task not found?", log: log)
+			logger.warning("Job for download task not found?")
 			return
 		}
 
@@ -504,13 +495,13 @@ extension SourceRefreshController: URLSessionTaskDelegate, URLSessionDownloadDel
 				try FileManager.default.removeItem(at: location)
 			}
 		} catch {
-			os_log("Failed to move job download to destination: %@", log: log, String(describing: error))
+			logger.warning("Failed to move job download to destination: \(String(describing: error))")
 		}
 	}
 
 	func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
 		guard let index = runningJobs.firstIndex(where: { $0.id == task.taskIdentifier }) else {
-			os_log("Job for task not found?", log: log)
+			logger.warning("Job for task not found?")
 			return
 		}
 

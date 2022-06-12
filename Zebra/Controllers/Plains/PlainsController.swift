@@ -12,6 +12,8 @@ import Plains
 
 class PlainsController {
 
+	private static let logger = Logger(subsystem: "xyz.willy.zebra.plains-controller", category: "PlainsController")
+
 	class func setUp() throws {
 		let config = PlainsConfig.shared
 		let cacheURL = Device.cacheURL
@@ -103,7 +105,7 @@ class PlainsController {
 			config.set(integer: finishFds[0], forKey: "Plains::FinishFD::")
 			config.set(integer: finishFds[1], forKey: "Plains::FinishFD::")
 		} else {
-			os_log("[Zebra] Unable to create file descriptors.")
+			logger.error("Unable to create file descriptors")
 		}
 
 		// Reset the default compression type ordering
@@ -120,38 +122,38 @@ class PlainsController {
 		}
 
 		#if DEBUG
-		let debugKeys = [
-			"Debug::Acquire::gpgv",
-			"Debug::Acquire::Progress",
-			"Debug::Acquire::Retries",
-			"Debug::Acquire::SrvRecs",
-			"Debug::Acquire::Transaction",
-			"Debug::APT::Progress::PackageManagerFd",
-			"Debug::EDSP::WriteSolution",
-			"Debug::GetListOfFilesInDir",
-			"Debug::Hashes",
-			"Debug::Locking",
-			"Debug::Phasing",
-			"Debug::pkgAcquire",
-			"Debug::pkgAcquire::Auth",
-			"Debug::pkgAcquire::Diffs",
-			"Debug::pkgAcquire::Worker",
-			"Debug::pkgAutoRemove",
-			"Debug::pkgCacheGen",
-			"Debug::pkgDepCache::AutoInstall",
-			"Debug::pkgDepCache::Marker",
-			"Debug::pkgDPkgProgressReporting",
-			"Debug::pkgInitConfig",
-			"Debug::pkgOrderList",
-			"Debug::pkgPackageManager",
-			"Debug::pkgPolicy",
-			"Debug::pkgProblemResolver::ShowScores",
-			"Debug::pkgProblemResolver",
-			"Debug::RunScripts"
-		]
-		for key in debugKeys {
+//		let debugKeys = [
+//			"Debug::Acquire::gpgv",
+//			"Debug::Acquire::Progress",
+//			"Debug::Acquire::Retries",
+//			"Debug::Acquire::SrvRecs",
+//			"Debug::Acquire::Transaction",
+//			"Debug::APT::Progress::PackageManagerFd",
+//			"Debug::EDSP::WriteSolution",
+//			"Debug::GetListOfFilesInDir",
+//			"Debug::Hashes",
+//			"Debug::Locking",
+//			"Debug::Phasing",
+//			"Debug::pkgAcquire",
+//			"Debug::pkgAcquire::Auth",
+//			"Debug::pkgAcquire::Diffs",
+//			"Debug::pkgAcquire::Worker",
+//			"Debug::pkgAutoRemove",
+//			"Debug::pkgCacheGen",
+//			"Debug::pkgDepCache::AutoInstall",
+//			"Debug::pkgDepCache::Marker",
+//			"Debug::pkgDPkgProgressReporting",
+//			"Debug::pkgInitConfig",
+//			"Debug::pkgOrderList",
+//			"Debug::pkgPackageManager",
+//			"Debug::pkgPolicy",
+//			"Debug::pkgProblemResolver::ShowScores",
+//			"Debug::pkgProblemResolver",
+//			"Debug::RunScripts"
+//		]
+//		for key in debugKeys {
 //			config.set(boolean: true, forKey: key)
-		}
+//		}
 		#endif
 
 		// Go ahead and start doing APT stuff

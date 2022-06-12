@@ -40,7 +40,7 @@ extension SourceRefreshController {
 			scheduler.cancel(taskRequestWithIdentifier: Self.refreshTaskIdentifier)
 			try scheduler.submit(request)
 		} catch {
-			os_log("Source refresh task registration failed: %@", log: self.log, String(describing: error))
+			logger.warning("Source refresh task registration failed: \(String(describing: error))")
 		}
 	}
 

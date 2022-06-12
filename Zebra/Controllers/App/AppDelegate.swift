@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		do {
 			try PlainsController.setUp()
 		} catch {
-			os_log("[Zebra] Plains setup failed. %@", error.localizedDescription)
+			Logger().error("Plains setup failed. \(String(describing: error))")
 		}
 
 		SDImageCache.shared.config.maxDiskAge = 1 * 24 * 60 * 60 // 1 day

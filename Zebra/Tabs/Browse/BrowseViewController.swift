@@ -147,7 +147,7 @@ class BrowseViewController: ListCollectionViewController {
 					self.carouselViewController?.items = newsItems!
 				}
 			} catch {
-				os_log("Loading news failed: %@", String(describing: error))
+				Logger().warning("Loading news failed: \(String(describing: error))")
 				await MainActor.run {
 					self.carouselViewController?.isError = true
 				}

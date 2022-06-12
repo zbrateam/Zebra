@@ -39,6 +39,8 @@ class Command {
 		var finish: PipeDescriptor = [0, 0]
 	}
 
+	private static let logger = Logger(subsystem: "xyz.willy.zebra.command", category: "Command")
+
 	private(set) weak var delegate: CommandDelegate?
 	private(set) var command = ""
 	private(set) var arguments = [String]()
@@ -178,7 +180,7 @@ class Command {
 				default:
 					// Something is wrong; cancel the dispatch_source.
 					source.cancel()
-					os_log("Command %@ failed: %{errno}i", self.command, code)
+					Self.logger.error("Command \(self.command) failed: \(code, format: .darwinErrno)")
 				}
 
 			case 0:
@@ -242,7 +244,7 @@ class Command {
 			if useFinishFd {
 				fds.finish.close()
 			}
-			os_log("Command %@ spawn failed: %{errno}i", command, spawnResult)
+			Self.logger.error("Command \(self.command) spawn failed: \(spawnResult, format: .darwinErrno)")
 			throw ExecuteError.spawnFailed(code: errno_t(spawnResult))
 		}
 

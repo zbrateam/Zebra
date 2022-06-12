@@ -109,7 +109,7 @@ class SourceSectionViewController: ListCollectionViewController {
 					self.carouselViewController?.bannerItems = promotedPackages!
 				}
 			} catch {
-				os_log("Loading Promoted packages failed: %@", String(describing: error))
+				Logger().warning("Loading Promoted packages failed: \(String(describing: error))")
 				await MainActor.run {
 					self.carouselViewController?.isError = true
 				}
