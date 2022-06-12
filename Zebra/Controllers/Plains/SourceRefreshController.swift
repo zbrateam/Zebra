@@ -12,7 +12,7 @@ import os.log
 import Plains
 import BackgroundTasks
 
-class SourceRefreshController: NSObject, ProgressReporting {
+class SourceRefreshController: NSObject {
 
 	struct Job: Identifiable, Hashable, Equatable {
 		let signpost: Signpost
@@ -63,16 +63,23 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 	static let shared = SourceRefreshController()
 
-	private(set) var progress = Progress()
+	private(set) var progress = Progress(totalUnitCount: 1)
 	private(set) var sourceStates = [String: SourceState]()
 
 	private let queue = DispatchQueue(label: "xyz.willy.Zebra.source-refresh-queue", qos: .utility)
 	private let decompressQueue = DispatchQueue(label: "xyz.willy.Zebra.source-decompress-queue", qos: .utility)
-	private var session: URLSession!
+
+	private lazy var operationQueue: OperationQueue = {
+		let operationQueue = OperationQueue()
+		operationQueue.maxConcurrentOperationCount = Self.parallelJobsCount
+		operationQueue.underlyingQueue = self.queue
+		return operationQueue
+	}()
+
+	private var session: URLSession?
 	private var pendingJobs = [Job]()
 	private var runningJobs = [Job]()
 	private var currentRefreshJobs = [String: Set<Job>]()
-	private var progressObserver: NSKeyValueObservation!
 	internal var backgroundTask: BGTask?
 
 	internal let logger = Logger(subsystem: subsystem, category: "SourceRefreshOperation")
@@ -84,13 +91,6 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private override init() {
 		super.init()
 
-		// TODO: Set user configured timeout
-		let operationQueue = OperationQueue()
-		operationQueue.underlyingQueue = queue
-		session = URLSession(configuration: URLSession.download.configuration,
-												 delegate: self,
-												 delegateQueue: operationQueue)
-
 		registerNotifications()
 		registerBackgroundTask()
 	}
@@ -100,7 +100,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			Preferences.lastSourceUpdate = Date()
 			self.scheduleNextRefresh()
 
-			if self.progress.fractionCompleted < 1 && !self.progress.isCancelled {
+			if self.isRefreshing {
 				self.progress.cancel()
 			}
 
@@ -109,18 +109,28 @@ class SourceRefreshController: NSObject, ProgressReporting {
 				self.signpost = Signpost(subsystem: Self.subsystem, name: "SourceRefreshOperation", format: "Refresh")
 				self.signpost!.begin()
 
-				self.progressObserver = nil
 				self.sourceStates.removeAll()
 				self.pendingJobs.removeAll()
 				self.runningJobs.removeAll()
 				self.currentRefreshJobs.removeAll()
 
-				self.progress = Progress(totalUnitCount: Int64(SourceManager.shared.sources.count) + 1)
-				self.progressObserver = self.progress.observe(\.fractionCompleted) { progress, _ in
+				let configuration = URLSession.download.configuration.copy() as! URLSessionConfiguration
+				configuration.timeoutIntervalForRequest = Preferences.sourceRefreshTimeout
+				self.session = URLSession(configuration: configuration,
+																	delegate: self,
+																	delegateQueue: self.operationQueue)
+
+				// TODO: Can we avoid needing to override granularity?
+				self.progress = Progress(totalUnitCount: SourceManager.shared.sources.count + 1, granularity: .ulpOfOne)
+				self.progress.addFractionCompletedNotification(onQueue: self.operationQueue) { completedUnitCount, totalUnitCount, _ in
 					NotificationCenter.default.post(name: Self.refreshProgressDidChangeNotification, object: nil)
-					if progress.completedUnitCount == progress.totalUnitCount - 1 && !progress.isCancelled {
+					if completedUnitCount == totalUnitCount - 1 && self.isRefreshing {
 						self.finishRefresh()
 					}
+				}
+				self.progress.addCancellationNotification(onQueue: self.operationQueue) {
+					self.session?.invalidateAndCancel()
+					self.session = nil
 				}
 
 				// Start the state machine for each source with InRelease.
@@ -129,11 +139,10 @@ class SourceRefreshController: NSObject, ProgressReporting {
 					let downloadURL = source.baseURI/sourceFile.name
 					let destinationURL = Self.partialListsURL/(source.uuid + sourceFile.name)
 					let task = self.task(for: downloadURL, destinationURL: destinationURL)
-					let job = Job(signpost: Signpost(subsystem: Self.subsystem, name: "SourceRefreshJob", format: "%@", source.uuid),
-												task: task,
-												sourceUUID: source.uuid,
-												sourceFile: sourceFile)
-					job.signpost.begin()
+					let signpost = Signpost(subsystem: Self.subsystem, name: "SourceRefreshJob", format: "%@", source.uuid)
+					signpost.begin()
+
+					let job = Job(signpost: signpost, task: task, sourceUUID: source.uuid, sourceFile: sourceFile)
 					self.currentRefreshJobs[source.uuid] = [job]
 
 					let sourceState = SourceState(sourceUUID: source.uuid,
@@ -205,7 +214,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 				break
 			}
 
-			sourceStates[job.sourceUUID]?.progress.completedUnitCount += job.sourceFile.progressWeight
+			sourceStates[job.sourceUUID]?.progress.incrementCompletedUnitCount(by: job.sourceFile.progressWeight)
 
 			switch job.sourceFile {
 			case .inRelease, .releaseGpg:
@@ -313,7 +322,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			request.setValue(DateFormatter.rfc822.string(from: date), forHTTPHeaderField: "If-Modified-Since")
 		}
 
-		return session.downloadTask(with: request)
+		return session!.downloadTask(with: request)
 	}
 
 	private func decompress(job: Job) {
@@ -399,7 +408,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			self.currentRefreshJobs.removeValue(forKey: sourceUUID)
 
 			if let sourceState = self.sourceStates[sourceUUID] {
-				sourceState.progress.completedUnitCount = sourceState.progress.totalUnitCount
+				sourceState.progress.incrementCompletedUnitCount(by: sourceState.progress.totalUnitCount - sourceState.progress.completedUnitCount)
 			}
 
 			signpost?.end()
@@ -438,7 +447,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 			#endif
 
 			SourceManager.shared.rebuildCache()
-			self.progress.completedUnitCount = self.progress.totalUnitCount
+			self.progress.incrementCompletedUnitCount(by: self.progress.totalUnitCount - self.progress.completedUnitCount)
 
 			#if DEBUG
 			self.logger.debug("Completed")
