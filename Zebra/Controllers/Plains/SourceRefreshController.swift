@@ -49,10 +49,10 @@ class SourceRefreshController: NSObject, ProgressReporting {
 		case generalError(sourceUUID: String, url: URL, error: Error)
 	}
 
-	private static let backgroundContinuationTaskIdentifier = "xyz.willy.Zebra.source-refresh-continuation-task"
+	private static let subsystem = "xyz.willy.Zebra.source-refresh"
+
 	private static let legacySourceHosts = ["repo.dynastic.co", "apt.bingner.com"]
 	private static let parallelJobsCount = 16
-	private static let appActivationSourceRefreshInterval: TimeInterval = 60 * 60
 
 	private static let listsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!
 	private static let partialListsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!/"partial"
@@ -75,8 +75,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private var progressObserver: NSKeyValueObservation!
 	internal var backgroundTask: BGTask?
 
-	internal let logger = Logger(subsystem: "xyz.willy.Zebra.source-refresh", category: "SourceRefreshOperation")
-	private let signpostLog = OSLog(subsystem: "xyz.willy.Zebra.source-refresh", category: .pointsOfInterest)
+	internal let logger = Logger(subsystem: subsystem, category: "SourceRefreshOperation")
 	private var signpost: Signpost?
 
 	var isRefreshing: Bool { !progress.isFinished && !progress.isCancelled }
@@ -85,9 +84,6 @@ class SourceRefreshController: NSObject, ProgressReporting {
 	private override init() {
 		super.init()
 
-		NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
-
 		// TODO: Set user configured timeout
 		let operationQueue = OperationQueue()
 		operationQueue.underlyingQueue = queue
@@ -95,7 +91,8 @@ class SourceRefreshController: NSObject, ProgressReporting {
 												 delegate: self,
 												 delegateQueue: operationQueue)
 
-		self.registerBackgroundTask()
+		registerNotifications()
+		registerBackgroundTask()
 	}
 
 	func refresh() {
@@ -109,7 +106,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 
 			// Give the cancel() a run loop tick for notifications to be dealt with before we reset state.
 			self.queue.async {
-				self.signpost = Signpost(log: self.signpostLog, name: "SourceRefreshOperation", format: "Refresh")
+				self.signpost = Signpost(subsystem: Self.subsystem, name: "SourceRefreshOperation", format: "Refresh")
 				self.signpost!.begin()
 
 				self.progressObserver = nil
@@ -132,7 +129,7 @@ class SourceRefreshController: NSObject, ProgressReporting {
 					let downloadURL = source.baseURI/sourceFile.name
 					let destinationURL = Self.partialListsURL/(source.uuid + sourceFile.name)
 					let task = self.task(for: downloadURL, destinationURL: destinationURL)
-					let job = Job(signpost: Signpost(log: self.signpostLog, name: "SourceRefreshJob", format: "%@", source.uuid),
+					let job = Job(signpost: Signpost(subsystem: Self.subsystem, name: "SourceRefreshJob", format: "%@", source.uuid),
 												task: task,
 												sourceUUID: source.uuid,
 												sourceFile: sourceFile)
@@ -144,26 +141,6 @@ class SourceRefreshController: NSObject, ProgressReporting {
 					self.sourceStates[source.uuid] = sourceState
 					self.continueJob(job, withSourceFile: .inRelease)
 				}
-			}
-		}
-	}
-
-	// MARK: - App Lifecycle
-
-	@objc private func appDidBecomeActive() {
-		// If the app was in the background for a while, the data is likely to be outdated. Kick off
-		// another refresh now if it’s been long enough.
-		if Preferences.refreshSourcesAutomatically && Preferences.lastSourceUpdate.distance(to: Date()) > Self.appActivationSourceRefreshInterval {
-				refresh()
-		}
-	}
-
-	@objc private func appWillResignActive() {
-		// Tell the OS we want to keep going in the background.
-		UIApplication.shared.beginBackgroundTask(withName: Self.backgroundContinuationTaskIdentifier) {
-			// Timer expired, cancel now.
-			if self.isRefreshing {
-				self.progress.cancel()
 			}
 		}
 	}

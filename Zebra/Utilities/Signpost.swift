@@ -16,8 +16,8 @@ struct Signpost {
 	let format: StaticString
 	let arguments: [CVarArg]
 
-	init(log: OSLog, signpostID: OSSignpostID? = nil, name: StaticString, format: StaticString, _ arguments: CVarArg...) {
-		self.log = log
+	init(subsystem: String, signpostID: OSSignpostID? = nil, name: StaticString, format: StaticString, _ arguments: CVarArg...) {
+		self.log = OSLog(subsystem: subsystem, category: .pointsOfInterest)
 		self.signpostID = signpostID ?? OSSignpostID(log: log)
 		self.name = name
 		self.format = format

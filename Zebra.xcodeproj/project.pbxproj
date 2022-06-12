@@ -22,6 +22,7 @@
 		4E138C64284B1BBC0058D94D /* Signpost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C63284B1BBC0058D94D /* Signpost.swift */; };
 		4E138C66284BC2B00058D94D /* GzipDecompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C65284BC2B00058D94D /* GzipDecompressor.swift */; };
 		4E138C68284C690C0058D94D /* ProgressDonut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C67284C690C0058D94D /* ProgressDonut.swift */; };
+		4E138C6A284E0E580058D94D /* SourceRefreshController+BackgroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C69284E0E580058D94D /* SourceRefreshController+BackgroundRefresh.swift */; };
 		4E1A1C6627B69F9A00B6DC9A /* ZebraCatalystHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1A1C6327B69F9A00B6DC9A /* ZebraCatalystHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E1A1C7527B6A30100B6DC9A /* ZebraCatalystHelper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */; platformFilter = maccatalyst; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E1A1C7A27B6A3A900B6DC9A /* ZBAppSceneHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E1A1C7827B6A3A900B6DC9A /* ZBAppSceneHelper.h */; };
@@ -37,6 +38,7 @@
 		4E2631782848A1730072B2BD /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E2631772848A1730072B2BD /* libbz2.tbd */; };
 		4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339AE227D08F7800F013C1 /* FileTypes.swift */; };
 		4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339B7F27D0E45300F013C1 /* URL+Additions.swift */; };
+		4E3B564F2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B564E2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift */; };
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
 		4E840B3B27D6484900039938 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3A27D6484900039938 /* GradientView.swift */; };
 		4E840B3E27D6F77400039938 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 4E840B4027D6F77400039938 /* Localizable.stringsdict */; };
@@ -214,6 +216,7 @@
 		4E138C63284B1BBC0058D94D /* Signpost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signpost.swift; sourceTree = "<group>"; };
 		4E138C65284BC2B00058D94D /* GzipDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GzipDecompressor.swift; sourceTree = "<group>"; };
 		4E138C67284C690C0058D94D /* ProgressDonut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDonut.swift; sourceTree = "<group>"; };
+		4E138C69284E0E580058D94D /* SourceRefreshController+BackgroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SourceRefreshController+BackgroundRefresh.swift"; sourceTree = "<group>"; };
 		4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZebraCatalystHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E1A1C6327B69F9A00B6DC9A /* ZebraCatalystHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZebraCatalystHelper.h; sourceTree = "<group>"; };
 		4E1A1C7827B6A3A900B6DC9A /* ZBAppSceneHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppSceneHelper.h; sourceTree = "<group>"; };
@@ -229,6 +232,7 @@
 		4E2631772848A1730072B2BD /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/lib/libbz2.tbd; sourceTree = DEVELOPER_DIR; };
 		4E339AE227D08F7800F013C1 /* FileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypes.swift; sourceTree = "<group>"; };
 		4E339B7F27D0E45300F013C1 /* URL+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Additions.swift"; sourceTree = "<group>"; };
+		4E3B564E2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SourceRefreshController+AppLifecycle.swift"; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
 		4E840B3A27D6484900039938 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4E840B3F27D6F77400039938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -632,6 +636,8 @@
 				4EB2350E283DFA2600713CBB /* Compression */,
 				4EA26EA127CC87810019A5AA /* PlainsController.swift */,
 				4E840B4327D7150000039938 /* SourceRefreshController.swift */,
+				4E3B564E2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift */,
+				4E138C69284E0E580058D94D /* SourceRefreshController+BackgroundRefresh.swift */,
 				4EB2350A283DCE1300713CBB /* RFC822DateFormatter.swift */,
 			);
 			path = Plains;
@@ -1462,6 +1468,7 @@
 				4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */,
 				4EC7F28927B2932F0078F953 /* Array+Extensions.swift in Sources */,
 				4E840B3B27D6484900039938 /* GradientView.swift in Sources */,
+				4E138C6A284E0E580058D94D /* SourceRefreshController+BackgroundRefresh.swift in Sources */,
 				4EB2350D283DEA8C00713CBB /* Decompressor.swift in Sources */,
 				E193C66A277A47E700B2469E /* SourceTableViewCell.swift in Sources */,
 				4EBA842227D38B7400766DBE /* ZBWorkspace.m in Sources */,
@@ -1498,6 +1505,7 @@
 				4EC7F29527B393870078F953 /* UIApplication+Additions.swift in Sources */,
 				F057924C27D7C2D800E9B477 /* PromotedPackagesCarouselCollectionViewContainingCell.swift in Sources */,
 				4EC7F28D27B29AB20078F953 /* Darwin+Extensions.swift in Sources */,
+				4E3B564F2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift in Sources */,
 				4EA26EA227CC87810019A5AA /* PlainsController.swift in Sources */,
 				8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */,
 				891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */,
