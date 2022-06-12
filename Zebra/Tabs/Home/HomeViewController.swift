@@ -117,7 +117,7 @@ extension HomeViewController {
 			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ErrorCell", for: indexPath) as! HomeErrorCollectionViewCell
 			let errorCount = self.errorCount
 			cell.text = String.localizedStringWithFormat(.localize("Zebra encountered %@ errors."),
-																									 NSDecimalNumber(value: errorCount),
+																									 errorCount,
 																									 NumberFormatter.localizedString(from: errorCount as NSNumber, number: .decimal))
 			return cell
 		}

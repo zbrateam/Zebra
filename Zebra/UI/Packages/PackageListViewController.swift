@@ -272,7 +272,7 @@ extension PackageListViewController { // UICollectionViewDataSource, UICollectio
 			numberFormatter.numberStyle = .decimal
 			let packageCount = packages.count
 			view.text = String.localizedStringWithFormat(.localize("%@ Packages"),
-																									 NSDecimalNumber(value: packageCount),
+																									 packageCount,
 																									 numberFormatter.string(for: packageCount) ?? "0")
 			return view
 

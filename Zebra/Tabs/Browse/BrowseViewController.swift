@@ -284,10 +284,10 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 				let packageCount = PackageManager.shared.packages.count
 				view.text = String(format: "%@ • %@",
 													 String.localizedStringWithFormat(.localize("%@ Sources"),
-																														NSDecimalNumber(value: sources.count),
+																														sources.count,
 																														numberFormatter.string(for: sources.count) ?? "0"),
 													 String.localizedStringWithFormat(.localize("%@ Packages"),
-																														NSDecimalNumber(value: packageCount),
+																														packageCount,
 																														numberFormatter.string(for: packageCount) ?? "0"))
 				return view
 

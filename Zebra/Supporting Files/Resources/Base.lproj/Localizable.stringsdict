@@ -15,7 +15,7 @@
 			<key>one</key>
 			<string>Zebra encountered an error.</string>
 			<key>other</key>
-			<string>Zebra encountered %@ errors.</string>
+			<string>Zebra encountered %2$@ errors.</string>
 		</dict>
 	</dict>
 	<key>%@ Sources</key>
@@ -27,7 +27,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>li</string>
+			<key>zero</key>
+			<string>No Sources</string>
 			<key>one</key>
 			<string>%2$@ Source</string>
 			<key>other</key>
@@ -43,7 +45,9 @@
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string>@</string>
+			<string>li</string>
+			<key>zero</key>
+			<string>No Packages</string>
 			<key>one</key>
 			<string>%2$@ Package</string>
 			<key>other</key>
