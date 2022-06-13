@@ -2029,7 +2029,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					Zebra,
-					Vendor/Plains,
+					Vendor/Plains/Vendor/include,
 				);
 				INFOPLIST_FILE = "Zebra/Supporting Files/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -2047,10 +2047,6 @@
 					"@executable_path/Frameworks",
 				);
 				LIBEXEC_FOLDER = "'@\"zebra\"'";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor/Plains",
-				);
 				MARKETING_VERSION = "2.0~alpha3";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -2112,7 +2108,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					Zebra,
-					Vendor/Plains,
+					Vendor/Plains/Vendor/include,
 				);
 				INFOPLIST_FILE = "Zebra/Supporting Files/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -2130,10 +2126,6 @@
 					"@executable_path/Frameworks",
 				);
 				LIBEXEC_FOLDER = "'@\"zebra\"'";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor/Plains",
-				);
 				MARKETING_VERSION = "2.0~alpha3";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
