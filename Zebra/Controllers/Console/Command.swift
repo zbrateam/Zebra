@@ -155,7 +155,9 @@ class Command {
 
 		// Setup the dispatch queues for reading output and errors
 		let lock = DispatchSemaphore(value: 0)
-		let readQueue = DispatchQueue(label: "xyz.willy.Zebra.david", attributes: .concurrent)
+		let readQueue = DispatchQueue(label: "xyz.willy.Zebra.david",
+																	qos: Task.currentPriority.qos,
+																	attributes: .concurrent)
 
 		// Setup the dispatch handler for the output pipes
 		let stdOutSource = DispatchSource.makeReadSource(fileDescriptor: fds.stdOut[0], queue: readQueue)

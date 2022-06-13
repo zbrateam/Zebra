@@ -6,6 +6,8 @@
 //  Copyright © 2022 Zebra Team. All rights reserved.
 //
 
+import CSProgress
+
 public typealias Progress = CSProgress
 
 extension CSProgress {

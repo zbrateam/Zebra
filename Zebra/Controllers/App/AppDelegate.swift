@@ -33,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			Logger().error("Plains setup failed. \(String(describing: error))")
 		}
 
+		_ = SourceRefreshController.shared
+
 		SDImageCache.shared.config.maxDiskAge = 1 * 24 * 60 * 60 // 1 day
 
 		UITabBarItem.appearance().badgeColor = .badge
