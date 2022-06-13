@@ -87,6 +87,7 @@ struct SectionIcon {
 		"Wallpaper":          SectionIcon(image: .systemNamedImage("photo"), gradient: .purple),
 		"Widgets":            SectionIcon(image: .systemNamedImage("plus.app.fill"), gradient: .purple),
 		"XML":                SectionIcon(image: .systemNamedImage("chevron.left.slash.chevron.right"), gradient: .red),
+		"X11":                SectionIcon(image: .systemNamedImage("macwindow.on.rectangle"), gradient: .blue),
 		"X Window":           SectionIcon(image: .systemNamedImage("macwindow.on.rectangle"), gradient: .blue)
 	]
 
