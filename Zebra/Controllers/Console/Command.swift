@@ -39,7 +39,7 @@ class Command {
 		var finish: PipeDescriptor = [0, 0]
 	}
 
-	private static let logger = Logger(subsystem: "xyz.willy.zebra.command", category: "Command")
+	private static let logger = Logger(subsystem: "com.getzbra.zebra.command", category: "Command")
 
 	private(set) weak var delegate: CommandDelegate?
 	private(set) var command = ""
@@ -155,7 +155,7 @@ class Command {
 
 		// Setup the dispatch queues for reading output and errors
 		let lock = DispatchSemaphore(value: 0)
-		let readQueue = DispatchQueue(label: "xyz.willy.Zebra.david",
+		let readQueue = DispatchQueue(label: "com.getzbra.zebra.command-read-queue",
 																	qos: Task.currentPriority.qos,
 																	attributes: .concurrent)
 

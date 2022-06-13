@@ -12,7 +12,7 @@ import Plains
 
 class PlainsController {
 
-	private static let logger = Logger(subsystem: "xyz.willy.zebra.plains-controller", category: "PlainsController")
+	private static let logger = Logger(subsystem: "com.getzbra.zebra.plains-controller", category: "PlainsController")
 
 	class func setUp() throws {
 		let config = PlainsConfig.shared

@@ -18,7 +18,7 @@ class Canister: NSObject {
 	}
 
 	static let canisterQueue: DispatchQueue = {
-		let queue = DispatchQueue(label: "xyz.willy.Zebra.canister-queue", qos: .utility)
+		let queue = DispatchQueue(label: "com.getzbra.zebra.canister-queue", qos: .utility)
 		queue.setSpecific(key: queueKey, value: queueContext)
 		return queue
 	}()

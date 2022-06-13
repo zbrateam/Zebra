@@ -41,7 +41,7 @@ class Decompressor {
 		}
 	}
 
-	private static let subsystem = "xyz.willy.zebra.decompressor"
+	private static let subsystem = "com.getzbra.zebra.decompressor"
 
 	class func decompress(url: URL, destinationURL: URL, format: Format) async throws {
 		let signpost = Signpost(subsystem: Self.subsystem, name: "Decompress", format: "%@ (%@)", url.absoluteString, String(describing: format))

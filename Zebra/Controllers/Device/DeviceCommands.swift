@@ -59,7 +59,7 @@ class DeviceCommands: NSObject {
 			let seconds = 1
 
 			if !SlingshotController.isSimulated {
-				try await Command.execute("launchctl", arguments: ["start", "xyz.willy.Zebra.Relaunch"], asRoot: true)
+				try await Command.execute("launchctl", arguments: ["start", "com.getzbra.zebra2.Relaunch"], asRoot: true)
 			}
 
 			await UIApplication.shared.suspend()

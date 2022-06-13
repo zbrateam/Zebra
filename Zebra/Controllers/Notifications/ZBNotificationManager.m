@@ -135,7 +135,7 @@
 //    content.userInfo = userInfo;
 //
 //    UNNotificationRequest* request = [UNNotificationRequest
-//           requestWithIdentifier:@"xyz.willy.Zebra.updates" content:content trigger:trigger];
+//           requestWithIdentifier:@"com.getzbra.zebra.updates" content:content trigger:trigger];
 //
 //    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
 //    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {

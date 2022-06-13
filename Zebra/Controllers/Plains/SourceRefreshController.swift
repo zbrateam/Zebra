@@ -49,7 +49,7 @@ class SourceRefreshController: NSObject {
 		case generalError(sourceUUID: String, url: URL, error: Error)
 	}
 
-	private static let subsystem = "xyz.willy.Zebra.source-refresh"
+	private static let subsystem = "com.getzbra.zebra.source-refresh"
 
 	private static let legacySourceHosts = ["repo.dynastic.co", "apt.bingner.com"]
 	private static let parallelJobsCount = 16
@@ -66,8 +66,8 @@ class SourceRefreshController: NSObject {
 	private(set) var progress = Progress(totalUnitCount: 1)
 	private(set) var sourceStates = [String: SourceState]()
 
-	private let queue = DispatchQueue(label: "xyz.willy.Zebra.source-refresh-queue", qos: .utility)
-	private let decompressQueue = DispatchQueue(label: "xyz.willy.Zebra.source-decompress-queue", qos: .utility)
+	private let queue = DispatchQueue(label: "com.getzbra.zebra.source-refresh-queue", qos: .utility)
+	private let decompressQueue = DispatchQueue(label: "com.getzbra.zebra.source-decompress-queue", qos: .utility)
 
 	private lazy var operationQueue: OperationQueue = {
 		let operationQueue = OperationQueue()

@@ -12,7 +12,7 @@ import os.log
 
 extension SourceRefreshController {
 
-	private static let refreshTaskIdentifier = "xyz.willy.zebra.source-refresh-task"
+	private static let refreshTaskIdentifier = "com.getzbra.zebra.source-refresh-task"
 
 	// Background refresh every 6 hours or so
 	private static let refreshTaskInterval: TimeInterval = 6 * 60 * 60
