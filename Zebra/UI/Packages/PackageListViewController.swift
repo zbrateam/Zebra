@@ -71,6 +71,17 @@ class PackageListViewController: ListCollectionViewController {
 	private var sortButton: SectionHeaderButton!
 	private var sortOrder = PackageListSortOrder.ascending
 
+	private var dataSource: UICollectionViewDiffableDataSource<Int, Package>!
+
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		UICollectionViewCompositionalLayout { _, environment in
+			let section = NSCollectionLayoutSection(group: .listGrid(environment: environment,
+																															 heightDimension: .estimated(80)))
+			section.boundarySupplementaryItems = [.header, .infoFooter]
+			return section
+		}
+	}
+
 	convenience init(filter: Filter) {
 		self.init()
 		self.filter = filter
@@ -78,9 +89,6 @@ class PackageListViewController: ListCollectionViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		let layout = collectionViewLayout as! UICollectionViewFlowLayout
-		layout.itemSize.height = 80
 
 		collectionView.register(PackageCollectionViewCell.self, forCellWithReuseIdentifier: "PackageCell")
 
@@ -98,6 +106,34 @@ class PackageListViewController: ListCollectionViewController {
 			sortButton.menu = UIMenu(children: [])
 		}
 		updateSortMenu()
+
+		dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, package in
+			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PackageCell", for: indexPath) as! PackageCollectionViewCell
+			cell.package = package
+			return cell
+		}
+		dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+			switch kind {
+			case "Header":
+				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
+				view.title = .localize("Packages")
+				view.buttons = [self.sortButton]
+				return view
+
+			case "InfoFooter":
+				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "InfoFooter", for: indexPath) as! InfoFooterView
+				let numberFormatter = NumberFormatter()
+				numberFormatter.numberStyle = .decimal
+				let packageText = String.localizedStringWithFormat(.localize("%@ Packages"),
+																													 self.packages.count,
+																													 numberFormatter.string(for: self.packages.count) ?? "0")
+				let filteredText = self.filteredCount == 0 ? "" : " (\(String(format: .localize("%@ hidden"), numberFormatter.string(for: self.filteredCount) ?? "0")))"
+				view.text = packageText + filteredText
+				return view
+
+			default: fatalError()
+			}
+		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -225,31 +261,32 @@ class PackageListViewController: ListCollectionViewController {
 	}
 
 	private func updatePackages() {
-		UIView.performWithoutAnimation {
-			collectionView.performBatchUpdates {
-				switch Preferences.packageListSort {
-				case .alpha:
-					var sectionIndexes = Array(repeating: 0, count: self.collation.sectionTitles.count)
-					for package in self.packages {
-						let section = self.collation.section(for: package, collationStringSelector: #selector(getter: Package.name))
-						sectionIndexes[section] += 1
-					}
-					var tally = 0
-					for i in 0..<sectionIndexes.count {
-						let count = sectionIndexes[i]
-						sectionIndexes[i] = min(tally, self.packages.count - 1)
-						tally += count
-					}
-					self.sectionIndexes = sectionIndexes
-
-				case .installedSize, .date:
-					self.sectionIndexes = []
-				}
-
-				collectionView.reloadSections([0])
-				collectionView.indexDisplayMode = sectionIndexes.isEmpty ? .alwaysHidden : .automatic
+		// TODO: Fix section indexing - how do you do it with compositional layout?
+		switch Preferences.packageListSort {
+		case .alpha:
+			var sectionIndexes = Array(repeating: 0, count: self.collation.sectionTitles.count)
+			for package in self.packages {
+				let section = self.collation.section(for: package, collationStringSelector: #selector(getter: Package.name))
+				sectionIndexes[section] += 1
 			}
+			var tally = 0
+			for i in 0..<sectionIndexes.count {
+				let count = sectionIndexes[i]
+				sectionIndexes[i] = min(tally, self.packages.count - 1)
+				tally += count
+			}
+			self.sectionIndexes = sectionIndexes
+
+		case .installedSize, .date:
+			self.sectionIndexes = []
 		}
+
+		collectionView.indexDisplayMode = sectionIndexes.isEmpty ? .alwaysHidden : .automatic
+
+		var snapshot = NSDiffableDataSourceSnapshot<Int, Package>()
+		snapshot.appendSections([0])
+		snapshot.appendItems(packages)
+		dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
 	}
 
 	private func updateSortMenu() {
@@ -308,7 +345,7 @@ class PackageListViewController: ListCollectionViewController {
 											package.author?.name ?? package.maintainer?.name ?? .localize("Unknown"))
 		let url = package.depictionURL ?? package.homepageURL
 
-		let viewController = UIActivityViewController(activityItems: [text, url as Any].compactMap { $0 },
+		let viewController = UIActivityViewController(activityItems: [text, url as Any].compact(),
 																									applicationActivities: nil)
 		viewController.popoverPresentationController?.sourceView = cell
 		viewController.popoverPresentationController?.sourceRect = cell.bounds
@@ -318,20 +355,6 @@ class PackageListViewController: ListCollectionViewController {
 }
 
 extension PackageListViewController { // UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
-	override func numberOfSections(in _: UICollectionView) -> Int {
-		1
-	}
-
-	override func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		packages.count
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let package = packages[indexPath.item]
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PackageCell", for: indexPath) as! PackageCollectionViewCell
-		cell.package = package
-		return cell
-	}
 
 	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
 		let package = packages[indexPath.item]
@@ -355,37 +378,6 @@ extension PackageListViewController { // UICollectionViewDataSource, UICollectio
 			]
 			return UIMenu(children: items)
 		})
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-		switch kind {
-		case UICollectionView.elementKindSectionHeader:
-			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
-			view.title = .localize("Packages")
-			view.buttons = [sortButton]
-			return view
-
-		case UICollectionView.elementKindSectionFooter:
-			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath) as! InfoFooterView
-			let numberFormatter = NumberFormatter()
-			numberFormatter.numberStyle = .decimal
-			let packageText = String.localizedStringWithFormat(.localize("%@ Packages"),
-																												 packages.count,
-																												 numberFormatter.string(for: packages.count) ?? "0")
-			let filteredText = filteredCount == 0 ? "" : " (\(String(format: .localize("%@ hidden"), numberFormatter.string(for: filteredCount) ?? "0")))"
-			view.text = packageText + filteredText
-			return view
-
-		default: fatalError()
-		}
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-		return CGSize(width: collectionView.frame.size.width, height: 52)
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-		return CGSize(width: collectionView.frame.size.width, height: 52)
 	}
 
 	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {

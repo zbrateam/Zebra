@@ -15,10 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 		#if targetEnvironment(macCatalyst)
-		let helperBundleURL = Bundle.main.privateFrameworksURL!
-			.appendingPathComponent("ZebraCatalystHelper.framework")
-		let helperBundle = Bundle(url: helperBundleURL)
-		helperBundle?.load()
+		Bundle(url: Bundle.main.privateFrameworksURL!/"ZebraCatalystHelper.framework")?.load()
 		#endif
 
 		// Prepare a clean, safe environment.

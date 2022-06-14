@@ -36,8 +36,8 @@ class InfoFooterView: UICollectionReusableView {
 		NSLayoutConstraint.activate([
 			label.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
 			label.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20),
-			label.topAnchor.constraint(equalTo: self.topAnchor, constant: 2),
-			label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6),
+			label.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+			label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -14),
 		])
 	}
 
@@ -45,4 +45,13 @@ class InfoFooterView: UICollectionReusableView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+}
+
+extension NSCollectionLayoutBoundarySupplementaryItem {
+	static var infoFooter: NSCollectionLayoutBoundarySupplementaryItem {
+		NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+																																									 heightDimension: .estimated(52)),
+																								elementKind: "InfoFooter",
+																								alignment: .bottom)
+	}
 }

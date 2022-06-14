@@ -46,8 +46,7 @@ class FileImportController {
 					if isInPlace {
 						result.resume(returning: url)
 					} else {
-						let newURL = FileManager.default.temporaryDirectory
-							.appendingPathComponent(filename ?? "\(UUID().uuidString).deb")
+						let newURL = FileManager.default.temporaryDirectory/(filename ?? "\(UUID().uuidString).deb")
 						do {
 							if (try? newURL.checkResourceIsReachable()) == true {
 								try FileManager.default.removeItem(at: newURL)

@@ -9,7 +9,7 @@
 import UIKit
 import Plains
 
-class HomeViewController: ListCollectionViewController {
+class HomeViewController: FlowListCollectionViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()

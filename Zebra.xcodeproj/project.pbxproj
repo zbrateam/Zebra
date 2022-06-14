@@ -41,6 +41,8 @@
 		4E3B564F2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B564E2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift */; };
 		4E6F94472856434D002F5BD9 /* CSProgress+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */; };
 		4E6F945128564BD7002F5BD9 /* CSProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F945028564BD7002F5BD9 /* CSProgress.swift */; };
+		4E7DC8B128589B0C0007392D /* BaseListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */; };
+		4E7DC8B32858A2990007392D /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */; };
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
 		4E840B3B27D6484900039938 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3A27D6484900039938 /* GradientView.swift */; };
 		4E840B3E27D6F77400039938 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 4E840B4027D6F77400039938 /* Localizable.stringsdict */; };
@@ -92,7 +94,7 @@
 		4EBA841727D260B500766DBE /* CarouselItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841627D260B500766DBE /* CarouselItemCollectionViewCell.swift */; };
 		4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841827D260D100766DBE /* CarouselItem.swift */; };
 		4EBA841B27D3119800766DBE /* IconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841A27D3119800766DBE /* IconImageView.swift */; };
-		4EBA841E27D33EBE00766DBE /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */; };
+		4EBA841E27D33EBE00766DBE /* FlowListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA841D27D33EBE00766DBE /* FlowListCollectionViewController.swift */; };
 		4EBA842227D38B7400766DBE /* ZBWorkspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA842127D38B7400766DBE /* ZBWorkspace.m */; };
 		4EBF6FBB2841084600639096 /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
 		4EC7F27827B272EC0078F953 /* SlingshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F27727B272EC0078F953 /* SlingshotController.swift */; };
@@ -262,6 +264,8 @@
 		4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSProgress+Additions.swift"; sourceTree = "<group>"; };
 		4E6F944E28564BD7002F5BD9 /* libCSProgress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCSProgress.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6F945028564BD7002F5BD9 /* CSProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSProgress.swift; sourceTree = "<group>"; };
+		4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListCollectionViewController.swift; sourceTree = "<group>"; };
+		4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
 		4E840B3A27D6484900039938 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4E840B3F27D6F77400039938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -315,7 +319,7 @@
 		4EBA841627D260B500766DBE /* CarouselItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EBA841827D260D100766DBE /* CarouselItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselItem.swift; sourceTree = "<group>"; };
 		4EBA841A27D3119800766DBE /* IconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageView.swift; sourceTree = "<group>"; };
-		4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
+		4EBA841D27D33EBE00766DBE /* FlowListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowListCollectionViewController.swift; sourceTree = "<group>"; };
 		4EBA842027D38B7400766DBE /* ZBWorkspace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWorkspace.h; sourceTree = "<group>"; };
 		4EBA842127D38B7400766DBE /* ZBWorkspace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWorkspace.m; sourceTree = "<group>"; };
 		4EBF6FB92841084300639096 /* APT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = APT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -673,7 +677,9 @@
 		4EBA841C27D33EAC00766DBE /* List */ = {
 			isa = PBXGroup;
 			children = (
-				4EBA841D27D33EBE00766DBE /* ListCollectionViewController.swift */,
+				4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */,
+				4EBA841D27D33EBE00766DBE /* FlowListCollectionViewController.swift */,
+				4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1619,6 +1625,7 @@
 				4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */,
 				4EBA841B27D3119800766DBE /* IconImageView.swift in Sources */,
 				4EBA840C27D1F9A100766DBE /* SectionHeaderView.swift in Sources */,
+				4E7DC8B128589B0C0007392D /* BaseListCollectionViewController.swift in Sources */,
 				4E9FC89227910AD200934FFE /* UIFont+Additions.swift in Sources */,
 				4EB8C48D2858440700FFC744 /* ErrorCollectionViewCell.swift in Sources */,
 				E193C67C277A8E0100B2469E /* PackageDepictionViewController.swift in Sources */,
@@ -1653,7 +1660,8 @@
 				4EBA841727D260B500766DBE /* CarouselItemCollectionViewCell.swift in Sources */,
 				4E840B4427D7150000039938 /* SourceRefreshController.swift in Sources */,
 				4EC7F29327B3714A0078F953 /* AppSceneDelegate.swift in Sources */,
-				4EBA841E27D33EBE00766DBE /* ListCollectionViewController.swift in Sources */,
+				4EBA841E27D33EBE00766DBE /* FlowListCollectionViewController.swift in Sources */,
+				4E7DC8B32858A2990007392D /* ListCollectionViewController.swift in Sources */,
 				4E6F94472856434D002F5BD9 /* CSProgress+Additions.swift in Sources */,
 				4EBA841027D22F1300766DBE /* UINavigationBarAppearance+Extensions.swift in Sources */,
 				4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */,

@@ -11,9 +11,46 @@ import UIKit
 import Plains
 
 class BrowseViewController: ListCollectionViewController {
-	private var sources = [Source]()
 
+	private enum Section {
+		case news, sources
+	}
+
+	private enum Value: Hashable {
+		case news
+		case source(source: Source?)
+
+		func hash(into hasher: inout Hasher) {
+			switch self {
+			case .news:
+				break
+			case .source(let source):
+				hasher.combine(source)
+			}
+		}
+	}
+
+	private var sources = [Source]()
 	private var newsItems: [CarouselItem]?
+
+	private var dataSource: UICollectionViewDiffableDataSource<Section, Value>!
+
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		UICollectionViewCompositionalLayout { index, environment in
+			switch index {
+			case 0:
+				return NSCollectionLayoutSection(group: .oneAcross(heightDimension: .absolute(CarouselViewController.height)))
+
+			case 1:
+				let section = NSCollectionLayoutSection(group: .listGrid(environment: environment,
+																																 heightDimension: .estimated(57)))
+				section.boundarySupplementaryItems = [.header, .infoFooter]
+				return section
+
+			default: fatalError()
+			}
+		}
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -25,9 +62,58 @@ class BrowseViewController: ListCollectionViewController {
 
 		#if !targetEnvironment(macCatalyst)
 		let refreshControl = UIRefreshControl()
-		refreshControl.addTarget(nil, action: #selector(RootViewController.refreshSources), for: .valueChanged)
+		refreshControl.addTarget(self, action: #selector(refreshSources), for: .valueChanged)
 		collectionView.refreshControl = refreshControl
 		#endif
+
+		dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, value in
+			switch value {
+			case .news:
+				let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarouselCell", for: indexPath) as! CarouselCollectionViewContainingCell
+				cell.parentViewController = self
+				cell.items = self.newsItems ?? []
+				return cell
+
+			case .source(let source):
+				let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SourceCell", for: indexPath) as! SourceCollectionViewCell
+				cell.source = source
+				return cell
+			}
+		}
+		dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+			switch kind {
+			case "Header":
+				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
+				view.title = .localize("Sources")
+				view.buttons = [
+					SectionHeaderButton(title: .localize("Export"),
+															target: nil,
+															action: #selector(RootViewController.exportSources)),
+					SectionHeaderButton(title: .add,
+															image: UIImage(systemName: "plus"),
+															target: self,
+															action: #selector(self.addSource)),
+				]
+				return view
+
+			case "InfoFooter":
+				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "InfoFooter", for: indexPath) as! InfoFooterView
+				let numberFormatter = NumberFormatter()
+				numberFormatter.numberStyle = .decimal
+				let sourcesCount = self.sources.count
+				let packageCount = PackageManager.shared.packages.count
+				view.text = String(format: "%@ • %@",
+													 String.localizedStringWithFormat(.localize("%@ Sources"),
+																														sourcesCount,
+																														numberFormatter.string(for: sourcesCount) ?? "0"),
+													 String.localizedStringWithFormat(.localize("%@ Packages"),
+																														packageCount,
+																														numberFormatter.string(for: packageCount) ?? "0"))
+				return view
+
+			default: fatalError()
+			}
+		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -51,9 +137,17 @@ class BrowseViewController: ListCollectionViewController {
 	// MARK: - Sources
 
 	private func updateSources() {
-		self.sources = SourceManager.shared.sources
+		sources = SourceManager.shared.sources
 			.sorted(by: { a, b in a.origin.localizedStandardCompare(b.origin) == .orderedAscending })
-		self.collectionView.reloadData()
+
+		var snapshot = NSDiffableDataSourceSnapshot<Section, Value>()
+		if Preferences.showFeaturedCarousels {
+			snapshot.appendSections([.news])
+			snapshot.appendItems([.news], toSection: .news)
+		}
+		snapshot.appendSections([.sources])
+		snapshot.appendItems([.source(source: nil)] + sources.map { .source(source: $0) }, toSection: .sources)
+		dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
 	}
 
 	@objc private func sourcesDidUpdate() {
@@ -62,20 +156,13 @@ class BrowseViewController: ListCollectionViewController {
 		}
 	}
 
-	@objc private func refreshProgressDidChange() {
-		DispatchQueue.main.async {
-			#if !targetEnvironment(macCatalyst)
-			let refreshControl = self.collectionView.refreshControl!
-			let progress = SourceRefreshController.shared.progress
-			let isRefreshing = !progress.isFinished && !progress.isCancelled
-			if isRefreshing != refreshControl.isRefreshing {
-				if isRefreshing {
-					refreshControl.beginRefreshing()
-				} else {
-					refreshControl.endRefreshing()
-				}
-			}
-			#endif
+	@objc private func refreshSources() {
+		#if !targetEnvironment(macCatalyst)
+		collectionView.refreshControl!.endRefreshing()
+		#endif
+
+		if let rootViewController = parent?.parent as? RootViewController {
+			rootViewController.refreshSources()
 		}
 	}
 
@@ -157,62 +244,13 @@ class BrowseViewController: ListCollectionViewController {
 }
 
 extension BrowseViewController { // UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
-	private enum Section: Int, CaseIterable {
-		case news, sources
-	}
-
-	override func numberOfSections(in _: UICollectionView) -> Int {
-		Section.allCases.count
-	}
-
-	override func collectionView(_: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		switch Section(rawValue: section)! {
-		case .news: return Preferences.showNewsCarousel ? 1 : 0
-		case .sources: return sources.count + 1
-		}
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		switch Section(rawValue: indexPath.section)! {
-		case .news:
-			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarouselCell", for: indexPath) as! CarouselCollectionViewContainingCell
-			cell.parentViewController = self
-			cell.items = newsItems ?? []
-			return cell
-
-		case .sources:
-			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SourceCell", for: indexPath) as! SourceCollectionViewCell
-			cell.source = indexPath.item == 0 ? nil : sources[indexPath.item - 1]
-			return cell
-		}
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		switch Section(rawValue: indexPath.section)! {
-		case .news:
-			return CGSize(width: collectionView.frame.size.width, height: CarouselViewController.height)
-
-		case .sources:
-			return super.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath)
-		}
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-		switch Section(rawValue: section)! {
-		case .news:
-			return .zero
-
-		case .sources:
-			return super.collectionView(collectionView, layout: collectionViewLayout, insetForSectionAt: section)
-		}
-	}
 
 	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
-		switch Section(rawValue: indexPath.section)! {
-		case .news:
+		switch indexPath.section {
+		case 0:
 			return nil
 
-		case .sources:
+		case 1:
 			if indexPath.item == 0 {
 				return nil
 			}
@@ -239,94 +277,22 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 										attributes: .destructive)
 				] : []))
 			})
-		}
-	}
 
-	override func collectionView(_: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
-		switch Section(rawValue: indexPath.section)! {
-		case .news:
-			return false
-
-		case .sources:
-			if indexPath.item == 0 {
-				return false
-			}
-			let item = sources[indexPath.item - 1]
-			return item.canRemove
-		}
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-		switch Section(rawValue: indexPath.section)! {
-		case .news:
-			return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
-
-		case .sources:
-			switch kind {
-			case UICollectionView.elementKindSectionHeader:
-				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
-				view.title = .localize("Sources")
-				view.buttons = [
-					SectionHeaderButton(title: .localize("Export"),
-										target: nil,
-										action: #selector(RootViewController.exportSources)),
-					SectionHeaderButton(title: .add,
-										image: UIImage(systemName: "plus"),
-										target: self,
-										action: #selector(addSource)),
-				]
-				return view
-
-			case UICollectionView.elementKindSectionFooter:
-				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath) as! InfoFooterView
-				let numberFormatter = NumberFormatter()
-				numberFormatter.numberStyle = .decimal
-				let packageCount = PackageManager.shared.packages.count
-				view.text = String(format: "%@ • %@",
-													 String.localizedStringWithFormat(.localize("%@ Sources"),
-																														sources.count,
-																														numberFormatter.string(for: sources.count) ?? "0"),
-													 String.localizedStringWithFormat(.localize("%@ Packages"),
-																														packageCount,
-																														numberFormatter.string(for: packageCount) ?? "0"))
-				return view
-
-			default: fatalError()
-			}
-		}
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-		switch Section(rawValue: section)! {
-		case .news:
-			return .zero
-
-		case .sources:
-			return CGSize(width: collectionView.frame.size.width, height: 52)
-		}
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-		switch Section(rawValue: section)! {
-		case .news:
-			return .zero
-
-		case .sources:
-			return CGSize(width: collectionView.frame.size.width, height: 52)
+		default:
+			return nil
 		}
 	}
 
 	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		switch Section(rawValue: indexPath.section) {
-		case .news:
-			return
+		switch indexPath.section {
+		case 0: return
 
-		case .sources:
+		case 1:
 			let controller = SourceSectionViewController(source: indexPath.item == 0 ? nil : sources[indexPath.item - 1])
 			navigationController?.pushViewController(controller, animated: true)
 
-		case .none:
-			fatalError("Something was selected that wasn't supposed to be")
+		default: break
 		}
 	}
+
 }

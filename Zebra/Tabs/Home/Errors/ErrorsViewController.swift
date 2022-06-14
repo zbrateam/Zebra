@@ -9,9 +9,9 @@
 import UIKit
 import Plains
 
-class ErrorsViewController: UICollectionViewController {
+class ErrorsViewController: ListCollectionViewController {
 
-	private enum ErrorSection: Equatable, Hashable {
+	private enum Section: Equatable, Hashable {
 		case packageManager
 		case source(label: String)
 
@@ -25,37 +25,24 @@ class ErrorsViewController: UICollectionViewController {
 		}
 	}
 
-	private var dataSource: UICollectionViewDiffableDataSource<ErrorSection, PlainsError>!
+	private var dataSource: UICollectionViewDiffableDataSource<Section, PlainsError>!
 
-	init() {
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
 		let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-																																											heightDimension: .estimated(52)),
+																																											heightDimension: .estimated(44)),
 																								 subitems: [
 																									NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-																																																						heightDimension: .estimated(52)))
+																																																						heightDimension: .estimated(44)))
 																								 ])
 		let section = NSCollectionLayoutSection(group: group)
-		section.boundarySupplementaryItems = [
-			NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-																																										 heightDimension: .absolute(52)),
-																									elementKind: "Header",
-																									alignment: .top)
-		]
-		let layout = UICollectionViewCompositionalLayout(section: section)
-		super.init(collectionViewLayout: layout)
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		section.boundarySupplementaryItems = [.header]
+		return UICollectionViewCompositionalLayout(section: section)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		collectionView.register(ErrorCollectionViewCell.self, forCellWithReuseIdentifier: "ErrorCell")
-		collectionView.register(SectionHeaderView.self,
-														forSupplementaryViewOfKind: "Header",
-														withReuseIdentifier: "Header")
 
 		dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, error in
 			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ErrorCell", for: indexPath) as! ErrorCollectionViewCell
@@ -66,18 +53,12 @@ class ErrorsViewController: UICollectionViewController {
 			switch kind {
 			case "Header":
 				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
-				// TODO: What am I supposed to do on iOS 14? How did they forget this for a full year??
-				if #available(iOS 15, *) {
-					switch self.dataSource.sectionIdentifier(for: indexPath.section) {
-					case .packageManager:
-						view.title = .localize("Package Manager")
+				switch self.dataSource.snapshot().sectionIdentifiers[indexPath.section] {
+				case .packageManager:
+					view.title = .localize("Package Manager")
 
-					case .source(label: let label):
-						view.title = label
-
-					case .none:
-						break
-					}
+				case .source(let label):
+					view.title = label
 				}
 				return view
 
@@ -102,9 +83,8 @@ class ErrorsViewController: UICollectionViewController {
 	@objc private func refreshProgressDidChange() {
 		let count = totalErrorCount
 
-		let globalErrors = ErrorManager.shared.errorMessages
 		let sourceErrors = SourceRefreshController.shared.sourceStates
-			.compactMap { (key, value) -> (key: ErrorSection, value: [PlainsError])? in
+			.compactMap { (key, value) -> (key: Section, value: [PlainsError])? in
 				if value.errors.isEmpty {
 					return nil
 				}
@@ -119,11 +99,10 @@ class ErrorsViewController: UICollectionViewController {
 				}
 				return labelA.localizedStandardCompare(labelB) == .orderedAscending
 			})
-		let coreErrors = globalErrors.isEmpty ? [] : [(key: ErrorSection.packageManager,
-																									 value: globalErrors)]
-		let errors = coreErrors + sourceErrors
+		let globalErrors = ErrorManager.shared.errorMessages
+		let errors = (globalErrors.isEmpty ? [] : [(Section.packageManager, globalErrors)]) + sourceErrors
 
-		var snapshot = NSDiffableDataSourceSnapshot<ErrorSection, PlainsError>()
+		var snapshot = NSDiffableDataSourceSnapshot<Section, PlainsError>()
 		for section in errors {
 			snapshot.appendSections([section.key])
 			snapshot.appendItems(section.value, toSection: section.key)

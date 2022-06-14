@@ -72,9 +72,19 @@ class SectionHeaderView: UICollectionReusableView {
 }
 
 extension SectionHeaderView: UIToolbarDelegate {
-
 	func position(for bar: UIBarPositioning) -> UIBarPosition {
 		.top
 	}
+}
 
+extension NSCollectionLayoutBoundarySupplementaryItem {
+	static var header: NSCollectionLayoutBoundarySupplementaryItem {
+		let item = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+																																															heightDimension: .absolute(52)),
+																													 elementKind: "Header",
+																													 alignment: .top)
+		item.pinToVisibleBounds = true
+		item.zIndex = 2
+		return item
+	}
 }

@@ -103,6 +103,7 @@ class SourceRefreshController: NSObject {
 	static let shared = SourceRefreshController()
 
 	private(set) var progress = Progress(totalUnitCount: 1)
+	private var innerProgress: Progress?
 	private(set) var sourceStates = [String: SourceState]()
 
 	private let queue = DispatchQueue(label: "com.getzbra.zebra.source-refresh-queue", qos: .utility)
@@ -162,24 +163,24 @@ class SourceRefreshController: NSObject {
 
 				self.wakeLock.lock()
 
-				self.progress = Progress(totalUnitCount: 10, granularity: 0.001, queue: self.operationQueue)
+				// Notify in 0.1% increments, i.e. at most 1000 notifications will be posted
+				self.progress = Progress(totalUnitCount: 100, granularity: 0.001, queue: self.operationQueue)
 				self.progress.addFractionCompletedNotification { completedUnitCount, totalUnitCount, fractionCompleted in
 					NotificationCenter.default.post(name: Self.refreshProgressDidChangeNotification, object: nil)
 				}
+				self.progress.completedUnitCount = 10
 
-				let innerProgress = Progress(totalUnitCount: SourceManager.shared.sources.count + 2, granularity: .ulpOfOne, queue: self.operationQueue)
-				innerProgress.addFractionCompletedNotification(onQueue: self.operationQueue) { completedUnitCount, totalUnitCount, _ in
+				self.innerProgress = Progress(totalUnitCount: SourceManager.shared.sources.count + 1, parent: self.progress, pendingUnitCount: 90, granularity: .ulpOfOne)
+				self.innerProgress!.addFractionCompletedNotification(onQueue: self.operationQueue) { completedUnitCount, totalUnitCount, fractionCompleted in
 					if completedUnitCount == totalUnitCount - 1 && self.isRefreshing {
 						self.finishRefresh()
 					}
 				}
-				innerProgress.addCancellationNotification(onQueue: self.operationQueue) {
+				self.innerProgress!.addCancellationNotification(onQueue: self.operationQueue) {
 					self.session?.invalidateAndCancel()
 					self.session = nil
 					self.wakeLock.unlock()
 				}
-				self.progress.completedUnitCount += 1
-				self.progress.addChild(innerProgress, withPendingUnitCount: 9)
 
 				// Start the state machine for each source with InRelease.
 				for source in SourceManager.shared.sources {
@@ -194,7 +195,7 @@ class SourceRefreshController: NSObject {
 					self.currentRefreshJobs[source.uuid] = [job]
 
 					let sourceState = SourceState(sourceUUID: source.uuid,
-																				progress: Progress(totalUnitCount: 1000, parent: innerProgress, pendingUnitCount: 1))
+																				progress: Progress(totalUnitCount: 1000, parent: self.innerProgress!, pendingUnitCount: 1))
 					self.sourceStates[source.uuid] = sourceState
 					self.continueJob(job, withSourceFile: .inRelease)
 				}
@@ -501,7 +502,9 @@ class SourceRefreshController: NSObject {
 			#endif
 
 			SourceManager.shared.rebuildCache()
-			self.progress.incrementCompletedUnitCount(by: self.progress.totalUnitCount - self.progress.completedUnitCount)
+			if let innerProgress = self.innerProgress {
+				innerProgress.incrementCompletedUnitCount(by: innerProgress.totalUnitCount - innerProgress.completedUnitCount)
+			}
 
 			#if DEBUG
 			self.logger.debug("Completed")

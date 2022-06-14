@@ -6,6 +6,12 @@
 //  Copyright © 2022 Zebra Team. All rights reserved.
 //
 
+extension Array {
+	func compact<ElementOfResult>() -> [ElementOfResult] where Element == ElementOfResult? {
+		compactMap { $0 }
+	}
+}
+
 extension Array where Element == String {
 	var cStringArray: [UnsafeMutablePointer<CChar>?] {
 		map { item in item.cString }

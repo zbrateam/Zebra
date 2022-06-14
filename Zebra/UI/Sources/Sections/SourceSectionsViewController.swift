@@ -10,7 +10,7 @@ import os.log
 import UIKit
 import Plains
 
-class SourceSectionViewController: ListCollectionViewController {
+class SourceSectionViewController: FlowListCollectionViewController {
 	private let source: Source?
 	private var totalCount: UInt = 0
 	private var countsBySection = [String: UInt]()
