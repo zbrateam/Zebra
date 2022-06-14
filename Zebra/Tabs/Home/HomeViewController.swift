@@ -17,11 +17,11 @@ class HomeViewController: ListCollectionViewController {
 		title = .localize("Home")
 		collectionView.register(HomeErrorCollectionViewCell.self, forCellWithReuseIdentifier: "ErrorCell")
 
-#if !targetEnvironment(macCatalyst)
+		#if !targetEnvironment(macCatalyst)
 		let refreshControl = UIRefreshControl()
 		refreshControl.addTarget(self, action: #selector(refreshSources), for: .valueChanged)
 		collectionView.refreshControl = refreshControl
-#endif
+		#endif
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +101,18 @@ extension HomeViewController {
 	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
 		CGSize(width: collectionView.frame.size.width,
 					 height: 120)
+	}
+
+	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		switch Section(rawValue: indexPath.section)! {
+		case .appNotice:
+			// TODO: Display sandboxed.json
+			return
+
+		case .error:
+			let viewController = ErrorsViewController()
+			navigationController?.pushViewController(viewController, animated: true)
+		}
 	}
 
 }

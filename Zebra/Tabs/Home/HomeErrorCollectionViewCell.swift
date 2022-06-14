@@ -11,6 +11,7 @@ import UIKit
 class HomeErrorCollectionViewCell: UICollectionViewCell {
 
 	private var titleLabel: UILabel!
+	private var selectionView: UIView!
 
 	var text: String? {
 		get { titleLabel.text }
@@ -27,6 +28,13 @@ class HomeErrorCollectionViewCell: UICollectionViewCell {
 		effectView.layer.cornerRadius = 20
 		effectView.layer.cornerCurve = .continuous
 		contentView.addSubview(effectView)
+
+		selectionView = UIView()
+		selectionView.translatesAutoresizingMaskIntoConstraints = false
+		selectionView.clipsToBounds = true
+		selectionView.layer.cornerRadius = 20
+		selectionView.layer.cornerCurve = .continuous
+		contentView.addSubview(selectionView)
 
 		let imageView = UIImageView(image: UIImage(systemName: "exclamationmark.triangle.fill"))
 		imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,6 +82,11 @@ class HomeErrorCollectionViewCell: UICollectionViewCell {
 			effectView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
 			effectView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
 
+			selectionView.leadingAnchor.constraint(equalTo: effectView.leadingAnchor),
+			selectionView.trailingAnchor.constraint(equalTo: effectView.trailingAnchor),
+			selectionView.topAnchor.constraint(equalTo: effectView.topAnchor),
+			selectionView.bottomAnchor.constraint(equalTo: effectView.bottomAnchor),
+
 			mainStackView.leadingAnchor.constraint(equalTo: effectView.leadingAnchor, constant: 15),
 			mainStackView.trailingAnchor.constraint(equalTo: effectView.trailingAnchor, constant: -15),
 			mainStackView.topAnchor.constraint(equalTo: effectView.topAnchor, constant: 10),
@@ -84,6 +97,12 @@ class HomeErrorCollectionViewCell: UICollectionViewCell {
 	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	override var isHighlighted: Bool {
+		didSet {
+			selectionView.backgroundColor = isHighlighted ? .systemGray4 : nil
+		}
 	}
 
 }

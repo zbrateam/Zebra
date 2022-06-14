@@ -10,6 +10,10 @@ import os.log
 import UIKit
 
 class ListCollectionViewController: UICollectionViewController {
+	internal var useCellsAcross = true {
+		didSet { view.setNeedsLayout() }
+	}
+
 	init() {
 		let layout = UICollectionViewFlowLayout()
 		layout.itemSize = CGSize(width: 320, height: 57)
@@ -54,7 +58,7 @@ class ListCollectionViewController: UICollectionViewController {
 		super.viewWillLayoutSubviews()
 
 		var width = collectionView.frame.size.width - collectionView.safeAreaInsets.left - collectionView.safeAreaInsets.right
-		if width > 480 {
+		if useCellsAcross && width > 480 {
 			width /= round(width / 320)
 		}
 

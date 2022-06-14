@@ -18,6 +18,24 @@
 			<string>Zebra encountered %2$@ errors.</string>
 		</dict>
 	</dict>
+	<key>%@ Errors</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>li</string>
+			<key>zero</key>
+			<string>No Errors</string>
+			<key>one</key>
+			<string>%2$@ Error</string>
+			<key>other</key>
+			<string>%2$@ Errors</string>
+		</dict>
+	</dict>
 	<key>%@ Sources</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>

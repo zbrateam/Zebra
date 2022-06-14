@@ -40,13 +40,26 @@ class SourceRefreshController: NSObject {
 	struct SourceState {
 		let sourceUUID: String
 		let progress: Progress
-		var errors = [Error]()
+		var errors = [RefreshError]()
 	}
 
 	enum RefreshError: Error {
 		case errorResponse(sourceUUID: String, url: URL, statusCode: Int)
 		case invalidContentType(sourceUUID: String, url: URL, contentType: String)
 		case generalError(sourceUUID: String, url: URL, error: Error)
+
+		var localizedDescription: String {
+			switch self {
+			case .errorResponse(sourceUUID: _, url: let url, statusCode: let statusCode):
+				return "\(url.absoluteString): \(statusCode) \(HTTPURLResponse.localizedString(forStatusCode: statusCode).localizedCapitalized)"
+
+			case .invalidContentType(sourceUUID: _, url: let url, contentType: let contentType):
+				return "\(url.absoluteString): \(String(format: .localize("Bad response. Received invalid content type %@ from server"), contentType))"
+
+			case .generalError(sourceUUID: _, url: let url, error: let error):
+				return "\(url.absoluteString): \(error.localizedDescription)"
+			}
+		}
 	}
 
 	private static let subsystem = "com.getzbra.zebra.source-refresh"
@@ -87,7 +100,7 @@ class SourceRefreshController: NSObject {
 	private var signpost: Signpost?
 
 	var isRefreshing: Bool { !progress.isFinished && !progress.isCancelled }
-	var refreshErrors: [Error] { sourceStates.values.reduce([], { $0 + $1.errors }) }
+	var refreshErrors: [RefreshError] { sourceStates.values.reduce([], { $0 + $1.errors }) }
 
 	private override init() {
 		super.init()
@@ -379,7 +392,9 @@ class SourceRefreshController: NSObject {
 					}
 				} catch {
 					self.logger.warning("Error decompressing: \(String(describing: error))")
-					self.sourceStates[job.sourceUUID]?.errors.append(error)
+					self.sourceStates[job.sourceUUID]?.errors.append(RefreshError.generalError(sourceUUID: job.sourceUUID,
+																																										 url: job.url,
+																																										 error: error))
 				}
 			}
 		}
@@ -405,7 +420,9 @@ class SourceRefreshController: NSObject {
 					}
 				} catch {
 					self.logger.warning("Error cleaning up for \(sourceUUID): \(String(describing: error))")
-					self.sourceStates[sourceUUID]?.errors.append(error)
+					self.sourceStates[job.sourceUUID]?.errors.append(RefreshError.generalError(sourceUUID: job.sourceUUID,
+																																										 url: job.url,
+																																										 error: error))
 				}
 			}
 
@@ -436,7 +453,9 @@ class SourceRefreshController: NSObject {
 					}
 				} catch {
 					self.logger.warning("Error finalizing for \(sourceUUID): \(String(describing: error))")
-					self.sourceStates[sourceUUID]?.errors.append(error)
+					self.sourceStates[sourceUUID]?.errors.append(RefreshError.generalError(sourceUUID: job.sourceUUID,
+																																								 url: job.url,
+																																								 error: error))
 				}
 			}
 

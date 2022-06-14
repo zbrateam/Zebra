@@ -11,7 +11,7 @@ import UIKit
 extension SourceRefreshController {
 
 	private static let backgroundContinuationTaskIdentifier = "com.getzbra.zebra.source-refresh-continuation-task"
-	private static let appActivationSourceRefreshInterval: TimeInterval = 60 * 60
+	private static let appActivationSourceRefreshInterval: TimeInterval = 15 * 60
 
 	internal func registerNotifications() {
 		NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
