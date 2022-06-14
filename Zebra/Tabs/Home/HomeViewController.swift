@@ -11,9 +11,6 @@ import Plains
 
 class HomeViewController: ListCollectionViewController {
 
-	private var progressBar: UIProgressView!
-	private var progressLabel: UILabel!
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -22,28 +19,9 @@ class HomeViewController: ListCollectionViewController {
 
 #if !targetEnvironment(macCatalyst)
 		let refreshControl = UIRefreshControl()
-		refreshControl.addTarget(nil, action: #selector(RootViewController.refreshSources), for: .valueChanged)
+		refreshControl.addTarget(self, action: #selector(refreshSources), for: .valueChanged)
 		collectionView.refreshControl = refreshControl
 #endif
-
-		// TODO: Remove
-		progressBar = UIProgressView(progressViewStyle: .default)
-		progressBar.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(progressBar)
-
-		progressLabel = UILabel()
-		progressLabel.translatesAutoresizingMaskIntoConstraints = false
-		progressLabel.font = .monospacedDigitSystemFont(ofSize: 0, weight: .medium)
-		view.addSubview(progressLabel)
-
-		NSLayoutConstraint.activate([
-			progressBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			progressBar.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-			progressBar.widthAnchor.constraint(equalToConstant: 300),
-
-			progressLabel.centerXAnchor.constraint(equalTo: progressBar.centerXAnchor),
-			progressLabel.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 8),
-		])
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -65,26 +43,23 @@ class HomeViewController: ListCollectionViewController {
 
 			let progress = SourceRefreshController.shared.progress
 			let percent = progress.fractionCompleted
-			self.progressBar.progress = Float(percent)
-			self.progressLabel.text = NumberFormatter.localizedString(from: percent as NSNumber, number: .percent)
-
-			#if !targetEnvironment(macCatalyst)
-			let refreshControl = self.collectionView.refreshControl!
-			let isRefreshing = !progress.isFinished && !progress.isCancelled
-			if isRefreshing != refreshControl.isRefreshing {
-				if isRefreshing {
-					refreshControl.beginRefreshing()
-				} else {
-					refreshControl.endRefreshing()
-				}
-			}
-			#endif
+			self.navigationProgressBar?.setProgress(Float(percent), animated: true)
 		}
 	}
 
 	private var errorCount: UInt {
 		// Filter to only errors. Warnings are mostly annoying and not particularly useful.
 		UInt(SourceRefreshController.shared.refreshErrors.count) + ErrorManager.shared.errorCount(at: .error)
+	}
+
+	@objc private func refreshSources() {
+		#if !targetEnvironment(macCatalyst)
+		collectionView.refreshControl!.endRefreshing()
+		#endif
+
+		if let rootViewController = parent?.parent as? RootViewController {
+			rootViewController.refreshSources()
+		}
 	}
 
 }

@@ -93,18 +93,18 @@ class RootViewController: RootViewControllerSuperclass {
 
 		let sidebarViewController = MacSidebarViewController()
 		navigationDelegate = sidebarViewController
-		let sidebarNavigationController = UINavigationController(rootViewController: sidebarViewController)
+		let sidebarNavigationController = NavigationController(rootViewController: sidebarViewController)
 		sidebarNavigationController.setNavigationBarHidden(true, animated: false)
 		setViewController(sidebarNavigationController, for: .primary)
 
-		let secondaryNavigationController = UINavigationController()
+		let secondaryNavigationController = NavigationController(rootViewController: LoadingViewController())
 		secondaryNavigationController.delegate = self
 		secondaryNavigationController.setNavigationBarHidden(true, animated: false)
 		setViewController(secondaryNavigationController, for: .secondary)
 		#else
 		// Tab bar controller
 		viewControllers = AppTab.allCases.map { item in
-			let viewController = UINavigationController(rootViewController: item.viewController)
+			let viewController = NavigationController(rootViewController: item.viewController)
 			viewController.tabBarItem = UITabBarItem(title: item.name, image: item.icon, selectedImage: nil)
 			viewController.navigationBar.prefersLargeTitles = true
 			return viewController

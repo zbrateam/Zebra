@@ -76,6 +76,9 @@
 		4EB235B2283E198F00713CBB /* libSwiftZSTD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB2359B283E016E00713CBB /* libSwiftZSTD.a */; };
 		4EB235B6283E1A7300713CBB /* libzstd.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB235B5283E1A7300713CBB /* libzstd.xcframework */; };
 		4EB8C4812858340400FFC744 /* WakeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8C4802858340400FFC744 /* WakeLock.swift */; };
+		4EB8C483285839AF00FFC744 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8C482285839AF00FFC744 /* ProgressBar.swift */; };
+		4EB8C48528583C5500FFC744 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8C48428583C5500FFC744 /* NavigationBar.swift */; };
+		4EB8C48728583EAD00FFC744 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8C48628583EAD00FFC744 /* NavigationController.swift */; };
 		4EBA840527D0FC0B00766DBE /* RedditNewsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */; };
 		4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840727D104A300766DBE /* HTTPRequest.swift */; };
 		4EBA840A27D10DB100766DBE /* SourceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */; };
@@ -294,6 +297,9 @@
 		4EB235B1283E18EB00713CBB /* zstd_errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
 		4EB235B5283E1A7300713CBB /* libzstd.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libzstd.xcframework; path = "Vendor/Plains/Vendor/apt-pkg-deps/libzstd.xcframework"; sourceTree = "<group>"; };
 		4EB8C4802858340400FFC744 /* WakeLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeLock.swift; sourceTree = "<group>"; };
+		4EB8C482285839AF00FFC744 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		4EB8C48428583C5500FFC744 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		4EB8C48628583EAD00FFC744 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditNewsFetcher.swift; sourceTree = "<group>"; };
 		4EBA840727D104A300766DBE /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -863,6 +869,9 @@
 				891ED4B02614F6EB005B926B /* ZBSidebarController.h */,
 				894EAB54261D5C4C00552235 /* ZBSidebarController.mm */,
 				4E1A1C9127B7545800B6DC9A /* NSToolbarItem+AppItems.swift */,
+				4EB8C482285839AF00FFC744 /* ProgressBar.swift */,
+				4EB8C48428583C5500FFC744 /* NavigationBar.swift */,
+				4EB8C48628583EAD00FFC744 /* NavigationController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1555,12 +1564,15 @@
 				4E87FBB92856DDF7005C4704 /* TaskPriority+Additions.swift in Sources */,
 				4E840B3B27D6484900039938 /* GradientView.swift in Sources */,
 				4E138C6A284E0E580058D94D /* SourceRefreshController+BackgroundRefresh.swift in Sources */,
+				4EB8C483285839AF00FFC744 /* ProgressBar.swift in Sources */,
 				4EB2350D283DEA8C00713CBB /* Decompressor.swift in Sources */,
 				E193C66A277A47E700B2469E /* SourceTableViewCell.swift in Sources */,
 				4EBA842227D38B7400766DBE /* ZBWorkspace.m in Sources */,
+				4EB8C48728583EAD00FFC744 /* NavigationController.swift in Sources */,
 				4EC7F28527B28D770078F953 /* Command.swift in Sources */,
 				4EC7F29C27B3A19F0078F953 /* RootViewController.swift in Sources */,
 				4EA26EB727CCDAC80019A5AA /* BaseSceneDelegate.swift in Sources */,
+				4EB8C48528583C5500FFC744 /* NavigationBar.swift in Sources */,
 				4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */,
 				4E1F060828411A47006B3F0C /* PackageViewController.swift in Sources */,
 				4EC7F28327B28D3C0078F953 /* DeviceCommands.swift in Sources */,

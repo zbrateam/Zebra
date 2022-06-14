@@ -13,8 +13,8 @@ class PackageSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
 	static let activityType = "Package"
 
-	private var navigationController: UINavigationController? {
-		window?.rootViewController as? UINavigationController
+	private var navigationController: NavigationController? {
+		window?.rootViewController as? NavigationController
 	}
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -24,7 +24,7 @@ class PackageSceneDelegate: BaseSceneDelegate, IdentifiableSceneDelegate {
 
 		window = UIWindow(windowScene: scene)
 		window!.tintColor = .accent
-		window!.rootViewController = UINavigationController(rootViewController: LoadingViewController())
+		window!.rootViewController = NavigationController(rootViewController: LoadingViewController())
 		navigationController!.setNavigationBarHidden(true, animated: false)
 		window!.makeKeyAndVisible()
 

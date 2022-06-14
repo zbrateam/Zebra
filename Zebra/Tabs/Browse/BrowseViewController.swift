@@ -80,7 +80,7 @@ class BrowseViewController: ListCollectionViewController {
 	}
 
 	@objc private func addSource(_: UIButton) {
-		let viewController = UINavigationController(rootViewController: ZBSourceAddViewController())
+		let viewController = NavigationController(rootViewController: ZBSourceAddViewController())
 		present(viewController, animated: true)
 	}
 
