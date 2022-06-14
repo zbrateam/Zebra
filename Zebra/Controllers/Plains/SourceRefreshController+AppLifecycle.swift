@@ -15,7 +15,7 @@ extension SourceRefreshController {
 
 	internal func registerNotifications() {
 		NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(appWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
 	}
 
 	// MARK: - Notifications
@@ -28,7 +28,7 @@ extension SourceRefreshController {
 		}
 	}
 
-	@objc private func appWillResignActive() {
+	@objc private func appDidEnterBackground() {
 		// Tell the OS we want to keep going in the background.
 		UIApplication.shared.beginBackgroundTask(withName: Self.backgroundContinuationTaskIdentifier) {
 			// Timer expired, cancel now.

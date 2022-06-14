@@ -75,8 +75,8 @@ class PackageCollectionViewCell: UICollectionViewCell {
 		NSLayoutConstraint.activate([
 			mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
 			mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-			mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-			mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
+			mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+			mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
 
 			imageView.widthAnchor.constraint(equalToConstant: 60),
 			imageView.heightAnchor.constraint(equalToConstant: 60),

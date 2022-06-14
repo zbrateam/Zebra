@@ -25,14 +25,18 @@ class ErrorCollectionViewCell: UICollectionViewCell {
 
 		imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
-		imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: font, scale: .medium)
 		imageView.contentMode = .scaleAspectFit
+		imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: font, scale: .medium)
+		imageView.setContentHuggingPriority(.required, for: .horizontal)
+		imageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		detailLabel = UILabel()
+		detailLabel.translatesAutoresizingMaskIntoConstraints = false
 		detailLabel.numberOfLines = 0
 		detailLabel.font = font
+		detailLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
-		let stackView = UIStackView(arrangedSubviews: [imageView, detailLabel, UIView()])
+		let stackView = UIStackView(arrangedSubviews: [imageView, detailLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.spacing = 12
 		stackView.alignment = .firstBaseline

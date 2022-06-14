@@ -48,15 +48,41 @@ class SourceRefreshController: NSObject {
 		case invalidContentType(sourceUUID: String, url: URL, contentType: String)
 		case generalError(sourceUUID: String, url: URL, error: Error)
 
+		private var statusCodeString: String {
+			switch self {
+			case .errorResponse(sourceUUID: _, url: _, statusCode: let statusCode):
+				return "\(statusCode) \(HTTPURLResponse.localizedString(forStatusCode: statusCode).localizedCapitalized)"
+
+			default: fatalError()
+			}
+		}
+
 		var localizedDescription: String {
 			switch self {
 			case .errorResponse(sourceUUID: _, url: let url, statusCode: let statusCode):
-				return "\(url.absoluteString): \(statusCode) \(HTTPURLResponse.localizedString(forStatusCode: statusCode).localizedCapitalized)"
+				switch statusCode {
+				case 404:
+					return .localize("Source not found. Check that a repository still exists at this address. (\(statusCodeString))")
+				case 500..<600:
+					return .localize("The server is temporarily experiencing issues. Try again later. (\(statusCodeString))")
+				default:
+					return "\(url.absoluteString): \(statusCodeString)"
+				}
 
 			case .invalidContentType(sourceUUID: _, url: let url, contentType: let contentType):
-				return "\(url.absoluteString): \(String(format: .localize("Bad response. Received invalid content type %@ from server"), contentType))"
+				return "\(url.absoluteString): \(String(format: .localize("Server returned an invalid response with content type %@. Check that a repository still exists at this address."), contentType))"
 
 			case .generalError(sourceUUID: _, url: let url, error: let error):
+				let nsError = error as NSError
+				if nsError.domain == NSURLErrorDomain {
+					switch nsError.code {
+					case NSURLErrorAppTransportSecurityRequiresSecureConnection:
+						return .localize("The server doesn’t use a secure (HTTPS) connection. Zebra requires a secure connection to load this source.")
+
+					default:
+						return nsError.localizedDescription
+					}
+				}
 				return "\(url.absoluteString): \(error.localizedDescription)"
 			}
 		}
@@ -136,19 +162,24 @@ class SourceRefreshController: NSObject {
 
 				self.wakeLock.lock()
 
-				// TODO: Can we avoid needing to override granularity?
-				self.progress = Progress(totalUnitCount: SourceManager.shared.sources.count + 1, granularity: .ulpOfOne)
-				self.progress.addFractionCompletedNotification(onQueue: self.operationQueue) { completedUnitCount, totalUnitCount, _ in
+				self.progress = Progress(totalUnitCount: 10, granularity: 0.001, queue: self.operationQueue)
+				self.progress.addFractionCompletedNotification { completedUnitCount, totalUnitCount, fractionCompleted in
 					NotificationCenter.default.post(name: Self.refreshProgressDidChangeNotification, object: nil)
+				}
+
+				let innerProgress = Progress(totalUnitCount: SourceManager.shared.sources.count + 2, granularity: .ulpOfOne, queue: self.operationQueue)
+				innerProgress.addFractionCompletedNotification(onQueue: self.operationQueue) { completedUnitCount, totalUnitCount, _ in
 					if completedUnitCount == totalUnitCount - 1 && self.isRefreshing {
 						self.finishRefresh()
 					}
 				}
-				self.progress.addCancellationNotification(onQueue: self.operationQueue) {
+				innerProgress.addCancellationNotification(onQueue: self.operationQueue) {
 					self.session?.invalidateAndCancel()
 					self.session = nil
 					self.wakeLock.unlock()
 				}
+				self.progress.completedUnitCount += 1
+				self.progress.addChild(innerProgress, withPendingUnitCount: 9)
 
 				// Start the state machine for each source with InRelease.
 				for source in SourceManager.shared.sources {
@@ -163,7 +194,7 @@ class SourceRefreshController: NSObject {
 					self.currentRefreshJobs[source.uuid] = [job]
 
 					let sourceState = SourceState(sourceUUID: source.uuid,
-																				progress: Progress(totalUnitCount: 1000, parent: self.progress, pendingUnitCount: 1))
+																				progress: Progress(totalUnitCount: 1000, parent: innerProgress, pendingUnitCount: 1))
 					self.sourceStates[source.uuid] = sourceState
 					self.continueJob(job, withSourceFile: .inRelease)
 				}

@@ -11,5 +11,5 @@ import CSProgress
 public typealias Progress = CSProgress
 
 extension CSProgress {
-	var isFinished: Bool { completedUnitCount == totalUnitCount}
+	var isFinished: Bool { completedUnitCount == totalUnitCount }
 }

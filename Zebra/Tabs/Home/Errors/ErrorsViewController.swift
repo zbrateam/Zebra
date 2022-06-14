@@ -9,20 +9,81 @@
 import UIKit
 import Plains
 
-class ErrorsViewController: ListCollectionViewController {
+class ErrorsViewController: UICollectionViewController {
 
-	private var sources = [String]()
-	private var errors = [[PlainsError]]()
+	private enum ErrorSection: Equatable, Hashable {
+		case packageManager
+		case source(label: String)
+
+		func hash(into hasher: inout Hasher) {
+			switch self {
+			case .packageManager:
+				break
+			case .source(label: let label):
+				hasher.combine(label)
+			}
+		}
+	}
+
+	private var dataSource: UICollectionViewDiffableDataSource<ErrorSection, PlainsError>!
+
+	init() {
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+																																											heightDimension: .estimated(52)),
+																								 subitems: [
+																									NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+																																																						heightDimension: .estimated(52)))
+																								 ])
+		let section = NSCollectionLayoutSection(group: group)
+		section.boundarySupplementaryItems = [
+			NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+																																										 heightDimension: .absolute(52)),
+																									elementKind: "Header",
+																									alignment: .top)
+		]
+		let layout = UICollectionViewCompositionalLayout(section: section)
+		super.init(collectionViewLayout: layout)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		useCellsAcross = false
-
-		let layout = collectionViewLayout as! UICollectionViewFlowLayout
-		layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-
 		collectionView.register(ErrorCollectionViewCell.self, forCellWithReuseIdentifier: "ErrorCell")
+		collectionView.register(SectionHeaderView.self,
+														forSupplementaryViewOfKind: "Header",
+														withReuseIdentifier: "Header")
+
+		dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, error in
+			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ErrorCell", for: indexPath) as! ErrorCollectionViewCell
+			cell.error = error
+			return cell
+		})
+		dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+			switch kind {
+			case "Header":
+				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
+				// TODO: What am I supposed to do on iOS 14? How did they forget this for a full year??
+				if #available(iOS 15, *) {
+					switch self.dataSource.sectionIdentifier(for: indexPath.section) {
+					case .packageManager:
+						view.title = .localize("Package Manager")
+
+					case .source(label: let label):
+						view.title = label
+
+					case .none:
+						break
+					}
+				}
+				return view
+
+			default: fatalError()
+			}
+		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -38,42 +99,43 @@ class ErrorsViewController: ListCollectionViewController {
 		NotificationCenter.default.removeObserver(self, name: SourceRefreshController.refreshProgressDidChangeNotification, object: nil)
 	}
 
-	override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-
-		let layout = collectionViewLayout as! UICollectionViewFlowLayout
-		if layout.itemSize.width != layout.estimatedItemSize.width {
-			layout.estimatedItemSize.width = layout.itemSize.width
-			layout.invalidateLayout()
-		}
-	}
-
 	@objc private func refreshProgressDidChange() {
-		DispatchQueue.main.async {
-			let globalErrors = ErrorManager.shared.errorMessages
-			let items = SourceRefreshController.shared.sourceStates
-				.compactMap { (key, value) -> (key: String, errors: [PlainsError])? in
-					if value.errors.isEmpty {
-						return nil
-					}
-					return (key, value.errors.map { PlainsError(level: .error, text: $0.localizedDescription) })
-				}
-				.sorted(by: { a, b in
-					let sourceA = SourceManager.shared.source(forUUID: a.key)
-					let sourceB = SourceManager.shared.source(forUUID: b.key)
-					return sourceA?.origin.localizedStandardCompare(sourceB?.origin ?? "") == .orderedAscending
-				})
-			self.sources = items.map(\.key)
-			self.errors = (globalErrors.isEmpty ? [] : [globalErrors]) + items.map(\.errors)
+		let count = totalErrorCount
 
+		let globalErrors = ErrorManager.shared.errorMessages
+		let sourceErrors = SourceRefreshController.shared.sourceStates
+			.compactMap { (key, value) -> (key: ErrorSection, value: [PlainsError])? in
+				if value.errors.isEmpty {
+					return nil
+				}
+				let source = SourceManager.shared.source(forUUID: key)
+				return (.source(label: source?.origin ?? key),
+								value.errors.map { PlainsError(level: .error, text: $0.localizedDescription) })
+			}
+			.sorted(by: { a, b in
+				guard case .source(let labelA) = a.key,
+							case .source(let labelB) = b.key else {
+					return false
+				}
+				return labelA.localizedStandardCompare(labelB) == .orderedAscending
+			})
+		let coreErrors = globalErrors.isEmpty ? [] : [(key: ErrorSection.packageManager,
+																									 value: globalErrors)]
+		let errors = coreErrors + sourceErrors
+
+		var snapshot = NSDiffableDataSourceSnapshot<ErrorSection, PlainsError>()
+		for section in errors {
+			snapshot.appendSections([section.key])
+			snapshot.appendItems(section.value, toSection: section.key)
+		}
+
+		DispatchQueue.main.async {
 			let numberFormatter = NumberFormatter()
 			numberFormatter.numberStyle = .decimal
-			let count = self.totalErrorCount
 			self.title = String.localizedStringWithFormat(.localize("%@ Errors"),
 																										count,
 																										numberFormatter.string(for: count) ?? "0")
-
-			self.collectionView.reloadData()
+			self.dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
 		}
 	}
 
@@ -82,49 +144,3 @@ class ErrorsViewController: ListCollectionViewController {
 
 }
 
-extension ErrorsViewController {
-
-	override func numberOfSections(in collectionView: UICollectionView) -> Int {
-		errors.count
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		errors[section].count
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ErrorCell", for: indexPath) as! ErrorCollectionViewCell
-		cell.error = errors[indexPath.section][indexPath.item]
-		return cell
-	}
-
-//	override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-//		CGSize(width: collectionView.frame.size.width,
-//					 height: UIView.layoutFittingCompressedSize.height)
-//	}
-
-	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-		switch kind {
-		case UICollectionView.elementKindSectionHeader:
-			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
-			if indexPath.section == 0 && globalErrorCount > 0 {
-				view.title = .localize("Package Manager")
-			} else {
-				let uuid = sources[indexPath.section - (globalErrorCount > 0 ? 1 : 0)]
-				let source = SourceManager.shared.source(forUUID: uuid)
-				view.title = source?.origin
-			}
-			return view
-
-		case UICollectionView.elementKindSectionFooter:
-			return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
-
-		default: fatalError()
-		}
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-		CGSize(width: collectionView.frame.size.width, height: 52)
-	}
-
-}

@@ -80,7 +80,7 @@ class PackageListViewController: ListCollectionViewController {
 		super.viewDidLoad()
 
 		let layout = collectionViewLayout as! UICollectionViewFlowLayout
-		layout.itemSize.height = 92
+		layout.itemSize.height = 80
 
 		collectionView.register(PackageCollectionViewCell.self, forCellWithReuseIdentifier: "PackageCell")
 
