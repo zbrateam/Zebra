@@ -18,7 +18,7 @@ class SectionHeaderButton: UIButton {
 
 	var highlightBackgroundColor: UIColor? = .systemGray2
 
-	convenience init(title: String, image: UIImage? = nil, target: Any?, action: Selector) {
+	convenience init(title: String, image: UIImage? = nil, target: Any? = nil, action: Selector? = nil) {
 		self.init(frame: .zero)
 
 		translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,10 @@ class SectionHeaderButton: UIButton {
 		adjustsImageWhenHighlighted = false
 		accessibilityLabel = title
 
-		addTarget(target, action: action, for: .touchUpInside)
+		if let action = action {
+			addTarget(target, action: action, for: .touchUpInside)
+		}
+
 		addTarget(self, action: #selector(didTouchDown), for: [.touchDown, .touchDragEnter])
 		addTarget(self, action: #selector(didTouchUp), for: [.touchUpInside, .touchUpOutside, .touchDragExit, .touchCancel])
 

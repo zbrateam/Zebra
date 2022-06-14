@@ -108,8 +108,8 @@ class Preferences: NSObject {
 	}
 
 	static var packageListSort: PackageListSort {
-		get { PackageListSort(rawValue: defaults.integer(forKey: "Role")) ?? .alpha }
-		set { defaults.set(newValue.rawValue, forKey: "Role") }
+		get { PackageListSort(rawValue: defaults.integer(forKey: "PackageSortingType")) ?? .alpha }
+		set { defaults.set(newValue.rawValue, forKey: "PackageSortingType") }
 	}
 
 	// MARK: - Console

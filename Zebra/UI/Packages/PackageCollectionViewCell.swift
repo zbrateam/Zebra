@@ -110,9 +110,16 @@ class PackageCollectionViewCell: UICollectionViewCell {
 			imageView.image = SectionIcon.icon(for: package.section)
 		}
 
+		titleLabel.textColor = package.isCommercial ? tintColor : .label
 		titleLabel.text = package.name
 		detailLabel.text = package.author?.name ?? package.maintainer?.name ?? .localize("Unknown")
 		tertiaryLabel.text = package.source?.origin ?? .localize("Locally Installed")
+	}
+
+	override func tintColorDidChange() {
+		super.tintColorDidChange()
+
+		titleLabel.textColor = package?.isCommercial ?? false ? tintColor : .label
 	}
 
 	override var isHighlighted: Bool {

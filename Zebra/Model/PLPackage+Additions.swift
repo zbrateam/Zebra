@@ -13,12 +13,9 @@ extension Package {
 
 	// MARK: - Actions
 
-	@objc var mightRequirePayment: Bool {
-		// TODO: ? Is this used by something?
-		false
-	}
+	var isCommercial: Bool { tags.contains("cydia::commercial") }
 
-	@objc var possibleActions: ZBPackageActionType {
+	var possibleActions: ZBPackageActionType {
 		var actions: ZBPackageActionType = []
 		if let _ = source {
 			if isInstalled {
@@ -39,7 +36,7 @@ extension Package {
 		return actions
 	}
 
-	@objc var possibleExtraActions: ZBPackageExtraActionType {
+	var possibleExtraActions: ZBPackageExtraActionType {
 		var actions: ZBPackageExtraActionType = []
 		if isInstalled {
 			actions.insert(isHeld ? .showUpdates : .hideUpdates)

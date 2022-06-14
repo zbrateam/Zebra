@@ -13,8 +13,31 @@ enum PackageListSwipeActionStyle: Int {
 	case text, icon
 }
 
-enum PackageListSort: Int {
+enum PackageListSort: Int, CaseIterable {
 	case alpha, date, installedSize
+
+	var title: String {
+		switch self {
+		case .alpha:         return .localize("Name")
+		case .date:          return .localize("Recent")
+		case .installedSize: return .localize("Size")
+		}
+	}
+}
+
+enum PackageListSortOrder {
+	case ascending, descending
+
+	var icon: UIImage? {
+		switch self {
+		case .ascending:  return UIImage(systemName: "chevron.up")
+		case .descending: return UIImage(systemName: "chevron.down")
+		}
+	}
+
+	mutating func toggle() {
+		self = self == .ascending ? .descending : .ascending
+	}
 }
 
 class PackageListViewController: ListCollectionViewController {
@@ -41,8 +64,12 @@ class PackageListViewController: ListCollectionViewController {
 		didSet { updatePackages() }
 	}
 	private var sectionIndexes = [Int]()
+	private var filteredCount = 0
 
 	private var isVisible = false
+
+	private var sortButton: SectionHeaderButton!
+	private var sortOrder = PackageListSortOrder.ascending
 
 	convenience init(filter: Filter) {
 		self.init()
@@ -62,6 +89,15 @@ class PackageListViewController: ListCollectionViewController {
 		searchController.searchResultsUpdater = self
 		searchController.searchBar.placeholder = .localize("Search")
 		navigationItem.searchController = searchController
+
+		sortButton = SectionHeaderButton(title: .localize("Sort"), image: UIImage(systemName: "line.3.horizontal.decrease"))
+		sortButton.showsMenuAsPrimaryAction = true
+		if #available(iOS 15, *) {
+			sortButton.menu = UIMenu(options: .singleSelection, children: [])
+		} else {
+			sortButton.menu = UIMenu(children: [])
+		}
+		updateSortMenu()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -87,7 +123,16 @@ class PackageListViewController: ListCollectionViewController {
 			let packages: [Package]
 
 			let maxRole = Preferences.roleFilter
-			let roleFilter: (Package) -> Bool = { $0.role.rawValue <= maxRole.rawValue }
+			var filteredCount = 0
+			let roleFilter: (Package) -> Bool = {
+				if $0.role.rawValue <= maxRole.rawValue {
+					return true
+				}
+				if $0.role != .cydia {
+					filteredCount += 1
+				}
+				return false
+			}
 
 			switch filter {
 			case .fixed(let fixedPackages):
@@ -97,22 +142,20 @@ class PackageListViewController: ListCollectionViewController {
 			case .installed:
 				title = .localize("Installed")
 				packages = await PackageManager.shared
-					.fetchPackages {
-						$0.isInstalled && $0.role.rawValue < PackageRole.cydia.rawValue
-					}
+					.fetchPackages { $0.isInstalled && $0.role.rawValue < PackageRole.cydia.rawValue }
 
 			case .section(let source, let section):
 				let filter: ((Package) -> Bool)?
 				if let section = section {
 					title = .localize(section)
 					if let source = source {
-						filter = { roleFilter($0) && $0.source == source && $0.section == section }
+						filter = { $0.source == source && $0.section == section && roleFilter($0) }
 					} else {
-						filter = { roleFilter($0) && $0.section == section }
+						filter = { $0.section == section && roleFilter($0) }
 					}
 				} else if let source = source {
 					title = source.origin
-					filter = { roleFilter($0) && $0.source == source }
+					filter = { $0.source == source && roleFilter($0) }
 				} else {
 					title = .localize("All Packages")
 					filter = roleFilter
@@ -129,11 +172,11 @@ class PackageListViewController: ListCollectionViewController {
 				title = .localize("Search")
 				packages = await PackageManager.shared
 					.fetchPackages {
-						roleFilter($0) &&
 						($0.identifier.localizedCaseInsensitiveContains(query) || $0.name.localizedCaseInsensitiveContains(query) ||
 						$0.shortDescription.localizedCaseInsensitiveContains(query) ||
 						($0.author?.name.localizedCaseInsensitiveContains(query) ?? false) ||
-						($0.maintainer?.name.localizedCaseInsensitiveContains(query) ?? false))
+						($0.maintainer?.name.localizedCaseInsensitiveContains(query) ?? false)) &&
+						roleFilter($0)
 					}
 
 			case .favorites:
@@ -143,10 +186,31 @@ class PackageListViewController: ListCollectionViewController {
 					.fetchPackages(matchingFilter: { favoritePackageIDs.contains($0.identifier) })
 			}
 
-			let sortedPackages = collation.sortedArray(from: packages, collationStringSelector: #selector(getter: Package.name)) as! [Package]
+			// Yeah I couldn’t get something cleaner to work with KeyPath without Swift arguing with me
+			let sort = Preferences.packageListSort
+			let ascending = sortOrder == .ascending
+			let sortedPackages = packages.sorted {
+				switch sort {
+				case .alpha:
+					let order = $0.name.localizedStandardCompare($1.name)
+					return order == (ascending ? .orderedAscending : .orderedDescending)
+
+				case .date:
+					return ascending
+						? $0.installedDate ?? .distantPast < $1.installedDate ?? .distantPast
+						: $0.installedDate ?? .distantPast > $1.installedDate ?? .distantPast
+
+				case .installedSize:
+					return ascending
+						? $0.installedSize < $1.installedSize
+						: $0.installedSize > $1.installedSize
+				}
+			}
+
 			await MainActor.run {
 				self.title = title
 				navigationItem.searchController!.title = title
+				self.filteredCount = filteredCount
 				self.packages = sortedPackages
 
 				switch filter {
@@ -161,24 +225,64 @@ class PackageListViewController: ListCollectionViewController {
 	}
 
 	private func updatePackages() {
-		collectionView.performBatchUpdates {
-			var sectionIndexes = Array(repeating: 0, count: collation.sectionTitles.count)
-			for package in packages {
-				let section = collation.section(for: package, collationStringSelector: #selector(getter: Package.name))
-				sectionIndexes[section] += 1
+		UIView.performWithoutAnimation {
+			collectionView.performBatchUpdates {
+				switch Preferences.packageListSort {
+				case .alpha:
+					var sectionIndexes = Array(repeating: 0, count: self.collation.sectionTitles.count)
+					for package in self.packages {
+						let section = self.collation.section(for: package, collationStringSelector: #selector(getter: Package.name))
+						sectionIndexes[section] += 1
+					}
+					var tally = 0
+					for i in 0..<sectionIndexes.count {
+						let count = sectionIndexes[i]
+						sectionIndexes[i] = min(tally, self.packages.count - 1)
+						tally += count
+					}
+					self.sectionIndexes = sectionIndexes
+
+				case .installedSize, .date:
+					self.sectionIndexes = []
+				}
+
+				collectionView.reloadSections([0])
+				collectionView.indexDisplayMode = sectionIndexes.isEmpty ? .alwaysHidden : .automatic
 			}
-			var tally = 0
-			for i in 0..<sectionIndexes.count {
-				let count = sectionIndexes[i]
-				sectionIndexes[i] = min(tally, packages.count - 1)
-				tally += count
-			}
-			self.sectionIndexes = sectionIndexes
-			collectionView.reloadData()
 		}
 	}
 
+	private func updateSortMenu() {
+		let currentSort = Preferences.packageListSort
+
+		var items = [UIMenuElement]()
+		for item in PackageListSort.allCases {
+			let icon = currentSort == item ? sortOrder.icon : nil
+			items.append(UICommand(title: item.title,
+														 image: icon,
+														 action: #selector(self.changeSortOrder),
+														 propertyList: item.rawValue,
+														 attributes: [],
+														 state: currentSort == item ? .on : .off)
+			)
+		}
+		sortButton.menu = sortButton.menu!.replacingChildren(items)
+	}
+
 	// MARK: - Actions
+
+	@objc private func changeSortOrder(_ sender: UICommand) {
+		let currentSort = Preferences.packageListSort
+		let newSort = PackageListSort(rawValue: sender.propertyList as! Int)!
+		if currentSort == newSort {
+			sortOrder.toggle()
+		} else {
+			Preferences.packageListSort = newSort
+			sortOrder = .ascending
+		}
+		updateSortMenu()
+		updateFilter()
+	}
 
 	@objc private func openInSafari(_ sender: UICommand) {
 		guard let index = sender.propertyList as? Int else {
@@ -256,24 +360,20 @@ extension PackageListViewController { // UICollectionViewDataSource, UICollectio
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		switch kind {
 		case UICollectionView.elementKindSectionHeader:
-//			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
-//			view.title = indexOrder[indexPath.section]
-//			view.buttons = []
-//			return view
-			return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
+			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! SectionHeaderView
+			view.title = .localize("Packages")
+			view.buttons = [sortButton]
+			return view
 
 		case UICollectionView.elementKindSectionFooter:
-//			if indexPath.section != packagesByIndex.count - 1 {
-//				return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Empty", for: indexPath)
-//			}
-
 			let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Footer", for: indexPath) as! InfoFooterView
 			let numberFormatter = NumberFormatter()
 			numberFormatter.numberStyle = .decimal
-			let packageCount = packages.count
-			view.text = String.localizedStringWithFormat(.localize("%@ Packages"),
-																									 packageCount,
-																									 numberFormatter.string(for: packageCount) ?? "0")
+			let packageText = String.localizedStringWithFormat(.localize("%@ Packages"),
+																												 packages.count,
+																												 numberFormatter.string(for: packages.count) ?? "0")
+			let filteredText = filteredCount == 0 ? "" : " (\(String(format: .localize("%@ hidden"), numberFormatter.string(for: filteredCount) ?? "0")))"
+			view.text = packageText + filteredText
 			return view
 
 		default: fatalError()
@@ -281,13 +381,10 @@ extension PackageListViewController { // UICollectionViewDataSource, UICollectio
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-		return .zero // CGSize(width: collectionView.frame.size.width, height: 52)
+		return CGSize(width: collectionView.frame.size.width, height: 52)
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//		if section != packagesByIndex.count - 1 {
-//			return .zero
-//		}
 		return CGSize(width: collectionView.frame.size.width, height: 52)
 	}
 
@@ -321,7 +418,7 @@ extension PackageListViewController: UISearchControllerDelegate, UISearchResults
 	}
 
 	func willDismissSearchController(_ searchController: UISearchController) {
-		collectionView.indexDisplayMode = .automatic
+		collectionView.indexDisplayMode = sectionIndexes.isEmpty ? .alwaysHidden : .automatic
 	}
 
 	func updateSearchResults(for searchController: UISearchController) {
