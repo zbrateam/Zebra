@@ -143,7 +143,7 @@ class SourceCollectionViewCell: UICollectionViewCell {
 			updateProgress()
 		} else {
 			titleLabel.text = .localize("All Packages")
-			detailLabel.text = .localize("Browse packages from all installed sources.")
+			detailLabel.text = .localize("Browse packages from all sources.")
 			imageView.imageURL = nil
 			imageView.isHidden = true
 			symbolImageView.image = UIImage(named: "zebra.wrench")

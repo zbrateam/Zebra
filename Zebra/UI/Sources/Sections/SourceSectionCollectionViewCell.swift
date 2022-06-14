@@ -104,7 +104,7 @@ class SourceSectionCollectionViewCell: UICollectionViewCell {
 				symbolImageView.isHidden = true
 			} else {
 				titleLabel.text = .localize("All Packages")
-				detailLabel.text = isSource ? .localize("Browse packages from this source.") : .localize("Browse packages from all installed sources.")
+				detailLabel.text = isSource ? .localize("Browse packages from this source.") : .localize("Browse packages from all sources.")
 				detailLabel.isHidden = false
 				imageView.isHidden = true
 				symbolImageView.image = UIImage(named: "zebra.wrench")
