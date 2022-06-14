@@ -68,6 +68,7 @@ class SourceRefreshController: NSObject {
 
 	private let queue = DispatchQueue(label: "com.getzbra.zebra.source-refresh-queue", qos: .utility)
 	private let decompressQueue = DispatchQueue(label: "com.getzbra.zebra.source-decompress-queue", qos: .utility)
+	private let wakeLock = WakeLock(label: "com.getzbra.zebra.source-refresh-wake-lock")
 
 	private lazy var operationQueue: OperationQueue = {
 		let operationQueue = OperationQueue()
@@ -120,6 +121,8 @@ class SourceRefreshController: NSObject {
 																	delegate: self,
 																	delegateQueue: self.operationQueue)
 
+				self.wakeLock.lock()
+
 				// TODO: Can we avoid needing to override granularity?
 				self.progress = Progress(totalUnitCount: SourceManager.shared.sources.count + 1, granularity: .ulpOfOne)
 				self.progress.addFractionCompletedNotification(onQueue: self.operationQueue) { completedUnitCount, totalUnitCount, _ in
@@ -131,6 +134,7 @@ class SourceRefreshController: NSObject {
 				self.progress.addCancellationNotification(onQueue: self.operationQueue) {
 					self.session?.invalidateAndCancel()
 					self.session = nil
+					self.wakeLock.unlock()
 				}
 
 				// Start the state machine for each source with InRelease.
@@ -453,6 +457,7 @@ class SourceRefreshController: NSObject {
 			self.logger.debug("Completed")
 			#endif
 
+			self.wakeLock.unlock()
 			self.completeBackgroundRefresh()
 			self.signpost?.end()
 		}

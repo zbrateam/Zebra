@@ -75,6 +75,7 @@
 		4EB235AE283E181100713CBB /* ZSTDStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB235A8283E181000713CBB /* ZSTDStream.swift */; };
 		4EB235B2283E198F00713CBB /* libSwiftZSTD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB2359B283E016E00713CBB /* libSwiftZSTD.a */; };
 		4EB235B6283E1A7300713CBB /* libzstd.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB235B5283E1A7300713CBB /* libzstd.xcframework */; };
+		4EB8C4812858340400FFC744 /* WakeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8C4802858340400FFC744 /* WakeLock.swift */; };
 		4EBA840527D0FC0B00766DBE /* RedditNewsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */; };
 		4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840727D104A300766DBE /* HTTPRequest.swift */; };
 		4EBA840A27D10DB100766DBE /* SourceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */; };
@@ -292,6 +293,7 @@
 		4EB235B0283E18EB00713CBB /* zstd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
 		4EB235B1283E18EB00713CBB /* zstd_errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
 		4EB235B5283E1A7300713CBB /* libzstd.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libzstd.xcframework; path = "Vendor/Plains/Vendor/apt-pkg-deps/libzstd.xcframework"; sourceTree = "<group>"; };
+		4EB8C4802858340400FFC744 /* WakeLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeLock.swift; sourceTree = "<group>"; };
 		4EBA840427D0FC0B00766DBE /* RedditNewsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditNewsFetcher.swift; sourceTree = "<group>"; };
 		4EBA840727D104A300766DBE /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
 		4EBA840927D10DB100766DBE /* SourceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 				4EBA842127D38B7400766DBE /* ZBWorkspace.m */,
 				4E1F061428477D5B006B3F0C /* SectionIcon.swift */,
 				4E138C63284B1BBC0058D94D /* Signpost.swift */,
+				4EB8C4802858340400FFC744 /* WakeLock.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1536,6 +1539,7 @@
 			files = (
 				F0C1243627D7A52B0041022E /* SourceSectionCollectionViewCell.swift in Sources */,
 				4E138C64284B1BBC0058D94D /* Signpost.swift in Sources */,
+				4EB8C4812858340400FFC744 /* WakeLock.swift in Sources */,
 				89D97AFE25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m in Sources */,
 				4EB2350B283DCE1400713CBB /* RFC822DateFormatter.swift in Sources */,
 				4E8D723927DB617A00B62753 /* PLPackage+Additions.swift in Sources */,
