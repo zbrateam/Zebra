@@ -16,7 +16,7 @@ class ErrorCollectionViewCell: UICollectionViewCell {
 	}
 
 	private var imageView: UIImageView!
-	private var detailLabel: UILabel!
+	private var detailLabel: UITextView!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -26,27 +26,30 @@ class ErrorCollectionViewCell: UICollectionViewCell {
 		imageView = UIImageView()
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		imageView.contentMode = .scaleAspectFit
-		imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: font, scale: .medium)
+		imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: font, scale: .medium).multicolor
 		imageView.setContentHuggingPriority(.required, for: .horizontal)
 		imageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-		detailLabel = UILabel()
+		detailLabel = UITextView()
 		detailLabel.translatesAutoresizingMaskIntoConstraints = false
-		detailLabel.numberOfLines = 0
+		detailLabel.isScrollEnabled = false
+		detailLabel.isEditable = false
+		detailLabel.backgroundColor = .systemBackground
 		detailLabel.font = font
+		detailLabel.textContainerInset = UIEdgeInsets(top: 10, left: 4, bottom: 10, right: 4)
 		detailLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
 		let stackView = UIStackView(arrangedSubviews: [imageView, detailLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.spacing = 12
+		stackView.spacing = 2
 		stackView.alignment = .firstBaseline
 		contentView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
 			stackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 21),
-			stackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -21),
-			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+			stackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -17),
+			stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 		])
 	}
 

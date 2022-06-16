@@ -43,6 +43,7 @@
 		4E6F945128564BD7002F5BD9 /* CSProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F945028564BD7002F5BD9 /* CSProgress.swift */; };
 		4E7DC8B128589B0C0007392D /* BaseListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */; };
 		4E7DC8B32858A2990007392D /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */; };
+		4E7DC8B5285A270E0007392D /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */; };
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
 		4E840B3B27D6484900039938 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3A27D6484900039938 /* GradientView.swift */; };
 		4E840B3E27D6F77400039938 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 4E840B4027D6F77400039938 /* Localizable.stringsdict */; };
@@ -266,6 +267,7 @@
 		4E6F945028564BD7002F5BD9 /* CSProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSProgress.swift; sourceTree = "<group>"; };
 		4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
+		4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
 		4E840B3A27D6484900039938 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4E840B3F27D6F77400039938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -1090,6 +1092,7 @@
 				4EB23508283D2F5F00713CBB /* URLSession+Additions.swift */,
 				4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */,
 				4E87FBB82856DDF7005C4704 /* TaskPriority+Additions.swift */,
+				4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1651,6 +1654,7 @@
 				4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */,
 				4EB23510283DFA3500713CBB /* AppleDecompressor.swift in Sources */,
 				4EC7F28B27B2985A0078F953 /* String+Extensions.swift in Sources */,
+				4E7DC8B5285A270E0007392D /* UIImage+Additions.swift in Sources */,
 				4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */,
 				4EBA840527D0FC0B00766DBE /* RedditNewsFetcher.swift in Sources */,
 				E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */,

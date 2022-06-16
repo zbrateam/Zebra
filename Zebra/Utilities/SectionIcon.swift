@@ -91,15 +91,8 @@ struct SectionIcon {
 		"X Window":           SectionIcon(image: .systemNamedImage("macwindow.on.rectangle"), gradient: .blue)
 	]
 
-	private static let symbolConfiguration: UIImage.SymbolConfiguration = {
-		let baseConfiguration = UIImage.SymbolConfiguration(pointSize: 45, weight: .medium, scale: .large)
-		if #available(iOS 15, *) {
-			return baseConfiguration
-				.applying(UIImage.SymbolConfiguration(hierarchicalColor: .white))
-		} else {
-			return baseConfiguration
-		}
-	}()
+	private static let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 45, weight: .medium, scale: .large)
+		.withHierarchicalColor(.white)
 
 	private static var cachedIcons = [String: UIImage]()
 
