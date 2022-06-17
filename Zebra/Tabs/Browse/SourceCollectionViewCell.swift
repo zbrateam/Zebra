@@ -140,7 +140,8 @@ class SourceCollectionViewCell: UICollectionViewCell {
 			titleLabel.text = source.origin
 			titleLabel.textColor = .label
 
-			updateProgress()
+			let state = SourceRefreshController.shared.sourceStates[source.uuid]
+			updateProgress(state: state)
 		} else {
 			titleLabel.text = .localize("All Packages")
 			detailLabel.text = .localize("Browse packages from all sources.")
@@ -153,9 +154,8 @@ class SourceCollectionViewCell: UICollectionViewCell {
 		}
 	}
 
-	private func updateProgress() {
-		if let source = source {
-			let state = SourceRefreshController.shared.sourceStates[source.uuid]
+	private func updateProgress(state: SourceRefreshController.SourceState?) {
+		if source != nil {
 			if SourceRefreshController.shared.isRefreshing,
 				 let progress = state?.progress {
 				progressView.isHidden = false
@@ -180,8 +180,12 @@ class SourceCollectionViewCell: UICollectionViewCell {
 	}
 
 	@objc private func progressDidChange() {
+		guard let source = source else {
+			return
+		}
+		let state = SourceRefreshController.shared.sourceStates[source.uuid]
 		DispatchQueue.main.async {
-			self.updateProgress()
+			self.updateProgress(state: state)
 		}
 	}
 

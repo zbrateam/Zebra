@@ -25,12 +25,9 @@ class ListCollectionViewController: BaseListCollectionViewController<UICollectio
 
 extension NSCollectionLayoutGroup {
 	static func oneAcross(heightDimension: NSCollectionLayoutDimension) -> NSCollectionLayoutGroup {
-		return NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1),
-																																heightDimension: heightDimension),
-																							subitems: [
-																								NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1),
-																																												 heightDimension: .fractionalHeight(1)))
-																							])
+		NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1),
+																												 heightDimension: heightDimension),
+																			 subitems: [NSCollectionLayoutItem(layoutSize: .full)])
 	}
 
 	static func listGrid(environment: NSCollectionLayoutEnvironment, heightDimension: NSCollectionLayoutDimension) -> NSCollectionLayoutGroup {
@@ -42,5 +39,12 @@ extension NSCollectionLayoutGroup {
 																							subitems: Array(repeating: NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(fraction),
 																																																									heightDimension: .fractionalHeight(1))),
 																															count: Int(1 / fraction)))
+	}
+}
+
+extension NSCollectionLayoutSize {
+	static var full: NSCollectionLayoutSize {
+		.init(widthDimension: .fractionalWidth(1),
+					heightDimension: .fractionalHeight(1))
 	}
 }

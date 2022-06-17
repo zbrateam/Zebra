@@ -41,6 +41,7 @@
 		4E7DC8B128589B0C0007392D /* BaseListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */; };
 		4E7DC8B32858A2990007392D /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */; };
 		4E7DC8B5285A270E0007392D /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */; };
+		4E7DC8B7285AF5120007392D /* PackageMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B6285AF5120007392D /* PackageMenuCommands.swift */; };
 		4E7DC8B9285B3FE70007392D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B8285B3FE70007392D /* NetworkController.swift */; };
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
 		4E840B3B27D6484900039938 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3A27D6484900039938 /* GradientView.swift */; };
@@ -245,6 +246,7 @@
 		4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
+		4E7DC8B6285AF5120007392D /* PackageMenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageMenuCommands.swift; sourceTree = "<group>"; };
 		4E7DC8B8285B3FE70007392D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
 		4E840B3A27D6484900039938 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -812,6 +814,7 @@
 				4E1F060728411A47006B3F0C /* PackageViewController.swift */,
 				4E1F060928411A93006B3F0C /* PackageListViewController.swift */,
 				4E1F061228475943006B3F0C /* PackageCollectionViewCell.swift */,
+				4E7DC8B6285AF5120007392D /* PackageMenuCommands.swift */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1542,6 +1545,7 @@
 				4EB23512283DFA5500713CBB /* Bzip2Decompressor.swift in Sources */,
 				4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */,
 				4EB2354F283DFB8B00713CBB /* ZstdDecompressor.swift in Sources */,
+				4E7DC8B7285AF5120007392D /* PackageMenuCommands.swift in Sources */,
 				4EC7F2A027B53D990078F953 /* FileImportController.swift in Sources */,
 				4EBA841527D2575A00766DBE /* CarouselViewController.swift in Sources */,
 				4E9FC8892790637F00934FFE /* Preferences.swift in Sources */,

@@ -10,9 +10,12 @@ import UIKit
 import Plains
 
 class PromotedPackagesCarouselViewController: CarouselViewController {
+
 	var bannerItems = [PromotedPackageBanner]() {
-		didSet { updateState() }
+		didSet { updateBannerItems() }
 	}
+
+	private var packages = [Package]()
 
 	override init() {
 		super.init()
@@ -30,6 +33,33 @@ class PromotedPackagesCarouselViewController: CarouselViewController {
 		collectionView.register(PromotedPackageCarouselItemCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
 	}
 
+	private func updateBannerItems() {
+		let bannerItems = self.bannerItems
+
+		Task.detached {
+			let packages = bannerItems.map { PackageManager.shared.package(withIdentifier: $0.package) }
+			let items = zip(bannerItems, packages).compactMap { item, package -> CarouselItem? in
+				guard let package = package else {
+					return nil
+				}
+
+				return CarouselItem(title: (item.displayText ?? true) ? item.title : "",
+														subtitle: nil,
+														url: package.depictionURL ?? package.homepageURL,
+														imageURL: item.url)
+			}
+
+			await MainActor.run {
+				if items.isEmpty && !self.isLoading {
+					self.errorText = .localize("No Featured Packages")
+					self.isError = true
+				}
+				self.packages = packages.compact()
+				self.items = items
+			}
+		}
+	}
+
 	override func updateState() {
 		super.updateState()
 		if !bannerItems.isEmpty {
@@ -45,28 +75,23 @@ class PromotedPackagesCarouselViewController: CarouselViewController {
 }
 
 extension PromotedPackagesCarouselViewController {
-	override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-		return bannerItems.count
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PromotedPackageCarouselItemCollectionViewCell
-		cell.bannerItem = bannerItems[indexPath.item]
-		return cell
-	}
 
 	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let item = bannerItems[indexPath.item]
-		if let foundPackage = PackageManager.shared.packages.first(where: { package in package.identifier == item.package }) {
-			let controller = PackageViewController(package: foundPackage)
-			parent?.navigationController?.pushViewController(controller, animated: true)
-		} else {
-			// TODO: Put this somewhere more global
-			let alertController = UIAlertController(title: .localize("Couldn’t open package because it wasn’t found in your installed sources."),
-																							message: .localize("You may need to refresh sources to see this package."),
-																							preferredStyle: .alert)
-			alertController.addAction(UIAlertAction(title: .ok, style: .cancel, handler: nil))
-			present(alertController, animated: true)
+		Task.detached {
+			if let viewController = await PackageMenuCommands.packageViewController(identifier: item.package, sender: self) {
+				await self.parent?.navigationController?.pushViewController(viewController, animated: true)
+			}
 		}
 	}
+
+	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
+		let package = packages[indexPath.item]
+		let cell = collectionView.cellForItem(at: indexPath)!
+		return PackageMenuCommands.contextMenuConfiguration(for: package,
+																								 identifier: indexPath as NSCopying,
+																								 viewController: self,
+																								 sourceView: cell)
+	}
+
 }

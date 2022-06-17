@@ -30,10 +30,7 @@ class ErrorsViewController: ListCollectionViewController {
 	override class func createLayout() -> UICollectionViewCompositionalLayout {
 		let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
 																																											heightDimension: .estimated(44)),
-																								 subitems: [
-																									NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-																																																						heightDimension: .estimated(44)))
-																								 ])
+																									 subitems: [NSCollectionLayoutItem(layoutSize: .full)])
 		let section = NSCollectionLayoutSection(group: group)
 		section.boundarySupplementaryItems = [.header]
 		return UICollectionViewCompositionalLayout(section: section)

@@ -11,6 +11,8 @@ import Plains
 
 class HomeViewController: FlowListCollectionViewController {
 
+	private var errorCount: UInt = 0
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -38,6 +40,9 @@ class HomeViewController: FlowListCollectionViewController {
 	}
 
 	@objc private func refreshProgressDidChange() {
+		// Filter to only errors. Warnings are mostly annoying and not particularly useful.
+		errorCount = UInt(SourceRefreshController.shared.refreshErrors.count) + ErrorManager.shared.errorCount(at: .error)
+
 		DispatchQueue.main.async {
 			self.collectionView.reloadData()
 
@@ -45,11 +50,6 @@ class HomeViewController: FlowListCollectionViewController {
 			let percent = progress.fractionCompleted
 			self.navigationProgressBar?.setProgress(Float(percent), animated: true)
 		}
-	}
-
-	private var errorCount: UInt {
-		// Filter to only errors. Warnings are mostly annoying and not particularly useful.
-		UInt(SourceRefreshController.shared.refreshErrors.count) + ErrorManager.shared.errorCount(at: .error)
 	}
 
 	@objc private func refreshSources() {

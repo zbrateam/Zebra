@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CarouselViewController: UICollectionViewController {
+class CarouselViewController: ListCollectionViewController {
 	static let height: CGFloat = CarouselItemCollectionViewCell.size.height + (15 * 2)
 
 	var items = [CarouselItem]() {
@@ -30,30 +30,31 @@ class CarouselViewController: UICollectionViewController {
 	internal var activityIndicator: UIActivityIndicatorView!
 	internal var errorLabel: UILabel!
 
-	init() {
-		let layout = UICollectionViewFlowLayout()
-		layout.itemSize = CarouselItemCollectionViewCell.size
-		layout.scrollDirection = .horizontal
-		layout.minimumInteritemSpacing = 20
-		layout.sectionInset = UIEdgeInsets(top: 15, left: 20, bottom: 15, right: 20)
-		super.init(collectionViewLayout: layout)
-	}
+	private var dataSource: UICollectionViewDiffableDataSource<Int, CarouselItem>!
 
-	@available(*, unavailable)
-	required init?(coder _: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		let size = CarouselItemCollectionViewCell.size
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(size.width),
+																																											heightDimension: .absolute(size.height)),
+																									 subitems: [NSCollectionLayoutItem(layoutSize: .full)])
+		let section = NSCollectionLayoutSection(group: group)
+		section.interGroupSpacing = 20
+		section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20)
+		section.orthogonalScrollingBehavior = .groupPaging
+		return UICollectionViewCompositionalLayout(section: section)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		// TODO: Scroll snap/pagination centering on each item
-		collectionView.showsVerticalScrollIndicator = false
-		collectionView.showsHorizontalScrollIndicator = false
-		collectionView.alwaysBounceHorizontal = true
-		collectionView.decelerationRate = .fast
 		collectionView.backgroundColor = nil
 		collectionView.register(CarouselItemCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+
+		dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item in
+			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CarouselItemCollectionViewCell
+			cell.item = item
+			return cell
+		}
 
 		activityIndicator = UIActivityIndicatorView(style: .medium)
 		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +87,11 @@ class CarouselViewController: UICollectionViewController {
 			if isError {
 				isError = false
 			}
-			collectionView.reloadData()
+
+			var snapshot = NSDiffableDataSourceSnapshot<Int, CarouselItem>()
+			snapshot.appendSections([0])
+			snapshot.appendItems(items)
+			dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
 		}
 
 		collectionView.isUserInteractionEnabled = !isLoading && !isError
@@ -102,56 +107,21 @@ class CarouselViewController: UICollectionViewController {
 			isLoading = false
 		}
 	}
-
-	@objc private func copyItem(_ sender: UICommand) {
-		let index = sender.propertyList as! Int
-		let item = items[index]
-		UIPasteboard.general.string = item.url.absoluteString
-	}
-
-	@objc private func shareItem(_ sender: UICommand) {
-		let index = sender.propertyList as! Int
-		guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) else {
-			return
-		}
-		let item = items[index]
-		let viewController = UIActivityViewController(activityItems: [item.url], applicationActivities: nil)
-		viewController.popoverPresentationController?.sourceView = cell
-		viewController.popoverPresentationController?.sourceRect = cell.bounds
-		present(viewController, animated: true, completion: nil)
-	}
 }
 
-extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UICollectionViewDataSource, UICollectionViewDelegate
-	override func numberOfSections(in _: UICollectionView) -> Int {
-		1
-	}
-
-	override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-		items.count
-	}
-
-	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CarouselItemCollectionViewCell
-		cell.item = items[indexPath.item]
-		return cell
-	}
-
+extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UICollectionViewDelegate
 	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
+		let item = items[indexPath.item]
+		let cell = collectionView.cellForItem(at: indexPath)!
 		return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
-			// TODO:
+			// TODO: Preview safari vc?
 			nil
 		}, actionProvider: { _ in
 			UIMenu(children: [
-				UICommand(title: .copy,
-									image: UIImage(systemName: "doc.on.doc"),
-									action: #selector(self.copyItem),
-									propertyList: indexPath.item),
-				UICommand(title: .share,
-									image: UIImage(systemName: "square.and.arrow.up"),
-									action: #selector(self.shareItem),
-									propertyList: indexPath.item),
-			])
+				.openInBrowser(url: item.url, sender: self),
+				.copy(text: item.url?.absoluteString),
+				.share(text: item.title, url: item.url, sender: self, sourceView: cell)
+			].compact())
 		})
 	}
 
@@ -161,7 +131,9 @@ extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UIColl
 
 	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let item = items[indexPath.item]
-		URLController.open(url: item.url, sender: self, webSchemesOnly: true)
+		if let url = item.url {
+			URLController.open(url: url, sender: self, webSchemesOnly: true)
+		}
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {

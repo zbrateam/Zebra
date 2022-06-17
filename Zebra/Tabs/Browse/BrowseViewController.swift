@@ -31,7 +31,9 @@ class BrowseViewController: ListCollectionViewController {
 	}
 
 	private var sources = [Source]()
-	private var newsItems: [CarouselItem]?
+	private var newsItems: [CarouselItem]? {
+		didSet { carouselViewController?.items = newsItems ?? [] }
+	}
 
 	private var dataSource: UICollectionViewDiffableDataSource<Section, Value>!
 
@@ -220,18 +222,17 @@ class BrowseViewController: ListCollectionViewController {
 	}
 
 	private func fetchNews() {
-		Task(priority: .medium) {
+		Task.detached(priority: .medium) {
 			do {
 				if let cachedNews = RedditNewsFetcher.getCached() {
-					newsItems = cachedNews
 					await MainActor.run {
-						self.carouselViewController?.items = cachedNews
+						self.newsItems = cachedNews
 					}
 				}
 
-				newsItems = try await RedditNewsFetcher.fetch()
+				let newsItems = try await RedditNewsFetcher.fetch()
 				await MainActor.run {
-					self.carouselViewController?.items = newsItems!
+					self.newsItems = newsItems
 				}
 			} catch {
 				Logger().warning("Loading news failed: \(String(describing: error))")

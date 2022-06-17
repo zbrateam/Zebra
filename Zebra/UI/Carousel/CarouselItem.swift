@@ -8,9 +8,19 @@
 
 import Foundation
 
-struct CarouselItem: Codable {
+struct CarouselItem: Codable, Hashable {
+	internal var uuid = UUID()
+
 	let title: String
 	let subtitle: String?
-	let url: URL
+	let url: URL?
 	let imageURL: URL?
+
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(uuid)
+		hasher.combine(title)
+		hasher.combine(subtitle)
+		hasher.combine(url)
+		hasher.combine(imageURL)
+	}
 }

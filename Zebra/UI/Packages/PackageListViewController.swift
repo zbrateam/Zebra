@@ -40,6 +40,28 @@ enum PackageListSortOrder {
 	}
 }
 
+fileprivate class PackageListDataSource: UICollectionViewDiffableDataSource<Int, Package> {
+
+	var collation: UILocalizedIndexedCollation!
+	var sectionIndexes = [Int]()
+
+	override func indexTitles(for _: UICollectionView) -> [String]? {
+		return sectionIndexes.isEmpty ? nil : collation.sectionIndexTitles
+	}
+
+	override func collectionView(_: UICollectionView, indexPathForIndexTitle _: String, at index: Int) -> IndexPath {
+		if sectionIndexes.isEmpty {
+			return IndexPath(item: 0, section: 0)
+		}
+		let section = collation.section(forSectionIndexTitle: index)
+		if section >= sectionIndexes.count {
+			return IndexPath(item: 0, section: 0)
+		}
+		return IndexPath(item: sectionIndexes[section], section: 0)
+	}
+
+}
+
 class PackageListViewController: ListCollectionViewController {
 
 	enum Filter {
@@ -49,6 +71,8 @@ class PackageListViewController: ListCollectionViewController {
 		case search(query: String)
 		case favorites
 	}
+
+	private static let superHiddenPackages = ["base", "essential"]
 
 	var filter: Filter = .fixed(packages: []) {
 		didSet {
@@ -63,7 +87,6 @@ class PackageListViewController: ListCollectionViewController {
 	private var packages = [Package]() {
 		didSet { updatePackages() }
 	}
-	private var sectionIndexes = [Int]()
 	private var filteredCount = 0
 
 	private var isVisible = false
@@ -71,7 +94,7 @@ class PackageListViewController: ListCollectionViewController {
 	private var sortButton: SectionHeaderButton!
 	private var sortOrder = PackageListSortOrder.ascending
 
-	private var dataSource: UICollectionViewDiffableDataSource<Int, Package>!
+	private var dataSource: PackageListDataSource!
 
 	override class func createLayout() -> UICollectionViewCompositionalLayout {
 		UICollectionViewCompositionalLayout { _, environment in
@@ -100,14 +123,10 @@ class PackageListViewController: ListCollectionViewController {
 
 		sortButton = SectionHeaderButton(title: .localize("Sort"), image: UIImage(systemName: "line.3.horizontal.decrease"))
 		sortButton.showsMenuAsPrimaryAction = true
-		if #available(iOS 15, *) {
-			sortButton.menu = UIMenu(options: .singleSelection, children: [])
-		} else {
-			sortButton.menu = UIMenu(children: [])
-		}
+		sortButton.menu = UIMenu(children: [])
 		updateSortMenu()
 
-		dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, package in
+		dataSource = PackageListDataSource(collectionView: collectionView) { collectionView, indexPath, package in
 			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PackageCell", for: indexPath) as! PackageCollectionViewCell
 			cell.package = package
 			return cell
@@ -134,6 +153,7 @@ class PackageListViewController: ListCollectionViewController {
 			default: fatalError()
 			}
 		}
+		dataSource.collation = collation
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -154,17 +174,23 @@ class PackageListViewController: ListCollectionViewController {
 	}
 
 	@objc private func updateFilter() {
-		Task {
+		let filter = self.filter
+		let sortOrder = self.sortOrder
+
+		Task.detached(priority: .userInitiated) {
 			let title: String
 			let packages: [Package]
 
 			let maxRole = Preferences.roleFilter
 			var filteredCount = 0
-			let roleFilter: (Package) -> Bool = {
-				if $0.role.rawValue <= maxRole.rawValue {
+			let roleFilter: (Package) -> Bool = { package in
+				if Self.superHiddenPackages.contains(package.identifier) {
+					return false
+				}
+				if package.role.rawValue <= maxRole.rawValue {
 					return true
 				}
-				if $0.role != .cydia {
+				if package.role != .cydia {
 					filteredCount += 1
 				}
 				return false
@@ -243,74 +269,95 @@ class PackageListViewController: ListCollectionViewController {
 				}
 			}
 
+			let finalFilteredCount = filteredCount
 			await MainActor.run {
 				self.title = title
-				navigationItem.searchController!.title = title
-				self.filteredCount = filteredCount
+				self.navigationItem.searchController!.title = title
+				self.filteredCount = finalFilteredCount
 				self.packages = sortedPackages
 
 				switch filter {
 				case .search(_):
-					navigationItem.hidesSearchBarWhenScrolling = false
+					self.navigationItem.hidesSearchBarWhenScrolling = false
 
 				default:
-					navigationItem.hidesSearchBarWhenScrolling = true
+					self.navigationItem.hidesSearchBarWhenScrolling = true
 				}
 			}
 		}
 	}
 
 	private func updatePackages() {
-		// TODO: Fix section indexing - how do you do it with compositional layout?
-		switch Preferences.packageListSort {
-		case .alpha:
-			var sectionIndexes = Array(repeating: 0, count: self.collation.sectionTitles.count)
-			for package in self.packages {
-				let section = self.collation.section(for: package, collationStringSelector: #selector(getter: Package.name))
-				sectionIndexes[section] += 1
-			}
-			var tally = 0
-			for i in 0..<sectionIndexes.count {
-				let count = sectionIndexes[i]
-				sectionIndexes[i] = min(tally, self.packages.count - 1)
-				tally += count
-			}
-			self.sectionIndexes = sectionIndexes
+		let packages = self.packages
 
-		case .installedSize, .date:
-			self.sectionIndexes = []
+		Task.detached(priority: .userInitiated) {
+			var sectionIndexes = [Int]()
+
+			switch await self.traitCollection.horizontalSizeClass {
+			case .compact:
+				switch Preferences.packageListSort {
+				case .alpha:
+					sectionIndexes = await Array(repeating: 0, count: self.collation.sectionTitles.count)
+					for package in packages {
+						let section = await self.collation.section(for: package, collationStringSelector: #selector(getter: Package.name))
+						sectionIndexes[section] += 1
+					}
+					var tally = 0
+					for i in 0..<sectionIndexes.count {
+						let count = sectionIndexes[i]
+						sectionIndexes[i] = min(tally, packages.count - 1)
+						tally += count
+					}
+
+				case .installedSize, .date:
+					break
+				}
+
+			case .regular, .unspecified:
+				break
+
+			@unknown default:
+				break
+			}
+
+			var snapshot = NSDiffableDataSourceSnapshot<Int, Package>()
+			snapshot.appendSections([0])
+			snapshot.appendItems(packages)
+
+			let finalSectionIndexes = sectionIndexes
+			await MainActor.run {
+				self.dataSource.sectionIndexes = packages.isEmpty ? [] : finalSectionIndexes
+				self.collectionView.indexDisplayMode = finalSectionIndexes.isEmpty ? .alwaysHidden : .automatic
+			}
+			await self.dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
 		}
-
-		collectionView.indexDisplayMode = sectionIndexes.isEmpty ? .alwaysHidden : .automatic
-
-		var snapshot = NSDiffableDataSourceSnapshot<Int, Package>()
-		snapshot.appendSections([0])
-		snapshot.appendItems(packages)
-		dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
 	}
 
 	private func updateSortMenu() {
 		let currentSort = Preferences.packageListSort
 
-		var items = [UIMenuElement]()
-		for item in PackageListSort.allCases {
-			let icon = currentSort == item ? sortOrder.icon : nil
-			items.append(UICommand(title: item.title,
-														 image: icon,
-														 action: #selector(self.changeSortOrder),
-														 propertyList: item.rawValue,
-														 attributes: [],
-														 state: currentSort == item ? .on : .off)
-			)
+		var singleSelection = UIMenu.Options()
+		if #available(iOS 15, *) {
+			singleSelection = .singleSelection
 		}
-		sortButton.menu = sortButton.menu!.replacingChildren(items)
+
+		let sortMenu = UIMenu(title: .localize("Sort"),
+													options: singleSelection.union(.displayInline),
+													children: PackageListSort.allCases.map { item in
+			let icon = currentSort == item ? sortOrder.icon : nil
+			return UIAction(title: item.title,
+											image: icon,
+											state: currentSort == item ? .on : .off) { _ in
+				self.changeSortOrder(item)
+			}
+		})
+		sortButton.menu = sortButton.menu!.replacingChildren([sortMenu])
 	}
 
 	// MARK: - Actions
 
-	@objc private func changeSortOrder(_ sender: UICommand) {
+	private func changeSortOrder(_ newSort: PackageListSort) {
 		let currentSort = Preferences.packageListSort
-		let newSort = PackageListSort(rawValue: sender.propertyList as! Int)!
 		if currentSort == newSort {
 			sortOrder.toggle()
 		} else {
@@ -321,63 +368,17 @@ class PackageListViewController: ListCollectionViewController {
 		updateFilter()
 	}
 
-	@objc private func openInSafari(_ sender: UICommand) {
-		guard let index = sender.propertyList as? Int else {
-			return
-		}
-		let package = packages[index]
-		if let url = package.depictionURL ?? package.homepageURL {
-			URLController.open(url: url, sender: self, webSchemesOnly: true)
-		}
-	}
-
-	@objc private func sharePackage(_ sender: UICommand) {
-		guard let index = sender.propertyList as? Int else {
-			return
-		}
-		let package = packages[index]
-		guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) else {
-			return
-		}
-
-		let text = String(format: .localize("%@ by %@"),
-											package.name,
-											package.author?.name ?? package.maintainer?.name ?? .localize("Unknown"))
-		let url = package.depictionURL ?? package.homepageURL
-
-		let viewController = UIActivityViewController(activityItems: [text, url as Any].compact(),
-																									applicationActivities: nil)
-		viewController.popoverPresentationController?.sourceView = cell
-		viewController.popoverPresentationController?.sourceRect = cell.bounds
-		present(viewController, animated: true, completion: nil)
-	}
-
 }
 
-extension PackageListViewController { // UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+extension PackageListViewController { // UICollectionViewDelegate
 
 	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
 		let package = packages[indexPath.item]
-		return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: {
-			PackageViewController(package: package)
-		}, actionProvider: { _ in
-			var items = [UIMenuElement]()
-			if (package.depictionURL ?? package.homepageURL) != nil {
-				items += [
-					UICommand(title: .openInBrowser,
-										image: UIImage(systemName: "safari"),
-										action: #selector(self.openInSafari),
-										propertyList: indexPath.item)
-				]
-			}
-			items += [
-				UICommand(title: .share,
-									image: UIImage(systemName: "square.and.arrow.up"),
-									action: #selector(self.sharePackage),
-									propertyList: indexPath.item)
-			]
-			return UIMenu(children: items)
-		})
+		let cell = collectionView.cellForItem(at: indexPath)!
+		return PackageMenuCommands.contextMenuConfiguration(for: package,
+																												identifier: indexPath as NSCopying,
+																												viewController: self,
+																												sourceView: cell)
 	}
 
 	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -386,35 +387,12 @@ extension PackageListViewController { // UICollectionViewDataSource, UICollectio
 		navigationController?.pushViewController(viewController, animated: true)
 	}
 
-	override func indexTitles(for _: UICollectionView) -> [String]? {
-		return packages.isEmpty || sectionIndexes.isEmpty ? nil : collation.sectionIndexTitles
-	}
-
-	override func collectionView(_: UICollectionView, indexPathForIndexTitle _: String, at index: Int) -> IndexPath {
-		if packages.isEmpty || sectionIndexes.isEmpty {
-			return IndexPath(item: 0, section: 0)
-		}
-		let section = collation.section(forSectionIndexTitle: index)
-		if section >= sectionIndexes.count {
-			return IndexPath(item: 0, section: 0)
-		}
-		return IndexPath(item: sectionIndexes[section], section: 0)
-	}
-
 }
 
 extension PackageListViewController: UISearchControllerDelegate, UISearchResultsUpdating {
 
-	func willPresentSearchController(_ searchController: UISearchController) {
-		collectionView.indexDisplayMode = .alwaysHidden
-	}
-
-	func willDismissSearchController(_ searchController: UISearchController) {
-		collectionView.indexDisplayMode = sectionIndexes.isEmpty ? .alwaysHidden : .automatic
-	}
-
 	func updateSearchResults(for searchController: UISearchController) {
-
+		// TODO: Search!
 	}
 
 }
