@@ -7,33 +7,71 @@
 //
 
 import Foundation
-import SwiftZSTD
 
 class ZstdDecompressor: DecompressorProtocol {
-	private static let bufferSize = 65536
+	struct ZstdError: Error {
+		private let errorString: String
+
+		init(errno: errno_t) {
+			errorString = String(utf8String: strerror(errno)) ?? "Unknown"
+		}
+
+		init?(error: size_t) {
+			if ZSTD_isError(error) == 0 {
+				return nil
+			}
+			if let string = ZSTD_getErrorName(error) {
+				errorString = String(utf8String: string) ?? "Unknown"
+			} else {
+				errorString = "Unknown"
+			}
+		}
+
+		var localizedDescription: String { errorString }
+	}
 
 	static func decompress(url: URL, destinationURL: URL, format: Decompressor.Format) async throws {
-		let sourceHandle = try FileHandle(forReadingFrom: url)
-		defer { try? sourceHandle.close() }
+		guard let sourceHandle = fopen(url.path.cString, "rb") else {
+			throw ZstdError(errno: EBADF)
+		}
+		defer { fclose(sourceHandle) }
 
 		// Make an empty file at the destination.
 		try Data().write(to: destinationURL)
 		let destinationHandle = try FileHandle(forWritingTo: destinationURL)
 		defer { try? destinationHandle.close() }
 
-		let stream = ZSTDStream()
-		try stream.startDecompression()
+		let stream = ZSTD_createDStream()
+		defer { ZSTD_freeDStream(stream) }
+		var sourceRead = ZSTD_initDStream(stream)
+		if let error = ZstdError(error: sourceRead) {
+			throw error
+		}
+
+		let sourceBuffer = UnsafeMutablePointer<Int8>.allocate(capacity: ZSTD_DStreamInSize())
+		let destinationCapacity = ZSTD_DStreamOutSize()
+		let destinationBuffer = UnsafeMutablePointer<Int8>.allocate(capacity: destinationCapacity)
 
 		while true {
-			let chunk = sourceHandle.readData(ofLength: bufferSize)
-			var isDone = false
-			destinationHandle.write(try stream.decompressionProcess(dataIn: chunk, isDone: &isDone))
-			if chunk.count < bufferSize || isDone {
+			let sourceCount = fread(sourceBuffer, 1, sourceRead, sourceHandle)
+			if sourceCount == 0 {
 				break
+			}
+
+			var inBuffer = ZSTD_inBuffer(src: sourceBuffer, size: sourceCount, pos: 0)
+			var outBuffer = ZSTD_outBuffer(dst: destinationBuffer, size: destinationCapacity, pos: 0)
+
+			while inBuffer.pos < inBuffer.size {
+				sourceRead = ZSTD_decompressStream(stream, &outBuffer, &inBuffer)
+				if let error = ZstdError(error: sourceRead) {
+					throw error
+				}
+
+				let data = Data(bytes: outBuffer.dst, count: outBuffer.size)
+				try destinationHandle.write(contentsOf: data)
 			}
 		}
 
-		try sourceHandle.close()
 		try destinationHandle.close()
 	}
 }

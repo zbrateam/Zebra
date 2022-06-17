@@ -7,6 +7,7 @@
 
 #import "MobileGestalt.h"
 #import <bzlib.h>
+#import <zstd.h>
 
 #import "ZBDummySource.h"
 #import "ZBSourceAddViewController.h"

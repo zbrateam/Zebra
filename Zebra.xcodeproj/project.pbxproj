@@ -15,10 +15,6 @@
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */; };
 		49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */; };
-		4E01F9352840B6780051A64F /* SwiftZSTD-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235A2283E180E00713CBB /* SwiftZSTD-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E01F9362840B67C0051A64F /* zstd_errors.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235B1283E18EB00713CBB /* zstd_errors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E01F9372840B67E0051A64F /* zstd.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235B0283E18EB00713CBB /* zstd.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4E01F9382840B6850051A64F /* StreamHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EB235A7283E181000713CBB /* StreamHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E138C64284B1BBC0058D94D /* Signpost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C63284B1BBC0058D94D /* Signpost.swift */; };
 		4E138C66284BC2B00058D94D /* GzipDecompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C65284BC2B00058D94D /* GzipDecompressor.swift */; };
 		4E138C68284C690C0058D94D /* ProgressDonut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C67284C690C0058D94D /* ProgressDonut.swift */; };
@@ -39,6 +35,7 @@
 		4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339AE227D08F7800F013C1 /* FileTypes.swift */; };
 		4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339B7F27D0E45300F013C1 /* URL+Additions.swift */; };
 		4E3B564F2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B564E2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift */; };
+		4E5F41C6285C2952003658AA /* libzstd.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB235B5283E1A7300713CBB /* libzstd.xcframework */; };
 		4E6F94472856434D002F5BD9 /* CSProgress+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */; };
 		4E6F945128564BD7002F5BD9 /* CSProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F945028564BD7002F5BD9 /* CSProgress.swift */; };
 		4E7DC8B128589B0C0007392D /* BaseListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */; };
@@ -73,11 +70,6 @@
 		4EB23510283DFA3500713CBB /* AppleDecompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2350F283DFA3500713CBB /* AppleDecompressor.swift */; };
 		4EB23512283DFA5500713CBB /* Bzip2Decompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB23511283DFA5500713CBB /* Bzip2Decompressor.swift */; };
 		4EB2354F283DFB8B00713CBB /* ZstdDecompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2354E283DFB8B00713CBB /* ZstdDecompressor.swift */; };
-		4EB235AB283E181100713CBB /* StreamHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB235A4283E180F00713CBB /* StreamHelpers.m */; };
-		4EB235AC283E181100713CBB /* ZSTDProcessorCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB235A5283E181000713CBB /* ZSTDProcessorCommon.swift */; };
-		4EB235AE283E181100713CBB /* ZSTDStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB235A8283E181000713CBB /* ZSTDStream.swift */; };
-		4EB235B2283E198F00713CBB /* libSwiftZSTD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB2359B283E016E00713CBB /* libSwiftZSTD.a */; };
-		4EB235B6283E1A7300713CBB /* libzstd.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB235B5283E1A7300713CBB /* libzstd.xcframework */; };
 		4EB8C4812858340400FFC744 /* WakeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8C4802858340400FFC744 /* WakeLock.swift */; };
 		4EB8C483285839AF00FFC744 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8C482285839AF00FFC744 /* ProgressBar.swift */; };
 		4EB8C48528583C5500FFC744 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB8C48428583C5500FFC744 /* NavigationBar.swift */; };
@@ -157,26 +149,10 @@
 			remoteGlobalIDString = 4E6F944D28564BD7002F5BD9;
 			remoteInfo = CSProgress;
 		};
-		4EB235B3283E198F00713CBB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 89C5FDD521B1B13700A10E58 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4EB2359A283E016E00713CBB;
-			remoteInfo = SwiftZSTD;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4E6F944C28564BD7002F5BD9 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EB23599283E016E00713CBB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
@@ -295,7 +271,6 @@
 		4EB2350F283DFA3500713CBB /* AppleDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDecompressor.swift; sourceTree = "<group>"; };
 		4EB23511283DFA5500713CBB /* Bzip2Decompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bzip2Decompressor.swift; sourceTree = "<group>"; };
 		4EB2354E283DFB8B00713CBB /* ZstdDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZstdDecompressor.swift; sourceTree = "<group>"; };
-		4EB2359B283E016E00713CBB /* libSwiftZSTD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSwiftZSTD.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EB235A2283E180E00713CBB /* SwiftZSTD-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftZSTD-Bridging-Header.h"; sourceTree = "<group>"; };
 		4EB235A4283E180F00713CBB /* StreamHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamHelpers.m; sourceTree = "<group>"; };
 		4EB235A5283E181000713CBB /* ZSTDProcessorCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSTDProcessorCommon.swift; sourceTree = "<group>"; };
@@ -519,24 +494,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4EB23598283E016E00713CBB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EB235B6283E1A7300713CBB /* libzstd.xcframework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		89C5FDDA21B1B13700A10E58 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E5F41C6285C2952003658AA /* libzstd.xcframework in Frameworks */,
 				4E2631782848A1730072B2BD /* libbz2.tbd in Frameworks */,
 				4EBF6FBB2841084600639096 /* Plains.framework in Frameworks */,
 				E1428E7927794FC4005B0885 /* Evander in Frameworks */,
 				4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */,
 				4EA26EC127CCF52E0019A5AA /* SDWebImage in Frameworks */,
-				4EB235B2283E198F00713CBB /* libSwiftZSTD.a in Frameworks */,
 				4E87FBB52856DB96005C4704 /* libCSProgress.a in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */,
@@ -1117,7 +1084,6 @@
 			children = (
 				89C5FDDD21B1B13700A10E58 /* Zebra.app */,
 				4E1A1C6127B69F9A00B6DC9A /* ZebraCatalystHelper.framework */,
-				4EB2359B283E016E00713CBB /* libSwiftZSTD.a */,
 				4E6F944E28564BD7002F5BD9 /* libCSProgress.a */,
 			);
 			name = Products;
@@ -1318,17 +1284,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		4E01F9342840B6630051A64F /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4E01F9352840B6780051A64F /* SwiftZSTD-Bridging-Header.h in Headers */,
-				4E01F9362840B67C0051A64F /* zstd_errors.h in Headers */,
-				4E01F9372840B67E0051A64F /* zstd.h in Headers */,
-				4E01F9382840B6850051A64F /* StreamHelpers.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4E1A1C5C27B69F9A00B6DC9A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1376,24 +1331,6 @@
 			productReference = 4E6F944E28564BD7002F5BD9 /* libCSProgress.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		4EB2359A283E016E00713CBB /* SwiftZSTD */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4EB2359F283E016E00713CBB /* Build configuration list for PBXNativeTarget "SwiftZSTD" */;
-			buildPhases = (
-				4E01F9342840B6630051A64F /* Headers */,
-				4EB23597283E016E00713CBB /* Sources */,
-				4EB23598283E016E00713CBB /* Frameworks */,
-				4EB23599283E016E00713CBB /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SwiftZSTD;
-			productName = SwiftZSTD;
-			productReference = 4EB2359B283E016E00713CBB /* libSwiftZSTD.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		89C5FDDC21B1B13700A10E58 /* Zebra */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89C5FDF321B1B13800A10E58 /* Build configuration list for PBXNativeTarget "Zebra" */;
@@ -1407,7 +1344,6 @@
 			);
 			dependencies = (
 				4E1A1C7727B6A31800B6DC9A /* PBXTargetDependency */,
-				4EB235B4283E198F00713CBB /* PBXTargetDependency */,
 				4E87FBB72856DB96005C4704 /* PBXTargetDependency */,
 			);
 			name = Zebra;
@@ -1437,10 +1373,6 @@
 					};
 					4E6F944D28564BD7002F5BD9 = {
 						CreatedOnToolsVersion = 13.4.1;
-					};
-					4EB2359A283E016E00713CBB = {
-						CreatedOnToolsVersion = 13.4;
-						LastSwiftMigration = 1340;
 					};
 					89C5FDDC21B1B13700A10E58 = {
 						CreatedOnToolsVersion = 10.1;
@@ -1507,7 +1439,6 @@
 			targets = (
 				89C5FDDC21B1B13700A10E58 /* Zebra */,
 				4E1A1C6027B69F9A00B6DC9A /* ZebraCatalystHelper */,
-				4EB2359A283E016E00713CBB /* SwiftZSTD */,
 				4E6F944D28564BD7002F5BD9 /* CSProgress */,
 			);
 		};
@@ -1560,16 +1491,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E6F945128564BD7002F5BD9 /* CSProgress.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4EB23597283E016E00713CBB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4EB235AC283E181100713CBB /* ZSTDProcessorCommon.swift in Sources */,
-				4EB235AE283E181100713CBB /* ZSTDStream.swift in Sources */,
-				4EB235AB283E181100713CBB /* StreamHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1685,11 +1606,6 @@
 			isa = PBXTargetDependency;
 			target = 4E6F944D28564BD7002F5BD9 /* CSProgress */;
 			targetProxy = 4E87FBB62856DB96005C4704 /* PBXContainerItemProxy */;
-		};
-		4EB235B4283E198F00713CBB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4EB2359A283E016E00713CBB /* SwiftZSTD */;
-			targetProxy = 4EB235B3283E198F00713CBB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1871,52 +1787,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		4EB235A0283E016E00713CBB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "Vendor/SwiftZSTD/SwiftZSTD-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4EB235A1283E016E00713CBB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Vendor/SwiftZSTD/SwiftZSTD-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2221,15 +2091,6 @@
 			buildConfigurations = (
 				4E6F945328564BD7002F5BD9 /* Debug */,
 				4E6F945428564BD7002F5BD9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		4EB2359F283E016E00713CBB /* Build configuration list for PBXNativeTarget "SwiftZSTD" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4EB235A0283E016E00713CBB /* Debug */,
-				4EB235A1283E016E00713CBB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
