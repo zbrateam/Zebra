@@ -41,6 +41,7 @@
 		4E7DC8B128589B0C0007392D /* BaseListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */; };
 		4E7DC8B32858A2990007392D /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */; };
 		4E7DC8B5285A270E0007392D /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */; };
+		4E7DC8B9285B3FE70007392D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B8285B3FE70007392D /* NetworkController.swift */; };
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
 		4E840B3B27D6484900039938 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3A27D6484900039938 /* GradientView.swift */; };
 		4E840B3E27D6F77400039938 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 4E840B4027D6F77400039938 /* Localizable.stringsdict */; };
@@ -244,6 +245,7 @@
 		4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
+		4E7DC8B8285B3FE70007392D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
 		4E840B3A27D6484900039938 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4E840B3F27D6F77400039938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -628,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				4EBA840727D104A300766DBE /* HTTPRequest.swift */,
+				4E7DC8B8285B3FE70007392D /* NetworkController.swift */,
 			);
 			path = HTTP;
 			sourceTree = "<group>";
@@ -1567,6 +1570,7 @@
 				4EC7F28F27B2B55C0078F953 /* URLController.swift in Sources */,
 				4E8F843527D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift in Sources */,
 				4EBA841927D260D100766DBE /* CarouselItem.swift in Sources */,
+				4E7DC8B9285B3FE70007392D /* NetworkController.swift in Sources */,
 				E1428E6F27791624005B0885 /* Canister.swift in Sources */,
 				4E138C68284C690C0058D94D /* ProgressDonut.swift in Sources */,
 				F057924E27D7C37500E9B477 /* PromotedPackagesFetcher.swift in Sources */,

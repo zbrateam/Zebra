@@ -47,6 +47,16 @@ class Decompressor {
 		let signpost = Signpost(subsystem: Self.subsystem, name: "Decompress", format: "%@ (%@)", url.absoluteString, String(describing: format))
 		signpost.begin()
 		try await format.decompressorType.decompress(url: url, destinationURL: destinationURL, format: format)
+
+		// Copy over the last modified date
+		if let values = try? url.resourceValues(forKeys: [.contentModificationDateKey]),
+			 let date = values.contentModificationDate {
+			var values = URLResourceValues()
+			values.contentModificationDate = date
+			var url = destinationURL
+			try url.setResourceValues(values)
+		}
+
 		try FileManager.default.removeItem(at: url)
 		signpost.end()
 	}

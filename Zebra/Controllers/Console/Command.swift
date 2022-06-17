@@ -68,7 +68,7 @@ class Command {
 	@discardableResult
 	class func execute(_ command: String, arguments: [String]?, asRoot: Bool = false) async throws -> String? {
 		return try await withCheckedThrowingContinuation { result in
-			Task(priority: .userInitiated) {
+			Task.detached(priority: .userInitiated) {
 				result.resume(returning: try self.executeSync(command, arguments: arguments, asRoot: asRoot))
 			}
 		}
@@ -276,8 +276,8 @@ class Command {
 
 	func execute() async throws -> Int32 {
 		return try await withCheckedThrowingContinuation { result in
-			Task {
-				result.resume(returning: try executeSync())
+			Task.detached {
+				result.resume(returning: try self.executeSync())
 			}
 		}
 	}

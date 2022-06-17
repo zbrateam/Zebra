@@ -138,6 +138,24 @@ enum Architecture: String {
 		#endif
 	}
 
+	var performanceThreads: Int {
+		if let value = sysctlValue(key: "hw.perflevel0.logicalcpu") ?? sysctlValue(key: "hw.ncpu"),
+			 let intValue = Int(value) {
+			return intValue
+		}
+		// Safe fallback
+		return 4
+	}
+
+	var efficiencyThreads: Int {
+		if let value = sysctlValue(key: "hw.perflevel1.logicalcpu") ?? sysctlValue(key: "hw.ncpu"),
+			 let intValue = Int(value) {
+			return intValue
+		}
+		// Safe fallback
+		return 4
+	}
+
 	private func sysctlValue(key: String) -> String? {
 		var size = size_t()
 		sysctlbyname(key, nil, &size, nil, 0)
@@ -159,7 +177,7 @@ enum Architecture: String {
 		case .tv:
 			return false
 		case .mac:
-#if targetEnvironment(macCatalyst)
+			#if targetEnvironment(macCatalyst)
 			if let powerSourcesInfo = IOPSCopyPowerSourcesInfo()?.takeUnretainedValue(),
 				 let powerSourcesList = IOPSCopyPowerSourcesList(powerSourcesInfo)?.takeUnretainedValue() as? [CFTypeRef] {
 				return powerSourcesList.contains {
@@ -167,7 +185,7 @@ enum Architecture: String {
 					return description["Type"] as? String == "InternalBattery"
 				}
 			}
-#endif
+			#endif
 			return false
 		@unknown default:
 			return true
@@ -176,16 +194,13 @@ enum Architecture: String {
 
 	var deviceSymbolName: String {
 		switch UIDevice.current.userInterfaceIdiom {
-		case .phone, .carPlay, .unspecified:
-			return "iphone"
-		case .pad:
-			return "ipad"
-		case .tv:
-			return "display"
-		case .mac:
-			return UIDevice.current.isPortable ? "laptopcomputer" : "desktopcomputer"
-		@unknown default:
-			return "iphone"
+		case .phone:       return "iphone"
+		case .pad:         return "ipad"
+		case .tv:          return "appletv.fill"
+		case .mac:         return isPortable ? "laptopcomputer" : "desktopcomputer"
+		case .carPlay:     return "car.fill"
+		case .unspecified: return "questionmark.app.dashed"
+		@unknown default:  return "questionmark.app.dashed"
 		}
 	}
 
@@ -207,12 +222,13 @@ enum Architecture: String {
 			return "desktopcomputer"
 		} else if machine.hasPrefix("Macmini") {
 			return "macmini"
-		} else if machine.hasPrefix("MacPro1,") || machine.hasPrefix("MacPro2,") || machine.hasPrefix("MacPro3,") || machine.hasPrefix("MacPro4,") || machine.hasPrefix("MacPro5,") {
-			return "macpro.gen1"
-		} else if machine.hasPrefix("MacPro6,") {
-			return "macpro.gen2"
-		} else if machine.hasPrefix("MacPro") {
-			return "macpro.gen3"
+		} else if machine.hasPrefix("MacPro"),
+							let majorModel = Int(machine.replacingOccurrences(regex: "^MacPro(\\d+),.*$", with: "$1")) {
+			switch majorModel {
+			case 1...5: return "macpro.gen1"
+			case 6:     return "macpro.gen2"
+			default:    return "macpro.gen3"
+			}
 		}
 		return deviceSymbolName
 	}

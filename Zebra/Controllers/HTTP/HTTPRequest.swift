@@ -8,13 +8,66 @@
 
 import Foundation
 
+enum HTTPError: Error {
+	case general(error: Error)
+	case statusCode(statusCode: Int, response: HTTPURLResponse)
+	case badResponse
+
+	var response: HTTPURLResponse? {
+		switch self {
+		case .general(_), .badResponse:
+			return nil
+		case .statusCode(_, let response):
+			return response
+		}
+	}
+
+	private var statusCodeString: String {
+		switch self {
+		case .statusCode(let statusCode, _):
+			return "\(statusCode) \(HTTPURLResponse.localizedString(forStatusCode: statusCode).localizedCapitalized)"
+
+		default: fatalError()
+		}
+	}
+
+	var localizedDescription: String {
+		switch self {
+		case .general(let error):
+			return error.localizedDescription
+
+		case .statusCode(let statusCode, _):
+			switch statusCode {
+			case 401, 403:
+				return "\(String.localize("The server denied access.")) (\(statusCodeString))"
+			case 402:
+				return "\(String.localize("The server denied access because you haven’t purchased this item.")) (\(statusCodeString))"
+			case 500..<600:
+				return "\(String.localize("The server is temporarily experiencing issues. Try again later.")) (\(statusCodeString))"
+			default:
+				return "\(String.localize("The server returned an unexpected error.")) (\(statusCodeString))"
+			}
+
+		case .badResponse:
+			return .localize("The server returned an unexpected response.")
+		}
+	}
+}
+
 class HTTPRequest {
 
-	static func data(for request: URLRequest) async throws -> (data: Data, response: HTTPURLResponse) {
+	struct Response<T> {
+		let statusCode: Int
+		let data: T?
+		let response: HTTPURLResponse?
+		let error: Error?
+	}
+
+	static func data(session: URLSession = .shared, for request: URLRequest) async throws -> (data: Data, response: HTTPURLResponse) {
 		return try await withCheckedThrowingContinuation { result in
 			let task = URLSession.shared.dataTask(with: request) { data, response, error in
 				do {
-					if let error = self.error(for: response, error: error) {
+					if let error = self.error(for: response, error: error, forAsync: true) {
 						throw error
 					}
 					guard let data = data,
@@ -30,22 +83,44 @@ class HTTPRequest {
 		}
 	}
 
-	static func json<T: Codable>(for request: URLRequest) async throws -> T {
-		let (data, _) = try await data(for: request)
+	static func json<T: Codable>(session: URLSession = .shared, for request: URLRequest) async throws -> T {
+		let (data, _) = try await data(session: session, for: request)
 		return try JSONDecoder().decode(T.self, from: data)
 	}
 
-	private static func error(for response: URLResponse?, error: Error?) -> NSError? {
+	static func download(session: URLSession = .shared, for request: URLRequest, completion: @escaping (Response<URL>) -> Void) {
+		let task = session.downloadTask(with: request) { url, response, error in
+			if let error = self.error(for: response, error: error) {
+				completion(Response(statusCode: 0, data: nil, response: nil, error: error))
+				return
+			}
+			guard let url = url,
+						let response = response as? HTTPURLResponse else {
+				completion(Response(statusCode: 0, data: url, response: nil, error: HTTPError.badResponse))
+				return
+			}
+			completion(Response(statusCode: response.statusCode, data: url, response: response, error: nil))
+		}
+		task.resume()
+	}
+
+	private static func error(for response: URLResponse?, error: Error?, forAsync: Bool = false) -> Error? {
 		if let error = error {
-			return error as NSError
+			return HTTPError.general(error: error)
 		}
+
 		guard let response = response as? HTTPURLResponse else {
-			return NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
+			return HTTPError.badResponse
 		}
-		if response.statusCode < 200 || response.statusCode >= 400 {
-			return NSError(domain: NSURLErrorDomain, code: response.statusCode, userInfo: [
-				NSLocalizedDescriptionKey: "\(response.statusCode) \(HTTPURLResponse.localizedString(forStatusCode: response.statusCode))"
-			])
+
+		if forAsync {
+			switch response.statusCode {
+			case 200..<300:
+				return nil
+
+			default:
+				return HTTPError.statusCode(statusCode: response.statusCode, response: response)
+			}
 		}
 		return nil
 	}
