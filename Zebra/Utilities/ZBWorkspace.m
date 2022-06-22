@@ -7,6 +7,7 @@
 //
 
 #import "ZBWorkspace.h"
+@import CoreServices;
 
 #if TARGET_OS_MACCATALYST
 @interface NSWorkspace : NSObject
