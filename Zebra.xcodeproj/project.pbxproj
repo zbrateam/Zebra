@@ -36,6 +36,7 @@
 		4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339B7F27D0E45300F013C1 /* URL+Additions.swift */; };
 		4E3B564F2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B564E2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift */; };
 		4E5F41C6285C2952003658AA /* libzstd.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB235B5283E1A7300713CBB /* libzstd.xcframework */; };
+		4E5F41CD285CB723003658AA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5F41CC285CB723003658AA /* Kingfisher */; };
 		4E6F94472856434D002F5BD9 /* CSProgress+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */; };
 		4E6F945128564BD7002F5BD9 /* CSProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F945028564BD7002F5BD9 /* CSProgress.swift */; };
 		4E7DC8B128589B0C0007392D /* BaseListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */; };
@@ -61,7 +62,6 @@
 		4EA26EA627CCBD3B0019A5AA /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EA527CCBD3B0019A5AA /* LoadingViewController.swift */; };
 		4EA26EB727CCDAC80019A5AA /* BaseSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EB627CCDAC80019A5AA /* BaseSceneDelegate.swift */; };
 		4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */; };
-		4EA26EC127CCF52E0019A5AA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC027CCF52E0019A5AA /* SDWebImage */; };
 		4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC327CCF6500019A5AA /* DepictionKit */; };
 		4EA2F1DD27DA2A0D0080DC35 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */; };
 		4EA893DD27DDABD600E2EC7A /* sandboxed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4EA893DC27DDABD600E2EC7A /* sandboxed.json */; };
@@ -507,10 +507,10 @@
 				4EBF6FBB2841084600639096 /* Plains.framework in Frameworks */,
 				E1428E7927794FC4005B0885 /* Evander in Frameworks */,
 				4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */,
-				4EA26EC127CCF52E0019A5AA /* SDWebImage in Frameworks */,
 				4E87FBB52856DB96005C4704 /* libCSProgress.a in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */,
+				4E5F41CD285CB723003658AA /* Kingfisher in Frameworks */,
 				E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */,
 				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
 			);
@@ -1355,8 +1355,8 @@
 			name = Zebra;
 			packageProductDependencies = (
 				E1428E7827794FC4005B0885 /* Evander */,
-				4EA26EC027CCF52E0019A5AA /* SDWebImage */,
 				4EA26EC327CCF6500019A5AA /* DepictionKit */,
+				4E5F41CC285CB723003658AA /* Kingfisher */,
 			);
 			productName = Zebra;
 			productReference = 89C5FDDD21B1B13700A10E58 /* Zebra.app */;
@@ -1437,7 +1437,7 @@
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			packageReferences = (
 				E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */,
-				4EA26EBF27CCF52E0019A5AA /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				4E5F41CB285CB723003658AA /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
 			projectDirPath = "";
@@ -2124,12 +2124,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4EA26EBF27CCF52E0019A5AA /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		4E5F41CB285CB723003658AA /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				minimumVersion = 7.0.0;
 			};
 		};
 		E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */ = {
@@ -2143,10 +2143,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4EA26EC027CCF52E0019A5AA /* SDWebImage */ = {
+		4E5F41CC285CB723003658AA /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4EA26EBF27CCF52E0019A5AA /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
+			package = 4E5F41CB285CB723003658AA /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		4EA26EC327CCF6500019A5AA /* DepictionKit */ = {
 			isa = XCSwiftPackageProductDependency;

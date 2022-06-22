@@ -8,7 +8,7 @@
 
 import UIKit
 import os.log
-import SDWebImage
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,7 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		_ = SourceRefreshController.shared
 
-		SDImageCache.shared.config.maxDiskAge = 1 * 24 * 60 * 60 // 1 day
+		KingfisherManager.shared.defaultOptions = [
+			.transition(.fade(0.2)),
+			.cacheOriginalImage,
+			.backgroundDecode
+		]
+		KingfisherManager.shared.downloader.sessionConfiguration = URLSession.image.configuration
 
 		UITabBarItem.appearance().badgeColor = .badge
 

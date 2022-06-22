@@ -11,20 +11,28 @@ import Foundation
 extension URLSession {
 
 	static let standard: URLSession = {
-		let config = URLSessionConfiguration.ephemeral.copy() as! URLSessionConfiguration
-		// Disable setting or storing cookies. Requests made via zbra_standardSession shouldn’t be
-		// using cookies.
+		let config = URLSessionConfiguration.default.copy() as! URLSessionConfiguration
 		config.httpCookieStorage = nil
+		config.httpCookieAcceptPolicy = .never
+		config.httpAdditionalHeaders = URLController.httpHeaders
+		config.tlsMinimumSupportedProtocolVersion = .TLSv12
+		return URLSession(configuration: config)
+	}()
+
+	static let image: URLSession = {
+		let config = URLSessionConfiguration.ephemeral.copy() as! URLSessionConfiguration
+		config.urlCache = nil
+		config.httpCookieStorage = nil
+		config.httpCookieAcceptPolicy = .never
 		config.httpAdditionalHeaders = URLController.httpHeaders
 		config.tlsMinimumSupportedProtocolVersion = .TLSv12
 		return URLSession(configuration: config)
 	}()
 
 	static let download: URLSession = {
-		let config = URLSessionConfiguration.default.copy() as! URLSessionConfiguration
-		// Disable setting or storing cookies. Requests made via zbra_standardSession shouldn’t be
-		// using cookies.
-		config.httpMaximumConnectionsPerHost = 8
+		let config = URLSessionConfiguration.ephemeral.copy() as! URLSessionConfiguration
+		config.httpCookieStorage = nil
+		config.httpCookieAcceptPolicy = .never
 		config.httpAdditionalHeaders = URLController.aptHeaders
 		config.tlsMinimumSupportedProtocolVersion = .TLSv12
 		return URLSession(configuration: config)

@@ -7,21 +7,16 @@
 //
 
 import UIKit
-import SDWebImage
 
 class IconImageView: UIView {
 
 	var image: UIImage? {
 		get { imageView.image }
 		set {
-			imageView.sd_cancelCurrentImageLoad()
+			imageView.load(url: nil)
 			imageView.image = newValue
 		}
 	}
-	var imageURL: URL? {
-		didSet { updateImageURL() }
-	}
-	var fallbackImage: UIImage?
 
 	private var backgroundView: UIView!
 	private var imageView: UIImageView!
@@ -44,7 +39,6 @@ class IconImageView: UIView {
 		imageView.layer.cornerCurve = .continuous
 		imageView.layer.minificationFilter = .trilinear
 		imageView.layer.magnificationFilter = .trilinear
-		imageView.sd_imageTransition = .fade(duration: 0.2)
 		addSubview(imageView)
 
 		borderView = UIView(frame: bounds)
@@ -78,53 +72,8 @@ class IconImageView: UIView {
 		borderView.layer.borderColor = UIColor.separator.cgColor
 	}
 
-	func setImageURL(_ imageURL: URL, fallbackImage: UIImage? = nil) {
-		self.fallbackImage = fallbackImage
-		self.imageURL = imageURL
-	}
-
-	private func loadImage(url: URL, completion: SDExternalCompletionBlock? = nil) {
-		imageView.sd_imageTransition = .fade(duration: 0.2)
-		imageView.sd_setImage(with: url,
-													placeholderImage: fallbackImage,
-													options: [.delayPlaceholder, .decodeFirstFrameOnly, .scaleDownLargeImages],
-													completed: completion)
-	}
-
-	private func updateImageURL() {
-		imageView.sd_cancelCurrentImageLoad()
-
-		guard let imageURL = imageURL,
-					var url = URLComponents(url: imageURL, resolvingAgainstBaseURL: true) else {
-			imageView.image = fallbackImage
-			return
-		}
-
-		imageView.image = nil
-
-		// TODO: The retina scaling fallback is broken
-		let scale = window?.screen.scale ?? UIScreen.main.scale
-		if true||scale == 1 {
-			loadImage(url: imageURL)
-		} else {
-			// Try native scale first, falling back to original url.
-			var fileBaseName = (imageURL.lastPathComponent as NSString).deletingPathExtension
-			fileBaseName = fileBaseName.replacingOccurrences(regex: "@\\d+x$", with: "")
-
-			let numberFormatter = NumberFormatter()
-			numberFormatter.maximumFractionDigits = 1
-
-			var pathComponents = imageURL.pathComponents
-			pathComponents.removeLast()
-			pathComponents.append("\(fileBaseName)@\(numberFormatter.string(for: scale)!)x.\(imageURL.pathExtension)")
-			url.path = pathComponents.joined(separator: "/")
-			loadImage(url: url.url!) { image, _, _, _ in
-				if image == nil {
-					// Fall back to original url.
-					self.imageView.sd_setImage(with: imageURL)
-				}
-			}
-		}
+	func setImageURL(_ url: URL?, usingScale: Bool = true, fallbackImage: UIImage? = nil) {
+		imageView.load(url: url, usingScale: usingScale, fallbackImage: fallbackImage)
 	}
 
 }

@@ -17,7 +17,6 @@
 
 #import <Plains/Plains.h>
 #import "Zebra-Swift.h"
-#import <SDWebImage/SDWebImage.h>
 
 @interface ZBSourceImportViewController () {
     double individualIncrement;
@@ -225,7 +224,7 @@
         cell.sourceLabel.text = self.titles[source.UUID];
         cell.urlLabel.text = source.repositoryURI;
 
-        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
         
         return cell;
     }

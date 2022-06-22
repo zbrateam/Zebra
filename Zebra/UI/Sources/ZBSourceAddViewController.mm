@@ -17,7 +17,6 @@
 #import "Zebra-Swift.h"
 
 #import <Plains/Plains.h>
-#import <SDWebImage/SDWebImage.h>
 
 @interface ZBSourceAddViewController () {
     UISearchController *searchController;
@@ -275,7 +274,7 @@
             cell.sourceLabel.hidden = NO;
             cell.sourceLabel.text = clipboardSource.origin;
             cell.urlLabel.text = NSLocalizedString(@"From your clipboard", @"");
-            [cell.iconImageView sd_setImageWithURL:clipboardSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//            [cell.iconImageView sd_setImageWithURL:clipboardSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
         }
     } else if (indexPath.section == 1 && searchTermIsEmpty) {
         if (indexPath.row == 0) {
@@ -297,7 +296,7 @@
             cell.sourceLabel.hidden = NO;
             cell.sourceLabel.text = manager[@"name"];
             cell.urlLabel.text = manager[@"label"];
-            [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:manager[@"icon"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//            [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:manager[@"icon"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
         }
     } else if (indexPath.section == 2 && searchTermIsURL) {
         if (enteredSource) {
@@ -323,7 +322,7 @@
                 cell.sourceLabel.hidden = NO;
                 cell.sourceLabel.text = enteredSource.origin;
                 cell.urlLabel.text = enteredSource.repositoryURI;
-                [cell.iconImageView sd_setImageWithURL:enteredSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//                [cell.iconImageView sd_setImageWithURL:enteredSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
             }
         }
     } else if (indexPath.section == 3) {
@@ -343,7 +342,7 @@
         cell.sourceLabel.text = source.origin;
         cell.urlLabel.text = source.repositoryURI;
         
-        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     }
     
     return cell;
