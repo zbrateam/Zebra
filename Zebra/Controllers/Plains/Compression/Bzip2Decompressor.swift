@@ -11,7 +11,7 @@ import Foundation
 class Bzip2Decompressor: DecompressorProtocol {
 	private static let bufferSize = 65536
 
-	struct Bzip2Error: Error {
+	struct Bzip2Error: Error, LocalizedError {
 		private let errorString: String
 
 		init(errno: errno_t) {
@@ -22,10 +22,11 @@ class Bzip2Decompressor: DecompressorProtocol {
 			if error >= 0 {
 				return nil
 			}
-			if let string = BZ2_bzerror(&handle, &error) {
-				errorString = String(utf8String: string) ?? "Unknown"
+			if let cString = BZ2_bzerror(&handle, &error),
+				 let string = String(utf8String: cString) {
+				errorString = string
 			} else {
-				errorString = "Unknown"
+				errorString = "Bzip2 error \(error)"
 			}
 		}
 
@@ -34,7 +35,7 @@ class Bzip2Decompressor: DecompressorProtocol {
 
 	static func decompress(url: URL, destinationURL: URL, format: Decompressor.Format) async throws {
 		guard let sourceHandle = fopen(url.path.cString, "rb") else {
-			throw Bzip2Error(errno: EBADF)
+			throw Bzip2Error(errno: errno)
 		}
 		defer { fclose(sourceHandle) }
 

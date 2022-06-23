@@ -12,7 +12,7 @@ import zlib
 class GzipDecompressor: DecompressorProtocol {
 	private static let bufferSize = 65536
 
-	struct ZlibError: Error {
+	struct ZlibError: Error, LocalizedError {
 		private let errorString: String
 
 		init(errno: errno_t) {
@@ -36,7 +36,7 @@ class GzipDecompressor: DecompressorProtocol {
 
 	static func decompress(url: URL, destinationURL: URL, format: Decompressor.Format) async throws {
 		guard let sourceHandle = fopen(url.path.cString, "rb") else {
-			throw ZlibError(errno: EBADF)
+			throw ZlibError(errno: errno)
 		}
 		defer { fclose(sourceHandle) }
 

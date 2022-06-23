@@ -44,7 +44,9 @@ class Decompressor {
 	private static let subsystem = "com.getzbra.zebra.decompressor"
 
 	class func decompress(url: URL, destinationURL: URL, format: Format) async throws {
-		let signpost = Signpost(subsystem: Self.subsystem, name: "Decompress", format: "%@ (%@)", url.absoluteString, String(describing: format))
+		let signpost = Signpost(subsystem: Self.subsystem,
+														name: "Decompress",
+														format: "%@ (%@)", url.lastPathComponent, String(describing: format))
 		signpost.begin()
 		try await format.decompressorType.decompress(url: url, destinationURL: destinationURL, format: format)
 
