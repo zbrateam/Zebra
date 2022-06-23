@@ -119,8 +119,26 @@ class RootViewController: UISplitViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
+		NotificationCenter.default.addObserver(self, selector: #selector(self.updateUpdates), name: PackageManager.databaseDidRefreshNotification, object: nil)
+
 		updateLayout()
 		selectTab(.home)
+		updateUpdates()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		NotificationCenter.default.removeObserver(self, name: PackageManager.databaseDidRefreshNotification, object: nil)
+	}
+
+	@objc private func updateUpdates() {
+		let count = PackageManager.shared.updates.count
+
+		DispatchQueue.main.async {
+			let viewController = self.realTabBarController.viewControllers![AppTab.installed.rawValue]
+			viewController.tabBarItem.badgeValue = count == 0 ? nil : NumberFormatter.localizedString(from: count as NSNumber, number: .none)
+		}
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

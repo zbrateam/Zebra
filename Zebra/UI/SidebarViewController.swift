@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Plains
 
 class SidebarViewController: ListCollectionViewController {
 
@@ -54,6 +55,15 @@ class SidebarViewController: ListCollectionViewController {
 			if let rootViewController = self.splitViewController as? RootViewController {
 				cell.isSelected = rootViewController.currentTab == item
 			}
+
+			switch item {
+			case .home, .browse, .me:
+				break
+
+			case .installed:
+				let count = PackageManager.shared.updates.count
+				cell.accessories = count == 0 ? [] : [.badge(count: count)]
+			}
 		}
 
 		dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
@@ -66,6 +76,31 @@ class SidebarViewController: ListCollectionViewController {
 		dataSource.apply(snapshot)
 
 		updateTabs()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		NotificationCenter.default.addObserver(self, selector: #selector(self.updateUpdates), name: PackageManager.databaseDidRefreshNotification, object: nil)
+		updateUpdates()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		NotificationCenter.default.removeObserver(self, name: PackageManager.databaseDidRefreshNotification, object: nil)
+	}
+
+	@objc private func updateUpdates() {
+		DispatchQueue.main.async {
+			var snapshot = self.dataSource.snapshot()
+			if #available(iOS 15, *) {
+				snapshot.reconfigureItems([.installed])
+			} else {
+				snapshot.reloadItems([.installed])
+			}
+			self.dataSource.apply(snapshot, animatingDifferences: false)
+		}
 	}
 
 	private func updateTabs() {

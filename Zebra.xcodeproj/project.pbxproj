@@ -15,6 +15,7 @@
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */; };
 		49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */; };
+		4E090B7E28643BEC001FDE9D /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E090B7D28643BEC001FDE9D /* BadgeView.swift */; };
 		4E138C64284B1BBC0058D94D /* Signpost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C63284B1BBC0058D94D /* Signpost.swift */; };
 		4E138C66284BC2B00058D94D /* GzipDecompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C65284BC2B00058D94D /* GzipDecompressor.swift */; };
 		4E138C68284C690C0058D94D /* ProgressDonut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E138C67284C690C0058D94D /* ProgressDonut.swift */; };
@@ -222,6 +223,7 @@
 		49FD260524707DDF00594D1A /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPackageDepictionViewController.mm; sourceTree = "<group>"; };
 		49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageDepictionViewController.xib; sourceTree = "<group>"; };
+		4E090B7D28643BEC001FDE9D /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		4E138C63284B1BBC0058D94D /* Signpost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signpost.swift; sourceTree = "<group>"; };
 		4E138C65284BC2B00058D94D /* GzipDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GzipDecompressor.swift; sourceTree = "<group>"; };
 		4E138C67284C690C0058D94D /* ProgressDonut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDonut.swift; sourceTree = "<group>"; };
@@ -920,6 +922,7 @@
 				4EBA841A27D3119800766DBE /* IconImageView.swift */,
 				4E840B3A27D6484900039938 /* GradientView.swift */,
 				4E138C67284C690C0058D94D /* ProgressDonut.swift */,
+				4E090B7D28643BEC001FDE9D /* BadgeView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1520,6 +1523,7 @@
 				4EC7F29127B3701D0078F953 /* AppDelegate.swift in Sources */,
 				4EAC00452863390700B80531 /* SourceTableViewCell.swift in Sources */,
 				4EB23509283D2F5F00713CBB /* URLSession+Additions.swift in Sources */,
+				4E090B7E28643BEC001FDE9D /* BadgeView.swift in Sources */,
 				4EC7F28727B291F30078F953 /* Device.swift in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.mm in Sources */,
 				F0C1243427D7A2C50041022E /* SourceSectionsViewController.swift in Sources */,
