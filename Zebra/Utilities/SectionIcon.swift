@@ -71,13 +71,13 @@ struct SectionIcon {
 		"Ringtones":          SectionIcon(image: .systemNamedImage("candybarphone"), gradient: .teal),
 		"Scripting":          SectionIcon(image: .systemNamedImage("chevron.left.slash.chevron.right"), gradient: .red),
 		"Security":           SectionIcon(image: .systemNamedImage("lock.\(UIDevice.current.deviceSymbolName)", "lock"), gradient: .teal),
-		"shells":             SectionIcon(image: .systemNamedImage("chevron.left.slash.chevron.right"), gradient: .orange), // TODO: “>_” custom symbol
+		"shells":             SectionIcon(image: .systemNamedImage("terminal"), gradient: .orange),
 		"Site-Specific Apps": SectionIcon(image: .systemNamedImage("doc.append.fill"), gradient: .red),
 		"Social":             SectionIcon(image: .systemNamedImage("person.3.fill"), gradient: .teal),
 		"Soundboards":        SectionIcon(image: .systemNamedImage("speaker.wave.3.fill"), gradient: .purple),
 		"Stickers":           SectionIcon(image: .systemNamedImage("face.smiling"), gradient: .purple),
 		"System":             SectionIcon(image: .systemNamedImage(UIDevice.current.specificDeviceSymbolName, "iphone"), gradient: .red),
-		"Terminal Support":   SectionIcon(image: .systemNamedImage("chevron.left.slash.chevron.right"), gradient: .orange), // TODO: “>_” custom symbol
+		"Terminal Support":   SectionIcon(image: .systemNamedImage("terminal"), gradient: .orange),
 		"text":               SectionIcon(image: .systemNamedImage("square.and.pencil"), gradient: .red),
 		"Text Editors":       SectionIcon(image: .systemNamedImage("square.and.pencil"), gradient: .red),
 		"Themes":             SectionIcon(image: .systemNamedImage("paintbrush.fill"), gradient: .blue),
