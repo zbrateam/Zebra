@@ -13,6 +13,7 @@ struct CarouselItem: Codable, Hashable {
 
 	let title: String
 	let subtitle: String?
+	let displayTitle: Bool
 	let url: URL?
 	let imageURL: URL?
 

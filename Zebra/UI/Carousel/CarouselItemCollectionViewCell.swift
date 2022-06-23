@@ -17,6 +17,7 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 	}
 
 	private var imageView: UIImageView!
+	private var overlayView: GradientView!
 	private var titleLabel: UILabel!
 	private var detailLabel: UILabel!
 	private var chevronImageView: UIImageView!
@@ -32,17 +33,15 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 		imageView.clipsToBounds = true
 		imageView.layer.cornerRadius = 20
 		imageView.layer.cornerCurve = .continuous
-		imageView.layer.minificationFilter = .trilinear
-		imageView.layer.magnificationFilter = .trilinear
-		imageView.sd_imageTransition = .fade(duration: 0.2)
 		contentView.addSubview(imageView)
 
-		let overlayView = GradientView(frame: bounds)
+		overlayView = GradientView(frame: bounds)
 		overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		overlayView.colors = [
-			.black.withAlphaComponent(0.15),
+			.black.withAlphaComponent(0.02),
+			.black.withAlphaComponent(0.02),
 			.black.withAlphaComponent(0.25),
-			.black.withAlphaComponent(0.45)
+			.black.withAlphaComponent(0.4)
 		]
 		overlayView.clipsToBounds = true
 		overlayView.layer.cornerRadius = 20
@@ -98,31 +97,29 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 		super.prepareForReuse()
 	}
 
-	private func updateItem() {
-		titleLabel.text = item?.title
-		detailLabel.text = item?.subtitle
-		imageView.sd_cancelCurrentImageLoad()
+	override func layoutSubviews() {
+		super.layoutSubviews()
 
-		if let imageURL = item?.imageURL {
-			imageView.image = nil
-			imageView.sd_setImage(with: imageURL,
-														placeholderImage: UIImage(named: "banner-fallback"),
-														options: .delayPlaceholder,
-														context: nil)
-		} else {
-			imageView.image = UIImage(named: "banner-fallback")
-		}
+		imageView.load(url: item?.imageURL,
+									 fallbackImage: UIImage(named: "banner-fallback"))
+	}
+
+	private func updateItem() {
+		let displayTitle = item?.displayTitle ?? true
+		titleLabel.isHidden = !displayTitle
+		detailLabel.isHidden = !displayTitle
+		overlayView.isHidden = !displayTitle
+
+		titleLabel.text = displayTitle ? item?.title : nil
+		detailLabel.text = displayTitle ? item?.subtitle : nil
+		accessibilityLabel = displayTitle ? nil : [item?.subtitle, item?.title].compact().joined(separator: ", ")
+
+		setNeedsLayout()
 	}
 
 	override var isHighlighted: Bool {
 		didSet {
-			if isHighlighted {
-				highlightView.alpha = 1
-			} else {
-				UIView.animate(withDuration: 0.3) {
-					self.highlightView.alpha = 0
-				}
-			}
+			highlightView.alpha = isHighlighted ? 1 : 0
 		}
 	}
 

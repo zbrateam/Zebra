@@ -12,11 +12,10 @@ class IconImageView: UIView {
 
 	var image: UIImage? {
 		get { imageView.image }
-		set {
-			imageView.load(url: nil)
-			imageView.image = newValue
-		}
+		set { setImageURL(nil, usingScale: false, fallbackImage: newValue) }
 	}
+
+	private var currentImage: (url: URL?, usingScale: Bool, fallbackImage: UIImage?)?
 
 	private var backgroundView: UIView!
 	private var imageView: UIImageView!
@@ -60,6 +59,10 @@ class IconImageView: UIView {
 		backgroundView.layer.cornerRadius = cornerRadius
 		imageView.layer.cornerRadius = cornerRadius
 		borderView.layer.cornerRadius = cornerRadius
+
+		if let (url, usingScale, fallbackImage) = currentImage {
+			setImageURL(url, usingScale: usingScale, fallbackImage: fallbackImage)
+		}
 	}
 
 	override func didMoveToWindow() {
@@ -73,6 +76,7 @@ class IconImageView: UIView {
 	}
 
 	func setImageURL(_ url: URL?, usingScale: Bool = true, fallbackImage: UIImage? = nil) {
+		currentImage = (url, usingScale, fallbackImage)
 		imageView.load(url: url, usingScale: usingScale, fallbackImage: fallbackImage)
 	}
 

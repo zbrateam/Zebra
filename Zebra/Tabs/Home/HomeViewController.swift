@@ -57,9 +57,7 @@ class HomeViewController: FlowListCollectionViewController {
 		collectionView.refreshControl!.endRefreshing()
 		#endif
 
-		if let rootViewController = parent?.parent as? RootViewController {
-			rootViewController.refreshSources()
-		}
+		SourceRefreshController.shared.refresh()
 	}
 
 }

@@ -12,15 +12,15 @@ export ARCHS = arm64
 endif
 
 ifeq ($(ALPHA), 1)
-PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebralpha
-export APP_NAME = "Zebra-Alpha"
+PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2
+export APP_NAME = "Zebra"
 export LIBEXEC_FOLDER = zebralpha
 else ifeq ($(BETA), 1)
-PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebeta
+PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2
 export APP_NAME = "Zebra-Beta"
 export LIBEXEC_FOLDER = zebeta
 else
-PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra
+PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2
 export APP_NAME = "Zebra"
 export LIBEXEC_FOLDER = zebra
 endif
@@ -44,13 +44,13 @@ _THEOS_PACKAGE_DEFAULT_VERSION_FORMAT = $(THEOS_PACKAGE_BASE_VERSION)$(VERSION.E
 
 SUBPROJECTS = Supersling #Relaunch
 
-ifeq ($(ALPHA), 1)
-before-package::
-	sed -Ei '' 's/^Name: Zebra/Name: Zebra [ALPHA]/g;s/^Package: (.*)$/Package: \1alpha/g' $(THEOS_STAGING_DIR)/DEBIAN/control
-else ifeq ($(BETA), 1)
-before-package::
-	sed -Ei '' 's/^Name: Zebra/Name: Zebra [BETA]/g;s/^Package: (.*)$/Package: \1beta/g' $(THEOS_STAGING_DIR)/DEBIAN/control
-endif
+# ifeq ($(ALPHA), 1)
+# before-package::
+# 	sed -Ei '' 's/^Name: Zebra/Name: Zebra [ALPHA]/g;s/^Package: (.*)$/Package: \1alpha/g' $(THEOS_STAGING_DIR)/DEBIAN/control
+# else ifeq ($(BETA), 1)
+# before-package::
+# 	sed -Ei '' 's/^Name: Zebra/Name: Zebra [BETA]/g;s/^Package: (.*)$/Package: \1beta/g' $(THEOS_STAGING_DIR)/DEBIAN/control
+# endif
 
 after-stage::
 	chmod 6755 $(THEOS_STAGING_DIR)/usr/libexec/$(LIBEXEC_FOLDER)/supersling

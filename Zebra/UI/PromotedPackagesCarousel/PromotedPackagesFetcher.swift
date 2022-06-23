@@ -7,7 +7,9 @@
 //
 
 import Foundation
-class PromotedPackagesFetcher {
+
+struct PromotedPackagesFetcher {
+
 	static func getCached(repo: URL) -> [PromotedPackageBanner]? {
 		do {
 			let json = try Data(contentsOf: Device.cacheURL / getEscapedName(repo: repo.absoluteString))
@@ -26,7 +28,7 @@ class PromotedPackagesFetcher {
 
 		let newFilename = repo
 			.components(separatedBy: invalidCharacters)
-			.joined(separator: "")
+			.joined(separator: "_")
 		return "featured-\(newFilename).json"
 	}
 
@@ -34,7 +36,7 @@ class PromotedPackagesFetcher {
 		let requestUrl = repo/"sileo-featured.json"
 		let request = URLRequest(url: requestUrl)
 		do {
-			let json: PromotedPackagesObject = try await HTTPRequest.json(for: request)
+			let json = try await URLSession.standard.json(with: request, type: PromotedPackagesObject.self)
 			let items = (json.banners as [PromotedPackageBanner])
 			let cacheJSON = try JSONEncoder().encode(items)
 			try cacheJSON.write(to: Device.cacheURL / getEscapedName(repo: repo.absoluteString), options: .atomic)
@@ -43,4 +45,5 @@ class PromotedPackagesFetcher {
 			return []
 		}
 	}
+
 }

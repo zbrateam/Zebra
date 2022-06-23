@@ -9,10 +9,11 @@
 import UIKit
 
 class CarouselViewController: ListCollectionViewController {
+
 	static let height: CGFloat = CarouselItemCollectionViewCell.size.height + (15 * 2)
 
 	var items = [CarouselItem]() {
-		didSet { updateState() }
+		didSet { updateItems() }
 	}
 
 	var isLoading = true {
@@ -33,15 +34,26 @@ class CarouselViewController: ListCollectionViewController {
 	private var dataSource: UICollectionViewDiffableDataSource<Int, CarouselItem>!
 
 	override class func createLayout() -> UICollectionViewCompositionalLayout {
-		let size = CarouselItemCollectionViewCell.size
-		let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(size.width),
-																																											heightDimension: .absolute(size.height)),
-																									 subitems: [NSCollectionLayoutItem(layoutSize: .full)])
-		let section = NSCollectionLayoutSection(group: group)
-		section.interGroupSpacing = 20
-		section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20)
-		section.orthogonalScrollingBehavior = .groupPaging
-		return UICollectionViewCompositionalLayout(section: section)
+		UICollectionViewCompositionalLayout { _, environment in
+			let size = CarouselItemCollectionViewCell.size
+			let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(size.width),
+																																												heightDimension: .absolute(size.height)),
+																										 subitems: [NSCollectionLayoutItem(layoutSize: .full)])
+			let section = NSCollectionLayoutSection(group: group)
+			section.interGroupSpacing = 20
+			section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20)
+
+			switch environment.traitCollection.horizontalSizeClass {
+			case .regular, .unspecified:
+				section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+			case .compact:
+				section.orthogonalScrollingBehavior = .groupPaging
+			@unknown default:
+				section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+			}
+
+			return section
+		}
 	}
 
 	override func viewDidLoad() {
@@ -67,6 +79,7 @@ class CarouselViewController: ListCollectionViewController {
 		errorLabel.font = .preferredFont(forTextStyle: .subheadline, weight: .semibold)
 		errorLabel.textColor = .tertiaryLabel
 		errorLabel.text = errorText
+		errorLabel.textAlignment = .center
 		view.addSubview(errorLabel)
 
 		NSLayoutConstraint.activate([
@@ -79,25 +92,25 @@ class CarouselViewController: ListCollectionViewController {
 		])
 	}
 
-	func updateState() {
-		if !items.isEmpty {
-			if isLoading {
-				isLoading = false
-			}
-			if isError {
-				isError = false
-			}
-
-			var snapshot = NSDiffableDataSourceSnapshot<Int, CarouselItem>()
-			snapshot.appendSections([0])
-			snapshot.appendItems(items)
-			dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
+	private func updateItems() {
+		if items.isEmpty {
+			return
 		}
 
+		isLoading = false
+		isError = false
+
+		var snapshot = NSDiffableDataSourceSnapshot<Int, CarouselItem>()
+		snapshot.appendSections([0])
+		snapshot.appendItems(items)
+		dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
+	}
+
+	private func updateState() {
 		collectionView.isUserInteractionEnabled = !isLoading && !isError
 		errorLabel.isHidden = !isError
 
-		if isLoading {
+		if isLoading && !isError {
 			activityIndicator.startAnimating()
 		} else {
 			activityIndicator.stopAnimating()
@@ -107,9 +120,11 @@ class CarouselViewController: ListCollectionViewController {
 			isLoading = false
 		}
 	}
+
 }
 
 extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UICollectionViewDelegate
+
 	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
 		let item = items[indexPath.item]
 		let cell = collectionView.cellForItem(at: indexPath)!
@@ -123,10 +138,6 @@ extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UIColl
 				.share(text: item.title, url: item.url, sender: self, sourceView: cell)
 			].compact())
 		})
-	}
-
-	override func collectionView(_: UICollectionView, shouldHighlightItemAt _: IndexPath) -> Bool {
-		true
 	}
 
 	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -148,4 +159,5 @@ extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UIColl
 	override func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
 		return self.collectionView(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
 	}
+
 }

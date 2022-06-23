@@ -14,13 +14,7 @@ protocol RootViewControllerDelegate: AnyObject {
 	func selectTab(_ tab: RootViewController.AppTab)
 }
 
-#if targetEnvironment(macCatalyst)
-typealias RootViewControllerSuperclass = UISplitViewController
-#else
-typealias RootViewControllerSuperclass = UITabBarController
-#endif
-
-class RootViewController: RootViewControllerSuperclass {
+class RootViewController: UISplitViewController {
 
 	enum AppTab: Int, CaseIterable {
 		case home, browse, installed, me
@@ -68,14 +62,10 @@ class RootViewController: RootViewControllerSuperclass {
 	}()
 
 	private weak var navigationDelegate: RootViewControllerDelegate?
-	private var currentTab: AppTab?
+	private var realTabBarController: UITabBarController!
 
 	init() {
-		#if targetEnvironment(macCatalyst)
 		super.init(style: .doubleColumn)
-		#else
-		super.init(nibName: nil, bundle: nil)
-		#endif
 	}
 
 	required init?(coder: NSCoder) {
@@ -83,33 +73,45 @@ class RootViewController: RootViewControllerSuperclass {
 	}
 
 	override func viewDidLoad() {
-		#if targetEnvironment(macCatalyst)
 		// Split view controller
 		primaryBackgroundStyle = .sidebar
 		preferredDisplayMode = .oneBesideSecondary
-		preferredPrimaryColumnWidth = 220
-		minimumPrimaryColumnWidth = 220
-		maximumPrimaryColumnWidth = 220
+		preferredSplitBehavior = .tile
 
-		let sidebarViewController = MacSidebarViewController()
+		#if targetEnvironment(macCatalyst)
+		let sidebarWidth: Double = 220
+		#else
+		let sidebarWidth: Double = 240
+		#endif
+
+		preferredPrimaryColumnWidth = sidebarWidth
+		minimumPrimaryColumnWidth = sidebarWidth
+		maximumPrimaryColumnWidth = sidebarWidth
+
+		let sidebarViewController = SidebarViewController()
 		navigationDelegate = sidebarViewController
+
 		let sidebarNavigationController = NavigationController(rootViewController: sidebarViewController)
+		#if targetEnvironment(macCatalyst)
 		sidebarNavigationController.setNavigationBarHidden(true, animated: false)
+		#endif
 		setViewController(sidebarNavigationController, for: .primary)
 
-		let secondaryNavigationController = NavigationController(rootViewController: LoadingViewController())
-		secondaryNavigationController.delegate = self
-		secondaryNavigationController.setNavigationBarHidden(true, animated: false)
-		setViewController(secondaryNavigationController, for: .secondary)
-		#else
-		// Tab bar controller
-		viewControllers = AppTab.allCases.map { item in
+		realTabBarController = UITabBarController()
+		realTabBarController.delegate = self
+		realTabBarController.viewControllers = AppTab.allCases.map { item in
 			let viewController = NavigationController(rootViewController: item.viewController)
+			viewController.delegate = self
 			viewController.tabBarItem = UITabBarItem(title: item.name, image: item.icon, selectedImage: nil)
+			#if targetEnvironment(macCatalyst)
+			viewController.setNavigationBarHidden(true, animated: false)
+			#else
 			viewController.navigationBar.prefersLargeTitles = true
+			#endif
 			return viewController
 		}
-		#endif
+		setViewController(realTabBarController, for: .secondary)
+		setViewController(realTabBarController, for: .compact)
 
 		view.addInteraction(UIDropInteraction(delegate: self))
 	}
@@ -117,35 +119,49 @@ class RootViewController: RootViewControllerSuperclass {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
+		updateLayout()
 		selectTab(.home)
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateLayout()
+	}
+
+	private func updateLayout() {
+		switch traitCollection.horizontalSizeClass {
+		case .regular:
+			realTabBarController?.tabBar.isHidden = true
+
+		case .compact, .unspecified:
+			realTabBarController?.tabBar.isHidden = false
+
+		@unknown default:
+			fatalError()
+		}
 	}
 
 	// MARK: - Tabs
 
-	#if targetEnvironment(macCatalyst)
-	var selectedViewController: UIViewController? {
-		viewController(for: .secondary)
-	}
-	#endif
+	var currentTab: AppTab { AppTab(rawValue: realTabBarController.selectedIndex)! }
 
 	func selectTab(_ tab: AppTab) {
 		if tab == currentTab {
 			// We’re already on this tab, just pop to root.
-			let navigationController = selectedViewController as! UINavigationController
+			let navigationController = realTabBarController.selectedViewController as! UINavigationController
 			navigationController.popToRootViewController(animated: true)
 			return
 		}
 
-		currentTab = tab
-
-		#if targetEnvironment(macCatalyst)
-		// Update the secondary view controller’s stack
-		let secondaryNavigationController = viewController(for: .secondary) as! UINavigationController
-		secondaryNavigationController.viewControllers = [tab.viewController]
-		#else
 		// Select tab bar item
-		selectedViewController = viewControllers![tab.rawValue]
-		#endif
+		realTabBarController.selectedIndex = tab.rawValue
+
+		updateTabBar()
+	}
+
+	private func updateTabBar() {
+		let tab = currentTab
 
 		// Update UI
 		navigationDelegate?.selectTab(tab)
@@ -164,7 +180,7 @@ class RootViewController: RootViewControllerSuperclass {
 
 	#if targetEnvironment(macCatalyst)
 	@IBAction func goBack() {
-		let secondaryNavigationController = selectedViewController as! UINavigationController
+		let secondaryNavigationController = realTabBarController.selectedViewController as! UINavigationController
 		secondaryNavigationController.popViewController(animated: true)
 	}
 	#endif
@@ -258,7 +274,14 @@ class RootViewController: RootViewControllerSuperclass {
 
 }
 
-#if targetEnvironment(macCatalyst)
+extension RootViewController: UITabBarControllerDelegate {
+
+	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+		updateTabBar()
+	}
+
+}
+
 extension RootViewController: UINavigationControllerDelegate {
 
 	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
@@ -266,14 +289,15 @@ extension RootViewController: UINavigationControllerDelegate {
 		let sceneDelegate = windowScene.delegate as! AppSceneDelegate
 		windowScene.title = viewController.title
 
+		#if targetEnvironment(macCatalyst)
 		let isRoot = navigationController.viewControllers.first == viewController
 		sceneDelegate.toolbarItems = [
 			isRoot ? .flexibleSpace : .back
 		]
+		#endif
 	}
 
 }
-#endif
 
 extension RootViewController: UIDropInteractionDelegate {
 

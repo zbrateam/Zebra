@@ -26,8 +26,7 @@ class SectionHeaderView: UICollectionReusableView {
 		super.init(frame: frame)
 
 		let effectView = UIToolbar()
-		effectView.frame = bounds
-		effectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		effectView.translatesAutoresizingMaskIntoConstraints = false
 		effectView.delegate = self
 		addSubview(effectView)
 
@@ -47,10 +46,15 @@ class SectionHeaderView: UICollectionReusableView {
 		addSubview(stackView)
 
 		NSLayoutConstraint.activate([
-			stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 21),
-			stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -21),
-			stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 6),
-			stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -6),
+			effectView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+			effectView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+			effectView.topAnchor.constraint(equalTo: self.topAnchor),
+			effectView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+
+			stackView.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
+			stackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+			stackView.topAnchor.constraint(equalTo: readableContentGuide.topAnchor),
+			stackView.bottomAnchor.constraint(equalTo: readableContentGuide.bottomAnchor),
 		])
 	}
 
@@ -84,7 +88,7 @@ extension NSCollectionLayoutBoundarySupplementaryItem {
 																													 elementKind: "Header",
 																													 alignment: .top)
 		item.pinToVisibleBounds = true
-		item.zIndex = 2
+		item.zIndex = .max
 		return item
 	}
 }

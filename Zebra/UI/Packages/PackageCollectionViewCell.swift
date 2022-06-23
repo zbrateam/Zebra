@@ -73,10 +73,10 @@ class PackageCollectionViewCell: UICollectionViewCell {
 		contentView.addSubview(mainStackView)
 
 		NSLayoutConstraint.activate([
-			mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-			mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-			mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-			mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+			mainStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+			mainStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+			mainStackView.topAnchor.constraint(equalTo: contentView.readableContentGuide.topAnchor),
+			mainStackView.bottomAnchor.constraint(equalTo: contentView.readableContentGuide.bottomAnchor),
 
 			imageView.widthAnchor.constraint(equalToConstant: 60),
 			imageView.heightAnchor.constraint(equalToConstant: 60),
@@ -99,17 +99,12 @@ class PackageCollectionViewCell: UICollectionViewCell {
 
 	private func updatePackage() {
 		guard let package = package else {
-			imageView.image = nil
 			return
 		}
 
-		if let iconURL = package.iconURL,
-			 ["http", "https", "file"].contains(iconURL.scheme) {
-			imageView.setImageURL(iconURL, fallbackImage: SectionIcon.icon(for: package.section))
-		} else {
-			imageView.image = SectionIcon.icon(for: package.section)
-		}
-
+		imageView.setImageURL(package.iconURL,
+													usingScale: false,
+													fallbackImage: SectionIcon.icon(for: package.section))
 		titleLabel.textColor = package.isCommercial ? tintColor : .label
 		titleLabel.text = package.name
 		detailLabel.text = package.author?.name ?? package.maintainer?.name ?? .localize("Unknown")

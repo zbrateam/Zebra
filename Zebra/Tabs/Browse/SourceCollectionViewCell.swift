@@ -70,6 +70,7 @@ class SourceCollectionViewCell: UICollectionViewCell {
 
 		chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
 		chevronImageView.tintColor = .tertiaryLabel
+		chevronImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		let pointSize = UIFont.preferredFont(forTextStyle: .body).pointSize
 		chevronImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .medium)
@@ -81,10 +82,10 @@ class SourceCollectionViewCell: UICollectionViewCell {
 		contentView.addSubview(mainStackView)
 
 		NSLayoutConstraint.activate([
-			mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-			mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-			mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-			mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
+			mainStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+			mainStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+			mainStackView.topAnchor.constraint(equalTo: contentView.readableContentGuide.topAnchor),
+			mainStackView.bottomAnchor.constraint(equalTo: contentView.readableContentGuide.bottomAnchor),
 
 			imageView.widthAnchor.constraint(equalToConstant: 40),
 			imageView.heightAnchor.constraint(equalToConstant: 40),
@@ -117,22 +118,14 @@ class SourceCollectionViewCell: UICollectionViewCell {
 
 	private func updateSource() {
 		if let source = source {
-			let url = source.uri
-			var urlString = url.absoluteString
-			if urlString.starts(with: "http://") || urlString.starts(with: "https://") {
-				urlString = urlString.replacingOccurrences(regex: "^https?://", with: "")
-			}
-			if urlString.last == "/" {
-				urlString.removeLast()
-			}
-			niceSourceURL = urlString
+			niceSourceURL = source.uri.displayString
 
 			if let host = source.uri.host,
 				 let image = UIImage(named: "Repo Icons/\(host)") {
-				imageView.imageURL = nil
+				imageView.setImageURL(nil)
 				imageView.image = image
 			} else {
-				imageView.imageURL = source.iconURL
+				imageView.setImageURL(source.iconURL, usingScale: true)
 			}
 
 			imageView.isHidden = false
@@ -145,7 +138,7 @@ class SourceCollectionViewCell: UICollectionViewCell {
 		} else {
 			titleLabel.text = .localize("All Packages")
 			detailLabel.text = .localize("Browse packages from all sources.")
-			imageView.imageURL = nil
+			imageView.setImageURL(nil)
 			imageView.isHidden = true
 			symbolImageView.image = UIImage(named: "zebra.wrench")
 			symbolImageView.isHidden = false

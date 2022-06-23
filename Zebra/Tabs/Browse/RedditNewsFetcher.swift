@@ -71,10 +71,11 @@ class RedditNewsFetcher {
 	static func fetch() async throws -> [CarouselItem] {
 		let request = URLRequest(url: URL(string: "https://api.getzbra.com/reddit-news/relevance.json")!)
 
-		let json: RedditNewsRoot = try await HTTPRequest.json(for: request)
+		let json = try await URLSession.standard.json(with: request, type: RedditNewsRoot.self)
 		let items = json.data.compactMap { item in
 			CarouselItem(title: item.title.redditAPIUnescaped,
 									 subtitle: (item.tags ?? .news).text,
+									 displayTitle: true,
 									 url: URL(string: item.url.redditAPIUnescaped)!,
 									 imageURL: URL(string: item.thumbnail?.redditAPIUnescaped ?? ""))
 		}

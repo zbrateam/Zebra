@@ -36,7 +36,8 @@ class ErrorCollectionViewCell: UICollectionViewCell {
 		detailLabel.isEditable = false
 		detailLabel.backgroundColor = .systemBackground
 		detailLabel.font = font
-		detailLabel.textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+		detailLabel.textContainerInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+		detailLabel.textContainer.lineFragmentPadding = 0
 		detailLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
 		let stackView = UIStackView(arrangedSubviews: [imageView, detailLabel])
@@ -46,10 +47,10 @@ class ErrorCollectionViewCell: UICollectionViewCell {
 		contentView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
-			stackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 21),
-			stackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -17),
-			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6)
+			stackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+			stackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 4),
+			stackView.topAnchor.constraint(equalTo: contentView.readableContentGuide.topAnchor),
+			stackView.bottomAnchor.constraint(equalTo: contentView.readableContentGuide.bottomAnchor)
 		])
 	}
 

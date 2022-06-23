@@ -32,7 +32,7 @@ extension NSCollectionLayoutGroup {
 
 	static func listGrid(environment: NSCollectionLayoutEnvironment, heightDimension: NSCollectionLayoutDimension) -> NSCollectionLayoutGroup {
 		let width = environment.container.effectiveContentSize.width
-		let itemWidth = width < 480 ? width : (width / round(width / 320))
+		let itemWidth = width / (width < 480 ? 1 : round(width / 295))
 		let fraction = itemWidth / width
 		return NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1),
 																																heightDimension: heightDimension),

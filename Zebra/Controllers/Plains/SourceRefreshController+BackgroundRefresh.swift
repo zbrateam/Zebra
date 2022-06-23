@@ -27,7 +27,7 @@ extension SourceRefreshController {
 			}
 			self.backgroundTask = task
 
-			self.refresh()
+			self.refresh(priority: .background)
 		}
 	}
 
@@ -47,6 +47,7 @@ extension SourceRefreshController {
 	internal func completeBackgroundRefresh() {
 		// If we were launched from a background task, we need to tell the OS we’ve finished.
 		backgroundTask?.setTaskCompleted(success: true)
+		backgroundTask = nil
 	}
 
 }

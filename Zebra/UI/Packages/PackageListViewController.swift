@@ -89,7 +89,13 @@ class PackageListViewController: ListCollectionViewController {
 	}
 	private var filteredCount = 0
 
+	private var isLoading = false {
+		didSet { updateLoading() }
+	}
+
 	private var isVisible = false
+
+	private var loadingView: LoadingView!
 
 	private var sortButton: SectionHeaderButton!
 	private var sortOrder = PackageListSortOrder.ascending
@@ -100,6 +106,7 @@ class PackageListViewController: ListCollectionViewController {
 		UICollectionViewCompositionalLayout { _, environment in
 			let section = NSCollectionLayoutSection(group: .listGrid(environment: environment,
 																															 heightDimension: .estimated(80)))
+			section.contentInsetsReference = .none
 			section.boundarySupplementaryItems = [.header, .infoFooter]
 			return section
 		}
@@ -114,6 +121,11 @@ class PackageListViewController: ListCollectionViewController {
 		super.viewDidLoad()
 
 		collectionView.register(PackageCollectionViewCell.self, forCellWithReuseIdentifier: "PackageCell")
+
+		loadingView = LoadingView(frame: collectionView.bounds)
+		loadingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		loadingView.isHidden = true
+		collectionView.addSubview(loadingView)
 
 		let searchController = UISearchController()
 		searchController.delegate = self
@@ -146,8 +158,8 @@ class PackageListViewController: ListCollectionViewController {
 				let packageText = String.localizedStringWithFormat(.localize("%@ Packages"),
 																													 self.packages.count,
 																													 numberFormatter.string(for: self.packages.count) ?? "0")
-				let filteredText = self.filteredCount == 0 ? "" : " (\(String(format: .localize("%@ hidden"), numberFormatter.string(for: self.filteredCount) ?? "0")))"
-				view.text = packageText + filteredText
+				let filteredText = self.filteredCount == 0 ? nil : String(format: .localize("(%@ hidden)"), numberFormatter.string(for: self.filteredCount) ?? "0")
+				view.text = [packageText, filteredText].compact().joined(separator: " ")
 				return view
 
 			default: fatalError()
@@ -177,61 +189,88 @@ class PackageListViewController: ListCollectionViewController {
 		let filter = self.filter
 		let sortOrder = self.sortOrder
 
+		let title: String
+
+		switch filter {
+		case .fixed(_):
+			title = .localize("Packages")
+
+		case .installed:
+			title = .localize("Installed")
+
+		case .section(let source, let section):
+			if let section = section {
+				title = .localize(section)
+			} else if let source = source {
+				title = source.origin
+			} else {
+				title = .localize("All Packages")
+			}
+
+		case .search(_):
+			title = .localize("Search")
+
+		case .favorites:
+			title = .localize("Favorites")
+		}
+
+		self.title = title
+		navigationItem.searchController!.title = title
+
+		switch filter {
+		case .search(_):
+			navigationItem.hidesSearchBarWhenScrolling = false
+
+		default:
+			navigationItem.hidesSearchBarWhenScrolling = true
+		}
+
+		isLoading = true
+
 		Task.detached(priority: .userInitiated) {
-			let title: String
 			let packages: [Package]
 
 			let maxRole = Preferences.roleFilter
 			var filteredCount = 0
+			let alwaysFilter: (Package) -> Bool = { package in
+				package.role.rawValue < PackageRole.cydia.rawValue &&
+					!Self.superHiddenPackages.contains(package.identifier)
+			}
 			let roleFilter: (Package) -> Bool = { package in
-				if Self.superHiddenPackages.contains(package.identifier) {
+				if alwaysFilter(package) {
 					return false
 				}
-				if package.role.rawValue <= maxRole.rawValue {
-					return true
-				}
-				if package.role != .cydia {
+				if package.role.rawValue > maxRole.rawValue {
 					filteredCount += 1
+					return false
 				}
-				return false
+				return true
 			}
 
 			switch filter {
 			case .fixed(let fixedPackages):
-				title = .localize("Packages")
 				packages = fixedPackages
 
 			case .installed:
-				title = .localize("Installed")
 				packages = await PackageManager.shared
-					.fetchPackages { $0.isInstalled && $0.role.rawValue < PackageRole.cydia.rawValue }
+					.fetchPackages { $0.isInstalled && alwaysFilter($0) }
 
 			case .section(let source, let section):
-				let filter: ((Package) -> Bool)?
+				let filter: ((Package) -> Bool)
 				if let section = section {
-					title = .localize(section)
-					if let source = source {
-						filter = { $0.source == source && $0.section == section && roleFilter($0) }
-					} else {
-						filter = { $0.section == section && roleFilter($0) }
-					}
-				} else if let source = source {
-					title = source.origin
-					filter = { $0.source == source && roleFilter($0) }
+					filter = { $0.section == section && roleFilter($0) }
 				} else {
-					title = .localize("All Packages")
 					filter = roleFilter
 				}
 
 				if let filter = filter {
 					packages = await PackageManager.shared
-						.fetchPackages(matchingFilter: filter)
+						.fetchPackages(in: source, matchingFilter: filter)
 				} else {
 					packages = PackageManager.shared.packages
 				}
 
 			case .search(let query):
-				title = .localize("Search")
 				packages = await PackageManager.shared
 					.fetchPackages {
 						($0.identifier.localizedCaseInsensitiveContains(query) || $0.name.localizedCaseInsensitiveContains(query) ||
@@ -242,17 +281,15 @@ class PackageListViewController: ListCollectionViewController {
 					}
 
 			case .favorites:
-				title = .localize("Favorites")
 				let favoritePackageIDs = Preferences.favoritePackages
 				packages = await PackageManager.shared
-					.fetchPackages(matchingFilter: { favoritePackageIDs.contains($0.identifier) })
+					.fetchPackages { favoritePackageIDs.contains($0.identifier) && !alwaysFilter($0) }
 			}
 
 			// Yeah I couldn’t get something cleaner to work with KeyPath without Swift arguing with me
-			let sort = Preferences.packageListSort
 			let ascending = sortOrder == .ascending
 			let sortedPackages = packages.sorted {
-				switch sort {
+				switch Preferences.packageListSort {
 				case .alpha:
 					let order = $0.name.localizedStandardCompare($1.name)
 					return order == (ascending ? .orderedAscending : .orderedDescending)
@@ -269,20 +306,10 @@ class PackageListViewController: ListCollectionViewController {
 				}
 			}
 
-			let finalFilteredCount = filteredCount
-			await MainActor.run {
-				self.title = title
-				self.navigationItem.searchController!.title = title
-				self.filteredCount = finalFilteredCount
+			await MainActor.run { [filteredCount] in
+				self.filteredCount = filteredCount
 				self.packages = sortedPackages
-
-				switch filter {
-				case .search(_):
-					self.navigationItem.hidesSearchBarWhenScrolling = false
-
-				default:
-					self.navigationItem.hidesSearchBarWhenScrolling = true
-				}
+				self.isLoading = false
 			}
 		}
 	}
@@ -324,10 +351,9 @@ class PackageListViewController: ListCollectionViewController {
 			snapshot.appendSections([0])
 			snapshot.appendItems(packages)
 
-			let finalSectionIndexes = sectionIndexes
-			await MainActor.run {
-				self.dataSource.sectionIndexes = packages.isEmpty ? [] : finalSectionIndexes
-				self.collectionView.indexDisplayMode = finalSectionIndexes.isEmpty ? .alwaysHidden : .automatic
+			await MainActor.run { [sectionIndexes] in
+				self.dataSource.sectionIndexes = packages.isEmpty ? [] : sectionIndexes
+				self.collectionView.indexDisplayMode = sectionIndexes.isEmpty ? .alwaysHidden : .automatic
 			}
 			await self.dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
 		}
@@ -352,6 +378,12 @@ class PackageListViewController: ListCollectionViewController {
 			}
 		})
 		sortButton.menu = sortButton.menu!.replacingChildren([sortMenu])
+	}
+
+	private func updateLoading() {
+		let isLoading = self.isLoading && packages.isEmpty
+		loadingView.isHidden = !isLoading
+		view.isUserInteractionEnabled = !isLoading
 	}
 
 	// MARK: - Actions

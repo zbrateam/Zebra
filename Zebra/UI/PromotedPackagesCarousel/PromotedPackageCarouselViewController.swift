@@ -27,12 +27,6 @@ class PromotedPackagesCarouselViewController: CarouselViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
-		collectionView.register(PromotedPackageCarouselItemCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-	}
-
 	private func updateBannerItems() {
 		let bannerItems = self.bannerItems
 
@@ -42,9 +36,9 @@ class PromotedPackagesCarouselViewController: CarouselViewController {
 				guard let package = package else {
 					return nil
 				}
-
-				return CarouselItem(title: (item.displayText ?? true) ? item.title : "",
+				return CarouselItem(title: item.title,
 														subtitle: nil,
+														displayTitle: item.displayText ?? true,
 														url: package.depictionURL ?? package.homepageURL,
 														imageURL: item.url)
 			}
@@ -60,18 +54,6 @@ class PromotedPackagesCarouselViewController: CarouselViewController {
 		}
 	}
 
-	override func updateState() {
-		super.updateState()
-		if !bannerItems.isEmpty {
-			if isLoading {
-				isLoading = false
-			}
-			if isError {
-				isError = false
-			}
-			collectionView.reloadData()
-		}
-	}
 }
 
 extension PromotedPackagesCarouselViewController {

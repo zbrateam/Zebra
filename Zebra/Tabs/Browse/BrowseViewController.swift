@@ -163,9 +163,7 @@ class BrowseViewController: ListCollectionViewController {
 		collectionView.refreshControl!.endRefreshing()
 		#endif
 
-		if let rootViewController = parent?.parent as? RootViewController {
-			rootViewController.refreshSources()
-		}
+		SourceRefreshController.shared.refresh()
 	}
 
 	@objc private func addSource(_: UIButton) {
@@ -289,7 +287,7 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 		case 0: return
 
 		case 1:
-			let controller = SourceSectionViewController(source: indexPath.item == 0 ? nil : sources[indexPath.item - 1])
+			let controller = SourceSectionsViewController(source: indexPath.item == 0 ? nil : sources[indexPath.item - 1])
 			navigationController?.pushViewController(controller, animated: true)
 
 		default: break

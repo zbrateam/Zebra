@@ -25,7 +25,7 @@ class PackageViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		title = .localize("Package")
+		title = package.name
 		view.backgroundColor = .systemBackground
 	}
 

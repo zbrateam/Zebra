@@ -69,18 +69,18 @@ class SourceSectionCollectionViewCell: UICollectionViewCell {
 		contentView.addSubview(mainStackView)
 
 		NSLayoutConstraint.activate([
+			mainStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+			mainStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+			mainStackView.topAnchor.constraint(equalTo: contentView.readableContentGuide.topAnchor),
+			mainStackView.bottomAnchor.constraint(equalTo: contentView.readableContentGuide.bottomAnchor),
+
 			imageView.widthAnchor.constraint(equalToConstant: 29),
 			imageView.heightAnchor.constraint(equalToConstant: 29),
 
 			symbolImageView.widthAnchor.constraint(equalToConstant: 23),
 			symbolImageView.heightAnchor.constraint(equalToConstant: 23),
 			symbolImageView.centerXAnchor.constraint(equalTo: imageContainer.centerXAnchor),
-			symbolImageView.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor),
-
-			mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-			mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-			mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-			mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
+			symbolImageView.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor)
 		])
 	}
 

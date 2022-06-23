@@ -28,12 +28,16 @@ class ErrorsViewController: ListCollectionViewController {
 	private var dataSource: UICollectionViewDiffableDataSource<Section, PlainsError>!
 
 	override class func createLayout() -> UICollectionViewCompositionalLayout {
-		let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-																																											heightDimension: .estimated(44)),
-																									 subitems: [NSCollectionLayoutItem(layoutSize: .full)])
-		let section = NSCollectionLayoutSection(group: group)
-		section.boundarySupplementaryItems = [.header]
-		return UICollectionViewCompositionalLayout(section: section)
+		UICollectionViewCompositionalLayout { index, layoutEnvironment in
+			var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+			configuration.showsSeparators = false
+
+			let section = NSCollectionLayoutSection.list(using: configuration,
+																									 layoutEnvironment: layoutEnvironment)
+			section.contentInsetsReference = .none
+			section.boundarySupplementaryItems = [.header]
+			return section
+		}
 	}
 
 	override func viewDidLoad() {

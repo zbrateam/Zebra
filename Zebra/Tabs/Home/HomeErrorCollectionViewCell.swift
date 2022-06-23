@@ -77,10 +77,10 @@ class HomeErrorCollectionViewCell: UICollectionViewCell {
 		contentView.addSubview(mainStackView)
 
 		NSLayoutConstraint.activate([
-			effectView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15),
-			effectView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -15),
-			effectView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-			effectView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+			effectView.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
+			effectView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+			effectView.topAnchor.constraint(equalTo: readableContentGuide.topAnchor, constant: 15),
+			effectView.bottomAnchor.constraint(equalTo: readableContentGuide.bottomAnchor, constant: -15),
 
 			selectionView.leadingAnchor.constraint(equalTo: effectView.leadingAnchor),
 			selectionView.trailingAnchor.constraint(equalTo: effectView.trailingAnchor),

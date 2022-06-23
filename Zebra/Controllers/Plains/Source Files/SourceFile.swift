@@ -12,6 +12,17 @@ import UniformTypeIdentifiers
 enum SourceFileKind {
 	case any, text, deb, gzip, bzip2, lzma, xz, zstd
 
+	init?(aptCompressorName: String) {
+		switch aptCompressorName {
+		case "gz":   self = .gzip
+		case "bz2":  self = .bzip2
+		case "lzma": self = .lzma
+		case "xz":   self = .xz
+		case "zst":  self = .zstd
+		default:     return nil
+		}
+	}
+
 	var type: UTType {
 		switch self {
 		case .any:   return .data
@@ -65,21 +76,24 @@ enum SourceFileKind {
 enum SourceFile {
 	case inRelease, release, releaseGpg
 	case packages(kind: SourceFileKind)
+	case paymentEndpoint
 
 	var kind: SourceFileKind {
 		switch self {
-		case .inRelease:  return .any
-		case .release:    return .text
-		case .releaseGpg: return .any
+		case .inRelease:       return .any
+		case .release:         return .text
+		case .releaseGpg:      return .any
 		case .packages(let kind): return kind
+		case .paymentEndpoint: return .any
 		}
 	}
 
 	var name: String {
 		switch self {
-		case .inRelease:  return "InRelease"
-		case .release:    return "Release"
-		case .releaseGpg: return "Release.gpg"
+		case .inRelease:       return "InRelease"
+		case .release:         return "Release"
+		case .releaseGpg:      return "Release.gpg"
+		case .paymentEndpoint: return "payment_endpoint"
 		case .packages(let kind):
 			if let ext = kind.extension {
 				return "Packages.\(ext)"
@@ -91,13 +105,15 @@ enum SourceFile {
 	var progressWeight: Int64 {
 		switch self {
 		// Either InRelease or Release + Release.gpg.
-		case .inRelease:   return 100
+		case .inRelease:       return 100
 
 		// 80 + 20 = 100
-		case .release:     return 80
-		case .releaseGpg:  return 20
+		case .release:         return 80
+		case .releaseGpg:      return 20
 
-		// The remainder is the Packages file.
+		case .paymentEndpoint: return 20
+
+		// The majority of the time will be spent on Packages.
 		case .packages(_): return 800
 		}
 	}

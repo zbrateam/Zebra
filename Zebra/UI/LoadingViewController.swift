@@ -10,21 +10,33 @@ import UIKit
 
 class LoadingViewController: UIViewController {
 
+	private var loadingView: LoadingView!
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		view.backgroundColor = .systemBackground
 
-		let activityIndicator = UIActivityIndicatorView(style: .medium)
-		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-		activityIndicator.startAnimating()
-		activityIndicator.color = .tertiaryLabel
-		view.addSubview(activityIndicator)
+		loadingView = LoadingView()
+		loadingView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(loadingView)
 
 		NSLayoutConstraint.activate([
-			activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+			loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			loadingView.topAnchor.constraint(equalTo: view.topAnchor),
+			loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 		])
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		loadingView.isHidden = false
+	}
+
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		loadingView.isHidden = true
 	}
 
 }

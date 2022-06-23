@@ -14,6 +14,31 @@ import BackgroundTasks
 
 class SourceRefreshController: NSObject {
 
+	enum Priority {
+		case foreground, background
+
+		var qos: DispatchQoS {
+			switch self {
+			case .foreground: return .default
+			case .background: return .background
+			}
+		}
+
+		var taskPriority: TaskPriority {
+			switch self {
+			case .foreground: return .medium
+			case .background: return .background
+			}
+		}
+
+		var maximumThreads: Int {
+			switch self {
+			case .foreground: return UIDevice.current.performanceThreads
+			case .background: return UIDevice.current.efficiencyThreads
+			}
+		}
+	}
+
 	struct Job: Identifiable, Hashable, Equatable {
 		let signpost: Signpost
 		let request: URLRequest
@@ -43,7 +68,7 @@ class SourceRefreshController: NSObject {
 		var errors = [RefreshError]()
 	}
 
-	enum RefreshError: Error {
+	enum RefreshError: Error, LocalizedError {
 		case httpError(sourceUUID: String, url: URL, httpError: HTTPError)
 		case invalidContentType(sourceUUID: String, url: URL, contentType: String)
 		case generalError(sourceUUID: String, url: URL, error: Error)
@@ -58,22 +83,31 @@ class SourceRefreshController: NSObject {
 					default:  return httpError.localizedDescription
 					}
 
+				case .cancelled:
+					return httpError.localizedDescription
+
 				case .badResponse:
 					return .localize("The server returned an invalid response.")
 
 				case .general(let error):
 					let nsError = error as NSError
-					if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorAppTransportSecurityRequiresSecureConnection {
+					switch (nsError.domain, nsError.code) {
+					case (NSURLErrorDomain, NSURLErrorAppTransportSecurityRequiresSecureConnection):
 						return .localize("The server doesn’t use a secure (HTTPS) connection. Zebra requires a secure connection to load this source.")
+
+					case (NSURLErrorDomain, NSURLErrorSecureConnectionFailed):
+						return .localize("The server failed to establish a secure (HTTPS) connection. Zebra requires a secure connection to load this source.")
+
+					default:
+						return (error as? LocalizedError)?.localizedDescription ?? nsError.localizedDescription
 					}
-					return nsError.localizedDescription
 				}
 
 			case .invalidContentType(_, _, let contentType):
 				return String(format: .localize("The server returned an invalid response (MIME type: %@). A repository may no longer exist at this address."), contentType)
 
 			case .generalError(_, _, let error):
-				return (error as NSError).localizedDescription
+				return (error as? LocalizedError)?.localizedDescription ?? (error as NSError).localizedDescription
 			}
 		}
 	}
@@ -81,41 +115,48 @@ class SourceRefreshController: NSObject {
 	private static let subsystem = "com.getzbra.zebra.source-refresh"
 
 	private static let legacySourceHosts = ["repo.dynastic.co", "apt.bingner.com"]
-	private static let parallelJobsCount = 16
-	private static let parallelDecompressJobsCount = UIDevice.current.performanceThreads * 2
 
 	private static let listsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!
 	private static let partialListsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!/"partial"
 
-	private static let packagesTypePriority: [SourceFileKind] = [.zstd, .xz, .lzma, .bzip2, .gzip]
+	private static let packagesTypePriority: [SourceFileKind] = {
+		let order = PlainsConfig.shared.compressionTypes
+			.compactMap(SourceFileKind.init(aptCompressorName:))
+		if !order.isEmpty {
+			return order
+		}
+		return [.zstd, .xz, .lzma, .bzip2, .gzip]
+	}()
 
 	static let refreshProgressDidChangeNotification = Notification.Name(rawValue: "SourceRefreshProgressDidChangeNotification")
 
 	static let shared = SourceRefreshController()
 
+	private(set) var priority: Priority = .foreground
+	private var parallelJobsCount: Int {
+		switch priority {
+		case .foreground: return 16
+		case .background: return 8
+		}
+	}
+	private var parallelDecompressJobsCount: Int { priority.maximumThreads * 2 }
+
 	private(set) var progress = Progress(totalUnitCount: 1)
 	private var innerProgress: Progress?
 	private(set) var sourceStates = [String: SourceState]()
 
-	private let queue = DispatchQueue(label: "com.getzbra.zebra.source-refresh-queue", qos: .default)
-	private let decompressQueue = DispatchQueue(label: "com.getzbra.zebra.source-decompress-queue", qos: .default)
+	private var queue: DispatchQueue!
+	private var jobQueue: JobQueue<Job>!
+	private var decompressJobQueue: JobQueue<Job>!
+	private var operationQueue: OperationQueue!
 	private let wakeLock = WakeLock(label: "com.getzbra.zebra.source-refresh-wake-lock")
 
-	private lazy var operationQueue: OperationQueue = {
-		let operationQueue = OperationQueue()
-		operationQueue.maxConcurrentOperationCount = Self.parallelJobsCount
-		operationQueue.underlyingQueue = self.queue
-		return operationQueue
-	}()
-
 	private var session: URLSession?
-	private var pendingJobs = [Job]()
-	private var runningJobs = [Job]()
 	private var currentRefreshJobs = [String: Set<Job>]()
 	internal var backgroundTask: BGTask?
 
 	internal let logger = Logger(subsystem: subsystem, category: "SourceRefreshOperation")
-	private var signpost: Signpost?
+	private let signpost = Signpost(subsystem: subsystem, name: "SourceRefreshOperation", format: "Refresh")
 
 	var isRefreshing: Bool { !progress.isFinished && !progress.isCancelled }
 	var refreshErrors: [RefreshError] { sourceStates.values.reduce([], { $0 + $1.errors }) }
@@ -127,17 +168,35 @@ class SourceRefreshController: NSObject {
 		registerBackgroundTask()
 	}
 
-	func refresh() {
+	func refresh(priority: Priority = .foreground) {
+		if let queue = queue,
+			 isRefreshing {
+			queue.async {
+				self.progress.addCancellationNotification {
+					self.refresh(priority: priority)
+				}
+				self.progress.cancel()
+			}
+			return
+		}
+
+		self.priority = priority
+
+		queue = DispatchQueue(label: "com.getzbra.zebra.source-refresh-queue", qos: priority.qos)
+		jobQueue = JobQueue(queue: queue, taskLimit: parallelJobsCount) { self.fetch(job: $0) }
+		decompressJobQueue = JobQueue(queue: queue, taskLimit: parallelDecompressJobsCount) { self.decompress(job: $0) }
+
+		operationQueue = OperationQueue()
+		operationQueue.maxConcurrentOperationCount = parallelJobsCount
+		operationQueue.underlyingQueue = queue
+
 		queue.async {
 			Preferences.lastSourceUpdate = Date()
 			self.scheduleNextRefresh()
 
-			self.signpost = Signpost(subsystem: Self.subsystem, name: "SourceRefreshOperation", format: "Refresh")
-			self.signpost!.begin()
+			self.signpost.begin()
 
 			self.sourceStates.removeAll()
-			self.pendingJobs.removeAll()
-			self.runningJobs.removeAll()
 			self.currentRefreshJobs.removeAll()
 
 			let configuration = URLSession.download.configuration.copy() as! URLSessionConfiguration
@@ -150,18 +209,23 @@ class SourceRefreshController: NSObject {
 
 			// Notify in 0.1% increments, i.e. at most 1000 notifications will be posted
 			self.progress = Progress(totalUnitCount: 100, granularity: 0.001, queue: self.operationQueue)
-			self.progress.addFractionCompletedNotification { completedUnitCount, totalUnitCount, fractionCompleted in
+			self.progress.addFractionCompletedNotification { _, _, _ in
 				NotificationCenter.default.post(name: Self.refreshProgressDidChangeNotification, object: nil)
 			}
+
+			// Start at 10% so the user knows we’re doing stuff.
 			self.progress.completedUnitCount = 10
 
-			self.innerProgress = Progress(totalUnitCount: SourceManager.shared.sources.count + 1, parent: self.progress, pendingUnitCount: 90, granularity: .ulpOfOne)
-			self.innerProgress!.addFractionCompletedNotification(onQueue: self.operationQueue) { completedUnitCount, totalUnitCount, fractionCompleted in
+			self.innerProgress = Progress(totalUnitCount: SourceManager.shared.sources.count + 1,
+																		parent: self.progress,
+																		pendingUnitCount: 90,
+																		granularity: .ulpOfOne)
+			self.innerProgress!.addFractionCompletedNotification { completedUnitCount, totalUnitCount, _ in
 				if completedUnitCount == totalUnitCount - 1 && self.isRefreshing {
 					self.finishRefresh()
 				}
 			}
-			self.innerProgress!.addCancellationNotification(onQueue: self.operationQueue) {
+			self.innerProgress!.addCancellationNotification {
 				self.cancel()
 			}
 
@@ -187,17 +251,6 @@ class SourceRefreshController: NSObject {
 
 	// MARK: - Job Lifecycle
 
-	private func processQueue() {
-		queue.async {
-			while self.runningJobs.count < Self.parallelJobsCount,
-						let job = self.pendingJobs.popLast() {
-				self.queue.async {
-					self.fetch(job: job)
-				}
-			}
-		}
-	}
-
 	private func continueJob(_ job: Job, withSourceFile sourceFile: SourceFile) {
 		guard let source = SourceManager.shared.source(forUUID: job.sourceUUID) else {
 			return
@@ -205,7 +258,7 @@ class SourceRefreshController: NSObject {
 
 		let baseURL: URL
 		switch sourceFile {
-		case .inRelease, .release, .releaseGpg:
+		case .inRelease, .release, .releaseGpg, .paymentEndpoint:
 			baseURL = source.baseURI
 
 		case .packages(_):
@@ -228,13 +281,16 @@ class SourceRefreshController: NSObject {
 										 sourceFile: sourceFile)
 
 		currentRefreshJobs[newJob.sourceUUID]?.insert(newJob)
-		pendingJobs.append(newJob)
-		job.signpost.event(format: "Queued: %@", String(describing: downloadURL))
-		processQueue()
+		jobQueue.enqueue(job: newJob)
+		job.signpost.event(format: "Queued: %@", downloadURL.absoluteString)
 	}
 
 	private func request(for downloadURL: URL, destinationURL: URL) -> URLRequest {
-		var request = URLRequest(url: downloadURL.standardized,
+		guard let url = downloadURL.secureURL?.standardized else {
+			fatalError("Insecure URL was passed")
+		}
+
+		var request = URLRequest(url: url,
 														 cachePolicy: .useProtocolCachePolicy,
 														 timeoutInterval: Preferences.sourceRefreshTimeout)
 
@@ -256,22 +312,30 @@ class SourceRefreshController: NSObject {
 	}
 
 	private func fetch(job: Job) {
+		guard let session = session else {
+			return
+		}
+
 		#if DEBUG
 		logger.debug("👉 Fetching: \(job.url)")
 		#endif
 
-		job.signpost.event(format: "Fetch %@", String(describing: job.url))
-		runningJobs.append(job)
+		job.signpost.event(format: "Fetch %@", job.url.absoluteString)
 
-		HTTPRequest.download(session: session!, for: job.request) { response in
-			job.signpost.event(format: "Fetch completed: %@", String(describing: job.url))
+		session.download(with: job.request) { response in
+			job.signpost.event(format: "Fetch completed: %@", job.url.absoluteString)
 
-			if let index = self.runningJobs.firstIndex(of: job) {
-				self.runningJobs.remove(at: index)
+			// If cancelled, bail here so we don’t bother processing it further.
+			if let error = response.error,
+				 case HTTPError.cancelled = error {
+				return
 			}
 
-			// Process queue in case any jobs are pending.
-			self.processQueue()
+			guard let jobQueue = self.jobQueue else {
+				return
+			}
+
+			jobQueue.complete(job: job)
 
 			let statusCode = response.statusCode
 			let rawContentType = response.response?.value(forHTTPHeaderField: "Content-Type") ?? "application/octet-stream"
@@ -286,7 +350,7 @@ class SourceRefreshController: NSObject {
 			self.logger.debug("\(prefixes[statusCode] ?? "❌") \(job.request.httpMethod ?? "?") \(response.response?.url ?? job.url) → \(statusCode) \(contentType) \(response.error?.localizedDescription ?? "")")
 			#endif
 
-			job.signpost.event(format: "Process: %@", String(describing: job.url))
+			job.signpost.event(format: "Process: %@", job.url.absoluteString)
 
 			// If this was a positive response, move the file to its destination. Otherwise we don’t want
 			// the file.
@@ -324,10 +388,17 @@ class SourceRefreshController: NSObject {
 
 			if let error = response.error {
 				// Don’t bother continuing to try anything with this repo, it’ll probably just keep failing.
-				self.giveUp(job: job,
-										error: RefreshError.generalError(sourceUUID: job.sourceUUID,
-																										 url: job.url,
-																										 error: error))
+				if let error = error as? HTTPError {
+					self.giveUp(job: job,
+											error: RefreshError.httpError(sourceUUID: job.sourceUUID,
+																										url: job.url,
+																										httpError: error))
+				} else {
+					self.giveUp(job: job,
+											error: RefreshError.generalError(sourceUUID: job.sourceUUID,
+																											 url: job.url,
+																											 error: error))
+				}
 				return
 			}
 
@@ -348,16 +419,20 @@ class SourceRefreshController: NSObject {
 
 				switch job.sourceFile {
 				case .inRelease, .releaseGpg:
-					// Start fetching Packages.
-					self.continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
+					// Start fetching payment_endpoint.
+					self.continueJob(job, withSourceFile: .paymentEndpoint)
 
 				case .release:
 					// Start fetching Release.gpg.
 					self.continueJob(job, withSourceFile: .releaseGpg)
 
+				case .paymentEndpoint:
+					// Start fetching Packages.
+					self.continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
+
 				case .packages(_):
 					// Decompress
-					self.decompress(job: job)
+					self.decompressJobQueue.enqueue(job: job)
 				}
 				return
 
@@ -380,6 +455,11 @@ class SourceRefreshController: NSObject {
 			case .release, .releaseGpg:
 				// Continue without the signature.
 				self.currentRefreshJobs[job.sourceUUID]?.remove(job)
+				self.continueJob(job, withSourceFile: .paymentEndpoint)
+
+			case .paymentEndpoint:
+				// Continue assuming repo has no payment endpoint.
+				self.currentRefreshJobs[job.sourceUUID]?.remove(job)
 				self.continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
 
 			case .packages(let kind):
@@ -401,49 +481,51 @@ class SourceRefreshController: NSObject {
 			return
 		}
 
-		decompressQueue.async {
-			Task.detached {
-				do {
-					let newSourceFile: SourceFile
-					switch job.sourceFile {
-					case .packages(_):
-						newSourceFile = .packages(kind: .text)
-					default:
-						newSourceFile = job.sourceFile
-					}
+		Task.detached(priority: self.priority.taskPriority) {
+			do {
+				let newSourceFile: SourceFile
+				switch job.sourceFile {
+				case .packages(_):
+					newSourceFile = .packages(kind: .text)
+				default:
+					newSourceFile = job.sourceFile
+				}
 
-					let uncompressedURL = job.partialURL/".."/(job.sourceUUID + newSourceFile.name)
+				let uncompressedURL = job.partialURL/".."/(job.sourceUUID + newSourceFile.name)
 
-					job.signpost.event(format: "Decompress: %@", job.partialURL.lastPathComponent)
+				job.signpost.event(format: "Decompress: %@", job.partialURL.lastPathComponent)
 
-					#if DEBUG
-					self.logger.debug("Decompressing: \(job.partialURL.lastPathComponent)")
-					let start = Date()
-					#endif
+				#if DEBUG
+				self.logger.debug("🗂 Decompressing: \(job.partialURL.lastPathComponent)")
+				let start = Date()
+				#endif
 
-					try await Decompressor.decompress(url: job.partialURL,
-																						destinationURL: uncompressedURL,
-																						format: job.sourceFile.kind.decompressorFormat)
+				try await Decompressor.decompress(url: job.partialURL,
+																					destinationURL: uncompressedURL,
+																					format: job.sourceFile.kind.decompressorFormat)
 
-					#if DEBUG
-					let delta = Date().timeIntervalSince(start) * 1000
-					self.logger.debug("Decompressed in \(delta, format: .fixed(precision: 3))ms: \(job.partialURL.lastPathComponent)")
-					job.signpost.event(format: "Decompress done: %@", job.partialURL.lastPathComponent)
-					#endif
+				#if DEBUG
+				let delta = Date().timeIntervalSince(start) * 1000
+				self.logger.debug("📄 Decompressed in \(delta, format: .fixed(precision: 3))ms: \(job.partialURL.lastPathComponent)")
+				job.signpost.event(format: "Decompress done: %@", job.partialURL.lastPathComponent)
+				#endif
 
-					self.queue.async {
-						// If that worked, we do a quick switcharoo to make the job now “uncompressed”
-						self.currentRefreshJobs[job.sourceUUID]?.remove(job)
+				self.queue.async {
+					// If that worked, we do a quick switcharoo to make the job now “uncompressed”
+					self.currentRefreshJobs[job.sourceUUID]?.remove(job)
 
-						let newJob = Job(signpost: job.signpost,
-														 request: job.request,
-														 sourceUUID: job.sourceUUID,
-														 sourceFile: newSourceFile)
-						self.currentRefreshJobs[job.sourceUUID]?.insert(newJob)
-						self.finalize(sourceUUID: job.sourceUUID)
-					}
-				} catch {
-					self.logger.warning("Error decompressing: \(String(describing: error))")
+					let newJob = Job(signpost: job.signpost,
+													 request: job.request,
+													 sourceUUID: job.sourceUUID,
+													 sourceFile: newSourceFile)
+					self.currentRefreshJobs[job.sourceUUID]?.insert(newJob)
+
+					self.decompressJobQueue.complete(job: job)
+					self.finalize(sourceUUID: job.sourceUUID)
+				}
+			} catch {
+				self.logger.warning("Error decompressing: \(String(describing: error))")
+				self.queue.async {
 					self.sourceStates[job.sourceUUID]?.errors.append(RefreshError.generalError(sourceUUID: job.sourceUUID,
 																																										 url: job.url,
 																																										 error: error))
@@ -530,9 +612,7 @@ class SourceRefreshController: NSObject {
 			self.logger.debug("✨ Completed")
 			#endif
 
-			self.wakeLock.unlock()
-			self.completeBackgroundRefresh()
-			self.signpost?.end()
+			self.endRefresh()
 		}
 	}
 
@@ -542,11 +622,21 @@ class SourceRefreshController: NSObject {
 			self.logger.debug("🛑 Cancelled")
 			#endif
 
+			self.endRefresh()
+		}
+	}
+
+	private func endRefresh() {
+		queue.async {
+			self.queue = nil
+			self.jobQueue = nil
+			self.decompressJobQueue = nil
+			self.operationQueue = nil
 			self.session?.invalidateAndCancel()
 			self.session = nil
-//			self.decompressGroup?.cancelAll()
-//			self.decompressGroup = nil
+			self.completeBackgroundRefresh()
 			self.wakeLock.unlock()
+			self.signpost.end()
 		}
 	}
 

@@ -8,14 +8,15 @@
 
 import Foundation
 
-enum HTTPError: Error {
+enum HTTPError: Error, LocalizedError {
 	case general(error: Error)
-	case statusCode(statusCode: Int, response: HTTPURLResponse)
+	case cancelled
 	case badResponse
+	case statusCode(statusCode: Int, response: HTTPURLResponse)
 
 	var response: HTTPURLResponse? {
 		switch self {
-		case .general(_), .badResponse:
+		case .general(_), .cancelled, .badResponse:
 			return nil
 		case .statusCode(_, let response):
 			return response
@@ -36,6 +37,12 @@ enum HTTPError: Error {
 		case .general(let error):
 			return error.localizedDescription
 
+		case .cancelled:
+			return .localize("The request was cancelled.")
+
+		case .badResponse:
+			return .localize("The server returned an unexpected response.")
+
 		case .statusCode(let statusCode, _):
 			switch statusCode {
 			case 401, 403:
@@ -47,53 +54,54 @@ enum HTTPError: Error {
 			default:
 				return "\(String.localize("The server returned an unexpected error.")) (\(statusCodeString))"
 			}
-
-		case .badResponse:
-			return .localize("The server returned an unexpected response.")
 		}
 	}
 }
 
-class HTTPRequest {
+struct Response<T> {
+	let statusCode: Int
+	let data: T?
+	let response: HTTPURLResponse?
+	let error: Error?
+}
 
-	struct Response<T> {
-		let statusCode: Int
-		let data: T?
-		let response: HTTPURLResponse?
-		let error: Error?
-	}
+extension URLSession {
 
-	static func data(session: URLSession = .shared, for request: URLRequest) async throws -> (data: Data, response: HTTPURLResponse) {
-		return try await withCheckedThrowingContinuation { result in
-			let task = URLSession.shared.dataTask(with: request) { data, response, error in
-				do {
+	func data(with request: URLRequest) async throws -> (data: Data, response: HTTPURLResponse) {
+		var task: URLSessionTask!
+
+		return try await withTaskCancellationHandler { [task] in
+			task?.cancel()
+		} operation: {
+			try await withCheckedThrowingContinuation { result in
+				task = dataTask(with: request) { data, response, error in
 					if let error = self.error(for: response, error: error, forAsync: true) {
-						throw error
+						result.resume(throwing: HTTPError.general(error: error))
+					} else {
+						guard let response = response as? HTTPURLResponse else {
+							result.resume(throwing: HTTPError.badResponse)
+							return
+						}
+						result.resume(returning: (data!, response))
 					}
-					guard let data = data,
-								let response = response as? HTTPURLResponse else {
-						throw NSError(domain: NSURLErrorDomain, code: NSURLErrorBadServerResponse)
-					}
-					result.resume(returning: (data, response))
-				} catch {
-					result.resume(throwing: error)
 				}
+				task.resume()
 			}
-			task.resume()
 		}
 	}
 
-	static func json<T: Codable>(session: URLSession = .shared, for request: URLRequest) async throws -> T {
-		let (data, _) = try await data(session: session, for: request)
-		return try JSONDecoder().decode(T.self, from: data)
+	func json<T: Codable>(with request: URLRequest, type: T.Type = T.self, decoder: JSONDecoder = .init()) async throws -> T {
+		let (data, _) = try await self.data(with: request)
+		return try decoder.decode(T.self, from: data)
 	}
 
-	static func download(session: URLSession = .shared, for request: URLRequest, completion: @escaping (Response<URL>) -> Void) {
-		let task = session.downloadTask(with: request) { url, response, error in
+	func download(with request: URLRequest, completion: @escaping (Response<URL>) -> Void) {
+		let task = downloadTask(with: request) { url, response, error in
 			if let error = self.error(for: response, error: error) {
 				completion(Response(statusCode: 0, data: nil, response: nil, error: error))
 				return
 			}
+
 			guard let url = url,
 						let response = response as? HTTPURLResponse else {
 				completion(Response(statusCode: 0, data: url, response: nil, error: HTTPError.badResponse))
@@ -104,9 +112,15 @@ class HTTPRequest {
 		task.resume()
 	}
 
-	private static func error(for response: URLResponse?, error: Error?, forAsync: Bool = false) -> Error? {
-		if let error = error {
-			return HTTPError.general(error: error)
+	private func error(for response: URLResponse?, error: Error?, forAsync: Bool = false) -> Error? {
+		if let error = error as? NSError {
+			switch (error.domain, error.code) {
+			case (NSURLErrorDomain, NSURLErrorCancelled):
+				return HTTPError.cancelled
+
+			default:
+				return HTTPError.general(error: error)
+			}
 		}
 
 		guard let response = response as? HTTPURLResponse else {
