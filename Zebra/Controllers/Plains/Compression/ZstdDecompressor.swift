@@ -9,7 +9,7 @@
 import Foundation
 
 class ZstdDecompressor: DecompressorProtocol {
-	struct ZstdError: Error {
+	struct ZstdError: Error, LocalizedError {
 		private let errorString: String
 
 		init(errno: errno_t) {
@@ -20,10 +20,11 @@ class ZstdDecompressor: DecompressorProtocol {
 			if ZSTD_isError(error) == 0 {
 				return nil
 			}
-			if let string = ZSTD_getErrorName(error) {
-				errorString = String(utf8String: string) ?? "Unknown"
+			if let cString = ZSTD_getErrorName(error),
+				 let string = String(utf8String: cString) {
+				errorString = string
 			} else {
-				errorString = "Unknown"
+				errorString = "Zstd error \(error)"
 			}
 		}
 
@@ -32,7 +33,7 @@ class ZstdDecompressor: DecompressorProtocol {
 
 	static func decompress(url: URL, destinationURL: URL, format: Decompressor.Format) async throws {
 		guard let sourceHandle = fopen(url.path.cString, "rb") else {
-			throw ZstdError(errno: EBADF)
+			throw ZstdError(errno: errno)
 		}
 		defer { fclose(sourceHandle) }
 
@@ -58,6 +59,11 @@ class ZstdDecompressor: DecompressorProtocol {
 				break
 			}
 
+			let error = ferror(sourceHandle)
+			if error != 0 {
+				throw ZstdError(errno: error)
+			}
+
 			var inBuffer = ZSTD_inBuffer(src: sourceBuffer, size: sourceCount, pos: 0)
 			var outBuffer = ZSTD_outBuffer(dst: destinationBuffer, size: destinationCapacity, pos: 0)
 
@@ -67,7 +73,7 @@ class ZstdDecompressor: DecompressorProtocol {
 					throw error
 				}
 
-				let data = Data(bytes: outBuffer.dst, count: outBuffer.size)
+				let data = Data(bytes: outBuffer.dst, count: outBuffer.pos)
 				try destinationHandle.write(contentsOf: data)
 			}
 		}
