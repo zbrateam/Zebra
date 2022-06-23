@@ -40,13 +40,18 @@ class PlainsController {
 			etcPrefixURL/"etc/apt/preferences.d",
 			etcPrefixURL/"etc/apt/sources.list.d"
 		] : [])
-		for url in dirsToCreate {
+		for var url in dirsToCreate {
 			try FileManager.default.createDirectory(at: url,
 																							withIntermediateDirectories: true,
 																							attributes: [:])
 			// TODO: Set 0700 mode when parent dir is owned by current user
 //																								.posixPermissions: 0700
 //																							])
+
+			// Tell Time Machine to not worry about backing this up.
+			var attributes = URLResourceValues()
+			attributes.isExcludedFromBackup = true
+			try url.setResourceValues(attributes)
 		}
 
 		// Set up simulated environment if needed
