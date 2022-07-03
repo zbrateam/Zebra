@@ -27,16 +27,6 @@ class SourceSectionsViewController: ListCollectionViewController {
 	private enum Value: Hashable {
 		case featured
 		case section(section: String?, count: UInt)
-
-		func hash(into hasher: inout Hasher) {
-			switch self {
-			case .featured:
-				break
-			case .section(let section, let count):
-				hasher.combine(section)
-				hasher.combine(count)
-			}
-		}
 	}
 
 	private let source: Source?
@@ -45,8 +35,8 @@ class SourceSectionsViewController: ListCollectionViewController {
 	private var sections = [Value]()
 	private var dataSource: UICollectionViewDiffableDataSource<Section, Value>!
 
-	override class func createLayout() -> UICollectionViewCompositionalLayout {
-		UICollectionViewCompositionalLayout { index, environment in
+	override class func createLayout() -> CollectionViewCompositionalLayout {
+		CollectionViewCompositionalLayout { index, environment in
 			switch index {
 			case 0:
 				let section = NSCollectionLayoutSection(group: .oneAcross(heightDimension: .absolute(CarouselViewController.height)))
@@ -88,8 +78,7 @@ class SourceSectionsViewController: ListCollectionViewController {
 
 			case .section(let section, let count):
 				let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SourceSectionCell", for: indexPath) as! SourceSectionCollectionViewCell
-				cell.isSource = self.source != nil
-				cell.section = (section, count)
+				cell.section = (section, count, self.source != nil)
 				return cell
 			}
 		}

@@ -9,97 +9,15 @@
 import UIKit
 import Plains
 
-class SourceCollectionViewCell: UICollectionViewCell {
+class SourceCollectionViewCell: UICollectionViewListCell {
 
 	var source: Source! {
 		didSet { updateSource() }
 	}
 
-	private var imageView: IconImageView!
-	private var symbolImageView: UIImageView!
-	private var titleLabel: UILabel!
-	private var detailImageView: UIImageView!
-	private var detailLabel: UILabel!
-	private var chevronImageView: UIImageView!
-	private var progressView: ProgressDonut!
+	private let progressView = ProgressDonut()
 
 	private var niceSourceURL: String?
-
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-
-		let imageContainer = UIView()
-		imageContainer.translatesAutoresizingMaskIntoConstraints = false
-
-		imageView = IconImageView()
-		imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		imageContainer.addSubview(imageView)
-
-		symbolImageView = UIImageView()
-		symbolImageView.translatesAutoresizingMaskIntoConstraints = false
-		symbolImageView.contentMode = .scaleAspectFit
-		symbolImageView.tintColor = .secondaryLabel
-		imageContainer.addSubview(symbolImageView)
-
-		titleLabel = UILabel()
-		titleLabel.font = .preferredFont(forTextStyle: .headline)
-		titleLabel.textColor = .label
-
-		detailLabel = UILabel()
-		detailLabel.font = .preferredFont(forTextStyle: .footnote)
-		detailLabel.textColor = .secondaryLabel
-
-		detailImageView = UIImageView()
-		detailImageView.translatesAutoresizingMaskIntoConstraints = false
-		detailImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(font: detailLabel.font, scale: .small)
-		detailImageView.tintColor = .secondaryLabel
-
-		let detailStackView = UIStackView(arrangedSubviews: [detailImageView, detailLabel])
-		detailStackView.spacing = 4
-		detailStackView.alignment = .center
-
-		let labelStackView = UIStackView(arrangedSubviews: [titleLabel, detailStackView])
-		labelStackView.translatesAutoresizingMaskIntoConstraints = false
-		labelStackView.axis = .vertical
-		labelStackView.spacing = 3
-		labelStackView.alignment = .leading
-		labelStackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-
-		progressView = ProgressDonut()
-		progressView.isHidden = true
-
-		chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
-		chevronImageView.tintColor = .tertiaryLabel
-		chevronImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-		let pointSize = UIFont.preferredFont(forTextStyle: .body).pointSize
-		chevronImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .medium)
-
-		let mainStackView = UIStackView(arrangedSubviews: [imageContainer, labelStackView, progressView, chevronImageView])
-		mainStackView.translatesAutoresizingMaskIntoConstraints = false
-		mainStackView.alignment = .center
-		mainStackView.spacing = 12
-		contentView.addSubview(mainStackView)
-
-		NSLayoutConstraint.activate([
-			mainStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-			mainStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-			mainStackView.topAnchor.constraint(equalTo: contentView.readableContentGuide.topAnchor),
-			mainStackView.bottomAnchor.constraint(equalTo: contentView.readableContentGuide.bottomAnchor),
-
-			imageView.widthAnchor.constraint(equalToConstant: 40),
-			imageView.heightAnchor.constraint(equalToConstant: 40),
-
-			symbolImageView.widthAnchor.constraint(equalToConstant: 30),
-			symbolImageView.heightAnchor.constraint(equalToConstant: 30),
-			symbolImageView.centerXAnchor.constraint(equalTo: imageContainer.centerXAnchor),
-			symbolImageView.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor)
-		])
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
 
 	override func prepareForReuse() {
 		source = nil
@@ -117,58 +35,67 @@ class SourceCollectionViewCell: UICollectionViewCell {
 	}
 
 	private func updateSource() {
+		var config = UIListContentConfiguration.zebraSubtitleCell()
+		var accessories: [UICellAccessory] = [.disclosureIndicator()]
+
 		if let source = source {
+			config.text = source.origin
 			niceSourceURL = source.uri.displayString
 
 			if let host = source.uri.host,
 				 let image = UIImage(named: "Repo Icons/\(host)") {
-				imageView.setImageURL(nil)
-				imageView.image = image
+				accessories += [.iconImageView(url: nil, fallbackImage: image, width: 40)]
 			} else {
-				imageView.setImageURL(source.iconURL, usingScale: true)
+				accessories += [.iconImageView(url: source.iconURL, usingScale: true, width: 40)]
 			}
 
-			imageView.isHidden = false
-			symbolImageView.isHidden = true
-			titleLabel.text = source.origin
-			titleLabel.textColor = .label
+			accessories += [
+				.customView(configuration: .init(customView: progressView,
+																				 placement: .trailing(),
+																				 reservedLayoutWidth: .actual,
+																				 maintainsFixedSize: true))
+			]
 
+			self.contentConfiguration = config
 			let state = SourceRefreshController.shared.sourceStates[source.uuid]
 			updateProgress(state: state)
 		} else {
-			titleLabel.text = .localize("All Packages")
-			detailLabel.text = .localize("Browse packages from all sources.")
-			imageView.setImageURL(nil)
-			imageView.isHidden = true
-			symbolImageView.image = UIImage(named: "zebra.wrench")
-			symbolImageView.isHidden = false
-			detailImageView.isHidden = true
-			progressView.isHidden = true
+			config.text = .localize("All Packages")
+			config.secondaryText = .localize("Browse packages from all sources.")
+
+			config.image = UIImage(named: "zebra.wrench")
+			config.imageProperties.preferredSymbolConfiguration = .init(scale: .large)
+			config.imageProperties.tintColor = .secondaryLabel
+			config.imageProperties.reservedLayoutSize = CGSize(width: 40, height: 40)
 		}
+
+		self.accessories = accessories
+		self.contentConfiguration = config
 	}
 
 	private func updateProgress(state: SourceRefreshController.SourceState?) {
-		if source != nil {
-			if SourceRefreshController.shared.isRefreshing,
-				 let progress = state?.progress {
-				progressView.isHidden = false
-				progressView.progress = progress.fractionCompleted
-			} else {
-				progressView.isHidden = true
-			}
+		guard source != nil else {
+			return
+		}
 
+		if SourceRefreshController.shared.isRefreshing,
+			 let progress = state?.progress {
+			progressView.isHidden = false
+			progressView.progress = progress.fractionCompleted
+		} else {
+			progressView.isHidden = true
+		}
+
+		if var config = contentConfiguration as? UIListContentConfiguration {
 			if let errors = state?.errors,
 				 !errors.isEmpty {
-				detailImageView.image = UIImage(systemName: "exclamationmark.circle")
-				detailImageView.isHidden = false
-				detailImageView.tintColor = .systemRed
-				detailLabel.text = .localize("Failed to load")
-				detailLabel.textColor = .systemRed
+				config.secondaryText = .localize("Failed to load")
+				config.secondaryTextProperties.color = .systemRed
 			} else {
-				detailImageView.isHidden = true
-				detailLabel.text = niceSourceURL
-				detailLabel.textColor = .secondaryLabel
+				config.secondaryText = niceSourceURL
+				config.secondaryTextProperties.color = .secondaryLabel
 			}
+			contentConfiguration = config
 		}
 	}
 

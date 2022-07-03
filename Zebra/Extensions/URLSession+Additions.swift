@@ -20,7 +20,7 @@ extension URLSession {
 	}()
 
 	static let image: URLSession = {
-		let config = URLSessionConfiguration.ephemeral.copy() as! URLSessionConfiguration
+		let config = URLSessionConfiguration.default.copy() as! URLSessionConfiguration
 		config.urlCache = nil
 		config.httpCookieStorage = nil
 		config.httpCookieAcceptPolicy = .never
@@ -30,11 +30,13 @@ extension URLSession {
 	}()
 
 	static let download: URLSession = {
-		let config = URLSessionConfiguration.ephemeral.copy() as! URLSessionConfiguration
+		let config = URLSessionConfiguration.default.copy() as! URLSessionConfiguration
 		config.httpCookieStorage = nil
 		config.httpCookieAcceptPolicy = .never
 		config.httpAdditionalHeaders = URLController.aptHeaders
+		config.httpShouldUsePipelining = true
 		config.tlsMinimumSupportedProtocolVersion = .TLSv12
+		config.shouldUseExtendedBackgroundIdleMode = true
 		return URLSession(configuration: config)
 	}()
 

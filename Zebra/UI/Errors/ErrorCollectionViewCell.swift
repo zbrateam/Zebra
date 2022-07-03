@@ -9,7 +9,7 @@
 import UIKit
 import Plains
 
-class ErrorCollectionViewCell: UICollectionViewCell {
+class ErrorCollectionViewCell: UICollectionViewListCell {
 
 	var error: PlainsError? {
 		didSet { updateError() }
@@ -47,10 +47,10 @@ class ErrorCollectionViewCell: UICollectionViewCell {
 		contentView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
-			stackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-			stackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: 4),
-			stackView.topAnchor.constraint(equalTo: contentView.readableContentGuide.topAnchor),
-			stackView.bottomAnchor.constraint(equalTo: contentView.readableContentGuide.bottomAnchor)
+			stackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+			stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: 4),
+			stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+			stackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 	}
 

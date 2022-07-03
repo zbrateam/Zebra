@@ -8,80 +8,16 @@
 
 import UIKit
 
-class SourceSectionCollectionViewCell: UICollectionViewCell {
-	var section: (name: String?, count: UInt)! {
-		didSet { updateSection() }
-	}
-	var isSource = false
+class SourceSectionCollectionViewCell: UICollectionViewListCell {
 
-	private var imageView: IconImageView!
-	private var symbolImageView: UIImageView!
-	private var titleLabel: UILabel!
-	private var detailLabel: UILabel!
-	private var countLabel: UILabel!
-	private var chevronImageView: UIImageView!
+	var section: (name: String?, count: UInt, isSource: Bool)? {
+		didSet { setNeedsUpdateConfiguration() }
+	}
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
-		let imageContainer = UIView()
-		imageContainer.translatesAutoresizingMaskIntoConstraints = false
-
-		imageView = IconImageView()
-		imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		imageContainer.addSubview(imageView)
-
-		symbolImageView = UIImageView()
-		symbolImageView.translatesAutoresizingMaskIntoConstraints = false
-		symbolImageView.contentMode = .scaleAspectFit
-		symbolImageView.tintColor = .secondaryLabel
-		imageContainer.addSubview(symbolImageView)
-
-		titleLabel = UILabel()
-		titleLabel.font = .preferredFont(forTextStyle: .headline)
-		titleLabel.textColor = .label
-
-		detailLabel = UILabel()
-		detailLabel.font = .preferredFont(forTextStyle: .footnote)
-		detailLabel.textColor = .secondaryLabel
-
-		countLabel = UILabel()
-		countLabel.font = .preferredFont(forTextStyle: .footnote)
-		countLabel.textColor = .secondaryLabel
-
-		let labelStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
-		labelStackView.translatesAutoresizingMaskIntoConstraints = false
-		labelStackView.axis = .vertical
-		labelStackView.spacing = 3
-		labelStackView.alignment = .leading
-		labelStackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-
-		chevronImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
-		chevronImageView.tintColor = .tertiaryLabel
-
-		let pointSize = UIFont.preferredFont(forTextStyle: .body).pointSize
-		chevronImageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: pointSize, weight: .medium, scale: .small)
-
-		let mainStackView = UIStackView(arrangedSubviews: [imageContainer, labelStackView, countLabel, chevronImageView])
-		mainStackView.translatesAutoresizingMaskIntoConstraints = false
-		mainStackView.alignment = .center
-		mainStackView.spacing = 12
-		contentView.addSubview(mainStackView)
-
-		NSLayoutConstraint.activate([
-			mainStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-			mainStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-			mainStackView.topAnchor.constraint(equalTo: contentView.readableContentGuide.topAnchor),
-			mainStackView.bottomAnchor.constraint(equalTo: contentView.readableContentGuide.bottomAnchor),
-
-			imageView.widthAnchor.constraint(equalToConstant: 29),
-			imageView.heightAnchor.constraint(equalToConstant: 29),
-
-			symbolImageView.widthAnchor.constraint(equalToConstant: 23),
-			symbolImageView.heightAnchor.constraint(equalToConstant: 23),
-			symbolImageView.centerXAnchor.constraint(equalTo: imageContainer.centerXAnchor),
-			symbolImageView.centerYAnchor.constraint(equalTo: imageContainer.centerYAnchor)
-		])
+		accessories = [.disclosureIndicator()]
 	}
 
 	@available(*, unavailable)
@@ -94,30 +30,33 @@ class SourceSectionCollectionViewCell: UICollectionViewCell {
 		super.prepareForReuse()
 	}
 
-	private func updateSection() {
-		if let (name, count) = section {
-			if let name = name {
-				titleLabel.text = .localize(name)
-				detailLabel.isHidden = true
-				imageView.image = SectionIcon.icon(for: name)
-				imageView.isHidden = false
-				symbolImageView.isHidden = true
-			} else {
-				titleLabel.text = .localize("All Packages")
-				detailLabel.text = isSource ? .localize("Browse packages from this source.") : .localize("Browse packages from all sources.")
-				detailLabel.isHidden = false
-				imageView.isHidden = true
-				symbolImageView.image = UIImage(named: "zebra.wrench")
-				symbolImageView.isHidden = false
-			}
+	override func updateConfiguration(using state: UICellConfigurationState) {
+		var config: UIListContentConfiguration
+		var accessories: [UICellAccessory] = [.disclosureIndicator()]
 
-			countLabel.text = NumberFormatter.localizedString(from: count as NSNumber, number: .none)
+		guard let (name, count, isSource) = section else {
+			return
 		}
+
+		if let name = name {
+			config = .zebraValueCell()
+			config.text = .localize(name)
+			config.secondaryText = NumberFormatter.localizedString(from: count as NSNumber, number: .none)
+			accessories += [.iconImageView(url: nil,
+																		 fallbackImage: SectionIcon.icon(for: name),
+																		 width: 29)]
+		} else {
+			config = .zebraSubtitleCell()
+			config.text = .localize("All Packages")
+			config.secondaryText = isSource ? .localize("Browse packages from this source.") : .localize("Browse packages from all sources.")
+			config.image = UIImage(named: "zebra.wrench")
+			config.imageProperties.preferredSymbolConfiguration = .init(scale: .large)
+			config.imageProperties.tintColor = .secondaryLabel
+			config.imageProperties.reservedLayoutSize = CGSize(width: 29, height: 29)
+		}
+
+		self.accessories = accessories
+		self.contentConfiguration = config.updated(for: state)
 	}
 
-	override var isHighlighted: Bool {
-		didSet {
-			backgroundColor = isHighlighted ? .systemGray4 : nil
-		}
-	}
 }

@@ -9,7 +9,7 @@
 import Foundation
 import Plains
 
-class PackageCollectionViewCell: UICollectionViewCell {
+class PackageCollectionViewCell: UICollectionViewListCell {
 
 	var package: Package! {
 		didSet { updatePackage() }
@@ -73,10 +73,10 @@ class PackageCollectionViewCell: UICollectionViewCell {
 		contentView.addSubview(mainStackView)
 
 		NSLayoutConstraint.activate([
-			mainStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-			mainStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-			mainStackView.topAnchor.constraint(equalTo: contentView.readableContentGuide.topAnchor),
-			mainStackView.bottomAnchor.constraint(equalTo: contentView.readableContentGuide.bottomAnchor),
+			mainStackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+			mainStackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+			mainStackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+			mainStackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
 
 			imageView.widthAnchor.constraint(equalToConstant: 60),
 			imageView.heightAnchor.constraint(equalToConstant: 60),

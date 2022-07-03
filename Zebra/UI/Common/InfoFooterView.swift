@@ -34,10 +34,10 @@ class InfoFooterView: UICollectionReusableView {
 		addSubview(label)
 
 		NSLayoutConstraint.activate([
-			label.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-			label.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-			label.topAnchor.constraint(equalTo: readableContentGuide.topAnchor, constant: 10),
-			label.bottomAnchor.constraint(equalTo: readableContentGuide.bottomAnchor, constant: -14),
+			label.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+			label.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+			label.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 10),
+			label.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -14),
 		])
 	}
 

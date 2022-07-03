@@ -20,6 +20,11 @@ class NavigationController: UINavigationController {
 	}
 
 	override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+		// Prevent large title except on root items
+		if !viewControllers.isEmpty {
+			viewController.navigationItem.largeTitleDisplayMode = .never
+		}
+
 		navigationProgressBar?.setProgress(0, animated: animated)
 		return super.pushViewController(viewController, animated: animated)
 	}

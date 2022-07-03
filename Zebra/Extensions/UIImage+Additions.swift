@@ -9,17 +9,17 @@
 import UIKit
 import Kingfisher
 
+typealias KingfisherTask = DownloadTask
+
 extension UIImageView {
 
-	/// > Note: Wait till the image view has been laid out before calling this. If `frame.size == .zero`,
-	/// > the image load will be skipped. Call this from `layoutSubviews` to ensure relayout as needed.
-	func load(url: URL?, usingScale: Bool = false, fallbackImage: UIImage? = nil) {
-		let scale = window?.screen.scale ?? UIScreen.main.scale
-		var sources = [Kingfisher.Source]()
+	fileprivate typealias Source = Kingfisher.Source
 
+	private static func sources(url: URL?, scale: CGFloat) -> [Source] {
+		var sources = [Source]()
 		if let url = url?.secureURL {
 			// Scaled image
-			if usingScale && scale != 1 {
+			if scale != 1 {
 				let fileBaseName = url
 					.deletingPathExtension()
 					.lastPathComponent
@@ -37,7 +37,27 @@ extension UIImageView {
 			// Originally supplied url
 			sources += [.network(url)]
 		}
+		return sources
+	}
 
+	static func preload(url: URL?, usingScale: Bool = false, screen: UIScreen? = nil) -> DownloadTask? {
+		var sources = Self.sources(url: url,
+															 scale: usingScale ? screen?.scale ?? 1 : 1)
+		if sources.isEmpty {
+			return nil
+		}
+
+		let primarySource = sources.removeFirst()
+		return KingfisherManager.shared.retrieveImage(with: primarySource,
+																									options: [.alternativeSources(sources)],
+																									completionHandler: nil)
+	}
+
+	/// > Note: Wait till the image view has been laid out before calling this. If `frame.size == .zero`,
+	/// > the image load will be skipped. Call this from `layoutSubviews` to ensure relayout as needed.
+	func load(url: URL?, usingScale: Bool = false, fallbackImage: UIImage? = nil) {
+		let scale = (window?.screen ?? .main).scale
+		var sources = Self.sources(url: url, scale: usingScale ? scale : 1)
 		if sources.isEmpty || frame.size == .zero {
 			kf.cancelDownloadTask()
 			image = fallbackImage

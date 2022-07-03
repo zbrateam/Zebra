@@ -21,8 +21,8 @@ class IconImageView: UIView {
 	private var imageView: UIImageView!
 	private var borderView: UIView!
 
-	override init(frame: CGRect) {
-		super.init(frame: frame)
+	init() {
+		super.init(frame: .zero)
 
 		backgroundView = UIView(frame: bounds)
 		backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -36,8 +36,6 @@ class IconImageView: UIView {
 		imageView.contentMode = .scaleAspectFit
 		imageView.clipsToBounds = true
 		imageView.layer.cornerCurve = .continuous
-		imageView.layer.minificationFilter = .trilinear
-		imageView.layer.magnificationFilter = .trilinear
 		addSubview(imageView)
 
 		borderView = UIView(frame: bounds)
@@ -46,6 +44,10 @@ class IconImageView: UIView {
 		borderView.layer.borderColor = UIColor.separator.cgColor
 		borderView.layer.cornerCurve = .continuous
 		addSubview(borderView)
+
+		NSLayoutConstraint.activate([
+			self.widthAnchor.constraint(equalTo: self.heightAnchor)
+		])
 	}
 
 	required init?(coder: NSCoder) {
@@ -81,3 +83,23 @@ class IconImageView: UIView {
 	}
 
 }
+
+extension UICellAccessory {
+
+	static func iconImageView(url: URL?, usingScale: Bool = true, fallbackImage: UIImage? = nil, width: CGFloat = 29) -> UICellAccessory {
+		let view = IconImageView()
+		view.setImageURL(url, usingScale: usingScale, fallbackImage: fallbackImage)
+
+		NSLayoutConstraint.activate([
+			view.widthAnchor.constraint(equalToConstant: width),
+			view.heightAnchor.constraint(equalToConstant: width)
+		])
+
+		return .customView(configuration: .init(customView: view,
+																						placement: .leading(displayed: .always),
+																						reservedLayoutWidth: .custom(width),
+																						maintainsFixedSize: true))
+	}
+
+}
+

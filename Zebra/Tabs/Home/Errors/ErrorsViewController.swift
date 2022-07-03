@@ -11,24 +11,15 @@ import Plains
 
 class ErrorsViewController: ListCollectionViewController {
 
-	private enum Section: Equatable, Hashable {
+	private enum Section: Hashable {
 		case packageManager
 		case source(label: String)
-
-		func hash(into hasher: inout Hasher) {
-			switch self {
-			case .packageManager:
-				break
-			case .source(label: let label):
-				hasher.combine(label)
-			}
-		}
 	}
 
 	private var dataSource: UICollectionViewDiffableDataSource<Section, PlainsError>!
 
-	override class func createLayout() -> UICollectionViewCompositionalLayout {
-		UICollectionViewCompositionalLayout { index, layoutEnvironment in
+	override class func createLayout() -> CollectionViewCompositionalLayout {
+		CollectionViewCompositionalLayout { index, layoutEnvironment in
 			var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
 			configuration.showsSeparators = false
 

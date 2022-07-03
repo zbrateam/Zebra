@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListCollectionViewController: BaseListCollectionViewController<UICollectionViewCompositionalLayout> {
+class ListCollectionViewController: BaseListCollectionViewController<CollectionViewCompositionalLayout> {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()

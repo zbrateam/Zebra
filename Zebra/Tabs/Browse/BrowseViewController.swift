@@ -12,22 +12,13 @@ import Plains
 
 class BrowseViewController: ListCollectionViewController {
 
-	private enum Section {
+	private enum Section: Int {
 		case news, sources
 	}
 
 	private enum Value: Hashable {
 		case news
 		case source(source: Source?)
-
-		func hash(into hasher: inout Hasher) {
-			switch self {
-			case .news:
-				break
-			case .source(let source):
-				hasher.combine(source)
-			}
-		}
 	}
 
 	private var sources = [Source]()
@@ -36,20 +27,22 @@ class BrowseViewController: ListCollectionViewController {
 	}
 
 	private var dataSource: UICollectionViewDiffableDataSource<Section, Value>!
+	private var preloadTasks = [IndexPath: KingfisherTask]()
 
-	override class func createLayout() -> UICollectionViewCompositionalLayout {
-		UICollectionViewCompositionalLayout { index, environment in
-			switch index {
-			case 0:
-				return NSCollectionLayoutSection(group: .oneAcross(heightDimension: .absolute(CarouselViewController.height)))
-
-			case 1:
-				let section = NSCollectionLayoutSection(group: .listGrid(environment: environment,
-																																 heightDimension: .estimated(57)))
-				section.boundarySupplementaryItems = [.header, .infoFooter]
+	override class func createLayout() -> CollectionViewCompositionalLayout {
+		CollectionViewCompositionalLayout { index, environment in
+			switch Section(rawValue: index)! {
+			case .news:
+				let section = NSCollectionLayoutSection(group: .oneAcross(heightDimension: .absolute(CarouselViewController.height)))
+				section.contentInsetsReference = .none
 				return section
 
-			default: fatalError()
+			case .sources:
+				let section = NSCollectionLayoutSection(group: .listGrid(environment: environment,
+																																 heightDimension: .estimated(57)))
+				section.contentInsetsReference = .none
+				section.boundarySupplementaryItems = [.header, .infoFooter]
+				return section
 			}
 		}
 	}
@@ -121,7 +114,7 @@ class BrowseViewController: ListCollectionViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		sourcesDidUpdate()
+		updateSources()
 
 		NotificationCenter.default.addObserver(self, selector: #selector(sourcesDidUpdate), name: SourceManager.sourceListDidUpdateNotification, object: nil)
 
@@ -142,8 +135,11 @@ class BrowseViewController: ListCollectionViewController {
 		sources = SourceManager.shared.sources
 			.sorted(by: { a, b in a.origin.localizedStandardCompare(b.origin) == .orderedAscending })
 
+		let showFeaturedCarousel = Preferences.showFeaturedCarousels
+		navigationItem.scrollEdgeAppearance = showFeaturedCarousel ? .withoutSeparator : .transparent
+
 		var snapshot = NSDiffableDataSourceSnapshot<Section, Value>()
-		if Preferences.showFeaturedCarousels {
+		if showFeaturedCarousel {
 			snapshot.appendSections([.news])
 			snapshot.appendItems([.news], toSection: .news)
 		}
@@ -242,7 +238,7 @@ class BrowseViewController: ListCollectionViewController {
 	}
 }
 
-extension BrowseViewController { // UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+extension BrowseViewController: UICollectionViewDataSourcePrefetching { // UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 
 	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
 		switch indexPath.section {
@@ -291,6 +287,21 @@ extension BrowseViewController { // UICollectionViewDataSource, UICollectionView
 			navigationController?.pushViewController(controller, animated: true)
 
 		default: break
+		}
+	}
+
+	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			let item = sources[indexPath.item]
+			preloadTasks[indexPath] = UIImageView.preload(url: item.iconURL,
+																										screen: view.window?.screen ?? .main)
+		}
+	}
+
+	func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			preloadTasks[indexPath]?.cancel()
+			preloadTasks[indexPath] = nil
 		}
 	}
 

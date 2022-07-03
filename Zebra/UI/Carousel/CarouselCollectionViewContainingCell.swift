@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CarouselCollectionViewContainingCell: UICollectionViewCell {
+class CarouselCollectionViewContainingCell: UICollectionViewListCell {
 
 	weak var parentViewController: UIViewController? {
 		didSet {

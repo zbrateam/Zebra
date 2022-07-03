@@ -41,7 +41,6 @@ enum PackageListSortOrder {
 }
 
 fileprivate class PackageListDataSource: UICollectionViewDiffableDataSource<Int, Package> {
-
 	var collation: UILocalizedIndexedCollation!
 	var sectionIndexes = [Int]()
 
@@ -59,7 +58,6 @@ fileprivate class PackageListDataSource: UICollectionViewDiffableDataSource<Int,
 		}
 		return IndexPath(item: sectionIndexes[section], section: 0)
 	}
-
 }
 
 class PackageListViewController: ListCollectionViewController {
@@ -101,9 +99,10 @@ class PackageListViewController: ListCollectionViewController {
 	private var sortOrder = PackageListSortOrder.ascending
 
 	private var dataSource: PackageListDataSource!
+	private var preloadTasks = [IndexPath: KingfisherTask]()
 
-	override class func createLayout() -> UICollectionViewCompositionalLayout {
-		UICollectionViewCompositionalLayout { _, environment in
+	override class func createLayout() -> CollectionViewCompositionalLayout {
+		CollectionViewCompositionalLayout { _, environment in
 			let section = NSCollectionLayoutSection(group: .listGrid(environment: environment,
 																															 heightDimension: .estimated(80)))
 			section.contentInsetsReference = .none
@@ -120,6 +119,7 @@ class PackageListViewController: ListCollectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		collectionView.prefetchDataSource = self
 		collectionView.register(PackageCollectionViewCell.self, forCellWithReuseIdentifier: "PackageCell")
 
 		loadingView = LoadingView(frame: collectionView.bounds)
@@ -237,7 +237,7 @@ class PackageListViewController: ListCollectionViewController {
 					!Self.superHiddenPackages.contains(package.identifier)
 			}
 			let roleFilter: (Package) -> Bool = { package in
-				if alwaysFilter(package) {
+				if !alwaysFilter(package) {
 					return false
 				}
 				if package.role.rawValue > maxRole.rawValue {
@@ -402,7 +402,7 @@ class PackageListViewController: ListCollectionViewController {
 
 }
 
-extension PackageListViewController { // UICollectionViewDelegate
+extension PackageListViewController: UICollectionViewDataSourcePrefetching { // UICollectionViewDelegate
 
 	override func collectionView(_: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point _: CGPoint) -> UIContextMenuConfiguration? {
 		let package = packages[indexPath.item]
@@ -417,6 +417,21 @@ extension PackageListViewController { // UICollectionViewDelegate
 		let package = packages[indexPath.item]
 		let viewController = PackageViewController(package: package)
 		navigationController?.pushViewController(viewController, animated: true)
+	}
+
+	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			let item = packages[indexPath.item]
+			preloadTasks[indexPath] = UIImageView.preload(url: item.iconURL,
+																										screen: view.window?.screen ?? .main)
+		}
+	}
+
+	func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			preloadTasks[indexPath]?.cancel()
+			preloadTasks[indexPath] = nil
+		}
 	}
 
 }

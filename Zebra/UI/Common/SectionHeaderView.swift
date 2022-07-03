@@ -25,11 +25,6 @@ class SectionHeaderView: UICollectionReusableView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
-		let effectView = UIToolbar()
-		effectView.translatesAutoresizingMaskIntoConstraints = false
-		effectView.delegate = self
-		addSubview(effectView)
-
 		label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.font = .preferredFont(forTextStyle: .headline)
@@ -46,15 +41,10 @@ class SectionHeaderView: UICollectionReusableView {
 		addSubview(stackView)
 
 		NSLayoutConstraint.activate([
-			effectView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-			effectView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-			effectView.topAnchor.constraint(equalTo: self.topAnchor),
-			effectView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-
-			stackView.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-			stackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-			stackView.topAnchor.constraint(equalTo: readableContentGuide.topAnchor),
-			stackView.bottomAnchor.constraint(equalTo: readableContentGuide.bottomAnchor),
+			stackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+			stackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+			stackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+			stackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
 		])
 	}
 
@@ -73,12 +63,6 @@ class SectionHeaderView: UICollectionReusableView {
 		}
 	}
 
-}
-
-extension SectionHeaderView: UIToolbarDelegate {
-	func position(for bar: UIBarPositioning) -> UIBarPosition {
-		.top
-	}
 }
 
 extension NSCollectionLayoutBoundarySupplementaryItem {
