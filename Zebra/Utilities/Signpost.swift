@@ -11,12 +11,14 @@ import os.log
 struct Signpost {
 
 	let log: OSLog
+	let subsystem: String
 	let signpostID: OSSignpostID
 	let name: StaticString
 	let format: StaticString
 	let arguments: [CVarArg]
 
 	init(subsystem: String, signpostID: OSSignpostID? = nil, name: StaticString, format: StaticString, _ arguments: CVarArg...) {
+		self.subsystem = subsystem
 		self.log = OSLog(subsystem: subsystem, category: .pointsOfInterest)
 		self.signpostID = signpostID ?? OSSignpostID(log: log)
 		self.name = name

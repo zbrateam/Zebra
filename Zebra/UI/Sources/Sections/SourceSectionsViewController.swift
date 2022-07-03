@@ -140,30 +140,13 @@ class SourceSectionsViewController: ListCollectionViewController {
 	}
 
 	private func fetchPromotedPackages() {
-		Task.detached {
-			guard let source = self.source else {
-				return
-			}
+		guard let source = self.source else {
+			return
+		}
 
-			do {
-				if let packages = PromotedPackagesFetcher.getCached(repo: source.uri) {
-					await MainActor.run {
-						self.promotedPackages = packages
-						self.carouselViewController?.bannerItems = packages
-					}
-				}
-
-				let promotedPackages = try await PromotedPackagesFetcher.fetch(repo: source.uri)
-				await MainActor.run {
-					self.promotedPackages = promotedPackages
-					self.carouselViewController?.bannerItems = promotedPackages
-				}
-			} catch {
-				Logger().warning("Loading Promoted packages failed: \(String(describing: error))")
-				await MainActor.run {
-					self.carouselViewController?.isError = true
-				}
-			}
+		if let packages = PromotedPackagesFetcher.getCached(sourceUUID: source.uuid) {
+			self.promotedPackages = packages
+			self.carouselViewController?.bannerItems = packages
 		}
 	}
 

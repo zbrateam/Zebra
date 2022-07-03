@@ -55,8 +55,13 @@ class Decompressor {
 			 let date = values.contentModificationDate {
 			var values = URLResourceValues()
 			values.contentModificationDate = date
-			var url = destinationURL
-			try url.setResourceValues(values)
+			var destinationURL = destinationURL
+			try destinationURL.setResourceValues(values)
+		}
+
+		// Copy over ETag xattr
+		if let value = try url.extendedAttribute(forKey: URL.etagXattr) {
+			try destinationURL.setExtendedAttribute(value, forKey: URL.etagXattr)
 		}
 
 		try FileManager.default.removeItem(at: url)

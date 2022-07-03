@@ -17,6 +17,17 @@ fileprivate let permittedInsecureDomains: [String] = {
 }()
 
 extension URL {
+
+	struct XattrError: Error {
+		let localizedDescription: String
+
+		init(errno: errno_t) {
+			localizedDescription = String(cString: strerror(errno))
+		}
+	}
+
+	static let etagXattr = "com.getzbra.etag"
+
 	static func / (lhs: URL, rhs: String) -> URL {
 		rhs == ".." ? lhs.deletingLastPathComponent() : lhs.appendingPathComponent(rhs)
 	}
@@ -48,6 +59,53 @@ extension URL {
 	/// Return a cleaned URL for display.
 	var displayString: String {
 		absoluteString.replacingOccurrences(regex: "^https?://|/$", with: "")
+	}
+
+	func extendedAttributeData(forKey key: String) throws -> Data? {
+		let count = getxattr(path, key, nil, 0, 0, 0)
+		if count == -1 {
+			if errno == ENOATTR {
+				// Doesn’t exist
+				return nil
+			}
+			throw XattrError(errno: errno)
+		}
+
+		var value = Data(count: count)
+		let result = value.withUnsafeMutableBytes { getxattr(path, key, $0.baseAddress, count, 0, 0) }
+		if result == -1 {
+			throw XattrError(errno: errno)
+		}
+		return value
+	}
+
+	func extendedAttribute(forKey key: String) throws -> String? {
+		if let data = try extendedAttributeData(forKey: key) {
+			return String(data: data, encoding: .utf8)
+		}
+		return nil
+	}
+
+	func setExtendedAttribute(_ value: Data?, forKey key: String) throws {
+		if var value = value {
+			let result = value.withUnsafeMutableBytes {
+				guard let address = $0.baseAddress else {
+					return Int32(-1)
+				}
+				return setxattr(path, key, address, strlen(address), 0, 0)
+			}
+			if result == -1 {
+				throw XattrError(errno: errno)
+			}
+		} else {
+			if removexattr(path, key, 0) == -1 {
+				throw XattrError(errno: errno)
+			}
+		}
+	}
+
+	func setExtendedAttribute(_ value: String?, forKey key: String) throws {
+		try setExtendedAttribute(value?.data(using: .utf8), forKey: key)
 	}
 }
 

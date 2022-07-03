@@ -39,16 +39,21 @@ class SourceRefreshController: NSObject {
 		}
 	}
 
-	struct Job: Identifiable, Hashable, Equatable {
+	struct JobGroup {
 		let signpost: Signpost
-		let request: URLRequest
+		let dispatchGroup: DispatchGroup
 		let sourceUUID: String
+	}
+
+	struct Job: Identifiable, Hashable, Equatable {
+		let group: JobGroup
+		let request: URLRequest
 		let sourceFile: SourceFile
 
 		var id: Int { request.hashValue }
 		var url: URL { request.url! }
 
-		var filename: String { sourceUUID + sourceFile.name }
+		var filename: String { group.sourceUUID + sourceFile.name }
 		var destinationURL: URL { listsURL/filename }
 		var partialURL: URL { partialListsURL/filename }
 
@@ -66,6 +71,10 @@ class SourceRefreshController: NSObject {
 		let sourceUUID: String
 		let progress: Progress
 		var errors = [RefreshError]()
+
+		fileprivate mutating func addError(_ error: RefreshError) {
+			errors.append(error)
+		}
 	}
 
 	enum RefreshError: Error, LocalizedError {
@@ -112,12 +121,12 @@ class SourceRefreshController: NSObject {
 		}
 	}
 
-	private static let subsystem = "com.getzbra.zebra.source-refresh"
+	static let refreshProgressDidChangeNotification = Notification.Name(rawValue: "SourceRefreshProgressDidChangeNotification")
 
 	private static let legacySourceHosts = ["repo.dynastic.co", "apt.bingner.com"]
 
-	private static let listsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!
-	private static let partialListsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!/"partial"
+	static let listsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!
+	static let partialListsURL = PlainsConfig.shared.fileURL(forKey: "Dir::State::lists")!/"partial"
 
 	private static let packagesTypePriority: [SourceFileKind] = {
 		let order = PlainsConfig.shared.compressionTypes
@@ -127,8 +136,6 @@ class SourceRefreshController: NSObject {
 		}
 		return [.zstd, .xz, .lzma, .bzip2, .gzip]
 	}()
-
-	static let refreshProgressDidChangeNotification = Notification.Name(rawValue: "SourceRefreshProgressDidChangeNotification")
 
 	static let shared = SourceRefreshController()
 
@@ -145,18 +152,20 @@ class SourceRefreshController: NSObject {
 	private var innerProgress: Progress?
 	private(set) var sourceStates = [String: SourceState]()
 
-	private var queue: DispatchQueue!
+	private var controlQueue: DispatchQueue!
+	private var workQueue: DispatchQueue!
 	private var jobQueue: JobQueue<Job>!
 	private var decompressJobQueue: JobQueue<Job>!
 	private var operationQueue: OperationQueue!
+	private var dispatchGroup: DispatchGroup!
 	private let wakeLock = WakeLock(label: "com.getzbra.zebra.source-refresh-wake-lock")
 
 	private var session: URLSession?
 	private var currentRefreshJobs = [String: Set<Job>]()
 	internal var backgroundTask: BGTask?
 
-	internal let logger = Logger(subsystem: subsystem, category: "SourceRefreshOperation")
-	private let signpost = Signpost(subsystem: subsystem, name: "SourceRefreshOperation", format: "Refresh")
+	internal let logger = Logger(subsystem: "com.getzbra.zebra", category: "SourceRefreshOperation")
+	private let signpost = Signpost(subsystem: "com.getzbra.zebra", name: "SourceRefreshOperation", format: "Refresh")
 
 	var isRefreshing: Bool { !progress.isFinished && !progress.isCancelled }
 	var refreshErrors: [RefreshError] { sourceStates.values.reduce([], { $0 + $1.errors }) }
@@ -169,28 +178,37 @@ class SourceRefreshController: NSObject {
 	}
 
 	func refresh(priority: Priority = .foreground) {
-		if let queue = queue,
-			 isRefreshing {
-			queue.async {
-				self.progress.addCancellationNotification {
-					self.refresh(priority: priority)
-				}
-				self.progress.cancel()
+		if isRefreshing {
+			self.progress.addCancellationNotification {
+				self.refresh(priority: priority)
 			}
+			self.progress.cancel()
 			return
 		}
 
 		self.priority = priority
 
-		queue = DispatchQueue(label: "com.getzbra.zebra.source-refresh-queue", qos: priority.qos)
-		jobQueue = JobQueue(queue: queue, taskLimit: parallelJobsCount) { self.fetch(job: $0) }
-		decompressJobQueue = JobQueue(queue: queue, taskLimit: parallelDecompressJobsCount) { self.decompress(job: $0) }
+		controlQueue = DispatchQueue(label: "com.getzbra.zebra.source-refresh-control-queue", qos: priority.qos)
+		workQueue = DispatchQueue(label: "com.getzbra.zebra.source-refresh-work-queue", qos: priority.qos)
 
-		operationQueue = OperationQueue()
-		operationQueue.maxConcurrentOperationCount = parallelJobsCount
-		operationQueue.underlyingQueue = queue
+		workQueue.async {
+			// TODO: Work out why this happens?
+			guard self.controlQueue != nil && self.workQueue != nil else {
+				self.refresh(priority: priority)
+				return
+			}
 
-		queue.async {
+			let sources = SourceManager.shared.sources
+
+			self.jobQueue = JobQueue(queue: self.workQueue, taskLimit: self.parallelJobsCount, queueProcessor: self.fetch)
+			self.decompressJobQueue = JobQueue(queue: self.workQueue, taskLimit: self.parallelDecompressJobsCount, queueProcessor: self.decompress)
+
+			self.operationQueue = OperationQueue()
+			self.operationQueue.maxConcurrentOperationCount = self.parallelJobsCount
+			self.operationQueue.underlyingQueue = self.workQueue
+
+			self.dispatchGroup = DispatchGroup()
+
 			Preferences.lastSourceUpdate = Date()
 			self.scheduleNextRefresh()
 
@@ -219,70 +237,78 @@ class SourceRefreshController: NSObject {
 			self.innerProgress = Progress(totalUnitCount: SourceManager.shared.sources.count + 1,
 																		parent: self.progress,
 																		pendingUnitCount: 90,
-																		granularity: .ulpOfOne)
-			self.innerProgress!.addFractionCompletedNotification { completedUnitCount, totalUnitCount, _ in
-				if completedUnitCount == totalUnitCount - 1 && self.isRefreshing {
-					self.finishRefresh()
-				}
-			}
-			self.innerProgress!.addCancellationNotification {
-				self.cancel()
-			}
+																		granularity: 0.001)
+			self.innerProgress!.addCancellationNotification { self.cancel() }
 
 			// Start the state machine for each source with InRelease.
-			for source in SourceManager.shared.sources {
-				let sourceFile = SourceFile.inRelease
-				let downloadURL = source.baseURI/sourceFile.name
-				let destinationURL = Self.partialListsURL/(source.uuid + sourceFile.name)
-				let request = self.request(for: downloadURL, destinationURL: destinationURL)
-				let signpost = Signpost(subsystem: Self.subsystem, name: "SourceRefreshJob", format: "%@", source.uuid)
-				signpost.begin()
+			for source in sources {
+				let group = JobGroup(signpost: Signpost(subsystem: self.signpost.subsystem, name: "SourceRefreshJob", format: "%@", source.uuid),
+														 dispatchGroup: DispatchGroup(),
+														 sourceUUID: source.uuid)
+				group.signpost.begin()
 
-				let job = Job(signpost: signpost, request: request, sourceUUID: source.uuid, sourceFile: sourceFile)
-				self.currentRefreshJobs[source.uuid] = [job]
+				let progress = Progress(totalUnitCount: 1000, parent: self.innerProgress!, pendingUnitCount: 1)
+				progress.addCancellationNotification {
+					self.dispatchGroup.leave()
+				}
 
-				let sourceState = SourceState(sourceUUID: source.uuid,
-																			progress: Progress(totalUnitCount: 1000, parent: self.innerProgress!, pendingUnitCount: 1))
-				self.sourceStates[source.uuid] = sourceState
-				self.continueJob(job, withSourceFile: .inRelease)
+				self.sourceStates[group.sourceUUID] = SourceState(sourceUUID: group.sourceUUID, progress: progress)
+				self.currentRefreshJobs[group.sourceUUID] = Set()
+				self.dispatchGroup.enter()
+				self.continueJob(group: group, withSourceFile: .inRelease)
+				self.continueJob(group: group, withSourceFile: .featured)
+				self.continueJob(group: group, withSourceFile: .paymentEndpoint)
+			}
+
+			self.dispatchGroup.notify(queue: self.workQueue) {
+				if self.isRefreshing {
+					self.finishRefresh()
+				}
 			}
 		}
 	}
 
 	// MARK: - Job Lifecycle
 
-	private func continueJob(_ job: Job, withSourceFile sourceFile: SourceFile) {
-		guard let source = SourceManager.shared.source(forUUID: job.sourceUUID) else {
+	private func continueJob(group: JobGroup, withSourceFile sourceFile: SourceFile) {
+		guard let source = SourceManager.shared.source(forUUID: group.sourceUUID) else {
 			return
 		}
 
-		let baseURL: URL
+		var baseURLs = [URL]()
 		switch sourceFile {
-		case .inRelease, .release, .releaseGpg, .paymentEndpoint:
-			baseURL = source.baseURI
+		case .inRelease, .release, .releaseGpg, .paymentEndpoint, .featured:
+			baseURLs.append(source.baseURI)
 
 		case .packages(_):
-			// TODO: Support multiple components/archs
-			if let component = source.components.first {
-				let architecture = source.architectures.first ?? Device.primaryDebianArchitecture
-				baseURL = source.baseURI/component/"binary-\(architecture)"
+			if source.components.isEmpty {
+				baseURLs.append(source.baseURI)
 			} else {
-				baseURL = source.baseURI
+				// TODO: The state machine isn’t compatible with splitting off into multiple requests here
+				for component in source.components {
+					for architecture in source.architectures {
+						if architecture != "all" {
+							baseURLs.append(source.baseURI/component/"binary-\(architecture)")
+						}
+					}
+				}
 			}
 		}
 
-		let downloadURL = baseURL/sourceFile.name
-		let destinationURL = Self.partialListsURL/(job.sourceUUID + sourceFile.name)
+		for baseURL in baseURLs {
+			let downloadURL = baseURL/sourceFile.name
+			let destinationURL = Self.partialListsURL/(group.sourceUUID + sourceFile.name)
 
-		let request = self.request(for: downloadURL, destinationURL: destinationURL)
-		let newJob = Job(signpost: job.signpost,
-										 request: request,
-										 sourceUUID: job.sourceUUID,
-										 sourceFile: sourceFile)
+			let request = self.request(for: downloadURL, destinationURL: destinationURL)
+			let newJob = Job(group: group,
+											 request: request,
+											 sourceFile: sourceFile)
 
-		currentRefreshJobs[newJob.sourceUUID]?.insert(newJob)
-		jobQueue.enqueue(job: newJob)
-		job.signpost.event(format: "Queued: %@", downloadURL.absoluteString)
+			currentRefreshJobs[group.sourceUUID]?.insert(newJob)
+			jobQueue.enqueue(job: newJob)
+			group.dispatchGroup.enter()
+			group.signpost.event(format: "Queued: %@", downloadURL.absoluteString)
+		}
 	}
 
 	private func request(for downloadURL: URL, destinationURL: URL) -> URLRequest {
@@ -293,6 +319,15 @@ class SourceRefreshController: NSObject {
 		var request = URLRequest(url: url,
 														 cachePolicy: .useProtocolCachePolicy,
 														 timeoutInterval: Preferences.sourceRefreshTimeout)
+		if #available(iOS 14.5, *) {
+			// Just go ahead and try HTTP/3 first without probing for whether it’s supported by the
+			// server. Since most repos are hosted on GitHub or Cloudflare, this is a safe-ish bet.
+			request.assumesHTTP3Capable = true
+		}
+
+		for (key, value) in URLController.aptHeaders {
+			request.setValue(value, forHTTPHeaderField: key)
+		}
 
 		// Handle legacy headers for specific repos that require them.
 		if Self.legacySourceHosts.contains(downloadURL.host ?? "") {
@@ -301,10 +336,12 @@ class SourceRefreshController: NSObject {
 			}
 		}
 
-		// If we already have an old version of this file, set If-Modified-Since so the server can
-		// give us a 304 Not Modified response.
-		if let values = try? destinationURL.resourceValues(forKeys: [.contentModificationDateKey]),
-			 let date = values.contentModificationDate {
+		// If we already have an old version of this file, set If-None-Match or If-Modified-Since so the
+		// server can give us a 304 Not Modified response.
+		if let etag = try? destinationURL.extendedAttribute(forKey: URL.etagXattr) {
+			request.setValue(etag, forHTTPHeaderField: "If-None-Match")
+		} else if let values = try? destinationURL.resourceValues(forKeys: [.contentModificationDateKey]),
+							let date = values.contentModificationDate {
 			request.setValue(DateFormatter.rfc822.string(from: date), forHTTPHeaderField: "If-Modified-Since")
 		}
 
@@ -320,22 +357,22 @@ class SourceRefreshController: NSObject {
 		logger.debug("👉 Fetching: \(job.url)")
 		#endif
 
-		job.signpost.event(format: "Fetch %@", job.url.absoluteString)
+		let group = job.group
+		group.signpost.event(format: "Fetch %@", job.url.absoluteString)
 
 		session.download(with: job.request) { response in
-			job.signpost.event(format: "Fetch completed: %@", job.url.absoluteString)
+			defer {
+				group.dispatchGroup.leave()
+				self.jobQueue?.complete(job: job)
+			}
+
+			group.signpost.event(format: "Fetch completed: %@", job.url.absoluteString)
 
 			// If cancelled, bail here so we don’t bother processing it further.
 			if let error = response.error,
 				 case HTTPError.cancelled = error {
 				return
 			}
-
-			guard let jobQueue = self.jobQueue else {
-				return
-			}
-
-			jobQueue.complete(job: job)
 
 			let statusCode = response.statusCode
 			let rawContentType = response.response?.value(forHTTPHeaderField: "Content-Type") ?? "application/octet-stream"
@@ -350,7 +387,7 @@ class SourceRefreshController: NSObject {
 			self.logger.debug("\(prefixes[statusCode] ?? "❌") \(job.request.httpMethod ?? "?") \(response.response?.url ?? job.url) → \(statusCode) \(contentType) \(response.error?.localizedDescription ?? "")")
 			#endif
 
-			job.signpost.event(format: "Process: %@", job.url.absoluteString)
+			group.signpost.event(format: "Process: %@", job.url.absoluteString)
 
 			// If this was a positive response, move the file to its destination. Otherwise we don’t want
 			// the file.
@@ -363,10 +400,13 @@ class SourceRefreshController: NSObject {
 						}
 						try FileManager.default.moveItem(at: downloadURL, to: job.partialURL)
 
-						// Set last modified date if we have it, otherwise use the current date as reported by the
-						// server. That will work well enough for our needs.
-						if let date = DateFormatter.rfc822.date(from: response.response?.value(forHTTPHeaderField: "Last-Modified") ?? "") ??
-								DateFormatter.rfc822.date(from: response.response?.value(forHTTPHeaderField: "Date") ?? "") {
+						// Set etag if we got one.
+						if let etag = response.response?.value(forHTTPHeaderField: "ETag") {
+							try job.partialURL.setExtendedAttribute(etag, forKey: URL.etagXattr)
+						}
+
+						// Set last modified date if we have it.
+						if let date = DateFormatter.rfc822.date(from: response.response?.value(forHTTPHeaderField: "Last-Modified") ?? "") {
 							var values = URLResourceValues()
 							values.contentModificationDate = date
 							var url = job.partialURL
@@ -378,8 +418,8 @@ class SourceRefreshController: NSObject {
 					}
 				} catch {
 					self.logger.warning("Failed to move job download to destination: \(String(describing: error))")
-					self.giveUp(job: job,
-											error: RefreshError.generalError(sourceUUID: job.sourceUUID,
+					self.giveUp(group: group,
+											error: RefreshError.generalError(sourceUUID: group.sourceUUID,
 																											 url: job.url,
 																											 error: error))
 					return
@@ -389,13 +429,13 @@ class SourceRefreshController: NSObject {
 			if let error = response.error {
 				// Don’t bother continuing to try anything with this repo, it’ll probably just keep failing.
 				if let error = error as? HTTPError {
-					self.giveUp(job: job,
-											error: RefreshError.httpError(sourceUUID: job.sourceUUID,
+					self.giveUp(group: group,
+											error: RefreshError.httpError(sourceUUID: group.sourceUUID,
 																										url: job.url,
 																										httpError: error))
 				} else {
-					self.giveUp(job: job,
-											error: RefreshError.generalError(sourceUUID: job.sourceUUID,
+					self.giveUp(group: group,
+											error: RefreshError.generalError(sourceUUID: group.sourceUUID,
 																											 url: job.url,
 																											 error: error))
 				}
@@ -407,28 +447,33 @@ class SourceRefreshController: NSObject {
 				// Ok! Let’s do what we need to do next for this type.
 				let validContentTypes = job.sourceFile.kind.contentTypes
 				if !validContentTypes.contains(contentType) {
-					self.giveUp(job: job,
-											error: RefreshError.invalidContentType(sourceUUID: job.sourceUUID,
+					self.giveUp(group: group,
+											error: RefreshError.invalidContentType(sourceUUID: group.sourceUUID,
 																														 url: job.url,
 																														 contentType: contentType))
 					self.logger.warning("Invalid content type \(contentType); not in \(validContentTypes)")
 					break
 				}
 
-				self.sourceStates[job.sourceUUID]?.progress.incrementCompletedUnitCount(by: job.sourceFile.progressWeight)
+				self.sourceStates[group.sourceUUID]?.progress.incrementCompletedUnitCount(by: job.sourceFile.progressWeight)
 
 				switch job.sourceFile {
 				case .inRelease, .releaseGpg:
-					// Start fetching payment_endpoint.
-					self.continueJob(job, withSourceFile: .paymentEndpoint)
+					if self.validateRelease(group: group) {
+						// Not modified. Nothing to be done.
+						self.cleanUp(group: group)
+					} else {
+						// Start fetching Packages and supplementary files.
+						self.continueJob(group: group, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
+					}
 
 				case .release:
 					// Start fetching Release.gpg.
-					self.continueJob(job, withSourceFile: .releaseGpg)
+					self.continueJob(group: group, withSourceFile: .releaseGpg)
 
-				case .paymentEndpoint:
-					// Start fetching Packages.
-					self.continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
+				case .paymentEndpoint, .featured:
+					// Nothing needs to be done.
+					break
 
 				case .packages(_):
 					// Decompress
@@ -438,7 +483,7 @@ class SourceRefreshController: NSObject {
 
 			case 304:
 				// Not modified. Nothing to be done.
-				self.cleanUp(sourceUUID: job.sourceUUID)
+				self.cleanUp(group: group)
 				return
 
 			default:
@@ -449,39 +494,76 @@ class SourceRefreshController: NSObject {
 			switch job.sourceFile {
 			case .inRelease:
 				// Try split Release + Release.gpg.
-				self.currentRefreshJobs[job.sourceUUID]?.remove(job)
-				self.continueJob(job, withSourceFile: .release)
+				self.currentRefreshJobs[group.sourceUUID]?.remove(job)
+				self.continueJob(group: group, withSourceFile: .release)
 
 			case .release, .releaseGpg:
 				// Continue without the signature.
-				self.currentRefreshJobs[job.sourceUUID]?.remove(job)
-				self.continueJob(job, withSourceFile: .paymentEndpoint)
+				self.currentRefreshJobs[group.sourceUUID]?.remove(job)
+				self.continueJob(group: group, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
 
-			case .paymentEndpoint:
-				// Continue assuming repo has no payment endpoint.
-				self.currentRefreshJobs[job.sourceUUID]?.remove(job)
-				self.continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority.first!))
+			case .paymentEndpoint, .featured:
+				// Continue assuming repo has no payment endpoint/featured list.
+				self.currentRefreshJobs[group.sourceUUID]?.remove(job)
 
 			case .packages(let kind):
 				// Try next file kind. If we’ve reached the end, the repo is unusable.
 				if let index = Self.packagesTypePriority.firstIndex(of: kind)?.advanced(by: 1),
 					 index < Self.packagesTypePriority.endIndex {
-					self.continueJob(job, withSourceFile: .packages(kind: Self.packagesTypePriority[index]))
+					self.continueJob(group: group, withSourceFile: .packages(kind: Self.packagesTypePriority[index]))
 				} else {
-					self.cleanUp(sourceUUID: job.sourceUUID)
+					self.cleanUp(group: group)
 				}
 			}
 		}
 	}
 
+	private func validateRelease(group: JobGroup) -> Bool {
+		// False means modified (or unknown state), true means unmodified.
+		guard let source = SourceManager.shared.source(forUUID: group.sourceUUID),
+					let jobs = currentRefreshJobs[group.sourceUUID] else {
+			return false
+		}
+
+		let releaseFile = jobs.first(where: { job in
+			switch job.sourceFile {
+			case .release, .inRelease:
+				return (try? job.partialURL.checkResourceIsReachable()) == true &&
+					(try? job.destinationURL.checkResourceIsReachable()) == true
+
+			default:
+				return false
+			}
+		})
+		guard let releaseFile = releaseFile else {
+			return false
+		}
+
+		// Compare old and new Release file to determine if a Packages update is necessary.
+		// Return true if both match.
+		let newRelease = TagFile(url: releaseFile.partialURL)
+		let keys = ["SHA512", "SHA256", "SHA1", "MD5Sum", "Date"]
+		for key in keys {
+			let old = source[key]
+			let new = newRelease[key]
+			if old == nil && new == nil {
+				continue
+			}
+			return old != new
+		}
+		return false
+	}
+
 	private func decompress(job: Job) {
+		let group = job.group
+
 		if !job.sourceFile.kind.isCompressed {
 			// Nothing to do, file is probably not compressed or shouldn’t be decompressed now.
-			self.finalize(sourceUUID: job.sourceUUID)
+			finalize(group: group)
 			return
 		}
 
-		Task.detached(priority: self.priority.taskPriority) {
+		Task.detached(priority: priority.taskPriority) {
 			do {
 				let newSourceFile: SourceFile
 				switch job.sourceFile {
@@ -491,9 +573,9 @@ class SourceRefreshController: NSObject {
 					newSourceFile = job.sourceFile
 				}
 
-				let uncompressedURL = job.partialURL/".."/(job.sourceUUID + newSourceFile.name)
+				let uncompressedURL = job.partialURL/".."/(group.sourceUUID + newSourceFile.name)
 
-				job.signpost.event(format: "Decompress: %@", job.partialURL.lastPathComponent)
+				group.signpost.event(format: "Decompress: %@", job.partialURL.lastPathComponent)
 
 				#if DEBUG
 				self.logger.debug("🗂 Decompressing: \(job.partialURL.lastPathComponent)")
@@ -507,76 +589,78 @@ class SourceRefreshController: NSObject {
 				#if DEBUG
 				let delta = Date().timeIntervalSince(start) * 1000
 				self.logger.debug("📄 Decompressed in \(delta, format: .fixed(precision: 3))ms: \(job.partialURL.lastPathComponent)")
-				job.signpost.event(format: "Decompress done: %@", job.partialURL.lastPathComponent)
 				#endif
 
-				self.queue.async {
-					// If that worked, we do a quick switcharoo to make the job now “uncompressed”
-					self.currentRefreshJobs[job.sourceUUID]?.remove(job)
+				group.signpost.event(format: "Decompress done: %@", job.partialURL.lastPathComponent)
 
-					let newJob = Job(signpost: job.signpost,
+				self.workQueue.async {
+					// If that worked, we do a quick switcharoo to make the job now “uncompressed”
+					self.currentRefreshJobs[group.sourceUUID]?.remove(job)
+
+					let newJob = Job(group: job.group,
 													 request: job.request,
-													 sourceUUID: job.sourceUUID,
 													 sourceFile: newSourceFile)
-					self.currentRefreshJobs[job.sourceUUID]?.insert(newJob)
+					self.currentRefreshJobs[group.sourceUUID]?.insert(newJob)
 
 					self.decompressJobQueue.complete(job: job)
-					self.finalize(sourceUUID: job.sourceUUID)
+					self.finalize(group: group)
 				}
 			} catch {
 				self.logger.warning("Error decompressing: \(String(describing: error))")
-				self.queue.async {
-					self.sourceStates[job.sourceUUID]?.errors.append(RefreshError.generalError(sourceUUID: job.sourceUUID,
-																																										 url: job.url,
-																																										 error: error))
+				self.workQueue.async {
+					self.giveUp(group: group,
+											error: RefreshError.generalError(sourceUUID: group.sourceUUID,
+																											 url: job.url,
+																											 error: error))
 				}
 			}
 		}
 	}
 
-	private func giveUp(job: Job, error: RefreshError) {
-		queue.async {
-			self.logger.warning("Refresh failed for \(job.sourceUUID): \(String(describing: error))")
-			self.sourceStates[job.sourceUUID]?.errors.append(error)
-			self.cleanUp(sourceUUID: job.sourceUUID)
-		}
+	private func giveUp(group: JobGroup, error: RefreshError) {
+		logger.warning("Refresh failed for \(group.sourceUUID): \(String(describing: error))")
+		sourceStates[group.sourceUUID]?.addError(error)
+		cleanUp(group: group)
 	}
 
-	private func cleanUp(sourceUUID: String) {
-		queue.async {
-			let signpost = self.currentRefreshJobs[sourceUUID]?.first?.signpost
-			signpost?.event(format: "Cleanup: %@", sourceUUID)
+	private func cleanUp(group: JobGroup) {
+		guard let jobs = currentRefreshJobs[group.sourceUUID] else {
+			// Already cleaned up, nothing to do.
+			return
+		}
 
-			for job in self.currentRefreshJobs[sourceUUID] ?? [] {
-				do {
-					if (try? job.partialURL.checkResourceIsReachable()) ?? false {
-						try FileManager.default.removeItem(at: job.partialURL)
-					}
-				} catch {
-					self.logger.warning("Error cleaning up for \(sourceUUID): \(String(describing: error))")
-					self.sourceStates[job.sourceUUID]?.errors.append(RefreshError.generalError(sourceUUID: job.sourceUUID,
-																																										 url: job.url,
-																																										 error: error))
+		group.signpost.event(format: "Cleanup: %@", group.sourceUUID)
+
+		for job in jobs {
+			do {
+				if (try? job.partialURL.checkResourceIsReachable()) ?? false {
+					try FileManager.default.removeItem(at: job.partialURL)
 				}
+			} catch {
+				logger.warning("Error cleaning up for \(group.sourceUUID): \(String(describing: error))")
+				sourceStates[group.sourceUUID]?.addError(RefreshError.generalError(sourceUUID: group.sourceUUID,
+																																					 url: job.url,
+																																					 error: error))
 			}
-
-			self.currentRefreshJobs.removeValue(forKey: sourceUUID)
-
-			if let sourceState = self.sourceStates[sourceUUID] {
-				sourceState.progress.incrementCompletedUnitCount(by: sourceState.progress.totalUnitCount - sourceState.progress.completedUnitCount)
-			}
-
-			signpost?.end()
-
-			#if DEBUG
-			self.logger.debug("☑️ Done: \(sourceUUID)")
-			#endif
 		}
+
+		currentRefreshJobs.removeValue(forKey: group.sourceUUID)
+
+		if let sourceState = sourceStates[group.sourceUUID] {
+			sourceState.progress.incrementCompletedUnitCount(by: sourceState.progress.totalUnitCount - sourceState.progress.completedUnitCount)
+		}
+
+		group.signpost.end()
+		dispatchGroup.leave()
+
+		#if DEBUG
+		logger.debug("☑️ Done: \(group.sourceUUID)")
+		#endif
 	}
 
-	private func finalize(sourceUUID: String) {
-		queue.async {
-			for job in self.currentRefreshJobs[sourceUUID] ?? [] {
+	private func finalize(group: JobGroup) {
+		group.dispatchGroup.notify(queue: self.workQueue) {
+			for job in self.currentRefreshJobs[group.sourceUUID] ?? [] {
 				do {
 					if (try? job.destinationURL.checkResourceIsReachable()) ?? false {
 						try FileManager.default.removeItem(at: job.destinationURL)
@@ -586,58 +670,62 @@ class SourceRefreshController: NSObject {
 						try FileManager.default.moveItem(at: job.partialURL, to: job.destinationURL)
 					}
 				} catch {
-					self.logger.warning("Error finalizing for \(sourceUUID): \(String(describing: error))")
-					self.sourceStates[sourceUUID]?.errors.append(RefreshError.generalError(sourceUUID: job.sourceUUID,
-																																								 url: job.url,
-																																								 error: error))
+					self.logger.warning("Error finalizing for \(group.sourceUUID): \(String(describing: error))")
+					self.sourceStates[group.sourceUUID]?.addError(RefreshError.generalError(sourceUUID: group.sourceUUID,
+																																									url: job.url,
+																																									error: error))
 				}
 			}
 
-			self.cleanUp(sourceUUID: sourceUUID)
+			self.cleanUp(group: group)
 		}
 	}
 
 	private func finishRefresh() {
-		queue.async {
-			#if DEBUG
-			self.logger.debug("⏱ Reloading Data")
-			#endif
-
-			SourceManager.shared.rebuildCache()
-			if let innerProgress = self.innerProgress {
-				innerProgress.incrementCompletedUnitCount(by: innerProgress.totalUnitCount - innerProgress.completedUnitCount)
-			}
-
-			#if DEBUG
-			self.logger.debug("✨ Completed")
-			#endif
-
-			self.endRefresh()
+		if progress.isCancelled {
+			return
 		}
+
+		#if DEBUG
+		logger.debug("⏱️ Reloading Data")
+		#endif
+
+		SourceManager.shared.rebuildCache()
+		if let innerProgress = self.innerProgress {
+			innerProgress.incrementCompletedUnitCount(by: innerProgress.totalUnitCount - innerProgress.completedUnitCount)
+		}
+
+		#if DEBUG
+		logger.debug("✨ Completed")
+		#endif
+
+		endRefresh()
 	}
 
 	private func cancel() {
-		queue.async {
-			#if DEBUG
-			self.logger.debug("🛑 Cancelled")
-			#endif
+		#if DEBUG
+		logger.debug("🛑 Cancelled")
+		#endif
 
-			self.endRefresh()
+		for job in self.currentRefreshJobs.values.compactMap(\.first) {
+			cleanUp(group: job.group)
 		}
+
+		endRefresh()
 	}
 
 	private func endRefresh() {
-		queue.async {
-			self.queue = nil
-			self.jobQueue = nil
-			self.decompressJobQueue = nil
-			self.operationQueue = nil
-			self.session?.invalidateAndCancel()
-			self.session = nil
-			self.completeBackgroundRefresh()
-			self.wakeLock.unlock()
-			self.signpost.end()
-		}
+		controlQueue = nil
+		workQueue = nil
+		jobQueue = nil
+		decompressJobQueue = nil
+		operationQueue = nil
+		session?.invalidateAndCancel()
+		session = nil
+		currentRefreshJobs.removeAll()
+		completeBackgroundRefresh()
+		wakeLock.unlock()
+		signpost.end()
 	}
 
 }
