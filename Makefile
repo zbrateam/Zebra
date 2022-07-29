@@ -5,7 +5,7 @@ ifeq ($(ROOTLESS),1)
 	export DEB_ARCH = iphoneos-arm64
 else
 	export ARCHS = armv7 arm64
-	export TARGET = iphone:10.3:9.0
+	export TARGET = iphone:latest:9.0
 	export DEB_ARCH = iphoneos-arm
 endif
 
