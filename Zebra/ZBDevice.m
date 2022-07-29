@@ -331,7 +331,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 + (NSString *)path {
     // Construct a safe PATH. This will be set app-wide.
     NSArray <NSString *> *path = @[@"/usr/sbin", @"/usr/bin", @"/sbin", @"/bin"];
-    if (![@INSTALL_PREFIX isEqualToString:@""]) {
+    if (isPrefixed) {
         NSMutableArray <NSString *> *prefixedPath = [NSMutableArray array];
         for (NSString *item in path) {
             [prefixedPath addObject:[@INSTALL_PREFIX stringByAppendingPathComponent:item]];
