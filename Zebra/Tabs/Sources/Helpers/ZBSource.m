@@ -51,7 +51,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [local setLabel:local.origin];
     [local setSourceDescription:NSLocalizedString(@"Locally installed packages", @"")];
     [local setSourceID:sourceID];
-    [local setBaseFilename:@"/var/lib/dpkg/status"];
+    [local setBaseFilename:@INSTALL_PREFIX @"/var/lib/dpkg/status"];
     return local;
 }
 
@@ -78,7 +78,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         imageName = components[0];
     }
     
-    UIImage *sectionImage = [UIImage imageNamed:imageName] ?: [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Applications/Zebra.app/Sections/%@.png", imageName]] ?: [UIImage imageNamed:@"Other"];
+    UIImage *sectionImage = [UIImage imageNamed:imageName] ?: [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@INSTALL_PREFIX @"/Applications/Zebra.app/Sections/%@.png", imageName]] ?: [UIImage imageNamed:@"Other"];
     return sectionImage;
 }
 

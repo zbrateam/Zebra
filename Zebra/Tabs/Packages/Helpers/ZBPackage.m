@@ -67,7 +67,7 @@
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
     
-    NSString *path = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", packageID];
+    NSString *path = [NSString stringWithFormat:@INSTALL_PREFIX @"/var/lib/dpkg/info/%@.list", packageID];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *readError = NULL;
         NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
@@ -90,7 +90,7 @@
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
 
         // We need to look up the *actual* package ID of this deb from the deb's control file
-        NSString *stringRead = [ZBCommand execute:@"/usr/bin/dpkg"
+        NSString *stringRead = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/dpkg"
                                 withArguments:@[@"-I", packageID, @"control"]
                                        asRoot:NO];
 
@@ -141,7 +141,7 @@
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
 
         // We need to look up the *actual* package ID of this deb from the deb's control file
-        NSString *stringRead = [ZBCommand execute:@"/usr/bin/dpkg"
+        NSString *stringRead = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/dpkg"
                                     withArguments:@[@"-I", packageID, @"control"]
                                            asRoot:NO];
 
@@ -338,7 +338,7 @@
     
     NSString *stringRead;
     if (![ZBDevice needsSimulation]) {
-        stringRead = [ZBCommand execute:@"/usr/bin/dpkg"
+        stringRead = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/dpkg"
                           withArguments:@[@"-I", path, @"control"]
                                  asRoot:NO];
     }
@@ -456,7 +456,7 @@
     NSFileManager *filemanager = [NSFileManager defaultManager];
     
     if (![filemanager fileExistsAtPath:filename]) {
-        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [source baseFilename], @"_main_binary-iphoneos-arm_Packages"];
+        filename = [NSString stringWithFormat:@"%@/%@_main_binary-%@_Packages", listsLocation, [source baseFilename], [ZBDevice debianArchitecture]];
         
         if (![filemanager fileExistsAtPath:filename]) {
             return NULL;
@@ -590,7 +590,7 @@
         NSTimeInterval seconds = round([[NSDate date] timeIntervalSinceReferenceDate] / 300.0) * 300.0;
         return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
     }
-	NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
+	NSString *listPath = [NSString stringWithFormat:@INSTALL_PREFIX @"/var/lib/dpkg/info/%@.list", self.identifier];
 	NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
 	return attributes[NSFileModificationDate];
 }
@@ -720,17 +720,17 @@
     void (^authenticate)(void) = ^{
         // Should only run if we don't have a payment secret or if we aren't logged in.
         [self.source.paymentVendor authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
-            if (tryAgain && success && !error) {
-                [self purchase:NO completion:completion]; // Try again, but only try once
-            }
-            else if (!tryAgain) {
-                NSMutableDictionary <NSErrorUserInfoKey, id> *userInfo = [error.userInfo mutableCopy];
-                userInfo[NSLocalizedRecoverySuggestionErrorKey] = NSLocalizedString(@"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.", @"");
-                error = [NSError errorWithDomain:error.domain code:error.code userInfo:userInfo];
-                completion(NO, error);
-            }
-            else if (error.domain != ZBSafariAuthenticationErrorDomain || error.code != ZBSafariAuthenticationErrorCanceledLogin) {
-                completion(NO, error);
+            if (!success && notify) {
+                if (tryAgain) {
+                    [self purchase:NO completion:completion]; // Try again, but only try once
+                } else {
+                    if (!error) {
+                        error = [NSError errorWithDomain:ZBPaymentVendorErrorDomain code:0 userInfo:@{
+                            NSLocalizedDescriptionKey: NSLocalizedString(@"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.", @"")
+                        }];
+                    }
+                    completion(NO, error);
+                }
             }
         }];
     };

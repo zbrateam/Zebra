@@ -13,7 +13,7 @@ int proc_pidpath(int pid, void *buffer, uint32_t buffersize);
 #define FLAG_PLATFORMIZE (1 << 1)
 
 void patch_setuidandplatformize() {
-  void *handle = dlopen("/usr/lib/libjailbreak.dylib", RTLD_LAZY);
+  void *handle = dlopen(INSTALL_PREFIX "/usr/lib/libjailbreak.dylib", RTLD_LAZY);
   if (!handle) return;
 
   // Reset errors
@@ -41,7 +41,7 @@ int main(int argc, char ** argv) {
   patch_setuidandplatformize();
 
   struct stat template;
-  if (lstat("/Applications/Zebra.app/Zebra", &template) == -1) {
+  if (lstat(INSTALL_PREFIX "/Applications/Zebra.app/Zebra", &template) == -1) {
     printf("THE TRUE AND NEO CHAOS!\n");
     fflush(stdout);
     return EX_NOPERM;

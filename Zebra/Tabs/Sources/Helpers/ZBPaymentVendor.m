@@ -171,7 +171,7 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
             [ZBTokenManager setValue:token forKey:self.repositoryURI requireBiometric:NO error:&tokenError];
             [ZBTokenManager setValue:payment forKey:paymentKeychainIdentifier requireBiometric:YES error:&tokenError];
             if (tokenError) {
-                completion(NO, YES, error);
+                completion(NO, YES, tokenError);
             } else {
                 completion(YES, NO, NULL);
             }

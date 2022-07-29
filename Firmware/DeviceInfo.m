@@ -1,4 +1,5 @@
 #import "DeviceInfo.h"
+#import <mach-o/utils.h>
 
 @implementation DeviceInfo {
     struct utsname _systemInfo;
@@ -29,17 +30,31 @@
     cpu_type_t type;
     size_t size = sizeof(type);
 
-    NXArchInfo const *ai;
-    char *cpu = NULL;
-    if (sysctlbyname("hw.cputype", &type, &size, NULL, 0) == 0 && (ai = NXGetArchInfoFromCpuType(type, CPU_SUBTYPE_MULTIPLE)) != NULL) {
-        cpu = (char *)ai->name;
+    if (sysctlbyname("hw.cputype", &type, &size, NULL, 0) == 0) {
+        #ifdef __IPHONE_16_0
+        if (@available(iOS 16, *)) {
+            const char *cpu;
+            if ((cpu = macho_arch_name_for_cpu_type(type, CPU_SUBTYPE_MULTIPLE)) != NULL) {
+                self->_cpuArchitecture = [NSString stringWithCString:cpu encoding:NSUTF8StringEncoding];
+            }
+        } else {
+        #endif
+            NXArchInfo const *ai;
+            if ((ai = NXGetArchInfoFromCpuType(type, CPU_SUBTYPE_MULTIPLE)) != NULL) {
+                char *cpu = (char *)ai->name;
+                self->_cpuArchitecture = [NSString stringWithCString:cpu encoding:NSUTF8StringEncoding];
+                NXFreeArchInfo(ai);
+            }
+        #ifdef __IPHONE_16_0
+        }
+        #endif
     } else {
         [self exitWithError:nil andMessage:@"Error getting cpu architecture"];
     }
 
-    self->_cpuArchitecture = [NSString stringWithCString:cpu encoding:NSUTF8StringEncoding];
-
-    NXFreeArchInfo(ai);
+    if (!self->_cpuArchitecture) {
+        [self exitWithError:nil andMessage:@"Error getting cpu architecture"];
+    }
 
     self->_ios = (type == CPU_TYPE_ARM || type == CPU_TYPE_ARM64);
 }
@@ -98,7 +113,7 @@
 }
 
 - (NSString *)getDebianArchitecture {
-    return self->_ios ? @"iphoneos-arm" : @"cydia";
+    return @DEB_ARCH;
 }
 
 - (NSString *)getOperatingSystem {
@@ -106,12 +121,12 @@
 }
 
 - (NSString *)getDPKGDataDirectory {
-    return self->_ios ? @"/var/lib/dpkg" : @"/var/lib/dpkg";
+    return self->_ios ? @INSTALL_PREFIX @"/var/lib/dpkg" : @"/var/lib/dpkg";
 }
 
 - (NSDictionary *)getCapabilities {
     NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/bin/gssc"];
+    [task setLaunchPath:@INSTALL_PREFIX @"/usr/bin/gssc"];
 
     NSPipe *outPipe = [NSPipe pipe];
     [task setStandardOutput:outPipe];

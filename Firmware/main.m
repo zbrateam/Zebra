@@ -47,7 +47,7 @@ int main() {
 
         NSError *error;
 
-        NSString *firmwareFile = @"/var/lib/cydia/firmware.ver";
+        NSString *firmwareFile = @INSTALL_PREFIX @"/var/lib/cydia/firmware.ver";
         NSString *firwareVersion = [NSString stringWithFormat:@"%d\n", FIRMWARE_VERSION];
 
         if (![firwareVersion writeToFile:firmwareFile atomically:YES encoding:NSUTF8StringEncoding error:&error]) {

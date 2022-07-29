@@ -85,31 +85,31 @@
 
 - (NSArray *)packageManagers {
     NSMutableArray *result = [NSMutableArray new];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app/Cydia"]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/Applications/Cydia.app/Cydia"]) {
         NSDictionary *dict = @{@"type" : @"transfer",
                                @"name" : @"Cydia",
                                @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Cydia"],
-                               @"url"  : @"file:///etc/apt/sources.list.d/",
+                               @"url"  : @"file://" @INSTALL_PREFIX @"/etc/apt/sources.list.d/",
                                @"ext"  : @"list",
-                               @"icon" : @"file:///Applications/Cydia.app/Icon-60@2x.png"};
+                               @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Cydia.app/Icon-60@2x.png"};
         [result addObject:dict];
     }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/Applications/Installer.app/Installer"]) {
         NSDictionary *dict = @{@"type" : @"transfer",
                                 @"name" : @"Installer",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
                                 @"url"  : @"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list",
                                 @"ext"  : @"list",
-                                @"icon" : @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
+                                @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Installer.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
     }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app/Sileo"]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"Applications/Sileo.app/Sileo"]) {
         NSDictionary *dict = @{@"type" : @"transfer",
                                 @"name" : @"Sileo",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
-                                @"url"  : [ZBDevice jailbreak] == ZBJailbreakCheckrain ? @"file:///etc/apt/sileo.list.d/" : @"file:///etc/apt/sources.list.d/",
+                                @"url"  : [ZBDevice jailbreak] == ZBJailbreakCheckrain ? @"file://" @INSTALL_PREFIX @"/etc/apt/sileo.list.d/" : @"file://" @INSTALL_PREFIX @"/etc/apt/sources.list.d/",
                                 @"ext"  : @"sources",
-                                @"icon" : @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
+                                @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Sileo.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
     }
     return result;
@@ -226,7 +226,7 @@
                 NSArray *jsonSources = json[@"repos"];
                 for (NSDictionary *source in jsonSources) {
                     NSString *version = source[@"appVersion"];
-                    if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version]) {
+                    if ([ZBDependencyResolver doesVersion:@PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version]) {
                         [sources addObject:source];
                     }
                 }

@@ -20,7 +20,8 @@ typedef NS_ENUM(NSUInteger, ZBJailbreak) {
     ZBJailbreakElectra,
     ZBJailbreakChimera,
     ZBJailbreakOdyssey,
-    ZBJailbreakTaurine
+    ZBJailbreakTaurine,
+    ZBJailbreakCheyote
 };
 
 typedef NS_ENUM(NSUInteger, ZBBootstrap) {
@@ -63,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)openURL:(NSURL *)url delegate:(UIViewController <SFSafariViewControllerDelegate> *)delegate;
 
 + (BOOL)isStashed;
++ (BOOL)isPrefixed;
 + (ZBBootstrap)bootstrap;
 + (ZBJailbreak)jailbreak;
 + (NSString *)bootstrapName;

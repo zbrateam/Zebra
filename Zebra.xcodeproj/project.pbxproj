@@ -1036,7 +1036,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = ZB;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Zebra Team";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
@@ -1462,19 +1462,22 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEB_ARCH = "iphoneos-arm64";
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Vendor",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"PACKAGE_VERSION=$(PACKAGE_VERSION)",
-					"DEBUG=1",
+					"PACKAGE_VERSION='\"$(MARKETING_VERSION)\"'",
+					"INSTALL_PREFIX='\"$(INSTALL_PREFIX)\"'",
+					"DEB_ARCH='\"$(DEB_ARCH)\"'",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Zebra/Info.plist;
+				INSTALL_PATH = "$(INSTALL_PREFIX)$(LOCAL_APPS_DIR)";
+				INSTALL_PREFIX = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1482,7 +1485,6 @@
 				);
 				MARKETING_VERSION = 1.1.28;
 				OTHER_LDFLAGS = "-ObjC";
-				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1504,15 +1506,22 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEB_ARCH = "iphoneos-arm64";
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Vendor",
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = "PACKAGE_VERSION=$(PACKAGE_VERSION)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PACKAGE_VERSION='\"$(MARKETING_VERSION)\"'",
+					"INSTALL_PREFIX='\"$(INSTALL_PREFIX)\"'",
+					"DEB_ARCH='\"$(DEB_ARCH)\"'",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = Zebra/Info.plist;
+				INSTALL_PATH = "$(INSTALL_PREFIX)$(LOCAL_APPS_DIR)";
+				INSTALL_PREFIX = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1520,7 +1529,6 @@
 				);
 				MARKETING_VERSION = 1.1.28;
 				OTHER_LDFLAGS = "-ObjC";
-				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

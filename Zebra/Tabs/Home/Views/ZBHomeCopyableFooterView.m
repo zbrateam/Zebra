@@ -41,7 +41,7 @@
 }
 
 - (void)copyDeviceInfo:(id)sender {
-    [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION];
+    [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], @PACKAGE_VERSION];
 }
 
 - (void)copyUDID:(id)sender {

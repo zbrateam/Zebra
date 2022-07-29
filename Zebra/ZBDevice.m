@@ -25,24 +25,24 @@
 @import SafariServices;
 
 static BOOL isStashed = NO;
+static BOOL isPrefixed = NO;
 static ZBJailbreak jailbreak = ZBJailbreakUnknown;
 static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 @implementation ZBDevice
 
 + (NSString *)userAgent {
-    return [NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
+    return [NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", @PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
 }
 
 + (NSString *)downloadUserAgent {
-    return @"Telesphoreo (Zebra) APT-HTTP/1.0.592";
+    return isPrefixed ? self.userAgent : @"Telesphoreo (Zebra) APT-HTTP/1.0.592";
 }
 
 + (NSString *)webUserAgent {
-    return [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) %@",
-            PACKAGE_VERSION,
-            [ZBDevice deviceType],
-            [UIDevice currentDevice].systemVersion,
+    return [NSString stringWithFormat:@"%@%@ %@",
+            isPrefixed ? @"" : @"Cydia/1.1.32 ",
+            self.userAgent,
             self.themeName];
 }
 
@@ -61,7 +61,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        value = ![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/libexec/zebra/supersling"];
+        value = ![[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/usr/libexec/zebra/supersling"];
     });
     return value;
 #endif
@@ -76,12 +76,12 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     }
     
     struct stat path_stat;
-    stat("/usr/libexec/zebra/supersling", &path_stat);
+    stat(INSTALL_PREFIX "/usr/libexec/zebra/supersling", &path_stat);
     
     if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
         if (error) {
             *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
-                NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")
+                NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at " @INSTALL_PREFIX @"/usr/libexec/zebra/supersling.", @"")
             }];
         }
         return YES; //If the uid/gid aren't 0 then theres a problem
@@ -93,7 +93,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     if (cannot_set_uid || cannot_set_gid) {
         if (error) {
             *error = [NSError errorWithDomain:NSCocoaErrorDomain code:52 userInfo:@{
-                NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")
+                NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at " @INSTALL_PREFIX @"/usr/libexec/zebra/supersling.", @"")
             }];
         }
         return YES;
@@ -150,11 +150,11 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 }
 
 + (NSString * _Nonnull)debianArchitecture {
-    return @"iphoneos-arm";
+    return @DEB_ARCH;
 }
 
 + (void)hapticButton {
-    if (@available(iOS 10.0, *)) {
+    if (@available(iOS 10, *)) {
         UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
         [feedback prepare];
         [feedback selectionChanged];
@@ -164,7 +164,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (void)restartSpringBoard {
     if (![self needsSimulation]) {
-        if (@available(iOS 11.0, *)) {
+        if (@available(iOS 11, *)) {
             //Try sbreload
             NSLog(@"[Zebra] Trying sbreload");
             if ([ZBCommand execute:@"sbreload" withArguments:@[] asRoot:NO]) {
@@ -235,6 +235,8 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 + (void)load {
     [super load];
 
+    isPrefixed = ![@INSTALL_PREFIX isEqualToString:@""];
+
     if (self.needsSimulation) {
         jailbreak = ZBJailbreakSimulated;
     } else if ([self _isRegularFile:@"/var/checkra1n.dmg"] || [self _isRegularDirectory:@"/binpack"]) {
@@ -249,6 +251,8 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         jailbreak = ZBJailbreakOdyssey;
     } else if ([self _isRegularFile:@"/.installed_taurine"]) {
         jailbreak = ZBJailbreakTaurine;
+    } else if ([self _isRegularFile:@INSTALL_PREFIX @"/.installed_cheyote"]) {
+        jailbreak = ZBJailbreakCheyote;
     } else if (@available(iOS 11, *)) {
         jailbreak = ZBJailbreakUnknown;
     } else {
@@ -258,7 +262,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     if (self.needsSimulation) {
         bootstrap = ZBBootstrapSimulated;
     } else if (@available(iOS 11, *)) {
-        if ([self _isRegularFile:@"/.procursus_strapped"]) {
+        if ([self _isRegularFile:@INSTALL_PREFIX @"/.procursus_strapped"]) {
             bootstrap = ZBBootstrapProcursus;
         } else {
             bootstrap = ZBBootstrapElucubratus;
@@ -271,6 +275,10 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (BOOL)isStashed {
     return isStashed;
+}
+
++ (BOOL)isPrefixed {
+    return isPrefixed;
 }
 
 + (ZBBootstrap)bootstrap {
@@ -302,6 +310,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     case ZBJailbreakChimera:   return @"Chimera";
     case ZBJailbreakOdyssey:   return @"Odyssey";
     case ZBJailbreakTaurine:   return @"Taurine";
+    case ZBJailbreakCheyote:   return @"Cheyote";
     }
 }
 
@@ -309,11 +318,11 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     static NSString *packageManagementBinary = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/apt"]) {
-            packageManagementBinary = @"/usr/bin/apt";
+        if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/usr/bin/apt"]) {
+            packageManagementBinary = @INSTALL_PREFIX @"/usr/bin/apt";
         }
-        else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/dpkg"]) {
-            packageManagementBinary = @"/usr/bin/dpkg";
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/usr/bin/dpkg"]) {
+            packageManagementBinary = @INSTALL_PREFIX @"/usr/bin/dpkg";
         }
     });
     return packageManagementBinary;
@@ -321,16 +330,14 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (NSString *)path {
     // Construct a safe PATH. This will be set app-wide.
-    // There is some commented code here for Procursus prefixed “rootless” bootstrap in future.
-//    NSString *prefix = @"/";
     NSArray <NSString *> *path = @[@"/usr/sbin", @"/usr/bin", @"/sbin", @"/bin"];
-//    if ([[NSURL fileURLWithPath:prefix isDirectory:YES] checkResourceIsReachableAndReturnError:nil]) {
-//        NSMutableArray <NSString *> *prefixedPath = [NSMutableArray array];
-//        for (NSString *item in path) {
-//            [prefixedPath addObject:[prefix stringByAppendingPathComponent:item]];
-//        }
-//        path = [prefixedPath arrayByAddingObjectsFromArray:path];
-//    }
+    if (![@INSTALL_PREFIX isEqualToString:@""]) {
+        NSMutableArray <NSString *> *prefixedPath = [NSMutableArray array];
+        for (NSString *item in path) {
+            [prefixedPath addObject:[@INSTALL_PREFIX stringByAppendingPathComponent:item]];
+        }
+        path = [prefixedPath arrayByAddingObjectsFromArray:path];
+    }
     return [path componentsJoinedByString:@":"];
 }
 
@@ -365,7 +372,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
     safariVC.delegate = delegate;
     UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-    if (@available(iOS 10.0, *)) {
+    if (@available(iOS 10, *)) {
         safariVC.preferredBarTintColor = [UIColor groupedTableViewBackgroundColor];
         safariVC.preferredControlTintColor = tintColor;
     } else {

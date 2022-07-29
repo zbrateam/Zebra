@@ -655,7 +655,6 @@
     
     if (![path isEqualToString:@""]) {
         NSArray *components = [path pathComponents];
-        NSLog(@"XXX count %lu", (unsigned long)components.count);
         if ([components count] == 2) {
             // No URL passed in. Just present the prompt.
             [self showAddSourceAlert:nil];
@@ -664,8 +663,6 @@
             // prompt with it. If we can’t parse out a valid URL, we’ll display the prompt anyway
             // with no URL prefilled.
             NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
-            NSLog(@"XXX add %@", urlString);
-            NSLog(@"XXX fq: %@", [self _fullyQualifiedURLForInput:urlString]);
             [self showAddSourceAlert:[self _fullyQualifiedURLForInput:urlString]];
         }
     }

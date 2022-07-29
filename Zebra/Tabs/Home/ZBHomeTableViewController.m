@@ -422,7 +422,7 @@ typedef enum ZBInfoOrder : NSUInteger {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == ZBInfo) {
-        return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, hideUDID ? @"" : [@"\n" stringByAppendingString:[ZBDevice UDID]]];
+        return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], @PACKAGE_VERSION, hideUDID ? @"" : [@"\n" stringByAppendingString:[ZBDevice UDID]]];
     }
     return NULL;
 }

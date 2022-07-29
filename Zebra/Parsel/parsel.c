@@ -274,7 +274,7 @@ void createDummySource(struct ZBBaseSource source, sqlite3 *database, int source
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnVersion, "0.9.0", -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnSuite, "Unknown", -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnCodename, "Unknown", -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchitectures, "iphoneos-arm", -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchitectures, DEB_ARCH, -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnBaseFilename, source.baseFilename, -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnSourceID, sourceID);
         sqlite3_step(insertStatement);

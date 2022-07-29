@@ -231,7 +231,7 @@
     NSArray *baseCommand;
     BOOL ignoreDependencies = [self containsPackageWithIgnoredDependencies]; //fallback to dpkg
     
-    if (ignoreDependencies || [[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
+    if (ignoreDependencies || [[ZBDevice packageManagementBinary] isEqualToString:@INSTALL_PREFIX @"/usr/bin/dpkg"]) {
         baseCommand = @[@"dpkg", @"--force-confdef", @"--force-confnew"];
     } else {
         baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAcquire::AllowUnsizedPackages=true", @"-oDir::State::lists=", @"-oDpkg::Options::=--force-confdef", @"-oDpkg::Options::=--force-confnew"];

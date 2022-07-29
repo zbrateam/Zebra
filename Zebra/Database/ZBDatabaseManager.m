@@ -390,7 +390,7 @@
     if ([ZBDevice needsSimulation]) { // If the target is a simlator, load a demo list of installed packages
         installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
     } else { // Otherwise, load the actual file
-        installedPath = @"/var/lib/dpkg/status";
+        installedPath = @INSTALL_PREFIX @"/var/lib/dpkg/status";
     }
     
     if ([self openDatabase] == SQLITE_OK) {

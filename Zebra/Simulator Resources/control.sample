@@ -1,7 +1,7 @@
 Package: xyz.willy.hyena
 Name: Hyena
 Version: 0.9.0
-Architecture: iphoneos-arm
+Architecture: iphoneos-arm64
 Depends: dpkg, uikittools, firmware (>= 9.0)
 Description: Motivator
 Maintainer: Wilson Styres <wilson@styres.me>

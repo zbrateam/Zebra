@@ -65,7 +65,7 @@ static const int ZBCommandFinishFileno = 3;
     else if (!_asRoot && asRoot) { // If we're not set to run as root but we want to, set supersling as the command and duplicate the original command into the arguments array
         [mutableArguments insertObject:_command atIndex:0];
         _arguments = mutableArguments;
-        _command = @"/usr/libexec/zebra/supersling";
+        _command = @INSTALL_PREFIX @"/usr/libexec/zebra/supersling";
 
         _asRoot = asRoot;
     }

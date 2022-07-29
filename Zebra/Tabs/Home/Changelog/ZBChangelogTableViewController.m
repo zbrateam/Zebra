@@ -61,11 +61,11 @@
     NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data && !error) {
             NSMutableArray *allReleases = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSRange r1 = [PACKAGE_VERSION rangeOfString:@"~"];
+            NSRange r1 = [@PACKAGE_VERSION rangeOfString:@"~"];
             if (r1.location != NSNotFound) {
-                NSRange r2 = [PACKAGE_VERSION rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet] options:0 range:NSMakeRange(r1.location, PACKAGE_VERSION.length - r1.location)];
+                NSRange r2 = [@PACKAGE_VERSION rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet] options:0 range:NSMakeRange(r1.location, @PACKAGE_VERSION.length - r1.location)];
                 NSRange rSub = NSMakeRange(r1.location + r1.length, r2.location - r1.location - r1.length);
-                NSString *releaseType = [PACKAGE_VERSION substringWithRange:rSub];
+                NSString *releaseType = [@PACKAGE_VERSION substringWithRange:rSub];
                 for (NSDictionary *release in allReleases) {
                     if ([[release objectForKey:@"tag_name"] containsString:releaseType]) {
                         [self->releases addObject:release];

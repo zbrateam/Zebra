@@ -478,7 +478,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
             @"bootstrap": [ZBDevice bootstrapName],
             @"jailbreak": [ZBDevice jailbreakName],
             @"has_slingshot": @(![ZBDevice isSlingshotBroken:nil]),
-            @"is_stashed": @([ZBDevice isStashed]),
+            @"is_stashed": @(!![ZBDevice isStashed]),
+            @"is_prefixed": @(!![ZBDevice isPrefixed])
         };
     }];
 
