@@ -1,5 +1,8 @@
 #import "DeviceInfo.h"
+
+#ifdef __IPHONE_16_0
 #import <mach-o/utils.h>
+#endif
 
 @implementation DeviceInfo {
     struct utsname _systemInfo;
