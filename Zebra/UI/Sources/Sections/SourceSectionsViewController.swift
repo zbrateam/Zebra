@@ -35,8 +35,8 @@ class SourceSectionsViewController: ListCollectionViewController {
 	private var sections = [Value]()
 	private var dataSource: UICollectionViewDiffableDataSource<Section, Value>!
 
-	override class func createLayout() -> CollectionViewCompositionalLayout {
-		CollectionViewCompositionalLayout { index, environment in
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		UICollectionViewCompositionalLayout { index, environment in
 			switch index {
 			case 0:
 				let section = NSCollectionLayoutSection(group: .oneAcross(heightDimension: .absolute(CarouselViewController.height)))
@@ -93,6 +93,8 @@ class SourceSectionsViewController: ListCollectionViewController {
 			}
 		}
 
+		navigationItem.scrollEdgeAppearance = Preferences.showFeaturedCarousels ? .withoutSeparator : .transparent
+
 		updateDataSource()
 		setupSections()
 		fetchPromotedPackages()
@@ -121,8 +123,8 @@ class SourceSectionsViewController: ListCollectionViewController {
 
 	private func updateDataSource() {
 		var snapshot = NSDiffableDataSourceSnapshot<Section, Value>()
-		if Preferences.showFeaturedCarousels {
-			snapshot.appendSections([.featured])
+		snapshot.appendSections([.featured])
+		if Preferences.showFeaturedCarousels && (promotedPackages == nil || !promotedPackages!.isEmpty) {
 			snapshot.appendItems([.featured], toSection: .featured)
 		}
 		snapshot.appendSections([.sections])
@@ -140,13 +142,25 @@ class SourceSectionsViewController: ListCollectionViewController {
 	}
 
 	private func fetchPromotedPackages() {
-		guard let source = self.source else {
+		guard let source = self.source,
+					Preferences.showFeaturedCarousels else {
 			return
 		}
 
-		if let packages = PromotedPackagesFetcher.getCached(sourceUUID: source.uuid) {
-			self.promotedPackages = packages
-			self.carouselViewController?.bannerItems = packages
+		Task.detached {
+			let packages = await PromotedPackagesFetcher.getCached(sourceUUID: source.uuid)
+
+			await MainActor.run {
+				self.promotedPackages = packages
+				self.carouselViewController?.bannerItems = packages
+				self.navigationItem.scrollEdgeAppearance = packages.isEmpty ? .transparent : .withoutSeparator
+
+				if packages.isEmpty {
+					var snapshot = self.dataSource.snapshot()
+					snapshot.deleteItems([.featured])
+					self.dataSource.apply(snapshot, animatingDifferences: false)
+				}
+			}
 		}
 	}
 

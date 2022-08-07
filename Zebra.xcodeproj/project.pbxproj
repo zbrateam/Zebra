@@ -44,7 +44,6 @@
 		4E5F41CF285F6738003658AA /* JobQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F41CE285F6738003658AA /* JobQueue.swift */; };
 		4E6F94472856434D002F5BD9 /* CSProgress+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */; };
 		4E6F945128564BD7002F5BD9 /* CSProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6F945028564BD7002F5BD9 /* CSProgress.swift */; };
-		4E7C90FE2868807F001085E1 /* CollectionViewCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C90FD2868807E001085E1 /* CollectionViewCompositionalLayout.swift */; };
 		4E7DC8B128589B0C0007392D /* BaseListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */; };
 		4E7DC8B32858A2990007392D /* ListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */; };
 		4E7DC8B5285A270E0007392D /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */; };
@@ -255,7 +254,6 @@
 		4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSProgress+Additions.swift"; sourceTree = "<group>"; };
 		4E6F944E28564BD7002F5BD9 /* libCSProgress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCSProgress.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6F945028564BD7002F5BD9 /* CSProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSProgress.swift; sourceTree = "<group>"; };
-		4E7C90FD2868807E001085E1 /* CollectionViewCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCompositionalLayout.swift; sourceTree = "<group>"; };
 		4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
@@ -645,7 +643,6 @@
 			children = (
 				4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */,
 				4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */,
-				4E7C90FD2868807E001085E1 /* CollectionViewCompositionalLayout.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -1558,7 +1555,6 @@
 				4EC7F29E27B3A5930078F953 /* SidebarViewController.swift in Sources */,
 				F057924627D7BC2500E9B477 /* PromotedPackageCarouselViewController.swift in Sources */,
 				4EBA840827D104A300766DBE /* HTTPRequest.swift in Sources */,
-				4E7C90FE2868807F001085E1 /* CollectionViewCompositionalLayout.swift in Sources */,
 				4EBA841B27D3119800766DBE /* IconImageView.swift in Sources */,
 				4EBA840C27D1F9A100766DBE /* SectionHeaderView.swift in Sources */,
 				4E7DC8B128589B0C0007392D /* BaseListCollectionViewController.swift in Sources */,

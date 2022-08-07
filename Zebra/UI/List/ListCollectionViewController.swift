@@ -8,10 +8,12 @@
 
 import UIKit
 
-class ListCollectionViewController: BaseListCollectionViewController<CollectionViewCompositionalLayout> {
+class ListCollectionViewController: BaseListCollectionViewController<UICollectionViewCompositionalLayout> {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		collectionView.preservesSuperviewLayoutMargins = true
 
 		collectionView.register(SectionHeaderView.self,
 														forSupplementaryViewOfKind: "Header",
@@ -19,6 +21,31 @@ class ListCollectionViewController: BaseListCollectionViewController<CollectionV
 		collectionView.register(InfoFooterView.self,
 														forSupplementaryViewOfKind: "InfoFooter",
 														withReuseIdentifier: "InfoFooter")
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		updateHeaders()
+	}
+
+	private func updateHeaders() {
+		UIView.animate(withDuration: 0.1) {
+			guard let collectionView = self.collectionView,
+						let layout = self.layout else {
+				return
+			}
+
+			let isScrollEdge = floor(collectionView.contentOffset.y + collectionView.adjustedContentInset.top) <= 0
+
+			for indexPath in collectionView.indexPathsForVisibleSupplementaryElements(ofKind: "Header") {
+				guard let view = collectionView.supplementaryView(forElementKind: "Header", at: indexPath) as? SectionHeaderView,
+							let attributes = layout.layoutAttributesForSupplementaryView(ofKind: "Header", at: indexPath) else {
+					continue
+				}
+
+				view.isPinned = !isScrollEdge && attributes.zIndex == .max && floor(attributes.frame.origin.y) <= floor(collectionView.contentOffset.y + collectionView.adjustedContentInset.top)
+			}
+		}
 	}
 
 }

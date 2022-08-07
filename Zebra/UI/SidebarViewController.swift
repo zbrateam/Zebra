@@ -16,8 +16,8 @@ class SidebarViewController: ListCollectionViewController {
 	private var dataSource: UICollectionViewDiffableDataSource<Int, AppTab>!
 	private var cellRegistration: UICollectionViewDiffableDataSource<Int, AppTab>!
 
-	override class func createLayout() -> CollectionViewCompositionalLayout {
-		CollectionViewCompositionalLayout { index, layoutEnvironment in
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		UICollectionViewCompositionalLayout { index, layoutEnvironment in
 			#if targetEnvironment(macCatalyst)
 			let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
 																																												heightDimension: .estimated(36)),

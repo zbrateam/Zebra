@@ -29,8 +29,8 @@ class BrowseViewController: ListCollectionViewController {
 	private var dataSource: UICollectionViewDiffableDataSource<Section, Value>!
 	private var preloadTasks = [IndexPath: KingfisherTask]()
 
-	override class func createLayout() -> CollectionViewCompositionalLayout {
-		CollectionViewCompositionalLayout { index, environment in
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		UICollectionViewCompositionalLayout { index, environment in
 			switch Section(rawValue: index)! {
 			case .news:
 				let section = NSCollectionLayoutSection(group: .oneAcross(heightDimension: .absolute(CarouselViewController.height)))

@@ -35,8 +35,8 @@ class HomeViewController: ListCollectionViewController {
 
 	private var isVisible = false
 
-	override class func createLayout() -> CollectionViewCompositionalLayout {
-		CollectionViewCompositionalLayout { index, environment in
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		UICollectionViewCompositionalLayout { index, environment in
 			switch index {
 			case 0:
 				let section = NSCollectionLayoutSection(group: .oneAcross(heightDimension: .absolute(CarouselViewController.height)))

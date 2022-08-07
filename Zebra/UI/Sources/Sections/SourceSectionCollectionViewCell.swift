@@ -42,6 +42,7 @@ class SourceSectionCollectionViewCell: UICollectionViewListCell {
 			config = .zebraValueCell()
 			config.text = .localize(name)
 			config.secondaryText = NumberFormatter.count.string(for: count)
+			config.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
 			accessories += [.iconImageView(url: nil,
 																		 fallbackImage: SectionIcon.icon(for: name),
 																		 width: 29)]

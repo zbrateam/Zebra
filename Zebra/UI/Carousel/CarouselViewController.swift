@@ -34,8 +34,8 @@ class CarouselViewController: ListCollectionViewController {
 	private var dataSource: UICollectionViewDiffableDataSource<Int, CarouselItem>!
 	private var preloadTasks = [IndexPath: KingfisherTask]()
 
-	override class func createLayout() -> CollectionViewCompositionalLayout {
-		CollectionViewCompositionalLayout { _, environment in
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		UICollectionViewCompositionalLayout { _, environment in
 			let size = CarouselItemCollectionViewCell.size
 			let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(size.width),
 																																												heightDimension: .absolute(size.height)),

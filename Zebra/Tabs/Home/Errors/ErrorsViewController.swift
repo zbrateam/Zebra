@@ -18,8 +18,8 @@ class ErrorsViewController: ListCollectionViewController {
 
 	private var dataSource: UICollectionViewDiffableDataSource<Section, PlainsError>!
 
-	override class func createLayout() -> CollectionViewCompositionalLayout {
-		CollectionViewCompositionalLayout { index, layoutEnvironment in
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		UICollectionViewCompositionalLayout { index, layoutEnvironment in
 			var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
 			configuration.showsSeparators = false
 

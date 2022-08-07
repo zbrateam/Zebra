@@ -101,8 +101,8 @@ class PackageListViewController: ListCollectionViewController {
 	private var dataSource: PackageListDataSource!
 	private var preloadTasks = [IndexPath: KingfisherTask]()
 
-	override class func createLayout() -> CollectionViewCompositionalLayout {
-		CollectionViewCompositionalLayout { _, environment in
+	override class func createLayout() -> UICollectionViewCompositionalLayout {
+		UICollectionViewCompositionalLayout { _, environment in
 			let section = NSCollectionLayoutSection(group: .listGrid(environment: environment,
 																															 heightDimension: .estimated(80)))
 			section.contentInsetsReference = .none
