@@ -40,6 +40,8 @@ class Device: NSObject {
 		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
 		return false
 		#else
+		// TODO: Need to replace with sandbox_check(). Forking is broken on iOS 15+, has a perf penalty
+		//       under Cheyote.
 		switch forkplz() {
 		case 0:
 			// Forked process - just terminate the fork, we don’t need it to do anything else.
