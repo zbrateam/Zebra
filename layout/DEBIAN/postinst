@@ -1,19 +1,14 @@
 #!/bin/sh
-
 finish() {
-	f="${1}"
-
-	[ -z "${f}" ] || [ -z "${CYDIA}" ] && return
-
-	read -r fd ver <<-EOF
-			${CYDIA}
-			EOF
-
-	[ "${ver}" -ge 1 ] || return
-
-	echo "finish:${f}" >&"${fd}"
+	if ! [ -z "$CYDIA" ]; then
+		read -r fd ver <<EOT
+$CYDIA
+EOT
+		if [ "$ver" -ge 1 ]; then
+			echo "finish:$1" >&$fd
+		fi
+	fi
 }
 
 finish uicache
-
 exit 0
