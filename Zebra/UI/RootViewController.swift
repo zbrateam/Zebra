@@ -137,7 +137,7 @@ class RootViewController: UISplitViewController {
 
 		DispatchQueue.main.async {
 			let viewController = self.realTabBarController.viewControllers![AppTab.installed.rawValue]
-			viewController.tabBarItem.badgeValue = count == 0 ? nil : NumberFormatter.localizedString(from: count as NSNumber, number: .none)
+			viewController.tabBarItem.badgeValue = count == 0 ? nil : NumberFormatter.count.string(for: count)
 		}
 	}
 

@@ -70,6 +70,7 @@
 		4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */; };
 		4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC327CCF6500019A5AA /* DepictionKit */; };
 		4EA2F1DD27DA2A0D0080DC35 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */; };
+		4EA8339928755AA800029B9C /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8339828755AA800029B9C /* NumberFormatter.swift */; };
 		4EA893DD27DDABD600E2EC7A /* sandboxed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4EA893DC27DDABD600E2EC7A /* sandboxed.json */; };
 		4EA893DF27DF3D2100E2EC7A /* Dictionary+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA893DE27DF3D2100E2EC7A /* Dictionary+Extensions.swift */; };
 		4EAC00452863390700B80531 /* SourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E7D277A2731005B0885 /* SourceTableViewCell.swift */; };
@@ -277,6 +278,7 @@
 		4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		4EA26EC227CCF5430019A5AA /* DepictionKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DepictionKit; path = Vendor/DepictionKit; sourceTree = "<group>"; };
 		4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
+		4EA8339828755AA800029B9C /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		4EA893DC27DDABD600E2EC7A /* sandboxed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sandboxed.json; sourceTree = "<group>"; };
 		4EA893DE27DF3D2100E2EC7A /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
 		4EB23508283D2F5F00713CBB /* URLSession+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Additions.swift"; sourceTree = "<group>"; };
@@ -285,13 +287,6 @@
 		4EB2350F283DFA3500713CBB /* AppleDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleDecompressor.swift; sourceTree = "<group>"; };
 		4EB23511283DFA5500713CBB /* Bzip2Decompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bzip2Decompressor.swift; sourceTree = "<group>"; };
 		4EB2354E283DFB8B00713CBB /* ZstdDecompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZstdDecompressor.swift; sourceTree = "<group>"; };
-		4EB235A2283E180E00713CBB /* SwiftZSTD-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftZSTD-Bridging-Header.h"; sourceTree = "<group>"; };
-		4EB235A4283E180F00713CBB /* StreamHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamHelpers.m; sourceTree = "<group>"; };
-		4EB235A5283E181000713CBB /* ZSTDProcessorCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSTDProcessorCommon.swift; sourceTree = "<group>"; };
-		4EB235A7283E181000713CBB /* StreamHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamHelpers.h; sourceTree = "<group>"; };
-		4EB235A8283E181000713CBB /* ZSTDStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZSTDStream.swift; sourceTree = "<group>"; };
-		4EB235B0283E18EB00713CBB /* zstd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
-		4EB235B1283E18EB00713CBB /* zstd_errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
 		4EB235B5283E1A7300713CBB /* libzstd.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = libzstd.xcframework; path = "Vendor/Plains/Vendor/apt-pkg-deps/libzstd.xcframework"; sourceTree = "<group>"; };
 		4EB8C4802858340400FFC744 /* WakeLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeLock.swift; sourceTree = "<group>"; };
 		4EB8C482285839AF00FFC744 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -571,7 +566,6 @@
 			isa = PBXGroup;
 			children = (
 				4E6F944F28564BD7002F5BD9 /* CSProgress */,
-				4EB2359C283E016E00713CBB /* SwiftZSTD */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -604,20 +598,6 @@
 				4EB2354E283DFB8B00713CBB /* ZstdDecompressor.swift */,
 			);
 			path = Compression;
-			sourceTree = "<group>";
-		};
-		4EB2359C283E016E00713CBB /* SwiftZSTD */ = {
-			isa = PBXGroup;
-			children = (
-				4EB235A7283E181000713CBB /* StreamHelpers.h */,
-				4EB235A4283E180F00713CBB /* StreamHelpers.m */,
-				4EB235A5283E181000713CBB /* ZSTDProcessorCommon.swift */,
-				4EB235A8283E181000713CBB /* ZSTDStream.swift */,
-				4EB235A2283E180E00713CBB /* SwiftZSTD-Bridging-Header.h */,
-				4EB235B0283E18EB00713CBB /* zstd.h */,
-				4EB235B1283E18EB00713CBB /* zstd_errors.h */,
-			);
-			path = SwiftZSTD;
 			sourceTree = "<group>";
 		};
 		4EB8C48828583F7400FFC744 /* Errors */ = {
@@ -1079,6 +1059,7 @@
 				4E87FBB82856DDF7005C4704 /* TaskPriority+Additions.swift */,
 				4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */,
 				4E090B7F28646362001FDE9D /* UIListContentConfiguration+Additions.swift */,
+				4EA8339828755AA800029B9C /* NumberFormatter.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1537,6 +1518,7 @@
 				4E87FBB92856DDF7005C4704 /* TaskPriority+Additions.swift in Sources */,
 				4E840B3B27D6484900039938 /* GradientView.swift in Sources */,
 				4E138C6A284E0E580058D94D /* SourceRefreshController+BackgroundRefresh.swift in Sources */,
+				4EA8339928755AA800029B9C /* NumberFormatter.swift in Sources */,
 				4EB8C483285839AF00FFC744 /* ProgressBar.swift in Sources */,
 				4EB2350D283DEA8C00713CBB /* Decompressor.swift in Sources */,
 				4EBA842227D38B7400766DBE /* ZBWorkspace.m in Sources */,

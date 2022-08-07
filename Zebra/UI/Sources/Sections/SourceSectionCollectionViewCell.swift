@@ -41,7 +41,7 @@ class SourceSectionCollectionViewCell: UICollectionViewListCell {
 		if let name = name {
 			config = .zebraValueCell()
 			config.text = .localize(name)
-			config.secondaryText = NumberFormatter.localizedString(from: count as NSNumber, number: .none)
+			config.secondaryText = NumberFormatter.count.string(for: count)
 			accessories += [.iconImageView(url: nil,
 																		 fallbackImage: SectionIcon.icon(for: name),
 																		 width: 29)]

@@ -87,7 +87,7 @@ class HomeViewController: ListCollectionViewController {
 				case .refreshErrors(let count):
 					cell.text = String.localizedStringWithFormat(.localize("Zebra encountered %@ errors."),
 																											 count,
-																											 NumberFormatter.localizedString(from: count as NSNumber, number: .decimal))
+																											 NumberFormatter.count.string(for: count) ?? "0")
 				}
 				return cell
 

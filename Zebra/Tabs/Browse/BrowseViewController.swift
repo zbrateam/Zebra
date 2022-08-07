@@ -93,17 +93,16 @@ class BrowseViewController: ListCollectionViewController {
 
 			case "InfoFooter":
 				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "InfoFooter", for: indexPath) as! InfoFooterView
-				let numberFormatter = NumberFormatter()
-				numberFormatter.numberStyle = .decimal
 				let sourcesCount = self.sources.count
 				let packageCount = PackageManager.shared.packages.count
-				view.text = String(format: "%@ • %@",
-													 String.localizedStringWithFormat(.localize("%@ Sources"),
-																														sourcesCount,
-																														numberFormatter.string(for: sourcesCount) ?? "0"),
-													 String.localizedStringWithFormat(.localize("%@ Packages"),
-																														packageCount,
-																														numberFormatter.string(for: packageCount) ?? "0"))
+				view.text = [
+					String.localizedStringWithFormat(.localize("%@ Sources"),
+																					 sourcesCount,
+																					 NumberFormatter.count.string(for: sourcesCount) ?? "0"),
+					String.localizedStringWithFormat(.localize("%@ Packages"),
+																					 packageCount,
+																					 NumberFormatter.count.string(for: packageCount) ?? "0")
+				].joined(separator: " • ")
 				return view
 
 			default: fatalError()

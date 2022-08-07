@@ -101,11 +101,9 @@ class ErrorsViewController: ListCollectionViewController {
 		}
 
 		DispatchQueue.main.async {
-			let numberFormatter = NumberFormatter()
-			numberFormatter.numberStyle = .decimal
 			self.title = String.localizedStringWithFormat(.localize("%@ Errors"),
 																										count,
-																										numberFormatter.string(for: count) ?? "0")
+																										NumberFormatter.count.string(for: count) ?? "0")
 			self.dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
 		}
 	}

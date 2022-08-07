@@ -26,6 +26,7 @@ extension UIImageView {
 					.replacingOccurrences(regex: "@\\d+x$", with: "")
 
 				let numberFormatter = NumberFormatter()
+				numberFormatter.locale = Locale(identifier: "en_US_POSIX")
 				numberFormatter.maximumFractionDigits = 1
 
 				let scaledURL = url/".."/"\(fileBaseName)@\(numberFormatter.string(for: scale)!)x.\(url.pathExtension)"

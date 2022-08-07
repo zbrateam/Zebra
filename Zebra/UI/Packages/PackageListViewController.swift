@@ -153,13 +153,13 @@ class PackageListViewController: ListCollectionViewController {
 
 			case "InfoFooter":
 				let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "InfoFooter", for: indexPath) as! InfoFooterView
-				let numberFormatter = NumberFormatter()
-				numberFormatter.numberStyle = .decimal
 				let packageText = String.localizedStringWithFormat(.localize("%@ Packages"),
 																													 self.packages.count,
-																													 numberFormatter.string(for: self.packages.count) ?? "0")
-				let filteredText = self.filteredCount == 0 ? nil : String(format: .localize("(%@ hidden)"), numberFormatter.string(for: self.filteredCount) ?? "0")
-				view.text = [packageText, filteredText].compact().joined(separator: " ")
+																													 NumberFormatter.count.string(for: self.packages.count) ?? "0")
+				let filteredText = self.filteredCount == 0 ? nil : String(format: .localize("(%@ hidden)"), NumberFormatter.count.string(for: self.filteredCount) ?? "0")
+				view.text = [packageText, filteredText]
+					.compact()
+					.joined(separator: " ")
 				return view
 
 			default: fatalError()

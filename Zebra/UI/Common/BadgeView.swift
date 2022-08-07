@@ -55,7 +55,7 @@ class BadgeView: UIView {
 
 	private func updateCount() {
 		isHidden = count == 0
-		label.text = count > 99 ? "☃" : NumberFormatter.localizedString(from: count as NSNumber, number: .none)
+		label.text = count > 99 ? "☃" : NumberFormatter.count.string(for: count)
 	}
 
 	override func layoutSubviews() {
