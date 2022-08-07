@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "banner.jpg",
+      "filename" : "fallback-banner-light.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "fallback-banner-dark.png",
       "idiom" : "universal"
     }
   ],
