@@ -254,6 +254,8 @@
 		4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSProgress+Additions.swift"; sourceTree = "<group>"; };
 		4E6F944E28564BD7002F5BD9 /* libCSProgress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCSProgress.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6F945028564BD7002F5BD9 /* CSProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSProgress.swift; sourceTree = "<group>"; };
+		4E7AB4E3289FDCDA0084D8F0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4E7AB4E4289FDCDF0084D8F0 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
@@ -1070,6 +1072,8 @@
 		89C5FDD421B1B13700A10E58 = {
 			isa = PBXGroup;
 			children = (
+				4E7AB4E3289FDCDA0084D8F0 /* README.md */,
+				4E7AB4E4289FDCDF0084D8F0 /* LICENSE.md */,
 				89C5FDDF21B1B13700A10E58 /* Zebra */,
 				4E1A1C6227B69F9A00B6DC9A /* Catalyst Helper */,
 				4E6F945528564C80002F5BD9 /* Vendor */,
