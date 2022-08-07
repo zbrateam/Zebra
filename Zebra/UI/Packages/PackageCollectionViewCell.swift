@@ -11,8 +11,15 @@ import Plains
 
 class PackageCollectionViewCell: UICollectionViewListCell {
 
-	var package: Package! {
-		didSet { updatePackage() }
+	enum SubtitleType {
+		case description, source
+	}
+
+	var package: Package? {
+		didSet { setNeedsUpdateConfiguration() }
+	}
+	var subtitleType: SubtitleType = .description {
+		didSet { setNeedsUpdateConfiguration() }
 	}
 
 	private var imageView: IconImageView!
@@ -42,22 +49,13 @@ class PackageCollectionViewCell: UICollectionViewListCell {
 		titleLabel.font = .preferredFont(forTextStyle: .headline)
 		titleLabel.textColor = .label
 
-		let footnoteFont = UIFont.preferredFont(forTextStyle: .footnote)
-
 		detailLabel = UILabel()
-		detailLabel.font = footnoteFont
+		detailLabel.font = UIFont.preferredFont(forTextStyle: .footnote, weight: .medium)
 		detailLabel.textColor = .secondaryLabel
 
-		let tertiaryFontDescriptor = footnoteFont.fontDescriptor
-			.addingAttributes([
-				.traits: [
-					.weight: UIFont.Weight.regular.rawValue
-				] as [UIFontDescriptor.TraitKey: Any]
-			])
-
 		tertiaryLabel = UILabel()
-		tertiaryLabel.font = UIFont(descriptor: tertiaryFontDescriptor, size: 0)
-		tertiaryLabel.textColor = .tertiaryLabel
+		tertiaryLabel.font = UIFont.preferredFont(forTextStyle: .footnote, weight: .regular)
+		tertiaryLabel.textColor = .secondaryLabel
 
 		let labelStackView = UIStackView(arrangedSubviews: [titleLabel, detailLabel, tertiaryLabel])
 		labelStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +67,7 @@ class PackageCollectionViewCell: UICollectionViewListCell {
 		let mainStackView = UIStackView(arrangedSubviews: [imageContainer, labelStackView])
 		mainStackView.translatesAutoresizingMaskIntoConstraints = false
 		mainStackView.alignment = .center
-		mainStackView.spacing = 12
+		mainStackView.spacing = 10
 		contentView.addSubview(mainStackView)
 
 		NSLayoutConstraint.activate([
@@ -97,7 +95,9 @@ class PackageCollectionViewCell: UICollectionViewListCell {
 		super.prepareForReuse()
 	}
 
-	private func updatePackage() {
+	override func updateConfiguration(using state: UICellConfigurationState) {
+		super.updateConfiguration(using: state)
+		
 		guard let package = package else {
 			return
 		}
@@ -108,19 +108,22 @@ class PackageCollectionViewCell: UICollectionViewListCell {
 		titleLabel.textColor = package.isCommercial ? tintColor : .label
 		titleLabel.text = package.name
 		detailLabel.text = package.author?.name ?? package.maintainer?.name ?? .localize("Unknown")
-		tertiaryLabel.text = package.source?.origin ?? .localize("Locally Installed")
+
+		switch subtitleType {
+		case .description:
+			tertiaryLabel.text = package.shortDescription ?? .localize("No Description")
+			tertiaryLabel.textColor = .secondaryLabel
+
+		case .source:
+			tertiaryLabel.text = package.source?.origin ?? .localize("Locally Installed")
+			tertiaryLabel.textColor = .tertiaryLabel
+		}
 	}
 
 	override func tintColorDidChange() {
 		super.tintColorDidChange()
 
 		titleLabel.textColor = package?.isCommercial ?? false ? tintColor : .label
-	}
-
-	override var isHighlighted: Bool {
-		didSet {
-			backgroundColor = isHighlighted ? .systemGray4 : nil
-		}
 	}
 
 }

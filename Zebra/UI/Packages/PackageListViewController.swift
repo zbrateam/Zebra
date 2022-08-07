@@ -122,10 +122,17 @@ class PackageListViewController: ListCollectionViewController {
 		collectionView.prefetchDataSource = self
 		collectionView.register(PackageCollectionViewCell.self, forCellWithReuseIdentifier: "PackageCell")
 
-		loadingView = LoadingView(frame: collectionView.bounds)
-		loadingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		loadingView = LoadingView()
+		loadingView.translatesAutoresizingMaskIntoConstraints = false
 		loadingView.isHidden = true
-		collectionView.addSubview(loadingView)
+		view.addSubview(loadingView)
+
+		NSLayoutConstraint.activate([
+			loadingView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+			loadingView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+			loadingView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+			loadingView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+		])
 
 		let searchController = UISearchController()
 		searchController.delegate = self
@@ -141,6 +148,15 @@ class PackageListViewController: ListCollectionViewController {
 		dataSource = PackageListDataSource(collectionView: collectionView) { collectionView, indexPath, package in
 			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PackageCell", for: indexPath) as! PackageCollectionViewCell
 			cell.package = package
+
+			switch self.filter {
+			case .installed:
+				cell.subtitleType = .source
+
+			default:
+				cell.subtitleType = .description
+			}
+
 			return cell
 		}
 		dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
@@ -274,7 +290,7 @@ class PackageListViewController: ListCollectionViewController {
 				packages = await PackageManager.shared
 					.fetchPackages {
 						($0.identifier.localizedCaseInsensitiveContains(query) || $0.name.localizedCaseInsensitiveContains(query) ||
-						$0.shortDescription.localizedCaseInsensitiveContains(query) ||
+						($0.shortDescription?.localizedCaseInsensitiveContains(query) ?? false) ||
 						($0.author?.name.localizedCaseInsensitiveContains(query) ?? false) ||
 						($0.maintainer?.name.localizedCaseInsensitiveContains(query) ?? false)) &&
 						roleFilter($0)
@@ -286,29 +302,25 @@ class PackageListViewController: ListCollectionViewController {
 					.fetchPackages { favoritePackageIDs.contains($0.identifier) && !alwaysFilter($0) }
 			}
 
-			// Yeah I couldn’t get something cleaner to work with KeyPath without Swift arguing with me
-			let ascending = sortOrder == .ascending
-			let sortedPackages = packages.sorted {
-				switch Preferences.packageListSort {
-				case .alpha:
-					let order = $0.name.localizedStandardCompare($1.name)
-					return order == (ascending ? .orderedAscending : .orderedDescending)
+			let sortedPackages: [Package]
+			switch Preferences.packageListSort {
+			case .alpha:
+				// TODO: I don’t see any reason this API needs to run on the main actor, file a radar?
+				sortedPackages = await self.collation.sortedArray(from: packages, collationStringSelector: #selector(getter: Package.name)) as! [Package]
 
-				case .date:
-					return ascending
-						? $0.installedDate ?? .distantPast < $1.installedDate ?? .distantPast
-						: $0.installedDate ?? .distantPast > $1.installedDate ?? .distantPast
+			case .date:
+				sortedPackages = packages.sorted { $0.installedDate ?? .distantPast < $1.installedDate ?? .distantPast }
 
-				case .installedSize:
-					return ascending
-						? $0.installedSize < $1.installedSize
-						: $0.installedSize > $1.installedSize
-				}
+			case .installedSize:
+				sortedPackages = packages.sorted { $0.installedSize < $1.installedSize }
 			}
 
 			await MainActor.run { [filteredCount] in
 				self.filteredCount = filteredCount
-				self.packages = sortedPackages
+				switch sortOrder {
+				case .ascending:  self.packages = sortedPackages
+				case .descending: self.packages = sortedPackages.reversed()
+				}
 				self.isLoading = false
 			}
 		}

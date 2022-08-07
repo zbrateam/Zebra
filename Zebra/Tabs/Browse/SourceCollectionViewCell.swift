@@ -12,10 +12,15 @@ import Plains
 class SourceCollectionViewCell: UICollectionViewListCell {
 
 	var source: Source! {
-		didSet { updateSource() }
+		didSet { setNeedsUpdateConfiguration() }
+	}
+
+	var sourceState: SourceRefreshController.SourceState? {
+		didSet { setNeedsUpdateConfiguration() }
 	}
 
 	private let progressView = ProgressDonut()
+	private let iconImageView = IconImageView(size: 40)
 
 	private var niceSourceURL: String?
 
@@ -34,31 +39,45 @@ class SourceCollectionViewCell: UICollectionViewListCell {
 		}
 	}
 
-	private func updateSource() {
+	override func updateConfiguration(using state: UICellConfigurationState) {
+		super.updateConfiguration(using: state)
+
 		var config = UIListContentConfiguration.zebraSubtitleCell()
 		var accessories: [UICellAccessory] = [.disclosureIndicator()]
 
 		if let source = source {
 			config.text = source.origin
-			niceSourceURL = source.uri.displayString
+			config.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
 
 			if let host = source.uri.host,
 				 let image = UIImage(named: "Repo Icons/\(host)") {
-				accessories += [.iconImageView(url: nil, fallbackImage: image, width: 40)]
+				iconImageView.setImageURL(nil, fallbackImage: image)
 			} else {
-				accessories += [.iconImageView(url: source.iconURL, usingScale: true, width: 40)]
+				iconImageView.setImageURL(source.iconURL)
+			}
+			accessories += [.customView(configuration: .init(customView: iconImageView,
+																											 placement: .leading(),
+																											 reservedLayoutWidth: .custom(iconImageView.size)))]
+
+			if SourceRefreshController.shared.isRefreshing,
+				 let progress = sourceState?.progress {
+				accessories += [
+					.customView(configuration: .init(customView: progressView,
+																					 placement: .trailing(),
+																					 reservedLayoutWidth: .actual,
+																					 maintainsFixedSize: true))
+				]
+				progressView.progress = progress.fractionCompleted
 			}
 
-			accessories += [
-				.customView(configuration: .init(customView: progressView,
-																				 placement: .trailing(),
-																				 reservedLayoutWidth: .actual,
-																				 maintainsFixedSize: true))
-			]
-
-			self.contentConfiguration = config
-			let state = SourceRefreshController.shared.sourceStates[source.uuid]
-			updateProgress(state: state)
+			if let errors = sourceState?.errors,
+				 !errors.isEmpty {
+				config.secondaryText = .localize("Failed to load")
+				config.secondaryTextProperties.color = .systemRed
+			} else {
+				config.secondaryText = source.uri.displayString
+				config.secondaryTextProperties.color = .secondaryLabel
+			}
 		} else {
 			config.text = .localize("All Packages")
 			config.secondaryText = .localize("Browse packages from all sources.")
@@ -73,45 +92,14 @@ class SourceCollectionViewCell: UICollectionViewListCell {
 		self.contentConfiguration = config
 	}
 
-	private func updateProgress(state: SourceRefreshController.SourceState?) {
-		guard source != nil else {
-			return
-		}
-
-		if SourceRefreshController.shared.isRefreshing,
-			 let progress = state?.progress {
-			progressView.isHidden = false
-			progressView.progress = progress.fractionCompleted
-		} else {
-			progressView.isHidden = true
-		}
-
-		if var config = contentConfiguration as? UIListContentConfiguration {
-			if let errors = state?.errors,
-				 !errors.isEmpty {
-				config.secondaryText = .localize("Failed to load")
-				config.secondaryTextProperties.color = .systemRed
-			} else {
-				config.secondaryText = niceSourceURL
-				config.secondaryTextProperties.color = .secondaryLabel
-			}
-			contentConfiguration = config
-		}
-	}
-
 	@objc private func progressDidChange() {
 		guard let source = source else {
 			return
 		}
+
 		let state = SourceRefreshController.shared.sourceStates[source.uuid]
 		DispatchQueue.main.async {
-			self.updateProgress(state: state)
-		}
-	}
-
-	override var isHighlighted: Bool {
-		didSet {
-			backgroundColor = isHighlighted ? .systemGray4 : nil
+			self.sourceState = state
 		}
 	}
 
