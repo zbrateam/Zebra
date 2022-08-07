@@ -21,6 +21,8 @@ class ErrorCollectionViewCell: UICollectionViewListCell {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
+		backgroundConfiguration = .clear()
+
 		let font = UIFont.preferredFont(forTextStyle: .body)
 
 		imageView = UIImageView()
@@ -42,15 +44,15 @@ class ErrorCollectionViewCell: UICollectionViewListCell {
 
 		let stackView = UIStackView(arrangedSubviews: [imageView, detailLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.spacing = 2
+		stackView.spacing = 6
 		stackView.alignment = .firstBaseline
 		contentView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
 			stackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
 			stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: 4),
-			stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-			stackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+			stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 		])
 	}
 

@@ -10,7 +10,7 @@ import UIKit
 
 class CarouselViewController: ListCollectionViewController {
 
-	static let height: CGFloat = CarouselItemCollectionViewCell.size.height + (15 * 2)
+	static let height: CGFloat = CarouselItemCollectionViewCell.size.height + 10 + 15
 
 	var items = [CarouselItem]() {
 		didSet { updateItems() }
@@ -32,6 +32,7 @@ class CarouselViewController: ListCollectionViewController {
 	internal var errorLabel: UILabel!
 
 	private var dataSource: UICollectionViewDiffableDataSource<Int, CarouselItem>!
+	private var preloadTasks = [IndexPath: KingfisherTask]()
 
 	override class func createLayout() -> CollectionViewCompositionalLayout {
 		CollectionViewCompositionalLayout { _, environment in
@@ -41,7 +42,8 @@ class CarouselViewController: ListCollectionViewController {
 																										 subitems: [NSCollectionLayoutItem(layoutSize: .full)])
 			let section = NSCollectionLayoutSection(group: group)
 			section.interGroupSpacing = 20
-			section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 20)
+			section.contentInsetsReference = .layoutMargins
+			section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 15, trailing: 0)
 
 			switch environment.traitCollection.horizontalSizeClass {
 			case .regular, .unspecified:
@@ -158,6 +160,21 @@ extension CarouselViewController: UICollectionViewDelegateFlowLayout { // UIColl
 
 	override func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
 		return self.collectionView(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
+	}
+
+	func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			let item = items[indexPath.item]
+			preloadTasks[indexPath] = UIImageView.preload(url: item.imageURL,
+																										screen: view.window?.screen ?? .main)
+		}
+	}
+
+	func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			preloadTasks[indexPath]?.cancel()
+			preloadTasks[indexPath] = nil
+		}
 	}
 
 }

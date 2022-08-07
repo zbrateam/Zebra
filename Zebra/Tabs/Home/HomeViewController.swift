@@ -33,6 +33,8 @@ class HomeViewController: ListCollectionViewController {
 
 	private var dataSource: UICollectionViewDiffableDataSource<Section, Value>!
 
+	private var isVisible = false
+
 	override class func createLayout() -> CollectionViewCompositionalLayout {
 		CollectionViewCompositionalLayout { index, environment in
 			switch index {
@@ -42,13 +44,15 @@ class HomeViewController: ListCollectionViewController {
 				return section
 
 			case 1:
-				let section = NSCollectionLayoutSection(group: .oneAcross(heightDimension: .estimated(72)))
+				let section = NSCollectionLayoutSection(group: .oneAcross(heightDimension: .estimated(52)))
+				section.interGroupSpacing = 15
+				section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 0)
 				section.contentInsetsReference = .none
 				return section
 
 			default:
 				let section = NSCollectionLayoutSection(group: .listGrid(environment: environment,
-																																 heightDimension: .estimated(52)))
+																																 heightDimension: .estimated(80)))
 				section.contentInsetsReference = .none
 //				section.boundarySupplementaryItems = [.header]
 				return section
@@ -95,13 +99,17 @@ class HomeViewController: ListCollectionViewController {
 				fatalError()
 			}
 		})
+
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshDidFinish), name: SourceRefreshController.refreshDidFinishNotification, object: nil)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshProgressDidChange), name: SourceRefreshController.refreshProgressDidChangeNotification, object: nil)
+		update()
 		refreshProgressDidChange()
+		updatePromotedPackages()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -113,13 +121,17 @@ class HomeViewController: ListCollectionViewController {
 	@objc private func refreshProgressDidChange() {
 		// Filter to only errors. Warnings are mostly annoying and not particularly useful.
 		errorCount = UInt(SourceRefreshController.shared.refreshErrors.count) + ErrorManager.shared.errorCount(at: .error)
+		let percent = SourceRefreshController.shared.progress.fractionCompleted
 
 		DispatchQueue.main.async {
-			self.update()
+			self.updateProgress(percent: percent)
+		}
+	}
 
-			let progress = SourceRefreshController.shared.progress
-			let percent = progress.fractionCompleted
-			self.navigationProgressBar?.setProgress(Float(percent), animated: true)
+	@objc private func refreshDidFinish() {
+		promotedPackages = nil
+		if isVisible {
+			updatePromotedPackages()
 		}
 	}
 
@@ -141,13 +153,43 @@ class HomeViewController: ListCollectionViewController {
 			snapshot.appendItems([.featured])
 		}
 		snapshot.appendSections([.notice])
+		dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
+	}
+
+	private func updateProgress(percent: Double) {
+		navigationProgressBar?.setProgress(Float(percent), animated: true)
+
+		var snapshot = dataSource.snapshot()
+		snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .notice))
 		if Device.isDemo {
 			snapshot.appendItems([.notice(reason: .sandboxed)])
 		}
 		if errorCount > 0 {
 			snapshot.appendItems([.notice(reason: .refreshErrors(count: errorCount))])
 		}
-		dataSource.apply(snapshot, animatingDifferences: true, completion: nil)
+		dataSource.apply(snapshot, animatingDifferences: false)
+	}
+
+	private func updatePromotedPackages() {
+		if promotedPackages != nil {
+			return
+		}
+
+		Task.detached {
+			let promotedPackages = await PromotedPackagesFetcher.getHomeCarouselItems()
+
+			await MainActor.run {
+				self.promotedPackages = promotedPackages
+
+				var snapshot = self.dataSource.snapshot()
+				if #available(iOS 15, *) {
+					snapshot.reconfigureItems([.featured])
+				} else {
+					snapshot.reloadItems([.featured])
+				}
+				self.dataSource.apply(snapshot, animatingDifferences: true)
+			}
+		}
 	}
 
 }

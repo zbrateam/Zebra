@@ -22,7 +22,7 @@ class HomeErrorCollectionViewCell: UICollectionViewListCell {
 			.customView(configuration: .init(customView: UIView(),
 																			 placement: .trailing(),
 																			 isHidden: true,
-																			 reservedLayoutWidth: .custom(15)))
+																			 reservedLayoutWidth: .custom(30)))
 		]
 	}
 
@@ -47,8 +47,8 @@ class HomeErrorCollectionViewCell: UICollectionViewListCell {
 
 		var backgroundConfiguration = UIBackgroundConfiguration.clear()
 		backgroundConfiguration.backgroundColor = state.isHighlighted ? .systemGray4 : .systemGray6
-		backgroundConfiguration.cornerRadius = 20
-		backgroundConfiguration.edgesAddingLayoutMarginsToBackgroundInsets = .all
+		backgroundConfiguration.cornerRadius = 15
+		backgroundConfiguration.edgesAddingLayoutMarginsToBackgroundInsets = [.leading, .trailing]
 		self.backgroundConfiguration = backgroundConfiguration.updated(for: state)
 	}
 

@@ -70,7 +70,9 @@
 		4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */; };
 		4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA26EC327CCF6500019A5AA /* DepictionKit */; };
 		4EA2F1DD27DA2A0D0080DC35 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */; };
+		4EA833972875544B00029B9C /* SectionDateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA833962875544B00029B9C /* SectionDateHeaderView.swift */; };
 		4EA8339928755AA800029B9C /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8339828755AA800029B9C /* NumberFormatter.swift */; };
+		4EA8339B287570B000029B9C /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8339A287570B000029B9C /* WebImageView.swift */; };
 		4EA893DD27DDABD600E2EC7A /* sandboxed.json in Resources */ = {isa = PBXBuildFile; fileRef = 4EA893DC27DDABD600E2EC7A /* sandboxed.json */; };
 		4EA893DF27DF3D2100E2EC7A /* Dictionary+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA893DE27DF3D2100E2EC7A /* Dictionary+Extensions.swift */; };
 		4EAC00452863390700B80531 /* SourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E7D277A2731005B0885 /* SourceTableViewCell.swift */; };
@@ -278,7 +280,9 @@
 		4EA26EB927CCEEBC0019A5AA /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		4EA26EC227CCF5430019A5AA /* DepictionKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DepictionKit; path = Vendor/DepictionKit; sourceTree = "<group>"; };
 		4EA2F1DC27DA2A0D0080DC35 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
+		4EA833962875544B00029B9C /* SectionDateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDateHeaderView.swift; sourceTree = "<group>"; };
 		4EA8339828755AA800029B9C /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		4EA8339A287570B000029B9C /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		4EA893DC27DDABD600E2EC7A /* sandboxed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sandboxed.json; sourceTree = "<group>"; };
 		4EA893DE27DF3D2100E2EC7A /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
 		4EB23508283D2F5F00713CBB /* URLSession+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Additions.swift"; sourceTree = "<group>"; };
@@ -900,7 +904,9 @@
 				89B701D42641CAAA00F50DAD /* ZBErrorViewController.mm */,
 				4EBA840B27D1F9A100766DBE /* SectionHeaderView.swift */,
 				4E840B3827D61ED700039938 /* SectionHeaderButton.swift */,
+				4EA833962875544B00029B9C /* SectionDateHeaderView.swift */,
 				4EBA840D27D21F4700766DBE /* InfoFooterView.swift */,
+				4EA8339A287570B000029B9C /* WebImageView.swift */,
 				4EBA841A27D3119800766DBE /* IconImageView.swift */,
 				4E840B3A27D6484900039938 /* GradientView.swift */,
 				4E138C67284C690C0058D94D /* ProgressDonut.swift */,
@@ -1525,7 +1531,9 @@
 				4EB8C48728583EAD00FFC744 /* NavigationController.swift in Sources */,
 				4EC7F28527B28D770078F953 /* Command.swift in Sources */,
 				4EC7F29C27B3A19F0078F953 /* RootViewController.swift in Sources */,
+				4EA8339B287570B000029B9C /* WebImageView.swift in Sources */,
 				4EA26EB727CCDAC80019A5AA /* BaseSceneDelegate.swift in Sources */,
+				4EA833972875544B00029B9C /* SectionDateHeaderView.swift in Sources */,
 				4EB8C48528583C5500FFC744 /* NavigationBar.swift in Sources */,
 				4EA26EBA27CCEEBC0019A5AA /* BrowseViewController.swift in Sources */,
 				4E1F060828411A47006B3F0C /* PackageViewController.swift in Sources */,

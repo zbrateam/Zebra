@@ -48,17 +48,15 @@ class RootViewController: UISplitViewController {
 	}
 
 	static let tabKeyCommands: [UIKeyCommand] = {
-		var result = [UIKeyCommand]()
-		for (i, row) in AppTab.allCases.enumerated() {
-			result.append(UIKeyCommand(title: row.name,
-																 image: row.icon,
-																 action: #selector(switchToTab),
-																 input: "\(i + 1)",
-																 modifierFlags: .command,
-																 propertyList: i,
-																 state: .off))
+		AppTab.allCases.enumerated().map { i, row in
+			UIKeyCommand(title: row.name,
+									 image: row.icon,
+									 action: #selector(switchToTab),
+									 input: "\(i + 1)",
+									 modifierFlags: .command,
+									 propertyList: i,
+									 state: .off)
 		}
-		return result
 	}()
 
 	private weak var navigationDelegate: RootViewControllerDelegate?

@@ -10,19 +10,18 @@ import UIKit
 
 class IconImageView: UIView {
 
-	var image: UIImage? {
-		get { imageView.image }
-		set { setImageURL(nil, usingScale: false, fallbackImage: newValue) }
+	var size: CGFloat = 29 {
+		didSet { invalidateIntrinsicContentSize() }
 	}
 
-	private var currentImage: (url: URL?, usingScale: Bool, fallbackImage: UIImage?)?
-
 	private var backgroundView: UIView!
-	private var imageView: UIImageView!
+	private var imageView: WebImageView!
 	private var borderView: UIView!
 
-	init() {
+	init(size: CGFloat = 29) {
 		super.init(frame: .zero)
+
+		self.size = size
 
 		backgroundView = UIView(frame: bounds)
 		backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -31,7 +30,7 @@ class IconImageView: UIView {
 		backgroundView.layer.cornerCurve = .continuous
 		addSubview(backgroundView)
 
-		imageView = UIImageView(frame: bounds)
+		imageView = WebImageView(frame: bounds)
 		imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		imageView.contentMode = .scaleAspectFit
 		imageView.clipsToBounds = true
@@ -54,6 +53,10 @@ class IconImageView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	override var intrinsicContentSize: CGSize {
+		CGSize(width: size, height: size)
+	}
+
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
@@ -61,10 +64,6 @@ class IconImageView: UIView {
 		backgroundView.layer.cornerRadius = cornerRadius
 		imageView.layer.cornerRadius = cornerRadius
 		borderView.layer.cornerRadius = cornerRadius
-
-		if let (url, usingScale, fallbackImage) = currentImage {
-			setImageURL(url, usingScale: usingScale, fallbackImage: fallbackImage)
-		}
 	}
 
 	override func didMoveToWindow() {
@@ -78,28 +77,22 @@ class IconImageView: UIView {
 	}
 
 	func setImageURL(_ url: URL?, usingScale: Bool = true, fallbackImage: UIImage? = nil) {
-		currentImage = (url, usingScale, fallbackImage)
 		imageView.load(url: url, usingScale: usingScale, fallbackImage: fallbackImage)
 	}
 
 }
 
 extension UICellAccessory {
-
-	static func iconImageView(url: URL?, usingScale: Bool = true, fallbackImage: UIImage? = nil, width: CGFloat = 29) -> UICellAccessory {
-		let view = IconImageView()
+	static func iconImageView(url: URL?,
+														usingScale: Bool = true,
+														fallbackImage: UIImage? = nil,
+														width: CGFloat = 29,
+														reservedLayoutWidth: LayoutDimension = .actual) -> UICellAccessory {
+		let view = IconImageView(size: width)
 		view.setImageURL(url, usingScale: usingScale, fallbackImage: fallbackImage)
-
-		NSLayoutConstraint.activate([
-			view.widthAnchor.constraint(equalToConstant: width),
-			view.heightAnchor.constraint(equalToConstant: width)
-		])
-
 		return .customView(configuration: .init(customView: view,
-																						placement: .leading(displayed: .always),
-																						reservedLayoutWidth: .custom(width),
-																						maintainsFixedSize: true))
+																						placement: .leading(),
+																						reservedLayoutWidth: reservedLayoutWidth))
 	}
-
 }
 

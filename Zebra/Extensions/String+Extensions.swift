@@ -17,4 +17,9 @@ extension String {
 												 options: options.union(.regularExpression),
 												 range: startIndex..<endIndex)
 	}
+
+	func matches(regex: String, options: CompareOptions = []) -> Bool {
+		range(of: regex,
+					options: options.union(.regularExpression)) != nil
+	}
 }

@@ -81,7 +81,7 @@ extension AppSceneDelegate: NSToolbarDelegate {
 			item.isNavigational = true
 			item.action = #selector(RootViewController.goBack)
 			item.image = UIImage(systemName: "chevron.backward")
-			item.label = .back
+			item.toolTip = .back
 
 		default: break
 		}

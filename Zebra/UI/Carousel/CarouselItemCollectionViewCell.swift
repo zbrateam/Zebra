@@ -13,10 +13,10 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 	static let size = CGSize(width: 314, height: 175)
 
 	var item: CarouselItem? {
-		didSet { updateItem() }
+		didSet { setNeedsUpdateConfiguration() }
 	}
 
-	private var imageView: UIImageView!
+	private var imageView: WebImageView!
 	private var overlayView: GradientView!
 	private var titleLabel: UILabel!
 	private var detailLabel: UILabel!
@@ -26,7 +26,7 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
-		imageView = UIImageView(frame: bounds)
+		imageView = WebImageView(frame: bounds)
 		imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		imageView.backgroundColor = .systemBackground
 		imageView.contentMode = .scaleAspectFill
@@ -97,14 +97,9 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 		super.prepareForReuse()
 	}
 
-	override func layoutSubviews() {
-		super.layoutSubviews()
+	override func updateConfiguration(using state: UICellConfigurationState) {
+		super.updateConfiguration(using: state)
 
-		imageView.load(url: item?.imageURL,
-									 fallbackImage: UIImage(named: "banner-fallback"))
-	}
-
-	private func updateItem() {
 		let displayTitle = item?.displayTitle ?? true
 		titleLabel.isHidden = !displayTitle
 		detailLabel.isHidden = !displayTitle
@@ -114,13 +109,10 @@ class CarouselItemCollectionViewCell: UICollectionViewCell {
 		detailLabel.text = displayTitle ? item?.subtitle : nil
 		accessibilityLabel = displayTitle ? nil : [item?.subtitle, item?.title].compact().joined(separator: ", ")
 
-		setNeedsLayout()
-	}
+		imageView.load(url: item?.imageURL,
+									 fallbackImage: UIImage(named: "banner-fallback"))
 
-	override var isHighlighted: Bool {
-		didSet {
-			highlightView.alpha = isHighlighted ? 1 : 0
-		}
+		highlightView.alpha = state.isHighlighted ? 1 : 0
 	}
 
 }

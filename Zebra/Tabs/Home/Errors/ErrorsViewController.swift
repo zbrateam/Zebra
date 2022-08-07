@@ -25,6 +25,8 @@ class ErrorsViewController: ListCollectionViewController {
 
 			let section = NSCollectionLayoutSection.list(using: configuration,
 																									 layoutEnvironment: layoutEnvironment)
+			section.interGroupSpacing = 8
+			section.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0)
 			section.contentInsetsReference = .none
 			section.boundarySupplementaryItems = [.header]
 			return section

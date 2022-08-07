@@ -122,6 +122,7 @@ class SourceRefreshController: NSObject {
 	}
 
 	static let refreshProgressDidChangeNotification = Notification.Name(rawValue: "SourceRefreshProgressDidChangeNotification")
+	static let refreshDidFinishNotification = Notification.Name(rawValue: "SourceRefreshDidFinishNotification")
 
 	private static let legacySourceHosts = ["repo.dynastic.co", "apt.bingner.com"]
 
@@ -700,6 +701,10 @@ class SourceRefreshController: NSObject {
 		#endif
 
 		endRefresh()
+
+		DispatchQueue.main.async {
+			NotificationCenter.default.post(name: Self.refreshDidFinishNotification, object: nil)
+		}
 	}
 
 	private func cancel() {

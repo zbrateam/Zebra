@@ -19,7 +19,7 @@ struct PromotedPackagesObject: Codable {
 
 // MARK: - Banner
 
-struct PromotedPackageBanner: Codable {
+struct PromotedPackageBanner: Codable, Hashable {
 	let title, package: String
 	let url: URL
 	let displayText, hideShadow: Bool?

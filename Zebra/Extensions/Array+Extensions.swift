@@ -10,6 +10,10 @@ extension Array {
 	func compact<ElementOfResult>() -> [ElementOfResult] where Element == ElementOfResult? {
 		compactMap { $0 }
 	}
+
+	func safeSubSequence(_ range: Range<Int>) -> SubSequence {
+		self[Swift.max(range.lowerBound, 0)..<Swift.min(range.upperBound, count)]
+	}
 }
 
 extension Array where Element == String {

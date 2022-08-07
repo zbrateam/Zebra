@@ -8,7 +8,11 @@
 
 import UIKit
 
-class SectionHeaderView: UICollectionReusableView {
+protocol PinnableHeader {
+	var isPinned: Bool { get set }
+}
+
+class SectionHeaderView: UICollectionReusableView, PinnableHeader {
 
 	var title: String? {
 		get { label.text }
@@ -19,15 +23,28 @@ class SectionHeaderView: UICollectionReusableView {
 		didSet { updateButtons() }
 	}
 
+	var isPinned = false {
+		didSet { updateToolbar() }
+	}
+
 	private var label: UILabel!
 	private var buttonsStackView: UIStackView!
+	private var toolbar: UIToolbar!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 
+		preservesSuperviewLayoutMargins = true
+
+		toolbar = UIToolbar(frame: bounds)
+		toolbar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		toolbar.delegate = self
+		addSubview(toolbar)
+
 		label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = .preferredFont(forTextStyle: .headline)
+		label.font = UIFont.preferredFont(forTextStyle: .headline, scale: 1.1, minimumSize: 18, weight: .semibold)
+		label.adjustsFontForContentSizeCategory = true
 		label.textColor = .label
 
 		buttonsStackView = UIStackView()
@@ -41,10 +58,12 @@ class SectionHeaderView: UICollectionReusableView {
 		addSubview(stackView)
 
 		NSLayoutConstraint.activate([
+			self.heightAnchor.constraint(equalToConstant: 44),
+
 			stackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
 			stackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-			stackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-			stackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
+			stackView.topAnchor.constraint(equalTo: self.topAnchor),
+			stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
 		])
 	}
 
@@ -63,12 +82,22 @@ class SectionHeaderView: UICollectionReusableView {
 		}
 	}
 
+	private func updateToolbar() {
+		toolbar.alpha = isPinned ? 1 : 0
+	}
+
+}
+
+extension SectionHeaderView: UIToolbarDelegate {
+	func position(for bar: UIBarPositioning) -> UIBarPosition {
+		.top
+	}
 }
 
 extension NSCollectionLayoutBoundarySupplementaryItem {
 	static var header: NSCollectionLayoutBoundarySupplementaryItem {
 		let item = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-																																															heightDimension: .absolute(52)),
+																																															heightDimension: .estimated(44)),
 																													 elementKind: "Header",
 																													 alignment: .top)
 		item.pinToVisibleBounds = true

@@ -14,7 +14,7 @@ extension UIListContentConfiguration {
 		var config = UIListContentConfiguration.cell()
 		config.textProperties.font = .preferredFont(forTextStyle: .headline)
 		config.imageProperties.preferredSymbolConfiguration = .init(textStyle: .headline)
-		config.imageToTextPadding = 4
+		config.imageToTextPadding = 10
 		return config
 	}
 
@@ -27,7 +27,7 @@ extension UIListContentConfiguration {
 		config.secondaryTextProperties.numberOfLines = 1
 		config.textToSecondaryTextVerticalPadding = 2
 		config.imageProperties.preferredSymbolConfiguration = .init(textStyle: .headline)
-		config.imageToTextPadding = 4
+		config.imageToTextPadding = 10
 		return config
 	}
 

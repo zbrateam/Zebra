@@ -56,7 +56,7 @@ extension UIImageView {
 
 	/// > Note: Wait till the image view has been laid out before calling this. If `frame.size == .zero`,
 	/// > the image load will be skipped. Call this from `layoutSubviews` to ensure relayout as needed.
-	func load(url: URL?, usingScale: Bool = false, fallbackImage: UIImage? = nil) {
+	@objc func load(url: URL?, usingScale: Bool = false, fallbackImage: UIImage? = nil) {
 		let scale = (window?.screen ?? .main).scale
 		var sources = Self.sources(url: url, scale: usingScale ? scale : 1)
 		if sources.isEmpty || frame.size == .zero {
