@@ -160,23 +160,16 @@
         [result addObject:dict];
         
         NSDictionary *dict2 = @{@"type": @"utility",
-                               @"name": @"Odyssey",
+                               @"name": @"Odyssey Repo",
                                @"url" : @"https://repo.theodyssey.dev/",
                                @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
         [result addObject:dict2];
     }
-    else if ([ZBDevice jailbreak] == ZBJailbreakChimera) {
+    else if ([ZBDevice jailbreak] == ZBJailbreakChimera || [ZBDevice jailbreak] == ZBJailbreakElectra) {
         NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Chimera",
+                               @"name": @"Chimera Repo",
                                @"url" : @"https://repo.chimera.sh/",
                                @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
-        [result addObject:dict];
-    }
-    else if ([ZBDevice jailbreak] == ZBJailbreakElectra) { // electra
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Electra's iOS Utilities",
-                               @"url" : @"https://electrarepo64.coolstar.org/",
-                               @"icon": @"https://electrarepo64.coolstar.org/CydiaIcon.png"};
         [result addObject:dict];
     }
     else if ([ZBDevice bootstrap] == ZBBootstrapProcursus) { // Unknown JB but it has procursus
