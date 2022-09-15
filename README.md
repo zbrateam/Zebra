@@ -1,9 +1,9 @@
-# <img src="https://github.com/zbrateam/Zebra/raw/main/assets/banner.jpg" alt="Zebra">
+# <a href="https://getzbra.com/"><img src="https://github.com/zbrateam/Zebra/raw/main/assets/banner.jpg" alt="Zebra"></a>
 [![Latest release](https://img.shields.io/github/v/release/wstyres/Zebra?color=brightgreen&label=version)](https://github.com/zbrateam/Zebra/releases/latest)
 [![Build Zebra](https://github.com/zbrateam/Zebra/actions/workflows/build.yml/badge.svg)](https://github.com/zbrateam/Zebra/actions)
 [![Crowdin](https://badges.crowdin.net/zebra/localized.svg)](https://translate.getzbra.com/project/zebra)
 
-Zebra (née AUPM) is a package manager for jailbroken iOS devices, allowing you to install tweaks, themes, and other handy utilities not available through the App Store.
+Zebra (née AUPM) is a package manager for jailbroken iOS devices, allowing you to install tweaks, themes, and other handy utilities not available through the App Store. Zebra uses the [Advanced Packaging Tool (APT)](https://en.wikipedia.org/wiki/APT_\(software\)), originally developed by the [Debian](https://www.debian.org/) project.
 
 > This branch corresponds to Zebra 2, which is currently in active development. Zebra 2 supports iOS 14+ and macOS 11+. If you’re looking for Zebra 1, the current stable release which supports iOS 9 – 14, see the [`v1`](https://github.com/zbrateam/Zebra/tree/v1) branch.
 
@@ -16,7 +16,7 @@ Zebra requires a jailbroken iOS device. Jailbreaking is the process that gives y
 **Zebra and jailbreaks are always free. Anyone suggesting you can install Zebra without a jailbreak, or accepting payment to download Zebra, is a scam.** If you paid for Zebra or a jailbreak, contact your bank to file a chargeback.
 
 ### On macOS
-A stable release of Zebra for macOS isn’t yet available. You can build Zebra from source to try out the latest unfinished state of Zebra on macOS. You will need to install the [Procursus](https://docs.procurs.us/) package management system, as this is what 
+A stable release of Zebra for macOS isn’t yet available. You can build Zebra from source to try out the latest unfinished state of Zebra on macOS. You will need to install [Procursus](https://docs.procurs.us/) on your Mac, which is similar to Homebrew/MacPorts, but is based on the APT package management system Zebra is built for.
 
 ### Downloads
 You can also download Zebra directly via the [GitHub releases](https://github.com/zbrateam/Zebra/releases) if that is your fancy.
