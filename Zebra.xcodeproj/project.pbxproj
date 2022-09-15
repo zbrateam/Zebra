@@ -38,7 +38,6 @@
 		4E339B8027D0E45300F013C1 /* URL+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E339B7F27D0E45300F013C1 /* URL+Additions.swift */; };
 		4E3B564F2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3B564E2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift */; };
 		4E5F41C6285C2952003658AA /* libzstd.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB235B5283E1A7300713CBB /* libzstd.xcframework */; };
-		4E5F41C8285C608D003658AA /* LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F41C7285C608D003658AA /* LocalizedError.swift */; };
 		4E5F41CA285C85EF003658AA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F41C9285C85EF003658AA /* LoadingView.swift */; };
 		4E5F41CD285CB723003658AA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5F41CC285CB723003658AA /* Kingfisher */; };
 		4E5F41CF285F6738003658AA /* JobQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F41CE285F6738003658AA /* JobQueue.swift */; };
@@ -248,7 +247,6 @@
 		4E339AE227D08F7800F013C1 /* FileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypes.swift; sourceTree = "<group>"; };
 		4E339B7F27D0E45300F013C1 /* URL+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Additions.swift"; sourceTree = "<group>"; };
 		4E3B564E2853196D0058F096 /* SourceRefreshController+AppLifecycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SourceRefreshController+AppLifecycle.swift"; sourceTree = "<group>"; };
-		4E5F41C7285C608D003658AA /* LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedError.swift; sourceTree = "<group>"; };
 		4E5F41C9285C85EF003658AA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		4E5F41CE285F6738003658AA /* JobQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobQueue.swift; sourceTree = "<group>"; };
 		4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSProgress+Additions.swift"; sourceTree = "<group>"; };
@@ -657,7 +655,6 @@
 				4E1F061428477D5B006B3F0C /* SectionIcon.swift */,
 				4E138C63284B1BBC0058D94D /* Signpost.swift */,
 				4EB8C4802858340400FFC744 /* WakeLock.swift */,
-				4E5F41C7285C608D003658AA /* LocalizedError.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1547,7 +1544,6 @@
 				4E339AE327D08F7800F013C1 /* FileTypes.swift in Sources */,
 				4E138C66284BC2B00058D94D /* GzipDecompressor.swift in Sources */,
 				4E1F061328475943006B3F0C /* PackageCollectionViewCell.swift in Sources */,
-				4E5F41C8285C608D003658AA /* LocalizedError.swift in Sources */,
 				4EB23512283DFA5500713CBB /* Bzip2Decompressor.swift in Sources */,
 				4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */,
 				4EB2354F283DFB8B00713CBB /* ZstdDecompressor.swift in Sources */,
