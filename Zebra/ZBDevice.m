@@ -8,6 +8,7 @@
 
 #import "ZBDevice.h"
 #import "ZBSettings.h"
+#import "ZBCommand.h"
 #import "UIColor+GlobalColors.h"
 #import <WebKit/WebKit.h>
 #import "ZBQueue.h"
@@ -61,16 +62,34 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        value = ![[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/usr/libexec/zebra/supersling"];
+        if (@available(iOS 14, *)) {
+            value = [self isSlingshotBroken:nil];
+        } else {
+            value = ![[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/usr/libexec/zebra/supersling"];
+        }
     });
     return value;
 #endif
 }
 
-//Check to see if su/sling has the proper setuid/setgid bit
-//We shouldn't do a dispatch_once because who knows when the file could be changed
-//Returns YES if su/sling's setuid/setgid permissions need to be reset
 + (BOOL)isSlingshotBroken:(NSError *_Nullable*_Nullable)error {
+    // Check to see if su/sling has the proper setuid/setgid bit
+    // We shouldn't do a dispatch_once because who knows when the file could be changed
+    // Returns YES if su/sling's setuid/setgid permissions need to be reset
+    if (@available(iOS 14, *)) {
+        NSString *whoAmI = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/id" withArguments:@[@"-u"] asRoot:YES] ?: @"?";
+        if (![whoAmI isEqualToString:@"0\n"]) {
+            if (error) {
+                *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
+                    NSLocalizedDescriptionKey: NSLocalizedString(@"Zebra doesn’t have permission to install packages on this device. Please reinstall Zebra.", @"")
+                }];
+            }
+            return YES;
+        }
+
+        return NO;
+    }
+
     if ([ZBDevice needsSimulation]) {
         return NO; //Since simulated devices don't have su/sling, it isn't broken!
     }

@@ -8,7 +8,7 @@
 
 #import "ZBCommand.h"
 #import "ZBDevice.h"
-#import <spawn.h>
+#import "spawn.h"
 
 typedef struct ZBCommandFds {
     int stdOut[2];
@@ -55,25 +55,28 @@ static const int ZBCommandFinishFileno = 3;
 }
 
 - (void)setAsRoot:(BOOL)asRoot {
-    NSMutableArray <NSString *> *mutableArguments = [_arguments mutableCopy] ?: [NSMutableArray array];
-    if (_asRoot && !asRoot && mutableArguments.count > 0) { // If we're set to run as root but we no longer want to, remove the original command from the arguments array and set it back to self.command
-        _command = mutableArguments[0];
-        _arguments = mutableArguments;
+    if (@available(iOS 14, *)) {
+        // Nothing special to do here
+    } else {
+        NSMutableArray <NSString *> *mutableArguments = [_arguments mutableCopy] ?: [NSMutableArray array];
+        if (_asRoot && !asRoot && mutableArguments.count > 0) {
+            // If we're set to run as root but we no longer want to, remove the original command from the arguments array and set it back to self.command
+            _command = mutableArguments[0];
+            _arguments = mutableArguments;
+        } else if (!_asRoot && asRoot) {
+            // If we're not set to run as root but we want to, set supersling as the command and duplicate the original command into the arguments array
+            [mutableArguments insertObject:_command atIndex:0];
+            _arguments = mutableArguments;
+            _command = @INSTALL_PREFIX @"/usr/libexec/zebra/supersling";
+        }
 
-        _asRoot = asRoot;
-    }
-    else if (!_asRoot && asRoot) { // If we're not set to run as root but we want to, set supersling as the command and duplicate the original command into the arguments array
-        [mutableArguments insertObject:_command atIndex:0];
-        _arguments = mutableArguments;
-        _command = @INSTALL_PREFIX @"/usr/libexec/zebra/supersling";
-
-        _asRoot = asRoot;
+        if (!_asRoot && !asRoot && (!mutableArguments.count || ![mutableArguments[0] isEqualToString:_command])) { // If we're not set as root and we don't want to, we need to make sure the first arugment in the array is the binary we want to run
+            [mutableArguments insertObject:_command atIndex:0];
+            _arguments = mutableArguments;
+        }
     }
 
-    if (!_asRoot && !asRoot && (!mutableArguments.count || ![mutableArguments[0] isEqualToString:_command])) { // If we're not set as root and we don't want to, we need to make sure the first arugment in the array is the binary we want to run
-        [mutableArguments insertObject:_command atIndex:0];
-        _arguments = mutableArguments;
-    }
+    _asRoot = asRoot;
 }
 
 - (void)setUseFinishFd:(BOOL)useFinishFd {
@@ -149,6 +152,18 @@ static const int ZBCommandFinishFileno = 3;
         posix_spawn_file_actions_addclose(&child_fd_actions, fds->finish[0]);
         posix_spawn_file_actions_adddup2(&child_fd_actions, fds->finish[1], ZBCommandFinishFileno);
         posix_spawn_file_actions_addclose(&child_fd_actions, fds->finish[1]);
+    }
+
+    // Create persona config if needed
+    posix_spawnattr_t child_fd_attrs;
+    posix_spawnattr_init(&child_fd_attrs);
+
+    if (@available(iOS 14, *)) {
+        if (_asRoot) {
+            posix_spawnattr_set_persona_np(&child_fd_attrs, 99, POSIX_SPAWN_PERSONA_FLAGS_OVERRIDE);
+            posix_spawnattr_set_persona_uid_np(&child_fd_attrs, 0);
+            posix_spawnattr_set_persona_gid_np(&child_fd_attrs, 0);
+        }
     }
 
     // Setup the dispatch queues for reading output and errors
@@ -228,7 +243,7 @@ static const int ZBCommandFinishFileno = 3;
 
     // Spawn the child process
     pid_t pid = 0;
-    int ret = posix_spawnp(&pid, _command.UTF8String, &child_fd_actions, nil, argv, envp);
+    int ret = posix_spawnp(&pid, _command.UTF8String, &child_fd_actions, &child_fd_attrs, argv, envp);
     free(argv);
     free(envp);
     if (ret < 0) {

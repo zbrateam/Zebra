@@ -202,6 +202,7 @@
 		4E451A692834D3C600F6C282 /* ZBPaymentVendor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPaymentVendor.m; sourceTree = "<group>"; };
 		4E451A6B2837402900F6C282 /* ZBTokenManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTokenManager.h; sourceTree = "<group>"; };
 		4E451A6C2837402900F6C282 /* ZBTokenManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTokenManager.m; sourceTree = "<group>"; };
+		4E58162B28D5FE2000EEF97F /* spawn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spawn.h; sourceTree = "<group>"; };
 		4E5F8272274FAFE40074A0BC /* NSObject+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Zebra.h"; sourceTree = "<group>"; };
 		4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Zebra.m"; sourceTree = "<group>"; };
 		4E873D4D2838C7F600737732 /* NSURLSession+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+Zebra.h"; sourceTree = "<group>"; };
@@ -637,6 +638,7 @@
 				A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */,
 				A5A7F1252462A66900461335 /* UIImage+Private.h */,
 				4E41396F278DD5770006AB8B /* UIView+Private.h */,
+				4E58162B28D5FE2000EEF97F /* spawn.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";

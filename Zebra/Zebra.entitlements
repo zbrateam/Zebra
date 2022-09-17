@@ -47,5 +47,7 @@
 			<string>IOMobileFramebufferUserClient</string>
 			<string>IOSurfaceRootUserClient</string>
 		</array>
+		<key>com.apple.private.persona-mgmt</key>
+		<true/>
 	</dict>
 </plist>
