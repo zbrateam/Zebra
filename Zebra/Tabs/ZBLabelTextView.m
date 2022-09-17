@@ -7,12 +7,32 @@
 //
 
 #import "ZBLabelTextView.h"
+#import "ZBDevice.h"
+#import "UIColor+GlobalColors.h"
 
 @interface ZBLabelTextView () <UITextViewDelegate>
 
 @end
 
 @implementation ZBLabelTextView
+
++ (NSMutableAttributedString *)attributedStringWithBody:(NSString *)body {
+    NSString *html = [NSString stringWithFormat:@"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>"
+                      @"* { -webkit-text-size-adjust: 100%%; }"
+                      @"body { font: -apple-system-body; }"
+                      @"body > :last-child { margin-bottom: 0; }"
+                      @"a { text-decoration: %@; }"
+                      @"</style></head><body>%@</body></html>",
+                      [ZBDevice buttonShapesEnabled] ? @"underline" : @"none",
+                      body];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding] options:@{
+        NSDocumentTypeDocumentOption: NSHTMLTextDocumentType
+    } documentAttributes:nil error:nil];
+    [attributedString addAttributes:@{
+        NSForegroundColorAttributeName: [UIColor primaryTextColor]
+    } range:NSMakeRange(0, attributedString.length)];
+    return attributedString;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame textContainer:(NSTextContainer *)textContainer {
     self = [super initWithFrame:frame textContainer:textContainer];
@@ -52,6 +72,16 @@
         _linkHandler(url);
         return NO;
     }
+
+    UIResponder *responder = self;
+    while (responder != nil && ![responder isKindOfClass:[UIViewController class]]) {
+        responder = responder.nextResponder;
+    }
+
+    if (responder) {
+        [ZBDevice openURL:url delegate:(UIViewController <SFSafariViewControllerDelegate> *)responder];
+        return NO;
+    }
     return YES;
 }
 
@@ -69,7 +99,7 @@
     case UITextItemInteractionInvokeDefaultAction:
         return [self _handleURL:url];
     default:
-        return NO;
+        return ![url.scheme isEqualToString:@"zbra"];
     }
 }
 

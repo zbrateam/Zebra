@@ -18,6 +18,7 @@
 #import "ZBThemeManager.h"
 #import "ZBAppDelegate.h"
 #import "ZBHomeCopyableFooterView.h"
+#import "ZBHomeDemoNoticeCell.h"
 #import "NSURLSession+Zebra.h"
 
 typedef enum ZBHomeOrder : NSUInteger {
@@ -29,7 +30,8 @@ typedef enum ZBHomeOrder : NSUInteger {
 } ZBHomeOrder;
 
 typedef enum ZBWelcomeOrder : NSUInteger {
-    ZBWelcomeLink
+    ZBWelcomeLink,
+    ZBDemoMode
 } ZBInfoOrder;
 
 typedef enum ZBViewOrder : NSUInteger {
@@ -269,7 +271,7 @@ typedef enum ZBInfoOrder : NSUInteger {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case ZBWelcome:
-            return 1;
+            return 1 + ([ZBDevice needsSimulation] ? 1 : 0);
         case ZBViews:
             return 3;
         case ZBLinks:
@@ -285,21 +287,36 @@ typedef enum ZBInfoOrder : NSUInteger {
     switch (indexPath.section) {
         case ZBWelcome: {
             switch (indexPath.row) {
-                case ZBWelcomeLink: {
-                    static NSString *cellIdentifier = @"flavorTextCell";
-                    
-                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-                    
-                    if (cell == nil) {
-                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                    }
-                    cell.textLabel.text = NSLocalizedString(@"Welcome to Zebra!", @"");
-                    cell.textLabel.textColor = [UIColor primaryTextColor];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.backgroundColor = [UIColor cellBackgroundColor];
-                    
-                    return cell;
+            case ZBWelcomeLink: {
+                static NSString *cellIdentifier = @"flavorTextCell";
+
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+
+                if (cell == nil) {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
                 }
+                cell.textLabel.text = NSLocalizedString(@"Welcome to Zebra!", @"");
+                cell.textLabel.textColor = [UIColor primaryTextColor];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = [UIColor cellBackgroundColor];
+
+                return cell;
+            }
+
+            case ZBDemoMode: {
+                static NSString *cellIdentifier = @"demoModeCell";
+
+                ZBHomeDemoNoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+
+                if (cell == nil) {
+                    cell = [[ZBHomeDemoNoticeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                }
+
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = [UIColor cellBackgroundColor];
+
+                return cell;
+            }
             }
         }
         case ZBViews: {

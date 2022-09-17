@@ -13,6 +13,7 @@
 #import "ZBSettings.h"
 #import "UIColor+GlobalColors.h"
 #import "ZBChangelogEntryCell.h"
+#import "ZBLabelTextView.h"
 #import "NSURLSession+Zebra.h"
 
 @interface ZBChangelogTableViewController ()
@@ -113,16 +114,7 @@
     ZBChangelogEntryCell *cell = (ZBChangelogEntryCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     NSMutableAttributedString *attributedString = _attributedStrings[@(indexPath.section)];
     if (!attributedString) {
-        NSString *html = [NSString stringWithFormat:@"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>"
-                          @"body { font: -apple-system-body; }"
-                          @"body > :last-child { margin-bottom: 0; }"
-                          @"a { text-decoration: %@; }"
-                          @"</style></head><body>%@</body></html>",
-                          [ZBDevice buttonShapesEnabled] ? @"underline" : @"none",
-                          dataDict[@"body_html"] ?: NSLocalizedString(@"Error", @"")];
-        attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding] options:@{
-            NSDocumentTypeDocumentOption: NSHTMLTextDocumentType
-        } documentAttributes:nil error:nil];
+        attributedString = [ZBLabelTextView attributedStringWithBody:dataDict[@"body_html"] ?: NSLocalizedString(@"Error", @"")];
         _attributedStrings[@(indexPath.section)] = attributedString;
     }
     [attributedString addAttributes:@{

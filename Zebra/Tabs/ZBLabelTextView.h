@@ -14,6 +14,8 @@ typedef void (^ZBLabelTextViewLinkHandler)(NSURL *url);
 
 @interface ZBLabelTextView : UITextView
 
++ (NSMutableAttributedString *)attributedStringWithBody:(NSString *)body;
+
 @property (nonatomic, copy) ZBLabelTextViewLinkHandler linkHandler;
 
 @end
