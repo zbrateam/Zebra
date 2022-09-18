@@ -41,11 +41,13 @@
         self.editable = NO;
         self.scrollEnabled = NO;
         self.backgroundColor = nil;
-        self.textDragInteraction.enabled = NO;
         self.textContainerInset = UIEdgeInsetsZero;
         self.textContainer.lineFragmentPadding = 0;
         if (@available(iOS 10, *)) {
             self.adjustsFontForContentSizeCategory = YES;
+        }
+        if (@available(iOS 11, *)) {
+            self.textDragInteraction.enabled = NO;
         }
     }
     return self;
