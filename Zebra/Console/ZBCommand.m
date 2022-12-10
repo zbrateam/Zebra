@@ -55,7 +55,7 @@ static const int ZBCommandFinishFileno = 3;
 }
 
 - (void)setAsRoot:(BOOL)asRoot {
-    if (@available(iOS 14, *)) {
+    if (@available(iOS 13, *)) {
         // Nothing special to do here
     } else {
         NSMutableArray <NSString *> *mutableArguments = [_arguments mutableCopy] ?: [NSMutableArray array];
@@ -158,7 +158,7 @@ static const int ZBCommandFinishFileno = 3;
     posix_spawnattr_t child_fd_attrs;
     posix_spawnattr_init(&child_fd_attrs);
 
-    if (@available(iOS 14, *)) {
+    if (@available(iOS 13, *)) {
         if (_asRoot) {
             posix_spawnattr_set_persona_np(&child_fd_attrs, 99, POSIX_SPAWN_PERSONA_FLAGS_OVERRIDE);
             posix_spawnattr_set_persona_uid_np(&child_fd_attrs, 0);

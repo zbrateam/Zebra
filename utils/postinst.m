@@ -2,11 +2,14 @@
 #import <sys/stat.h>
 
 int main() {
-	// Ensure supersling permissions
-	if (lchown(INSTALL_PREFIX "/usr/libexec/zebra/supersling", 0, 0) != 0 || lchmod(INSTALL_PREFIX "/usr/libexec/zebra/supersling", 06755) != 0) {
-		errno_t error = errno;
-		NSLog(@"Failed to set permissions on supersling: %s", strerror(error));
-		return 1;
+	// Ensure supersling permissions if we need it on this iOS version.
+	if (@available(iOS 13, *)) {
+	} else {
+		if (lchown(INSTALL_PREFIX "/usr/libexec/zebra/supersling", 0, 0) != 0 || lchmod(INSTALL_PREFIX "/usr/libexec/zebra/supersling", 06755) != 0) {
+			errno_t error = errno;
+			NSLog(@"Failed to set permissions on supersling: %s", strerror(error));
+			return 1;
+		}
 	}
 
 	// On iOS before 11, we own the sileo:// URL scheme to support payment providers without the use

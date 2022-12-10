@@ -38,6 +38,12 @@ void patch_setuidandplatformize() {
 }
 
 int main(int argc, char ** argv) {
+  if (__builtin_available(iOS 13, *)) {
+    printf("supersling isn’t used on iOS 13+.\n");
+    fflush(stdout);
+    return EX_UNAVAILABLE;
+  }
+
   patch_setuidandplatformize();
 
   struct stat template;
