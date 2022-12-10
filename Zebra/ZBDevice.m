@@ -277,6 +277,11 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         jailbreak = ZBJailbreakTaurine;
     } else if ([self _isRegularFile:@INSTALL_PREFIX @"/.installed_cheyote"]) {
         jailbreak = ZBJailbreakCheyote;
+    } else if ([self _isRegularDirectory:@"/var/Liy/xina"]) {
+        jailbreak = ZBJailbreakXinaA12;
+    } else if (@available(iOS 15, *)) {
+        // TODO: There has to be a way to detect palera1n?!
+        jailbreak = ZBJailbreakPalerain;
     } else if (@available(iOS 11, *)) {
         jailbreak = ZBJailbreakUnknown;
     } else {
@@ -335,6 +340,8 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     case ZBJailbreakOdyssey:   return @"Odyssey";
     case ZBJailbreakTaurine:   return @"Taurine";
     case ZBJailbreakCheyote:   return @"Cheyote";
+    case ZBJailbreakXinaA12:   return @"XinaA12";
+    case ZBJailbreakPalerain:  return @"palera1n";
     }
 }
 
