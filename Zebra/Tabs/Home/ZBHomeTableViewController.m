@@ -53,7 +53,6 @@ typedef enum ZBInfoOrder : NSUInteger {
 
 @interface ZBHomeTableViewController () {
     NSMutableArray *redditPosts;
-    BOOL hideUDID;
 }
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
@@ -95,13 +94,7 @@ typedef enum ZBInfoOrder : NSUInteger {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideUDID) name:ZBUserWillTakeScreenshotNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUDID) name:ZBUserDidTakeScreenshotNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideUDID) name:ZBUserStartedScreenCaptureNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUDID) name:ZBUserEndedScreenCaptureNotification object:nil];
-    
+        
     self.darkModeButton.image = [[ZBThemeManager sharedInstance] toggleImage];
 
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
@@ -439,7 +432,14 @@ typedef enum ZBInfoOrder : NSUInteger {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == ZBInfo) {
-        return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], @PACKAGE_VERSION, hideUDID ? @"" : [@"\n" stringByAppendingString:[ZBDevice UDID]]];
+        return [NSString stringWithFormat:@"\n%@ · iOS %@ · Zebra %@\n%@ · %@%@%@",
+                [ZBDevice deviceModelID],
+                [[UIDevice currentDevice] systemVersion],
+                @PACKAGE_VERSION,
+                [ZBDevice jailbreakName],
+                [ZBDevice bootstrapName],
+                [ZBDevice isStashed] ? NSLocalizedString(@" (Stashed)", @"") : @"",
+                [ZBDevice isPrefixed] ? NSLocalizedString(@" (Rootless)", @"") : @""];
     }
     return NULL;
 }
@@ -610,20 +610,6 @@ typedef enum ZBInfoOrder : NSUInteger {
 
 - (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController {
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
-}
-
-- (void)hideUDID {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self->hideUDID = YES;
-        [self.tableView reloadData]; // reloadSections is too slow to use here apparently
-    });
-}
-
-- (void)showUDID {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self->hideUDID = NO;
-        [self.tableView reloadData]; // reloadSections is too slow to use here apparently
-    });
 }
 
 #pragma mark UICollectionView

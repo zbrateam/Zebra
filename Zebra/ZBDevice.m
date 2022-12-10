@@ -310,8 +310,8 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (NSString *)bootstrapName {
     switch (bootstrap) {
-    case ZBBootstrapUnknown:     return @"Unknown";
-    case ZBBootstrapSimulated:   return @"Simulated";
+    case ZBBootstrapUnknown:     return NSLocalizedString(@"Unknown Distro", @"");
+    case ZBBootstrapSimulated:   return NSLocalizedString(@"Simulated", @"");
     case ZBBootstrapTelesphoreo: return @"Telesphoreo";
     case ZBBootstrapProcursus:   return @"Procursus";
     case ZBBootstrapElucubratus: return @"Elucubratus";
@@ -320,9 +320,9 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (NSString *)jailbreakName {
     switch (jailbreak) {
-    case ZBJailbreakUnknown:   return @"Unknown";
-    case ZBJailbreakSimulated: return @"Simulated";
-    case ZBJailbreakLegacy:    return @"Legacy Jailbreak";
+    case ZBJailbreakUnknown:   return NSLocalizedString(@"Unknown Jailbreak", @"");
+    case ZBJailbreakSimulated: return NSLocalizedString(@"Demo Mode", @"");
+    case ZBJailbreakLegacy:    return NSLocalizedString(@"Legacy Jailbreak", @"");
     case ZBJailbreakCheckrain: return @"checkra1n";
     case ZBJailbreakUncover:   return @"unc0ver";
     case ZBJailbreakElectra:   return @"Electra";
