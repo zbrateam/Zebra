@@ -175,7 +175,8 @@
                 if ([repositoryURI containsString:@"apt.procurs.us"]) { // Have to treat this differently because its special
                     int roundedCF = 100.0 * floor((kCFCoreFoundationVersionNumber/100.0)+0.5);
                     if (roundedCF > kCFCoreFoundationVersionNumber) roundedCF -= 100.0;
-                    distribution = [NSString stringWithFormat:@"iphoneos-arm64/%d", roundedCF];
+                    NSString *kind = [ZBDevice isPrefixed] ? @"iphoneos-arm64-rootless" : @"iphoneos-arm64";
+                    distribution = [NSString stringWithFormat:@"%@/%d", kind, roundedCF];
                 }
                 else {
                     distribution = [NSString stringWithFormat:@"ios/%.2f", kCFCoreFoundationVersionNumber];
