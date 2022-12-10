@@ -8,6 +8,10 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
+    
+    strategy:
+      matrix:
+        rootless: [0, 1]
 
     steps:
     - uses: actions/checkout@v2
@@ -27,4 +31,4 @@ jobs:
     - name: Build Package
       env:
         THEOS: theos
-      run: gmake package
+      run: gmake package ROOTLESS=${{ matrix.rootless }}
