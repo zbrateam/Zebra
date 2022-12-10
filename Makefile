@@ -36,7 +36,7 @@ ipa:
 	+$(MAKE) PACKAGE_FORMAT=ipa package
 
 before-package::
-	sed -i s/iphoneos-arm/$(DEB_ARCH)/ $(THEOS_STAGING_DIR)/DEBIAN/control
+	perl -i -pe s/iphoneos-arm/$(DEB_ARCH)/ $(THEOS_STAGING_DIR)/DEBIAN/control
 
 after-install::
 	install.exec 'uiopen zbra:'
