@@ -38,16 +38,29 @@
 		<true/>
 		<key>keychain-access-groups</key>
 		<array>
-			<string>com.apple.mobilesafari</string>
+			<string>xyz.willy.Zebra</string>
 		</array>
 		<key>com.apple.security.iokit-user-client-class</key>
 		<array>
-			<string>AGXDeviceUserClient</string>
-			<string>IOHDIXControllerUserClient</string>
-			<string>IOMobileFramebufferUserClient</string>
-			<string>IOSurfaceRootUserClient</string>
+			<string>IOUserClient</string>
+		</array>
+		<key>com.apple.private.amfi.can-allow-non-platform</key>
+		<true/>
+		<key>com.apple.private.MobileGestalt.AllowedProtectedKeys</key>
+		<array>
+			<string>UniqueDeviceID</string>
 		</array>
 		<key>com.apple.private.persona-mgmt</key>
+		<true/>
+		<key>com.apple.private.spawn-subsystem-root</key>
+		<true/>
+		<key>com.apple.private.xpc.launchd.reboot</key>
+		<true/>
+		<key>com.apple.private.xpc.launchd.userspace-reboot</key>
+		<true/>
+		<key>com.apple.private.xpc.persona-creator</key>
+		<true/>
+		<key>com.apple.private.xpc.persona-manager</key>
 		<true/>
 	</dict>
 </plist>
