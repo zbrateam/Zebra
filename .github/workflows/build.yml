@@ -4,14 +4,15 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: macos-12
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
-    
     strategy:
       matrix:
         rootless: [0, 1]
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.rootless }}
+      cancel-in-progress: true
+
+    runs-on: macos-12
 
     steps:
     - uses: actions/checkout@v2
