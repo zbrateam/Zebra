@@ -110,6 +110,11 @@ NSErrorDomain const ZBTokenManagerErrorDomain = @"ZBTokenManagerErrorDomain";
         return [self removeValueForKey:key error:error];
     }
 
+    if (requireBiometric && ![self canUseBiometricWithError:nil]) {
+        // No biometric, can’t safely write value. Don’t do anything, but act like success.
+        return YES;
+    }
+
     NSMutableDictionary <NSString *, id> *query = [self _queryForKey:key];
     [query addEntriesFromDictionary:@{
         (__bridge NSString *)kSecValueData: [value dataUsingEncoding:NSUTF8StringEncoding],
