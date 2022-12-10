@@ -37,12 +37,20 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 }
 
 + (NSString *)downloadUserAgent {
-    return isPrefixed ? self.userAgent : @"Telesphoreo (Zebra) APT-HTTP/1.0.592";
+    if (@available(iOS 15, *)) {
+        return self.userAgent;
+    }
+    return @"Telesphoreo (Zebra) APT-HTTP/1.0.592";
 }
 
 + (NSString *)webUserAgent {
+    NSString *compatToken = @"";
+    if (@available(iOS 15, *)) {
+    } else {
+        compatToken = @"Cydia/1.1.32 ";
+    }
     return [NSString stringWithFormat:@"%@%@ %@",
-            isPrefixed ? @"" : @"Cydia/1.1.32 ",
+            compatToken,
             self.userAgent,
             self.themeName];
 }
