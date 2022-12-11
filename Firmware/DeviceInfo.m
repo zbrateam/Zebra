@@ -115,10 +115,6 @@
     return [[self->_model substringWithRange:match] stringByReplacingOccurrencesOfString:@"," withString:@"."];
 }
 
-- (NSString *)getDebianArchitecture {
-    return @DEB_ARCH;
-}
-
 - (NSString *)getOperatingSystem {
     return self->_ios ? @"ios" : @"macosx";
 }

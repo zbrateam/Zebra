@@ -108,20 +108,18 @@
     static NSString *packageTemplate;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        packageTemplate = [NSString stringWithFormat:
-                           @"Package: %%@\n"
+        packageTemplate = @"Package: %%@\n"
                            "Essential: yes\n"
                            "Status: install ok installed\n"
                            "Priority: required\n"
                            "Section: System\n"
                            "Installed-Size: 0\n"
-                           "Architecture: %@\n"
+                           "Architecture: all\n"
                            "Version: %%@\n"
                            "Description: %%@\n"
                            "Maintainer: Jay Freeman (saurik) <saurik@saurik.com>\n"
                            "Tag: role::cydia\n"
-                           "\n",
-                           [self->_deviceInfo getDebianArchitecture]];
+                           "\n";
     });
 
     [self generatePackageListFile:package];
@@ -133,21 +131,19 @@
     static NSString *packageTemplate;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        packageTemplate = [NSString stringWithFormat:
-                           @"Package: %%@\n"
+        packageTemplate = @"Package: %%@\n"
                            "Essential: yes\n"
                            "Status: install ok installed\n"
                            "Priority: required\n"
                            "Section: System\n"
                            "Installed-Size: 0\n"
-                           "Architecture: %@\n"
+                           "Architecture: all\n"
                            "Version: %%@\n"
                            "Description: %%@\n"
                            "Maintainer: Jay Freeman (saurik) <saurik@saurik.com>\n"
                            "Tag: role::cydia\n"
                            "Name: %%@\n"
-                           "\n",
-                           [self->_deviceInfo getDebianArchitecture]];
+                           "\n";
     });
 
     [self generatePackageListFile:package];

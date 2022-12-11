@@ -17,7 +17,6 @@
 - (NSString *)getOperatingSystemVersion;    // e.g. 13.3.1
 - (NSString *)getModelName;                 // e.g. iPhone7,1   -> iphone
 - (NSString *)getModelVersion;              // e.g. iPhone7,1   -> 7.1
-- (NSString *)getDebianArchitecture;        // iphoneos-arm or cydia
 - (NSString *)getOperatingSystem;           // ios or macos
 - (NSString *)getDPKGDataDirectory;         // /var/lib/dpkg or /Library/Cydia/dpkg
 - (NSDictionary *)getCapabilities;          // filtered output of gssc to only include capabilites the device actually has
