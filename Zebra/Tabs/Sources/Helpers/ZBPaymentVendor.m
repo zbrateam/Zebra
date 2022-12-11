@@ -363,7 +363,8 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
     NSMutableDictionary *body = [NSMutableDictionary dictionaryWithDictionary:@{
         @"token": self.token ?: @"none",
         @"udid": [ZBDevice UDID],
-        @"device": [ZBDevice deviceModelID]
+        @"device": [ZBDevice deviceModelID],
+        @"architecture": [ZBDevice debianArchitecture]
     }];
     [body addEntriesFromDictionary:params];
 
