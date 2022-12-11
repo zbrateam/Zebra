@@ -98,6 +98,15 @@
     return self;
 }
 
+#pragma mark - Helpers
+
+- (NSString *)_escapeLikeString:(NSString *)string {
+    return [string stringByReplacingOccurrencesOfString:@"([%_\\\\])"
+                                             withString:@"\\\\$1"
+                                                options:NSRegularExpressionSearch
+                                                  range:NSMakeRange(0, string.length)];
+}
+
 #pragma mark - Opening and Closing the Database
 
 - (int)openDatabase {
@@ -283,8 +292,8 @@
     if ([self openDatabase] == SQLITE_OK) {
         createTable(database, 0);
         createTable(database, 1);
-        sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
-        sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
+        sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0", NULL, 0, NULL);
+        sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION)", NULL, 0, NULL);
         sqlite3_int64 currentDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
         
 //        dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.repoParsing", NULL);
@@ -344,7 +353,7 @@
 //            });
         }
         
-        sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT;", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT", NULL, 0, NULL);
         
         [self bulkPostStatusUpdate:NSLocalizedString(@"Done", @"") atLevel:ZBLogLevelInfo];
         
@@ -412,7 +421,7 @@
         NSMutableArray *installedPackages = [NSMutableArray new];
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE REPOID = 0;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE REPOID = 0", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 [installedPackages addObject:package];
@@ -443,9 +452,14 @@
                 
                 BOOL ignoreUpdates = [topPackage ignoreUpdates];
                 if (!ignoreUpdates) ++numberOfUpdates;
-                NSString *query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", [topPackage identifier], [topPackage version], ignoreUpdates ? 1 : 0];
-                
-                if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+
+                char *query = "REPLACE INTO UPDATES (PACKAGE, VERSION, IGNORE) "
+                              "VALUES (?, ?, ?)";
+                if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+                    sqlite3_bind_text(statement, 1, [topPackage.identifier UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement, 2, [topPackage.version UTF8String], -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_int(statement, 3, ignoreUpdates ? 1 : 0);
+
                     while (sqlite3_step(statement) == SQLITE_ROW) {
                         break;
                     }
@@ -456,15 +470,24 @@
                 
                 [upgradePackageIDs addObject:[topPackage identifier]];
             } else if (compare == NSOrderedSame) {
-                NSString *query;
+                char *query;
                 BOOL packageIgnoreUpdates = [package ignoreUpdates];
-                if (packageIgnoreUpdates)
+                if (packageIgnoreUpdates) {
                     // This package has no update and the user actively ignores updates from it, we update the latest version here
-                    query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', 1);", package.identifier, package.version];
-                else
+                    query = "REPLACE INTO UPDATES (PACKAGE, VERSION, IGNORE) "
+                            "VALUES (?, ?, 1)";
+                } else {
                     // This package has no update and the user does not ignore updates from it, having the record in the database is waste of space
-                    query = [NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE = \'%@\';", package.identifier];
-                if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+                    query = "DELETE FROM UPDATES WHERE PACKAGE = ?";
+                }
+
+                if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+                    if (packageIgnoreUpdates) {
+                        sqlite3_bind_text(statement, 1, [package.identifier UTF8String], -1, SQLITE_TRANSIENT);
+                        sqlite3_bind_text(statement, 2, [package.version UTF8String], -1, SQLITE_TRANSIENT);
+                    } else {
+                        sqlite3_bind_text(statement, 1, [package.identifier UTF8String], -1, SQLITE_TRANSIENT);
+                    }
                     while (sqlite3_step(statement) == SQLITE_ROW) {
                         break;
                     }
@@ -503,8 +526,10 @@
             
             BOOL ignoreUpdates = [self areUpdatesIgnoredForPackageIdentifier:[essentialPackage objectForKey:@"id"]];
             if (!ignoreUpdates) ++numberOfUpdates;
-            
-            if (sqlite3_prepare_v2(database, "REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(?, ?, ?);", -1, &statement, nil) == SQLITE_OK) {
+
+            char *query = "REPLACE INTO UPDATES (PACKAGE, VERSION, IGNORE) "
+                          "VALUES (?, ?, ?)";
+            if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
                 sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
                 sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
                 sqlite3_bind_int(statement, 3, ignoreUpdates ? 1 : 0);
@@ -527,16 +552,16 @@
 
 - (void)dropTables {
     if ([self openDatabase] == SQLITE_OK) {
-        sqlite3_exec(database, "DROP TABLE PACKAGES;", NULL, 0, NULL);
-        sqlite3_exec(database, "DROP TABLE REPOS;", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE PACKAGES", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE REPOS", NULL, 0, NULL);
         
         // Update UPDATES table schema while retaining user data
-        sqlite3_exec(database, "DELETE FROM UPDATES WHERE IGNORE != 1;", NULL, 0, NULL);
-        sqlite3_exec(database, "CREATE TABLE UPDATES_SNAPSHOT AS SELECT PACKAGE, VERSION, IGNORE FROM UPDATES;", NULL, 0, NULL);
-        sqlite3_exec(database, "DROP TABLE UPDATES;", NULL, 0, NULL);
+        sqlite3_exec(database, "DELETE FROM UPDATES WHERE IGNORE != 1", NULL, 0, NULL);
+        sqlite3_exec(database, "CREATE TABLE UPDATES_SNAPSHOT AS SELECT PACKAGE, VERSION, IGNORE FROM UPDATES", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE UPDATES", NULL, 0, NULL);
         createTable(database, 2);
-        sqlite3_exec(database, "INSERT INTO UPDATES SELECT PACKAGE, VERSION, IGNORE FROM UPDATES_SNAPSHOT;", NULL, 0, NULL);
-        sqlite3_exec(database, "DROP TABLE UPDATES_SNAPSHOT;", NULL, 0, NULL);
+        sqlite3_exec(database, "INSERT INTO UPDATES SELECT PACKAGE, VERSION, IGNORE FROM UPDATES_SNAPSHOT", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE UPDATES_SNAPSHOT", NULL, 0, NULL);
         
         [self closeDatabase];
     } else {
@@ -575,10 +600,18 @@
 
 - (int)sourceIDFromBaseURL:(NSString *)baseURL strict:(BOOL)strict {
     if ([self openDatabase] == SQLITE_OK) {
+        char *query = strict
+            ? "SELECT REPOID FROM REPOS WHERE URI = ?"
+            : "SELECT REPOID FROM REPOS WHERE URI LIKE ? ESCAPE '\\'";
         sqlite3_stmt *statement = NULL;
         int sourceID = -1;
-        if (sqlite3_prepare_v2(database, strict ? "SELECT REPOID FROM REPOS WHERE URI = ?" : "SELECT REPOID FROM REPOS WHERE URI LIKE ?", -1, &statement, nil) == SQLITE_OK) {
-            sqlite3_bind_text(statement, 1, strict ? [baseURL UTF8String] : [[NSString stringWithFormat:@"%%%@%%", baseURL] UTF8String], -1, SQLITE_TRANSIENT);
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            if (strict) {
+                sqlite3_bind_text(statement, 1, [baseURL UTF8String], -1, SQLITE_TRANSIENT);
+            } else {
+                NSString *baseURLLike = [self _escapeLikeString:baseURL];
+                sqlite3_bind_text(statement, 1, [NSString stringWithFormat:@"%%%@%%", baseURLLike].UTF8String, -1, SQLITE_TRANSIENT);
+            }
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 sourceID = sqlite3_column_int(statement, 0);
                 break;
@@ -648,9 +681,12 @@
 
 - (int)nextSourceID {
     if ([self openDatabase] == SQLITE_OK) {
+        char *query = "SELECT REPOID FROM REPOS "
+                      "ORDER BY REPOID "
+                      "DESC LIMIT 1";
         sqlite3_stmt *statement = NULL;
         int sourceID = 0;
-        if (sqlite3_prepare_v2(database, "SELECT REPOID FROM REPOS ORDER BY REPOID DESC LIMIT 1", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 sourceID = sqlite3_column_int(statement, 0);
                 break;
@@ -671,18 +707,31 @@
 
 - (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering {
     if ([self openDatabase] == SQLITE_OK) {
-        // FIXME: Use NSUserDefaults, variables binding
+        // FIXME: Use NSUserDefaults
         int packages = 0;
         NSString *query = nil;
-        NSString *sourcePart = source ? [NSString stringWithFormat:@"REPOID = %d", [source sourceID]] : @"REPOID > 0";
+        NSString *sourcePart = source ? @"= ?" : @"> 0";
         if (section != NULL) {
-            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND %@", section, sourcePart];
+            query = [NSString stringWithFormat:@"SELECT COUNT(DISTINCT PACKAGE) FROM PACKAGES "
+                     @"WHERE SECTION = ? AND REPOID %@",
+                     sourcePart];
         } else {
-            query = [NSString stringWithFormat:@"SELECT SECTION, AUTHORNAME, AUTHOREMAIL, REPOID FROM PACKAGES WHERE %@ GROUP BY PACKAGE", sourcePart];
+            query = [NSString stringWithFormat:@"SELECT SECTION, AUTHORNAME, AUTHOREMAIL, REPOID FROM PACKAGES "
+                     @"WHERE REPOID %@ "
+                     @"GROUP BY PACKAGE",
+                     sourcePart];
         }
         
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            int i = 0;
+            if (section) {
+                sqlite3_bind_text(statement, i++, [section UTF8String], -1, SQLITE_TRANSIENT);
+            }
+            if (source) {
+                sqlite3_bind_int(statement, i++, source.sourceID);
+            }
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (section == NULL) {
                     if (!enableFiltering) {
@@ -782,7 +831,7 @@
         NSMutableSet *sources = [NSMutableSet new];
 
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS WHERE VENDOR NOT NULL;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS WHERE VENDOR NOT NULL", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
                 
@@ -828,9 +877,12 @@
 - (NSArray * _Nullable)sectionReadout {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *sections = [NSMutableArray new];
+        char *query = "SELECT SECTION FROM PACKAGES "
+                      "GROUP BY SECTION "
+                      "ORDER BY SECTION";
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT SECTION from packages GROUP BY SECTION ORDER BY SECTION", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
                 if (sectionChars != 0) {
@@ -857,10 +909,15 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
         
-        NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(distinct package) as SECTION_COUNT from packages WHERE REPOID = %d GROUP BY SECTION ORDER BY SECTION", [source sourceID]];
+        char *query = "SELECT SECTION, COUNT(DISTINCT PACKAGE) AS SECTION_COUNT FROM PACKAGES "
+                      "WHERE REPOID = ? "
+                      "GROUP BY SECTION "
+                      "ORDER BY SECTION";
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_int(statement, 1, source.sourceID);
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
                 if (sectionChars != 0) {
@@ -883,11 +940,13 @@
 
 - (NSURL * _Nullable)paymentVendorURLForSource:(ZBSource *)source {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT VENDOR FROM REPOS WHERE REPOID = %d", [source sourceID]];
+        char *query = "SELECT VENDOR FROM REPOS "
+                      "WHERE REPOID = ?";
         sqlite3_stmt *statement = NULL;
         
         NSString *vendorURL = nil;
-        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_int(statement, 1, source.sourceID);
             sqlite3_step(statement);
             
             const char *vendorChars = (const char *)sqlite3_column_text(statement, 0);
@@ -913,29 +972,32 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSString *query = nil;
-        
+        NSString *cleanedSection;
+
         if (section == NULL) {
             NSString *sourcePart = source ? [NSString stringWithFormat:@"WHERE REPOID = %d", [source sourceID]] : @"WHERE REPOID > 0";
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ ORDER BY LASTSEEN DESC LIMIT %d OFFSET %d", sourcePart, limit, start];
         } else {
             NSString *sourcePart = source ? [NSString stringWithFormat:@"AND REPOID = %d", [source sourceID]] : @"AND REPOID > 0";
-            
-            NSString *sectionString;
-            if ([section containsString:@" "]) {
-                sectionString = [NSString stringWithFormat:@"SECTION = \'%@\' OR SECTION = \'%@\'", section, [section stringByReplacingOccurrencesOfString:@" " withString:@"_"]];
-            }
-            else if ([section containsString:@"_"]) {
-                sectionString = [NSString stringWithFormat:@"SECTION = \'%@\' OR SECTION = \'%@\'", section, [section stringByReplacingOccurrencesOfString:@"_" withString:@" "]];
-            }
-            else {
-                sectionString = [NSString stringWithFormat:@"SECTION = \'%@\'", section];
-            }
-            
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE %@ %@ LIMIT %d OFFSET %d", sectionString, sourcePart, limit, start];
+
+            cleanedSection = [section containsString:@"_"]
+                ? [section stringByReplacingOccurrencesOfString:@"_" withString:@" "]
+                : [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
+                     @"WHERE (SECTION = ? OR SECTION = ?) %@ "
+                     @"LIMIT %d "
+                     @"OFFSET %d",
+                     sourcePart, limit, start];
         }
         
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            if (section) {
+                sqlite3_bind_text(statement, 1, [section UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, 2, [cleanedSection UTF8String], -1, SQLITE_TRANSIENT);
+            }
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 
@@ -965,9 +1027,12 @@
     if ([self openDatabase] == SQLITE_OK) {
         installedPackageIDs = [NSMutableArray new];
         NSMutableArray *installedPackages = [NSMutableArray new];
+
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID %@",
+                           includeVirtualDependencies ? @"< 1" : @"= 0"];
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, includeVirtualDependencies ? "SELECT * FROM PACKAGES WHERE REPOID < 1;" : "SELECT * FROM PACKAGES WHERE REPOID = 0;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *packageIDChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnPackage);
                 const char *versionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnVersion);
@@ -1014,11 +1079,11 @@
 
 - (NSMutableArray <ZBPackage *> *)packagesWithIgnoredUpdates {
     if ([self openDatabase] == SQLITE_OK) {
-        NSMutableArray *packagesWithIgnoredUpdates = [NSMutableArray new];
-        NSMutableArray *irrelevantPackages = [NSMutableArray new];
+        NSMutableArray <ZBPackage *> *packagesWithIgnoredUpdates = [NSMutableArray new];
+        NSMutableArray <NSString *> *irrelevantPackages = [NSMutableArray new];
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM UPDATES WHERE IGNORE = 1;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, "SELECT * FROM UPDATES WHERE IGNORE = 1", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *identifierChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnID);
                 const char *versionChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnVersion);
@@ -1034,7 +1099,7 @@
                 }
                 if (![self packageIDIsInstalled:identifier version:nil]) {
                     // We don't need ignored updates from packages we don't have them installed
-                    [irrelevantPackages addObject:[NSString stringWithFormat:@"'%@'", identifier]];
+                    [irrelevantPackages addObject:identifier];
                     if (package) {
                         [packagesWithIgnoredUpdates removeObject:package];
                     }
@@ -1046,7 +1111,19 @@
         sqlite3_finalize(statement);
         
         if (irrelevantPackages.count) {
-            sqlite3_exec(database, [[NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE IN (%@)", [irrelevantPackages componentsJoinedByString:@", "]] UTF8String], NULL, 0, NULL);
+            NSMutableArray <NSString *> *packageTemplates = [NSMutableArray array];
+            for (int i = 0; i < irrelevantPackages.count; i++) {
+                [packageTemplates addObject:@"?"];
+            }
+
+            NSString *query = [NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE IN (%@)", [packageTemplates componentsJoinedByString:@","]];
+            if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
+                for (int i = 0; i < irrelevantPackages.count; i++) {
+                    sqlite3_bind_text(statement, i + 1, irrelevantPackages[i].UTF8String, -1, SQLITE_TRANSIENT);
+                }
+                sqlite3_step(statement);
+            }
+            sqlite3_finalize(statement);
         }
         
         [self closeDatabase];
@@ -1063,7 +1140,7 @@
         NSMutableArray *packagesWithUpdates = [NSMutableArray new];
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM UPDATES WHERE IGNORE = 0;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, "SELECT * FROM UPDATES WHERE IGNORE = 0", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *identifierChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnID);
                 const char *versionChars = (const char *)sqlite3_column_text(statement, ZBUpdateColumnVersion);
@@ -1096,11 +1173,20 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
         NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
-        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END), NAME COLLATE NOCASE%@", columns, name, name, name, limit];
-        
+        NSString *limit = fullSearch ? @"" : @"LIMIT 30";
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES "
+                           @"WHERE NAME LIKE ? ESCAPE '\\' AND REPOID > -1 "
+                           @"ORDER BY (CASE WHEN NAME = ? THEN 1 WHEN NAME LIKE ? ESCAPE '\\' THEN 2 ELSE 3 END), NAME COLLATE NOCASE "
+                           @"%@",
+                           columns, limit];
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            NSString *nameLike = [self _escapeLikeString:name];
+            sqlite3_bind_text(statement, 1, [[NSString stringWithFormat:@"%%%@%%", nameLike] UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [name UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 3, [[NSString stringWithFormat:@"%@%%", nameLike] UTF8String], -1, SQLITE_TRANSIENT);
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (fullSearch) {
                     ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
@@ -1139,11 +1225,21 @@
 - (NSArray <NSArray <NSString *> *> * _Nullable)searchForAuthorName:(NSString *)authorName fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT AUTHORNAME, AUTHOREMAIL FROM PACKAGES WHERE AUTHORNAME LIKE \'%%%@\%%\' AND REPOID > -1 GROUP BY AUTHORNAME ORDER BY (CASE WHEN AUTHORNAME = \'%@\' THEN 1 WHEN AUTHORNAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", authorName, authorName, authorName, limit];
+        NSString *limit = fullSearch ? @"" : @"LIMIT 30";
+        NSString *query = [NSString stringWithFormat:@"SELECT AUTHORNAME, AUTHOREMAIL FROM PACKAGES "
+                           @"WHERE AUTHORNAME LIKE ? ESCAPE '\\' AND REPOID > -1 "
+                           @"GROUP BY AUTHORNAME "
+                           @"ORDER BY (CASE WHEN AUTHORNAME = ? THEN 1 WHEN AUTHORNAME LIKE ? ESCAPE '\\' THEN 2 ELSE 3 END) COLLATE NOCASE "
+                           @"%@",
+                           limit];
         
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            NSString *authorNameLike = [self _escapeLikeString:authorName];
+            sqlite3_bind_text(statement, 1, [[NSString stringWithFormat:@"%%%@%%", authorNameLike] UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [authorName UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 3, [[NSString stringWithFormat:@"%@%%", authorNameLike] UTF8String], -1, SQLITE_TRANSIENT);
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *authorChars = (const char *)sqlite3_column_text(statement, 0);
                 const char *emailChars = (const char *)sqlite3_column_text(statement, 1);
@@ -1171,11 +1267,17 @@
 - (NSArray <NSString *> * _Nullable)searchForAuthorFromEmail:(NSString *)authorEmail fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT AUTHORNAME, AUTHOREMAIL FROM PACKAGES WHERE AUTHOREMAIL = \'%@\' AND REPOID > -1 GROUP BY AUTHORNAME COLLATE NOCASE%@", authorEmail, limit];
+        NSString *limit = fullSearch ? @"" : @" LIMIT 30";
+        NSString *query = [NSString stringWithFormat:@"SELECT AUTHORNAME, AUTHOREMAIL FROM PACKAGES "
+                           @"WHERE AUTHOREMAIL = ? AND REPOID > -1 "
+                           @"GROUP BY AUTHORNAME COLLATE NOCASE "
+                           @"%@",
+                           limit];
         
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [authorEmail UTF8String], -1, SQLITE_TRANSIENT);
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *authorChars = (const char *)sqlite3_column_text(statement, 0);
                 const char *emailChars = (const char *)sqlite3_column_text(statement, 1);
@@ -1203,10 +1305,21 @@
 - (NSArray <ZBPackage *> * _Nullable)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE IN ('\%@') ORDER BY NAME COLLATE NOCASE ASC", [requestedPackages componentsJoinedByString:@"','"]];
+        NSMutableArray *inTemplates = [NSMutableArray new];
+        for (int i = 0; i < requestedPackages.count; i++) {
+            [inTemplates addObject:@"?"];
+        }
+
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
+                           @"WHERE PACKAGE IN (%@) "
+                           @"ORDER BY NAME COLLATE NOCASE ASC",
+                           [inTemplates componentsJoinedByString:@","]];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-            sqlite3_bind_text(statement, 1, [[requestedPackages componentsJoinedByString:@"','"] UTF8String], -1, SQLITE_TRANSIENT);
+            for (int i = 0; i < requestedPackages.count; i++) {
+                sqlite3_bind_text(statement, i + 1, [requestedPackages[i] UTF8String], -1, SQLITE_TRANSIENT);
+            }
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 
@@ -1227,10 +1340,16 @@
 
 - (ZBPackage * _Nullable)packageFromProxy:(ZBProxyPackage *)proxy {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID = %d LIMIT 1", proxy.identifier, proxy.version, proxy.sourceID];
+        char *query = "SELECT * FROM PACKAGES "
+                      "WHERE PACKAGE = ? AND VERSION = ? AND REPOID = ? "
+                      "LIMIT 1";
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [proxy.identifier UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [proxy.version UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_int(statement, 3, proxy.sourceID);
+
             sqlite3_step(statement);
             
             ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
@@ -1259,8 +1378,11 @@
     } else {
         if ([self openDatabase] == SQLITE_OK) {
             BOOL packageIsInstalled = NO;
+            char *query = "SELECT PACKAGE FROM UPDATES "
+                          "WHERE PACKAGE = ? AND IGNORE = 0 "
+                          "LIMIT 1";
             sqlite3_stmt *statement = NULL;
-            if (sqlite3_prepare_v2(database, "SELECT PACKAGE FROM UPDATES WHERE PACKAGE = ? AND IGNORE = 0 LIMIT 1;", -1, &statement, nil) == SQLITE_OK) {
+            if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
                 sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
                 while (sqlite3_step(statement) == SQLITE_ROW) {
                     packageIsInstalled = YES;
@@ -1293,17 +1415,20 @@
         }
     }
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query;
-        
-        if (version != NULL) {
-            query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID < 1 LIMIT 1;", packageIdentifier, version];
-        } else {
-            query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = \'%@\' AND REPOID < 1 LIMIT 1;", packageIdentifier];
-        }
+        NSString *versionQuery = version ? @"AND VERSION = ?" : @"";
+        NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES "
+                           @"WHERE PACKAGE = ? %@ AND REPOID < 1 "
+                           @"LIMIT 1",
+                           versionQuery];
         
         BOOL packageIsInstalled = NO;
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
+            if (version) {
+                sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
+            }
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 packageIsInstalled = YES;
                 break;
@@ -1329,8 +1454,11 @@
 - (BOOL)packageIDIsAvailable:(NSString *)packageIdentifier version:(NSString *_Nullable)version {
     if ([self openDatabase] == SQLITE_OK) {
         BOOL packageIsAvailable = NO;
+        char *query = "SELECT PACKAGE FROM PACKAGEES "
+                      "WHERE PACKAGE = ? AND REPOID > 0 "
+                      "LIMIT 1";
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT PACKAGE FROM PACKAGES WHERE PACKAGE = ? AND REPOID > 0 LIMIT 1;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 packageIsAvailable = YES;
@@ -1356,8 +1484,11 @@
 - (ZBPackage * _Nullable)packageForID:(NSString *)identifier equalVersion:(NSString *)version {
     if ([self openDatabase] == SQLITE_OK) {
         ZBPackage *package = nil;
+        char *query = "SELECT * FROM PACKAGES "
+                      "WHERE PACKAGE = ? AND VERSION = ? "
+                      "LIMIT 1";
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE PACKAGE = ? AND VERSION = ? LIMIT 1;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1384,8 +1515,11 @@
 - (BOOL)areUpdatesIgnoredForPackageIdentifier:(NSString *)identifier {
     if ([self openDatabase] == SQLITE_OK) {
         BOOL ignored = NO;
+        char *query = "SELECT IGNORE FROM UPDATES "
+                      "WHERE PACKAGE = ? "
+                      "LIMIT 1";
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT IGNORE FROM UPDATES WHERE PACKAGE = ? LIMIT 1;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (sqlite3_column_int(statement, 0) == 1)
@@ -1407,10 +1541,15 @@
 
 - (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", package.identifier, package.version, ignore ? 1 : 0];
+        char *query = "REPLACE INTO UPDATES (PACKAGE, VERSION, IGNORE) "
+                      "VALUES (?, ?, ?)";
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [package.identifier UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [package.version UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_int(statement, 3, ignore ? 1 : 0);
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 break;
             }
@@ -1434,38 +1573,48 @@
 - (ZBPackage * _Nullable)packageThatProvides:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage * _Nullable)exclude {
     if ([self openDatabase] == SQLITE_OK) {
         packageIdentifier = [packageIdentifier lowercaseString];
+        NSString *packageIDLike = [self _escapeLikeString:packageIdentifier];
         
         const char *query;
-        const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIdentifier] UTF8String];
-        const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", packageIdentifier] UTF8String];
-        const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIdentifier] UTF8String];
-        const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", packageIdentifier] UTF8String];
-        const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", packageIdentifier] UTF8String];
-        const char *sixthSearchTerm = [[NSString stringWithFormat:@"%%| %@", packageIdentifier] UTF8String];
-        const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIdentifier] UTF8String];
-        const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIdentifier] UTF8String];
+        const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIDLike] UTF8String];
+        const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", packageIDLike] UTF8String];
+        const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIDLike] UTF8String];
+        const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", packageIDLike] UTF8String];
+        const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", packageIDLike] UTF8String];
+        const char *sixthSearchTerm = [[NSString stringWithFormat:@"%%| %@", packageIDLike] UTF8String];
+        const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIDLike] UTF8String];
+        const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIDLike] UTF8String];
         
         if (exclude) {
-            query = "SELECT * FROM PACKAGES WHERE PACKAGE != ? AND REPOID > 0 AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) AND REPOID > 0 LIMIT 1;";
+            query = "SELECT * FROM PACKAGES "
+                    "WHERE PACKAGE != ? AND REPOID > 0 AND ("
+                        "PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
+                    ") AND REPOID > 0 "
+                    "LIMIT 1";
         }
         else {
-            query = "SELECT * FROM PACKAGES WHERE REPOID > 0 AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
+            query = "SELECT * FROM PACKAGES "
+                    "WHERE REPOID > 0 AND ("
+                        "PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
+                    ")"
+                    "LIMIT 1";
         }
         
         NSMutableArray <ZBPackage *> *packages = [NSMutableArray new];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            int offset = exclude ? 1 : 0;
             if (exclude) {
                 sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
             }
-            sqlite3_bind_text(statement, exclude ? 2 : 1, firstSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 3 : 2, secondSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 4 : 3, thirdSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 5 : 4, fourthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 6 : 5, fifthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 7 : 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 8 : 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 9 : 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 1, firstSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 2, secondSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 3, thirdSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 4, fourthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 5, fifthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
             
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *providesLine = (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
@@ -1504,21 +1653,30 @@
 
 - (ZBPackage * _Nullable)installedPackageThatProvides:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude {
     if ([self openDatabase] == SQLITE_OK) {
+        NSString *packageIDLike = [self _escapeLikeString:packageIdentifier];
         const char *query;
-        const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIdentifier] UTF8String];
-        const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", packageIdentifier] UTF8String];
-        const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIdentifier] UTF8String];
-        const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", packageIdentifier] UTF8String];
-        const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", packageIdentifier] UTF8String];
-        const char *sixthSearchTerm = [[NSString stringWithFormat:@"%%| %@", packageIdentifier] UTF8String];
-        const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIdentifier] UTF8String];
-        const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIdentifier] UTF8String];
+        const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIDLike] UTF8String];
+        const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", packageIDLike] UTF8String];
+        const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIDLike] UTF8String];
+        const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", packageIDLike] UTF8String];
+        const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", packageIDLike] UTF8String];
+        const char *sixthSearchTerm = [[NSString stringWithFormat:@"%%| %@", packageIDLike] UTF8String];
+        const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIDLike] UTF8String];
+        const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIDLike] UTF8String];
         
         if (exclude) {
-            query = "SELECT * FROM PACKAGES WHERE PACKAGE != ? AND REPOID = 0 AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) AND REPOID > 0 LIMIT 1;";
+            query = "SELECT * FROM PACKAGES "
+                    "WHERE PACKAGE != ? AND REPOID = 0 AND ("
+                        "PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
+                    ") AND REPOID > 0 "
+                    "LIMIT 1";
         }
         else {
-            query = "SELECT * FROM PACKAGES WHERE REPOID = 0 AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
+            query = "SELECT * FROM PACKAGES "
+                    "WHERE REPOID = 0 AND ("
+                        "PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
+                    ")"
+                    "LIMIT 1";
         }
         
         NSMutableArray <ZBPackage *> *packages = [NSMutableArray new];
@@ -1573,8 +1731,11 @@
 - (ZBPackage * _Nullable)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
     if ([self openDatabase] == SQLITE_OK) {
         ZBPackage *package = nil;
+        char *query = "SELECT * FROM PACKAGES "
+                      "WHERE PACKAGE = ? COLLATE NOCASE AND REPOID > 0 "
+                      "LIMIT 1";
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE PACKAGE = ? COLLATE NOCASE AND REPOID > 0 LIMIT 1;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
@@ -1627,17 +1788,20 @@
 
 - (ZBPackage * _Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual thatIsNot:(ZBPackage *_Nullable)exclude {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query;
-        if (exclude) {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' COLLATE NOCASE AND REPOID = 0 AND PACKAGE != '\%@\' LIMIT 1;", identifier, [exclude identifier]];
-        }
-        else {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '\%@\' COLLATE NOCASE AND REPOID = 0 LIMIT 1;", identifier];
-        }
+        NSString *excludeQuery = exclude ? @"AND PACKAGE != ?" : @"";
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
+                           @"WHERE PACKAGE = ? COLLATE NOCASE AND REPOID = 0 %@ "
+                           @"LIMIT 1",
+                           excludeQuery];
         
         ZBPackage *package;
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
+            if (exclude) {
+                sqlite3_bind_text(statement, 1, [exclude.identifier UTF8String], -1, SQLITE_TRANSIENT);
+            }
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 break;
@@ -1682,15 +1846,12 @@
 - (NSArray * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier inSource:(ZBSource *_Nullable)source {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *allVersions = [NSMutableArray new];
-        
-        NSString *query;
+
+        NSString *repoQuery = source ? @"AND REPOID = ?" : @"";
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
+                           @"WHERE PACKAGE = ? %@",
+                           repoQuery];
         sqlite3_stmt *statement = NULL;
-        if (source != NULL) {
-            query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ? AND REPOID = ?;";
-        }
-        else {
-            query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ?;";
-        }
         
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
@@ -1723,9 +1884,11 @@
 - (NSArray * _Nullable)otherVersionsForPackageID:(NSString *)packageIdentifier version:(NSString *)version {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *otherVersions = [NSMutableArray new];
-        
+
+        char *query = "SELECT * FROM PACKAGES "
+                      "WHERE PACKAGE = ? AND VERSION != ?";
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE PACKAGE = ? AND VERSION != ?;", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
         }
@@ -1757,10 +1920,15 @@
         sqlite3_stmt *statement = NULL;
         NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
         NSString *emailMatch = email ? @" AND AUTHOREMAIL = ?" : @"";
-        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHORNAME = ? OR AUTHORNAME LIKE \'%%%@%%\'%@%@", columns, name, emailMatch, limit];
+        NSString *limit = fullSearch ? @"" : @" LIMIT 30";
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES "
+                           @"WHERE AUTHORNAME = ? OR AUTHORNAME LIKE ? ESCAPE '\\' "
+                           @"%@%@",
+                           columns, emailMatch, limit];
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            NSString *nameLike = [self _escapeLikeString:name];
             sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [[NSString stringWithFormat:@"%%%@%%", nameLike] UTF8String], -1, SQLITE_TRANSIENT);
             if (email) sqlite3_bind_text(statement, 2, [email UTF8String], -1, SQLITE_TRANSIENT);
             
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1806,9 +1974,15 @@
         
         sqlite3_stmt *statement = NULL;
         NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
-        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE SHORTDESCRIPTION LIKE \'%%%@%%\'%@", columns, description, limit];
+        NSString *limit = fullSearch ? @"" : @" LIMIT 30";
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES "
+                           @"WHERE SHORTDESCRIPTION LIKE ? ESCAPE '\\' "
+                           @"%@",
+                           columns, limit];
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            NSString *descriptionLike = [self _escapeLikeString:description];
+            sqlite3_bind_text(statement, 1, [[NSString stringWithFormat:@"%%%@%%", descriptionLike] UTF8String], -1, SQLITE_TRANSIENT);
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (fullSearch) {
                     const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
@@ -1849,20 +2023,27 @@
 - (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
-        NSMutableArray *sourceIDs = [@[[NSNumber numberWithInt:-1], [NSNumber numberWithInt:0]] mutableCopy];
-        
-        for (ZBSource *source in blacklistedSources) {
-            [sourceIDs addObject:[NSNumber numberWithInt:[source sourceID]]];
+
+        NSMutableArray *sourceTemplates = [NSMutableArray array];
+        for (int i = 0; i < blacklistedSources.count; i++) {
+            [sourceTemplates addObject:@"?"];
         }
-        NSString *excludeString = [NSString stringWithFormat:@"(%@)", [sourceIDs componentsJoinedByString:@", "]];
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID NOT IN %@ AND ICONURL IS NOT NULL ORDER BY RANDOM() LIMIT %d;", excludeString, limit];
+
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
+                           @"WHERE REPOID NOT IN (-1, 0, %@) AND ICONURL IS NOT NULL "
+                           @"ORDER BY RANDOM() "
+                           @"LIMIT %d",
+                           [sourceTemplates componentsJoinedByString:@","], limit];
         
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            for (int i = 0; i < blacklistedSources.count; i++) {
+                sqlite3_bind_int(statement, i + 1, blacklistedSources[i].sourceID);
+            }
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 [packages addObject:package];
- 
             }
         }
         [self closeDatabase];
@@ -1908,7 +2089,9 @@
         const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIdentifier] UTF8String];
         const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIdentifier] UTF8String];
         
-        const char *query = "SELECT * FROM PACKAGES WHERE (DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS = ?) AND REPOID = 0;";
+        const char *query = "SELECT * FROM PACKAGES WHERE ("
+                "DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS = ?"
+            ") AND REPOID = 0";
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, firstSearchTerm, -1, SQLITE_TRANSIENT);
@@ -1976,7 +2159,9 @@
         const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", [package identifier]] UTF8String];
         const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", [package identifier]] UTF8String];
         
-        const char *query = "SELECT * FROM PACKAGES WHERE (CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS = ?) AND REPOID = 0;";
+        const char *query = "SELECT * FROM PACKAGES WHERE ("
+                "CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS = ?"
+            ") AND REPOID = 0";
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, firstSearchTerm, -1, SQLITE_TRANSIENT);
@@ -2040,30 +2225,46 @@
         NSString *packageIdentifier = versionComponents[0];
         BOOL needsVersionComparison = ![versionComponents[1] isEqualToString:@"<=>"] && ![versionComponents[2] isEqualToString:@"0:0"];
         
-        NSString *excludeString = [self excludeStringFromArray:removedPackages];
-        const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIdentifier] UTF8String];
-        const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", packageIdentifier] UTF8String];
-        const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIdentifier] UTF8String];
-        const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", packageIdentifier] UTF8String];
-        const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", packageIdentifier] UTF8String];
-        const char *sixthSearchTerm = [[NSString stringWithFormat:@"%%| %@", packageIdentifier] UTF8String];
-        const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIdentifier] UTF8String];
-        const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIdentifier] UTF8String];
-        
-        NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE PACKAGE NOT IN %@ AND REPOID = 0 AND (PACKAGE = ? OR (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?)) LIMIT 1;", excludeString];
+        NSMutableArray <NSString *> *excludes = [NSMutableArray array];
+        for (int i = 0; i < removedPackages.count; i++) {
+            [excludes addObject:@"?"];
+        }
+
+        NSString *packageIDLike = [self _escapeLikeString:packageIdentifier];
+        const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIDLike] UTF8String];
+        const char *secondSearchTerm = [[NSString stringWithFormat:@"%%, %@, %%", packageIDLike] UTF8String];
+        const char *thirdSearchTerm = [[NSString stringWithFormat:@"%@ (%%", packageIDLike] UTF8String];
+        const char *fourthSearchTerm = [[NSString stringWithFormat:@"%@, %%", packageIDLike] UTF8String];
+        const char *fifthSearchTerm = [[NSString stringWithFormat:@"%%, %@", packageIDLike] UTF8String];
+        const char *sixthSearchTerm = [[NSString stringWithFormat:@"%%| %@", packageIDLike] UTF8String];
+        const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIDLike] UTF8String];
+        const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIDLike] UTF8String];
+
+        NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES "
+                           @"WHERE PACKAGE NOT IN (%@) AND REPOID = 0 AND ("
+                                @"PACKAGE = ? OR ("
+                                    @"PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
+                                @")"
+                           @")"
+                           @"LIMIT 1",
+                           [excludes componentsJoinedByString:@","]];
         
         BOOL found = NO;
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-            sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 2, firstSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 3, secondSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 4, thirdSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 5, fourthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 6, fifthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 7, sixthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 8, seventhSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 9, eighthSearchTerm, -1, SQLITE_TRANSIENT);
+            for (int i = 0; i < removedPackages.count; i++) {
+                sqlite3_bind_text(statement, i + 1, [removedPackages[i] UTF8String], -1, SQLITE_TRANSIENT);
+            }
+
+            sqlite3_bind_text(statement, (int)removedPackages.count + 2, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 3, firstSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 4, secondSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 5, thirdSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 6, fourthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 7, fifthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 8, sixthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 9, seventhSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 10, eighthSearchTerm, -1, SQLITE_TRANSIENT);
             
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (needsVersionComparison) {
@@ -2197,10 +2398,13 @@
     
     ZBPackage *localPackage = NULL;
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '%@' AND REPOID = 0", [package identifier]];
+        char *query = "SELECT * FROM PACKAGES "
+                      "WHERE PACKAGE = ? AND REPOID = 0";
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [package.identifier UTF8String], -1, SQLITE_TRANSIENT);
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 localPackage = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 break;
@@ -2220,10 +2424,13 @@
 - (NSString * _Nullable)installedVersionForPackage:(ZBPackage *)package {
     NSString *version = NULL;
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE PACKAGE = '%@' AND REPOID = 0", [package identifier]];
+        char *query = "SELECT VERSION FROM PACKAGES "
+                      "WHERE PACKAGE = ? AND REPOID = 0";
         
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [package.identifier UTF8String], -1, SQLITE_TRANSIENT);
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *versionChars = (const char *)sqlite3_column_text(statement, 0);
                 if (versionChars != 0) {
@@ -2241,20 +2448,6 @@
     }
     
     return version;
-}
-
-- (NSString * _Nullable)excludeStringFromArray:(NSArray *)array {
-    if ([array count]) {
-        NSMutableString *result = [@"(" mutableCopy];
-        [result appendString:[NSString stringWithFormat:@"\'%@\'", array[0]]];
-        for (int i = 1; i < array.count; ++i) {
-            [result appendFormat:@", \'%@\'", array[i]];
-        }
-        [result appendString:@")"];
-        
-        return result;
-    }
-    return NULL;
 }
 
 @end
