@@ -51,6 +51,8 @@ typedef enum ZBInfoOrder : NSUInteger {
     ZBCreditsLink
 } ZBCreditsOrder;
 
+static BOOL hasDisplayedXinaA12Warning = NO;
+
 @interface ZBHomeTableViewController () {
     NSMutableArray *redditPosts;
 }
@@ -100,6 +102,16 @@ typedef enum ZBInfoOrder : NSUInteger {
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.headerView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+
+    if ([ZBDevice jailbreak] == ZBJailbreakXinaA12 && !hasDisplayedXinaA12Warning) {
+        hasDisplayedXinaA12Warning = YES;
+
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Your jailbreak is currently not supported by Zebra."
+                                                                                 message:@"You can still use Zebra to browse around, but you won’t be able to install, remove, or update packages.\n\nCheck back soon for an update to Zebra that adds support for the XinaA12 jailbreak."
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 
