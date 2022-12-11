@@ -173,8 +173,26 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     return machineIdentifier;
 }
 
++ (NSArray <NSString *> * _Nonnull)allDebianArchitectures {
+    static NSArray <NSString *> *architectures = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+#if TARGET_OS_SIMULATOR
+        architectures = @[@DEB_ARCH];
+#else
+        NSString *nativeArch = [[ZBCommand execute:@"dpkg" withArguments:@[@"--print-architecture"] asRoot:NO]
+                                stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *foreignArchs = [[ZBCommand execute:@"dpkg" withArguments:@[@"--print-foreign-architectures"] asRoot:NO]
+                                  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+        architectures = [@[nativeArch ?: @DEB_ARCH, @"all"] arrayByAddingObjectsFromArray:[foreignArchs componentsSeparatedByString:@"\n"]];
+#endif
+    });
+    return architectures;
+}
+
 + (NSString * _Nonnull)debianArchitecture {
-    return @DEB_ARCH;
+    return [self allDebianArchitectures].firstObject;
 }
 
 + (void)hapticButton {

@@ -13,6 +13,7 @@ typedef enum {
     ZBPackageColumnPackage = 0,
     ZBPackageColumnName,
     ZBPackageColumnVersion,
+    ZBPackageColumnArchitecture,
     ZBPackageColumnShortDescription,
     ZBPackageColumnLongDescription,
     ZBPackageColumnSection,

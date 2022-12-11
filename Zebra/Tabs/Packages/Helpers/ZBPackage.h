@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *version;
+@property (nonatomic, strong) NSString *architecture;
 @property (nonatomic, strong) NSString *shortDescription;
 @property (nonatomic, strong) NSString *longDescription;
 @property (nonatomic, strong) NSString *section;

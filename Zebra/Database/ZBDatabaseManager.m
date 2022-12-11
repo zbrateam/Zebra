@@ -61,12 +61,6 @@
     // Checks to see if any of the databases have differing schemes and sets to update them if need be.
     BOOL migration = (needsMigration(databaseManager.database, 0) != 0 || needsMigration(databaseManager.database, 1) != 0 || needsMigration(databaseManager.database, 2) != 0);
 
-    // iOS 9-10 specific migration. Use an epoch to tell whether we need to migrate.
-    if (@available(iOS 11, *)) {}
-    else if (!migration) {
-        migration = [self lastUpdated].timeIntervalSince1970 < 1651292420 && ![[self lastUpdated] isEqual:[NSDate distantPast]];
-    }
-
     [databaseManager closeDatabase];
     
     return migration;

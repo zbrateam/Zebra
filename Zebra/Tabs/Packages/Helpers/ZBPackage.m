@@ -203,6 +203,7 @@
         const char *packageIDChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnPackage);
         const char *packageNameChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnName);
         const char *versionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnVersion);
+        const char *architectureChars =     (const char *)sqlite3_column_text(statement, ZBPackageColumnArchitecture);
         const char *shortDescriptionChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnShortDescription);
         const char *longDescriptionChars =  (const char *)sqlite3_column_text(statement, ZBPackageColumnLongDescription);
         const char *sectionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnSection);
@@ -227,6 +228,7 @@
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
         [self setName:[ZBUtils decodeCString:packageNameChars fallback:self.identifier]]; // fall back to ID if NULL, or Unknown if things get worse
         [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
+        [self setArchitecture:architectureChars != 0 ? [NSString stringWithUTF8String:architectureChars] : NULL];
         [self setShortDescription:shortDescriptionChars != 0 ? [NSString stringWithUTF8String:shortDescriptionChars] : NULL];
         [self setLongDescription:longDescriptionChars != 0 ? [NSString stringWithUTF8String:longDescriptionChars] : NULL];
         [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL];
@@ -283,6 +285,7 @@
         
         NSString *name = [dictionary objectForKey:@"Name"] ?: packageID; // fall back to ID if NULL
         NSString *version = [dictionary objectForKey:@"Version"] ?: NULL;
+        NSString *architecture = [dictionary objectForKey:@"Architecture"] ?: NULL;
         NSString *desc = [dictionary objectForKey:@"Description"] ?: NULL;
         NSString *section = [dictionary objectForKey:@"Section"] ?: NULL;
         NSString *depiction = [dictionary objectForKey:@"Depiction"] ?: NULL;
@@ -303,6 +306,7 @@
         [self setIdentifier:packageID];
         [self setName:name];
         [self setVersion:version];
+        [self setArchitecture:architecture];
         [self setShortDescription:desc];
         [self setSection:section];
         [self setDepictionURL:[NSURL URLWithString:depiction]];

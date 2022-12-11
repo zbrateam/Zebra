@@ -53,6 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSString *)deviceModelID;
 + (nullable NSString *)machineID;
 + (NSString *)deviceType;
++ (NSArray <NSString *> *)allDebianArchitectures;
 + (NSString *)debianArchitecture;
 + (nullable NSString *)packageManagementBinary;
 + (NSString *)path;

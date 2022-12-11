@@ -14,6 +14,7 @@
 #import "ZBDatabaseManager.h"
 #import "vercmp.h"
 #import "ZBQueue.h"
+#import "ZBDevice.h"
 
 @interface ZBDependencyResolver () {
     NSArray *installedPackagesList; //Packages that are installed on the device
@@ -112,7 +113,28 @@
 #pragma mark - Immediate dependency resolution
 
 - (BOOL)immediateResolution {
-    return [self calculateDependenciesForPackage:self->package] && [self calculateConflictsForPackage:self->package];
+    return [self calculateArchitectureForPackage:self->package] && [self calculateDependenciesForPackage:self->package] && [self calculateConflictsForPackage:self->package];
+}
+
+- (BOOL)calculateArchitectureForPackage:(ZBPackage *)package {
+    if (![[ZBDevice allDebianArchitectures] containsObject:package.architecture]) {
+        NSString *nativeArch = [ZBDevice debianArchitecture];
+        NSString *message;
+        if ([package.architecture isEqualToString:@"iphoneos-arm"] && [nativeArch isEqualToString:@"iphoneos-arm64"]) {
+            message = NSLocalizedString(@"Package is designed for non-rootless jailbreaks, but your device is using a rootless jailbreak", @"");
+        } else if ([package.architecture isEqualToString:@"iphoneos-arm64"] && [nativeArch isEqualToString:@"iphoneos-arm"]) {
+            if (@available(iOS 15, *)) {
+                message = NSLocalizedString(@"Package is designed for rootless jailbreaks, but your device is using a non-rootless or incorrectly configured jailbreak", @"");
+            } else {
+                message = NSLocalizedString(@"Package is designed for rootless jailbreaks, but your device is using a non-rootless jailbreak", @"");
+            }
+        } else {
+            message = [NSString stringWithFormat:NSLocalizedString(@"Package architecture (%@) is incompatible with your system architecture (%@)", @""), package.architecture, nativeArch];
+        }
+        [package addIssue:message];
+        return NO;
+    }
+    return YES;
 }
 
 - (BOOL)calculateDependenciesForPackage:(ZBPackage *)package {
