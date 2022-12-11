@@ -1448,7 +1448,7 @@
 - (BOOL)packageIDIsAvailable:(NSString *)packageIdentifier version:(NSString *_Nullable)version {
     if ([self openDatabase] == SQLITE_OK) {
         BOOL packageIsAvailable = NO;
-        char *query = "SELECT PACKAGE FROM PACKAGEES "
+        char *query = "SELECT PACKAGE FROM PACKAGES "
                       "WHERE PACKAGE = ? AND REPOID > 0 "
                       "LIMIT 1";
         sqlite3_stmt *statement = NULL;
@@ -1676,17 +1676,18 @@
         NSMutableArray <ZBPackage *> *packages = [NSMutableArray new];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            int offset = exclude ? 1 : 0;
             if (exclude) {
                 sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
             }
-            sqlite3_bind_text(statement, exclude ? 2 : 1, firstSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 3 : 2, secondSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 4 : 3, thirdSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 5 : 4, fourthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 6 : 5, fifthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 7 : 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 8 : 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, exclude ? 9 : 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 1, firstSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 2, secondSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 3, thirdSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 4, fourthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 5, fifthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
             
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
@@ -1793,7 +1794,7 @@
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
             if (exclude) {
-                sqlite3_bind_text(statement, 1, [exclude.identifier UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, 2, [exclude.identifier UTF8String], -1, SQLITE_TRANSIENT);
             }
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
