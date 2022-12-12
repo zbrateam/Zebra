@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage",
       "state" : {
-        "revision" : "3e48cb68d8e668d146dc59c73fb98cb628616236",
-        "version" : "5.13.2"
+        "revision" : "3312bf5e67b52fbce7c3caf431b0cda721a9f7bb",
+        "version" : "5.14.2"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
-        "revision" : "199000acd6a0a3f9c8e0bff03ef233f930993c71",
-        "version" : "7.25.1"
+        "revision" : "c3c19e29f775ee95b77aa3168f3e2fd6c20deba6",
+        "version" : "7.31.3"
       }
     }
   ],
