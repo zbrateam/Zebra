@@ -1,12 +1,14 @@
 ifeq ($(ROOTLESS),1)
 	export ARCHS = arm64
-	export TARGET = iphone:latest:14.0
+	export TARGET = iphone:latest:15.0
 	export INSTALL_PREFIX = /var/jb
 	export DEB_ARCH = iphoneos-arm64
+	XCODE_SCHEME = Zebra - Rootless
 else
 	export ARCHS = armv7 arm64
 	export TARGET = iphone:latest:9.0
 	export DEB_ARCH = iphoneos-arm
+	XCODE_SCHEME = Zebra - Legacy
 endif
 
 INSTALL_TARGET_PROCESSES = Zebra
@@ -25,6 +27,7 @@ Zebra_XCODEFLAGS = MARKETING_VERSION=$(THEOS_PACKAGE_BASE_VERSION) \
 	DEB_ARCH=$(DEB_ARCH) \
 	CODE_SIGN_IDENTITY="" \
 	AD_HOC_CODE_SIGNING_ALLOWED=YES
+Zebra_XCODE_SCHEME = $(XCODE_SCHEME)
 Zebra_CODESIGN_FLAGS = -SZebra/Zebra.entitlements
 Zebra_INSTALL_PATH = $(INSTALL_PREFIX)/Applications
 
