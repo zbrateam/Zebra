@@ -162,10 +162,17 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
         [webView loadRequest:request];
     } else {
-        NSMutableString *body = [package.longDescription ?: @"" mutableCopy];
-        [body replaceOccurrencesOfString:@"&" withString:@"&amp;" options:kNilOptions range:NSMakeRange(0, body.length)];
-        [body replaceOccurrencesOfString:@"<" withString:@"&lt;" options:kNilOptions range:NSMakeRange(0, body.length)];
-        [body replaceOccurrencesOfString:@">" withString:@"&gt;" options:kNilOptions range:NSMakeRange(0, body.length)];
+        NSMutableString *shortDescription = [package.shortDescription ?: @"" mutableCopy];
+        [shortDescription replaceOccurrencesOfString:@"&"     withString:@"&amp;" options:kNilOptions range:NSMakeRange(0, shortDescription.length)];
+        [shortDescription replaceOccurrencesOfString:@"<"     withString:@"&lt;"  options:kNilOptions range:NSMakeRange(0, shortDescription.length)];
+        [shortDescription replaceOccurrencesOfString:@">"     withString:@"&gt;"  options:kNilOptions range:NSMakeRange(0, shortDescription.length)];
+
+        NSMutableString *longDescription = [package.longDescription ?: @"" mutableCopy];
+        [longDescription replaceOccurrencesOfString:@"\n.\n"  withString:@"\n\n"  options:kNilOptions range:NSMakeRange(0, longDescription.length)];
+        [longDescription replaceOccurrencesOfString:@"&"      withString:@"&amp;" options:kNilOptions range:NSMakeRange(0, longDescription.length)];
+        [longDescription replaceOccurrencesOfString:@"<"      withString:@"&lt;"  options:kNilOptions range:NSMakeRange(0, longDescription.length)];
+        [longDescription replaceOccurrencesOfString:@">"      withString:@"&gt;"  options:kNilOptions range:NSMakeRange(0, longDescription.length)];
+
         NSString *css = [NSString stringWithFormat:
                          @"body { margin: 15px 20px; font: -apple-system-body; background: transparent; color: %@; white-space: pre-line; }"
                          @"a { color: %@; }",
@@ -180,8 +187,13 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                               @"<base target=\"_blank\">"
                               @"<style>%@</style>"
                           @"</head>"
-                          @"<body>%@</body>"
-                          @"</html>", css, body];
+                          @"<body>"
+                            @"<strong>%@</strong>"
+                            @"\n\n"
+                            @"%@"
+                          @"</body>"
+                          @"</html>",
+                          css, shortDescription, longDescription];
         [webView loadHTMLString:html baseURL:nil];
     }
 }
