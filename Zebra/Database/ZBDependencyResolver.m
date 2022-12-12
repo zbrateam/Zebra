@@ -117,7 +117,7 @@
 }
 
 - (BOOL)calculateArchitectureForPackage:(ZBPackage *)package {
-    if (![[ZBDevice allDebianArchitectures] containsObject:package.architecture]) {
+    if (![package.architecture isEqualToString:@"all"] && ![[ZBDevice allDebianArchitectures] containsObject:package.architecture]) {
         NSString *nativeArch = [ZBDevice debianArchitecture];
         NSString *message;
         if ([package.architecture isEqualToString:@"iphoneos-arm"] && [nativeArch isEqualToString:@"iphoneos-arm64"]) {

@@ -185,7 +185,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         NSString *foreignArchs = [[ZBCommand execute:@"dpkg" withArguments:@[@"--print-foreign-architectures"] asRoot:NO]
                                   stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-        architectures = [@[nativeArch ?: @DEB_ARCH, @"all"] arrayByAddingObjectsFromArray:[foreignArchs componentsSeparatedByString:@"\n"]];
+        architectures = [@[nativeArch ?: @DEB_ARCH] arrayByAddingObjectsFromArray:[foreignArchs componentsSeparatedByString:@"\n"]];
 #endif
     });
     return architectures;
