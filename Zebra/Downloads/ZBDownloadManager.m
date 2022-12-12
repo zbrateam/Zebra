@@ -165,6 +165,7 @@
             [package.source.paymentVendor authorizeDownloadForPackage:package.identifier
                                                                params:@{
                 @"version": package.version,
+                @"architecture": package.architecture,
                 @"repo": source.repositoryURI
             }
                                                            completion:^(NSURL * _Nullable url, NSError * _Nullable error) {
