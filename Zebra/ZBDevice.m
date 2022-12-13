@@ -303,10 +303,15 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         jailbreak = ZBJailbreakTaurine;
     } else if ([self _isRegularFile:@INSTALL_PREFIX @"/.installed_cheyote"]) {
         jailbreak = ZBJailbreakCheyote;
+    } else if ([self _isRegularFile:@INSTALL_PREFIX @"/.installed_palera1n"]) {
+        jailbreak = ZBJailbreakPalerain;
     } else if ([self _isRegularDirectory:@"/var/Liy/xina"]) {
         jailbreak = ZBJailbreakXinaA12;
+    } else if (@available(iOS 16, *)) {
+        // TODO: TEMPORARY until palerain 1.4 has been out long enough
+        jailbreak = ZBJailbreakUnknown;
     } else if (@available(iOS 15, *)) {
-        // TODO: There has to be a way to detect palera1n?!
+        // TODO: TEMPORARY until palerain 1.4 has been out long enough
         jailbreak = ZBJailbreakPalerain;
     } else if (@available(iOS 11, *)) {
         jailbreak = ZBJailbreakUnknown;
