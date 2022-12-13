@@ -80,10 +80,10 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 #if TARGET_OS_SIMULATOR
     return NO; //Since simulated devices don't have su/sling, it isn't broken!
 #else
-    // TODO: TEMPORARY measure until XinaA12 is properly supported
-    if (self.jailbreak == ZBJailbreakXinaA12) {
+    // TODO: TEMPORARY measure until XinaA15 is properly supported
+    if (self.jailbreak == ZBJailbreakXinaA15) {
         *error = [NSError errorWithDomain:NSCocoaErrorDomain code:69 userInfo:@{
-            NSLocalizedDescriptionKey: @"Your jailbreak is currently not supported by Zebra. You can still use Zebra to browse around, but you won’t be able to install, remove, or update packages.\n\nCheck back soon for an update to Zebra that adds support for the XinaA12 jailbreak."
+            NSLocalizedDescriptionKey: @"Your jailbreak is currently not supported by Zebra. You can still use Zebra to browse around, but you won’t be able to install, remove, or update packages.\n\nCheck back soon for an update to Zebra that adds support for the XinaA15 jailbreak."
         }];
         return YES;
     }
@@ -306,7 +306,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     } else if ([self _isRegularFile:@INSTALL_PREFIX @"/.installed_palera1n"]) {
         jailbreak = ZBJailbreakPalerain;
     } else if ([self _isRegularDirectory:@"/var/Liy/xina"]) {
-        jailbreak = ZBJailbreakXinaA12;
+        jailbreak = ZBJailbreakXinaA15;
     } else if (@available(iOS 16, *)) {
         // TODO: TEMPORARY until palerain 1.4 has been out long enough
         jailbreak = ZBJailbreakUnknown;
@@ -371,7 +371,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     case ZBJailbreakOdyssey:   return @"Odyssey";
     case ZBJailbreakTaurine:   return @"Taurine";
     case ZBJailbreakCheyote:   return @"Cheyote";
-    case ZBJailbreakXinaA12:   return @"XinaA12";
+    case ZBJailbreakXinaA15:   return @"XinaA15";
     case ZBJailbreakPalerain:  return @"palera1n";
     }
 }

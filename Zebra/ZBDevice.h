@@ -22,7 +22,7 @@ typedef NS_ENUM(NSUInteger, ZBJailbreak) {
     ZBJailbreakOdyssey,
     ZBJailbreakTaurine,
     ZBJailbreakCheyote,
-    ZBJailbreakXinaA12,
+    ZBJailbreakXinaA15,
     ZBJailbreakPalerain
 };
 
