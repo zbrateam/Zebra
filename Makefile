@@ -33,7 +33,7 @@ Zebra_INSTALL_PATH = $(INSTALL_PREFIX)/Applications
 
 include $(THEOS_MAKE_PATH)/xcodeproj.mk
 
-SUBPROJECTS = Firmware utils
+SUBPROJECTS = utils
 
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
