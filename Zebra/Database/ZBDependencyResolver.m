@@ -262,11 +262,17 @@
         //We should now have a separate version and a comparison string
         
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:NO];
+        if (dependencyPackage) {
+            [self calculateArchitectureForPackage:dependencyPackage];
+            return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:NO];
+        }
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:dependency thatSatisfiesComparison:nil ofVersion:nil];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:NO];
+        if (dependencyPackage) {
+            [self calculateArchitectureForPackage:dependencyPackage];
+            return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:NO];
+        }
     }
     
     return NO;

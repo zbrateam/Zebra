@@ -113,8 +113,9 @@
     for (NSString *arch in allArchs) {
         [archs addObject:[NSString stringWithFormat:@"'%@'", [self _escapeSQLString:arch]]];
     }
+    [archs insertObject:@"'all'" atIndex:1];
 
-    return [NSString stringWithFormat:@"(ARCHITECTURE = 'all' OR ARCHITECTURE IN (%@))",
+    return [NSString stringWithFormat:@"(ARCHITECTURE IN (%@))",
             [archs componentsJoinedByString:@","]];
 }
 
@@ -127,7 +128,7 @@
     }
 
     return [NSString stringWithFormat:@"(CASE "
-            // Native arch or all
+            // Native arch or all (APT treats all as equivalent to native)
             @"WHEN ARCHITECTURE IN ('%@', 'all') THEN 1 "
             // Foreign archs
             @"WHEN ARCHITECTURE IN (%@) THEN 2 "
@@ -540,7 +541,10 @@
         //In order to make this easy, we're going to check for "Essential" packages that aren't installed and mark them as updates
         NSMutableArray *essentials = [NSMutableArray new];
         sqlite3_stmt *essentialStatement; //v important statement
-        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, VERSION FROM PACKAGES WHERE REPOID > 0 AND ESSENTIAL = \'yes\' COLLATE NOCASE", -1, &essentialStatement, nil) == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE, VERSION FROM PACKAGES "
+                           @"WHERE REPOID > 0 AND ESSENTIAL = 'yes' COLLATE NOCASE AND %@",
+                           self._installablePackageArchitectureClause];
+        if (sqlite3_prepare_v2(database, query.UTF8String, -1, &essentialStatement, nil) == SQLITE_OK) {
             while (sqlite3_step(essentialStatement) == SQLITE_ROW) {
                 const char *identifierChars = (const char *)sqlite3_column_text(essentialStatement, 0);
                 const char *versionChars = (const char *)sqlite3_column_text(essentialStatement, 1);
@@ -764,10 +768,10 @@
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             int i = 0;
             if (section) {
-                sqlite3_bind_text(statement, i++, [section UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, ++i, [section UTF8String], -1, SQLITE_TRANSIENT);
             }
             if (source) {
-                sqlite3_bind_int(statement, i++, source.sourceID);
+                sqlite3_bind_int(statement, ++i, source.sourceID);
             }
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1513,10 +1517,10 @@
     if ([self openDatabase] == SQLITE_OK) {
         BOOL packageIsAvailable = NO;
         NSString *query = [NSString stringWithFormat:@"SELECT PACKAGE FROM PACKAGES "
-                           @"WHERE PACKAGE = ? AND REPOID > 0 AND %@ "
+                           @"WHERE PACKAGE = ? AND REPOID > 0 "
                            @"ORDER BY %@ "
                            @"LIMIT 1",
-                           self._installablePackageArchitectureClause, self._packageArchitectureWeightingClause];
+                           self._packageArchitectureWeightingClause];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
@@ -1545,10 +1549,10 @@
     if ([self openDatabase] == SQLITE_OK) {
         ZBPackage *package = nil;
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
-                           @"WHERE PACKAGE = ? AND VERSION = ? AND %@ "
+                           @"WHERE PACKAGE = ? AND VERSION = ? "
                            @"ORDER BY %@ "
                            @"LIMIT 1",
-                           self._installablePackageArchitectureClause, self._packageArchitectureWeightingClause];
+                           self._packageArchitectureWeightingClause];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
@@ -1779,10 +1783,10 @@
     if ([self openDatabase] == SQLITE_OK) {
         ZBPackage *package = nil;
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
-                           @"WHERE PACKAGE = ? COLLATE NOCASE AND REPOID > 0 AND %@ "
+                           @"WHERE PACKAGE = ? COLLATE NOCASE AND REPOID > 0 "
                            @"ORDER BY %@ "
                            @"LIMIT 1",
-                           self._installablePackageArchitectureClause, self._packageArchitectureWeightingClause];
+                           self._packageArchitectureWeightingClause];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
@@ -1817,7 +1821,7 @@
                 [self closeDatabase];
                 return [ZBDependencyResolver doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
             }
-            return otherVersions[0];
+            return otherVersions.firstObject;
         }
         
         [self closeDatabase];
@@ -1935,8 +1939,7 @@
         NSMutableArray *otherVersions = [NSMutableArray new];
 
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
-                           @"WHERE PACKAGE = ? AND VERSION != ? AND %@",
-                           self._installablePackageArchitectureClause];
+                           @"WHERE PACKAGE = ? AND VERSION != ?"];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
