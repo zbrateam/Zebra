@@ -80,6 +80,14 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 #if TARGET_OS_SIMULATOR
     return NO; //Since simulated devices don't have su/sling, it isn't broken!
 #else
+    // TODO: TEMPORARY measure until XinaA12 is properly supported
+    if (self.jailbreak == ZBJailbreakXinaA12) {
+        *error = [NSError errorWithDomain:NSCocoaErrorDomain code:69 userInfo:@{
+            NSLocalizedDescriptionKey: @"Your jailbreak is currently not supported by Zebra. You can still use Zebra to browse around, but you won’t be able to install, remove, or update packages.\n\nCheck back soon for an update to Zebra that adds support for the XinaA12 jailbreak."
+        }];
+        return YES;
+    }
+
     // If we’re using supersling, check if it has the appropriate permissions.
     if (@available(iOS 13, *)) {
     } else {
