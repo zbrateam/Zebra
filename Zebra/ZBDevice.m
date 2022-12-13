@@ -49,9 +49,9 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     } else {
         compatToken = @"Cydia/1.1.32 ";
     }
-    return [NSString stringWithFormat:@"%@%@ %@",
+    return [NSString stringWithFormat:@"%@Zebra/%@ %@",
             compatToken,
-            self.userAgent,
+            @PACKAGE_VERSION,
             self.themeName];
 }
 
