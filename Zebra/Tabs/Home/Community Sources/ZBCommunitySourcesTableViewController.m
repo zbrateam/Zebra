@@ -103,7 +103,7 @@
                                 @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Installer.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
     }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"Applications/Sileo.app/Sileo"]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/Applications/Sileo.app/Sileo"]) {
         NSDictionary *dict = @{@"type" : @"transfer",
                                 @"name" : @"Sileo",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
