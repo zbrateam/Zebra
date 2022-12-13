@@ -83,6 +83,10 @@ static const int ZBCommandFinishFileno = 3;
     _useFinishFd = useFinishFd;
 
     NSUInteger binaryIndex = _asRoot ? 1 : 0;
+    if (@available(iOS 13, *)) {
+        binaryIndex = 0;
+    }
+
     if (_arguments.count > binaryIndex) {
         NSString *binary = _arguments[binaryIndex];
         if ([binary isEqualToString:@"apt"]) {
@@ -102,7 +106,7 @@ static const int ZBCommandFinishFileno = 3;
 - (int)execute {
     // Create output and error pipes
     fds = malloc(sizeof(ZBCommandFds));
-    if (pipe(fds->stdOut) == -1 || pipe(fds->stdErr) == -1 || pipe(fds->finish) == -1) {
+    if (pipe(fds->stdOut) == -1 || pipe(fds->stdErr) == -1) {
         free(fds);
         return errno; // pipe() sets errno on failure
     }
@@ -125,9 +129,9 @@ static const int ZBCommandFinishFileno = 3;
     NSMutableArray <NSString *> *environmentVars = [NSMutableArray array];
     [environmentVars addObject:[NSString stringWithFormat:@"PATH=%@", [ZBDevice path]]];
     if (_useFinishFd) {
-        // $CYDIA enables maintenance scripts to send “finish” messages to the
-        // package manager. Contains two integers. First is the fd to write to,
-        // second is the API version (currently 1).
+        // $CYDIA enables maintenance scripts to send “finish” messages to the package manager.
+        // Contains two integers. First is the fd to write to, second is the API version
+        // (currently 1).
         [environmentVars addObject:[NSString stringWithFormat:@"CYDIA=%d 1", ZBCommandFinishFileno]];
     }
 
