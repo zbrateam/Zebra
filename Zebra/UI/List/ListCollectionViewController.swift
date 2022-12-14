@@ -30,10 +30,9 @@ class ListCollectionViewController: BaseListCollectionViewController<UICollectio
 
 	private func updateHeaders() {
 		UIView.animate(withDuration: 0.1) {
-			guard let collectionView = self.collectionView,
-						let layout = self.layout else {
-				return
-			}
+			guard let collectionView = self.collectionView else { return }
+			let layout = self.layout
+			
 
 			let isScrollEdge = floor(collectionView.contentOffset.y + collectionView.adjustedContentInset.top) <= 0
 
