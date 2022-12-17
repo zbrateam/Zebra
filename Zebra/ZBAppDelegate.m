@@ -262,7 +262,13 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 NSString *newLocation = [[[self class] debsLocation] stringByAppendingPathComponent:[url lastPathComponent]];
                 
                 NSError *moveError;
-                [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:newLocation error:&moveError];
+                if ([options[UIApplicationOpenURLOptionsOpenInPlaceKey] boolValue]) {
+                    // File is owned by another app. Make a copy.
+                    [[NSFileManager defaultManager] copyItemAtPath:[url path] toPath:newLocation error:&moveError];
+                } else {
+                    // File is in our inbox. Move it.
+                    [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:newLocation error:&moveError];
+                }
                 if (moveError) {
                     NSLog(@"[Zebra] Couldn't move deb %@", moveError.localizedDescription);
                 }
