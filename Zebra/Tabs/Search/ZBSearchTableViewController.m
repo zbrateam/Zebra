@@ -138,8 +138,12 @@
     
     if (self->shouldPerformSearching) {
         NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        
-        if (strippedString.length <= 1) {
+
+        // 0xFF is the final character of the Latin-1 Supplement, effectively allowing single char
+        // searches to be performed in non-Latin languages. It makes sense to allow searches for a
+        // single character for languages such as Chinese, Japanese, and Korean, but it comes with
+        // a performance cost, so we try to balance it out by not allowing it for Latin languages.
+        if (strippedString.length == 0 || (strippedString.length == 1 && [strippedString characterAtIndex:0] < 0xFF)) {
             results = @[];
             
             [resultsController setFilteredResults:results];
