@@ -37,7 +37,7 @@
 "You’ve added all of the community sources" = "U heeft alle gemeenschapsbronnen toegevoegd";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
 "Utility source for %@" = "Benodigde bron voor %@";
-"Transfer Sources" = "Verplaats Bronnen";
+"Transfer Sources" = "importeer bronnen";
 "Import" = "Importeer";
 "Verifying..." = "Verifiëren...";
 "Confirm Import" = "Bevestig Importeren";
@@ -60,14 +60,14 @@
 "Settings" = "Instellingen";
 "Display" = "Weergave";
 "App Icon" = "App-icoon";
-"Changes" = "Veranderingen";
+"Changes" = "Updates";
 "Community News" = "Gemeenschapsnieuws";
 "Miscellaneous" = "Diversen";
 "Swipe Actions Display As" = "Geef veegacties weer als";
 "Text" = "Tekst";
 "Icon" = "Icoon";
 "Finish Automatically" = "Voltooi automatisch";
-"Always Install Latest" = "Installeer altijd de nieuwste";
+"Always Install Latest" = "installeer altijd de laatste versie";
 "Automatic Refresh" = "Ververs automatisch";
 
 // Accent Colors
@@ -90,7 +90,7 @@
 "Use System Appearance" = "Gebruik systeemuiterlijk";
 "Light" = "Licht";
 "Dark" = "Donker";
-"Pure Black Mode" = "Pure Zwarte Modus";
+"Pure Black Mode" = "donkere weergave";
 
 // Featured
 
@@ -224,12 +224,12 @@
 "Select a version to downgrade to:" = "Selecteer een versie om naar te downgraden:";
 "Package" = "Pakket";
 "Information" = "Informatie";
-"Upgrade All" = "Waardeer alles op";
+"Upgrade All" = "Werk alles bij";
 "Loaded" = "Geladen";
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Grootte";
-"Available Upgrades" = "Beschikbare opwaarderingen";
+"Available Upgrades" = "Beschikbare updates";
 "Ignored Upgrades" = "Genegeerde opwaarderingen";
 "Recent" = "Recent";
 "Source" = "Bron";
@@ -364,7 +364,7 @@
 "Install" = "Installeer";
 "Reinstall" = "Installeer opnieuw";
 "Remove" = "Verwijder";
-"Upgrade" = "Waardeer op";
+"Upgrade" = "Werk bij";
 "Downgrade" = "Downgrade";
 "Abort" = "Breek af";
 "Continue" = "Doorgaan";
