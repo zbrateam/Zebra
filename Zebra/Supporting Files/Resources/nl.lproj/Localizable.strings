@@ -37,7 +37,7 @@
 "You’ve added all of the community sources" = "U heeft alle gemeenschapsbronnen toegevoegd";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
 "Utility source for %@" = "Benodigde bron voor %@";
-"Transfer Sources" = "importeer bronnen";
+"Transfer Sources" = "Importeer Bronnen";
 "Import" = "Importeer";
 "Verifying..." = "Verifiëren...";
 "Confirm Import" = "Bevestig Importeren";
@@ -67,7 +67,7 @@
 "Text" = "Tekst";
 "Icon" = "Icoon";
 "Finish Automatically" = "Voltooi automatisch";
-"Always Install Latest" = "installeer altijd de laatste versie";
+"Always Install Latest" = "Installeer altijd de laatste versie";
 "Automatic Refresh" = "Ververs automatisch";
 
 // Accent Colors
@@ -90,7 +90,7 @@
 "Use System Appearance" = "Gebruik systeemuiterlijk";
 "Light" = "Licht";
 "Dark" = "Donker";
-"Pure Black Mode" = "donkere weergave";
+"Pure Black Mode" = "Donkere Weergave";
 
 // Featured
 
@@ -229,7 +229,7 @@
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Grootte";
-"Available Upgrades" = "Beschikbare updates";
+"Available Upgrades" = "Beschikbare Updates";
 "Ignored Upgrades" = "Genegeerde opwaarderingen";
 "Recent" = "Recent";
 "Source" = "Bron";
