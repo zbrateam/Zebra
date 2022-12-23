@@ -1,35 +1,39 @@
 name: Build Zebra
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   build:
     strategy:
       matrix:
-        rootless: [0, 1]
+        include:
+          - rootless: 0
+            name: 'normal'
+          - rootless: 1
+            name: 'rootless'
 
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.rootless }}
       cancel-in-progress: true
 
+    name: Build (${{ matrix.name }})
     runs-on: macos-12
-
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-
-    - name: Install Dependencies
-      run: brew install ldid make
-
-    - name: Setup Theos
-      uses: actions/checkout@v2
-      with:
-        repository: theos/theos
-        path: theos
-        submodules: recursive
-
-    - name: Build Package
-      env:
-        THEOS: theos
-      run: gmake package ROOTLESS=${{ matrix.rootless }}
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Install dependencies
+        run: brew install ldid make
+      - name: Set up Theos
+        uses: actions/checkout@v3
+        with:
+          repository: theos/theos
+          path: theos
+          submodules: recursive
+      - name: Compile
+        env:
+          THEOS: theos
+        run: gmake package ROOTLESS=${{ matrix.rootless }}
