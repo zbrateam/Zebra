@@ -2,69 +2,71 @@ name: Upload Release
 
 on:
   release:
-    types: [published]
+    types:
+      - published
 
 jobs:
   build:
     strategy:
       matrix:
-        rootless: [0, 1]
+        include:
+          - rootless: 0
+            name: 'normal'
+          - rootless: 1
+            name: 'rootless'
 
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.rootless }}
       cancel-in-progress: true
 
+    name: Build (${{ matrix.name }})
     runs-on: macos-12
-
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-
-    - name: Install Dependencies
-      run: brew install ldid make dpkg
-
-    - name: Setup Theos
-      uses: actions/checkout@v2
-      with:
-        repository: theos/theos
-        path: theos
-        submodules: recursive
-
-    - name: Build Package
-      id: package_build
-      env:
-        THEOS: theos
-      run: |
-        echo '${{ secrets.ZEBRAKEYS_PRIVATE_H }}' > Zebra/ZebraKeys.private.h
-        gmake package FINALPACKAGE=1 ROOTLESS=${{ matrix.rootless }}
-        echo "::set-output name=package::$(basename $(cat .theos/last_package))"
-
-    - name: Attach package to release
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      working-directory: packages
-      run: gh release upload '${{ github.event.release.tag_name }}' '${{ steps.package_build.outputs.package }}'
-
-    - name: Clone Safari
-      run: git clone --depth=1 https://zbrabot:${{ secrets.BOT_TOKEN }}@github.com/zbrateam/zbrateam.github.io.git ~/website
-
-    - name: Copy package to repo
-      if: "!github.event.release.prerelease"
-      working-directory: packages
-      run: cp -f -- '${{ steps.package_build.outputs.package }}' ~/website/repo/pool
-
-    - name: Copy package to beta repo
-      if: "github.event.release.prerelease"
-      working-directory: packages
-      run: cp -f -- '${{ steps.package_build.outputs.package }}' ~/website/beta/pool
-
-    - name: Push Safari
-      run: |
-        cd ~/website
-        git config --global user.name 'zbrabot'
-        git config --global user.email 'zbrabot@users.noreply.github.com'
-        git add .
-        rootless=$([[ ${{ matrix.rootless }} == 1 ]] && echo rootless || echo non-rootless)
-        git commit -m "${{ github.event.release.tag_name }} $rootless"
-        git push
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Install dependencies
+        run: brew install ldid make dpkg
+      - name: Set up Theos
+        uses: actions/checkout@v2
+        with:
+          repository: theos/theos
+          path: theos
+          submodules: recursive
+      - name: Build package
+        id: build
+        env:
+          THEOS: theos
+        run: |
+          echo "${{ secrets.ZEBRAKEYS_PRIVATE_H }}" > Zebra/ZebraKeys.private.h
+          gmake package FINALPACKAGE=1 ROOTLESS=${{ matrix.rootless }}
+          echo "package=$(basename $(cat .theos/last_package))" >> $GITHUB_OUTPUT
+      - name: Attach package to release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        working-directory: packages
+        run: |
+          gh release upload '${{ github.event.release.tag_name }}' ${{ steps.build.outputs.package }}
+      - name: Clone zbrateam repo
+        run: |
+          git clone --depth=1 'https://zbrabot:${{ secrets.BOT_TOKEN }}@github.com/zbrateam/zbrateam.github.io.git' ~/website
+      - name: Copy package to repo
+        if: "!github.event.release.prerelease"
+        working-directory: packages
+        run: |
+          cp -f -- '${{ steps.build.outputs.package }}' ~/website
+      - name: Copy package to beta repo
+        if: "github.event.release.prerelease"
+        working-directory: packages
+        run: |
+          cp -f -- '${{ steps.build.outputs.package }}' ~/website/beta/pool
+      - name: Push repo changes
+        run: |
+          cd ~/website
+          git config --global user.name 'zbrabot'
+          git config --global user.email 'zbrabot@users.noreply.github.com'
+          git add .
+          rootless=$([[ ${{ matrix.rootless }} == 1 ]] && echo rootless || echo non-rootless)
+          git commit -m "${{ github.event.release.tag_name }} $rootless"
+          git push
