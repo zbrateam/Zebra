@@ -107,7 +107,7 @@
         NSDictionary *dict = @{@"type" : @"transfer",
                                 @"name" : @"Sileo",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
-                                @"url"  : [ZBDevice jailbreak] == ZBJailbreakCheckrain ? @"file://" @INSTALL_PREFIX @"/etc/apt/sileo.list.d/" : @"file://" @INSTALL_PREFIX @"/etc/apt/sources.list.d/",
+                                @"url"  : [ZBDevice jailbreak] == ZBJailbreakCheckra1n ? @"file://" @INSTALL_PREFIX @"/etc/apt/sileo.list.d/" : @"file://" @INSTALL_PREFIX @"/etc/apt/sources.list.d/",
                                 @"ext"  : @"sources",
                                 @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Sileo.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
@@ -117,7 +117,7 @@
 
 - (NSArray *)utilitySources {
     NSMutableArray *result = [NSMutableArray new];
-    if ([ZBDevice jailbreak] == ZBJailbreakCheckrain) {
+    if ([ZBDevice jailbreak] == ZBJailbreakCheckra1n) {
         if ([ZBDevice bootstrap] == ZBBootstrapProcursus) {
             NSDictionary *dict = @{@"type": @"utility",
                                    @"name": @"Procursus",

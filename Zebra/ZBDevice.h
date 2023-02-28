@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger, ZBJailbreak) {
     ZBJailbreakUnknown,
     ZBJailbreakSimulated,
     ZBJailbreakLegacy,
-    ZBJailbreakCheckrain,
+    ZBJailbreakCheckra1n,
     ZBJailbreakUncover,
     ZBJailbreakElectra,
     ZBJailbreakChimera,
@@ -23,7 +23,23 @@ typedef NS_ENUM(NSUInteger, ZBJailbreak) {
     ZBJailbreakTaurine,
     ZBJailbreakCheyote,
     ZBJailbreakXinaA15,
-    ZBJailbreakPalerain
+    ZBJailbreakPalera1n,
+    ZBJailbreakSocket,
+    ZBJailbreakH3lix,
+    ZBJailbreakBlizzard9,
+    ZBJailbreakOpenpwnage,
+    ZBJailbreakHomeDepot,
+    ZBJailbreakKok3shi,
+    ZBJailbreakP0laris,
+    ZBJailbreakDoubleH3lix,
+    ZBJailbreakMeridian,
+    ZBJailbreakYalu,
+    ZBJailbreakSaigon,
+    ZBJailbreakG0blin,
+    ZBJailbreakKok3shiX,
+    ZBJailbreakMineekJB32,
+    ZBJailbreakMineekJB64,
+    ZBJailbreakMineekJB
 };
 
 typedef NS_ENUM(NSUInteger, ZBBootstrap) {
