@@ -148,6 +148,9 @@ extern NSString *const SendErrorReportsKey;
 + (BOOL)wantsAutoRefresh;
 + (void)setWantsAutoRefresh:(BOOL)autoRefresh;
 
++ (BOOL)wantsHTTPAlert;
++ (void)setWantsHTTPAlert:(BOOL)httpAlert;
+
 + (NSInteger)sourceRefreshTimeoutIndex;
 + (NSTimeInterval)sourceRefreshTimeout;
 + (void)setSourceRefreshTimeout:(NSNumber *)time;

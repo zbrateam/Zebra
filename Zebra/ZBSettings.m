@@ -34,6 +34,7 @@ NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
 NSString *const FeaturedSourceBlacklistKey = @"FeaturedSourceBlacklist";
 
 NSString *const WantsAutoRefreshKey = @"AutoRefresh";
+NSString *const WantsHTTPAlertKey = @"HTTPAlert";
 NSString *const SourceTimeoutKey = @"SourceTimeout";
 
 NSString *const WantsCommunityNewsKey = @"CommunityNews";
@@ -443,6 +444,25 @@ NSString *const SendErrorReportsKey = @"SendErrorReports";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:autoRefresh forKey:WantsAutoRefreshKey];
+}
+
++ (BOOL)wantsHTTPAlert {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:WantsHTTPAlertKey]) {
+        [self setWantsHTTPAlert:YES];
+        NSLog(@"%@", [defaults objectForKey:WantsHTTPAlertKey]);
+        return YES;
+    }
+    NSLog(@"%@", [defaults objectForKey:WantsHTTPAlertKey]);
+    return [defaults boolForKey:WantsHTTPAlertKey];
+}
+
++ (void)setWantsHTTPAlert:(BOOL)httpAlert {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@"%@", [defaults objectForKey:WantsHTTPAlertKey]);
+
+    [defaults setBool:httpAlert forKey:WantsHTTPAlertKey];
 }
 
 + (NSInteger)sourceRefreshTimeoutIndex {

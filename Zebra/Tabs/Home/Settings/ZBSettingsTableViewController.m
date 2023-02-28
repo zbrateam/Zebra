@@ -142,7 +142,7 @@ enum ZBMiscOrder {
             return 1;
         }
         case ZBSources:
-            return 2;
+            return 3;
         case ZBReset:
             return 3;
         default:
@@ -171,7 +171,7 @@ enum ZBMiscOrder {
             return cell;
         }
     }
-    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc || (indexPath.section == ZBSources && indexPath.row == 1)) {
+    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc || (indexPath.section == ZBSources && indexPath.row == 2)) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
@@ -269,10 +269,17 @@ enum ZBMiscOrder {
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.textLabel.textColor = [UIColor primaryTextColor];
                 cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
-            }
-            else {
+            } else if (indexPath.row == 1) {
+                UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+                enableSwitch.on = [ZBSettings wantsHTTPAlert];
+                [enableSwitch addTarget:self action:@selector(toggleHTTPAlert:) forControlEvents:UIControlEventValueChanged];
+                [enableSwitch setOnTintColor:[UIColor accentColor]];
+                cell.accessoryView = enableSwitch;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.textColor = [UIColor primaryTextColor];
+                cell.textLabel.text = NSLocalizedString(@"Show HTTP Warning", @"");
+            } else if (indexPath.row == 2) {
                 NSTimeInterval timeoutTime = [ZBSettings sourceRefreshTimeout];
-                
                 cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%d Seconds", @""), (int)timeoutTime];
                 cell.textLabel.text = NSLocalizedString(@"Download Timeout", @"");
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -415,8 +422,13 @@ enum ZBMiscOrder {
                 [switcher setOn:!switcher.on animated:YES];
                 [self toggleAutoRefresh:switcher];
                 break;
-            }
-            else {
+            }  else if (indexPath.row == 1) {
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                UISwitch *switcher = (UISwitch *)cell.accessoryView;
+                [switcher setOn:!switcher.on animated:YES];
+                [self toggleHTTPAlert:switcher];
+                break;
+            } else if (indexPath.row == 2) {
                 NSMutableArray *options = [NSMutableArray new];
                 NSArray *choices = @[@5, @10, @15, @30, @45, @60];
                 for (NSNumber *choice in choices) {
@@ -615,6 +627,19 @@ enum ZBMiscOrder {
     UISwitch *switcher = (UISwitch *)sender;
     
     [ZBSettings setWantsAutoRefresh:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBSources] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
+}
+
+- (void)toggleHTTPAlert:(id)sender {
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsHTTPAlert:switcher.isOn];
     [ZBDevice hapticButton];
     
     dispatch_async(dispatch_get_main_queue(), ^{

@@ -434,34 +434,38 @@
 }
 
 - (void)addSourceFromAlertController:(UIAlertController *)alertController {
+    
     NSString *urlString = [alertController.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([urlString hasPrefix:@"http:"]) {
-        // Warn user for insecure source (has low self esteem)
-        UIAlertController *insecureSource = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You are adding a repository that is not secure", @"") message:NSLocalizedString(@"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?", @"") preferredStyle:UIAlertControllerStyleAlert];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"HTTPAlert"]) {
+        if ([urlString hasPrefix:@"http:"]) {
+            // Warn user for insecure source (has low self esteem)
+            UIAlertController *insecureSource = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You are adding a repository that is not secure", @"") message:NSLocalizedString(@"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?", @"") preferredStyle:UIAlertControllerStyleAlert];
 
-        UIAlertAction *addInsecure = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            NSString *repoString = [urlString copy];
-            if (![repoString hasSuffix:@"/"]) {
-                repoString = [repoString stringByAppendingString:@"/"];
-            }
+            UIAlertAction *addInsecure = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSString *repoString = [urlString copy];
+                if (![repoString hasSuffix:@"/"]) {
+                    repoString = [repoString stringByAppendingString:@"/"];
+                }
 
-            NSURL *sourceURL = [NSURL URLWithString:repoString];
-            [self checkSourceURL:sourceURL];
-        }];
-        [insecureSource addAction:addInsecure];
+                NSURL *sourceURL = [NSURL URLWithString:repoString];
+                [self checkSourceURL:sourceURL];
+            }];
+            [insecureSource addAction:addInsecure];
 
-        UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self showAddSourceAlert:urlString];
-        }];
-        [insecureSource addAction:edit];
+            UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self showAddSourceAlert:urlString];
+            }];
+            [insecureSource addAction:edit];
 
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-        [insecureSource addAction:cancel];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+            [insecureSource addAction:cancel];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self presentViewController:insecureSource animated:YES completion:nil];
-        });
-        return;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:insecureSource animated:YES completion:nil];
+            });
+            return;
+        }
     }
 
     if (![urlString hasSuffix:@"/"]) {
