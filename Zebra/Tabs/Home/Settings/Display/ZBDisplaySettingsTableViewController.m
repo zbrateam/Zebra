@@ -262,28 +262,21 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 }
 
 - (void)updateInterfaceStyle {
-    
-    if (@available(iOS 13.0, *)) {
-        usesSystemAppearance = [ZBSettings usesSystemAppearance];
-        interfaceStyle = [ZBSettings interfaceStyle];
-        [[ZBThemeManager sharedInstance] updateInterfaceStyle];
-    } else {
-        usesSystemAppearance = [ZBSettings usesSystemAppearance];
-        interfaceStyle = [ZBSettings interfaceStyle];
-        [[ZBThemeManager sharedInstance] updateInterfaceStyle];
 
+    usesSystemAppearance = [ZBSettings usesSystemAppearance];
+    interfaceStyle = [ZBSettings interfaceStyle];
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        [[ZBThemeManager sharedInstance] updateInterfaceStyle];
         self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
         self.tableView.separatorColor = [UIColor cellSeparatorColor];
         self.tableView.tableHeaderView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-        
         for (UITableViewCell *cell in [self.tableView visibleCells]) {
             cell.textLabel.textColor = [UIColor primaryTextColor];
             cell.backgroundColor = [UIColor cellBackgroundColor];
         }
-        
         [self.tableView reloadData];
-    
-    }
+    }];
     
 }
 
