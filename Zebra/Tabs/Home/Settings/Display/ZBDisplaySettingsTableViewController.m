@@ -74,7 +74,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             if (@available(iOS 13.0, *)) {
                 if (!usesSystemAppearance) return 2;
             }
-            else if (section == 1 && !usesSystemAppearance) return 2;
+            else if (section == ZBSectionSystemStyle && !usesSystemAppearance) return 2;
         case ZBSectionPureBlack:
             return 1;
         default:
@@ -167,6 +167,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             }
         }
         case ZBSectionStyleChooser: {
+            if (section == [tableView numberOfSections] - 1) break;
             if (!usesSystemAppearance) {
                 UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                 UITableViewCell *otherCell;
@@ -261,14 +262,22 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 }
 
 - (void)updateInterfaceStyle {
+
     usesSystemAppearance = [ZBSettings usesSystemAppearance];
     interfaceStyle = [ZBSettings interfaceStyle];
     
-    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
-    
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.1 animations:^{
+        [[ZBThemeManager sharedInstance] updateInterfaceStyle];
         self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+        self.tableView.separatorColor = [UIColor cellSeparatorColor];
+        self.tableView.tableHeaderView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+        for (UITableViewCell *cell in [self.tableView visibleCells]) {
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            cell.backgroundColor = [UIColor cellBackgroundColor];
+        }
+        [self.tableView reloadData];
     }];
+    
 }
 
 @end
