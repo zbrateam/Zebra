@@ -80,29 +80,71 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 #if TARGET_OS_SIMULATOR
     return NO; //Since simulated devices don't have su/sling, it isn't broken!
 #else
-    // TODO: TEMPORARY measure until XinaA15 is properly supported
-    if (self.jailbreak == ZBJailbreakXinaA15) {
-        *error = [NSError errorWithDomain:NSCocoaErrorDomain code:69 userInfo:@{
-            NSLocalizedDescriptionKey: @"Your jailbreak is currently not supported by Zebra. You can still use Zebra to browse around, but you won’t be able to install, remove, or update packages.\n\nCheck back soon for an update to Zebra that adds support for the XinaA15 jailbreak."
-        }];
-        return YES;
-    }
-
-    // If we’re using supersling, check if it has the appropriate permissions.
-    if (@available(iOS 13, *)) {
-    } else {
-        // Check to see if su/sling has the proper setuid/setgid bit
-        // We shouldn't do a dispatch_once because who knows when the file could be changed
-        // Returns YES if su/sling's setuid/setgid permissions need to be reset
-        struct stat path_stat;
-        stat(INSTALL_PREFIX "/usr/libexec/zebra/supersling", &path_stat);
+    if (@available(iOS 11, *)) {
         
-        if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
+        // TODO: TEMPORARY measure until XinaA15 is properly supported
+        if (self.jailbreak == ZBJailbreakXinaA15) {
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:69 userInfo:@{
+                NSLocalizedDescriptionKey: @"Your jailbreak is currently not supported by Zebra. You can still use Zebra to browse around, but you won’t be able to install, remove, or update packages.\n\nCheck back soon for an update to Zebra that adds support for the XinaA15 jailbreak."
+            }];
+            return YES;
+        }
+
+        // If we’re using supersling, check if it has the appropriate permissions.
+        if (@available(iOS 13, *)) {
+            // dont use supersling on 13+
+        } else {
+            // Check to see if su/sling has the proper setuid/setgid bit
+            // We shouldn't do a dispatch_once because who knows when the file could be changed
+            // Returns YES if su/sling's setuid/setgid permissions need to be reset
+            struct stat path_stat;
+            stat(INSTALL_PREFIX "/usr/libexec/zebra/supersling", &path_stat);
+            
+            if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
+                if (error) {
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
+                        NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at " @INSTALL_PREFIX @"/usr/libexec/zebra/supersling.", @"")
+                    }];
+                }
+                return YES; //If the uid/gid aren't 0 then theres a problem
+            }
+            
+            //Check the uid/gid bits of permissions
+            BOOL cannot_set_uid = (path_stat.st_mode & S_ISUID) == 0;
+            BOOL cannot_set_gid = (path_stat.st_mode & S_ISGID) == 0;
+            if (cannot_set_uid || cannot_set_gid) {
+                if (error) {
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:52 userInfo:@{
+                        NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at " @INSTALL_PREFIX @"/usr/libexec/zebra/supersling.", @"")
+                    }];
+                }
+                return YES;
+            }
+        }
+
+        // Check if we can actually run su/sling.
+        NSString *whoAmI = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/id" withArguments:@[@"-u"] asRoot:YES] ?: @"?";
+        if (![whoAmI isEqualToString:@"0\n"]) {
             if (error) {
                 *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
-                    NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at " @INSTALL_PREFIX @"/usr/libexec/zebra/supersling.", @"")
+                    NSLocalizedDescriptionKey: NSLocalizedString(@"Zebra doesn’t have permission to install packages on this device. Please reinstall Zebra.", @"")
                 }];
             }
+            return YES;
+        }
+
+        return NO; //su/sling is ok
+
+    } else {
+        // new check method broke on some installs for iOS 9-10 even when premissions are correct
+        // so if on iOS 9-10 we use the old check to fix permission false positives that may happen
+        struct stat path_stat;
+        stat("/usr/libexec/zebra/supersling", &path_stat);
+        
+        if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
+            NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")}];
+            *error = cannotAccessError;
+            
             return YES; //If the uid/gid aren't 0 then theres a problem
         }
         
@@ -110,27 +152,15 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         BOOL cannot_set_uid = (path_stat.st_mode & S_ISUID) == 0;
         BOOL cannot_set_gid = (path_stat.st_mode & S_ISGID) == 0;
         if (cannot_set_uid || cannot_set_gid) {
-            if (error) {
-                *error = [NSError errorWithDomain:NSCocoaErrorDomain code:52 userInfo:@{
-                    NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at " @INSTALL_PREFIX @"/usr/libexec/zebra/supersling.", @"")
-                }];
-            }
+            NSError *cannotAccessError = [NSError errorWithDomain:NSCocoaErrorDomain code:52 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.", @"")}];
+            *error = cannotAccessError;
+            
             return YES;
         }
+        
+        return NO; //su/sling is  ok
     }
-
-    // Check if we can actually run su/sling.
-    NSString *whoAmI = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/id" withArguments:@[@"-u"] asRoot:YES] ?: @"?";
-    if (![whoAmI isEqualToString:@"0\n"]) {
-        if (error) {
-            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
-                NSLocalizedDescriptionKey: NSLocalizedString(@"Zebra doesn’t have permission to install packages on this device. Please reinstall Zebra.", @"")
-            }];
-        }
-        return YES;
-    }
-
-    return NO; //su/sling is ok
+    return NO; //su/sling is  ok
 #endif
 }
 
