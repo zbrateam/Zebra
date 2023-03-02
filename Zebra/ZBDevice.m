@@ -374,11 +374,17 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     } else if ([self _isRegularDirectory:@"/var/Liy/xina"]) {
         jailbreak = ZBJailbreakXinaA15;
     } else if (@available(iOS 16, *)) {
-        // TODO: TEMPORARY until palerain 1.4 has been out long enough
+#if __arm64e__
         jailbreak = ZBJailbreakUnknown;
-    } else if (@available(iOS 15, *)) {
-        // TODO: TEMPORARY until palerain 1.4 has been out long enough
+#else
         jailbreak = ZBJailbreakPalera1n;
+#endif
+    } else if (@available(iOS 15, *)) {
+#if __arm64e__
+        jailbreak = ZBJailbreakFugu15;
+#else
+        jailbreak = ZBJailbreakPalera1n;
+#endif
     } else if (@available(iOS 11, *)) {
         jailbreak = ZBJailbreakUnknown;
     } else {
@@ -427,9 +433,9 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (NSString *)jailbreakName {
     switch (jailbreak) {
-    case ZBJailbreakUnknown:   return NSLocalizedString(@"Unknown Jailbreak", @"");
-    case ZBJailbreakSimulated: return NSLocalizedString(@"Demo Mode", @"");
-    case ZBJailbreakLegacy:    return NSLocalizedString(@"Legacy Jailbreak", @"");
+    case ZBJailbreakUnknown:      return NSLocalizedString(@"Unknown Jailbreak", @"");
+    case ZBJailbreakSimulated:    return NSLocalizedString(@"Demo Mode", @"");
+    case ZBJailbreakLegacy:       return NSLocalizedString(@"Legacy Jailbreak", @"");
     case ZBJailbreakCheckra1n:    return @"checkra1n";
     case ZBJailbreakUncover:      return @"unc0ver";
     case ZBJailbreakElectra:      return @"Electra";
@@ -439,6 +445,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     case ZBJailbreakCheyote:      return @"Cheyote";
     case ZBJailbreakXinaA15:      return @"XinaA15";
     case ZBJailbreakPalera1n:     return @"palera1n";
+    case ZBJailbreakFugu15:       return @"Fugu15";
     case ZBJailbreakSocket:       return @"socket";
     case ZBJailbreakH3lix:        return @"h3lix";
     case ZBJailbreakBlizzard9:    return @"Blizzard";

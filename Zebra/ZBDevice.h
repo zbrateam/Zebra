@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, ZBJailbreak) {
     ZBJailbreakCheyote,
     ZBJailbreakXinaA15,
     ZBJailbreakPalera1n,
+    ZBJailbreakFugu15,
     ZBJailbreakSocket,
     ZBJailbreakH3lix,
     ZBJailbreakBlizzard9,
