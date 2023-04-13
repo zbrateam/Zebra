@@ -35,6 +35,7 @@
 
 - (id)initWithText:(NSString *)text delegate:(id <ZBSourceVerificationDelegate>)delegate {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [super init];
     self = [storyboard instantiateViewControllerWithIdentifier:@"addSourcesController"];
     
     if (self) {

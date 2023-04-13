@@ -58,6 +58,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if (!package) return NULL;
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [super init];
     self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
 
     if (self) {
