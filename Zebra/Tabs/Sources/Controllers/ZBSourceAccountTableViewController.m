@@ -40,6 +40,7 @@
 
 - (id)initWithSource:(ZBSource *)source {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [super init];
     self = [storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
     
     if (self) {

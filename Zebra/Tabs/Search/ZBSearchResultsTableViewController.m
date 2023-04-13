@@ -29,6 +29,7 @@
 
 - (id)initWithNavigationController:(UINavigationController *)controller {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [super init];
     self = [storyboard instantiateViewControllerWithIdentifier:@"searchResultsController"];
     
     if (self) {

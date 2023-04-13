@@ -44,6 +44,7 @@ typedef enum {
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [super init];
     self = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
     
     if (self) {

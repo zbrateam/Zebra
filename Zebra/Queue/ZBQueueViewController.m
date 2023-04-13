@@ -29,6 +29,7 @@
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [super init];
     self = [storyboard instantiateViewControllerWithIdentifier:@"queueController"];
     
     if (self) {

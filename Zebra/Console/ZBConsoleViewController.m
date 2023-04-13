@@ -73,6 +73,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [super init];
     self = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
     
     if (self) {

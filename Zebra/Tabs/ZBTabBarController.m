@@ -48,6 +48,7 @@
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [super init];
     self = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
     
     return self;
