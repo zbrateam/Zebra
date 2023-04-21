@@ -30,16 +30,16 @@
 
 - (id)init {
     self = [super initWithStyle:UITableViewStyleGrouped];
-    
+
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateSources) name:@"ZBDatabaseCompletedUpdate" object:nil];
-        
+
         sourceManager = [ZBSourceManager sharedInstance];
         sources = [NSMutableArray new];
-        
+
         [self populateSources];
     }
-    
+
     return self;
 }
 
@@ -49,35 +49,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    
+
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
 - (void)populateSources {
     [sources removeAllObjects];
-    
+
     //Populate package managers
     NSArray *managers = [self packageManagers];
     if (managers.count) {
         [sources addObject:managers];
     }
-    
+
     //Populate utility source
     NSArray *utilitySources = [self utilitySources];
     if (utilitySources.count) {
         [sources addObject:utilitySources];
     }
-    
+
     //Populate community sources
     NSArray *communitySources = [self communitySources];
     if (communitySources.count) {
         [sources addObject:communitySources];
     }
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -96,20 +96,29 @@
     }
     if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/Applications/Installer.app/Installer"]) {
         NSDictionary *dict = @{@"type" : @"transfer",
-                                @"name" : @"Installer",
-                                @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
-                                @"url"  : @"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list",
-                                @"ext"  : @"list",
-                                @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Installer.app/AppIcon60x60@2x.png"};
+                               @"name" : @"Installer",
+                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
+                               @"url"  : @"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list",
+                               @"ext"  : @"list",
+                               @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Installer.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
     }
     if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/Applications/Sileo.app/Sileo"]) {
         NSDictionary *dict = @{@"type" : @"transfer",
-                                @"name" : @"Sileo",
-                                @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
-                                @"url"  : [ZBDevice jailbreak] == ZBJailbreakCheckrain ? @"file://" @INSTALL_PREFIX @"/etc/apt/sileo.list.d/" : @"file://" @INSTALL_PREFIX @"/etc/apt/sources.list.d/",
-                                @"ext"  : @"sources",
-                                @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Sileo.app/AppIcon60x60@2x.png"};
+                               @"name" : @"Sileo",
+                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
+                               @"url"  : [ZBDevice jailbreak] == ZBJailbreakCheckrain ? @"file://" @INSTALL_PREFIX @"/etc/apt/sileo.list.d/" : @"file://" @INSTALL_PREFIX @"/etc/apt/sources.list.d/",
+                               @"ext"  : @"sources",
+                               @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Sileo.app/AppIcon60x60@2x.png"};
+        [result addObject:dict];
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/Applications/Sileo-Nightly.app/Sileo"]) {
+        NSDictionary *dict = @{@"type" : @"transfer",
+                               @"name" : @"Sileo Nightly",
+                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo Nightly"],
+                               @"url"  : [ZBDevice jailbreak] == ZBJailbreakCheckrain ? @"file://" @INSTALL_PREFIX @"/etc/apt/sileo.list.d/" : @"file://" @INSTALL_PREFIX @"/etc/apt/sources.list.d/",
+                               @"ext"  : @"sources",
+                               @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Sileo-Nightly.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
     }
     return result;
@@ -138,7 +147,7 @@
                                @"url" : @"https://apt.procurs.us/",
                                @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
         [result addObject:dict];
-        
+
         NSDictionary *dict2 = @{@"type": @"utility",
                                @"name": @"Odyssey Repo",
                                @"url" : @"https://repo.theodyssey.dev/",
@@ -158,7 +167,7 @@
                                @"url" : @"https://apt.procurs.us/",
                                @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
         [result addObject:dict];
-        
+
         NSDictionary *dict2 = @{@"type": @"utility",
                                @"name": @"Odyssey Repo",
                                @"url" : @"https://repo.theodyssey.dev/",
@@ -192,7 +201,7 @@
 - (NSArray *)communitySources {
     if (!communitySourceCache) {
         [self fetchCommunitySources];
-        
+
         return NULL;
     }
     else {
@@ -209,7 +218,7 @@
 
 - (void)fetchCommunitySources {
     communitySourceCache = [NSMutableArray new];
-    
+
     NSURL *url = [NSURL URLWithString:@"https://api.getzbra.com/sources.json"];
     NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSMutableArray *sources = [NSMutableArray new];
@@ -224,7 +233,7 @@
                     }
                 }
             }
-            
+
             if (sources.count) {
                 self->communitySourceCache = sources;
             }
@@ -232,14 +241,14 @@
         else {
             ZBLog(@"[Zebra] Error while trying to access community sources: %@", error);
         }
-        
+
         [self populateSources];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.navigationItem.titleView = nil;
             self.navigationItem.title = NSLocalizedString(@"Community Sources", @"");
         });
     }];
-    
+
     [task resume];
 }
 
@@ -256,38 +265,38 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *info = sources[indexPath.section][indexPath.row];
     NSString *type = info[@"type"];
-    
+
     if ([type isEqualToString:@"none"]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noneLeftCell"];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noneLeftCell"];
         }
-        
+
         cell.textLabel.text = NSLocalizedString(@"You’ve added all of the community sources", @"");
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.textLabel.textColor = [UIColor secondaryTextColor];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+
         return cell;
     }
-    
+
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor cellBackgroundColor];
-    
+
     cell.sourceLabel.text = info[@"name"];
     cell.sourceLabel.textColor = [UIColor primaryTextColor];
-    
+
     NSString *subtitle = info[@"label"] ?: info[@"url"];
     cell.urlLabel.text = subtitle;
     cell.urlLabel.textColor = [UIColor secondaryTextColor];
-    
+
     NSURL *iconURL = [NSURL URLWithString:info[@"icon"]];
     [cell.iconImageView sd_setImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    
+
     [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
-    
+
     return cell;
 }
 
@@ -311,16 +320,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     NSDictionary *info = sources[indexPath.section][indexPath.row];
     NSString *type = info[@"type"];
-    
+
     NSArray *options = @[@"transfer", @"utility", @"repo"];
     switch ([options indexOfObject:type]) {
         case 0: {
             dispatch_async(dispatch_get_main_queue(), ^{
                 ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithPaths:@[[NSURL URLWithString:info[@"url"]]] extension:info[@"ext"]];
-                
+
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
                 [self presentViewController:navController animated:YES completion:nil];
             });
@@ -333,7 +342,7 @@
             if (source) {
                 [sourceManager addBaseSources:[NSSet setWithObject:source]];
                 ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:[NSSet setWithObject:source]];
-                
+
                 [self presentViewController:refresh animated:YES completion:nil];
             }
             break;
