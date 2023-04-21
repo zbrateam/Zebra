@@ -268,6 +268,7 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
     [[_urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (attemptGET) {
             self.source.checkedSupportGETPackageInfo = YES;
+            self.source.supportsGETPackageInfo = YES;
         }
 
         error = error ?: [self _errorWithBody:data response:response];
