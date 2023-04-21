@@ -56,36 +56,36 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (id)initWithPackage:(ZBPackage *)package {
     if (!package) return NULL;
-    
+
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    
+
     if (self) {
         self.package = package;
     }
-    
+
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     if (package == NULL) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Package Not Available", @"") message:NSLocalizedString(@"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.", @"") preferredStyle:UIAlertControllerStyleAlert];
-        
+
         UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:action];
-        
+
         [self presentViewController:alert animated:YES completion:nil];
     }
-    
+
     UIActivityIndicatorViewStyle style = [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
     UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
     [uiBusy startAnimating];
-    
+
     UIBarButtonItem *busyButton = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
     self.navigationItem.rightBarButtonItem = busyButton;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBUpdateNavigationButtons" object:nil];
 
@@ -93,14 +93,14 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if (@available(iOS 11, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    
+
     self.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    
+
     self.packageIcon.layer.cornerRadius = 20;
     self.packageIcon.layer.masksToBounds = YES;
     infos = [NSMutableDictionary new];
     [self setPackage];
-    
+
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     configuration.applicationNameForUserAgent = [ZBDevice webUserAgent];
     configuration.allowsInlineMediaPlayback = YES;
@@ -108,26 +108,26 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         configuration.dataDetectorTypes = WKDataDetectorTypeLink;
         configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAudio;
     }
-    
+
     webViewSize = 0;
     webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 300) configuration:configuration];
     webView.scrollView.scrollEnabled = NO;
     webView.opaque = NO;
     webView.backgroundColor = [UIColor tableViewBackgroundColor];
-    
+
     progressView = [[UIProgressView alloc] initWithFrame:CGRectZero];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+
     [self.tableView.tableHeaderView addSubview:progressView];
     [self.tableView setTableFooterView:webView];
-    
+
     // Progress View Layout
     [progressView.trailingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.trailingAnchor].active = YES;
     [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
-    
+
     progressView.tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-    
+
     webView.navigationDelegate = self;
 
     [self prepDepictionLoading:[package depictionURL]];
@@ -201,7 +201,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
         progressView.alpha = 1.0;
-        
+
         if (webView.estimatedProgress >= 1.0) {
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 [self->progressView setProgress:self->webView.estimatedProgress animated:YES];
@@ -288,24 +288,24 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)configureNavButton {
     if (navButtonsBeingConfigured) return;
-    
+
     navButtonsBeingConfigured = YES;
-    
+
     if ([self presented]) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
     }
-    
+
     [ZBPackageActions barButtonItemForPackage:package completion:^(UIBarButtonItem *barButton) {
         self->navButtonsBeingConfigured = NO;
-        
+
         if ([self presented]) {
             UIBarButtonItemActionHandler originalHandler = objc_getAssociatedObject(barButton, "actionHandler");
             UIBarButtonItemActionHandler newHandler = ^{
                 originalHandler();
                 [self goodbye];
             };
-            
+
             [barButton setActionHandler:newHandler];
         }
         self.navigationItem.rightBarButtonItem = barButton;
@@ -349,7 +349,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)readIcon:(ZBPackage *)package {
     self.packageName.text = package.name;
     self.packageName.textColor = [UIColor primaryTextColor];
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [package setIconImageForImageView:self.packageIcon];
     });
@@ -451,7 +451,13 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)sendEmailToDeveloper {
     NSString *subject = [NSString stringWithFormat:@"Zebra: %@ (%@)", package.name, package.version];
-    NSString *body = [NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
+    NSString *body = [NSString stringWithFormat:@"\n\nDevice information:\nModel: %@\nOS: iOS %@\nJailbreak: %@ - %@%@%@",
+                      [ZBDevice deviceModelID],
+                      [[UIDevice currentDevice] systemVersion],
+                      [ZBDevice jailbreakName],
+                      [ZBDevice bootstrapName],
+                      [ZBDevice isPrefixed] ? @" (Rootless)" : @"",
+                      [ZBDevice isStashed] ? @" (Stashed)" : @""];
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
@@ -459,7 +465,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         [mail setSubject:subject];
         [mail setMessageBody:body isHTML:NO];
         [mail setToRecipients:@[self.package.authorEmail]];
-        
+
         [self presentViewController:mail animated:YES completion:NULL];
     } else {
         NSURLComponents *url = [NSURLComponents componentsWithString:[NSString stringWithFormat:@"mailto:%@", self.package.authorEmail]];
@@ -495,11 +501,11 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *simpleTableIdentifier = @"PackageInfoTableViewCell";
-    
+
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
 
     NSString *value = infos[@(indexPath.row)];
-    
+
     if (cell == nil) {
         if (indexPath.row == ZBPackageInfoSize || indexPath.row == ZBPackageInfoVersion || indexPath.row == ZBPackageInfoSource) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
@@ -513,7 +519,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
     cell.detailTextLabel.text = nil;
     cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
-    
+
     switch ((ZBPackageInfoOrder)indexPath.row) {
         case ZBPackageInfoID:
             cell.textLabel.text = value;
@@ -615,7 +621,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
                 [wishList addObject:package.identifier];
             }
             [ZBSettings setWishlist:wishList];
-            
+
             [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:ZBPackageInfoWishList inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             break;
         } case ZBPackageInfoMoreBy:
@@ -645,10 +651,10 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 // For old tweaks
 - (void)modifyPackage {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Deprecated Method" message:@"A tweak is calling a deprecated method, please contact the author of this tweak to get an update so that it will not crash Zebra in the future." preferredStyle:UIAlertControllerStyleAlert];
-    
+
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:ok];
-    
+
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
