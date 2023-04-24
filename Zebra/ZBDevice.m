@@ -294,10 +294,13 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
     isPrefixed = ![@INSTALL_PREFIX isEqualToString:@""];
 
+    struct utsname name;
+    uname(&name);
+
     if (self.needsSimulation) {
         jailbreak = ZBJailbreakSimulated;
     } else if ([self _isRegularFile:@"/var/checkra1n.dmg"] || [self _isRegularDirectory:@"/binpack"]) {
-        jailbreak = ZBJailbreakCheckrain;
+        jailbreak = ZBJailbreakCheckra1n;
     } else if ([self _isRegularFile:@"/.installed_unc0ver"]) {
         jailbreak = ZBJailbreakUncover;
     } else if ([self _isRegularDirectory:@"/electra"]) {
@@ -308,18 +311,48 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         jailbreak = ZBJailbreakOdyssey;
     } else if ([self _isRegularFile:@"/.installed_taurine"]) {
         jailbreak = ZBJailbreakTaurine;
-    } else if ([self _isRegularFile:@INSTALL_PREFIX @"/.installed_cheyote"]) {
-        jailbreak = ZBJailbreakCheyote;
     } else if ([self _isRegularFile:@INSTALL_PREFIX @"/.installed_palera1n"]) {
-        jailbreak = ZBJailbreakPalerain;
+        jailbreak = ZBJailbreakPalera1n;
+    } else if ([self _isRegularFile:@INSTALL_PREFIX @"/.installed_dopamine"] || [self _isRegularFile:@INSTALL_PREFIX @"/.installed_fugu15max"]) {
+        jailbreak = ZBJailbreakDopamine;
+    } else if ([self _isRegularFile:@"/.installed_socket"]) {
+        jailbreak = ZBJailbreakSocket;
+    } else if ([self _isRegularFile:@"/.p0laris"]) {
+        jailbreak = ZBJailbreakP0laris;
+    } else if ([self _isRegularFile:@"/.installed-openpwnage"]) {
+        jailbreak = ZBJailbreakOpenpwnage;
+    } else if ([self _isRegularFile:@"/.installed_home_depot"]) {
+        jailbreak = ZBJailbreakHomeDepot;
+    } else if ([self _isRegularFile:@"/.installed_mineekJB"]) {
+        jailbreak = ZBJailbreakMineekJB;
+    } else if ([self _isRegularFile:@"/.installed_mineekJB32"]) {
+        jailbreak = ZBJailbreakMineekJB32;
+    } else if ([self _isRegularFile:@"/.installed_mineekJB64"]) {
+        jailbreak = ZBJailbreakMineekJB64;
+    } else if ([self _isRegularFile:@"/.blizzardJB"]) {
+        jailbreak = ZBJailbreakBlizzard9;
+    } else if ([self _isRegularFile:@"/.installed_kok3shi"]) {
+        jailbreak = ZBJailbreakKok3shi;
+    } else if ([self _isRegularFile:@"/.installed_kok3shiX"]) {
+        jailbreak = ZBJailbreakKok3shiX;
+    } else if ([self _isRegularFile:@"/.meridian_installed"]) {
+        jailbreak = ZBJailbreakMeridian;
+    } else if ([self _isRegularFile:@"/.installed_yaluX"]) {
+        jailbreak = ZBJailbreakYalu;
+    } else if ([self _isRegularFile:@"/.installed_g0blin"]) {
+        jailbreak = ZBJailbreakG0blin;
+    } else if (strstr(name.version, "SaigonARM")) {
+        jailbreak = ZBJailbreakSaigon;
+    } else if (strstr(name.version, "MarijuanARM")) {
+#if __arm64__
+        jailbreak = ZBJailbreakDoubleH3lix;
+#else
+        jailbreak = ZBJailbreakH3lix;
+#endif
     } else if ([self _isRegularDirectory:@"/var/Liy/xina"]) {
         jailbreak = ZBJailbreakXinaA15;
-    } else if (@available(iOS 16, *)) {
-        // TODO: TEMPORARY until palerain 1.4 has been out long enough
-        jailbreak = ZBJailbreakUnknown;
-    } else if (@available(iOS 15, *)) {
-        // TODO: TEMPORARY until palerain 1.4 has been out long enough
-        jailbreak = ZBJailbreakPalerain;
+    } else if ([self _isRegularDirectory:@"/.installed_mineekJB"]) {
+        jailbreak = ZBJailbreakMineekJB;
     } else if (@available(iOS 11, *)) {
         jailbreak = ZBJailbreakUnknown;
     } else {
@@ -368,18 +401,34 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (NSString *)jailbreakName {
     switch (jailbreak) {
-    case ZBJailbreakUnknown:   return NSLocalizedString(@"Unknown Jailbreak", @"");
-    case ZBJailbreakSimulated: return NSLocalizedString(@"Demo Mode", @"");
-    case ZBJailbreakLegacy:    return NSLocalizedString(@"Legacy Jailbreak", @"");
-    case ZBJailbreakCheckrain: return @"checkra1n";
-    case ZBJailbreakUncover:   return @"unc0ver";
-    case ZBJailbreakElectra:   return @"Electra";
-    case ZBJailbreakChimera:   return @"Chimera";
-    case ZBJailbreakOdyssey:   return @"Odyssey";
-    case ZBJailbreakTaurine:   return @"Taurine";
-    case ZBJailbreakCheyote:   return @"Cheyote";
-    case ZBJailbreakXinaA15:   return @"XinaA15";
-    case ZBJailbreakPalerain:  return @"palera1n";
+    case ZBJailbreakUnknown:     return NSLocalizedString(@"Unknown Jailbreak", @"");
+    case ZBJailbreakSimulated:   return NSLocalizedString(@"Demo Mode", @"");
+    case ZBJailbreakLegacy:      return NSLocalizedString(@"Legacy Jailbreak", @"");
+    case ZBJailbreakCheckra1n:   return @"checkra1n";
+    case ZBJailbreakUncover:     return @"unc0ver";
+    case ZBJailbreakElectra:     return @"Electra";
+    case ZBJailbreakChimera:     return @"Chimera";
+    case ZBJailbreakOdyssey:     return @"Odyssey";
+    case ZBJailbreakTaurine:     return @"Taurine";
+    case ZBJailbreakXinaA15:     return @"XinaA15";
+    case ZBJailbreakPalera1n:    return @"palera1n";
+    case ZBJailbreakDopamine:    return @"Dopamine";
+    case ZBJailbreakSocket:      return @"socket";
+    case ZBJailbreakH3lix:       return @"h3lix";
+    case ZBJailbreakBlizzard9:   return @"Blizzard";
+    case ZBJailbreakOpenpwnage:  return @"Openpwnage";
+    case ZBJailbreakHomeDepot:   return @"Home Depot";
+    case ZBJailbreakKok3shi:     return @"kok3shi";
+    case ZBJailbreakP0laris:     return @"p0laris";
+    case ZBJailbreakDoubleH3lix: return @"DoubleH3lix";
+    case ZBJailbreakMeridian:    return @"Meridian";
+    case ZBJailbreakYalu:        return @"Yalu";
+    case ZBJailbreakSaigon:      return @"palera1n";
+    case ZBJailbreakG0blin:      return @"g0blin";
+    case ZBJailbreakKok3shiX:    return @"kok3shiX";
+    case ZBJailbreakMineekJB32:  return @"MineekJB (32bit)";
+    case ZBJailbreakMineekJB64:  return @"MineekJB (64bit)";
+    case ZBJailbreakMineekJB:    return @"MineekJB";
     }
 }
 
