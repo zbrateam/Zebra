@@ -82,9 +82,11 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 #else
     // TODO: TEMPORARY measure until XinaA15 is properly supported
     if (self.jailbreak == ZBJailbreakXinaA15) {
-        *error = [NSError errorWithDomain:NSCocoaErrorDomain code:69 userInfo:@{
-            NSLocalizedDescriptionKey: @"Your jailbreak is currently not supported by Zebra. You can still use Zebra to browse around, but you won’t be able to install, remove, or update packages.\n\nCheck back soon for an update to Zebra that adds support for the XinaA15 jailbreak."
-        }];
+        if (error) {
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:69 userInfo:@{
+                NSLocalizedDescriptionKey: @"Your device is currently using the XinaA15 jailbreak, which is not supported by Zebra. You can still use Zebra to browse around, but you won’t be able to install, remove, or update packages.\n\nWe recommend switching to the Dopamine jailbreak. Visit https://ios.cfw.guide/ to learn more."
+            }];
+        }
         return YES;
     }
 
