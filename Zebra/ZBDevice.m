@@ -98,7 +98,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         // Returns YES if su/sling's setuid/setgid permissions need to be reset
         struct stat path_stat;
         stat(INSTALL_PREFIX "/usr/libexec/zebra/supersling", &path_stat);
-        
+
         if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
             if (error) {
                 *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
@@ -107,7 +107,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
             }
             return YES; //If the uid/gid aren't 0 then theres a problem
         }
-        
+
         //Check the uid/gid bits of permissions
         BOOL cannot_set_uid = (path_stat.st_mode & S_ISUID) == 0;
         BOOL cannot_set_gid = (path_stat.st_mode & S_ISGID) == 0;
@@ -122,14 +122,19 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     }
 
     // Check if we can actually run su/sling.
-    NSString *whoAmI = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/id" withArguments:@[@"-u"] asRoot:YES] ?: @"?";
-    if (![whoAmI isEqualToString:@"0\n"]) {
-        if (error) {
-            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
-                NSLocalizedDescriptionKey: NSLocalizedString(@"Zebra doesn’t have permission to install packages on this device. Please reinstall Zebra.", @"")
-            }];
+    // TODO: For some reason I haven’t fully understood yet, this fails on some iOS 9/10 installs.
+    //       Skipping it there for now, if we get to this point we should be confident that
+    //       supersling is working anyway.
+    if (@available(iOS 11, *)) {
+        NSString *whoAmI = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/id" withArguments:@[@"-u"] asRoot:YES] ?: @"?";
+        if (![whoAmI isEqualToString:@"0\n"]) {
+            if (error) {
+                *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
+                    NSLocalizedDescriptionKey: NSLocalizedString(@"Zebra doesn’t have permission to install packages on this device. Please reinstall Zebra.", @"")
+                }];
+            }
+            return YES;
         }
-        return YES;
     }
 
     return NO; //su/sling is ok
@@ -223,13 +228,13 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
                 return;
             }
         }
-        
+
         //Try launchctl
         NSLog(@"[Zebra] Trying launchctl");
         if ([ZBCommand execute:@"launchctl" withArguments:@[@"stop", @"com.apple.backboardd"] asRoot:YES]) {
             return;
         }
-        
+
         //Try killall
         NSLog(@"[Zebra] Trying killall");
         if ([ZBCommand execute:@"killall" withArguments:@[@"-9", @"backboardd"] asRoot:YES]) {
