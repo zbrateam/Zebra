@@ -33,7 +33,7 @@
 "Community Sources" = "Gemeenschapsbronnen";
 "You’ve added all of the community sources" = "U heeft alle gemeenschapsbronnen toegevoegd";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
-"Transfer Sources" = "Verplaats Bronnen";
+"Transfer Sources" = "Importeer Bronnen";
 "Import" = "Importeer";
 "Verifying…" = "Verifiëren…";
 "Confirm Import" = "Bevestig Importeren";
@@ -56,14 +56,14 @@
 "Settings" = "Instellingen";
 "Display" = "Weergave";
 "App Icon" = "App-icoon";
-"Changes" = "Veranderingen";
+"Changes" = "Updates";
 "Community News" = "Gemeenschapsnieuws";
 "Miscellaneous" = "Diversen";
 "Swipe Actions Display As" = "Geef veegacties weer als";
 "Text" = "Tekst";
 "Icon" = "Icoon";
 "Finish Automatically" = "Voltooi automatisch";
-"Always Install Latest" = "Installeer altijd de nieuwste";
+"Always Install Latest" = "Installeer altijd de laatste versie";
 "Automatic Refresh" = "Ververs automatisch";
 
 // Accent Colors
@@ -86,7 +86,7 @@
 "Use System Appearance" = "Gebruik systeemuiterlijk";
 "Light" = "Licht";
 "Dark" = "Donker";
-"Pure Black Mode" = "Pure Zwarte Modus";
+"Pure Black Mode" = "Donkere Weergave";
 
 // Featured
 
@@ -204,12 +204,12 @@
 "Select a version to install:" = "Selecteer een versie om te installeren:";
 "Select a version to upgrade to:" = "Selecteer een versie om naar op te waarderen:";
 "Select a version to downgrade to:" = "Selecteer een versie om naar te downgraden:";
-"Upgrade All" = "Waardeer alles op";
+"Upgrade All" = "Werk alles bij";
 "Loaded" = "Geladen";
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Grootte";
-"Available Upgrades" = "Beschikbare opwaarderingen";
+"Available Upgrades" = "Beschikbare Updates";
 "Recent" = "Recent";
 "Source" = "Bron";
 "Installed Files" = "Geïnstalleerde bestanden";
@@ -329,7 +329,7 @@
 "Install" = "Installeer";
 "Reinstall" = "Installeer opnieuw";
 "Remove" = "Verwijder";
-"Upgrade" = "Waardeer op";
+"Upgrade" = "Werk bij";
 "Downgrade" = "Downgrade";
 "Download Size" = "Downloadgrootte";
 "Confirm" = "Bevestig";
