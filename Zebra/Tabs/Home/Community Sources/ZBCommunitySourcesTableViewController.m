@@ -154,7 +154,7 @@
                                @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
         [result addObject:dict2];
     }
-    else if ([ZBDevice jailbreak] == ZBJailbreakUncover) { // unc0ver or checkra1n
+    else if ([ZBDevice jailbreak] == ZBJailbreakUnc0ver) { // unc0ver or checkra1n
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Bingner/Elucubratus",
                                @"url" : @"https://apt.bingner.com/",

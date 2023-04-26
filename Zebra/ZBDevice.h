@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, ZBJailbreak) {
     ZBJailbreakSimulated,
     ZBJailbreakLegacy,
     ZBJailbreakCheckra1n,
-    ZBJailbreakUncover,
+    ZBJailbreakUnc0ver,
     ZBJailbreakElectra,
     ZBJailbreakChimera,
     ZBJailbreakOdyssey,
