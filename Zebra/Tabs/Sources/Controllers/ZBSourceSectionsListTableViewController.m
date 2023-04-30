@@ -223,6 +223,10 @@
             }
             self->source.supportsFeaturedPackages = YES;
             NSArray *banners = json[@"banners"];
+            if (!banners) {
+                self->source.supportsFeaturedPackages = NO;
+                return;
+            }
 
             self->bannerSize = CGSizeFromString(json[@"itemSize"]);
             self.featuredPackages = banners;
