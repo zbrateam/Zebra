@@ -54,15 +54,15 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:[ZBAppDelegate databaseLocation]]) {
         return YES;
     }
-    
+
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager openDatabase];
-    
+
     // Checks to see if any of the databases have differing schemes and sets to update them if need be.
     BOOL migration = (needsMigration(databaseManager.database, 0) != 0 || needsMigration(databaseManager.database, 1) != 0 || needsMigration(databaseManager.database, 2) != 0);
 
     [databaseManager closeDatabase];
-    
+
     return migration;
 }
 
@@ -78,7 +78,7 @@
     sourceStruct.distribution = [source.distribution UTF8String];
     sourceStruct.components = [[[source components] componentsJoinedByString:@" "] UTF8String];
     sourceStruct.baseFilename = [source.baseFilename UTF8String];
-    
+
     return sourceStruct;
 }
 
@@ -117,6 +117,10 @@
 
     return [NSString stringWithFormat:@"(ARCHITECTURE IN (%@))",
             [archs componentsJoinedByString:@","]];
+}
+
+- (NSString *)_userArchitectureFilteringClause {
+    return [ZBSettings filterIncompatibleArchitectures] ? self._installablePackageArchitectureClause : @"(1=1)";
 }
 
 - (NSString *)_packageArchitectureWeightingClause {
@@ -180,7 +184,7 @@
             return SQLITE_ERROR;
         }
     }
-    
+
     if (--numberOfDatabaseUsers == 0 && [self isDatabaseOpen]) {
         int result = sqlite3_close(database);
         database = NULL;
@@ -260,12 +264,12 @@
     if (databaseBeingUpdated)
         return;
     databaseBeingUpdated = YES;
-    
+
     BOOL needsUpdate = NO;
     if (requested && haltDatabaseOperations) { //Halt database operations may need to be rethought
         [self setHaltDatabaseOperations:NO];
     }
-    
+
     if (!requested && [ZBSettings wantsAutoRefresh]) {
         NSDate *currentDate = [NSDate date];
         NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
@@ -280,17 +284,17 @@
             needsUpdate = YES;
         }
     }
-    
+
     if (requested || needsUpdate) {
         [self bulkDatabaseStartedUpdate];
-        
+
         NSError *readError = NULL;
         NSSet <ZBBaseSource *> *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
         if (readError) {
             //oh no!
             return;
         }
-        
+
         [self bulkPostStatusUpdate:NSLocalizedString(@"Updating Sources", @"") atLevel:ZBLogLevelInfo];
         [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"A total of %lu files will be downloaded", @""), (unsigned long)[baseSources count] * 2] atLevel:ZBLogLevelDescript];
         [self updateSources:baseSources useCaching:useCaching];
@@ -308,7 +312,7 @@
     if (!self.downloadManager) {
         self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
     }
-    
+
     [self bulkPostStatusUpdate:NSLocalizedString(@"Starting Download", @"") atLevel:ZBLogLevelInfo];
     [self.downloadManager downloadSources:sources useCaching:useCaching];
 }
@@ -327,20 +331,20 @@
     }
     [self bulkPostStatusUpdate:NSLocalizedString(@"Download Completed", @"") atLevel:ZBLogLevelInfo];
     self.downloadManager = nil;
-    
+
     if ([self openDatabase] == SQLITE_OK) {
         createTable(database, 0);
         createTable(database, 1);
         sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0", NULL, 0, NULL);
         sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION)", NULL, 0, NULL);
         sqlite3_int64 currentDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
-        
+
 //        dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.repoParsing", NULL);
         for (ZBBaseSource *source in sources) {
 //            dispatch_async(queue, ^{
                 [self bulkSetSource:[source baseFilename] busy:YES];
                 [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), [source repositoryURI]] atLevel:ZBLogLevelDescript];
-                
+
                 //Deal with the source first
                 int sourceID = [self sourceIDFromBaseFileName:[source baseFilename]];
                 if (!source.releaseFilePath && source.packagesFilePath) { //We need to create a dummy source (for sources with no Release file)
@@ -360,7 +364,7 @@
                             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
                         }
                     }
-                    
+
                     if ([source.repositoryURI hasPrefix:@"https"]) {
                         NSURL *url = [NSURL URLWithString:[source.repositoryURI stringByAppendingPathComponent:@"payment_endpoint"]];
 
@@ -382,20 +386,20 @@
                         [task resume];
                     }
                 }
-                
+
                 //Deal with the packages
                 if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], self->database, sourceID, currentDate) != PARSEL_OK) {
                     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.packagesFilePath] atLevel:ZBLogLevelError];
                 }
-                
+
                 [self bulkSetSource:[source baseFilename] busy:NO];
 //            });
         }
-        
+
         sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT", NULL, 0, NULL);
-        
+
         [self bulkPostStatusUpdate:NSLocalizedString(@"Done", @"") atLevel:ZBLogLevelInfo];
-        
+
         [self importLocalPackagesAndCheckForUpdates:YES sender:self];
         [self updateLastUpdated];
         [self bulkDatabaseCompletedUpdate:numberOfUpdates];
@@ -411,7 +415,7 @@
         NSLog(@"[Zebra] Database operations halted");
         return;
     }
-    
+
     BOOL needsDelegateStart = !([sender isKindOfClass:[ZBDatabaseManager class]]);
     if (needsDelegateStart) {
         [self bulkDatabaseStartedUpdate];
@@ -433,22 +437,22 @@
         NSLog(@"[Zebra] Database operations halted");
         return;
     }
-    
+
     NSString *installedPath;
     if ([ZBDevice needsSimulation]) { // If the target is a simlator, load a demo list of installed packages
         installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
     } else { // Otherwise, load the actual file
         installedPath = @INSTALL_PREFIX @"/var/lib/dpkg/status";
     }
-    
+
     if ([self openDatabase] == SQLITE_OK) {
         // Delete packages from local sources (-1 and 0)
         sqlite3_exec(database, "DELETE FROM PACKAGES WHERE REPOID = 0", NULL, 0, NULL);
         sqlite3_exec(database, "DELETE FROM PACKAGES WHERE REPOID = -1", NULL, 0, NULL);
-        
+
         // Import packages from the installedPath
         importPackagesToDatabase([installedPath UTF8String], database, 0);
-        
+
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -458,7 +462,7 @@
 - (void)checkForPackageUpdates {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *installedPackages = [NSMutableArray new];
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE REPOID = 0", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -469,13 +473,13 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         // Check for updates
         NSLog(@"[Zebra] Checking for updates…");
         NSMutableArray *found = [NSMutableArray new];
-        
+
         createTable(database, 2);
-        
+
         numberOfUpdates = 0;
         upgradePackageIDs = [NSMutableArray new];
         for (ZBPackage *package in installedPackages) {
@@ -483,12 +487,12 @@
                 ZBLog(@"[Zebra] I already checked %@, skipping", package.identifier);
                 continue;
             }
-            
+
             ZBPackage *topPackage = [self topVersionForPackage:package];
             NSComparisonResult compare = [package compare:topPackage];
             if (compare == NSOrderedAscending) {
                 ZBLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
-                
+
                 BOOL ignoreUpdates = [topPackage ignoreUpdates];
                 if (!ignoreUpdates) ++numberOfUpdates;
 
@@ -506,7 +510,7 @@
                     [self printDatabaseError];
                 }
                 sqlite3_finalize(statement);
-                
+
                 [upgradePackageIDs addObject:[topPackage identifier]];
             } else if (compare == NSOrderedSame) {
                 char *query;
@@ -537,7 +541,7 @@
             }
             [found addObject:package.identifier];
         }
-        
+
         //In order to make this easy, we're going to check for "Essential" packages that aren't installed and mark them as updates
         NSMutableArray *essentials = [NSMutableArray new];
         sqlite3_stmt *essentialStatement; //v important statement
@@ -548,10 +552,10 @@
             while (sqlite3_step(essentialStatement) == SQLITE_ROW) {
                 const char *identifierChars = (const char *)sqlite3_column_text(essentialStatement, 0);
                 const char *versionChars = (const char *)sqlite3_column_text(essentialStatement, 1);
-                
+
                 NSString *packageIdentifier = [NSString stringWithUTF8String:identifierChars];
                 NSString *version = [NSString stringWithUTF8String:versionChars];
-                
+
                 if (![self packageIDIsInstalled:packageIdentifier version:NULL]) {
                     NSDictionary *essentialPackage = @{@"id": packageIdentifier, @"version": version};
                     [essentials addObject:essentialPackage];
@@ -561,11 +565,11 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(essentialStatement);
-        
+
         for (NSDictionary *essentialPackage in essentials) {
             NSString *identifier = [essentialPackage objectForKey:@"id"];
             NSString *version = [essentialPackage objectForKey:@"version"];
-            
+
             BOOL ignoreUpdates = [self areUpdatesIgnoredForPackageIdentifier:[essentialPackage objectForKey:@"id"]];
             if (!ignoreUpdates) ++numberOfUpdates;
 
@@ -582,10 +586,10 @@
                 [self printDatabaseError];
             }
             sqlite3_finalize(statement);
-            
+
             [upgradePackageIDs addObject:identifier];
         }
-        
+
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -596,7 +600,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         sqlite3_exec(database, "DROP TABLE PACKAGES", NULL, 0, NULL);
         sqlite3_exec(database, "DROP TABLE REPOS", NULL, 0, NULL);
-        
+
         // Update UPDATES table schema while retaining user data
         sqlite3_exec(database, "DELETE FROM UPDATES WHERE IGNORE != 1", NULL, 0, NULL);
         sqlite3_exec(database, "CREATE TABLE UPDATES_SNAPSHOT AS SELECT PACKAGE, VERSION, IGNORE FROM UPDATES", NULL, 0, NULL);
@@ -604,7 +608,7 @@
         createTable(database, 2);
         sqlite3_exec(database, "INSERT INTO UPDATES SELECT PACKAGE, VERSION, IGNORE FROM UPDATES_SNAPSHOT", NULL, 0, NULL);
         sqlite3_exec(database, "DROP TABLE UPDATES_SNAPSHOT", NULL, 0, NULL);
-        
+
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -631,7 +635,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return sourceID;
     } else {
@@ -662,7 +666,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return sourceID;
     } else {
@@ -675,7 +679,7 @@
     NSRange dividerRange = [burl rangeOfString:@"://"];
     NSUInteger divide = NSMaxRange(dividerRange);
     NSString *baseURL = divide > [burl length] ? burl : [burl substringFromIndex:divide];
-    
+
     if ([self openDatabase] == SQLITE_OK) {
         sqlite3_stmt *statement = NULL;
         ZBSource *source = nil;
@@ -690,7 +694,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         return source;
     } else {
         [self printDatabaseError];
@@ -713,7 +717,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         return source;
     } else {
         [self printDatabaseError];
@@ -736,9 +740,9 @@
         } else {
             [self printDatabaseError];
         }
-        
+
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return sourceID + 1;
     } else {
@@ -763,7 +767,7 @@
                      @"GROUP BY PACKAGE",
                      sourcePart];
         }
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             int i = 0;
@@ -800,7 +804,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return packages;
     } else {
@@ -839,7 +843,7 @@
 
         return [sources setByAddingObjectsFromSet:baseSources];
     }
-    
+
     [self printDatabaseError];
     return NULL;
 }
@@ -863,7 +867,7 @@
 
         return source;
     }
-    
+
     [self printDatabaseError];
     return NULL;
 }
@@ -876,7 +880,7 @@
         if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS WHERE VENDOR NOT NULL", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                
+
                 [sources addObject:source];
             }
         } else {
@@ -887,7 +891,7 @@
 
         return sources;
     }
-    
+
     [self printDatabaseError];
     return NULL;
 }
@@ -896,12 +900,12 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSString *packageQuery = [NSString stringWithFormat:@"DELETE FROM PACKAGES WHERE REPOID = %d", [source sourceID]];
         NSString *sourceQuery = [NSString stringWithFormat:@"DELETE FROM REPOS WHERE REPOID = %d", [source sourceID]];
-        
+
         sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
         sqlite3_exec(database, [packageQuery UTF8String], NULL, NULL, NULL);
         sqlite3_exec(database, [sourceQuery UTF8String], NULL, NULL, NULL);
         sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
-        
+
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -922,7 +926,7 @@
         char *query = "SELECT SECTION FROM PACKAGES "
                       "GROUP BY SECTION "
                       "ORDER BY SECTION";
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -936,7 +940,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return sections;
     } else {
@@ -947,15 +951,15 @@
 
 - (NSDictionary * _Nullable)sectionReadoutForSource:(ZBSource *)source {
     if (![source respondsToSelector:@selector(sourceID)]) return NULL;
-    
+
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
-        
+
         char *query = "SELECT SECTION, COUNT(DISTINCT PACKAGE) AS SECTION_COUNT FROM PACKAGES "
                       "WHERE REPOID = ? "
                       "GROUP BY SECTION "
                       "ORDER BY SECTION";
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_int(statement, 1, source.sourceID);
@@ -971,7 +975,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return sectionReadout;
     } else {
@@ -985,12 +989,12 @@
         char *query = "SELECT VENDOR FROM REPOS "
                       "WHERE REPOID = ?";
         sqlite3_stmt *statement = NULL;
-        
+
         NSString *vendorURL = nil;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_int(statement, 1, source.sourceID);
             sqlite3_step(statement);
-            
+
             const char *vendorChars = (const char *)sqlite3_column_text(statement, 0);
             vendorURL = vendorChars ? [NSString stringWithUTF8String:vendorChars] : NULL;
         }
@@ -998,7 +1002,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         if (vendorURL) {
             return [NSURL URLWithString:vendorURL];
@@ -1010,35 +1014,41 @@
 #pragma mark - Package management
 
 - (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering {
-    
+
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSString *query = nil;
         NSString *cleanedSection;
 
         if (section == NULL) {
-            NSString *sourcePart = source ? [NSString stringWithFormat:@"WHERE REPOID = %d", [source sourceID]] : @"WHERE REPOID > 0";
+            NSString *sourcePart = source ? [NSString stringWithFormat:@"= %d", [source sourceID]] : @"> 0";
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
-                     @"%@ "
+                     @"WHERE REPOID %@ AND %@ "
                      @"ORDER BY %@, LASTSEEN DESC "
                      @"LIMIT %d "
                      @"OFFSET %d",
-                     sourcePart, self._packageArchitectureWeightingClause, limit, start];
+                     sourcePart,
+                     self._userArchitectureFilteringClause,
+                     self._packageArchitectureWeightingClause,
+                     limit, start];
         } else {
-            NSString *sourcePart = source ? [NSString stringWithFormat:@"AND REPOID = %d", [source sourceID]] : @"AND REPOID > 0";
+            NSString *sourcePart = source ? [NSString stringWithFormat:@"= %d", [source sourceID]] : @"> 0";
 
             cleanedSection = [section containsString:@"_"]
                 ? [section stringByReplacingOccurrencesOfString:@"_" withString:@" "]
                 : [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
-                     @"WHERE (SECTION = ? OR SECTION = ?) %@ "
+                     @"WHERE (SECTION = ? OR SECTION = ?) AND REPOID %@ AND %@ "
                      @"ORDER BY %@ "
                      @"LIMIT %d "
                      @"OFFSET %d",
-                     sourcePart, self._packageArchitectureWeightingClause, limit, start];
+                     sourcePart,
+                     self._userArchitectureFilteringClause,
+                     self._packageArchitectureWeightingClause,
+                     limit, start];
         }
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             if (section) {
@@ -1048,10 +1058,10 @@
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                
+
                 if (section == NULL && enableFiltering && [ZBSettings isPackageFiltered:package])
                     continue;
-                
+
                 [packages addObject:package];
             }
         } else {
@@ -1059,7 +1069,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         return [self cleanUpDuplicatePackages:packages];
     } else {
         [self printDatabaseError];
@@ -1078,7 +1088,7 @@
 
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID %@",
                            includeVirtualDependencies ? @"< 1" : @"= 0"];
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1098,7 +1108,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         return installedPackages;
     } else {
         [self printDatabaseError];
@@ -1109,19 +1119,19 @@
 - (NSDictionary <NSString *, NSArray <NSDictionary *> *> *)installedPackagesList {
     NSMutableArray *installedPackages = [NSMutableArray new];
     NSMutableArray *virtualPackages = [NSMutableArray new];
-    
+
     for (ZBPackage *package in [self installedPackages:YES]) {
         NSDictionary *installedPackage = @{@"identifier": [package identifier], @"version": [package version]};
         [installedPackages addObject:installedPackage];
-        
+
         for (NSString *virtualPackageLine in [package provides]) {
             NSArray *comps = [ZBDependencyResolver separateVersionComparison:virtualPackageLine];
             NSDictionary *virtualPackage = @{@"identifier": comps[0], @"version": comps[2]};
-            
+
             [virtualPackages addObject:virtualPackage];
         }
     }
-    
+
     return @{@"installed": installedPackages, @"virtual": virtualPackages};
 }
 
@@ -1129,7 +1139,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray <ZBPackage *> *packagesWithIgnoredUpdates = [NSMutableArray new];
         NSMutableArray <NSString *> *irrelevantPackages = [NSMutableArray new];
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, "SELECT * FROM UPDATES WHERE IGNORE = 1", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1139,7 +1149,7 @@
                 ZBPackage *package = nil;
                 if (versionChars != 0) {
                     NSString *version = [NSString stringWithUTF8String:versionChars];
-                    
+
                     package = [self packageForID:identifier equalVersion:version];
                     if (package != NULL) {
                         [packagesWithIgnoredUpdates addObject:package];
@@ -1157,7 +1167,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         if (irrelevantPackages.count) {
             NSMutableArray <NSString *> *packageTemplates = [NSMutableArray array];
             for (int i = 0; i < irrelevantPackages.count; i++) {
@@ -1173,9 +1183,9 @@
             }
             sqlite3_finalize(statement);
         }
-        
+
         [self closeDatabase];
-        
+
         return packagesWithIgnoredUpdates;
     } else {
         [self printDatabaseError];
@@ -1186,7 +1196,7 @@
 - (NSMutableArray <ZBPackage *> * _Nullable)packagesWithUpdates {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packagesWithUpdates = [NSMutableArray new];
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, "SELECT * FROM UPDATES WHERE IGNORE = 0", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1195,7 +1205,7 @@
                 NSString *identifier = [NSString stringWithUTF8String:identifierChars];
                 if (versionChars != 0) {
                     NSString *version = [NSString stringWithUTF8String:versionChars];
-                    
+
                     ZBPackage *package = [self packageForID:identifier equalVersion:version];
                     if (package != NULL && [upgradePackageIDs containsObject:package.identifier]) {
                         [packagesWithUpdates addObject:package];
@@ -1208,7 +1218,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return packagesWithUpdates;
     } else {
@@ -1243,22 +1253,22 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (fullSearch) {
                     ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                    
+
                     [searchResults addObject:package];
                 }
                 else {
                     ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
-                    
+
                     const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
                     const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
-                    
+
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
                     NSURL *iconURL = [NSURL URLWithString:iconURLString];
-                    
+
                     if (section) proxyPackage.section = section;
                     if (iconURL) proxyPackage.iconURL = iconURL;
-                    
+
                     [searchResults addObject:proxyPackage];
                 }
             }
@@ -1267,7 +1277,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         return [self cleanUpDuplicatePackages:searchResults];
     } else {
         [self printDatabaseError];
@@ -1290,7 +1300,7 @@
                            @") COLLATE NOCASE "
                            @"%@",
                            self._packageArchitectureWeightingClause, limit];
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             NSString *authorNameLike = [self _escapeLikeString:authorName];
@@ -1301,10 +1311,10 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *authorChars = (const char *)sqlite3_column_text(statement, 0);
                 const char *emailChars = (const char *)sqlite3_column_text(statement, 1);
-                
+
                 NSString *author = authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL;
                 NSString *email = emailChars != 0 ? [NSString stringWithUTF8String:emailChars] : NULL;
-                
+
                 if (author || email) {
                     [searchResults addObject:@[author ?: email, email ?: author]];
                 }
@@ -1314,7 +1324,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         return searchResults;
     } else {
         [self printDatabaseError];
@@ -1332,7 +1342,7 @@
                            @"ORDER BY %@ "
                            @"%@",
                            self._packageArchitectureWeightingClause, limit];
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [authorEmail UTF8String], -1, SQLITE_TRANSIENT);
@@ -1340,10 +1350,10 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *authorChars = (const char *)sqlite3_column_text(statement, 0);
                 const char *emailChars = (const char *)sqlite3_column_text(statement, 1);
-                
+
                 NSString *author = authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL;
                 NSString *email = emailChars != 0 ? [NSString stringWithUTF8String:emailChars] : NULL;
-                
+
                 if (author && email) {
                     [searchResults addObject:@[author, email]];
                 }
@@ -1353,7 +1363,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         return searchResults;
     } else {
         [self printDatabaseError];
@@ -1381,7 +1391,7 @@
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                
+
                 [packages addObject:package];
             }
         } else {
@@ -1389,7 +1399,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         return [self cleanUpDuplicatePackages:packages];
     } else {
         [self printDatabaseError];
@@ -1404,7 +1414,7 @@
                            @"ORDER BY %@ "
                            @"LIMIT 1",
                            self._packageArchitectureWeightingClause];
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [proxy.identifier UTF8String], -1, SQLITE_TRANSIENT);
@@ -1412,11 +1422,11 @@
             sqlite3_bind_int(statement, 3, proxy.sourceID);
 
             sqlite3_step(statement);
-            
+
             ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
             sqlite3_finalize(statement);
             [self closeDatabase];
-            
+
             return package;
         }
         else {
@@ -1454,7 +1464,7 @@
             }
             sqlite3_finalize(statement);
             [self closeDatabase];
-            
+
             return packageIsInstalled;
         } else {
             [self printDatabaseError];
@@ -1482,7 +1492,7 @@
                            @"ORDER BY %@ "
                            @"LIMIT 1",
                            versionQuery, self._packageArchitectureWeightingClause];
-        
+
         BOOL packageIsInstalled = NO;
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -1500,7 +1510,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         ZBLog(@"[Zebra] Is %@ (version: %@) installed? : %d", packageIdentifier, version, packageIsInstalled);
         return packageIsInstalled;
     } else {
@@ -1532,7 +1542,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return packageIsAvailable;
     } else {
@@ -1565,7 +1575,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return package;
     } else {
@@ -1596,7 +1606,7 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return ignored;
     } else {
@@ -1609,7 +1619,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         char *query = "REPLACE INTO UPDATES (PACKAGE, VERSION, IGNORE) "
                       "VALUES (?, ?, ?)";
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [package.identifier UTF8String], -1, SQLITE_TRANSIENT);
@@ -1623,7 +1633,7 @@
             NSLog(@"[Zebra] Error preparing setting package ignore updates statement: %s", sqlite3_errmsg(database));
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -1657,7 +1667,7 @@
                            @"ORDER BY %@ "
                            @"LIMIT 1",
                            excludeQuery, self._installablePackageArchitectureClause, self._packageArchitectureWeightingClause];
-        
+
         NSMutableArray <ZBPackage *> *packages = [NSMutableArray new];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
@@ -1673,13 +1683,13 @@
             sqlite3_bind_text(statement, offset + 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, offset + 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, offset + 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
-            
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *providesLine = (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
                 if (providesLine != 0) {
                     NSString *provides = [[NSString stringWithUTF8String:providesLine] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                     NSArray *virtualPackages = [provides componentsSeparatedByString:@","];
-                    
+
                     for (NSString *virtualPackage in virtualPackages) {
                         NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:[virtualPackage stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
                         if ([versionComponents[0] isEqualToString:packageIdentifier] &&
@@ -1696,7 +1706,7 @@
             return NULL;
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
         return [packages count] ? packages[0] : NULL; //Returns the first package in the array, we could use interactive dependency resolution in the future
     } else {
@@ -1728,7 +1738,7 @@
         const char *sixthSearchTerm   = [[NSString stringWithFormat:@"%%| %@",     packageIDLike] UTF8String];
         const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIDLike] UTF8String];
         const char *eighthSearchTerm  = [[NSString stringWithFormat:@"%@ |%%",     packageIDLike] UTF8String];
-        
+
         NSMutableArray <ZBPackage *> *packages = [NSMutableArray new];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
@@ -1744,7 +1754,7 @@
             sqlite3_bind_text(statement, offset + 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, offset + 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, offset + 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
-            
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 [packages addObject:package];
@@ -1754,7 +1764,7 @@
             return NULL;
         }
         sqlite3_finalize(statement);
-        
+
         for (ZBPackage *package in packages) {
             //If there is a comparison and a version then we return the first package that satisfies this comparison, otherwise we return the first package we see
             //(this also sets us up better later for interactive dependency resolution)
@@ -1767,7 +1777,7 @@
                 return package;
             }
         }
-        
+
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -1798,12 +1808,12 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         // Only try to resolve "Provides" if we can't resolve the normal package.
         if (checkVirtual && package == NULL) {
             package = [self packageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
         }
-        
+
         if (package != NULL) {
             NSArray *otherVersions = [self allVersionsForPackage:package];
             if (version != NULL && comparison != NULL) {
@@ -1814,7 +1824,7 @@
                             return package;
                         }
                     }
-                    
+
                     [self closeDatabase];
                     return NULL;
                 }
@@ -1823,7 +1833,7 @@
             }
             return otherVersions.firstObject;
         }
-        
+
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -1846,7 +1856,7 @@
                            @"WHERE PACKAGE = ? COLLATE NOCASE AND REPOID = 0 %@ "
                            @"LIMIT 1",
                            excludeQuery];
-        
+
         ZBPackage *package;
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -1863,12 +1873,12 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
-        
+
         // Only try to resolve "Provides" if we can't resolve the normal package.
         if (checkVirtual && package == NULL) {
             package = [self installedPackageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version thatIsNot:exclude]; //there is a scenario here where two packages that provide a package could be found (ex: anemone, snowboard, and ithemer all provide winterboard) we need to ask the user which one to pick.
         }
-        
+
         if (package != NULL) {
             [self closeDatabase];
             if (version != NULL && comparison != NULL) {
@@ -1876,7 +1886,7 @@
             }
             return package;
         }
-        
+
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -1902,12 +1912,13 @@
 
         NSString *repoQuery = source ? @"AND REPOID = ?" : @"";
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
-                           @"WHERE PACKAGE = ? %@ "
+                           @"WHERE PACKAGE = ? %@ AND %@ "
                            @"ORDER BY %@",
                            repoQuery,
+                           self._userArchitectureFilteringClause,
                            self._packageArchitectureWeightingClause];
         sqlite3_stmt *statement = NULL;
-        
+
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
             if (source != NULL) {
@@ -1916,15 +1927,15 @@
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
             ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-            
+
             [allVersions addObject:package];
         }
         sqlite3_finalize(statement);
-        
+
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
         NSArray *sorted = [allVersions sortedArrayUsingDescriptors:@[sort]];
         [self closeDatabase];
-        
+
         return sorted;
     } else {
         [self printDatabaseError];
@@ -1941,8 +1952,9 @@
         NSMutableArray *otherVersions = [NSMutableArray new];
 
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
-                           @"WHERE PACKAGE = ? AND VERSION != ? "
+                           @"WHERE PACKAGE = ? AND VERSION != ? AND %@"
                            @"ORDER BY %@",
+                           self._userArchitectureFilteringClause,
                            self._packageArchitectureWeightingClause];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
@@ -1953,16 +1965,16 @@
             int sourceID = sqlite3_column_int(statement, ZBPackageColumnSourceID);
             if (sourceID > 0) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                
+
                 [otherVersions addObject:package];
             }
         }
         sqlite3_finalize(statement);
-        
+
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
         NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
         [self closeDatabase];
-        
+
         return sorted;
     } else {
         [self printDatabaseError];
@@ -1973,7 +1985,7 @@
 - (NSArray * _Nullable)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        
+
         sqlite3_stmt *statement = NULL;
         NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
         NSString *emailMatch = email ? @" AND AUTHOREMAIL = ?" : @"";
@@ -1988,7 +2000,7 @@
             sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 2, [[NSString stringWithFormat:@"%%%@%%", nameLike] UTF8String], -1, SQLITE_TRANSIENT);
             if (email) sqlite3_bind_text(statement, 2, [email UTF8String], -1, SQLITE_TRANSIENT);
-            
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (fullSearch) {
                     const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
@@ -2000,25 +2012,25 @@
                 }
                 else {
                     ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
-                    
+
                     const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
                     const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
-                    
+
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
                     NSURL *iconURL = [NSURL URLWithString:iconURLString];
-                    
+
                     if (section) proxyPackage.section = section;
                     if (iconURL) proxyPackage.iconURL = iconURL;
-                    
+
                     [searchResults addObject:proxyPackage];
                 }
             }
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
-        
+
         return [self cleanUpDuplicatePackages:searchResults];
     } else {
         [self printDatabaseError];
@@ -2029,7 +2041,7 @@
 - (NSArray * _Nullable)packagesWithDescription:(NSString *)description fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        
+
         sqlite3_stmt *statement = NULL;
         NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
         NSString *limit = fullSearch ? @"" : @" LIMIT 30";
@@ -2053,25 +2065,25 @@
                 }
                 else {
                     ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
-                    
+
                     const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
                     const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
-                    
+
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
                     NSURL *iconURL = [NSURL URLWithString:iconURLString];
-                    
+
                     if (section) proxyPackage.section = section;
                     if (iconURL) proxyPackage.iconURL = iconURL;
-                    
+
                     [searchResults addObject:proxyPackage];
                 }
             }
         }
         sqlite3_finalize(statement);
-        
+
         [self closeDatabase];
-        
+
         return [self cleanUpDuplicatePackages:searchResults];
     } else {
         [self printDatabaseError];
@@ -2093,7 +2105,7 @@
                            @"ORDER BY RANDOM() "
                            @"LIMIT %d",
                            [sourceTemplates componentsJoinedByString:@","], self._installablePackageArchitectureClause, limit];
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             for (int i = 0; i < blacklistedSources.count; i++) {
@@ -2148,7 +2160,7 @@
         const char *sixthSearchTerm   = [[NSString stringWithFormat:@"%%| %@",     packageIDLike] UTF8String];
         const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIDLike] UTF8String];
         const char *eighthSearchTerm  = [[NSString stringWithFormat:@"%@ |%%",     packageIDLike] UTF8String];
-        
+
         const char *query = "SELECT * FROM PACKAGES WHERE ("
                 "DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS = ?"
             ") AND REPOID = 0";
@@ -2163,12 +2175,12 @@
             sqlite3_bind_text(statement, 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 9, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
-            
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *dependsChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
                 NSString *depends = dependsChars != 0 ? [NSString stringWithUTF8String:dependsChars] : NULL; //Depends shouldn't be NULL here but you know just in case because this can be weird
                 NSArray *dependsOn = [depends componentsSeparatedByString:@", "];
-                
+
                 BOOL packageNeedsToBeRemoved = NO;
                 for (NSString *dependsLine in dependsOn) {
                     NSError *error = NULL;
@@ -2190,7 +2202,7 @@
         }
         sqlite3_finalize(statement);
         [self closeDatabase];
-        
+
         for (NSString *provided in [package provides]) { //If the package is removed and there is no other package that provides this dependency, we have to remove those as well
             if ([provided containsString:packageIdentifier]) continue;
             if (![[package identifier] isEqualToString:packageIdentifier] && [[package provides] containsObject:provided]) continue;
@@ -2198,7 +2210,7 @@
                 [packages addObjectsFromArray:[self packagesThatDependOnPackageIdentifier:provided removedPackage:package]];
             }
         }
-        
+
         return packages.count ? packages : nil;
     } else {
         [self printDatabaseError];
@@ -2219,7 +2231,7 @@
         const char *sixthSearchTerm   = [[NSString stringWithFormat:@"%%| %@",     packageIDLike] UTF8String];
         const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIDLike] UTF8String];
         const char *eighthSearchTerm  = [[NSString stringWithFormat:@"%@ |%%",     packageIDLike] UTF8String];
-        
+
         const char *query = "SELECT * FROM PACKAGES WHERE ("
                 "CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS = ?"
             ") AND REPOID = 0";
@@ -2239,7 +2251,7 @@
                 [packages addObject:found];
             }
         }
-        
+
         for (ZBPackage *conflictingPackage in [packages copy]) {
             for (NSString *conflict in [conflictingPackage conflictsWith]) {
                 if (([conflict containsString:@"("] || [conflict containsString:@")"]) && [conflict containsString:[package identifier]]) {
@@ -2250,7 +2262,7 @@
                 }
             }
         }
-        
+
         sqlite3_finalize(statement);
         [self closeDatabase];
         return packages.count ? packages : nil;
@@ -2281,11 +2293,11 @@
         ZBQueue *queue = [ZBQueue sharedQueue];
         NSArray *addedPackages =   [queue packagesQueuedForAdddition]; //Packages that are being installed, upgraded, removed, downgraded, etc. (dependencies as well)
         NSArray *removedPackages = [queue packageIDsQueuedForRemoval]; //Just packageIDs that are queued for removal (conflicts as well)
-        
+
         NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:dependency];
         NSString *packageIdentifier = versionComponents[0];
         BOOL needsVersionComparison = ![versionComponents[1] isEqualToString:@"<=>"] && ![versionComponents[2] isEqualToString:@"0:0"];
-        
+
         NSMutableArray <NSString *> *excludes = [NSMutableArray array];
         for (int i = 0; i < removedPackages.count; i++) {
             [excludes addObject:@"?"];
@@ -2309,7 +2321,7 @@
                            @") AND %@ "
                            @"LIMIT 1",
                            [excludes componentsJoinedByString:@","], self._installablePackageArchitectureClause];
-        
+
         BOOL found = NO;
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -2326,11 +2338,11 @@
             sqlite3_bind_text(statement, (int)removedPackages.count + 8, sixthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, (int)removedPackages.count + 9, seventhSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, (int)removedPackages.count + 10, eighthSearchTerm, -1, SQLITE_TRANSIENT);
-            
+
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (needsVersionComparison) {
                     const char* foundVersion = (const char*)sqlite3_column_text(statement, 0);
-                    
+
                     if (foundVersion != 0) {
                         if ([ZBDependencyResolver doesVersion:[NSString stringWithUTF8String:foundVersion] satisfyComparison:versionComponents[1] ofVersion:versionComponents[2]]) {
                             found = YES;
@@ -2343,7 +2355,7 @@
                     break;
                 }
             }
-            
+
             if (!found) { //Search the array of packages that are queued for installation to see if one of them satisfies the dependency
                 for (NSDictionary *package in addedPackages) {
                     if ([[package objectForKey:@"identifier"] isEqualToString:packageIdentifier]) {
@@ -2356,7 +2368,7 @@
                 }
                 return NO;
             }
-            
+
             sqlite3_finalize(statement);
             [self closeDatabase];
             return found;
@@ -2413,7 +2425,7 @@
 - (NSArray *)cleanUpDuplicatePackages:(NSArray <ZBPackage *> *)packageList {
     NSMutableDictionary *packageVersionDict = [[NSMutableDictionary alloc] init];
     NSMutableArray *results = [NSMutableArray array];
-    
+
     for (ZBPackage *package in packageList) {
         ZBPackage *packageFromDict = packageVersionDict[package.identifier];
         if (packageFromDict == NULL) {
@@ -2421,12 +2433,12 @@
             [results addObject:package];
             continue;
         }
-        
+
         if ([package sameAs:packageFromDict]) {
             NSString *packageDictVersion = [packageFromDict version];
             NSString *packageVersion = package.version;
             int result = compare([packageVersion UTF8String], [packageDictVersion UTF8String]);
-            
+
             if (result > 0) {
                 NSUInteger index = [results indexOfObject:packageFromDict];
                 packageVersionDict[package.identifier] = package;
@@ -2434,7 +2446,7 @@
             }
         }
     }
-    
+
     return results;
 }
 
@@ -2456,12 +2468,12 @@
 - (ZBPackage *)localVersionForPackage:(ZBPackage *)package {
     if ([[package source] sourceID] == 0) return package;
     if (![package isInstalled:NO]) return NULL;
-    
+
     ZBPackage *localPackage = NULL;
     if ([self openDatabase] == SQLITE_OK) {
         char *query = "SELECT * FROM PACKAGES "
                       "WHERE PACKAGE = ? AND REPOID = 0";
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [package.identifier UTF8String], -1, SQLITE_TRANSIENT);
@@ -2478,7 +2490,7 @@
     } else {
         [self printDatabaseError];
     }
-    
+
     return localPackage;
 }
 
@@ -2487,7 +2499,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         char *query = "SELECT VERSION FROM PACKAGES "
                       "WHERE PACKAGE = ? AND REPOID = 0";
-        
+
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [package.identifier UTF8String], -1, SQLITE_TRANSIENT);
@@ -2507,7 +2519,7 @@
     } else {
         [self printDatabaseError];
     }
-    
+
     return version;
 }
 

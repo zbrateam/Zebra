@@ -13,6 +13,7 @@
 #import <UIKit/UIWindow.h>
 #import "ZBSource.h"
 #import "ZBPackage.h"
+#import "ZBDevice.h"
 
 @implementation ZBSettings
 
@@ -28,6 +29,7 @@ NSString *const SelectedLanguageKey = @"AppleLanguages";
 NSString *const FilteredSectionsKey = @"FilteredSections";
 NSString *const FilteredSourcesKey = @"FilteredSources";
 NSString *const BlockedAuthorsKey = @"BlockedAuthors";
+NSString *const FilterIncompatibleArchitecturesKey = @"FilterIncompatibleArchitectures";
 
 NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
 NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
@@ -375,8 +377,28 @@ NSString *const SendErrorReportsKey = @"SendErrorReports";
     return [emails containsObject:email] || [names containsObject:name];
 }
 
++ (BOOL)filterIncompatibleArchitectures {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if (![defaults objectForKey:FilterIncompatibleArchitecturesKey]) {
+        [self setFilterIncompatibleArchitectures:YES];
+        return YES;
+    }
+    return [defaults boolForKey:FilterIncompatibleArchitecturesKey];
+}
+
++ (void)setFilterIncompatibleArchitectures:(BOOL)filterIncompatibleArchitectures {
+    [[NSUserDefaults standardUserDefaults] setBool:filterIncompatibleArchitectures forKey:FilterIncompatibleArchitecturesKey];
+}
+
++ (BOOL)isPackageArchitectureFiltered:(NSString *)architecture {
+    return self.filterIncompatibleArchitectures ? ![[ZBDevice allDebianArchitectures] containsObject:architecture] : NO;
+}
+
 + (BOOL)isPackageFiltered:(ZBPackage *)package {
-    return [self isSectionFiltered:package.section forSource:package.source] || [self isAuthorBlocked:package.authorName email:package.authorEmail];
+    return [self isSectionFiltered:package.section forSource:package.source]
+        || [self isAuthorBlocked:package.authorName email:package.authorEmail]
+        || [self isPackageArchitectureFiltered:package.architecture];
 }
 
 #pragma mark - Homepage Settings

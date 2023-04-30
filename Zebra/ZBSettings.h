@@ -130,6 +130,9 @@ extern NSString *const SendErrorReportsKey;
 + (void)setBlockedAuthors:(NSDictionary *)blockedAuthors;
 + (BOOL)isAuthorBlocked:(NSString *)name email:(NSString *)name;
 
++ (BOOL)filterIncompatibleArchitectures;
++ (void)setFilterIncompatibleArchitectures:(BOOL)filterIncompatibleArchitectures;
+
 + (BOOL)isPackageFiltered:(ZBPackage *)package;
 
 #pragma mark - Homepage settings

@@ -84,18 +84,20 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return ignoredUpdates.count ? 4 : 3;
+    return ignoredUpdates.count ? 5 : 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return filteredSections.count + 1;
+            return 1;
         case 1:
-            return filteredSources.count + 1;
+            return filteredSections.count + 1;
         case 2:
-            return blockedAuthors.count + 1;
+            return filteredSources.count + 1;
         case 3:
+            return blockedAuthors.count + 1;
+        case 4:
             return ignoredUpdates.count;
         default:
             return 1;
@@ -105,6 +107,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0: {
+            static NSString *cellIdentifier = @"settingsCell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            }
+            cell.backgroundColor = [UIColor cellBackgroundColor];
+            cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            enableSwitch.on = ![ZBSettings filterIncompatibleArchitectures];
+            [enableSwitch addTarget:self action:@selector(toggleIncompatibleArchitectures:) forControlEvents:UIControlEventValueChanged];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
+            cell.accessoryView = enableSwitch;
+            cell.textLabel.text = NSLocalizedString(@"Show Incompatible Packages", @"");
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            return cell;
+        }
+        case 1: {
             if (indexPath.row < filteredSections.count) {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
                 cell.textLabel.text = filteredSections[indexPath.row];
@@ -119,7 +139,7 @@
             }
             break;
         }
-        case 1: {
+        case 2: {
             if (indexPath.row < filteredSources.count) {
                 ZBSourceTableViewCell *sourceCell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
                 ZBSource *source = sources[indexPath.row];
@@ -137,7 +157,7 @@
             }
             break;
         }
-        case 2: {
+        case 3: {
             if (indexPath.row < blockedAuthors.count) {
                 UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -159,7 +179,7 @@
             }
             break;
         }
-        case 3: {
+        case 4: {
             if (indexPath.row < ignoredUpdates.count) {
                 ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
                 ZBPackage *package = ignoredUpdates[indexPath.row];
@@ -182,7 +202,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 3) {
         NSMutableString *message = [NSLocalizedString(@"This author also goes by the following names:", @"") mutableCopy];
         
         NSString *email = [blockedAuthors allKeys][indexPath.row];
@@ -204,12 +224,14 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return NSLocalizedString(@"Sections", @"");
+            return NSLocalizedString(@"Compatibility", @"");
         case 1:
-            return NSLocalizedString(@"Sources", @"");
+            return NSLocalizedString(@"Sections", @"");
         case 2:
-            return NSLocalizedString(@"Authors", @"");
+            return NSLocalizedString(@"Sources", @"");
         case 3:
+            return NSLocalizedString(@"Authors", @"");
+        case 4:
             return NSLocalizedString(@"Updates", @"");
     }
     return nil;
@@ -218,12 +240,14 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return NSLocalizedString(@"Hide packages in these sections.", @"");
+            return NSLocalizedString(@"Display all packages, even if they can’t be installed on the current jailbreak.", @"");
         case 1:
-            return NSLocalizedString(@"Hide packages in these sections from specific sources.", @"");
+            return NSLocalizedString(@"Hide packages in these sections.", @"");
         case 2:
-            return NSLocalizedString(@"Hide packages from these authors.", @"");
+            return NSLocalizedString(@"Hide packages in these sections from specific sources.", @"");
         case 3:
+            return NSLocalizedString(@"Hide packages from these authors.", @"");
+        case 4:
             return NSLocalizedString(@"Hide future updates from these packages.", @"");
     }
     return nil;
@@ -236,7 +260,9 @@
     BOOL lastRow = indexPath.row == rowCount - 1;
     
     switch (indexPath.section) {
-        case 0: {
+        case 0:
+            break;
+        case 1: {
             if (lastRow) {
                 ZBSectionSelectorTableViewController *sectionPicker = [[ZBSectionSelectorTableViewController alloc] init];
                 [sectionPicker setSectionsSelected:^(NSArray * _Nonnull selectedSections) {
@@ -254,7 +280,7 @@
             }
             break;
         }
-        case 1: {
+        case 2: {
             if (!lastRow) {
                 ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:sources[indexPath.row]];
                 
@@ -279,7 +305,7 @@
             }
             break;
         }
-        case 2:
+        case 3:
             if (lastRow) {
                 ZBAuthorSelectorTableViewController *authorPicker = [[ZBAuthorSelectorTableViewController alloc] init];
                 [authorPicker setAuthorsSelected:^(NSDictionary * _Nonnull selectedAuthors) {
@@ -296,13 +322,13 @@
                 [self presentViewController:nav animated:YES completion:nil];
             }
             break;
-        case 3:
+        case 4:
             break;
     }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 3) { // Ignored Packages
+    if (indexPath.section == 4) { // Ignored Packages
         return YES;
     }
     else {
@@ -313,9 +339,9 @@
 
 - (NSArray <UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case 0:
         case 1:
-        case 2: {
+        case 2:
+        case 3: {
             UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 switch (indexPath.section) {
                     case 0: {
@@ -349,7 +375,7 @@
             
             return @[deleteFilterAction];
         }
-        case 3: {
+        case 4: {
             UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Show Updates", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 ZBPackage *package = self->ignoredUpdates[indexPath.row];
                 [self->ignoredUpdates removeObject:package];
@@ -378,6 +404,10 @@
     NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
     
     return aliases;
+}
+
+- (void)toggleIncompatibleArchitectures:(UISwitch *)sender {
+    [ZBSettings setFilterIncompatibleArchitectures:!sender.isOn];
 }
 
 @end
