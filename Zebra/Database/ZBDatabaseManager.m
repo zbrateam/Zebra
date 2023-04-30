@@ -678,28 +678,9 @@
 - (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)burl {
     NSRange dividerRange = [burl rangeOfString:@"://"];
     NSUInteger divide = NSMaxRange(dividerRange);
-    NSString *baseURL = divide > [burl length] ? burl : [burl substringFromIndex:divide];
-
-    if ([self openDatabase] == SQLITE_OK) {
-        sqlite3_stmt *statement = NULL;
-        ZBSource *source = nil;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS WHERE BASEURL = ?", -1, &statement, nil) == SQLITE_OK) {
-            sqlite3_bind_text(statement, 1, [baseURL UTF8String], -1, SQLITE_TRANSIENT);
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                break;
-            }
-        } else {
-            [self printDatabaseError];
-        }
-        sqlite3_finalize(statement);
-        [self closeDatabase];
-
-        return source;
-    } else {
-        [self printDatabaseError];
-    }
-    return nil;
+    NSString *baseFilename = divide > [burl length] ? burl : [burl substringFromIndex:divide];
+    baseFilename = [baseFilename stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+    return [self sourceFromBaseFilename:baseFilename];
 }
 
 - (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename {
