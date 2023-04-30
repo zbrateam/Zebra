@@ -759,13 +759,15 @@
         NSString *sourcePart = source ? @"= ?" : @"> 0";
         if (section != NULL) {
             query = [NSString stringWithFormat:@"SELECT COUNT(DISTINCT PACKAGE) FROM PACKAGES "
-                     @"WHERE SECTION = ? AND REPOID %@",
-                     sourcePart];
+                     @"WHERE SECTION = ? AND REPOID %@ AND %@",
+                     sourcePart,
+                     self._userArchitectureFilteringClause];
         } else {
             query = [NSString stringWithFormat:@"SELECT SECTION, AUTHORNAME, AUTHOREMAIL, REPOID FROM PACKAGES "
-                     @"WHERE REPOID %@ "
+                     @"WHERE REPOID %@ AND %@ "
                      @"GROUP BY PACKAGE",
-                     sourcePart];
+                     sourcePart,
+                     self._userArchitectureFilteringClause];
         }
 
         sqlite3_stmt *statement = NULL;
