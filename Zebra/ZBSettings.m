@@ -515,7 +515,7 @@ NSString *const SendErrorReportsKey = @"SendErrorReports";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:AlwaysInstallLatestKey]) {
-        [self setAlwaysInstallLatest:NO];
+        [self setAlwaysInstallLatest:YES];
         return NO;
     }
     return [defaults boolForKey:AlwaysInstallLatestKey];
