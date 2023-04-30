@@ -125,75 +125,83 @@
 }
 
 - (NSArray *)utilitySources {
-    NSMutableArray *result = [NSMutableArray new];
-    if ([ZBDevice jailbreak] == ZBJailbreakCheckra1n) {
-        if ([ZBDevice bootstrap] == ZBBootstrapProcursus) {
-            NSDictionary *dict = @{@"type": @"utility",
-                                   @"name": @"Procursus",
-                                   @"url" : @"https://apt.procurs.us/",
-                                   @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
-            [result addObject:dict];
-        } else {
-            NSDictionary *dict = @{@"type": @"utility",
-                                   @"name": @"Bingner/Elucubratus",
-                                   @"url" : @"https://apt.bingner.com/",
-                                   @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
-            [result addObject:dict];
+    NSMutableArray *result = [NSMutableArray array];
+    switch ([ZBDevice jailbreak]) {
+    case ZBJailbreakTaurine:
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Procursus",
+                            @"url" : @"https://apt.procurs.us/",
+                            @"icon": @"https://apt.procurs.us/CydiaIcon.png"}];
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Odyssey Repo",
+                            @"url" : @"https://repo.theodyssey.dev/",
+                            @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"}];
+        break;
+
+    case ZBJailbreakUnc0ver:
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Bingner/Elucubratus",
+                            @"url" : @"https://apt.bingner.com/",
+                            @"icon": @"https://apt.bingner.com/CydiaIcon.png"}];
+        break;
+
+    case ZBJailbreakOdyssey:
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Procursus",
+                            @"url" : @"https://apt.procurs.us/",
+                            @"icon": @"https://apt.procurs.us/CydiaIcon.png"}];
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Odyssey Repo",
+                            @"url" : @"https://repo.theodyssey.dev/",
+                            @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"}];
+        break;
+
+    case ZBJailbreakChimera:
+    case ZBJailbreakElectra:
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Chimera Repo",
+                            @"url" : @"https://repo.chimera.sh/",
+                            @"icon": @"https://repo.chimera.sh/CydiaIcon.png"}];
+        break;
+
+    case ZBJailbreakPalera1n:
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Procursus",
+                            @"url" : @"https://apt.procurs.us/",
+                            @"icon": @"https://apt.procurs.us/CydiaIcon.png"}];
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"palera1n",
+                            @"url" : @"https://repo.palera.in/",
+                            @"icon": @"https://repo.palera.in/CydiaIcon.png"}];
+        break;
+
+    default:
+        switch ([ZBDevice bootstrap]) {
+        case ZBBootstrapProcursus:
+        case ZBBootstrapSimulated:
+            [result addObject:@{@"type": @"utility",
+                                @"name": @"Procursus",
+                                @"url" : @"https://apt.procurs.us/",
+                                @"icon": @"https://apt.procurs.us/CydiaIcon.png"}];
+            break;
+
+        case ZBBootstrapElucubratus:
+            [result addObject:@{@"type": @"utility",
+                                @"name": @"Bingner/Elucubratus",
+                                @"url" : @"https://apt.bingner.com/",
+                                @"icon": @"https://apt.bingner.com/CydiaIcon.png"}];
+            break;
+
+        case ZBBootstrapTelesphoreo:
+            [result addObject:@{@"type": @"utility",
+                                @"name": @"Cydia/Telesphoreo",
+                                @"url" : @"http://apt.saurik.com/",
+                                @"icon": @"http://apt.saurik.com/dists/ios/CydiaIcon.png"}];
+            break;
+
+        case ZBBootstrapUnknown:
+            break;
         }
-    }
-    else if ([ZBDevice jailbreak] == ZBJailbreakTaurine) {
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Procursus",
-                               @"url" : @"https://apt.procurs.us/",
-                               @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
-        [result addObject:dict];
-
-        NSDictionary *dict2 = @{@"type": @"utility",
-                               @"name": @"Odyssey Repo",
-                               @"url" : @"https://repo.theodyssey.dev/",
-                               @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
-        [result addObject:dict2];
-    }
-    else if ([ZBDevice jailbreak] == ZBJailbreakUnc0ver) { // unc0ver or checkra1n
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Bingner/Elucubratus",
-                               @"url" : @"https://apt.bingner.com/",
-                               @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
-        [result addObject:dict];
-    }
-    else if ([ZBDevice jailbreak] == ZBJailbreakOdyssey) {
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Procursus",
-                               @"url" : @"https://apt.procurs.us/",
-                               @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
-        [result addObject:dict];
-
-        NSDictionary *dict2 = @{@"type": @"utility",
-                               @"name": @"Odyssey Repo",
-                               @"url" : @"https://repo.theodyssey.dev/",
-                               @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
-        [result addObject:dict2];
-    }
-    else if ([ZBDevice jailbreak] == ZBJailbreakChimera || [ZBDevice jailbreak] == ZBJailbreakElectra) {
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Chimera Repo",
-                               @"url" : @"https://repo.chimera.sh/",
-                               @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
-        [result addObject:dict];
-    }
-    else if ([ZBDevice bootstrap] == ZBBootstrapProcursus) { // Unknown JB but it has procursus
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Procursus",
-                               @"url" : @"https://apt.procurs.us/",
-                               @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
-        [result addObject:dict];
-    }
-    else { // cydia
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Cydia/Telesphoreo",
-                               @"url" : @"http://apt.saurik.com/",
-                               @"icon": @"http://apt.saurik.com/dists/ios/CydiaIcon.png"};
-        [result addObject:dict];
     }
     return result;
 }
