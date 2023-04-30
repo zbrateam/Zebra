@@ -285,7 +285,12 @@ static const int ZBCommandFinishFileno = 3;
     // Get the true status code, if the process exited normally. If it died for some other reason,
     // we return the actual value we got back from waitpid(3), which should still be useful for
     // debugging what went wrong.
-    return WIFEXITED(status) ? WEXITSTATUS(status) : status;
+    if (WIFSIGNALED(status)) {
+        return 128 + WTERMSIG(status);
+    } else if (WIFEXITED(status)) {
+        return WEXITSTATUS(status);
+    }
+    return status;
 }
 
 @end
