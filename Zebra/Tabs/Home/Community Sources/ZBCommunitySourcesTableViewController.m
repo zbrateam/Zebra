@@ -175,6 +175,18 @@
                             @"icon": @"https://repo.palera.in/CydiaIcon.png"}];
         break;
 
+    case ZBJailbreakDopamine:
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Procursus",
+                            @"url" : @"https://apt.procurs.us/",
+                            @"icon": @"https://apt.procurs.us/CydiaIcon.png"}];
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"ElleKit",
+                            @"url" : @"https://ellekit.space/",
+                            @"icon": @"https://ellekit.space/CydiaIcon.png"}];
+        break;
+
+
     default:
         switch ([ZBDevice bootstrap]) {
         case ZBBootstrapProcursus:
