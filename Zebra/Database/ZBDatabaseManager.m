@@ -1902,8 +1902,10 @@
 
         NSString *repoQuery = source ? @"AND REPOID = ?" : @"";
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
-                           @"WHERE PACKAGE = ? %@",
-                           repoQuery];
+                           @"WHERE PACKAGE = ? %@ "
+                           @"ORDER BY %@",
+                           repoQuery,
+                           self._packageArchitectureWeightingClause];
         sqlite3_stmt *statement = NULL;
         
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -1939,7 +1941,9 @@
         NSMutableArray *otherVersions = [NSMutableArray new];
 
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
-                           @"WHERE PACKAGE = ? AND VERSION != ?"];
+                           @"WHERE PACKAGE = ? AND VERSION != ? "
+                           @"ORDER BY %@",
+                           self._packageArchitectureWeightingClause];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
