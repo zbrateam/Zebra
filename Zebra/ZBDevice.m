@@ -80,7 +80,6 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 #if TARGET_OS_SIMULATOR
     return NO; //Since simulated devices don't have su/sling, it isn't broken!
 #else
-    // TODO: TEMPORARY measure until XinaA15 is properly supported
     if (self.jailbreak == ZBJailbreakXinaA15) {
         if (error) {
             *error = [NSError errorWithDomain:NSCocoaErrorDomain code:69 userInfo:@{
@@ -311,6 +310,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (ZBJailbreak)_jailbreak {
     if (self.needsSimulation) {
+        NSLog(@"[ZBDevice] simulated?");
         return ZBJailbreakSimulated;
     }
 
@@ -344,12 +344,14 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     };
 
     for (NSString *file in jailbreakInstalledFiles.allKeys) {
+        NSLog(@"[ZBDevice] is %@? %i", file, [self _isRegularFile:file]);
         if ([self _isRegularFile:file]) {
             return jailbreakInstalledFiles[file].integerValue;
         }
     }
 
     for (NSString *dir in jailbreakInstalledDirs.allKeys) {
+        NSLog(@"[ZBDevice] is %@? %i", dir, [self _isRegularDirectory:dir]);
         if ([self _isRegularDirectory:dir]) {
             return jailbreakInstalledDirs[dir].integerValue;
         }
