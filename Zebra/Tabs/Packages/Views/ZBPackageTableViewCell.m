@@ -56,9 +56,11 @@
     
     BOOL installed = [package isInstalled:NO];
     BOOL paid = [package isPaid];
+    BOOL isCompatible = [package isArchitectureCompatible];
     
     self.isInstalledImageView.hidden = !installed;
     self.isPaidImageView.hidden = !paid;
+    self.contentView.alpha = isCompatible ? 1 : 0.5;
     
     [self updateQueueStatus:package];
 }

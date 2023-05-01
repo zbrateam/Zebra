@@ -392,7 +392,7 @@ NSString *const SendErrorReportsKey = @"SendErrorReports";
 }
 
 + (BOOL)isPackageArchitectureFiltered:(NSString *)architecture {
-    return self.filterIncompatibleArchitectures ? ![[ZBDevice allDebianArchitectures] containsObject:architecture] : NO;
+    return self.filterIncompatibleArchitectures ? ![architecture isEqualToString:@"all"] && ![[ZBDevice allDebianArchitectures] containsObject:architecture] : NO;
 }
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package {

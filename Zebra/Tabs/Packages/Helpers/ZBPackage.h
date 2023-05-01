@@ -60,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sameAsStricted:(ZBPackage *)package;
 - (BOOL)isPaid;
 - (NSString * _Nullable)getField:(NSString *)field;
+- (BOOL)isArchitectureCompatible;
 - (BOOL)isInstalled:(BOOL)strict;
 - (BOOL)isReinstallable;
 - (NSMutableArray <ZBPackage *> *)allVersions;

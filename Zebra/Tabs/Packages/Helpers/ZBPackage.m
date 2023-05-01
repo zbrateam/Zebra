@@ -507,6 +507,10 @@
     return [NSByteCountFormatter stringFromByteCount:installedSize * 1024 countStyle:NSByteCountFormatterCountStyleFile];
 }
 
+- (BOOL)isArchitectureCompatible {
+    return [_architecture isEqualToString:@"all"] || [[ZBDevice allDebianArchitectures] containsObject:_architecture];
+}
+
 - (BOOL)isInstalled:(BOOL)strict {
     if (source && [source sourceID] <= 0) { // Package is in sourceID 0 or -1
         return YES;
