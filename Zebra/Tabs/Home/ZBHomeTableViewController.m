@@ -41,6 +41,7 @@ typedef enum ZBViewOrder : NSUInteger {
 } ZBViewOrder;
 
 typedef enum ZBLinksOrder : NSUInteger {
+    ZBMastodon,
     ZBTwitter,
     ZBDiscord,
     ZBBug
@@ -268,7 +269,7 @@ typedef enum ZBInfoOrder : NSUInteger {
         case ZBViews:
             return 3;
         case ZBLinks:
-            return 3;
+            return 4;
         case ZBInfo:
             return 2;
         default:
@@ -359,13 +360,17 @@ typedef enum ZBInfoOrder : NSUInteger {
             NSString *text;
             UIImage *image;
             switch (indexPath.row) {
-                case ZBDiscord:
-                    text = NSLocalizedString(@"Join our Discord", @"");
-                    image = [UIImage imageNamed:@"Discord"];
+                case ZBMastodon:
+                    text = NSLocalizedString(@"Follow us on Mastodon", @"");
+                    image = [UIImage imageNamed:@"Mastodon"];
                     break;
                 case ZBTwitter:
                     text = NSLocalizedString(@"Follow us on Twitter", @"");
                     image = [UIImage imageNamed:@"Twitter"];
+                    break;
+                case ZBDiscord:
+                    text = NSLocalizedString(@"Join our Discord", @"");
+                    image = [UIImage imageNamed:@"Discord"];
                     break;
                 case ZBBug:
                     text = NSLocalizedString(@"Report a Bug", @"");
@@ -522,23 +527,29 @@ typedef enum ZBInfoOrder : NSUInteger {
 - (void)openLinkFromRow:(NSUInteger)row {
     UIApplication *application = [UIApplication sharedApplication];
     switch (row) {
-        case ZBDiscord:{
-            [self openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"]];
-            break;
-        }
-        case ZBTwitter: {
-            NSURL *twitterapp = [NSURL URLWithString:@"twitter:///user?screen_name=getzebra"];
-            NSURL *tweetbot = [NSURL URLWithString:@"tweetbot:///user_profile/getzebra"];
-            NSURL *twitterweb = [NSURL URLWithString:@"https://twitter.com/getzebra"];
-            if ([application canOpenURL:twitterapp]) {
-                [self openURL:twitterapp];
-            } else if ([application canOpenURL:tweetbot]) {
-                [self openURL:tweetbot];
-            } else {
-                [self openURL:twitterweb];
+        case ZBMastodon: {
+            NSArray *mastodonURLs = @[
+                [NSURL URLWithString:@"ivory:///user_profile/zebra@procursus.social"],
+                [NSURL URLWithString:@"icecubesapp://procursus.social/@zebra"],
+                [NSURL URLWithString:@"mammoth://procursus.social/@zebra"],
+                [NSURL URLWithString:@"tusker://procursus.social/@zebra"],
+                [NSURL URLWithString:@"mastodon://profile/@zebra@procursus.social"],
+                [NSURL URLWithString:@"https://procursus.social/@zebra"]
+            ];
+            for (NSURL *url in mastodonURLs) {
+                if ([application canOpenURL:url]) {
+                    [self openURL:url];
+                    break;
+                }
             }
             break;
         }
+        case ZBTwitter:
+            [self openURL:[NSURL URLWithString:@"https://twitter.com/getzebra"]];
+            break;
+        case ZBDiscord:
+            [self openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"]];
+            break;
         case ZBBug:
             [ZBDevice openURL:[NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"] delegate:self];
             break;
