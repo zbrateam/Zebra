@@ -1891,6 +1891,10 @@
 }
 
 - (NSArray * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier inSource:(ZBSource *_Nullable)source {
+    return [self allVersionsForPackageID:packageIdentifier inSource:source filteringArchitectures:YES];
+}
+
+- (NSArray * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier inSource:(ZBSource *_Nullable)source filteringArchitectures:(BOOL)filteringArchitectures {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *allVersions = [NSMutableArray new];
 
@@ -1899,7 +1903,7 @@
                            @"WHERE PACKAGE = ? %@ AND %@ "
                            @"ORDER BY %@",
                            repoQuery,
-                           self._userArchitectureFilteringClause,
+                           filteringArchitectures ? self._userArchitectureFilteringClause : @"(1=1)",
                            self._packageArchitectureWeightingClause];
         sqlite3_stmt *statement = NULL;
 
@@ -2123,8 +2127,8 @@
 }
 
 - (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inSource:(ZBSource *_Nullable)source {
-    NSArray *allVersions = [self allVersionsForPackageID:packageIdentifier inSource:source];
-    return allVersions.count ? allVersions[0] : nil;
+    NSArray *allVersions = [self allVersionsForPackageID:packageIdentifier inSource:source filteringArchitectures:NO];
+    return allVersions.firstObject;
 }
 
 - (NSArray <ZBPackage *> * _Nullable)packagesThatDependOn:(ZBPackage *)package {
