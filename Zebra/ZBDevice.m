@@ -246,8 +246,14 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (void)restartDevice {
     if (![self needsSimulation]) {
-        if (@available(iOS 11.0, *)) {
-            //Try sbreload
+        if (@available(iOS 15, *)) {
+            // Try userspace reboot
+            NSLog(@"[Zebra] Trying userspace reboot");
+            if ([ZBCommand execute:@"launchctl" withArguments:@[@"userspace", @"reboot"] asRoot:YES]) {
+                return;
+            }
+        } else if (@available(iOS 11, *)) {
+            // Try ldrestart
             NSLog(@"[Zebra] Trying ldrestart");
             if ([ZBCommand execute:@"sync" withArguments:@[] asRoot:YES] &&
                 [ZBCommand execute:@"ldrestart" withArguments:@[] asRoot:YES]) {
@@ -257,7 +263,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
         NSLog(@"[Zebra] Trying reboot");
         if ([ZBCommand execute:@"reboot" withArguments:@[] asRoot:YES]) {
-           return;
+            return;
         }
 
         [ZBAppDelegate sendErrorToTabController:NSLocalizedString(@"Could not restart. Please restart manually.", @"")];
