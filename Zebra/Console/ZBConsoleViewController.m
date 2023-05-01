@@ -525,6 +525,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 - (void)updateProgressText:(NSString *)text {
     dispatch_async(dispatch_get_main_queue(), ^{
         self->progressText.text = text;
+        self->progressTextView.hidden = text == nil;
     });
 }
 
