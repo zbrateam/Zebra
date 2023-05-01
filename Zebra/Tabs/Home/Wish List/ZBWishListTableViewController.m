@@ -46,8 +46,13 @@
     
     [self selectionChanged:self.segmentedControl];
     
-    if (@available(iOS 11.0, *)) {
+    if (@available(iOS 11, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
+
+    if (@available(iOS 15, *)) {
+        self.toolbar.standardAppearance = [[UIToolbarAppearance alloc] init];
+        [self.toolbar.standardAppearance configureWithTransparentBackground];
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
