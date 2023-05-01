@@ -533,6 +533,7 @@ typedef enum ZBInfoOrder : NSUInteger {
                 [NSURL URLWithString:@"icecubesapp://procursus.social/@zebra"],
                 [NSURL URLWithString:@"mammoth://procursus.social/@zebra"],
                 [NSURL URLWithString:@"tusker://procursus.social/@zebra"],
+                [NSURL URLWithString:@"cx-c3-toot://procursus.social/@zebra"],
                 [NSURL URLWithString:@"mastodon://profile/@zebra@procursus.social"],
                 [NSURL URLWithString:@"https://procursus.social/@zebra"]
             ];
