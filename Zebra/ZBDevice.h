@@ -39,7 +39,8 @@ typedef NS_ENUM(NSUInteger, ZBJailbreak) {
     ZBJailbreakKok3shiX,
     ZBJailbreakMineekJB32,
     ZBJailbreakMineekJB64,
-    ZBJailbreakMineekJB
+    ZBJailbreakMineekJB,
+    ZBJailbreakBakera1n
 };
 
 typedef NS_ENUM(NSUInteger, ZBBootstrap) {

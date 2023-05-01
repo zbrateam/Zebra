@@ -335,6 +335,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         @"/.meridian_installed":   @(ZBJailbreakMeridian),
         @"/.installed_yaluX":      @(ZBJailbreakYalu),
         @"/.installed_g0blin":     @(ZBJailbreakG0blin),
+        @"/cores/binpack/.installed_overlay": @(ZBJailbreakBakera1n)
     };
     NSDictionary <NSString *, NSNumber *> *jailbreakInstalledDirs = @{
         @"/binpack":      @(ZBJailbreakCheckra1n),
@@ -429,6 +430,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     case ZBJailbreakMineekJB32:  return @"mineekJB (32-bit)";
     case ZBJailbreakMineekJB64:  return @"mineekJB (64-bit)";
     case ZBJailbreakMineekJB:    return @"mineekJB";
+    case ZBJailbreakBakera1n:    return @"bakera1n";
     }
 }
 
