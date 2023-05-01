@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *identifier;
 @property (nonatomic) NSString *version;
+@property (nonatomic) NSString *architecture;
 @property (nonatomic) int sourceID;
 
 //Extra properties for display
@@ -29,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) ZBPackage *package;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
+- (BOOL)isArchitectureCompatible;
 - (BOOL)isInstalled;
 - (ZBPackage *)loadPackage;
 - (void)setIconImageForImageView:(UIImageView *)imageView;

@@ -11,6 +11,7 @@
 
 #import "ZBDatabaseManager.h"
 #import "ZBSource.h"
+#import "ZBDevice.h"
 
 @import SDWebImage;
 
@@ -31,18 +32,24 @@
     self = [super init];
     
     if (self) {
-        const char *packageIDChars   = (const char *)sqlite3_column_text(statement, 0);
-        const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
-        const char *versionChars     = (const char *)sqlite3_column_text(statement, 2);
-        int sourceID                 =               sqlite3_column_int(statement, 3);
+        const char *packageIDChars    = (const char *)sqlite3_column_text(statement, 0);
+        const char *packageNameChars  = (const char *)sqlite3_column_text(statement, 1);
+        const char *versionChars      = (const char *)sqlite3_column_text(statement, 2);
+        const char *architectureChars = (const char *)sqlite3_column_text(statement, 3);
+        int sourceID                  =               sqlite3_column_int(statement, 4);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
         [self setName:packageNameChars != 0 ? ([NSString stringWithUTF8String:packageNameChars] ?: [NSString stringWithCString:packageNameChars encoding:NSASCIIStringEncoding]) : (self.identifier ?: @"Unknown")];
         [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
+        [self setArchitecture:architectureChars != 0 ? [NSString stringWithUTF8String:architectureChars] : NULL];
         [self setSourceID:sourceID];
     }
     
     return self;
+}
+
+- (BOOL)isArchitectureCompatible {
+    return [_architecture isEqualToString:@"all"] || [[ZBDevice allDebianArchitectures] containsObject:_architecture];
 }
 
 - (BOOL)isInstalled {

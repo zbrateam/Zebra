@@ -1214,7 +1214,7 @@
 - (NSArray * _Nullable)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, ARCHITECTURE, REPOID, SECTION, ICONURL";
         NSString *limit = fullSearch ? @"" : @"LIMIT 30";
         NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES "
                            @"WHERE NAME LIKE ? ESCAPE '\\' AND REPOID > -1 "
@@ -1243,8 +1243,8 @@
                 else {
                     ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
 
-                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
-                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
+                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 5);
+                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 6);
 
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
@@ -1975,7 +1975,7 @@
         NSMutableArray *searchResults = [NSMutableArray new];
 
         sqlite3_stmt *statement = NULL;
-        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, ARCHITECTURE, REPOID, SECTION, ICONURL";
         NSString *emailMatch = email ? @" AND AUTHOREMAIL = ?" : @"";
         NSString *limit = fullSearch ? @"" : @" LIMIT 30";
         NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES "
@@ -2001,8 +2001,8 @@
                 else {
                     ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
 
-                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
-                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
+                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 5);
+                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 6);
 
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
@@ -2031,7 +2031,7 @@
         NSMutableArray *searchResults = [NSMutableArray new];
 
         sqlite3_stmt *statement = NULL;
-        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, ARCHITECTURE, REPOID, SECTION, ICONURL";
         NSString *limit = fullSearch ? @"" : @" LIMIT 30";
         NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES "
                            @"WHERE SHORTDESCRIPTION LIKE ? ESCAPE '\\' "
@@ -2054,8 +2054,8 @@
                 else {
                     ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
 
-                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
-                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
+                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 5);
+                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 6);
 
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;

@@ -26,6 +26,7 @@
 - (void)updateData:(ZBProxyPackage *)package {
     self.packageNameLabel.text = package.name;
     self.isInstalledImageView.hidden = !package.isInstalled;
+    self.contentView.alpha = package.isArchitectureCompatible ? 1 : 0.5;
     
     [package setIconImageForImageView:self.packageIconImageView];
 }
