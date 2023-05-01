@@ -938,13 +938,14 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
 
-        char *query = "SELECT SECTION, COUNT(DISTINCT PACKAGE) AS SECTION_COUNT FROM PACKAGES "
-                      "WHERE REPOID = ? "
-                      "GROUP BY SECTION "
-                      "ORDER BY SECTION";
+        NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(DISTINCT PACKAGE) AS SECTION_COUNT FROM PACKAGES "
+                           @"WHERE REPOID = ? AND %@ "
+                           @"GROUP BY SECTION "
+                           @"ORDER BY SECTION",
+                           self._userArchitectureFilteringClause];
 
         sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_int(statement, 1, source.sourceID);
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
