@@ -173,6 +173,10 @@
                             @"name": @"palera1n",
                             @"url" : @"https://repo.palera.in/",
                             @"icon": @"https://repo.palera.in/CydiaIcon.png"}];
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"ElleKit",
+                            @"url" : @"https://ellekit.space/",
+                            @"icon": @"https://ellekit.space/CydiaIcon.png"}];
         break;
 
     case ZBJailbreakDopamine:
