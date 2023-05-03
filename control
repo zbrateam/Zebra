@@ -1,6 +1,6 @@
 Package: xyz.willy.zebra
 Name: Zebra
-Version: 1.1.30
+Version: 1.1.31
 Architecture: iphoneos-arm
 Depends: dpkg, uikittools, firmware (>= 9.0)
 Description: A Useful Package Manager
@@ -10,4 +10,4 @@ Section: Packaging
 Icon: file:///Applications/Zebra.app/AppIcon60x60@3x.png
 Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
 Support: https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html
-Tag: compatible::9.0-15.7
+Tag: compatible::9.0-16.4
