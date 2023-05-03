@@ -10,7 +10,7 @@ jobs:
       matrix:
         include:
           - rootless: 0
-            name: 'normal'
+            name: 'rootful'
           - rootless: 1
             name: 'rootless'
 
@@ -36,4 +36,8 @@ jobs:
       - name: Compile
         env:
           THEOS: theos
-        run: gmake package ROOTLESS=${{ matrix.rootless }}
+        run: |
+          if [[ ${{ matrix.rootless }} == 0 ]]; then
+            sudo xcode-select -switch /Applications/Xcode_13.4.1.app
+          fi
+          gmake package ROOTLESS=${{ matrix.rootless }}

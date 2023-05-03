@@ -11,7 +11,7 @@ jobs:
       matrix:
         include:
           - rootless: 0
-            name: 'normal'
+            name: 'rootful'
           - rootless: 1
             name: 'rootless'
 
@@ -39,6 +39,9 @@ jobs:
         env:
           THEOS: theos
         run: |
+          if [[ ${{ matrix.rootless }} == 0 ]]; then
+            sudo xcode-select -switch /Applications/Xcode_13.4.1.app
+          fi
           echo '${{ secrets.ZEBRAKEYS_PRIVATE_H }}' > Zebra/ZebraKeys.private.h
           gmake package FINALPACKAGE=1 ROOTLESS=${{ matrix.rootless }}
           echo "package=$(basename $(cat .theos/last_package))" >> $GITHUB_OUTPUT
