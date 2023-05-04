@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Ένα ή περισσότερα πακέτα στην Ουρά για αφαίρεση είναι αναγκαίο ή απαιτείται. Δεν προτείνεται να συνεχίσεις εκτός αν ξέρεις ακριβώς τι κάνεις. Η αφαίρεση αυτών των πακέτων μπορεί να προκαλέσει μόνιμη βλάβη στην συσκευή σου και ίσως καταλήξει σε μία πλήρη επαναφορά.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Το Zebra δεν μπόρεσε να ολοκληρώσει την εντολή διότι δεν έχει τα σωστά δικαιώματα. Παρακαλώ επιβεβαίωσε τα δικαιώματα που βρίσκονται στο /usr/libexec/zebra/supersling και ανάφερε αυτό το πρόβλημα στο GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Το Zebra δεν μπόρεσε να ολοκληρώσει την εντολή διότι δεν έχει τα σωστά δικαιώματα. Παρακαλώ επιβεβαίωσε τα δικαιώματα που βρίσκονται στο %@ και ανάφερε αυτό το πρόβλημα στο GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "Το su/sling δεν ανήκει στο root:wheel. Παρακαλώ επιβεβαίωσε τα δικαιώματα του αρχείου που βρίσκεται στο /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "Το su/sling δεν ανήκει στο root:wheel. Παρακαλώ επιβεβαίωσε τα δικαιώματα του αρχείου που βρίσκεται στο %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "Το su/sling δεν έχει δικαίωμα να θέσει τα uid ή gid. Παρακαλώ επιβεβαίωσε τα δικαιώματα του αρχείου που βρίσκεται στο /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "Το su/sling δεν έχει δικαίωμα να θέσει τα uid ή gid. Παρακαλώ επιβεβαίωσε τα δικαιώματα του αρχείου που βρίσκεται στο %@.";
 
 "Error while creating documents directory: %@" = "Σφάλμα κατά την δημιουργία καταλόγου αρχείων: %@";
 

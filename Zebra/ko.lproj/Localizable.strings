@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "한개 또는 그 이상의 중요하거나 필요한 패키지가 삭제를 위하여 대기열에 추가되어 있습니다. 이 작업은 내가 정확히 무엇을 하는지 알고 있지 않으면 실행하지 않는 것을 추천합니다. 이러한 패키지를 제거하면 돌이킬 수 없는 손상을 일으킬 수 있으며, 그 결과로 기기를 초기화하게 될 것 입니다.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra가 적절한 권한을 가지고 있지 않기 때문에 이 명령을 완료할 수 없습니다. /usr/libexec/zebra/supersling의 권한을 확인하고 GitHub에 이 문제를 신고해주세요.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra가 적절한 권한을 가지고 있지 않기 때문에 이 명령을 완료할 수 없습니다. %@의 권한을 확인하고 GitHub에 이 문제를 신고해주세요.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling을 root:wheel이 소유하지 않고 있습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling을 root:wheel이 소유하지 않고 있습니다. %@에 위치한 파일의 권한을 확인해주세요.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling이 uid 또는 gid를 설정할 권한이 없습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling이 uid 또는 gid를 설정할 권한이 없습니다. %@에 위치한 파일의 권한을 확인해주세요.";
 
 "Error while creating documents directory: %@" = "문서 디렉토리를 만들던 도중 오류가 발생했습니다: %@";
 

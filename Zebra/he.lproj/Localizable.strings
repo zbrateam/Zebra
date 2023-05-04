@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "אחת או יותר מהחבילות בתור להסרה הינה חיונית או נדרשת. לא מומלץ להמשיך בהסרה אלא אם את/ה יודע/ת בדיוק מה את/ה עושה. הסרה של חבילות חיוניות עלולה לגרום לנזק בלתי הפיך למכשיר שלך ועלולה להוביל לשיחזור מלא.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "זברה לא הצליחה להשלים פקודה זו מכיוון שאין לה את ההרשאות המתאימות. אנא אמת/י את ההרשאות הממוקמות ב- \n /usr/libexec/zebra/supersling ודווח/י על בעיה זו בעזרת GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "זברה לא הצליחה להשלים פקודה זו מכיוון שאין לה את ההרשאות המתאימות. אנא אמת/י את ההרשאות הממוקמות ב- \n %@ ודווח/י על בעיה זו בעזרת GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "הבעלות של su/sling אינה מוגדרת ל-root:wheel. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "הבעלות של su/sling אינה מוגדרת ל-root:wheel. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-%@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "אין ל-su/sling הרשאה להגדיר את ה-uid או את ה-gid. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "אין ל-su/sling הרשאה להגדיר את ה-uid או את ה-gid. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-%@.";
 
 "Error while creating documents directory: %@" = "שגיאה ביצירת תיקיית מסמכים: %@";
 

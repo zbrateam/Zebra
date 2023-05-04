@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Jedan ili više paketa na listi za uklanjanje je neophodno ili je potrebno. Ne preporučuje se nastavak ukoliko ne znate točno što radite. Uklanjanje ovih paketa moglo bi uzrokovati nepovratnu štetu na vašem uređaju i rezultirati potpunim obnavljanjem.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nije u mogućnosti izvršiti ovu zadaću iz razloga što nema prikladno dopuštenje. Molimo da potvrdite dopuštanje koje je locirano u /user/libexec/zebra/superslong i prijavite problem na GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra nije u mogućnosti izvršiti ovu zadaću iz razloga što nema prikladno dopuštenje. Molimo da potvrdite dopuštanje koje je locirano u %@ i prijavite problem na GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nije pod root:wheel razinim. Molimo, potvrdite dopuštenje na datoteku lociranu u /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling nije pod root:wheel razinim. Molimo, potvrdite dopuštenje na datoteku lociranu u %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nema dopuštenje da podesi uid ili gid. Molimo, potvrdite dopuštenja na datoteke locirane u /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling nema dopuštenje da podesi uid ili gid. Molimo, potvrdite dopuštenja na datoteke locirane u %@.";
 
 "Error while creating documents directory: %@" = "Greška tijekom kreiranja mape datoteke: %@";
 

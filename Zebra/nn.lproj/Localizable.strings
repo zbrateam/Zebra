@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Ein eller fleire av pakka i køen som skal fjernast er essensielle eller påkravd. Det blir ikkje tilrådt å fortsetja med mindre du veit nøyaktig kva du gjer. Viss du fjernar desse pakka, kan det føra til irreversibel skade på eininga di som kan føra til at du må retta opp igjen eininga di.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra klarte ikkje å fullføra denne kommandoen fordi han ikkje har dei nødvendige løyva. Ver vennleg og stadfest løyva som ligg på /usr/libexec/zebra/supersling, og rapportar dette problemet på GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra klarte ikkje å fullføra denne kommandoen fordi han ikkje har dei nødvendige løyva. Ver vennleg og stadfest løyva som ligg på %@, og rapportar dette problemet på GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling er ikkje ått av root:wheel. Ver vennleg og stadfest løyva til fila som ligg på /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling er ikkje ått av root:wheel. Ver vennleg og stadfest løyva til fila som ligg på %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har ikkje løyve til å angi uid eller gid. Ver vennleg og stadfest løyva til fila som ligg på /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling har ikkje løyve til å angi uid eller gid. Ver vennleg og stadfest løyva til fila som ligg på %@.";
 
 "Error while creating documents directory: %@" = "Feil ved skiping av dokumentmappe: %@";
 

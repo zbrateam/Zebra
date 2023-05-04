@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Satu atau lebih paket dalam Antrian untuk dihapus sangat penting atau diperlukan. Tidak disarankan untuk melanjutkan kecuali Anda tahu persis apa yang Anda lakukan. Menghapus paket-paket ini dapat menyebabkan kerusakan pada perangkat Anda dan dapat mengakibatkan pemulihan penuh.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra tidak dapat menyelesaikan perintah ini karena tidak memiliki izin yang tepat. Harap verifikasi izin yang berada di / usr / libexec / zebra / supersling dan laporkan masalah ini di GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra tidak dapat menyelesaikan perintah ini karena tidak memiliki izin yang tepat. Harap verifikasi izin yang berada di %@ dan laporkan masalah ini di GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling tidak dimiliki oleh root: wheel. Harap verifikasi izin file yang terletak di /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling tidak dimiliki oleh root: wheel. Harap verifikasi izin file yang terletak di %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling tidak memiliki izin untuk mengatur uid atau gid. Harap verifikasi izin file yang terletak di /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling tidak memiliki izin untuk mengatur uid atau gid. Harap verifikasi izin file yang terletak di %@.";
 
 "Error while creating documents directory: %@" = "Kesalahan saat membuat direktori dokumen: %@";
 

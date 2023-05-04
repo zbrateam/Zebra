@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "هناك حزمة واحدة أو أكثر في قائمة الإنتظار للإزالة ضرورية أو مطلوبة. لا ينصح بمتابعة الإزالة إلا إذا كنت على علم بما تفعل. قد تؤدي إزالة هذه الحزمة إلى إلحاق أضرار بجهازك لا يحمد عقباها، وقد تصل في بعض الأحيان إلى استعادة كاملة.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "لم يتمكن Zebra من إكمال هذا الأمر البرمجي لأنه لا يملك الأذونات الصحيحة. يرجى التحقق من الأذونات الموجودة في /usr/libexec/zebra/supersling والإبلاغ عن هذه المشكلة على GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "لم يتمكن Zebra من إكمال هذا الأمر البرمجي لأنه لا يملك الأذونات الصحيحة. يرجى التحقق من الأذونات الموجودة في %@ والإبلاغ عن هذه المشكلة على GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليست مملوكة من قبل root:wheel. يرجى التحقق من أذونات الملف الموجودة في /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "يبدو أن su/sling ليست مملوكة من قبل root:wheel. يرجى التحقق من أذونات الملف الموجودة في %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليس لديه إذن لتعيين uid أو gid. يرجى التحقق من أذونات الملف الموجود في /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "يبدو أن su/sling ليس لديه إذن لتعيين uid أو gid. يرجى التحقق من أذونات الملف الموجود في %@.";
 
 "Error while creating documents directory: %@" = "حدث خطأ أثناء إنشاء دليل مستندات: %@";
 

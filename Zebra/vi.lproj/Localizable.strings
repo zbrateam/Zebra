@@ -356,12 +356,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Một hoặc nhiều gói trong \"hàng chờ để xóa\" là cần thiết hoặc bắt buộc. Không nên tiến hành trừ khi bạn biết chính xác những gì bạn đang làm. Việc xóa các gói này có thể gây ra thiệt hại không thể khắc phục cho thiết bị của bạn và có thể dẫn đến khôi phục hoàn toàn.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra không thể hoàn thành lệnh này vì nó không có quyền thích hợp. Vui lòng xác minh các quyền tại \"/usr/libexec/zebra/supersling\" và báo cáo vấn đề này trên GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra không thể hoàn thành lệnh này vì nó không có quyền thích hợp. Vui lòng xác minh các quyền tại \"%@\" và báo cáo vấn đề này trên GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"su/sling\" không thuộc sở hữu của root:wheel. Vui lòng xác minh các quyền của tệp nằm ở \"/usr/libexec/zebra/supersling\".";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "\"su/sling\" không thuộc sở hữu của root:wheel. Vui lòng xác minh các quyền của tệp nằm ở \"%@\".";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"su/sling\" không được phép đặt uid hoặc gid. Vui lòng xác minh các quyền của tệp nằm ở \"/usr/libexec/zebra/supersling\".";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "\"su/sling\" không được phép đặt uid hoặc gid. Vui lòng xác minh các quyền của tệp nằm ở \"%@\".";
 
 "Error while creating documents directory: %@" = "Lỗi khi tạo thư mục tài liệu: %@";
 

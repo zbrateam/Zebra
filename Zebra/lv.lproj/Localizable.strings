@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Viena, vai vairākas paketes no rindas ir svarīgi, vai nepieciešami. Nav ieteicams turpināt, ja precīzi nezināt, ko darāt. Noņemot šīs paketes, ierīcei var tikt nodarīts neatgriezenisks kaitējums un tā var tikt pilnībā atjaunota.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nevarēja izpildīt šo komandu, jo tai nav atbilstošu atļauju. Lūdzu, pārbaudiet atļaujas, kas atrodas /usr/libexec/zebra/supersling, un ziņo par šo problēmu GitHubē.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra nevarēja izpildīt šo komandu, jo tai nav atbilstošu atļauju. Lūdzu, pārbaudiet atļaujas, kas atrodas %@, un ziņo par šo problēmu GitHubē.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nepieder root:wheel. Lūdzu, pārbaudi faila atļaujas, kuras atrodas mapē /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling nepieder root:wheel. Lūdzu, pārbaudi faila atļaujas, kuras atrodas mapē %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nav atļaujas iestatīt uid vai gid. Lūdzu, pārbaudiet faila atļaujas, kuras atrodas mapē /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling nav atļaujas iestatīt uid vai gid. Lūdzu, pārbaudiet faila atļaujas, kuras atrodas mapē %@.";
 
 "Error while creating documents directory: %@" = "Kļūda izveidojot dokumentu direktoriju: %@";
 

@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "یک یا چند بسته مورد نیاز، در صف حذف است. ادامه کار توصیه نمی شود مگر اینکه دقیقاً بدانید که چه کاری انجام می دهید. حذف این بسته ها می تواند صدمه جبران ناپذیری به دستگاه شما وارد کند و باعث بازگردانی کامل آن می شود.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "زبرا نتوانست این فرمان را انجام دهد زیرا مجوزهای مناسب را ندارد. لطفاً مجوزهای واقع در /usr/libexec/zebra supersling را بررسی کنید و این موضوع را در GitHub گزارش دهید.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "زبرا نتوانست این فرمان را انجام دهد زیرا مجوزهای مناسب را ندارد. لطفاً مجوزهای واقع در %@ را بررسی کنید و این موضوع را در GitHub گزارش دهید.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling متعلق به root: wheel نیست. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling متعلق به root: wheel نیست. لطفا مجوزهای پرونده واقع در %@ را تأیید کنید.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling اجازه تنظیم uid یا gid را ندارد. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling اجازه تنظیم uid یا gid را ندارد. لطفا مجوزهای پرونده واقع در %@ را تأیید کنید.";
 
 "Error while creating documents directory: %@" = "خطا در هنگام ایجاد سند: %@";
 

@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Un ou plusieurs des paquets de la file d'attente pour la suppression sont essentiels ou requis. Il n'est pas recommandé de continuer à moins que vous ne sachiez exactement ce que vous faites. La suppression de ces paquets pourrait causer des dommages irréversibles à votre appareil et pourrait entraîner une restauration complète.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra n'a pas pu terminer cette commande car il n'a pas les permissions appropriées. Veuillez vérifier les permissions situées dans /usr/libexec/zebra/supersling et reporter ce problème sur GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra n'a pas pu terminer cette commande car il n'a pas les permissions appropriées. Veuillez vérifier les permissions situées dans %@ et reporter ce problème sur GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling n'est pas la propriété de root:wheel. Veuillez vérifier les permissions du fichier situé dans /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling n'est pas la propriété de root:wheel. Veuillez vérifier les permissions du fichier situé dans %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling n'a pas la permission de définir l’uid ou le gid. Veuillez vérifier les permissions du fichier situé dans /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling n'a pas la permission de définir l’uid ou le gid. Veuillez vérifier les permissions du fichier situé dans %@.";
 
 "Error while creating documents directory: %@" = "Erreur lors de la création du dossier : %@";
 

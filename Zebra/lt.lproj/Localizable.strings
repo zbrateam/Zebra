@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Vienas ar keli paketai įdėti į eilę pašalinimui - yra svarbūs ar reikalingi. Nerekomenduojama tęsti, nebent tikrai žinote ką darote. Pašalindami šiuos paketus galite padaryti neatstatomą žalą jūsų prietaisui ir gali tekti visiškai atkurti gamyklinius parametrus, kurie ištrins visus duomenis iš jūsų prietaiso.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra negalėjo atlikti šios komandos, nes ji neturi reikiamų leidimų. Prašome patikrinti leidimus, kurie randasi /usr/libexec/zebra/supersling ir pranešti apie šią problemą Github paskyroje.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra negalėjo atlikti šios komandos, nes ji neturi reikiamų leidimų. Prašome patikrinti leidimus, kurie randasi %@ ir pranešti apie šią problemą Github paskyroje.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nepriklauso nuo root/wheel. Prašome patikrinti leidimus, kurie randasi /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling nepriklauso nuo root/wheel. Prašome patikrinti leidimus, kurie randasi %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling neturi leidimų nustatyti uid ar gid. Prašome patikrinti leidimus failo, kuris randasi /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling neturi leidimų nustatyti uid ar gid. Prašome patikrinti leidimus failo, kuris randasi %@.";
 
 "Error while creating documents directory: %@" = "Įvyko klaida kuriant dokumentų direktoriją: %@";
 

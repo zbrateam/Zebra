@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Unul sau mai multe pachete din Asteptare pentru stergere este esential sau necesar. Nu este recomandat sa continui decat daca stii exact ce faci. Stergerea acestor pachete poate cauza damage ireversibil asupra dispozitivului tau si poate rezulta intr-o restaurare completa.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nu a putut completa aceasta comanda deoarece nu aveti permisiunile necesare.\nTe rog sa verific permisiunile localizate la /usb/libexec/zebra/supersling si raporteaza eroare pe GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra nu a putut completa aceasta comanda deoarece nu aveti permisiunile necesare.\nTe rog sa verific permisiunile localizate la %@ si raporteaza eroare pe GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nu este detinut de root:wheel. Te rog verifica permisiunile pentru fisierul localizat la /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling nu este detinut de root:wheel. Te rog verifica permisiunile pentru fisierul localizat la %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nu are permisiuni sa seteze uid sau gid. Te rog verifica permisiunile pentru fisierul localizat la /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling nu are permisiuni sa seteze uid sau gid. Te rog verifica permisiunile pentru fisierul localizat la %@.";
 
 "Error while creating documents directory: %@" = "Error while creating documents directory: %@";
 

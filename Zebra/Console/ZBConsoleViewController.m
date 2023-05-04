@@ -329,9 +329,11 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     } else {
         // Handle specific error states
         switch (status) {
-        case EX_NOPERM:
-            [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
+        case EX_NOPERM: {
+            NSString *supersling = [[NSBundle mainBundle] pathForResource:@"supersling" ofType:nil];
+            [self writeToConsole:[NSString stringWithFormat:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub.", @""), supersling] atLevel:ZBLogLevelError];
             break;
+        }
         case EDEADLK:
             [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
             break;

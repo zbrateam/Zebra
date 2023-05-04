@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "一個或多個在移除佇列中的套件是基礎或必要套件。除非您十分清楚了解您正在做什麼，否則不建議繼續執行移除動作。移除這些套件可能會對您的裝置造成無法逆轉的損害，並有可能需要回復系統。";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "由於缺乏正確的權限，因此 Zebra 無法完成此指令。請驗證 /usr/libexec/zebra/supersling 檔案的權限，並回報此問題到 GitHub 上。";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "由於缺乏正確的權限，因此 Zebra 無法完成此指令。請驗證 %@ 檔案的權限，並回報此問題到 GitHub 上。";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 不被 root:wheel 所擁有。請驗證  /usr/libexec/zebra/supersling 的檔案權限。";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling 不被 root:wheel 所擁有。請驗證  %@ 的檔案權限。";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 沒有權限以設定 uid 或 gid。請驗證  /usr/libexec/zebra/supersling 的檔案權限。";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling 沒有權限以設定 uid 或 gid。請驗證  %@ 的檔案權限。";
 
 "Error while creating documents directory: %@" = "建立文件目錄時發生錯誤：%@。";
 

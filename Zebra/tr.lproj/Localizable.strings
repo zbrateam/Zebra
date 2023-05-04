@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Kaldırılmak için sıraya eklenmiş paketlerden biri veya birden fazlası gerekli veya zorunludur. Ne yaptığınızı bilmiyorsanız devam etmeniz önerilmez. Bu paket(ler)i kaldırmak, cihazınızda geri dönülemez hasarlara yol açabilir ve cihazınızı sıfırlamanız gerekebilir.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra bu komutu gerekli yetkileri olmadığından dolayı gerçekleştiremedi. Lütfen \"/usr/libexec/zebra/supersling\" deki yetkileri kontrol edin ve bu hatayı GitHub üzerinden bize bildirin.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra bu komutu gerekli yetkileri olmadığından dolayı gerçekleştiremedi. Lütfen \"%@\" deki yetkileri kontrol edin ve bu hatayı GitHub üzerinden bize bildirin.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"su/sling\" in sahibi \"root:wheel\" değil. Lütfen \"/usr/libexec/zebra/supersling\" konumundaki dosyanın yetkilerini kontrol edin.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "\"su/sling\" in sahibi \"root:wheel\" değil. Lütfen \"%@\" konumundaki dosyanın yetkilerini kontrol edin.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"/su/sling\" in \"uid\" veya \"gid\" i ayarlama yetkisi yok. Lütfen \"/usr/libexec/zebra/supersling\" konumundaki dosyanın yetkilerini kontrol edin.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "\"/su/sling\" in \"uid\" veya \"gid\" i ayarlama yetkisi yok. Lütfen \"%@\" konumundaki dosyanın yetkilerini kontrol edin.";
 
 "Error while creating documents directory: %@" = "Dosya dizinini oluştururken hata: %@";
 

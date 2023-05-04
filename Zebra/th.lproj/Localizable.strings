@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "หนึ่งโปรแกรมหรือมากกว่าในคิวถอนการติดตั้งนั้นจำเป็นต้องมีบนเครื่อง ไม่แนะนำให้ดำเนินการต่อนอกจากว่าคุณรู้ตัวว่ากำลังทำอะไร การลบโปรแกรมเหล่านี้อาจส่งผลเสียกับเครื่องของคุณแบบย้อนกลับไม่ได้ และอาจถึงขั้นต้องล้างเครื่องใหม่";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra ไม่สามารถดำเนินการคำสั่งนี้ได้เนื่องจากสิทธิ์การเข้าถึงไม่ถูกต้อง กรุณาตรวจสอบสิทธิ์การเข้าถึงของไฟล์ /usr/libexec/zebra/supersling และรายงานปัญหานี้ไปที่ GitHub";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra ไม่สามารถดำเนินการคำสั่งนี้ได้เนื่องจากสิทธิ์การเข้าถึงไม่ถูกต้อง กรุณาตรวจสอบสิทธิ์การเข้าถึงของไฟล์ %@ และรายงานปัญหานี้ไปที่ GitHub";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ไม่ได้อยู่ภายใต้สิทธิ์ root:wheel กรุณาตรวจสอบให้แน่ใจว่าสิทธิ์การเข้าถึงของไฟล์ดังกล่าวที่อยู่ใน /usr/libexec/zebra/supersling นั้นถูกต้อง";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling ไม่ได้อยู่ภายใต้สิทธิ์ root:wheel กรุณาตรวจสอบให้แน่ใจว่าสิทธิ์การเข้าถึงของไฟล์ดังกล่าวที่อยู่ใน %@ นั้นถูกต้อง";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ยังไม่มีสิทธิ์ในการกำหนดค่า uid or gid กรุณาตรวจสอบให้แน่ใจว่าสิทธ์การเข้าถึงของไฟล์ดังกล่าวที่อยู่ใน /usr/libexec/zebra/supersling นั้นถูกต้อง";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling ยังไม่มีสิทธิ์ในการกำหนดค่า uid or gid กรุณาตรวจสอบให้แน่ใจว่าสิทธ์การเข้าถึงของไฟล์ดังกล่าวที่อยู่ใน %@ นั้นถูกต้อง";
 
 "Error while creating documents directory: %@" = "เกิดข้อผิดพลาดขณะเปิดที่อยู่ข้อมูลของโปรแกรม: %@";
 

@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "˙ǝɹoʇsǝɹ ןןnɟ ɐ uı ʇןnsǝɹ ʇɥƃıɯ puɐ ǝɔıʌǝp ɹnoʎ oʇ ǝƃɐɯɐp ǝןqısɹǝʌǝɹɹı ǝsnɐɔ pןnoɔ sǝƃɐʞɔɐd ǝsǝɥʇ ƃuıʌoɯǝᴚ ˙ƃuıop ǝɹɐ noʎ ʇɐɥʍ ʎןʇɔɐxǝ ʍouʞ noʎ ssǝןun pǝǝɔoɹd oʇ pǝpuǝɯɯoɔǝɹ ʇou sı ʇI ˙pǝɹınbǝɹ ɹo ןɐıʇuǝssǝ sı ןɐʌoɯǝɹ ɹoɟ ǝnǝnὉ ǝɥʇ uı sǝƃɐʞɔɐd ǝɥʇ ɟo ǝɹoɯ ɹo ǝuO";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "˙qnHʇıƃ uo ǝnssı sıɥʇ ʇɹodǝɹ puɐ ƃuıןsɹǝdns/ɐɹqǝz/ɔǝxǝqıן/ɹsn/ ʇɐ pǝʇɐɔoן suoıssıɯɹǝd ǝɥʇ ʎɟıɹǝʌ ǝsɐǝןԀ ˙suoıssıɯɹǝd ɹǝdoɹd ǝɥʇ ǝʌɐɥ ʇou sǝop ʇı ǝsnɐɔǝq puɐɯɯoɔ sıɥʇ ǝʇǝןdɯoɔ oʇ ǝןqɐun sɐʍ ɐɹqǝZ";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "˙qnHʇıƃ uo ǝnssı sıɥʇ ʇɹodǝɹ puɐ ƃuıןsɹǝdns/ɐɹqǝz/ɔǝxǝqıן/ɹsn/ ʇɐ pǝʇɐɔoן suoıssıɯɹǝd ǝɥʇ ʎɟıɹǝʌ ǝsɐǝןԀ ˙suoıssıɯɹǝd ɹǝdoɹd ǝɥʇ ǝʌɐɥ ʇou sǝop ʇı ǝsnɐɔǝq puɐɯɯoɔ sıɥʇ ǝʇǝןdɯoɔ oʇ ǝןqɐun sɐʍ ɐɹqǝZ";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "˙ƃuıןsɹǝdns/ɐɹqǝz/ɔǝxǝqıן/ɹsn/ ʇɐ pǝʇɐɔoן ǝןıɟ ǝɥʇ ɟo suoıssıɯɹǝd ǝɥʇ ʎɟıɹǝʌ ǝsɐǝןԀ ˙ןǝǝɥʍ:ʇooɹ ʎq pǝuʍo ʇou sı ƃuıןs/ns";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "˙ƃuıןsɹǝdns/ɐɹqǝz/ɔǝxǝqıן/ɹsn/ ʇɐ pǝʇɐɔoן ǝןıɟ ǝɥʇ ɟo suoıssıɯɹǝd ǝɥʇ ʎɟıɹǝʌ ǝsɐǝןԀ ˙ןǝǝɥʍ:ʇooɹ ʎq pǝuʍo ʇou sı ƃuıןs/ns";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "˙ƃuıןsɹǝdns/ɐɹqǝz/ɔǝxǝqıן/ɹsn/ ʇɐ pǝʇɐɔoן ǝןıɟ ǝɥʇ ɟo suoıssıɯɹǝd ǝɥʇ ʎɟıɹǝʌ ǝsɐǝןԀ ˙pıƃ ɹo pın ǝɥʇ ʇǝs oʇ uoıssıɯɹǝd ǝʌɐɥ ʇou sǝop ƃuıןs/ns";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "˙ƃuıןsɹǝdns/ɐɹqǝz/ɔǝxǝqıן/ɹsn/ ʇɐ pǝʇɐɔoן ǝןıɟ ǝɥʇ ɟo suoıssıɯɹǝd ǝɥʇ ʎɟıɹǝʌ ǝsɐǝןԀ ˙pıƃ ɹo pın ǝɥʇ ʇǝs oʇ uoıssıɯɹǝd ǝʌɐɥ ʇou sǝop ƃuıןs/ns";
 
 "Error while creating documents directory: %@" = "˙%@ :ʎɹoʇɔǝɹıp sʇuǝɯnɔop ƃuıʇɐǝɹɔ ǝןıɥʍ ɹoɹɹƎ";
 

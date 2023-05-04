@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Jedan ili više paketa u Listi za deinstaliranje je esencijalan i potreban. Nije preporučeno da se ukloni osim ako znate šta radite! Uklanjanje ovih paketa može izazvati nepopravljive greške na vašem uredjaju.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nije u mogućnosti da završi komandu zato što ne poseduje ovlašćenja. Molimo vas verifikuje ovlašćenja nad /usr/libexec/zebra/supersling i prijavite problem. A GitHub -u.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra nije u mogućnosti da završi komandu zato što ne poseduje ovlašćenja. Molimo vas verifikuje ovlašćenja nad %@ i prijavite problem. A GitHub -u.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ne pripada korisniku root:wheel. Please verify Molimo vas proverite ovlašćenja nad fajlovima u folderu /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling ne pripada korisniku root:wheel. Please verify Molimo vas proverite ovlašćenja nad fajlovima u folderu %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ne pripada korisniku root: wheel. Please verify Molimo vas proverite ovlašćenja nad fajlovima u folderu /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling ne pripada korisniku root: wheel. Please verify Molimo vas proverite ovlašćenja nad fajlovima u folderu %@.";
 
 "Error while creating documents directory: %@" = "Greška prilikom kreiranja direktorijuma: %@";
 

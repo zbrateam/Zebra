@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Een of meer van de pakketten in de Wachtrij voor verwijdering is essentieel of noodzakelijk. Het is niet aan te raden om verder te gaan tenzij u precies weet wat u doet. Het verwijderen van deze pakketten kan onomkeerbare schade toebrengen aan je apparaat en kan een volledig herstel veroorzaken.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra kon deze opdracht niet voltooien omdat het niet de juiste machtigingen heeft. Controleer de machtigingen in /usr/libexec/zebra/supersling en rapporteer dit probleem op GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra kon deze opdracht niet voltooien omdat het niet de juiste machtigingen heeft. Controleer de machtigingen in %@ en rapporteer dit probleem op GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is geen eigendom van root:wheel. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling is geen eigendom van root:wheel. Controleer de rechten van het bestand op %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling heeft geen toestemming om de uid of gid in te stellen. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling heeft geen toestemming om de uid of gid in te stellen. Controleer de rechten van het bestand op %@.";
 
 "Error while creating documents directory: %@" = "Fout bij het aanmaken van de documentenmap: %@";
 

@@ -67,7 +67,7 @@ static const int ZBCommandFinishFileno = 3;
             // If we're not set to run as root but we want to, set supersling as the command and duplicate the original command into the arguments array
             [mutableArguments insertObject:_command atIndex:0];
             _arguments = mutableArguments;
-            _command = @INSTALL_PREFIX @"/usr/libexec/zebra/supersling";
+            _command = [[NSBundle mainBundle] pathForResource:@"supersling" ofType:nil];
         }
 
         if (!_asRoot && !asRoot && (!mutableArguments.count || ![mutableArguments[0] isEqualToString:_command])) { // If we're not set as root and we don't want to, we need to make sure the first arugment in the array is the binary we want to run

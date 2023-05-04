@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Ve frontě jsou důležité nebo nutné balíčky. Nedoporučuje se pokračovat, pokud přesně nevíte, co děláte. Odstranění těchto balíčků by mohlo způsobit nevratné poškození vašeho zařízení.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nebyla schopna dokončit tento příkaz, protože nemá správná oprávnění. Prosím ověřte oprávnění v /usr/libexec/zebra/supersling a nahlaste tento problém na GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra nebyla schopna dokončit tento příkaz, protože nemá správná oprávnění. Prosím ověřte oprávnění v %@ a nahlaste tento problém na GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling není vlastněn root:wheel. Prosím ověřte oprávnění souboru umístěného na /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling není vlastněn root:wheel. Prosím ověřte oprávnění souboru umístěného na %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nemá oprávnění nastavit uid nebo gid. Zkontrolujte oprávnění souboru umístěného v /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling nemá oprávnění nastavit uid nebo gid. Zkontrolujte oprávnění souboru umístěného v %@.";
 
 "Error while creating documents directory: %@" = "Při vytváření adresáře dokumentů došlo k chybě: %@";
 

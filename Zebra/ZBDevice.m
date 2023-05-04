@@ -95,13 +95,14 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         // Check to see if su/sling has the proper setuid/setgid bit
         // We shouldn't do a dispatch_once because who knows when the file could be changed
         // Returns YES if su/sling's setuid/setgid permissions need to be reset
+        NSString *supersling = [[NSBundle mainBundle] pathForResource:@"supersling" ofType:nil];
         struct stat path_stat;
-        stat(INSTALL_PREFIX "/usr/libexec/zebra/supersling", &path_stat);
+        stat(supersling.UTF8String, &path_stat);
 
         if (path_stat.st_uid != 0 || path_stat.st_gid != 0) {
             if (error) {
                 *error = [NSError errorWithDomain:NSCocoaErrorDomain code:51 userInfo:@{
-                    NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at " @INSTALL_PREFIX @"/usr/libexec/zebra/supersling.", @"")
+                    NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@.", @""), supersling]
                 }];
             }
             return YES; //If the uid/gid aren't 0 then theres a problem
@@ -113,7 +114,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         if (cannot_set_uid || cannot_set_gid) {
             if (error) {
                 *error = [NSError errorWithDomain:NSCocoaErrorDomain code:52 userInfo:@{
-                    NSLocalizedDescriptionKey: NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at " @INSTALL_PREFIX @"/usr/libexec/zebra/supersling.", @"")
+                    NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@.", @""), supersling]
                 }];
             }
             return YES;

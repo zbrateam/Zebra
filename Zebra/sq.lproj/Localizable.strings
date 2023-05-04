@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Një ose më shumë nga paketat në Radhë për heqje janë thelbësore ose të kërkuara. Nuk rekomandohet të vazhdoni nëse nuk e dini saktësisht se çfarë po bëni. Heqja e këtyre paketave mund të shkaktojë dëme të pakthyeshme në pajisjen tuaj dhe mund të rezultojë në një rikthim të plotë.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nuk ishte në gjendje ta plotësonte këtë komandë sepse nuk ka lejet e duhura. Ju lutemi verifikoni lejet e vendosura në /usr/libexec/zebra/supersling dhe raportoni këtë çështje në GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra nuk ishte në gjendje ta plotësonte këtë komandë sepse nuk ka lejet e duhura. Ju lutemi verifikoni lejet e vendosura në %@ dhe raportoni këtë çështje në GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nuk është në pronësi të root:wheel. Ju lutemi verifikoni lejet e skedarit të vendosur në /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling nuk është në pronësi të root:wheel. Ju lutemi verifikoni lejet e skedarit të vendosur në %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nuk ka leje për të përcaktuar uid ose gid. Ju lutemi verifikoni lejet e skedarit të vendosur në /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling nuk ka leje për të përcaktuar uid ose gid. Ju lutemi verifikoni lejet e skedarit të vendosur në %@.";
 
 "Error while creating documents directory: %@" = "Gabim gjatë krijimit të direktorit të dokumentave: %@";
 

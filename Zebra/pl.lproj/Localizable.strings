@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Jeden lub więcej pakietów w kolejce do usunięcia jest wymagany. Nie jest zalecane kontynuowanie, chyba że wiesz dokładnie, co robisz. Usuwanie tych pakietów może skutkować nieodwracalnymi uszkodzeniami i może wymagać pełnego odnowienia.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nie była w stanie wypełnić tej komendy, ponieważ nie posiada odpowiednich uprawnień. Zweryfikuj uprawnienia znajdujące się w /usr/libexec/zebra/supersling i zgłoś ten problem na GitHubie.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra nie była w stanie wypełnić tej komendy, ponieważ nie posiada odpowiednich uprawnień. Zweryfikuj uprawnienia znajdujące się w %@ i zgłoś ten problem na GitHubie.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nie należy do root:wheel. Sprawdź uprawnienia pliku znajdującego się w /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling nie należy do root:wheel. Sprawdź uprawnienia pliku znajdującego się w %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nie ma uprawnień do ustawienia uid lub gid. Proszę zweryfikować uprawnienia pliku znajdującego się w /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling nie ma uprawnień do ustawienia uid lub gid. Proszę zweryfikować uprawnienia pliku znajdującego się w %@.";
 
 "Error while creating documents directory: %@" = "Wystąpił błąd podczas tworzenia katalogu dokumentów %@.";
 

@@ -355,12 +355,12 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "En eller flere af pakkerne i køen til sletning, er grundlæggene eller krævet af andre pakker. Stop medmindre du ved præcist hvad du laver. Sletning af disse pakker kan skabe uoprettelig skade til din enhed der vil resultere i at den eneste udvej er en gendannelse.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra kunne ikke udføre denne kommando, da rettighederne mangler. Tjek venligst rettighederne på filen placeret ved /usr/libexec/supersling og anmeld denne fejl på GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at %@ and report this issue on GitHub." = "Zebra kunne ikke udføre denne kommando, da rettighederne mangler. Tjek venligst rettighederne på filen placeret ved %@ og anmeld denne fejl på GitHub.";
 
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling er ikke ejet af root:wheel. Tjek venligst rettighederne af filen placeret ved /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at %@." = "su/sling er ikke ejet af root:wheel. Tjek venligst rettighederne af filen placeret ved %@.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har ikke tilladelse til at ændre uid eller gid. Tjek venligst rettighederne af filen placeret ved /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at %@." = "su/sling har ikke tilladelse til at ændre uid eller gid. Tjek venligst rettighederne af filen placeret ved %@.";
 
 "Error while creating documents directory: %@" = "Error while creating documents directory: %@";
 

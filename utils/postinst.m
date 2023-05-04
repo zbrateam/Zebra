@@ -5,7 +5,7 @@ int main() {
 	// Ensure supersling permissions if we need it on this iOS version.
 	if (@available(iOS 13, *)) {
 	} else {
-		if (lchown(INSTALL_PREFIX "/usr/libexec/zebra/supersling", 0, 0) != 0 || lchmod(INSTALL_PREFIX "/usr/libexec/zebra/supersling", 06755) != 0) {
+		if (lchown(INSTALL_PREFIX "/Applications/Zebra.app/supersling", 0, 0) != 0 || lchmod(INSTALL_PREFIX "/Applications/Zebra.app/supersling", 06755) != 0) {
 			errno_t error = errno;
 			NSLog(@"Failed to set permissions on supersling: %s", strerror(error));
 			return 1;
