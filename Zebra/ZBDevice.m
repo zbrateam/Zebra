@@ -347,7 +347,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     NSDictionary <NSString *, NSNumber *> *jailbreakInstalledDirs = @{
         @"/binpack":      @(ZBJailbreakCheckra1n),
         @"/electra":      @(ZBJailbreakElectra),
-        @"/chinera":      @(ZBJailbreakChimera),
+        @"/chimera":      @(ZBJailbreakChimera),
         @"/var/Liy/xina": @(ZBJailbreakXinaA15),
     };
 
