@@ -352,14 +352,12 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     };
 
     for (NSString *file in jailbreakInstalledFiles.allKeys) {
-        NSLog(@"[ZBDevice] is %@? %i", file, [self _isRegularFile:file]);
         if ([self _isRegularFile:file]) {
             return jailbreakInstalledFiles[file].integerValue;
         }
     }
 
     for (NSString *dir in jailbreakInstalledDirs.allKeys) {
-        NSLog(@"[ZBDevice] is %@? %i", dir, [self _isRegularDirectory:dir]);
         if ([self _isRegularDirectory:dir]) {
             return jailbreakInstalledDirs[dir].integerValue;
         }
