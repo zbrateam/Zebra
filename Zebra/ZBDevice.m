@@ -326,7 +326,8 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         @"/.installed_unc0ver":    @(ZBJailbreakUnc0ver),
         @"/.installed_odyssey":    @(ZBJailbreakOdyssey),
         @"/.installed_taurine":    @(ZBJailbreakTaurine),
-        @INSTALL_PREFIX @"/.installed_palera1n":  @(ZBJailbreakPalera1n),
+        @INSTALL_PREFIX @"/.installed_palera1n":  @(ZBJailbreakPalera1n), // 1.x
+        @INSTALL_PREFIX @"/.palecursus_strapped": @(ZBJailbreakPalera1n), // 2.x
         @INSTALL_PREFIX @"/.installed_fugu15max": @(ZBJailbreakDopamine),
         @INSTALL_PREFIX @"/.installed_dopamine":  @(ZBJailbreakDopamine),
         @"/.installed_socket":     @(ZBJailbreakSocket),
