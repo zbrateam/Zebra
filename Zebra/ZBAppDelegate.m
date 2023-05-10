@@ -466,6 +466,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     static SentryEvent *eventPendingReport = nil;
     [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
         options.dsn = SENTRY_DSN;
+        options.enableOutOfMemoryTracking = NO;
         options.beforeSend = ^SentryEvent * _Nullable (SentryEvent *event) {
             switch ([ZBSettings sendErrorReports]) {
             case ZBSendErrorReportsUnspecified:
