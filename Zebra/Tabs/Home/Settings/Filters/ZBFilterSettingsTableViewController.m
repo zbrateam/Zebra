@@ -344,7 +344,7 @@
         case 3: {
             UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 switch (indexPath.section) {
-                    case 0: {
+                    case 1: {
                         NSString *section = self->filteredSections[indexPath.row];
                         [self->filteredSections removeObject:section];
                         
@@ -352,7 +352,7 @@
                         [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                         break;
                     }
-                    case 1: {
+                    case 2: {
                         ZBSource *source = self->sources[indexPath.row];
                         [self->filteredSources removeObjectForKey:[source baseFilename]];
                         [self->sources removeObjectAtIndex:indexPath.row];
@@ -361,7 +361,7 @@
                         [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                         break;
                     }
-                    case 2: {
+                    case 3: {
                         NSString *author = [self->blockedAuthors allKeys][indexPath.row];
                         [self->blockedAuthors removeObjectForKey:author];
 
