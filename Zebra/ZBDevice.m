@@ -250,7 +250,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         if (@available(iOS 15, *)) {
             // Try userspace reboot
             NSLog(@"[Zebra] Trying userspace reboot");
-            if ([ZBCommand execute:@"launchctl" withArguments:@[@"userspace", @"reboot"] asRoot:YES]) {
+            if ([ZBCommand execute:@"launchctl" withArguments:@[@"reboot", @"userspace"] asRoot:YES]) {
                 return;
             }
         } else if (@available(iOS 11, *)) {
@@ -423,7 +423,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     case ZBJailbreakDopamine:    return @"Dopamine";
     case ZBJailbreakSocket:      return @"socket";
     case ZBJailbreakH3lix:       return @"h3lix";
-    case ZBJailbreakBlizzard9:   return @"Blizzard";
+    case ZBJailbreakBlizzard9:   return @"Blizzard9";
     case ZBJailbreakOpenpwnage:  return @"Openpwnage";
     case ZBJailbreakHomeDepot:   return @"Home Depot";
     case ZBJailbreakKok3shi:     return @"kok3shi";
