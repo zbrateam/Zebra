@@ -488,7 +488,7 @@
                 continue;
             }
 
-            ZBPackage *topPackage = [self topVersionForPackage:package];
+            ZBPackage *topPackage = [self topVersionForPackage:package filteringArch:YES];
             NSComparisonResult compare = [package compare:topPackage];
             if (compare == NSOrderedAscending) {
                 ZBLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
@@ -2113,6 +2113,10 @@
     return NULL;
 }
 
+- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package filteringArch:(Boolean)filteringArch {
+    NSArray *allVersions = [self allVersionsForPackageID:package.identifier inSource:NULL filteringArchitectures:filteringArch];
+    return allVersions.firstObject;
+}
 
 - (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package {
     return [self topVersionForPackage:package inSource:NULL];

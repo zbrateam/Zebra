@@ -696,10 +696,9 @@
         if ([imaginarySources count]) {
             [existing unionSet:[NSSet setWithArray:imaginarySources]];
         }
-        
-        ZBRefreshViewController *refreshVC = [[ZBRefreshViewController alloc] initWithBaseSources:existing delegate:self];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
+            ZBRefreshViewController *refreshVC = [[ZBRefreshViewController alloc] initWithBaseSources:existing delegate:self];
             [self->verifyPopup dismissViewControllerAnimated:YES completion:^{
                 [self presentViewController:refreshVC animated:YES completion:nil];
             }];
