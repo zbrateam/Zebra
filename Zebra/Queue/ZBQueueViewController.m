@@ -170,17 +170,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    /*
-    static NSString *identifier = @"QueuePackageTableViewCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-    }
-    cell.backgroundColor = [UIColor cellBackgroundColor];
-    NSLog(@"Font: %@\n", cell.textLabel.font);
-    */
-    
     ZBQueuePackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ZBQueuePackageTableViewCell" forIndexPath:indexPath];
     ZBPackage *package = packages[indexPath.section][indexPath.row];
     [cell setPackage:package onQueue:self->queue];
