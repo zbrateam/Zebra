@@ -15,6 +15,7 @@
 #import "UIColor+GlobalColors.h"
 #import "ZBDevice.h"
 #import "ZBThemeManager.h"
+#import "ZBQueuePackageTableViewCell.h"
 
 @import SDWebImage;
 @import LNPopupController;
@@ -51,6 +52,8 @@
     }
     self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionHeaderHeight = 44;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    [self.tableView registerClass:[ZBQueuePackageTableViewCell class] forCellReuseIdentifier:@"ZBQueuePackageTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -167,6 +170,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    /*
     static NSString *identifier = @"QueuePackageTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
@@ -174,45 +178,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     cell.backgroundColor = [UIColor cellBackgroundColor];
+    NSLog(@"Font: %@\n", cell.textLabel.font);
+    */
     
+    ZBQueuePackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ZBQueuePackageTableViewCell" forIndexPath:indexPath];
     ZBPackage *package = packages[indexPath.section][indexPath.row];
-    if ([package dependencyOf].count > 0 || [package hasIssues] || [package removedBy] != nil || ([package isEssentialOrRequired] && [queue contains:package inQueue:ZBQueueTypeRemove]))  {
-        cell.accessoryType = UITableViewCellAccessoryDetailButton;
-    }
-    else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    
-    [package setIconImageForImageView:cell.imageView];
-
-    cell.imageView.layer.cornerRadius = 10;
-    cell.imageView.clipsToBounds = YES;
-    cell.textLabel.text = package.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%@)", package.identifier, package.version];
-    
-    if ([package hasIssues]) {
-        [cell setTintColor:[UIColor systemPinkColor]];
-        cell.textLabel.textColor = [UIColor systemPinkColor];
-        cell.detailTextLabel.textColor = [UIColor systemPinkColor];
-    }
-    else if ([package isEssentialOrRequired] && [queue contains:package inQueue:ZBQueueTypeRemove]) {
-        [cell setTintColor:[UIColor systemOrangeColor]];
-        cell.textLabel.textColor = [UIColor systemOrangeColor];
-        cell.detailTextLabel.textColor = [UIColor systemOrangeColor];
-    }
-    else {
-        [cell setTintColor:[UIColor accentColor]];
-        cell.textLabel.textColor = [UIColor primaryTextColor];
-        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
-    }
-    
-    CGSize itemSize = CGSizeMake(35, 35);
-    UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
-    CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-    [cell.imageView.image drawInRect:imageRect];
-    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
+    [cell setPackage:package onQueue:self->queue];
+     
     return cell;
 }
 

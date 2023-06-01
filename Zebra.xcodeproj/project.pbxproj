@@ -122,6 +122,7 @@
 		BFC6DB1E236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */; };
 		C3BF92C02449144E00D903A7 /* UIFont+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */; };
 		D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */; };
+		E1612E442A292F7C00C82E32 /* ZBQueuePackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1612E432A292F7C00C82E32 /* ZBQueuePackageTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -401,6 +402,8 @@
 		C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Zebra.m"; sourceTree = "<group>"; };
 		D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStoresListTableViewController.m; sourceTree = "<group>"; };
 		D1BF9C7022A826B300DD9266 /* ZBStoresListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStoresListTableViewController.h; sourceTree = "<group>"; };
+		E1612E422A292F7C00C82E32 /* ZBQueuePackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueuePackageTableViewCell.h; sourceTree = "<group>"; };
+		E1612E432A292F7C00C82E32 /* ZBQueuePackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueuePackageTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -885,6 +888,8 @@
 				89DD26852201571900CD31A0 /* ZBQueue.m */,
 				8900FA4E2201E9C200476310 /* ZBQueueViewController.h */,
 				8900FA4F2201E9C200476310 /* ZBQueueViewController.m */,
+				E1612E422A292F7C00C82E32 /* ZBQueuePackageTableViewCell.h */,
+				E1612E432A292F7C00C82E32 /* ZBQueuePackageTableViewCell.m */,
 			);
 			path = Queue;
 			sourceTree = "<group>";
@@ -1185,6 +1190,7 @@
 				898E010E22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m in Sources */,
 				8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */,
+				E1612E442A292F7C00C82E32 /* ZBQueuePackageTableViewCell.m in Sources */,
 				D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
