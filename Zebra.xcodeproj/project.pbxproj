@@ -1424,7 +1424,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEB_ARCH = "iphoneos-arm64";
-				DEVELOPMENT_TEAM = FNYH7RRK6K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
