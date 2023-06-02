@@ -165,18 +165,25 @@
         break;
 
     case ZBJailbreakPalera1n:
-        [result addObject:@{@"type": @"utility",
-                            @"name": @"Procursus",
-                            @"url" : @"https://apt.procurs.us/",
-                            @"icon": @"https://apt.procurs.us/CydiaIcon.png"}];
+        if ([ZBDevice isPrefixed]) {
+            [result addObject:@{@"type": @"utility",
+                                @"name": @"Procursus",
+                                @"url" : @"https://apt.procurs.us/",
+                                @"icon": @"https://apt.procurs.us/CydiaIcon.png"}];
+            [result addObject:@{@"type": @"utility",
+                                @"name": @"ElleKit",
+                                @"url" : @"https://ellekit.space/",
+                                @"icon": @"https://ellekit.space/CydiaIcon.png"}];
+        } else {
+            [result addObject:@{@"type": @"utility",
+                                @"name": @"palera1n strap",
+                                @"url" : @"https://strap.palera.in/",
+                                @"icon": @"https://strap.palera.in/CydiaIcon.png"}];
+        }
         [result addObject:@{@"type": @"utility",
                             @"name": @"palera1n",
                             @"url" : @"https://repo.palera.in/",
                             @"icon": @"https://repo.palera.in/CydiaIcon.png"}];
-        [result addObject:@{@"type": @"utility",
-                            @"name": @"ElleKit",
-                            @"url" : @"https://ellekit.space/",
-                            @"icon": @"https://ellekit.space/CydiaIcon.png"}];
         break;
 
     case ZBJailbreakDopamine:

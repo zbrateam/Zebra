@@ -158,7 +158,7 @@
     debLine = [debLine stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     
     NSMutableArray *lineComponents = [[debLine componentsSeparatedByString:@" "] mutableCopy];
-    [lineComponents removeObject:@""]; //Remove empty strings from the line which exist for some reason
+    [lineComponents removeObject:@""]; // Remove empty strings from the line which exist for some reason
     
     NSUInteger count = [lineComponents count];
     NSString *archiveType = NULL;
@@ -172,11 +172,16 @@
             repositoryURI = lineComponents[1];
             
             if (([self hasCFVersionComponent:repositoryURI]) && count == 3) { // Sources that are known to use CF number in URL but for some reason aren't written in the sources.list properly
+                int roundedCF = 100.0 * floor((kCFCoreFoundationVersionNumber/100.0) + 0.5);
+                if (roundedCF > kCFCoreFoundationVersionNumber) roundedCF -= 100.0;
+                
                 if ([repositoryURI containsString:@"apt.procurs.us"]) { // Have to treat this differently because its special
-                    int roundedCF = 100.0 * floor((kCFCoreFoundationVersionNumber/100.0)+0.5);
-                    if (roundedCF > kCFCoreFoundationVersionNumber) roundedCF -= 100.0;
-                    NSString *kind = [ZBDevice isPrefixed] ? @"iphoneos-arm64-rootless" : @"iphoneos-arm64";
+                    NSString *dist = roundedCF >= 1900 ? @"" : @"iphoneos-arm64-rootless";
+                    NSString *kind = [ZBDevice isPrefixed] ? dist : @"iphoneos-arm64";
                     distribution = [NSString stringWithFormat:@"%@/%d", kind, roundedCF];
+                }
+                else if ([repositoryURI containsString:@"strap.palera.in"]) {
+                    distribution = [NSString stringWithFormat:@"%@/%d", @"iphoneos-arm64", roundedCF];
                 }
                 else {
                     distribution = [NSString stringWithFormat:@"ios/%.2f", kCFCoreFoundationVersionNumber];
@@ -186,7 +191,7 @@
             else if (count > 2) {
                 distribution = lineComponents[2];
                 
-                //Group all of the components into the components array
+                // Group all of the components into the components array
                 for (int i = 3; i < count; i++) {
                     NSString *component = lineComponents[i];
                     if (component)  {
@@ -243,7 +248,7 @@
 
 - (BOOL)hasCFVersionComponent:(NSString * _Nullable)repositoryURI_ {
     NSString *repositoryURI = repositoryURI_ ?: self.repositoryURI;
-    return [repositoryURI containsString:@"apt.procurs.us"] || [repositoryURI containsString:@"apt.bingner.com"] || [repositoryURI containsString:@"apt.saurik.com"];
+    return [repositoryURI containsString:@"apt.procurs.us"] || [repositoryURI containsString:@"apt.bingner.com"] || [repositoryURI containsString:@"apt.saurik.com"] || [repositoryURI containsString:@"strap.palera.in"];
 }
 
 - (void)verify:(nullable void (^)(ZBSourceVerificationStatus status))completion {
