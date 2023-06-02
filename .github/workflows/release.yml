@@ -58,7 +58,7 @@ jobs:
         if: "!github.event.release.prerelease"
         working-directory: packages
         run: |
-          cp -f -- '${{ steps.build.outputs.package }}' ~/website
+          cp -f -- '${{ steps.build.outputs.package }}' ~/website/repo/pool
       - name: Copy package to beta repo
         if: "github.event.release.prerelease"
         working-directory: packages
