@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <sys/stat.h>
 
-int main() {
+int main(void) {
 	// Ensure supersling permissions if we need it on this iOS version.
 	if (@available(iOS 13, *)) {
 	} else {

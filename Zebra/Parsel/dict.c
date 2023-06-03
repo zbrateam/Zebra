@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-dict *dict_new() {
+dict *dict_new(void) {
     dict *dictionary = malloc(sizeof(dict));
     assert(dictionary != NULL);
     dictionary->head = NULL;
@@ -113,14 +113,14 @@ void dict_remove(dict *dictionary, const char *key) {
 void dict_free(dict *dictionary) {
     if (dictionary == NULL)
         return;
-    
+
     if (dictionary->head == NULL) {
         dict *next = dictionary->next;
         free(dictionary);
         dict_free(next);
         return;
     }
-    
+
     free(dictionary->head->key);
     free(dictionary->head->value);
     free(dictionary->head);

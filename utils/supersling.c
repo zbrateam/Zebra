@@ -12,7 +12,7 @@ int proc_pidpath(int pid, void *buffer, uint32_t buffersize);
 /* Set platform binary flag */
 #define FLAG_PLATFORMIZE (1 << 1)
 
-void patch_setuidandplatformize() {
+void patch_setuidandplatformize(void) {
   void *handle = dlopen(INSTALL_PREFIX "/usr/lib/libjailbreak.dylib", RTLD_LAZY);
   if (!handle) return;
 
@@ -56,7 +56,7 @@ int main(int argc, char ** argv) {
     pid_t pid = getppid();
 
     char buffer[PATH_MAX];
-    int ret = proc_pidpath(pid, buffer, sizeof(buffer)); 
+    int ret = proc_pidpath(pid, buffer, sizeof(buffer));
 
     struct stat response;
     stat(buffer, &response);
