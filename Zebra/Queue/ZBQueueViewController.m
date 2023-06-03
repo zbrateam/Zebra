@@ -54,7 +54,6 @@
     self.tableView.estimatedSectionHeaderHeight = 44;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.tableView registerClass:[ZBQueuePackageTableViewCell class] forCellReuseIdentifier:@"ZBQueuePackageTableViewCell"];
-    // self.tableView.alwaysBounceVertical = false;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

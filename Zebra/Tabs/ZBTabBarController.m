@@ -252,6 +252,9 @@
         if (count > 0) {
             self.popupController.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
             self.popupController.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
+            
+            ZBQueueViewController *queue = self.popupController.viewControllers[0];
+            [queue refreshTable];
         }
         else {
             self.popupController.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
