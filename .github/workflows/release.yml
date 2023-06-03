@@ -27,7 +27,7 @@ jobs:
         with:
           submodules: recursive
       - name: Install dependencies
-        run: brew install ldid make dpkg
+        run: brew install ldid make dpkg sentry-cli
       - name: Set up Theos
         uses: actions/checkout@v3
         with:
@@ -51,6 +51,13 @@ jobs:
         working-directory: packages
         run: |
           gh release upload '${{ github.event.release.tag_name }}' ${{ steps.build.outputs.package }}
+      - name: Upload symbols to Sentry
+        env:
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT_V1 }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          sentry-cli upload-dif .theos/obj/install_Zebra.xcarchive/dSYMs/*
       - name: Clone zbrateam repo
         run: |
           git clone --depth=1 'https://zbrabot:${{ secrets.BOT_TOKEN }}@github.com/zbrateam/zbrateam.github.io.git' ~/website
@@ -68,7 +75,7 @@ jobs:
         run: |
           cd ~/website
           git config --global user.name 'zbrabot'
-          git config --global user.email 'zbrabot@users.noreply.github.com'
+          git config --global user.email 'zbrabot[bot]@users.noreply.github.com'
           git add .
           rootless=$([[ ${{ matrix.rootless }} == 1 ]] && echo rootless || echo non-rootless)
           git commit -m "${{ github.event.release.tag_name }} $rootless"
