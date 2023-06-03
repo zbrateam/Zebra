@@ -10,6 +10,22 @@ Version: 176-1
 Depends: libncursesw6
 Description: cap_mkdb, finger, last, locale, lsvfs, tabs
 
+Package: com.foxfort.portraitxi
+Name: PortraitXI
+Depends: mobilesubstrate, preferenceloader
+Description: Single camera portrait mode
+Maintainer: foxfortmobile <foxfortmobile@gmail.com>
+Author: foxfortmobile <foxfortmobile@gmail.com>
+Section: Tweaks
+Icon: https://media.havoc.app/61f8d91128560770cfb2a4d3
+Architecture: iphoneos-arm
+Version: 4.3.1
+Installed-Size: 15596
+Tag: cydia::commercial
+Depiction: https://havoc.app/depiction/portraitxi
+SileoDepiction: https://havoc.app/package/portraitxi/depiction.json
+Status: install ok installed
+
 Package: apt
 Status: install ok installed
 Priority: required
