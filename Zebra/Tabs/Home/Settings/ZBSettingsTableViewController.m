@@ -19,6 +19,7 @@
 #import "ZBSettings.h"
 #import "ZBQueue.h"
 #import "ZBSource.h"
+#import "ZBCanisterPrivacyViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -144,7 +145,7 @@ enum ZBMiscOrder {
         case ZBSources:
             return 2;
         case ZBReset:
-            return 3;
+            return 4;
         default:
             return 0;
     }
@@ -351,9 +352,12 @@ enum ZBMiscOrder {
                 break;
             }
             case 1:
-                cell.textLabel.text = NSLocalizedString(@"Reset", @"");
+                cell.textLabel.text = NSLocalizedString(@"Canister Privacy Policy", @"");
                 break;
             case 2:
+                cell.textLabel.text = NSLocalizedString(@"Reset", @"");
+                break;
+            case 3:
                 cell.textLabel.text = NSLocalizedString(@"Open Documents Directory", @"");
                 cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
                 cell.accessoryType = UITableViewCellAccessoryNone;
@@ -469,9 +473,12 @@ enum ZBMiscOrder {
                     [self errorReportingSettings];
                     break;
                 case 1:
-                    [self resetSettings];
+                    [self canisterPolicy];
                     break;
                 case 2:
+                    [self resetSettings];
+                    break;
+                case 3:
                     [self openDocumentsDirectory];
                     break;
             }
@@ -505,6 +512,11 @@ enum ZBMiscOrder {
 }
 
 # pragma mark selected cells methods
+
+- (void)canisterPolicy {
+    UIViewController *vc = [[ZBCanisterPrivacyViewController alloc] initWithNibName:nil bundle:nil];
+    [self presentViewController:vc animated:true completion:nil];
+}
 
 - (void)showRefreshView:(NSNumber *)dropTables {
     if (![NSThread isMainThread]) {

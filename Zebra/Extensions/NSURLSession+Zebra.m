@@ -18,9 +18,21 @@
         NSURLSessionConfiguration *configuration = [[NSURLSessionConfiguration ephemeralSessionConfiguration] copy];
         // Disable setting or storing cookies. Requests made via zbra_standardSession shouldn’t be
         // using cookies.
+        #if TARGET_OS_IPHONE
+        NSString *platform = @"iphoneos";
+        #else
+        NSString *platform = @"macos";
+        #endif
+        NSString *ua = [NSString stringWithFormat: @"Zebra;v=%@;t=client,%@;t=jailbreak,%@;t=distribution", @PACKAGE_VERSION, [ZBDevice jailbreakName], [ZBDevice bootstrapName]];
         configuration.HTTPCookieStorage = nil;
         configuration.HTTPAdditionalHeaders = @{
-            @"User-Agent": [ZBDevice userAgent]
+            @"User-Agent": [ZBDevice userAgent],
+            @"Sec-CH-UA-Bitness": [NSString stringWithFormat:@"%lu", sizeof(void *) * 8],
+            @"Sec-CH-UA-Platform": platform,
+            @"Sec-CH-UA-Platform-Version": [[UIDevice currentDevice] systemVersion],
+            @"Sec-CH-UA-Model": [ZBDevice machineID],
+            @"Sec-CH-UA-Arch": [ZBDevice debianArchitecture],
+            @"Sec-CH-UA": ua
         };
         if (@available(iOS 13, *)) {
             configuration.TLSMinimumSupportedProtocolVersion = tls_protocol_version_TLSv12;

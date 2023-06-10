@@ -20,6 +20,7 @@
 #import "ZBHomeCopyableFooterView.h"
 #import "ZBHomeDemoNoticeCell.h"
 #import "NSURLSession+Zebra.h"
+#import "ZBCanisterPrivacyViewController.h"
 
 typedef enum ZBHomeOrder : NSUInteger {
     ZBWelcome,
@@ -91,6 +92,40 @@ typedef enum ZBInfoOrder : NSUInteger {
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
+    
+    NSURL *canisterURL = [[NSURL alloc] initWithString:@"https://api.canister.me/v2/"];
+    [[[NSURLSession zbra_standardSession] dataTaskWithURL:canisterURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (!data) {
+            return;
+        }
+        NSError *serializationError;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&serializationError];
+        if (serializationError || !dict) {
+            return;
+        }
+        NSDictionary *data_dict = [dict objectForKey:@"data"];
+        if (!data_dict) {
+            return;
+        }
+        NSDictionary *info = [data_dict objectForKey:@"reference"];
+        if (!info) {
+            return;
+        }
+        NSString *privacyPolicy = [info objectForKey:@"privacy_policy"];
+        if (!privacyPolicy) {
+            return;
+        }
+        NSURL *privacyPolicyURL = [[NSURL alloc] initWithString:privacyPolicy];
+        NSString *changedDate = [info objectForKey:@"privacy_updated"];
+        NSString *pastDate = [[NSUserDefaults standardUserDefaults] stringForKey:@"CanisterUpdateDate"];
+        if (![[NSUserDefaults standardUserDefaults] objectForKey:@"CanisterIngest"] || ![changedDate isEqualToString:pastDate]) {
+            [[NSUserDefaults standardUserDefaults] setObject:changedDate forKey:@"CanisterUpdateDate"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIViewController *vc = [[ZBCanisterPrivacyViewController alloc] initWithURL:privacyPolicyURL];
+                [self presentViewController:vc animated:true completion:nil];
+            });
+        }
+    }] resume];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -102,7 +137,6 @@ typedef enum ZBInfoOrder : NSUInteger {
     self.headerView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
 }
-
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

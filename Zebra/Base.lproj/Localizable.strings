@@ -452,3 +452,9 @@
 "Don’t Send" = "Don’t Send";
 "Send Error Reports" = "Send Error Reports";
 "Don’t Send Error Reports" = "Don’t Send Error Reports";
+
+"Canister Privacy Policy" = "Canister Privacy Policy";
+"Canister Data Collection" = "Data collected is used to update the featured page and various recommendation sources. You can always change your choice later. Only package and non-identifying device information is collected.";
+"Privacy Policy" = "Privacy Policy";
+"Accept" = "Accept";
+"Decline" = "Decline";

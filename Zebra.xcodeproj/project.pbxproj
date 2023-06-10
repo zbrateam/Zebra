@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -123,6 +123,8 @@
 		C3BF92C02449144E00D903A7 /* UIFont+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */; };
 		D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */; };
 		E1612E442A292F7C00C82E32 /* ZBQueuePackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1612E432A292F7C00C82E32 /* ZBQueuePackageTableViewCell.m */; };
+		E1ED15FF2A34F9F20079E785 /* ZBCanisterDownloadIngests.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED15FE2A34F9F20079E785 /* ZBCanisterDownloadIngests.m */; };
+		E1ED16042A3509460079E785 /* ZBCanisterPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED16032A3509460079E785 /* ZBCanisterPrivacyViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -404,6 +406,10 @@
 		D1BF9C7022A826B300DD9266 /* ZBStoresListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStoresListTableViewController.h; sourceTree = "<group>"; };
 		E1612E422A292F7C00C82E32 /* ZBQueuePackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueuePackageTableViewCell.h; sourceTree = "<group>"; };
 		E1612E432A292F7C00C82E32 /* ZBQueuePackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueuePackageTableViewCell.m; sourceTree = "<group>"; };
+		E1ED15FE2A34F9F20079E785 /* ZBCanisterDownloadIngests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCanisterDownloadIngests.m; sourceTree = "<group>"; };
+		E1ED16002A34F9FD0079E785 /* ZBCanisterDownloadIngests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCanisterDownloadIngests.h; sourceTree = "<group>"; };
+		E1ED16022A3509460079E785 /* ZBCanisterPrivacyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCanisterPrivacyViewController.h; sourceTree = "<group>"; };
+		E1ED16032A3509460079E785 /* ZBCanisterPrivacyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCanisterPrivacyViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -491,6 +497,8 @@
 				899229FC242815E90086E2F4 /* ZBSourceInfo.m */,
 				4E2E6BFB2820FBCF0089E4FB /* ZBPaymentVendorError.h */,
 				4E2E6BFC2820FBCF0089E4FB /* ZBPaymentVendorError.m */,
+				E1ED15FE2A34F9F20079E785 /* ZBCanisterDownloadIngests.m */,
+				E1ED16002A34F9FD0079E785 /* ZBCanisterDownloadIngests.h */,
 			);
 			path = JSONParsing;
 			sourceTree = "<group>";
@@ -897,6 +905,7 @@
 		89E8633621D5A1420081E485 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E1ED16012A3509220079E785 /* Canister Privacy Controller */,
 				3671B52022CB07F9008FD737 /* ZBHomeTableViewController.h */,
 				3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */,
 				4EA26E9427CBA2EC0019A5AA /* Views */,
@@ -1014,6 +1023,15 @@
 				D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */,
 			);
 			path = Stores;
+			sourceTree = "<group>";
+		};
+		E1ED16012A3509220079E785 /* Canister Privacy Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E1ED16022A3509460079E785 /* ZBCanisterPrivacyViewController.h */,
+				E1ED16032A3509460079E785 /* ZBCanisterPrivacyViewController.m */,
+			);
+			path = "Canister Privacy Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1214,6 +1232,7 @@
 				9E9D3130236D52BF00880215 /* ZBPackagePartitioner.m in Sources */,
 				9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */,
 				8916AC1F23CAAE5C008BA02C /* ZBCommunitySourcesTableViewController.m in Sources */,
+				E1ED16042A3509460079E785 /* ZBCanisterPrivacyViewController.m in Sources */,
 				36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */,
 				895C2ADA2402303B0065F424 /* ZBSearchTableViewController.m in Sources */,
 				4E58162E28D60DB700EEF97F /* ZBHomeDemoNoticeCell.m in Sources */,
@@ -1252,6 +1271,7 @@
 				4E2E6BFD2820FBCF0089E4FB /* ZBPaymentVendorError.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
+				E1ED15FF2A34F9F20079E785 /* ZBCanisterDownloadIngests.m in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,

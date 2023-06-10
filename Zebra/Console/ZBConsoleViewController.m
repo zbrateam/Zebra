@@ -8,6 +8,7 @@
 
 #import "ZBConsoleViewController.h"
 #import "ZBStage.h"
+#import "ZBCanisterDownloadIngests.h"
 
 #import "ZBDatabaseManager.h"
 #import "ZBDownloadManager.h"
@@ -211,6 +212,8 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
             for (ZBPackage *package in [queue packagesToInstall]) {
                 [installedPackageIdentifiers addObject:[package identifier]];
             }
+            
+            [CanisterIngest ingestPackages:[queue packagesToInstall]];
             
             for (NSArray <NSString *> *command in actions) {
                 if ([command count] == 1) {

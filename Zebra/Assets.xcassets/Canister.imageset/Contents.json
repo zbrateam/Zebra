@@ -1,16 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "Canister.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "darkmode-light.png",
+      "filename" : "Canister@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "darkmode-light(1).png",
+      "filename" : "Canister@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
