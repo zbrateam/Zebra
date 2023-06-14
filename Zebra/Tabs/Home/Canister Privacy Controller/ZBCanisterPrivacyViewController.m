@@ -90,7 +90,7 @@ NSURL *privacyPolicy;
         [buttonStackView addArrangedSubview:privacyPolicy];
         [buttonStackView addArrangedSubview:decline];
         [buttonStackView addArrangedSubview:accept];
-
+        
         double buttonHeights = 0;
         switch ((int)[UIScreen mainScreen].scale) {
             case 1:
@@ -106,7 +106,7 @@ NSURL *privacyPolicy;
         scrollView.translatesAutoresizingMaskIntoConstraints = false;
         scrollView.directionalLockEnabled = true;
         [scrollView addSubview:bodyStackView];
-        
+
         [self.view addSubview:scrollView];
         
         [NSLayoutConstraint activateConstraints:@[
@@ -124,13 +124,12 @@ NSURL *privacyPolicy;
             [scrollView.trailingAnchor constraintEqualToAnchor:headerImage.trailingAnchor],
             [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant: -15],
             
-            [scrollView.contentLayoutGuide.leadingAnchor constraintEqualToAnchor:bodyStackView.leadingAnchor],
-            [scrollView.contentLayoutGuide.trailingAnchor constraintEqualToAnchor:bodyStackView.trailingAnchor],
-            [scrollView.contentLayoutGuide.topAnchor constraintEqualToAnchor:bodyStackView.topAnchor],
-            [scrollView.contentLayoutGuide.bottomAnchor constraintEqualToAnchor:bodyStackView.bottomAnchor],
-            
-            [scrollView.frameLayoutGuide.widthAnchor constraintEqualToAnchor:bodyStackView.widthAnchor],
-            
+            [scrollView.leadingAnchor constraintEqualToAnchor:bodyStackView.leadingAnchor],
+            [scrollView.trailingAnchor constraintEqualToAnchor:bodyStackView.trailingAnchor],
+            [scrollView.topAnchor constraintEqualToAnchor:bodyStackView.topAnchor],
+            [scrollView.bottomAnchor constraintEqualToAnchor:bodyStackView.bottomAnchor],
+            [scrollView.widthAnchor constraintEqualToAnchor:bodyStackView.widthAnchor],
+
             [accept.heightAnchor constraintEqualToConstant:buttonHeights],
             [decline.heightAnchor constraintEqualToConstant:buttonHeights],
             [privacyPolicy.heightAnchor constraintEqualToConstant: buttonHeights]
