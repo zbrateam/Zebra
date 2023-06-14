@@ -27,7 +27,7 @@ jobs:
         with:
           submodules: recursive
       - name: Install dependencies
-        run: brew install ldid make dpkg sentry-cli
+        run: brew install ldid make dpkg getsentry/tools/sentry-cli
       - name: Set up Theos
         uses: actions/checkout@v3
         with:
