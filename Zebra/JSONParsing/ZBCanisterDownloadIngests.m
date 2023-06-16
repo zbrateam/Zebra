@@ -26,7 +26,11 @@
         }
         self.package_maintainer = self.package_author;
         ZBSource *source = package.source;
-        self.repostiory_uri = [source repositoryURI];
+        if (source) {
+            self.repostiory_uri = [source repositoryURI];
+        } else {
+            self.repostiory_uri = NULL;
+        }
     }
     return self;
 }
