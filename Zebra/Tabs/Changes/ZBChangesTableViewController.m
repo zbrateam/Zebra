@@ -377,13 +377,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"apollo:"]]) {
-        // Change https:// to apollo:// and open that.
-        NSURL *url = [NSURL URLWithString:[@"apollo" stringByAppendingString:[cell.redditLink.absoluteString substringFromIndex:cell.redditLink.scheme.length]]];
-        [[UIApplication sharedApplication] openURL:url];
-    } else {
-        [ZBDevice openURL:cell.redditLink delegate:self];
-    }
+    [ZBDevice openURL:cell.redditLink delegate:self];
 }
 
 - (void)toggleNews {
