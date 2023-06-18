@@ -17,7 +17,8 @@
     #else
     NSString *platform = @"macos";
     #endif
-    NSString *ua = [NSString stringWithFormat: @"Zebra;v=%@;t=client,%@;t=jailbreak,%@;t=distribution", @PACKAGE_VERSION, [ZBDevice jailbreakName], [ZBDevice bootstrapName]];
+    NSString *jailbreak = [[[ZBDevice jailbreakName] lowercaseString] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *ua = [NSString stringWithFormat: @"Zebra;v=%@;t=client,%@;t=jailbreak,%@;t=distribution", @PACKAGE_VERSION, jailbreak, [ZBDevice bootstrapName]];
     return [[NSMutableDictionary alloc] initWithDictionary:@{
         @"Sec-CH-UA-Bitness": [NSString stringWithFormat:@"%lu", sizeof(void *) * 8],
         @"Sec-CH-UA-Platform": platform,
