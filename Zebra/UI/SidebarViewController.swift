@@ -94,22 +94,14 @@ class SidebarViewController: ListCollectionViewController {
 	@objc private func updateUpdates() {
 		DispatchQueue.main.async {
 			var snapshot = self.dataSource.snapshot()
-			if #available(iOS 15, *) {
-				snapshot.reconfigureItems([.installed])
-			} else {
-				snapshot.reloadItems([.installed])
-			}
+			snapshot.reconfigureItems([.installed])
 			self.dataSource.apply(snapshot, animatingDifferences: false)
 		}
 	}
 
 	private func updateTabs() {
 		var snapshot = dataSource.snapshot()
-		if #available(iOS 15, *) {
-			snapshot.reconfigureItems(AppTab.allCases)
-		} else {
-			snapshot.reloadItems(AppTab.allCases)
-		}
+		snapshot.reconfigureItems(AppTab.allCases)
 		dataSource.apply(snapshot, animatingDifferences: false)
 	}
 

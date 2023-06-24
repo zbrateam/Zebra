@@ -81,18 +81,7 @@ extension UIImageView {
 
 extension UIImage.SymbolConfiguration {
 
-	var multicolor: Self {
-		if #available(iOS 15, *) {
-			return Self.preferringMulticolor().applying(self)
-		}
-		return self
-	}
-
-	func withHierarchicalColor(_ hierarchicalColor: UIColor) -> Self {
-		if #available(iOS 15, *) {
-			return Self(hierarchicalColor: hierarchicalColor).applying(self)
-		}
-		return self
-	}
+	var multicolor: Self { Self.preferringMulticolor().applying(self) }
+	func withHierarchicalColor(_ hierarchicalColor: UIColor) -> Self { Self(hierarchicalColor: hierarchicalColor).applying(self) }
 
 }

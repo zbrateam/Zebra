@@ -182,11 +182,7 @@ class HomeViewController: ListCollectionViewController {
 				self.promotedPackages = promotedPackages
 
 				var snapshot = self.dataSource.snapshot()
-				if #available(iOS 15, *) {
-					snapshot.reconfigureItems([.featured])
-				} else {
-					snapshot.reloadItems([.featured])
-				}
+				snapshot.reconfigureItems([.featured])
 				self.dataSource.apply(snapshot, animatingDifferences: true)
 			}
 		}

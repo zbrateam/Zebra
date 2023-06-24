@@ -320,11 +320,10 @@ class SourceRefreshController: NSObject {
 		var request = URLRequest(url: url,
 														 cachePolicy: .useProtocolCachePolicy,
 														 timeoutInterval: Preferences.sourceRefreshTimeout)
-		if #available(iOS 14.5, *) {
-			// Just go ahead and try HTTP/3 first without probing for whether it’s supported by the
-			// server. Since most repos are hosted on GitHub or Cloudflare, this is a safe-ish bet.
-			request.assumesHTTP3Capable = true
-		}
+
+		// Just go ahead and try HTTP/3 first without probing for whether it’s supported by the
+		// server. Since most repos are hosted on GitHub or Cloudflare, this is a safe-ish bet.
+		request.assumesHTTP3Capable = true
 
 		for (key, value) in URLController.aptHeaders {
 			request.setValue(value, forHTTPHeaderField: key)

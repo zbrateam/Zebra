@@ -96,10 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			builder.remove(menu: .format)
 			builder.remove(menu: .text)
 			builder.remove(menu: .toolbar)
-
-			if #available(iOS 15, *) {
-				builder.remove(menu: .sidebar)
-			}
+			builder.remove(menu: .sidebar)
 
 			// Add Preferences to Zebra menu
 			builder.insertSibling(UIMenu(options: .displayInline,

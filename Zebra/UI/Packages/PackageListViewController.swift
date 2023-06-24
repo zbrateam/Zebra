@@ -370,13 +370,8 @@ class PackageListViewController: ListCollectionViewController {
 	private func updateSortMenu() {
 		let currentSort = Preferences.packageListSort
 
-		var singleSelection = UIMenu.Options()
-		if #available(iOS 15, *) {
-			singleSelection = .singleSelection
-		}
-
 		let sortMenu = UIMenu(title: .localize("Sort"),
-													options: singleSelection.union(.displayInline),
+													options: [.singleSelection, .displayInline],
 													children: PackageListSort.allCases.map { item in
 			let icon = currentSort == item ? sortOrder.icon : nil
 			return UIAction(title: item.title,

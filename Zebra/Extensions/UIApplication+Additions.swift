@@ -22,18 +22,12 @@ extension UIApplication {
 										 requestedBy requestingScene: UIScene? = nil,
 										 asSingleton: Bool = true,
 										 withProminentPresentation prominentPresentation: Bool = false) {
-		let options: UIScene.ActivationRequestOptions
-		if #available(iOS 15, *) {
-			let windowSceneOptions = UIWindowScene.ActivationRequestOptions()
+		let options = UIWindowScene.ActivationRequestOptions()
 #if !targetEnvironment(macCatalyst)
-			if prominentPresentation {
-				windowSceneOptions.preferredPresentationStyle = .prominent
-			}
-#endif
-			options = windowSceneOptions
-		} else {
-			options = UIScene.ActivationRequestOptions()
+		if prominentPresentation {
+			windowSceneOptions.preferredPresentationStyle = .prominent
 		}
+#endif
 		options.requestingScene = requestingScene
 
 		// Find an existing scene, if one exists. If it does, the activate call will bring that into
