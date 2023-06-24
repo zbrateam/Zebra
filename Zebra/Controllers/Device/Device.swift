@@ -10,28 +10,32 @@ import UIKit
 
 fileprivate let isSimulated = SlingshotController.isSimulated
 
+enum Jailbreak: Int {
+	case demo = -1
+	case unknown
+	case palera1n
+	case dopamine
+}
+
+enum Distribution: Int {
+	case unknown
+	case procursus
+}
+
 @objc(ZBDevice)
 class Device: NSObject {
 
 	// MARK: - Environment
 
-	static let distroRootPrefix: String = {
+	static let systemRootPrefix: URL = { URL(fileURLWithPath: isDemo ? (dataURL/"demo-sysroot").path : "/", isDirectory: true) }()
+
+	static let distroRootPrefix: URL = {
 		#if targetEnvironment(macCatalyst) || targetEnvironment(simulator)
-		return "/opt/procursus"
+		URL(fileURLWithPath: "/opt/procursus", isDirectory: true)
 		#else
-		if isDemo {
-			return (dataURL/"demo-sysroot").path
-		} else if #available(iOS 14.4, *),
-			 FileManager.default.fileExists(atPath: "/private/preboot/procursus") {
-			return "/private/preboot/procursus"
-		} else {
-			return "/usr"
-		}
+		URL(fileURLWithPath: isDemo ? (dataURL/"demo-sysroot").path : "/var/jb", isDirectory: true)
 		#endif
 	}()
-
-	static let distroEtcPrefix = distroRootPrefix == "/usr" ? "/" : distroRootPrefix
-	static let distroVarPrefix = distroRootPrefix == "/usr" ? "/" : distroRootPrefix
 
 	static let cacheURL = FileManager.default.url(for: .cachesDirectory)/Bundle.main.bundleIdentifier!
 	static let dataURL = FileManager.default.url(for: .applicationSupportDirectory)/Bundle.main.bundleIdentifier!
@@ -58,44 +62,43 @@ class Device: NSObject {
 
 	static let path: String = {
 		// Construct a safe PATH that includes the distro prefix. This will be set app-wide.
-		let prefix = URL(fileURLWithPath: distroRootPrefix, isDirectory: true)
-		var path = ["/usr/sbin", "/usr/bin", "/sbin", "/bin"]
-		if prefix.path != "/usr" && (try? prefix.checkResourceIsReachable()) == true {
-			path.insert(contentsOf: [
-				(prefix/"sbin").path,
-				(prefix/"bin").path
-			], at: 0)
-		}
-		return path.joined(separator: ":")
+		let path = ["/usr/sbin", "/usr/bin", "/sbin", "/bin"]
+		return (path.map { (distroRootPrefix/$0).path } + path)
+			.joined(separator: ":")
 	}()
 
-	@objc static let primaryDebianArchitecture: String = {
+	static let architectures: [String] = {
 		// Cheat and say we’re on simulator.
 		#if targetEnvironment(simulator)
-		return "iphoneos-arm"
+		return ["iphoneos-arm64"]
 		#else
 		// Ask dpkg what architecture we’re on. If this doesn’t work, either dpkg is broken, or we’re
 		// sandboxed for some reason.
 		if !isDemo {
-			let dpkgPath = (URL(fileURLWithPath: distroRootPrefix, isDirectory: true)/"bin/dpkg").path
-			if let result = try? Command.executeSync(dpkgPath, arguments: ["--print-architecture"]),
-				 !result.isEmpty {
-				return String(result[..<(result.firstIndex(of: "\n") ?? result.endIndex)])
-			}
+			let dpkgPath = (distroRootPrefix/"bin/dpkg").path
+			let primaryArch = (try? Command.executeSync(dpkgPath, arguments: ["--print-architecture"]))?
+				.trimmingCharacters(in: .whitespacesAndNewlines)
+			let foreignArchs = try? Command.executeSync(dpkgPath, arguments: ["--print-foreign-architectures"])?
+				.trimmingCharacters(in: .whitespacesAndNewlines)
+			return "\(primaryArch ?? "")\n\(foreignArchs ?? "")"
+				.split(separator: "\n", omittingEmptySubsequences: true)
+				.map(String.init(_:))
 		}
 
 		// Fall back to making our best guess.
 		#if targetEnvironment(macCatalyst)
 		#if arch(x86_64)
-		return "darwin-amd64"
+		return ["darwin-amd64"]
 		#else
-		return "darwin-arm64"
+		return ["darwin-arm64"]
 		#endif
 		#else
-		return "iphoneos-arm"
+		return ["iphoneos-arm64"]
 		#endif
 		#endif
 	}()
+
+	@objc static var primaryDebianArchitecture: String { architectures.first! }
 
 	// MARK: - Distro/Jailbreak
 
@@ -109,23 +112,38 @@ class Device: NSObject {
 		return FileManager.default.fileExists(atPath: path, isDirectory: &isDir) && isDir.boolValue
 	}
 
-	static let isCheckrain  = !isSimulated && isRegularFile(path: "/.bootstrapped")
-	static let isChimera    = !isSimulated && isRegularDirectory(path: "/chimera")
-	static let isElectra    = !isSimulated && isRegularDirectory(path: "/electra")
-	static let isUncover    = !isSimulated && isRegularFile(path: "/.installed_unc0ver")
-	static let isOdyssey    = !isSimulated && isRegularFile(path: "/.installed_odyssey")
-	static let isTaurine    = !isSimulated && isRegularFile(path: "/.installed_taurine")
-	static let hasProcursus = !isSimulated && isRegularFile(path: "/.procursus_strapped")
-
-	static let jailbreakType: String = {
+	static let jailbreak: Jailbreak = {
 		switch true {
-		case isDemo:      return "Demo Mode"
-		case isOdyssey:   return "Odyssey"
-		case isCheckrain: return "checkra1n"
-		case isChimera:   return "Chimera"
-		case isElectra:   return "Electra"
-		case isUncover:   return "unc0ver"
-		default:          return "Unknown"
+		case isDemo: .demo
+		case isRegularFile(path: "\(systemRootPrefix)/.installed_palera1n"):  .palera1n
+		case isRegularFile(path: "\(systemRootPrefix)/.palecursus_strapped"): .palera1n
+		case isRegularFile(path: "\(systemRootPrefix)/.installed_fugu15max"): .dopamine
+		case isRegularFile(path: "\(systemRootPrefix)/.installed_dopamine"):  .dopamine
+		default:     .unknown
+		}
+	}()
+
+	static let jailbreakName: String = {
+		switch jailbreak {
+		case .demo:     .localize("Demo Mode")
+		case .unknown:  .localize("Unknown Jailbreak")
+		case .palera1n: "palera1n"
+		case .dopamine: "Dopamine"
+		}
+	}()
+
+	static let distro: Distribution = {
+		switch true {
+		case isDemo:    .procursus
+		case isRegularFile(path: "\(systemRootPrefix)/.procursus_strapped"): .procursus
+		default:        .unknown
+		}
+	}()
+
+	static let distroName: String = {
+		switch distro {
+		case .unknown:   .localize("Unknown Distribution")
+		case .procursus: "Procursus"
 		}
 	}()
 

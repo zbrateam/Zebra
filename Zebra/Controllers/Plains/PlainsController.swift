@@ -18,11 +18,12 @@ class PlainsController {
 		let config = PlainsConfig.shared
 		let cacheURL = Device.cacheURL
 		let dataURL = Device.dataURL
-		let dpkgStateURL = URL(fileURLWithPath: Device.distroVarPrefix, isDirectory: true)/"var/lib/dpkg"
-		let dpkgDataURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"share/dpkg"
-		let binURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"bin"
-		let libexecURL = URL(fileURLWithPath: Device.distroRootPrefix, isDirectory: true)/"libexec/apt"
-		let etcPrefixURL = URL(fileURLWithPath: Device.distroEtcPrefix, isDirectory: true)
+		let rootPrefixURL = Device.distroRootPrefix
+		let dpkgStateURL = rootPrefixURL/"var/lib/dpkg"
+		let dpkgDataURL = rootPrefixURL/"share/dpkg"
+		let binURL = rootPrefixURL/"bin"
+		let libexecURL = rootPrefixURL/"libexec/apt"
+		let etcPrefixURL = rootPrefixURL
 
 		// Create directories
 		let dirsToCreate = [
