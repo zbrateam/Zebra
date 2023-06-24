@@ -15,17 +15,17 @@
         "repositoryURL": "https://github.com/elihwyma/Evander",
         "state": {
           "branch": "main",
-          "revision": "c664e3ec96b3f05447c9e9033abb8a8bf6045c12",
+          "revision": "0059e74d91e8574bee454e748ea6cc188e8b43db",
           "version": null
         }
       },
       {
-        "package": "SDWebImage",
-        "repositoryURL": "https://github.com/SDWebImage/SDWebImage",
+        "package": "Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher",
         "state": {
           "branch": null,
-          "revision": "2e63d0061da449ad0ed130768d05dceb1496de44",
-          "version": "5.12.5"
+          "revision": "c1f60c63f356d364f4284ba82961acbe7de79bcc",
+          "version": "7.8.1"
         }
       }
     ]

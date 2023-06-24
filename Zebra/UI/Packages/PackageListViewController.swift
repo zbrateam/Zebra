@@ -279,12 +279,8 @@ class PackageListViewController: ListCollectionViewController {
 					filter = roleFilter
 				}
 
-				if let filter = filter {
-					packages = await PackageManager.shared
-						.fetchPackages(in: source, matchingFilter: filter)
-				} else {
-					packages = PackageManager.shared.packages
-				}
+				packages = await PackageManager.shared
+					.fetchPackages(in: source, matchingFilter: filter)
 
 			case .search(let query):
 				packages = await PackageManager.shared

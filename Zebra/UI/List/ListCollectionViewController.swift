@@ -30,8 +30,7 @@ class ListCollectionViewController: BaseListCollectionViewController<UICollectio
 
 	private func updateHeaders() {
 		UIView.animate(withDuration: 0.1) {
-			guard let collectionView = self.collectionView,
-						let layout = self.layout else {
+			guard let collectionView = self.collectionView else {
 				return
 			}
 
@@ -39,7 +38,7 @@ class ListCollectionViewController: BaseListCollectionViewController<UICollectio
 
 			for indexPath in collectionView.indexPathsForVisibleSupplementaryElements(ofKind: "Header") {
 				guard let view = collectionView.supplementaryView(forElementKind: "Header", at: indexPath) as? SectionHeaderView,
-							let attributes = layout.layoutAttributesForSupplementaryView(ofKind: "Header", at: indexPath) else {
+							let attributes = self.layout.layoutAttributesForSupplementaryView(ofKind: "Header", at: indexPath) else {
 					continue
 				}
 

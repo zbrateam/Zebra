@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/elihwyma/Evander",
         "state": {
           "branch": "main",
-          "revision": "94ed6586634f9f93a30adb804f5d6ec118418534",
+          "revision": "0059e74d91e8574bee454e748ea6cc188e8b43db",
           "version": null
         }
       },
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/onevcat/Kingfisher",
         "state": {
           "branch": null,
-          "revision": "be1a1acb283a702b99b630f586877ba02234b4cb",
-          "version": "7.3.2"
+          "revision": "c1f60c63f356d364f4284ba82961acbe7de79bcc",
+          "version": "7.8.1"
         }
       }
     ]
