@@ -15,11 +15,22 @@ import IOKit.ps
 #endif
 
 extension UTTagClass {
-	static let deviceModelCode = UTTagClass(rawValue: "com.apple.device-model-code")
+	static let deviceModelCode  = UTTagClass(rawValue: "com.apple.device-model-code")
+}
+
+extension UTType {
+	static let macBook          = UTType("com.apple.mac.laptop")
+	static let macBookWithNotch = UTType("com.apple.mac.notched-laptop")
+	static let macMini          = UTType("com.apple.macmini")
+	static let macStudio        = UTType("com.apple.macstudio")
+	static let iMac             = UTType("com.apple.imac")
+	static let macPro           = UTType("com.apple.macpro")
+	static let macPro2013       = UTType("com.apple.macpro-cylinder")
+	static let macPro2019       = UTType("com.apple.macpro-2019")
 }
 
 // Well-known fallback device identifiers. The UDID is the SHA1 of nothing.
-fileprivate let udidFallback = "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+fileprivate let udidFallback    = "da39a3ee5e6b4b0d3255bfef95601890afd80709"
 fileprivate let machineFallback = "iPhone10,3"
 
 enum Bitness: Int {
@@ -172,7 +183,7 @@ enum Architecture: String {
 
 	var isPortable: Bool {
 		switch userInterfaceIdiom {
-		case .phone, .pad, .carPlay, .unspecified:
+		case .phone, .pad, .carPlay, .reality, .unspecified:
 			return true
 		case .tv:
 			return false
@@ -198,6 +209,8 @@ enum Architecture: String {
 		case .pad:         return "ipad"
 		case .tv:          return "appletv.fill"
 		case .mac:         return isPortable ? "laptopcomputer" : "desktopcomputer"
+		// TODO: Update when they decide to add an icon for it
+		case .reality:     return "eyeglasses"
 		case .carPlay:     return "car.fill"
 		case .unspecified: return "questionmark.app.dashed"
 		@unknown default:  return "questionmark.app.dashed"
@@ -209,28 +222,47 @@ enum Architecture: String {
 	}
 
 	var specificDeviceSymbolName: String {
-		let machine = self.machine
+		#if targetEnvironment(macCatalyst)
+		// Use type conformance to determine Mac icon to use
+		if let _ = UTType(tag: machine, tagClass: .deviceModelCode, conformingTo: .macBookWithNotch),
+			 #available(macOS 14.0, *) {
+			// macbook.gen2 was added with SF Symbols 5.0 (macOS Sonoma).
+			return "macbook.gen2"
+		} else if let _ = UTType(tag: machine, tagClass: .deviceModelCode, conformingTo: .macBook) {
+			return "laptopcomputer"
+		} else if let _ = UTType(tag: machine, tagClass: .deviceModelCode, conformingTo: .macMini) {
+			return "macmini"
+		} else if let _ = UTType(tag: machine, tagClass: .deviceModelCode, conformingTo: .macStudio) {
+			return "macstudio"
+		} else if let _ = UTType(tag: machine, tagClass: .deviceModelCode, conformingTo: .iMac) {
+			return "desktopcomputer"
+		} else if let _ = UTType(tag: machine, tagClass: .deviceModelCode, conformingTo: .macPro2013) {
+			return "macpro.gen2"
+		} else if let _ = UTType(tag: machine, tagClass: .deviceModelCode, conformingTo: .macPro2019) {
+			return "macpro.gen3"
+		} else if let _ = UTType(tag: machine, tagClass: .deviceModelCode, conformingTo: .macPro) {
+			return "macpro"
+		}
+		#else
+		// Use machine name prefix and home bar presence
+		// TODO: Handle dynamic island, how can we detect it?
 		if machine.hasPrefix("iPhone") {
 			return isHomeBarDevice ? "iphone" : "iphone.homebutton"
 		} else if machine.hasPrefix("iPad") {
 			return isHomeBarDevice ? "ipad" : "ipad.homebutton"
 		} else if machine.hasPrefix("iPod") {
 			return "ipodtouch"
-		} else if machine.hasPrefix("MacBook") {
-			return "laptopcomputer"
-		} else if machine.hasPrefix("iMac") {
-			return "desktopcomputer"
-		} else if machine.hasPrefix("Macmini") {
-			return "macmini"
-		} else if machine.hasPrefix("MacPro"),
-							let majorModel = Int(machine.replacingOccurrences(regex: "^MacPro(\\d+),.*$", with: "$1")) {
-			switch majorModel {
-			case 1...5: return "macpro.gen1"
-			case 6:     return "macpro.gen2"
-			default:    return "macpro.gen3"
-			}
+		} else if machine.hasPrefix("AppleTV") {
+			return "appletv.fill"
+		} else if machine.hasPrefix("Watch") {
+			return "applewatch"
+		} else if machine.hasPrefix("RealityDevice") {
+			// TODO: Update when they decide to add an icon for it
+			return "eyeglasses"
 		}
-		return deviceSymbolName
+		#endif
+
+		return "display"
 	}
 
 }
