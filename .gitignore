@@ -1,11 +1,19 @@
-.theos/
-Supersling/.theos
-/packages/
+# Crap
 .DS_Store
-Build/
-Index/
-xcuserdata/
-update.sh
-ipas/
-Supersling/packages
-Zebra.xcodeproj/xcshareddata/xcschemes/Zebra.xcscheme
+
+# Xcode
+*.pbxuser
+!default.pbxuser
+xcuserdata
+*.xccheckout
+*.xcuserstate
+
+# Carthage
+Carthage/
+
+# Theos
+.theos
+packages/
+
+# Keys
+*.private.*
