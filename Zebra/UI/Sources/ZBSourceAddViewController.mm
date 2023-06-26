@@ -364,7 +364,7 @@
             importExpanded = !importExpanded;
 
             NSMutableArray *indexPaths = [NSMutableArray new];
-            for (int i = 0; i < managers.count; i++) {
+            for (NSUInteger i = 0; i < managers.count; i++) {
                 [indexPaths addObject:[NSIndexPath indexPathForRow:i + 1 inSection:1]];
             }
 

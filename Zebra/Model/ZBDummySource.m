@@ -162,7 +162,7 @@
                 distribution = lineComponents[2];
                 
                 //Group all of the components into the components array
-                for (int i = 3; i < count; i++) {
+                for (NSUInteger i = 3; i < count; i++) {
                     NSString *component = lineComponents[i];
                     if (component)  {
                         [sourceComponents addObject:component];
