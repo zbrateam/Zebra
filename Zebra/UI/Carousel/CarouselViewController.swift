@@ -109,7 +109,7 @@ class CarouselViewController: ListCollectionViewController {
 	}
 
 	private func updateState() {
-		collectionView.isUserInteractionEnabled = !isLoading && !isError
+		view.isUserInteractionEnabled = !isLoading && !isError
 		errorLabel.isHidden = !isError
 
 		if isLoading && !isError {
