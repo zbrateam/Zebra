@@ -25,16 +25,7 @@ class URLController: NSObject {
 
 	static let baseUserAgent = "Zebra/\(appVersion)"
 
-	// User agent used in web view requests.
-	static let webUserAgent: String = {
-		// Zebra/2.0
-		#if targetEnvironment(macCatalyst)
-		let compatToken = ""
-		#else
-		// Prepend Cydia token on iOS for compatibility.
-		let compatToken = "Cydia/1.1.32 "
-		#endif
-		return "\(compatToken)\(baseUserAgent)"
+	static let webUserAgent = baseUserAgent
 	}()
 
 	// User agent used in non-browser requests.
@@ -48,11 +39,6 @@ class URLController: NSObject {
 		// https://www.rfc-editor.org/rfc/rfc8941
 		var result = [String: String]()
 		for (key, value) in clientHints {
-			if let value = value as? [String: String] {
-				result[key] = value
-					.map { key, value in "\"\(key)\";v=\"\(value)\"" }
-					.joined(separator: ", ")
-			}
 			if let value = value as? String {
 				result[key] = "\"\(value)\""
 			} else if let value = value as? Bool {
@@ -76,8 +62,14 @@ class URLController: NSObject {
 		#else
 		let isMobile = screen.bounds.size.width < 500
 		#endif
+		let jailbreak = Device.jailbreakName
+			.lowercased()
+			.replacingOccurrences(of: " ", with: "")
+		let distro = Device.distroName
+			.lowercased()
+			.replacingOccurrences(of: " ", with: "")
 		return makeClientHintHeaders([
-			"Sec-CH-UA": ["Zebra": appVersion],
+			"Sec-CH-UA": "Zebra;v=\(appVersion);t=client,\(jailbreak);t=jailbreak,\(distro);t=distribution",
 			"Sec-CH-UA-Platform": device.osName,
 			"Sec-CH-UA-Mobile": isMobile,
 			// DPR is supposed to be high entropy, but I disagree that it reveals too much about the client…
