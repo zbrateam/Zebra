@@ -5,24 +5,25 @@ ALPHA ?= 0
 BETA ?= 0
 
 ifeq ($(PLATFORM), mac)
-export TARGET = uikitformac:latest:13.0
+	export TARGET = uikitformac:latest:14.2
 else
-export TARGET = iphone:latest:11.0
-export ARCHS = arm64
+	export THEOS_PACKAGE_SCHEME = rootless
+	export TARGET = iphone:latest:15.0
+	export ARCHS = arm64
 endif
 
 ifeq ($(ALPHA), 1)
-PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2
-export APP_NAME = "Zebra"
-export LIBEXEC_FOLDER = zebralpha
+	PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2
+	export APP_NAME = "Zebra"
+	export LIBEXEC_FOLDER = zebralpha
 else ifeq ($(BETA), 1)
-PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2
-export APP_NAME = "Zebra-Beta"
-export LIBEXEC_FOLDER = zebeta
+	PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2
+	export APP_NAME = "Zebra-Beta"
+	export LIBEXEC_FOLDER = zebeta
 else
-PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2
-export APP_NAME = "Zebra"
-export LIBEXEC_FOLDER = zebra
+	PRODUCT_BUNDLE_IDENTIFIER = com.getzbra.zebra2
+	export APP_NAME = "Zebra"
+	export LIBEXEC_FOLDER = zebra
 endif
 
 INSTALL_TARGET_PROCESSES = Zebra
@@ -31,16 +32,14 @@ include $(THEOS)/makefiles/common.mk
 
 XCODEPROJ_NAME = Zebra
 
-Zebra_XCODEFLAGS = PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' \
+Zebra_XCODEFLAGS = \
+	PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' \
 	PRODUCT_BUNDLE_IDENTIFIER=$(PRODUCT_BUNDLE_IDENTIFIER) \
 	APP_NAME=$(APP_NAME) \
 	LIBEXEC_FOLDER='@\"$(LIBEXEC_FOLDER)\"'
 Zebra_CODESIGN_FLAGS = "-SZebra/Supporting Files/iOS.entitlements"
 
 include $(THEOS_MAKE_PATH)/xcodeproj.mk
-
-PACKAGE_BUILDNAME :=
-_THEOS_PACKAGE_DEFAULT_VERSION_FORMAT = $(THEOS_PACKAGE_BASE_VERSION)$(VERSION.EXTRAVERSION)
 
 SUBPROJECTS = Supersling #Relaunch
 
