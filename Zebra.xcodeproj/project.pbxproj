@@ -48,6 +48,7 @@
 		4E7DC8B5285A270E0007392D /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */; };
 		4E7DC8B7285AF5120007392D /* PackageMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B6285AF5120007392D /* PackageMenuCommands.swift */; };
 		4E7DC8B9285B3FE70007392D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DC8B8285B3FE70007392D /* NetworkController.swift */; };
+		4E8178722A49C87B00F0FACE /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8178712A49C87B00F0FACE /* UIScreen+Extensions.swift */; };
 		4E840B3927D61ED700039938 /* SectionHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3827D61ED700039938 /* SectionHeaderButton.swift */; };
 		4E840B3B27D6484900039938 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E840B3A27D6484900039938 /* GradientView.swift */; };
 		4E840B3E27D6F77400039938 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 4E840B4027D6F77400039938 /* Localizable.stringsdict */; };
@@ -259,6 +260,7 @@
 		4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
 		4E7DC8B6285AF5120007392D /* PackageMenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageMenuCommands.swift; sourceTree = "<group>"; };
 		4E7DC8B8285B3FE70007392D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		4E8178712A49C87B00F0FACE /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		4E840B3827D61ED700039938 /* SectionHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderButton.swift; sourceTree = "<group>"; };
 		4E840B3A27D6484900039938 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4E840B3F27D6F77400039938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -1053,6 +1055,7 @@
 				4EC7F28A27B2985A0078F953 /* String+Extensions.swift */,
 				4EC7F28C27B29AB20078F953 /* Darwin+Extensions.swift */,
 				4EC7F29427B393870078F953 /* UIApplication+Additions.swift */,
+				4E8178712A49C87B00F0FACE /* UIScreen+Extensions.swift */,
 				4EA26E8D27C9CC070019A5AA /* NSUserActivity+Additions.swift */,
 				4E339B7F27D0E45300F013C1 /* URL+Additions.swift */,
 				4EBA840F27D22F1300766DBE /* UINavigationBarAppearance+Extensions.swift */,
@@ -1538,6 +1541,7 @@
 				4EC7F28327B28D3C0078F953 /* DeviceCommands.swift in Sources */,
 				4EE3CC7D283E50A0007D2943 /* SourceFileHandler.swift in Sources */,
 				4E840B4227D7142E00039938 /* HomeViewController.swift in Sources */,
+				4E8178722A49C87B00F0FACE /* UIScreen+Extensions.swift in Sources */,
 				4EBA841227D253AC00766DBE /* CarouselCollectionViewContainingCell.swift in Sources */,
 				4EB8C48A28583F8000FFC744 /* ErrorsViewController.swift in Sources */,
 				4E9FC887279061D600934FFE /* Color.swift in Sources */,
@@ -1997,15 +2001,15 @@
 				PRODUCT_NAME = Zebra;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "Zebra/Supporting Files/Zebra-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "1,2,6,7";
 			};
 			name = Debug;
 		};
@@ -2076,13 +2080,13 @@
 				PRODUCT_NAME = Zebra;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Zebra/Supporting Files/Zebra-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "1,2,6,7";
 			};
 			name = Release;
 		};

@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UISwipeActionsConfiguration *)swipeActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(PLPackage *)package completion:(nullable void(^)(void))completion;
 + (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(PLPackage *)package selectionCallback:(void (^)(ZBPackageExtraActionType action))callback;
-+ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView;
++ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView API_UNAVAILABLE(xros);
 + (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView API_AVAILABLE(ios(13.0));
 @end
 

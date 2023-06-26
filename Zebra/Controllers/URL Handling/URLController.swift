@@ -14,7 +14,6 @@ extension String: ClientHintValue {}
 extension Int: ClientHintValue {}
 extension CGFloat: ClientHintValue {}
 extension Bool: ClientHintValue {}
-extension Dictionary: ClientHintValue where Key == String, Value == String {}
 
 @objc(ZBURLController)
 class URLController: NSObject {
@@ -25,8 +24,8 @@ class URLController: NSObject {
 
 	static let baseUserAgent = "Zebra/\(appVersion)"
 
+	// User agent used in web view requests.
 	static let webUserAgent = baseUserAgent
-	}()
 
 	// User agent used in non-browser requests.
 	static let httpUserAgent: String = {
@@ -55,13 +54,12 @@ class URLController: NSObject {
 
 	// Client hints always sent.
 	static let lowEntropyClientHints: [String: String] = {
-		let device = UIDevice.current
-		let screen = UIScreen.main
-		#if targetEnvironment(macCatalyst)
+		#if targetEnvironment(macCatalyst) || os(xrOS)
 		let isMobile = false
 		#else
-		let isMobile = screen.bounds.size.width < 500
+		let isMobile = UIScreen.main.bounds.size.width < 500
 		#endif
+		let scale = UIScreen.largestScale ?? 2
 		let jailbreak = Device.jailbreakName
 			.lowercased()
 			.replacingOccurrences(of: " ", with: "")
@@ -70,12 +68,12 @@ class URLController: NSObject {
 			.replacingOccurrences(of: " ", with: "")
 		return makeClientHintHeaders([
 			"Sec-CH-UA": "Zebra;v=\(appVersion);t=client,\(jailbreak);t=jailbreak,\(distro);t=distribution",
-			"Sec-CH-UA-Platform": device.osName,
+			"Sec-CH-UA-Platform": UIDevice.current.osName,
 			"Sec-CH-UA-Mobile": isMobile,
 			// DPR is supposed to be high entropy, but I disagree that it reveals too much about the client…
 			// Sec-CH-DPR is the new name for DPR
-			"Sec-CH-DPR": screen.scale,
-			"DPR": screen.scale
+			"Sec-CH-DPR": scale,
+			"DPR": scale
 		])
 	}()
 
@@ -86,7 +84,7 @@ class URLController: NSObject {
 		return makeClientHintHeaders([
 			"Sec-CH-UA-Platform-Version": device.osVersion,
 			"Sec-CH-UA-Full-Version": appVersion,
-			"Sec-CH-UA-Full-Version-List": ["Zebra": appVersion],
+			"Sec-CH-UA-Full-Version-List": "Zebra;v=\(appVersion)",
 			"Sec-CH-UA-Arch": device.architecture.clientHint,
 			"Sec-CH-UA-Bitness": device.bitness.rawValue,
 			"Sec-CH-UA-Model": device.machine

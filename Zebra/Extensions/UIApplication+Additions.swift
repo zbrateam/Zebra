@@ -9,6 +9,8 @@ import UIKit
 
 extension UIApplication {
 
+	var anyScreen: UIScreen? { (openSessions.first?.scene as? UIWindowScene)?.screen }
+
 	func runningSceneSessions(withIdentifier identifier: String) -> Set<UISceneSession> {
 		return openSessions.filter { session in
 			if let delegate = session.scene?.delegate as? IdentifiableSceneDelegate {
@@ -25,7 +27,7 @@ extension UIApplication {
 		let options = UIWindowScene.ActivationRequestOptions()
 #if !targetEnvironment(macCatalyst)
 		if prominentPresentation {
-			windowSceneOptions.preferredPresentationStyle = .prominent
+			options.preferredPresentationStyle = .prominent
 		}
 #endif
 		options.requestingScene = requestingScene

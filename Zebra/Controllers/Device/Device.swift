@@ -68,8 +68,8 @@ class Device: NSObject {
 	}()
 
 	static let architectures: [String] = {
-		// Cheat and say we’re on simulator.
 		#if targetEnvironment(simulator)
+		// Cheat and say we’re iphoneos-arm64 on simulator.
 		return ["iphoneos-arm64"]
 		#else
 		// Ask dpkg what architecture we’re on. If this doesn’t work, either dpkg is broken, or we’re
