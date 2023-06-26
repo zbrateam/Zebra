@@ -13,7 +13,7 @@ Carthage/
 
 # Theos
 .theos
-packages/
+/packages/
 
 # Keys
 *.private.*
