@@ -64,6 +64,11 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>apt.thebigboss.org</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
