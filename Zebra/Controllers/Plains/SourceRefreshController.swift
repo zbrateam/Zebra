@@ -11,6 +11,8 @@ import UniformTypeIdentifiers
 import os.log
 import Plains
 import BackgroundTasks
+import HTTPTypes
+import HTTPTypesFoundation
 
 class SourceRefreshController: NSObject {
 
@@ -86,10 +88,10 @@ class SourceRefreshController: NSObject {
 			switch self {
 			case .httpError(_, _, let httpError):
 				switch httpError {
-				case .statusCode(let statusCode, _):
-					switch statusCode {
-					case 404: return .localize("Source not found. A repository may no longer exist at this address.")
-					default:  return httpError.localizedDescription
+				case .status(let response):
+					switch response.status {
+					case .notFound: return .localize("Source not found. A repository may no longer exist at this address.")
+					default:        return httpError.localizedDescription
 					}
 
 				case .cancelled:
@@ -317,35 +319,30 @@ class SourceRefreshController: NSObject {
 			fatalError("Insecure URL was passed")
 		}
 
-		var request = URLRequest(url: url,
-														 cachePolicy: .useProtocolCachePolicy,
-														 timeoutInterval: Preferences.sourceRefreshTimeout)
-
-		// Just go ahead and try HTTP/3 first without probing for whether it’s supported by the
-		// server. Since most repos are hosted on GitHub or Cloudflare, this is a safe-ish bet.
-		request.assumesHTTP3Capable = true
-
-		for (key, value) in URLController.aptHeaders {
-			request.setValue(value, forHTTPHeaderField: key)
-		}
+		var request = HTTPRequest(method: .get,
+															url: url,
+															headerFields: URLController.aptHeaders)
 
 		// Handle legacy headers for specific repos that require them.
 		if Self.legacySourceHosts.contains(downloadURL.host ?? "") {
-			for (key, value) in URLController.legacyAPTHeaders {
-				request.setValue(value, forHTTPHeaderField: key)
-			}
+			request.headerFields.append(contentsOf: URLController.legacyAPTHeaders)
 		}
 
 		// If we already have an old version of this file, set If-None-Match or If-Modified-Since so the
 		// server can give us a 304 Not Modified response.
 		if let etag = try? destinationURL.extendedAttribute(forKey: URL.etagXattr) {
-			request.setValue(etag, forHTTPHeaderField: "If-None-Match")
+			request.headerFields[.ifNoneMatch] = etag
 		} else if let values = try? destinationURL.resourceValues(forKeys: [.contentModificationDateKey]),
 							let date = values.contentModificationDate {
-			request.setValue(DateFormatter.rfc822.string(from: date), forHTTPHeaderField: "If-Modified-Since")
+			request.headerFields[.ifModifiedSince] = DateFormatter.rfc822.string(from: date)
 		}
 
-		return request
+		// Just go ahead and try HTTP/3 first without probing for whether it’s supported by the
+		// server. Since most repos are hosted on GitHub or Cloudflare, this is a safe-ish bet.
+		var urlRequest = URLRequest(httpRequest: request)!
+		urlRequest.assumesHTTP3Capable = true
+		urlRequest.timeoutInterval = Preferences.sourceRefreshTimeout
+		return urlRequest
 	}
 
 	private func fetch(job: Job) {
@@ -354,7 +351,7 @@ class SourceRefreshController: NSObject {
 		}
 
 		#if DEBUG
-		logger.debug("👉 Fetching: \(job.url)")
+		logger.debug("👉 Fetching: \(job.url.absoluteString, privacy: .public)")
 		#endif
 
 		let group = job.group
@@ -374,17 +371,28 @@ class SourceRefreshController: NSObject {
 				return
 			}
 
-			let statusCode = response.statusCode
-			let rawContentType = response.response?.value(forHTTPHeaderField: "Content-Type") ?? "application/octet-stream"
+			let httpResponse = response.response
+			let status = httpResponse?.status ?? .invalid
+			let headers = httpResponse?.headerFields ?? HTTPFields()
+			let rawContentType = headers[.contentType] ?? "application/octet-stream"
 			let contentType = String(rawContentType[..<(rawContentType.firstIndex(of: ";") ?? rawContentType.endIndex)])
 
 			#if DEBUG
-			let prefixes = [
-				200: "🆗",
-				304: "👍",
-				404: "🤷‍♀️"
+			let prefixes: [HTTPResponse.Status: String] = [
+				.ok:          "🆗",
+				.notModified: "👍",
+				.notFound:    "🤷‍♀️"
 			]
-			self.logger.debug("\(prefixes[statusCode] ?? "❌") \(job.request.httpMethod ?? "?") \(response.response?.url ?? job.url) → \(statusCode) \(contentType) \(response.error?.localizedDescription ?? "")")
+			let logBits = [
+				prefixes[status] ?? "❌",
+				job.request.httpMethod ?? "?",
+				job.url.absoluteString,
+				"→",
+				"\(status.code)",
+				contentType,
+				response.error?.localizedDescription ?? ""
+			]
+			self.logger.debug("\(logBits.joined(separator: " "), privacy: .public)")
 			#endif
 
 			group.signpost.event(format: "Process: %@", job.url.absoluteString)
@@ -393,20 +401,20 @@ class SourceRefreshController: NSObject {
 			// the file.
 			if let downloadURL = response.data {
 				do {
-					switch statusCode {
-					case 200:
+					switch status {
+					case .ok:
 						if (try? job.partialURL.checkResourceIsReachable()) ?? false {
 							try FileManager.default.removeItem(at: job.partialURL)
 						}
 						try FileManager.default.moveItem(at: downloadURL, to: job.partialURL)
 
 						// Set etag if we got one.
-						if let etag = response.response?.value(forHTTPHeaderField: "ETag") {
+						if let etag = headers[.eTag] {
 							try job.partialURL.setExtendedAttribute(etag, forKey: URL.etagXattr)
 						}
 
 						// Set last modified date if we have it.
-						if let date = DateFormatter.rfc822.date(from: response.response?.value(forHTTPHeaderField: "Last-Modified") ?? "") {
+						if let date = DateFormatter.rfc822.date(from: headers[.lastModified] ?? "") {
 							var values = URLResourceValues()
 							values.contentModificationDate = date
 							var url = job.partialURL
@@ -417,7 +425,7 @@ class SourceRefreshController: NSObject {
 						try FileManager.default.removeItem(at: downloadURL)
 					}
 				} catch {
-					self.logger.warning("Failed to move job download to destination: \(String(describing: error))")
+					self.logger.warning("Failed to move job download to destination: \(String(describing: error), privacy: .public)")
 					self.giveUp(group: group,
 											error: RefreshError.generalError(sourceUUID: group.sourceUUID,
 																											 url: job.url,
@@ -442,8 +450,8 @@ class SourceRefreshController: NSObject {
 				return
 			}
 
-			switch statusCode {
-			case 200:
+			switch status {
+			case .ok:
 				// Ok! Let’s do what we need to do next for this type.
 				let validContentTypes = job.sourceFile.kind.contentTypes
 				if !validContentTypes.contains(contentType) {
@@ -451,7 +459,7 @@ class SourceRefreshController: NSObject {
 											error: RefreshError.invalidContentType(sourceUUID: group.sourceUUID,
 																														 url: job.url,
 																														 contentType: contentType))
-					self.logger.warning("Invalid content type \(contentType); not in \(validContentTypes)")
+					self.logger.warning("Invalid content type \(contentType, privacy: .public); not in \(validContentTypes, privacy: .public)")
 					break
 				}
 
@@ -481,7 +489,7 @@ class SourceRefreshController: NSObject {
 				}
 				return
 
-			case 304:
+			case .notModified:
 				// Not modified. Nothing to be done.
 				self.cleanUp(group: group)
 				return
@@ -578,7 +586,7 @@ class SourceRefreshController: NSObject {
 				group.signpost.event(format: "Decompress: %@", job.partialURL.lastPathComponent)
 
 				#if DEBUG
-				self.logger.debug("🗂 Decompressing: \(job.partialURL.lastPathComponent)")
+				self.logger.debug("🗂 Decompressing: \(job.partialURL.lastPathComponent, privacy: .public)")
 				let start = Date()
 				#endif
 
@@ -588,7 +596,7 @@ class SourceRefreshController: NSObject {
 
 				#if DEBUG
 				let delta = Date().timeIntervalSince(start) * 1000
-				self.logger.debug("📄 Decompressed in \(delta, format: .fixed(precision: 3))ms: \(job.partialURL.lastPathComponent)")
+				self.logger.debug("📄 Decompressed in \(delta, format: .fixed(precision: 3), privacy: .public)ms: \(job.partialURL.lastPathComponent, privacy: .public)")
 				#endif
 
 				group.signpost.event(format: "Decompress done: %@", job.partialURL.lastPathComponent)
@@ -606,7 +614,7 @@ class SourceRefreshController: NSObject {
 					self.finalize(group: group)
 				}
 			} catch {
-				self.logger.warning("Error decompressing: \(String(describing: error))")
+				self.logger.warning("Error decompressing: \(String(describing: error), privacy: .public)")
 				self.workQueue.async {
 					self.giveUp(group: group,
 											error: RefreshError.generalError(sourceUUID: group.sourceUUID,
@@ -618,7 +626,7 @@ class SourceRefreshController: NSObject {
 	}
 
 	private func giveUp(group: JobGroup, error: RefreshError) {
-		logger.warning("Refresh failed for \(group.sourceUUID): \(String(describing: error))")
+		logger.warning("Refresh failed for \(group.sourceUUID, privacy: .public): \(String(describing: error), privacy: .public)")
 		sourceStates[group.sourceUUID]?.addError(error)
 		cleanUp(group: group)
 	}
@@ -637,7 +645,7 @@ class SourceRefreshController: NSObject {
 					try FileManager.default.removeItem(at: job.partialURL)
 				}
 			} catch {
-				logger.warning("Error cleaning up for \(group.sourceUUID): \(String(describing: error))")
+				logger.warning("Error cleaning up for \(group.sourceUUID, privacy: .public): \(String(describing: error), privacy: .public)")
 				sourceStates[group.sourceUUID]?.addError(RefreshError.generalError(sourceUUID: group.sourceUUID,
 																																					 url: job.url,
 																																					 error: error))
@@ -654,7 +662,7 @@ class SourceRefreshController: NSObject {
 		dispatchGroup.leave()
 
 		#if DEBUG
-		logger.debug("☑️ Done: \(group.sourceUUID)")
+		logger.debug("☑️ Done: \(group.sourceUUID, privacy: .public)")
 		#endif
 	}
 
@@ -670,7 +678,7 @@ class SourceRefreshController: NSObject {
 						try FileManager.default.moveItem(at: job.partialURL, to: job.destinationURL)
 					}
 				} catch {
-					self.logger.warning("Error finalizing for \(group.sourceUUID): \(String(describing: error))")
+					self.logger.warning("Error finalizing for \(group.sourceUUID, privacy: .public): \(String(describing: error), privacy: .public)")
 					self.sourceStates[group.sourceUUID]?.addError(RefreshError.generalError(sourceUUID: group.sourceUUID,
 																																									url: job.url,
 																																									error: error))

@@ -27,6 +27,15 @@
           "revision": "c1f60c63f356d364f4284ba82961acbe7de79bcc",
           "version": "7.8.1"
         }
+      },
+      {
+        "package": "http-types",
+        "repositoryURL": "https://github.com/apple/swift-http-types",
+        "state": {
+          "branch": null,
+          "revision": "39661f4ca82db8ad050cc060a471c8e2c542b24f",
+          "version": "0.1.1"
+        }
       }
     ]
   },

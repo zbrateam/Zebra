@@ -21,11 +21,11 @@ class NetworkController: NSObject {
 	static var isOnline: Bool {
 		switch currentPath.status {
 		case .satisfied:
-			return true
+			true
 		case .unsatisfied, .requiresConnection:
-			return false
+			false
 		@unknown default:
-			return false
+			false
 		}
 	}
 

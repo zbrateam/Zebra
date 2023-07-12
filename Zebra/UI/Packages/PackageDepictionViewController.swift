@@ -11,6 +11,7 @@ import UIKit
 import DepictionKit
 import Evander
 import Plains
+import HTTPTypes
 
 @objc(ZBPackageDepictionViewController)
 class PackageDepictionViewController: UIViewController {
@@ -216,7 +217,7 @@ class PackageDepictionViewController: UIViewController {
 				return setDepiction()
 			}
 			let request = NSMutableURLRequest(url: url)
-			request.allHTTPHeaderFields = URLController.webHeaders
+			request.allHTTPHeaderFields = URLController.webHeaders.dictionary
 			webView._applicationNameForUserAgent = URLController.webUserAgent
 					webViewContentSizeObserver = webView.scrollView.observe(\.contentSize) { _, change in
 						if self.webViewHeightAnchor.constant != self.webView.scrollView.contentSize.height {

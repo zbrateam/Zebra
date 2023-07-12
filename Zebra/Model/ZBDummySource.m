@@ -245,8 +245,8 @@
     __block int tasks = 5;
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = [ZBURLController aptHeaders];
-    
+//    configuration.HTTPAdditionalHeaders = [ZBURLController aptHeaders];
+
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSMutableURLRequest *xzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.xz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [xzRequest setHTTPMethod:@"HEAD"];
@@ -347,8 +347,8 @@
     if (![self.origin isEqualToString:self.repositoryURI] && completion) completion(self.origin);
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = [ZBURLController aptHeaders];
-    
+//    configuration.HTTPAdditionalHeaders = [ZBURLController aptHeaders];
+
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HTTPTypes
 
 extension URLSession {
 
@@ -14,7 +15,7 @@ extension URLSession {
 		let config = URLSessionConfiguration.default.copy() as! URLSessionConfiguration
 		config.httpCookieStorage = nil
 		config.httpCookieAcceptPolicy = .never
-		config.httpAdditionalHeaders = URLController.httpHeaders
+		config.httpAdditionalHeaders = URLController.httpHeaders.dictionary
 		config.tlsMinimumSupportedProtocolVersion = .TLSv12
 		return URLSession(configuration: config)
 	}()
@@ -24,7 +25,7 @@ extension URLSession {
 		config.urlCache = nil
 		config.httpCookieStorage = nil
 		config.httpCookieAcceptPolicy = .never
-		config.httpAdditionalHeaders = URLController.httpHeaders
+		config.httpAdditionalHeaders = URLController.httpHeaders.dictionary
 		config.tlsMinimumSupportedProtocolVersion = .TLSv12
 		return URLSession(configuration: config)
 	}()
@@ -33,7 +34,7 @@ extension URLSession {
 		let config = URLSessionConfiguration.default.copy() as! URLSessionConfiguration
 		config.httpCookieStorage = nil
 		config.httpCookieAcceptPolicy = .never
-		config.httpAdditionalHeaders = URLController.aptHeaders
+		config.httpAdditionalHeaders = URLController.aptHeaders.dictionary
 		config.httpShouldUsePipelining = true
 		config.tlsMinimumSupportedProtocolVersion = .TLSv12
 		config.shouldUseExtendedBackgroundIdleMode = true

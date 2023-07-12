@@ -58,6 +58,9 @@
 		4E87FBB92856DDF7005C4704 /* TaskPriority+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87FBB82856DDF7005C4704 /* TaskPriority+Additions.swift */; };
 		4E8D723927DB617A00B62753 /* PLPackage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8D723827DB617A00B62753 /* PLPackage+Additions.swift */; };
 		4E8F843527D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F843427D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift */; };
+		4E9B22AD2A5DD5AC00968394 /* HTTPTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9B22AC2A5DD5AC00968394 /* HTTPTypes */; };
+		4E9B22AF2A5DD5AC00968394 /* HTTPTypesFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9B22AE2A5DD5AC00968394 /* HTTPTypesFoundation */; };
+		4E9B22B12A5DD81800968394 /* HTTPTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9B22B02A5DD81800968394 /* HTTPTypes.swift */; };
 		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E9FC887279061D600934FFE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC886279061D600934FFE /* Color.swift */; };
 		4E9FC8892790637F00934FFE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC8882790637F00934FFE /* Preferences.swift */; };
@@ -253,8 +256,6 @@
 		4E6F94462856434D002F5BD9 /* CSProgress+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSProgress+Additions.swift"; sourceTree = "<group>"; };
 		4E6F944E28564BD7002F5BD9 /* libCSProgress.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCSProgress.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E6F945028564BD7002F5BD9 /* CSProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSProgress.swift; sourceTree = "<group>"; };
-		4E7AB4E3289FDCDA0084D8F0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		4E7AB4E4289FDCDF0084D8F0 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		4E7DC8B028589B0C0007392D /* BaseListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B22858A2990007392D /* ListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewController.swift; sourceTree = "<group>"; };
 		4E7DC8B4285A270E0007392D /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
@@ -269,6 +270,7 @@
 		4E87FBB82856DDF7005C4704 /* TaskPriority+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskPriority+Additions.swift"; sourceTree = "<group>"; };
 		4E8D723827DB617A00B62753 /* PLPackage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PLPackage+Additions.swift"; sourceTree = "<group>"; };
 		4E8F843427D9EB4B0040AA6F /* HomeErrorCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeErrorCollectionViewCell.swift; sourceTree = "<group>"; };
+		4E9B22B02A5DD81800968394 /* HTTPTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTypes.swift; sourceTree = "<group>"; };
 		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9FC886279061D600934FFE /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		4E9FC8882790637F00934FFE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -512,9 +514,11 @@
 				4E5F41C6285C2952003658AA /* libzstd.xcframework in Frameworks */,
 				4E2631782848A1730072B2BD /* libbz2.tbd in Frameworks */,
 				4EBF6FBB2841084600639096 /* Plains.framework in Frameworks */,
+				4E9B22AF2A5DD5AC00968394 /* HTTPTypesFoundation in Frameworks */,
 				E1428E7927794FC4005B0885 /* Evander in Frameworks */,
 				4EA26EC427CCF6500019A5AA /* DepictionKit in Frameworks */,
 				4E87FBB52856DB96005C4704 /* libCSProgress.a in Frameworks */,
+				4E9B22AD2A5DD5AC00968394 /* HTTPTypes in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */,
 				4E5F41CD285CB723003658AA /* Kingfisher in Frameworks */,
@@ -623,6 +627,7 @@
 		4EBA840627D1049700766DBE /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
+				4E9B22B02A5DD81800968394 /* HTTPTypes.swift */,
 				4EBA840727D104A300766DBE /* HTTPRequest.swift */,
 				4E7DC8B8285B3FE70007392D /* NetworkController.swift */,
 			);
@@ -1072,8 +1077,6 @@
 		89C5FDD421B1B13700A10E58 = {
 			isa = PBXGroup;
 			children = (
-				4E7AB4E3289FDCDA0084D8F0 /* README.md */,
-				4E7AB4E4289FDCDF0084D8F0 /* LICENSE.md */,
 				89C5FDDF21B1B13700A10E58 /* Zebra */,
 				4E1A1C6227B69F9A00B6DC9A /* Catalyst Helper */,
 				4E6F945528564C80002F5BD9 /* Vendor */,
@@ -1357,6 +1360,8 @@
 				E1428E7827794FC4005B0885 /* Evander */,
 				4EA26EC327CCF6500019A5AA /* DepictionKit */,
 				4E5F41CC285CB723003658AA /* Kingfisher */,
+				4E9B22AC2A5DD5AC00968394 /* HTTPTypes */,
+				4E9B22AE2A5DD5AC00968394 /* HTTPTypesFoundation */,
 			);
 			productName = Zebra;
 			productReference = 89C5FDDD21B1B13700A10E58 /* Zebra.app */;
@@ -1438,6 +1443,7 @@
 			packageReferences = (
 				E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */,
 				4E5F41CB285CB723003658AA /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4E9B22AB2A5DD5AC00968394 /* XCRemoteSwiftPackageReference "swift-http-types" */,
 			);
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
 			projectDirPath = "";
@@ -1588,6 +1594,7 @@
 				4E1A1C9227B7545800B6DC9A /* NSToolbarItem+AppItems.swift in Sources */,
 				4EB23510283DFA3500713CBB /* AppleDecompressor.swift in Sources */,
 				4E090B8028646362001FDE9D /* UIListContentConfiguration+Additions.swift in Sources */,
+				4E9B22B12A5DD81800968394 /* HTTPTypes.swift in Sources */,
 				4EC7F28B27B2985A0078F953 /* String+Extensions.swift in Sources */,
 				4E7DC8B5285A270E0007392D /* UIImage+Additions.swift in Sources */,
 				4EC7F28127B278F10078F953 /* UIDevice+Extensions.swift in Sources */,
@@ -1862,7 +1869,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1921,7 +1927,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LLVM_LTO = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1975,7 +1980,6 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1989,6 +1993,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
+					"-fprofile-instr-generate",
 				);
 				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = (
 					"$(inherited)",
@@ -2058,7 +2063,6 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2148,6 +2152,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		4E9B22AB2A5DD5AC00968394 /* XCRemoteSwiftPackageReference "swift-http-types" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-http-types";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
+			};
+		};
 		E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/elihwyma/Evander";
@@ -2163,6 +2175,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E5F41CB285CB723003658AA /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		4E9B22AC2A5DD5AC00968394 /* HTTPTypes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E9B22AB2A5DD5AC00968394 /* XCRemoteSwiftPackageReference "swift-http-types" */;
+			productName = HTTPTypes;
+		};
+		4E9B22AE2A5DD5AC00968394 /* HTTPTypesFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E9B22AB2A5DD5AC00968394 /* XCRemoteSwiftPackageReference "swift-http-types" */;
+			productName = HTTPTypesFoundation;
 		};
 		4EA26EC327CCF6500019A5AA /* DepictionKit */ = {
 			isa = XCSwiftPackageProductDependency;

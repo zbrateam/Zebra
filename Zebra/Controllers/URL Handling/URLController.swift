@@ -8,6 +8,7 @@
 
 import Foundation
 import SafariServices
+import HTTPTypes
 
 fileprivate protocol ClientHintValue {}
 extension String: ClientHintValue {}
@@ -34,9 +35,9 @@ class URLController: NSObject {
 		return "\(baseUserAgent) (\(device.hardwarePlatform); \(device.osName) \(device.osVersion))"
 	}()
 
-	private static func makeClientHintHeaders(_ clientHints: [String: ClientHintValue]) -> [String: String] {
+	private static func makeClientHintHeaders(_ clientHints: [HTTPField.Name: ClientHintValue]) -> HTTPFields {
 		// https://www.rfc-editor.org/rfc/rfc8941
-		var result = [String: String]()
+		var result = HTTPFields()
 		for (key, value) in clientHints {
 			if let value = value as? String {
 				result[key] = "\"\(value)\""
@@ -53,7 +54,7 @@ class URLController: NSObject {
 	}
 
 	// Client hints always sent.
-	static let lowEntropyClientHints: [String: String] = {
+	static let lowEntropyClientHints: HTTPFields = {
 		#if targetEnvironment(macCatalyst) || os(xrOS)
 		let isMobile = false
 		#else
@@ -67,69 +68,66 @@ class URLController: NSObject {
 			.lowercased()
 			.replacingOccurrences(of: " ", with: "")
 		return makeClientHintHeaders([
-			"Sec-CH-UA": "Zebra;v=\(appVersion);t=client,\(jailbreak);t=jailbreak,\(distro);t=distribution",
-			"Sec-CH-UA-Platform": UIDevice.current.osName,
-			"Sec-CH-UA-Mobile": isMobile,
+			.chUserAgent: "Zebra;v=\(appVersion);t=client,\(jailbreak);t=jailbreak,\(distro);t=distribution",
+			.chPlatform: UIDevice.current.osName,
+			.chIsMobile: isMobile,
 			// DPR is supposed to be high entropy, but I disagree that it reveals too much about the client…
 			// Sec-CH-DPR is the new name for DPR
-			"Sec-CH-DPR": scale,
-			"DPR": scale
+			.chDPR: scale,
+			.dpr: scale
 		])
 	}()
 
 	// More sensitive, fingerprintable, client hints only sent when requested.
-	static let highEntropyClientHints: [String: String] = {
+	static let highEntropyClientHints: HTTPFields = {
 		let device = UIDevice.current
-		let screen = UIScreen.main
 		return makeClientHintHeaders([
-			"Sec-CH-UA-Platform-Version": device.osVersion,
-			"Sec-CH-UA-Full-Version": appVersion,
-			"Sec-CH-UA-Full-Version-List": "Zebra;v=\(appVersion)",
-			"Sec-CH-UA-Arch": device.architecture.clientHint,
-			"Sec-CH-UA-Bitness": device.bitness.rawValue,
-			"Sec-CH-UA-Model": device.machine
+			.chPlatformVersion: device.osVersion,
+			.chFullVersion:     appVersion,
+			.chFullVersionList: "Zebra;v=\(appVersion)",
+			.chArch:            device.architecture.clientHint,
+			.chBitness:         device.bitness.rawValue,
+			.chModel:           device.machine
 		])
 	}()
 
 	// Headers used by non-browser, non-APT requests.
-	static var httpHeaders: [String: String] = {
-		[
-			"User-Agent": httpUserAgent
-		] + lowEntropyClientHints
+	static var httpHeaders: HTTPFields = {
+		[.userAgent: httpUserAgent] + lowEntropyClientHints
 	}()
 
 	// Headers used by web views.
-	static var webHeaders: [String: String] {
-		httpHeaders + [
-			"Payment-Provider": "API",
-			"Tint-Color": (UIColor.accent ?? UIColor.link).hexString
-		]
+	static var webHeaders: HTTPFields {
+		httpHeaders + ([
+			.paymentProvider: "API",
+			.tintColor: (UIColor.accent ?? UIColor.link).hexString
+		] as HTTPFields)
 	}
 
 	// Headers used specifically by APT.
-	@objc static let aptHeaders: [String: String] = {
+	static let aptHeaders: HTTPFields = {
 #if targetEnvironment(macCatalyst)
 		let headers = httpHeaders
 #else
 		// Legacy Cydia headers (iOS compatibility)
 		let device = UIDevice.current
 		let headers = httpHeaders + [
-			"X-Firmware": device.osVersion,
-			"X-Machine": device.machine
+			.xFirmware: device.osVersion,
+			.xMachine:  device.machine
 		]
 #endif
 		return headers + lowEntropyClientHints + highEntropyClientHints
 	}()
 
 	// Headers for repos that need legacy compatibility.
-	static let legacyAPTHeaders: [String: String] = {
+	static let legacyAPTHeaders: HTTPFields = {
 		let device = UIDevice.current
 		return [
-			"User-Agent": "Telesphoreo (Zebra) APT-HTTP/1.0.592",
-			"X-Firmware": device.osVersion,
-			"X-Machine": device.machine,
-			"X-Unique-Id": device.udid,
-			"X-Cydia-Id": device.udid
+			.userAgent: "Telesphoreo (Zebra) APT-HTTP/1.0.592",
+			.xFirmware: device.osVersion,
+			.xMachine:  device.machine,
+			.xUniqueID: device.udid,
+			.xCydiaID:  device.udid
 		]
 	}()
 

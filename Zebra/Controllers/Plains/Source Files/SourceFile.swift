@@ -27,27 +27,27 @@ enum SourceFileKind {
 
 	var type: UTType {
 		switch self {
-		case .any:   return .data
-		case .text:  return .plainText
-		case .deb:   return .debArchive
-		case .json:  return .json
-		case .gzip:  return .gzip
-		case .bzip2: return .bz2
-		case .lzma:  return .lzma
-		case .xz:    return .xz
-		case .zstd:  return .zstd
+		case .any:   .data
+		case .text:  .plainText
+		case .deb:   .debArchive
+		case .json:  .json
+		case .gzip:  .gzip
+		case .bzip2: .bz2
+		case .lzma:  .lzma
+		case .xz:    .xz
+		case .zstd:  .zstd
 		}
 	}
 
 	var `extension`: String? {
 		switch self {
-		case .text:  return nil
-		case .gzip:  return "gz"
-		case .bzip2: return "bz2"
-		case .lzma:  return "lzma"
-		case .xz:    return "xz"
-		case .zstd:  return "zst"
-		default:     return type.preferredFilenameExtension
+		case .text:  nil
+		case .gzip:  "gz"
+		case .bzip2: "bz2"
+		case .lzma:  "lzma"
+		case .xz:    "xz"
+		case .zstd:  "zst"
+		default:     type.preferredFilenameExtension
 		}
 	}
 
@@ -67,19 +67,19 @@ enum SourceFileKind {
 	var isCompressed: Bool {
 		switch self {
 		case .gzip, .bzip2, .lzma, .xz, .zstd:
-			return true
+			true
 		case .any, .text, .json, .deb:
-			return false
+			false
 		}
 	}
 
 	var decompressorFormat: Decompressor.Format {
 		switch self {
-		case .gzip:  return .gzip
-		case .bzip2: return .bzip2
-		case .lzma:  return .lzma
-		case .xz:    return .xz
-		case .zstd:  return .zstd
+		case .gzip:  .gzip
+		case .bzip2: .bzip2
+		case .lzma:  .lzma
+		case .xz:    .xz
+		case .zstd:  .zstd
 		default:     fatalError("Not a compressed file kind")
 		}
 	}
@@ -93,12 +93,12 @@ enum SourceFile {
 
 	var kind: SourceFileKind {
 		switch self {
-		case .inRelease:       return .any
-		case .release:         return .text
-		case .releaseGpg:      return .any
-		case .packages(let kind): return kind
-		case .paymentEndpoint: return .any
-		case .featured:        return .json
+		case .inRelease:       .any
+		case .release:         .text
+		case .releaseGpg:      .any
+		case .packages(let kind): kind
+		case .paymentEndpoint: .any
+		case .featured:        .json
 		}
 	}
 
@@ -120,17 +120,17 @@ enum SourceFile {
 	var progressWeight: Int64 {
 		switch self {
 		// Either InRelease or Release + Release.gpg.
-		case .inRelease:       return 200
+		case .inRelease:       200
 
 		// 80 + 20 = 100
-		case .release:         return 150
-		case .releaseGpg:      return 50
+		case .release:         150
+		case .releaseGpg:      50
 
-		case .paymentEndpoint: return 100
-		case .featured:        return 100
+		case .paymentEndpoint: 100
+		case .featured:        100
 
 		// The majority of the time will be spent on Packages.
-		case .packages(_):     return 400
+		case .packages(_):     400
 		}
 	}
 }
