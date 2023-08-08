@@ -37,11 +37,11 @@
 
 -(NSDictionary *)dictionary {
     return @{
-        @"package_id": self.package_id,
-        @"package_version": self.package_version,
-        @"package_author": self.package_author,
-        @"package_maintainer": self.package_maintainer,
-        @"repository_uri": self.repostiory_uri
+        @"package_id": self.package_id ?: [NSNull null],
+        @"package_version": self.package_version ?: [NSNull null],
+        @"package_author": self.package_author ?: [NSNull null],
+        @"package_maintainer": self.package_maintainer ?: [NSNull null],
+        @"repository_uri": self.repostiory_uri ?: [NSNull null]
     };
 }
 
