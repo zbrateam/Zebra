@@ -10,11 +10,95 @@
 #import "ZBDevice.h"
 #import "spawn.h"
 
-typedef struct ZBCommandFds {
-    int stdOut[2];
-    int stdErr[2];
-    int finish[2];
-} ZBCommandFds;
+@interface ZBPipe : NSObject {
+@public
+    int fds[2];
+}
+- (void)close;
+- (void)closeRead;
+- (void)closeWrite;
+@end
+
+@implementation ZBPipe
+- (instancetype)init {
+    self = [super init];
+    if (![self open]) {
+        return nil;
+    }
+    return self;
+}
+- (BOOL)open {
+    if (pipe(fds) == -1) return NO;
+    return YES;
+}
+- (void)close {
+    [self closeRead];
+    [self closeWrite];
+}
+- (void)closeRead {
+    [self close:0];
+}
+- (void)closeWrite {
+    [self close:1];
+}
+- (void)close:(int)idx {
+    NSParameterAssert(idx == 0 || idx == 1);
+    if (fds[idx] > 0) {
+        close(fds[idx]);
+        fds[idx] = -1;
+    }
+}
+- (void)dealloc {
+    [self close];
+}
+@end
+
+@interface ZBCommandFds : NSObject {
+@public
+    ZBPipe *stdOut;
+    ZBPipe *stdErr;
+    ZBPipe *finish;
+}
++ (instancetype)commandFdsWithFinish:(BOOL)useFinishFd;
+- (void)close;
+- (void)closeRead;
+- (void)closeWrite;
+@end
+
+@implementation ZBCommandFds
+
++ (instancetype)commandFdsWithFinish:(BOOL)useFinishFd {
+    ZBCommandFds *fds = [ZBCommandFds new];
+    fds->stdOut = [ZBPipe new];
+    fds->stdErr = [ZBPipe new];
+    
+    if (!fds->stdOut || !fds->stdErr) {
+        return nil;
+    }
+    
+    if (useFinishFd) {
+        fds->finish = [ZBPipe new];
+        if (!fds->finish) return nil;
+    }
+    
+    return fds;
+}
+
+- (void)close {
+    [self closeRead];
+    [self closeWrite];
+}
+- (void)closeRead {
+    [self->stdOut closeRead];
+    [self->stdErr closeRead];
+    [self->finish closeRead];
+}
+- (void)closeWrite {
+    [self->stdOut closeWrite];
+    [self->stdErr closeWrite];
+    [self->finish closeWrite];
+}
+@end
 
 static const int ZBCommandFinishFileno = 3;
 
@@ -105,17 +189,9 @@ static const int ZBCommandFinishFileno = 3;
 
 - (int)execute {
     // Create output and error pipes
-    fds = malloc(sizeof(ZBCommandFds));
-    if (pipe(fds->stdOut) == -1 || pipe(fds->stdErr) == -1) {
-        free(fds);
+    fds = [ZBCommandFds commandFdsWithFinish:_useFinishFd];
+    if (!fds) {
         return errno; // pipe() sets errno on failure
-    }
-
-    if (_useFinishFd) {
-        if (pipe(fds->finish) == -1) {
-            free(fds);
-            return errno; // pipe() sets errno on failure
-        }
     }
 
     // Convert our arguments array from NSStrings to char pointers
@@ -145,17 +221,17 @@ static const int ZBCommandFinishFileno = 3;
     // Create our file actions to read data back from posix_spawn
     posix_spawn_file_actions_t child_fd_actions;
     posix_spawn_file_actions_init(&child_fd_actions);
-    posix_spawn_file_actions_addclose(&child_fd_actions, fds->stdOut[0]);
-    posix_spawn_file_actions_addclose(&child_fd_actions, fds->stdErr[0]);
-    posix_spawn_file_actions_adddup2(&child_fd_actions, fds->stdOut[1], STDOUT_FILENO);
-    posix_spawn_file_actions_adddup2(&child_fd_actions, fds->stdErr[1], STDERR_FILENO);
-    posix_spawn_file_actions_addclose(&child_fd_actions, fds->stdOut[1]);
-    posix_spawn_file_actions_addclose(&child_fd_actions, fds->stdErr[1]);
+    posix_spawn_file_actions_addclose(&child_fd_actions, fds->stdOut->fds[0]);
+    posix_spawn_file_actions_addclose(&child_fd_actions, fds->stdErr->fds[0]);
+    posix_spawn_file_actions_adddup2(&child_fd_actions, fds->stdOut->fds[1], STDOUT_FILENO);
+    posix_spawn_file_actions_adddup2(&child_fd_actions, fds->stdErr->fds[1], STDERR_FILENO);
+    posix_spawn_file_actions_addclose(&child_fd_actions, fds->stdOut->fds[1]);
+    posix_spawn_file_actions_addclose(&child_fd_actions, fds->stdErr->fds[1]);
 
     if (_useFinishFd) {
-        posix_spawn_file_actions_addclose(&child_fd_actions, fds->finish[0]);
-        posix_spawn_file_actions_adddup2(&child_fd_actions, fds->finish[1], ZBCommandFinishFileno);
-        posix_spawn_file_actions_addclose(&child_fd_actions, fds->finish[1]);
+        posix_spawn_file_actions_addclose(&child_fd_actions, fds->finish->fds[0]);
+        posix_spawn_file_actions_adddup2(&child_fd_actions, fds->finish->fds[1], ZBCommandFinishFileno);
+        posix_spawn_file_actions_addclose(&child_fd_actions, fds->finish->fds[1]);
     }
 
     // Create persona config if needed
@@ -175,12 +251,12 @@ static const int ZBCommandFinishFileno = 3;
     dispatch_queue_t readQueue = dispatch_queue_create("xyz.willy.Zebra.david", DISPATCH_QUEUE_CONCURRENT);
 
     // Setup the dispatch handler for the output pipes
-    dispatch_source_t stdOutSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fds->stdOut[0], 0, readQueue);
-    dispatch_source_t stdErrSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fds->stdErr[0], 0, readQueue);
+    dispatch_source_t stdOutSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fds->stdOut->fds[0], 0, readQueue);
+    dispatch_source_t stdErrSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fds->stdErr->fds[0], 0, readQueue);
     dispatch_source_t finishSource = nil;
 
     if (_useFinishFd) {
-        finishSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fds->finish[0], 0, readQueue);
+        finishSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fds->finish->fds[0], 0, readQueue);
     }
 
     void (^handleSourceEvent)(dispatch_source_t, int, void (^)(NSString *)) = ^(dispatch_source_t source, int fd, void (^action)(NSString *)) {
@@ -202,37 +278,39 @@ static const int ZBCommandFinishFileno = 3;
         free(buffer);
     };
 
+    ZBCommandFds *fds = self->fds;
+
     dispatch_source_set_event_handler(stdOutSource, ^{
-        handleSourceEvent(stdOutSource, self->fds->stdOut[0], ^(NSString *string) {
+        handleSourceEvent(stdOutSource, fds->stdOut->fds[0], ^(NSString *string) {
             if (self->delegate) [self->delegate receivedData:string];
             if (self.output) [self.output appendString:string];
         });
     });
     dispatch_source_set_event_handler(stdErrSource, ^{
-        handleSourceEvent(stdErrSource, self->fds->stdErr[0], ^(NSString *string) {
+        handleSourceEvent(stdErrSource, fds->stdErr->fds[0], ^(NSString *string) {
             if (self->delegate) [self->delegate receivedErrorData:string];
             if (self.output) [self.output appendString:string];
         });
     });
 
     dispatch_source_set_cancel_handler(stdOutSource, ^{
-        close(self->fds->stdOut[0]);
+        [fds->stdOut closeRead];
         dispatch_semaphore_signal(lock);
     });
     dispatch_source_set_cancel_handler(stdErrSource, ^{
-        close(self->fds->stdErr[0]);
+        [fds->stdErr closeRead];
         dispatch_semaphore_signal(lock);
     });
 
     if (_useFinishFd) {
         dispatch_source_set_event_handler(finishSource, ^{
-            handleSourceEvent(finishSource, self->fds->finish[0], ^(NSString *string) {
+            handleSourceEvent(finishSource, fds->finish->fds[0], ^(NSString *string) {
                 if (self->delegate) [self->delegate receivedFinishData:string];
             });
         });
         dispatch_source_set_cancel_handler(finishSource, ^{
             // Finish fd isn’t expected to be closed, so no semaphore involved here.
-            close(self->fds->finish[0]);
+            [fds->finish closeRead];
         });
     }
 
@@ -251,20 +329,14 @@ static const int ZBCommandFinishFileno = 3;
     free(argv);
     free(envp);
     if (ret < 0) {
-        close(fds->stdOut[0]);
-        close(fds->stdOut[1]);
-        close(fds->stdErr[0]);
-        close(fds->stdErr[1]);
-        if (_useFinishFd) {
-            close(fds->finish[0]);
-            close(fds->finish[1]);
-        }
+        [fds close];
+        fds = nil;
         return ret;
     }
 
     // Close the write ends of the pipes so no odd data comes through them
-    close(fds->stdOut[1]);
-    close(fds->stdErr[1]);
+    [fds->stdOut closeWrite];
+    [fds->stdErr closeWrite];
 
     // We need to wait twice, once for the output handler and once for the error handler
     dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
@@ -280,7 +352,7 @@ static const int ZBCommandFinishFileno = 3;
     }
 
     // Free our pipes
-    free(fds);
+    fds = nil;
 
     // Get the true status code, if the process exited normally. If it died for some other reason,
     // we return the actual value we got back from waitpid(3), which should still be useful for
