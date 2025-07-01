@@ -8,3 +8,4 @@ xcuserdata/
 update.sh
 ipas/
 *.private.h
+/buildServer.json
