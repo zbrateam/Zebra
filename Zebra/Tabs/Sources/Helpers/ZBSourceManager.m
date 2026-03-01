@@ -67,7 +67,7 @@
     dispatch_once(&onceToken, ^{
         urls = @[
             @"apt.thebigboss.org",
-            @"apt.modmyi.com",
+            @"modmyi.saurik.com",
             @"apt.saurik.com",
             @"apt.bingner.com",
             @"cydia.zodttd.com"
@@ -82,7 +82,7 @@
     dispatch_once(&onceToken, ^{
         lines = @[
             @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
-            @"deb http://apt.modmyi.com/ stable main",
+            @"deb http://modmyi.saurik.com/ stable main",
             [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
             [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
             @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
