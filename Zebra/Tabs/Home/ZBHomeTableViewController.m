@@ -44,7 +44,6 @@ typedef enum ZBViewOrder : NSUInteger {
 
 typedef enum ZBLinksOrder : NSUInteger {
     ZBMastodon,
-    ZBTwitter,
     ZBDiscord,
     ZBBug
 } ZBLinksOrder;
@@ -321,7 +320,7 @@ typedef enum ZBInfoOrder : NSUInteger {
         case ZBViews:
             return 3;
         case ZBLinks:
-            return 4;
+            return 3;
         case ZBInfo:
             return 2;
         default:
@@ -414,10 +413,6 @@ typedef enum ZBInfoOrder : NSUInteger {
                 case ZBMastodon:
                     text = NSLocalizedString(@"Follow us on Mastodon", @"");
                     image = [UIImage imageNamed:@"Mastodon"];
-                    break;
-                case ZBTwitter:
-                    text = NSLocalizedString(@"Follow us on Twitter", @"");
-                    image = [UIImage imageNamed:@"Twitter"];
                     break;
                 case ZBDiscord:
                     text = NSLocalizedString(@"Join our Discord", @"");
@@ -583,9 +578,6 @@ typedef enum ZBInfoOrder : NSUInteger {
             }
             break;
         }
-        case ZBTwitter:
-            [self openURL:[NSURL URLWithString:@"https://twitter.com/getzebra"]];
-            break;
         case ZBDiscord:
             [self openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"]];
             break;
