@@ -349,6 +349,8 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         @INSTALL_PREFIX @"/.installed_fugu15max": @(ZBJailbreakDopamine),
         @INSTALL_PREFIX @"/.installed_dopamine":  @(ZBJailbreakDopamine),
         @"/.installed_socket":     @(ZBJailbreakSocket),
+        @"/tmp/.jailbroken":       @(ZBJailbreakEverPwnage),
+        @"/everuntether":          @(ZBJailbreakEverUntether),
         @"/.p0laris":              @(ZBJailbreakP0laris),
         @"/.installed-openpwnage": @(ZBJailbreakOpenpwnage),
         @"/.installed_home_depot": @(ZBJailbreakHomeDepot),
@@ -363,15 +365,16 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         @"/.installed_g0blin":     @(ZBJailbreakG0blin),
         @"/.installed_p0insettia": @(ZBJailbreakP0insettia),
         @"/cores/binpack/.installed_overlay": @(ZBJailbreakBakera1n),
-        @"/.installed_amethyst": @(ZBJailbreakAmethyst),
-        @"/.installed_apex": @(ZBJailbreakApex)
+        @"/.installed_amethyst":   @(ZBJailbreakAmethyst),
+        @"/.installed_apex":       @(ZBJailbreakApex)
     };
     
     NSDictionary <NSString *, NSNumber *> *jailbreakInstalledDirs = @{
-        @"/binpack":      @(ZBJailbreakCheckra1n),
-        @"/electra":      @(ZBJailbreakElectra),
-        @"/chimera":      @(ZBJailbreakChimera),
-        @"/var/Liy/xina": @(ZBJailbreakXinaA15),
+        @"/binpack":          @(ZBJailbreakCheckra1n),
+        @"/electra":          @(ZBJailbreakElectra),
+        @"/chimera":          @(ZBJailbreakChimera),
+        @"/var/Liy/xina":     @(ZBJailbreakXinaA15),
+        @"/var/root/iocaste": @(ZBJailbreakIocaste)
     };
 
     for (NSString *file in jailbreakInstalledFiles.allKeys) {
@@ -430,38 +433,41 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (NSString *)jailbreakName {
     switch (jailbreak) {
-    case ZBJailbreakUnknown:     return NSLocalizedString(@"Unknown Jailbreak", @"");
-    case ZBJailbreakSimulated:   return NSLocalizedString(@"Demo Mode", @"");
-    case ZBJailbreakLegacy:      return NSLocalizedString(@"Legacy Jailbreak", @"");
-    case ZBJailbreakCheckra1n:   return @"checkra1n";
-    case ZBJailbreakUnc0ver:     return @"unc0ver";
-    case ZBJailbreakElectra:     return @"Electra";
-    case ZBJailbreakChimera:     return @"Chimera";
-    case ZBJailbreakOdyssey:     return @"Odyssey";
-    case ZBJailbreakTaurine:     return @"Taurine";
-    case ZBJailbreakXinaA15:     return @"XinaA15";
-    case ZBJailbreakPalera1n:    return @"palera1n";
-    case ZBJailbreakDopamine:    return @"Dopamine";
-    case ZBJailbreakSocket:      return @"socket";
-    case ZBJailbreakH3lix:       return @"h3lix";
-    case ZBJailbreakBlizzard9:   return @"Blizzard9";
-    case ZBJailbreakOpenpwnage:  return @"Openpwnage";
-    case ZBJailbreakHomeDepot:   return @"Home Depot";
-    case ZBJailbreakKok3shi:     return @"kok3shi";
-    case ZBJailbreakP0laris:     return @"p0laris";
-    case ZBJailbreakDoubleH3lix: return @"doubleH3lix";
-    case ZBJailbreakMeridian:    return @"Meridian";
-    case ZBJailbreakYalu:        return @"yalu";
-    case ZBJailbreakSaigon:      return @"Saïgon";
-    case ZBJailbreakG0blin:      return @"g0blin";
-    case ZBJailbreakKok3shiX:    return @"kok3shiX";
-    case ZBJailbreakMineekJB32:  return @"mineekJB (32-bit)";
-    case ZBJailbreakMineekJB64:  return @"mineekJB (64-bit)";
-    case ZBJailbreakMineekJB:    return @"mineekJB";
-    case ZBJailbreakBakera1n:    return @"bakera1n";
-    case ZBJailbreakP0insettia:  return @"p0insettia";
-    case ZBJailbreakAmethyst:    return @"Amethyst";
-    case ZBJailbreakApex:        return @"Apex";
+    case ZBJailbreakUnknown:        return NSLocalizedString(@"Unknown Jailbreak", @"");
+    case ZBJailbreakSimulated:      return NSLocalizedString(@"Demo Mode", @"");
+    case ZBJailbreakLegacy:         return NSLocalizedString(@"Legacy Jailbreak", @"");
+    case ZBJailbreakCheckra1n:      return @"checkra1n";
+    case ZBJailbreakUnc0ver:        return @"unc0ver";
+    case ZBJailbreakElectra:        return @"Electra";
+    case ZBJailbreakChimera:        return @"Chimera";
+    case ZBJailbreakOdyssey:        return @"Odyssey";
+    case ZBJailbreakTaurine:        return @"Taurine";
+    case ZBJailbreakXinaA15:        return @"XinaA15";
+    case ZBJailbreakPalera1n:       return @"palera1n";
+    case ZBJailbreakDopamine:       return @"Dopamine";
+    case ZBJailbreakSocket:         return @"socket";
+    case ZBJailbreakH3lix:          return @"h3lix";
+    case ZBJailbreakBlizzard9:      return @"Blizzard9";
+    case ZBJailbreakOpenpwnage:     return @"Openpwnage";
+    case ZBJailbreakHomeDepot:      return @"Home Depot";
+    case ZBJailbreakKok3shi:        return @"kok3shi";
+    case ZBJailbreakP0laris:        return @"p0laris";
+    case ZBJailbreakDoubleH3lix:    return @"doubleH3lix";
+    case ZBJailbreakMeridian:       return @"Meridian";
+    case ZBJailbreakYalu:           return @"yalu";
+    case ZBJailbreakSaigon:         return @"Saïgon";
+    case ZBJailbreakG0blin:         return @"g0blin";
+    case ZBJailbreakKok3shiX:       return @"kok3shiX";
+    case ZBJailbreakMineekJB32:     return @"mineekJB (32-bit)";
+    case ZBJailbreakMineekJB64:     return @"mineekJB (64-bit)";
+    case ZBJailbreakMineekJB:       return @"mineekJB";
+    case ZBJailbreakBakera1n:       return @"bakera1n";
+    case ZBJailbreakP0insettia:     return @"p0insettia";
+    case ZBJailbreakAmethyst:       return @"Amethyst";
+    case ZBJailbreakApex:           return @"Apex";
+    case ZBJailbreakEverPwnage:     return @"EverPwnage";
+    case ZBJailbreakEverUntether:   return @"EverUntether";
+    case ZBJailbreakIocaste:        return @"iocaste";
     }
 }
 

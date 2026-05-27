@@ -43,7 +43,10 @@ typedef NS_ENUM(NSUInteger, ZBJailbreak) {
     ZBJailbreakBakera1n,
     ZBJailbreakP0insettia,
     ZBJailbreakAmethyst,
-    ZBJailbreakApex
+    ZBJailbreakApex,
+    ZBJailbreakEverPwnage,
+    ZBJailbreakEverUntether,
+    ZBJailbreakIocaste
 };
 
 typedef NS_ENUM(NSUInteger, ZBBootstrap) {
