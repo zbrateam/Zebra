@@ -194,12 +194,21 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 #if TARGET_OS_SIMULATOR
         machineIdentifier = @"iPhone11,2";
 #else
-        size_t size;
-        sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-        char *answer = malloc(size);
-        sysctlbyname("hw.machine", answer, &size, NULL, 0);
-        machineIdentifier = [NSString stringWithCString:answer encoding: NSUTF8StringEncoding];
-        free(answer);
+        size_t size = 0;
+        if (sysctlbyname("hw.machine", NULL, &size, NULL, 0) == 0 && size > 0) {
+            char *answer = malloc(size);
+            if (answer != NULL) {
+                if (sysctlbyname("hw.machine", answer, &size, NULL, 0) == 0) {
+                    answer[size - 1] = '\0';
+                    machineIdentifier = [NSString stringWithCString:answer encoding:NSUTF8StringEncoding];
+                }
+                free(answer);
+            }
+        }
+
+        if (!machineIdentifier) {
+            [NSException raise:NSInternalInconsistencyException format:@"hw.machine has no value"];
+        }
 #endif
     });
     return machineIdentifier;

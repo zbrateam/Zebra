@@ -82,27 +82,22 @@ void dict_remove(dict *dictionary, const char *key) {
     dict *previous = NULL;
     while (dictionary != NULL) {
         if (strcmp(dictionary->head->key, key) == 0) {
-            if (previous == NULL) {
-                free(dictionary->head->key);
-                dictionary->head->key = NULL;
-                if (dictionary->next != NULL) {
-                    dict *toremove = dictionary->next;
-                    dictionary->head->key = toremove->head->key;
-                    dictionary->next = toremove->next;
-                    free(toremove->head->key);
-                    free(toremove->head->value);
-                    free(toremove->head);
-                    free(toremove->next);
-                    free(toremove);
-                    return;
-                }
-            } else {
-                previous->next = dictionary->next;
-            }
             free(dictionary->head->key);
             free(dictionary->head->value);
             free(dictionary->head);
-            free(dictionary);
+            dictionary->head = NULL;
+
+            if (previous == NULL) {
+                dict *toremove = dictionary->next;
+                if (toremove != NULL) {
+                    dictionary->head = toremove->head;
+                    dictionary->next = toremove->next;
+                    free(toremove);
+                }
+            } else {
+                previous->next = dictionary->next;
+                free(dictionary);
+            }
             return;
         }
         previous = dictionary;

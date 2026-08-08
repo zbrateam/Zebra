@@ -29,13 +29,15 @@
     char *imageName;
     while ((imageName = (char *)_dyld_get_image_name(i))) {
         if (strcmp(basename(imageName), dylibName) == 0) {
-            dlclose(imageName);
             unlink(imageName);
+            free(dylibName);
             [NSException raise:@"ZBMalwareRemovedException" format:@"Terminating to ensure malware removal: %s", imageName];
         }
 
         i++;
     }
+
+    free(dylibName);
 }
 
 @end

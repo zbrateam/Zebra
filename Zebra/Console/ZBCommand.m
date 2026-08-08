@@ -293,39 +293,39 @@ static const int ZBCommandFinishFileno = 3;
         free(buffer);
     };
 
-    ZBCommandFds *fds = self->fds;
+    ZBCommandFds *localFds = fds;
 
     dispatch_source_set_event_handler(stdOutSource, ^{
-        handleSourceEvent(stdOutSource, fds->stdOut->fds[0], ^(NSString *string) {
+        handleSourceEvent(stdOutSource, localFds->stdOut->fds[0], ^(NSString *string) {
             if (self->delegate) [self->delegate receivedData:string];
             if (self.output) [self.output appendString:string];
         });
     });
     dispatch_source_set_event_handler(stdErrSource, ^{
-        handleSourceEvent(stdErrSource, fds->stdErr->fds[0], ^(NSString *string) {
+        handleSourceEvent(stdErrSource, localFds->stdErr->fds[0], ^(NSString *string) {
             if (self->delegate) [self->delegate receivedErrorData:string];
             if (self.output) [self.output appendString:string];
         });
     });
 
     dispatch_source_set_cancel_handler(stdOutSource, ^{
-        [fds->stdOut closeRead];
+        [localFds->stdOut closeRead];
         dispatch_semaphore_signal(lock);
     });
     dispatch_source_set_cancel_handler(stdErrSource, ^{
-        [fds->stdErr closeRead];
+        [localFds->stdErr closeRead];
         dispatch_semaphore_signal(lock);
     });
 
     if (_useFinishFd) {
         dispatch_source_set_event_handler(finishSource, ^{
-            handleSourceEvent(finishSource, fds->finish->fds[0], ^(NSString *string) {
+            handleSourceEvent(finishSource, localFds->finish->fds[0], ^(NSString *string) {
                 if (self->delegate) [self->delegate receivedFinishData:string];
             });
         });
         dispatch_source_set_cancel_handler(finishSource, ^{
             // Finish fd isn’t expected to be closed, so no semaphore involved here.
-            [fds->finish closeRead];
+            [localFds->finish closeRead];
         });
     }
 
@@ -341,9 +341,25 @@ static const int ZBCommandFinishFileno = 3;
     // Spawn the child process
     pid_t pid = 0;
     int ret = posix_spawnp(&pid, _command.UTF8String, &child_fd_actions, &child_fd_attrs, argv, envp);
+
+    for (int i = 0; argv[i] != NULL; i++) {
+        free(argv[i]);
+    }
     free(argv);
+    for (int i = 0; envp[i] != NULL; i++) {
+        free(envp[i]);
+    }
     free(envp);
+
+    posix_spawn_file_actions_destroy(&child_fd_actions);
+    posix_spawnattr_destroy(&child_fd_attrs);
+
     if (ret < 0) {
+        dispatch_source_cancel(stdOutSource);
+        dispatch_source_cancel(stdErrSource);
+        if (_useFinishFd) {
+            dispatch_source_cancel(finishSource);
+        }
         [fds close];
         fds = nil;
         return ret;
