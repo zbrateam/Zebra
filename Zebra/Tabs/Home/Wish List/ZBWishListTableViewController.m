@@ -142,7 +142,7 @@
     for (NSString *packageID in nullCheck) {
         ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
         if (package == nil) {
-            [wishedPackageIdentifiers removeObject:package];
+            [wishedPackageIdentifiers removeObject:packageID];
         }
         else if (![wishedPackages containsObject:package]) {
             [wishedPackages addObject:package];
