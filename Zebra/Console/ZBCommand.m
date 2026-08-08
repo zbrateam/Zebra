@@ -88,7 +88,9 @@
     
     if (useFinishFd) {
         fds->finish = [[ZBCommandPipe alloc] init];
-        if (!fds->finish) return nil;
+        if (!fds->finish) {
+            return nil;
+        }
     }
     
     return fds;
@@ -159,17 +161,21 @@ static const int ZBCommandFinishFileno = 3;
     } else {
         NSMutableArray <NSString *> *mutableArguments = [_arguments mutableCopy] ?: [NSMutableArray array];
         if (_asRoot && !asRoot && mutableArguments.count > 0) {
-            // If we're set to run as root but we no longer want to, remove the original command from the arguments array and set it back to self.command
+            // If we’re set to run as root but we no longer want to, remove the original command from the arguments
+            // array and set it back to self.command
             _command = mutableArguments[0];
             _arguments = mutableArguments;
         } else if (!_asRoot && asRoot) {
-            // If we're not set to run as root but we want to, set supersling as the command and duplicate the original command into the arguments array
+            // If we’re not set to run as root but we want to, set supersling as the command and duplicate the original
+            // command into the arguments array
             [mutableArguments insertObject:_command atIndex:0];
             _arguments = mutableArguments;
             _command = [[NSBundle mainBundle] pathForResource:@"supersling" ofType:nil];
         }
 
-        if (!_asRoot && !asRoot && (!mutableArguments.count || ![mutableArguments[0] isEqualToString:_command])) { // If we're not set as root and we don't want to, we need to make sure the first arugment in the array is the binary we want to run
+        if (!_asRoot && !asRoot && (!mutableArguments.count || ![mutableArguments[0] isEqualToString:_command])) {
+            // If we’re not set as root and we don’t want to, we need to make sure the first argument in the array is
+            // the binary we want to run
             [mutableArguments insertObject:_command atIndex:0];
             _arguments = mutableArguments;
         }
@@ -206,7 +212,7 @@ static const int ZBCommandFinishFileno = 3;
     // Create output and error pipes
     fds = [ZBCommandFds commandFdsWithFinish:_useFinishFd];
     if (!fds) {
-        return errno; // pipe() sets errno on failure
+        return -errno; // pipe() sets errno on failure
     }
 
     // Convert our arguments array from NSStrings to char pointers
@@ -354,7 +360,7 @@ static const int ZBCommandFinishFileno = 3;
     posix_spawn_file_actions_destroy(&child_fd_actions);
     posix_spawnattr_destroy(&child_fd_attrs);
 
-    if (ret < 0) {
+    if (ret != 0) {
         dispatch_source_cancel(stdOutSource);
         dispatch_source_cancel(stdErrSource);
         if (_useFinishFd) {
@@ -362,7 +368,7 @@ static const int ZBCommandFinishFileno = 3;
         }
         [fds close];
         fds = nil;
-        return ret;
+        return -ret;
     }
 
     // Close the write ends of the pipes so no odd data comes through them
