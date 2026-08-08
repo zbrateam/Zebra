@@ -59,6 +59,7 @@
 		4EBC4ABD2FD7EB10002178AF /* ZBSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBC4ABC2FD7EB10002178AF /* ZBSceneDelegate.m */; };
 		4EC7F26927AE34E00078F953 /* ZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F26827AE34E00078F953 /* ZBCommand.m */; };
 		4ECB1DF52948C9FD0049FE08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ECB1DF32948C9FD0049FE08 /* InfoPlist.strings */; };
+		4ED6E26D30270C4F00380C4E /* FLEX in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9022722F74CC6200827C72 /* FLEX */; };
 		4EF1A33F2F7901B3004A1017 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF1A33E2F7901B3004A1017 /* Sentry */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4EFE27B82F71035100913E39 /* UIView+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE27B72F71035100913E39 /* UIView+Zebra.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */; };
@@ -429,6 +430,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ED6E26D30270C4F00380C4E /* FLEX in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				4E2E6BE4281FC4080089E4FB /* SDWebImage in Frameworks */,
@@ -1491,6 +1493,7 @@
 					"INSTALL_PREFIX='\"$(INSTALL_PREFIX)\"'",
 					"DEB_ARCH='\"$(DEB_ARCH)\"'",
 					"PRODUCT_BUNDLE_IDENTIFIER='\"$(PRODUCT_BUNDLE_IDENTIFIER)\"'",
+					"SENTRY=1",
 					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
@@ -1503,10 +1506,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.36;
-				OTHER_CFLAGS = (
-					"-framework",
-					FLEX,
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1602,11 +1601,13 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "Zebra/Zebra-Prefix.pch";
+				EXCLUDED_SOURCE_FILE_NAMES = "FLEX.o";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PACKAGE_VERSION='\"$(MARKETING_VERSION)\"'",
 					"INSTALL_PREFIX='\"$(INSTALL_PREFIX)\"'",
 					"DEB_ARCH='\"$(DEB_ARCH)\"'",
 					"PRODUCT_BUNDLE_IDENTIFIER='\"$(PRODUCT_BUNDLE_IDENTIFIER)\"'",
+					"SENTRY=1",
 					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
@@ -1786,6 +1787,7 @@
 					"INSTALL_PREFIX='\"$(INSTALL_PREFIX)\"'",
 					"DEB_ARCH='\"$(DEB_ARCH)\"'",
 					"PRODUCT_BUNDLE_IDENTIFIER='\"$(PRODUCT_BUNDLE_IDENTIFIER)\"'",
+					"SENTRY=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Zebra/Info.plist;
@@ -1797,10 +1799,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.36;
-				OTHER_CFLAGS = (
-					"-framework",
-					FLEX,
-				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1831,11 +1829,13 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREFIX_HEADER = "Zebra/Zebra-Prefix.pch";
+				EXCLUDED_SOURCE_FILE_NAMES = "FLEX.o";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PACKAGE_VERSION='\"$(MARKETING_VERSION)\"'",
 					"INSTALL_PREFIX='\"$(INSTALL_PREFIX)\"'",
 					"DEB_ARCH='\"$(DEB_ARCH)\"'",
 					"PRODUCT_BUNDLE_IDENTIFIER='\"$(PRODUCT_BUNDLE_IDENTIFIER)\"'",
+					"SENTRY=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Zebra/Info.plist;

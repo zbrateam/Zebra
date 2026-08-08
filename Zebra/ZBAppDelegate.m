@@ -524,7 +524,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 #pragma mark - Error Reporting
 
 - (void)_configureErrorReporting {
-#if SENTRY && !DEBUG
+#if !DEBUG
+#if !SENTRY
 #ifdef SENTRY_DSN
     // Don’t init Sentry when people sideload Zebra (for some reason)
     if (![[ZBAppDelegate bundleID] isEqualToString:@PRODUCT_BUNDLE_IDENTIFIER]) {
@@ -565,6 +566,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
 #else
 #error SENTRY_DSN required for release build but is currently not set.
+#endif
+#else
+#error SENTRY required for release build but is currently not set.
 #endif
 #endif
 }

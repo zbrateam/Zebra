@@ -9,11 +9,3 @@
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_15_0
     #define ROOTLESS
 #endif
-
-#if __has_include("Sentry/SentrySDK.h")
-    #define SENTRY
-#endif
-
-#if DEBUG && __has_include("FLEX/FLEX.h")
-    #define FLEX
-#endif
