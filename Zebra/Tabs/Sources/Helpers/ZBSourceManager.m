@@ -71,7 +71,8 @@
             @"modmyi.saurik.com",
             @"apt.saurik.com",
             @"apt.bingner.com",
-            @"cydia.zodttd.com"
+            @"cydia.zodttd.com",
+            @"zodttd.saurik.com"
         ];
     });
     return urls;
@@ -87,7 +88,8 @@
             @"deb http://modmyi.saurik.com/ stable main",
             [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
             [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
-            @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
+            @"deb http://zodttd.saurik.com/repo/cydia/ stable main",
+            @"deb http://zodttd.saurik.com/repo/cydia/ stable main"
         ];
     });
     return lines;
