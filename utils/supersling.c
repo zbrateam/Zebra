@@ -38,6 +38,12 @@ void patch_setuidandplatformize(void) {
 }
 
 int main(int argc, char ** argv) {
+  if (argc < 2) {
+    printf("This program is used internally by Zebra.\n");
+    fflush(stdout);
+    return EX_USAGE;
+  }
+
   if (__builtin_available(iOS 13, *)) {
     printf("supersling isn’t used on iOS 13+.\n");
     fflush(stdout);
