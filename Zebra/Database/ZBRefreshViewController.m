@@ -18,10 +18,10 @@
 #import "ZBSourceManager.h"
 #import "parsel.h"
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, ZBRefreshButtonState) {
     ZBStateCancel = 0,
     ZBStateDone
-} ZBRefreshButtonState;
+};
 
 @interface ZBRefreshViewController () {
     ZBDatabaseManager *databaseManager;

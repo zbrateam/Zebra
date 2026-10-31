@@ -239,8 +239,27 @@
             UISheetPresentationController *sheetPresentation = _popupController.sheetPresentationController;
             sheetPresentation.detents = @[[UISheetPresentationControllerDetent mediumDetent]];
         }
+        [self _applyQueueSheetTransition:_popupController];
     }
     return _popupController;
+}
+
+- (UIView *)queueBarSourceView {
+#ifdef __IPHONE_26_0
+    if (@available(iOS 26, *)) {
+        return _queueAccessoryView;
+    }
+#endif
+    return _queueBarVisible ? self.popupBar : nil;
+}
+
+- (void)_applyQueueSheetTransition:(UIViewController *)viewController {
+    if (@available(iOS 18, *)) {
+        __weak __typeof(self) weakSelf = self;
+        viewController.preferredTransition = [UIViewControllerTransition zoomWithOptions:nil sourceViewProvider:^UIView *(__unused UIZoomTransitionSourceViewProviderContext *context) {
+            return [weakSelf queueBarSourceView];
+        }];
+    }
 }
 
 - (ZBQueueViewController *)queueController {
@@ -380,6 +399,7 @@
             [self updateQueueBarPackageCount:[ZBQueue count]];
 
             [self presentPopupBarWithContentViewController:[[UIViewController alloc] init] openPopup:NO animated:YES completion:^{
+                self->_queueBarVisible = YES;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueBarHeightDidChange" object:nil];
             }];
             return;
@@ -421,7 +441,7 @@
         clearQueue.popoverPresentationController.sourceView = self.popupContentView;
 #endif
 
-        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Clear Queue", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Clear Queue", @"") style:UIAlertActionStyleDestructive handler:^(__unused UIAlertAction *action) {
             [[ZBQueue sharedQueue] clear];
         }];
         [clearQueue addAction:yesAction];
@@ -479,6 +499,8 @@
             [self _dismissQueueSheet];
         }
 
+        self->_queueBarVisible = NO;
+
         LNPopupPresentationState state = self.popupPresentationState;
         if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateBarPresented) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
@@ -505,12 +527,12 @@
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Don’t Send", @"")
                                                         style:UIAlertActionStyleCancel
-                                                      handler:^(UIAlertAction *action) {
+                                                      handler:^(__unused UIAlertAction *action) {
         ZBSettings.sendErrorReports = @(ZBSendErrorReportsNo);
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Send", @"")
                                                         style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
+                                                      handler:^(__unused UIAlertAction *action) {
         ZBSettings.sendErrorReports = @(ZBSendErrorReportsYes);
     }]];
 
@@ -535,7 +557,7 @@
                              value:[NSURL URLWithString:@"zbra:"]
                              range:NSMakeRange(attributedString.string.length - linkText.length, linkText.length)];
     textView.attributedText = attributedString;
-    textView.linkHandler = ^(NSURL *url) {
+    textView.linkHandler = ^(__unused NSURL *url) {
         [self dismissViewControllerAnimated:YES completion:^{
             [self _showErrorReportMoreInfo];
         }];

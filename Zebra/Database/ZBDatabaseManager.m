@@ -127,7 +127,7 @@
     NSArray <NSString *> *allArchs = [ZBDevice allDebianArchitectures];
 
     NSMutableArray <NSString *> *foreignArchs = [NSMutableArray array];
-    for (int i = 1; i < allArchs.count; i++) {
+    for (NSUInteger i = 1; i < allArchs.count; i++) {
         [foreignArchs addObject:[NSString stringWithFormat:@"'%@'", [self _escapeSQLString:allArchs[i]]]];
     }
 
@@ -144,7 +144,7 @@
 }
 
 - (NSInteger)_bindStringArray:(NSArray <NSString *> *)array toStatement:(sqlite3_stmt *)statement at:(NSInteger)startIndex {
-    for (NSInteger i = 0; i < array.count; i++) {
+    for (NSUInteger i = 0; i < array.count; i++) {
         sqlite3_bind_text(statement, (int)(startIndex + i), array[i].UTF8String, -1, SQLITE_TRANSIENT);
     }
     return startIndex + array.count;
@@ -226,7 +226,7 @@
 }
 
 - (void)bulkDatabaseStartedUpdate {
-    for (int i = 0; i < self.databaseDelegates.count; ++i) {
+    for (NSUInteger i = 0; i < self.databaseDelegates.count; ++i) {
         id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
         [delegate databaseStartedUpdate];
     }
@@ -234,14 +234,14 @@
 
 - (void)bulkDatabaseCompletedUpdate:(int)updates {
     databaseBeingUpdated = NO;
-    for (int i = 0; i < self.databaseDelegates.count; ++i) {
+    for (NSUInteger i = 0; i < self.databaseDelegates.count; ++i) {
         id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
         [delegate databaseCompletedUpdate:updates];
     }
 }
 
 - (void)bulkPostStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    for (int i = 0; i < self.databaseDelegates.count; ++i) {
+    for (NSUInteger i = 0; i < self.databaseDelegates.count; ++i) {
         id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
         if ([delegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
             [delegate postStatusUpdate:status atLevel:level];
@@ -250,7 +250,7 @@
 }
 
 - (void)bulkSetSource:(NSString *)bfn busy:(BOOL)busy {
-    for (int i = 0; i < self.databaseDelegates.count; ++i) {
+    for (NSUInteger i = 0; i < self.databaseDelegates.count; ++i) {
         id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
         if ([delegate respondsToSelector:@selector(setSource:busy:)]) {
             [delegate setSource:bfn busy:busy];
@@ -1154,13 +1154,13 @@
 
         if (irrelevantPackages.count) {
             NSMutableArray <NSString *> *packageTemplates = [NSMutableArray array];
-            for (int i = 0; i < irrelevantPackages.count; i++) {
+            for (NSUInteger i = 0; i < irrelevantPackages.count; i++) {
                 [packageTemplates addObject:@"?"];
             }
 
             NSString *query = [NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE IN (%@)", [packageTemplates componentsJoinedByString:@","]];
             if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
-                for (int i = 0; i < irrelevantPackages.count; i++) {
+                for (NSUInteger i = 0; i < irrelevantPackages.count; i++) {
                     sqlite3_bind_text(statement, i + 1, irrelevantPackages[i].UTF8String, -1, SQLITE_TRANSIENT);
                 }
                 sqlite3_step(statement);
@@ -1359,7 +1359,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSMutableArray *inTemplates = [NSMutableArray new];
-        for (int i = 0; i < requestedPackages.count; i++) {
+        for (NSUInteger i = 0; i < requestedPackages.count; i++) {
             [inTemplates addObject:@"?"];
         }
 
@@ -1369,7 +1369,7 @@
                            [inTemplates componentsJoinedByString:@","], self._packageArchitectureWeightingClause];
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-            for (int i = 0; i < requestedPackages.count; i++) {
+            for (NSUInteger i = 0; i < requestedPackages.count; i++) {
                 sqlite3_bind_text(statement, i + 1, [requestedPackages[i] UTF8String], -1, SQLITE_TRANSIENT);
             }
 
@@ -2098,7 +2098,7 @@
         NSMutableArray *packages = [NSMutableArray new];
 
         NSMutableArray *sourceTemplates = [NSMutableArray array];
-        for (int i = 0; i < blacklistedSources.count; i++) {
+        for (NSUInteger i = 0; i < blacklistedSources.count; i++) {
             [sourceTemplates addObject:@"?"];
         }
 
@@ -2112,7 +2112,7 @@
 
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-            for (int i = 0; i < blacklistedSources.count; i++) {
+            for (NSUInteger i = 0; i < blacklistedSources.count; i++) {
                 sqlite3_bind_int(statement, i + 1, blacklistedSources[i].sourceID);
             }
 
@@ -2307,7 +2307,7 @@
         BOOL needsVersionComparison = ![versionComponents[1] isEqualToString:@"<=>"] && ![versionComponents[2] isEqualToString:@"0:0"];
 
         NSMutableArray <NSString *> *excludes = [NSMutableArray array];
-        for (int i = 0; i < removedPackages.count; i++) {
+        for (NSUInteger i = 0; i < removedPackages.count; i++) {
             [excludes addObject:@"?"];
         }
 
@@ -2333,7 +2333,7 @@
         BOOL found = NO;
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-            for (int i = 0; i < removedPackages.count; i++) {
+            for (NSUInteger i = 0; i < removedPackages.count; i++) {
                 sqlite3_bind_text(statement, i + 1, [removedPackages[i] UTF8String], -1, SQLITE_TRANSIENT);
             }
 

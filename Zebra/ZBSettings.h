@@ -28,7 +28,7 @@
 
 #pragma mark - Accent Colors
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, ZBAccentColor) {
     ZBAccentColorAquaVelvet,
     ZBAccentColorCornflowerBlue,
     ZBAccentColorGoldenTainoi,
@@ -41,37 +41,37 @@ typedef enum : NSUInteger {
     ZBAccentColorRoyalBlue,
     ZBAccentColorShark,
     ZBAccentColorStorm,
-} ZBAccentColor;
+};
 
 #pragma mark - Interface Styles
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, ZBInterfaceStyle) {
     ZBInterfaceStyleLight,
     ZBInterfaceStyleDark,
     ZBInterfaceStylePureBlack,
-} ZBInterfaceStyle;
+};
 
 #pragma mark - Featured Type
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, ZBFeaturedType) {
     ZBFeaturedTypeSource,
     ZBFeaturedTypeRandom,
-} ZBFeaturedType;
+};
 
 #pragma mark - Swipe Action Style
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, ZBSwipeActionStyle) {
     ZBSwipeActionStyleText,
     ZBSwipeActionStyleIcon,
-} ZBSwipeActionStyle;
+};
 
 #pragma mark - Package Sorting Style
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSInteger, ZBSortingType) {
     ZBSortingTypeABC,
     ZBSortingTypeDate,
     ZBSortingTypeInstalledSize
-} ZBSortingType;
+};
 
 #pragma mark - Error Reports
 

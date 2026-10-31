@@ -129,7 +129,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    if (currentStage == -1) { //Only run the process once per console cycle
+    if (currentStage == (ZBStage)-1) { //Only run the process once per console cycle
         dispatch_async(dispatch_get_main_queue(), ^{
             [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
         });
@@ -247,7 +247,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                 }
                 else {
                     if (currentStage == ZBStageRemove) {
-                        for (int i = COMMAND_START; i < command.count; ++i) {
+                        for (NSUInteger i = COMMAND_START; i < command.count; ++i) {
                             NSString *packageID = command[i];
                             if (![self isValidPackageID:packageID]) continue;
 
@@ -280,7 +280,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                 }
             }
 
-            for (int i = 0; i < installedPackageIdentifiers.count; ++i) {
+            for (NSUInteger i = 0; i < installedPackageIdentifiers.count; ++i) {
                 NSString *packageIdentifier = installedPackageIdentifiers[i];
                 NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageIdentifier];
                 if (bundlePath && ![applicationBundlePaths containsObject:bundlePath]) {
@@ -351,7 +351,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     command.useFinishFd = YES;
     int status = [command execute];
     if (status < 0) {
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@", @""), [ZBDevice packageManagementBinary], [NSString stringWithUTF8String:strerror(status)]];
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@", @""), [ZBDevice packageManagementBinary], [NSString stringWithUTF8String:strerror(-status)]];
 
         NSLog(@"[Zebra] %@", message);
         [self writeToConsole:message atLevel:ZBLogLevelError];
@@ -769,8 +769,8 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
             NSArray *options = @[@"return", @"uicache", @"reopen", @"restart", @"reload", @"reboot"];
             NSUInteger index = [options indexOfObject:option];
 
-            if (index != NSNotFound && index > finishOption) {
-                finishOption = (ZBConsoleFinishOption)index;
+            if (index != NSNotFound) {
+                [self _raiseFinishOptionTo:(ZBConsoleFinishOption)index];
             }
         }
     }

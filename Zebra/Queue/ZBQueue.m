@@ -247,6 +247,7 @@
                 [removeCommand addObject:@"--force-depends"];
             }
             
+            [removeCommand addObject:@"--"];
             NSUInteger commandCount = [removeCommand count];
             
             for (ZBPackage *package in [self removeQueue]) {
@@ -282,6 +283,7 @@
                 }
             }
             
+            [removeCommand addObject:@"--"];
             NSUInteger commandCount = [removeCommand count];
             
             for (ZBPackage *package in [self removeQueue]) {
@@ -322,6 +324,7 @@
             }
         }
         
+        [installCommand addObject:@"--"];
         NSUInteger commandCount = [installCommand count];
         
         NSArray *dependencyPaths = [self pathsForPackagesInQueue:ZBQueueTypeDependency];

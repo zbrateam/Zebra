@@ -321,7 +321,7 @@
     if (self.tableData.count == 0)
         return nil;
     NSInteger trueSection = [self trueSection:section];
-    return trueSection < self.tableData.count ? self.tableData[trueSection] : nil;
+    return (NSUInteger)trueSection < self.tableData.count ? self.tableData[trueSection] : nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

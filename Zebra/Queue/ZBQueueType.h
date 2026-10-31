@@ -9,7 +9,7 @@
 #ifndef ZBQueueType_h
 #define ZBQueueType_h
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, ZBQueueType) {
     ZBQueueTypeInstall    = 1 << 0,
     ZBQueueTypeRemove     = 1 << 1,
     ZBQueueTypeReinstall  = 1 << 2,
@@ -18,6 +18,6 @@ typedef enum {
     ZBQueueTypeConflict   = 1 << 5,
     ZBQueueTypeDependency = 1 << 6,
     ZBQueueTypeClear      = 1 << 7
-} ZBQueueType;
+};
 
 #endif /* ZBQueueType_h */

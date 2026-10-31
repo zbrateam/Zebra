@@ -21,7 +21,7 @@ char *trim(char *s) {
     if (!size)
         return s;
     char *end = s + size - 1;
-    while (end >= s && (*end == '\n' || *end == '\r' || isspace(*end)))
+    while (end >= s && (*end == '\n' || *end == '\r' || isspace((unsigned char)*end)))
         end--; // remove trailing space
     *(end + 1) = '\0';
     return s;
@@ -481,9 +481,9 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            if (longDescFlag && isspace(line[0])) {
+            if (longDescFlag && isspace((unsigned char)line[0])) {
                 int i = 0;
-                while (line[i] != '\0' && isspace(line[i])) {
+                while (line[i] != '\0' && isspace((unsigned char)line[i])) {
                     ++i;
                 }
                 
@@ -568,9 +568,9 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            if (longDescFlag && isspace(line[0])) {
+            if (longDescFlag && isspace((unsigned char)line[0])) {
                 int i = 0;
-                while (line[i] != '\0' && isspace(line[i])) {
+                while (line[i] != '\0' && isspace((unsigned char)line[i])) {
                     ++i;
                 }
                 

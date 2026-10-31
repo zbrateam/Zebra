@@ -9,7 +9,7 @@
 #ifndef ZBPackageActionType_h
 #define ZBPackageActionType_h
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, ZBPackageActionType) {
     ZBPackageActionInstall,
     ZBPackageActionRemove,
     ZBPackageActionReinstall,
@@ -18,6 +18,6 @@ typedef enum : NSUInteger {
     ZBPackageActionSelectVersion,
     ZBPackageActionShowUpdates,
     ZBPackageActionHideUpdates,
-} ZBPackageActionType;
+};
 
 #endif /* ZBPackageActionType_h */

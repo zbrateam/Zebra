@@ -9,7 +9,7 @@
 #ifndef ZBStage_h
 #define ZBStage_h
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, ZBStage) {
     ZBStageDownload = 0,
     ZBStageInstall,
     ZBStageReinstall,
@@ -17,6 +17,6 @@ typedef enum {
     ZBStageUpgrade,
     ZBStageDowngrade,
     ZBStageFinished
-} ZBStage;
+};
 
 #endif /* ZBStage_h */

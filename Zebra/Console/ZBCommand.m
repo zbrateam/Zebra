@@ -217,7 +217,7 @@ static const int ZBCommandFinishFileno = 3;
 
     // Convert our arguments array from NSStrings to char pointers
     char **argv = (char **)malloc((_arguments.count + 1) * sizeof(char *));
-    for (int i = 0; i < _arguments.count; i++) {
+    for (NSUInteger i = 0; i < _arguments.count; i++) {
         argv[i] = strdup(_arguments[i].UTF8String);
     }
     argv[_arguments.count] = NULL;
@@ -234,7 +234,7 @@ static const int ZBCommandFinishFileno = 3;
 
     // Convert our environment array from NSStrings to char pointers
     char **envp = (char **)malloc((environmentVars.count + 1) * sizeof(char *));
-    for (int i = 0; i < environmentVars.count; i++) {
+    for (NSUInteger i = 0; i < environmentVars.count; i++) {
         envp[i] = strdup(environmentVars[i].UTF8String);
     }
     envp[environmentVars.count] = NULL;

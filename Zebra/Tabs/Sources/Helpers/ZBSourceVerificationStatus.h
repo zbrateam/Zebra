@@ -11,11 +11,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, ZBSourceVerificationStatus) {
     ZBSourceVerifying,  //Currently verifying
     ZBSourceExists,     //Exists
     ZBSourceImaginary,  //Doesn't exist
     ZBSourceUnverified  //Not yet verified
-} ZBSourceVerificationStatus;
+};
 
 #endif /* ZBSourceVerification_h */

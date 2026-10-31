@@ -99,7 +99,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row >= filteredResults.count) return nil;
+    if ((NSUInteger)indexPath.row >= filteredResults.count) return nil;
     
     NSObject *quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {

@@ -10,10 +10,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, ZBSourceSelectionType) {
     ZBSourceSelectionTypeNormal,
     ZBSourceSelectionTypeInverse,
-} ZBSourceSelectionType;
+};
 
 NS_ASSUME_NONNULL_BEGIN
 

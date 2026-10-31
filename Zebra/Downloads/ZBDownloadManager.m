@@ -26,7 +26,7 @@
 
 @interface ZBDownloadManager () {
     BOOL ignore;
-    int failedTasks;
+    NSUInteger failedTasks;
     NSMutableDictionary <NSNumber *, ZBPackage *> *packageTasksMap;
     NSMutableDictionary <NSNumber *, ZBBaseSource *> *sourceTasksMap;
 }
@@ -71,11 +71,11 @@
 
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate {
     self = [self init];
-    
+
     if (self) {
         downloadDelegate = delegate;
     }
-    
+
     return self;
 }
 

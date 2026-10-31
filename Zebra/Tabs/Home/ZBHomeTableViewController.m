@@ -28,35 +28,35 @@
 @import FLEX;
 #endif
 
-typedef enum ZBHomeOrder : NSUInteger {
+typedef NS_ENUM(NSUInteger, ZBHomeOrder) {
     ZBWelcome,
     ZBViews,
     ZBLinks,
     ZBInfo,
     ZBHomeOrderCount
-} ZBHomeOrder;
+};
 
-typedef enum ZBWelcomeOrder : NSUInteger {
+typedef NS_ENUM(NSUInteger, ZBWelcomeOrder) {
     ZBWelcomeLink,
     ZBDemoMode
-} ZBInfoOrder;
+};
 
-typedef enum ZBViewOrder : NSUInteger {
+typedef NS_ENUM(NSUInteger, ZBViewOrder) {
     ZBCommunity,
     ZBStores,
     ZBWishList
-} ZBViewOrder;
+};
 
-typedef enum ZBLinksOrder : NSUInteger {
+typedef NS_ENUM(NSUInteger, ZBLinksOrder) {
     ZBMastodon,
     ZBDiscord,
     ZBBug
-} ZBLinksOrder;
+};
 
-typedef enum ZBInfoOrder : NSUInteger {
+typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
     ZBChangeLog,
     ZBCreditsLink
-} ZBCreditsOrder;
+};
 
 @interface ZBHomeTableViewController () {
     NSMutableArray *redditPosts;
@@ -713,7 +713,7 @@ typedef enum ZBInfoOrder : NSUInteger {
     }];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id <UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)) {
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
         [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
