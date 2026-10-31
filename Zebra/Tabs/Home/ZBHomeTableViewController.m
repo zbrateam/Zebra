@@ -591,29 +591,20 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
             ];
             for (NSURL *url in mastodonURLs) {
                 if ([application canOpenURL:url]) {
-                    [self openURL:url];
+                    [ZBDevice openURL:url delegate:self];
                     break;
                 }
             }
             break;
         }
         case ZBDiscord:
-            [self openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"]];
+            [ZBDevice openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"] delegate:self];
             break;
         case ZBBug:
             [ZBDevice openURL:[NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"] delegate:self];
             break;
         default:
             break;
-    }
-}
-
-- (void)openURL:(NSURL *)url {
-    UIApplication *application = [UIApplication sharedApplication];
-    if (@available(iOS 10.0, *)) {
-        [application openURL:url options:@{} completionHandler:nil];
-    } else {
-        [application openURL:url];
     }
 }
 

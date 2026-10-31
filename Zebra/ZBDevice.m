@@ -10,6 +10,7 @@
 #import "ZBSettings.h"
 #import "ZBCommand.h"
 #import "UIColor+GlobalColors.h"
+#import "UIApplication+Zebra.h"
 #import <WebKit/WebKit.h>
 #import "ZBQueue.h"
 #import "ZBAppDelegate.h"
@@ -543,16 +544,35 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 #pragma mark - Theming
 
 + (void)openURL:(NSURL *)url delegate:(UIViewController <SFSafariViewControllerDelegate> *)delegate {
-    SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
-    safariVC.delegate = delegate;
-    UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+    void (^doOpenURL)(void) = ^{
+        if (![url.scheme isEqualToString:@"http"] && ![url.scheme isEqualToString:@"https"]) {
+            return [[UIApplication sharedApplication] zb_openURL:url options:nil completionHandler:nil];
+        }
+
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+        safariVC.delegate = delegate;
+        UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+        if (@available(iOS 10, *)) {
+            safariVC.preferredBarTintColor = [UIColor groupedTableViewBackgroundColor];
+            safariVC.preferredControlTintColor = tintColor;
+        } else {
+            safariVC.view.tintColor = tintColor;
+        }
+        [delegate presentViewController:safariVC animated:YES completion:nil];
+    };
+
     if (@available(iOS 10, *)) {
-        safariVC.preferredBarTintColor = [UIColor groupedTableViewBackgroundColor];
-        safariVC.preferredControlTintColor = tintColor;
+        // Prioritise universal link if one exists
+        [[UIApplication sharedApplication] zb_openURL:url options:@{
+            UIApplicationOpenURLOptionUniversalLinksOnly: @YES
+        } completionHandler:^(BOOL success) {
+            if (!success) {
+                doOpenURL();
+            }
+        }];
     } else {
-        safariVC.view.tintColor = tintColor;
+        doOpenURL();
     }
-    [delegate presentViewController:safariVC animated:YES completion:nil];
 }
 
 + (BOOL)useIcon {

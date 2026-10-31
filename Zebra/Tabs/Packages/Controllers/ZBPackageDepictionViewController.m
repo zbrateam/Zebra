@@ -290,11 +290,8 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if (type == WKNavigationTypeOther && [url isEqual:[NSURL URLWithString:@"about:blank"]]) {
         decisionHandler(WKNavigationActionPolicyAllow);
     } else {
-        if (type != WKNavigationTypeOther && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
+        if (type != WKNavigationTypeOther && [@[@"http", @"https", @"mailto"] containsObject:url.scheme.lowercaseString]) {
             [ZBDevice openURL:url delegate:self];
-            decisionHandler(WKNavigationActionPolicyCancel);
-        } else if ([[url scheme] isEqualToString:@"mailto"]) {
-            [[UIApplication sharedApplication] openURL:url];
             decisionHandler(WKNavigationActionPolicyCancel);
         } else {
             decisionHandler(WKNavigationActionPolicyAllow);
@@ -326,9 +323,10 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
         if ([self presented]) {
             UIBarButtonItemActionHandler originalHandler = objc_getAssociatedObject(barButton, "actionHandler");
+            typeof(self) __weak weakSelf = self;
             UIBarButtonItemActionHandler newHandler = ^{
                 originalHandler();
-                [self goodbye];
+                [weakSelf goodbye];
             };
 
             [barButton setActionHandler:newHandler];
@@ -543,11 +541,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             [NSURLQueryItem queryItemWithName:@"subject" value:subject],
             [NSURLQueryItem queryItemWithName:@"body" value:body]
         ];
-        if (@available(iOS 10.0, *)) {
-            [[UIApplication sharedApplication] openURL:url.URL options:@{} completionHandler:nil];
-        } else {
-            [[UIApplication sharedApplication] openURL:url.URL];
-        }
+        [ZBDevice openURL:url.URL delegate:self];
     }
 }
 

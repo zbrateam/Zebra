@@ -20,6 +20,7 @@
 #import "ZBQueue.h"
 #import "ZBSource.h"
 #import "ZBCanisterPrivacyViewController.h"
+#import "UIApplication+Zebra.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -573,7 +574,7 @@ enum ZBMiscOrder {
 
 - (void)openDocumentsDirectory {
     if ([[UIApplication sharedApplication] canOpenURL:[ZBAppDelegate documentsDirectoryURL]]) {
-        [[UIApplication sharedApplication] openURL:[ZBAppDelegate documentsDirectoryURL]];
+        [[UIApplication sharedApplication] zb_openURL:[ZBAppDelegate documentsDirectoryURL] options:nil completionHandler:nil];
     }
     else {
         UIAlertController *noMagicWord = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Filza Not Installed", @"") message:[NSString stringWithFormat:NSLocalizedString(@"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@", @""), [ZBAppDelegate documentsDirectory]] preferredStyle:UIAlertControllerStyleAlert];

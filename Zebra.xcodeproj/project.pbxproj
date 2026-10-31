@@ -58,6 +58,7 @@
 		4EA26E9727CBA3190019A5AA /* ZBHomeCopyableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26E9627CBA3190019A5AA /* ZBHomeCopyableFooterView.m */; };
 		4EBC4ABD2FD7EB10002178AF /* ZBSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBC4ABC2FD7EB10002178AF /* ZBSceneDelegate.m */; };
 		4EC7D8D43095A61A0044F9A5 /* ZBJSONProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7D8D33095A61A0044F9A5 /* ZBJSONProperty.m */; };
+		4EC7D8D7309624F20044F9A5 /* UIApplication+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7D8D6309624EF0044F9A5 /* UIApplication+Zebra.m */; };
 		4EC7F26927AE34E00078F953 /* ZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F26827AE34E00078F953 /* ZBCommand.m */; };
 		4ECB1DF52948C9FD0049FE08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ECB1DF32948C9FD0049FE08 /* InfoPlist.strings */; };
 		4ED6E26D30270C4F00380C4E /* FLEX in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9022722F74CC6200827C72 /* FLEX */; };
@@ -234,6 +235,8 @@
 		4EBC4ABC2FD7EB10002178AF /* ZBSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSceneDelegate.m; sourceTree = "<group>"; };
 		4EC7D8D23095A61A0044F9A5 /* ZBJSONProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBJSONProperty.h; sourceTree = "<group>"; };
 		4EC7D8D33095A61A0044F9A5 /* ZBJSONProperty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBJSONProperty.m; sourceTree = "<group>"; };
+		4EC7D8D5309624C90044F9A5 /* UIApplication+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Zebra.h"; sourceTree = "<group>"; };
+		4EC7D8D6309624EF0044F9A5 /* UIApplication+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+Zebra.m"; sourceTree = "<group>"; };
 		4EC7F26727AE34E00078F953 /* ZBCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommand.h; sourceTree = "<group>"; };
 		4EC7F26827AE34E00078F953 /* ZBCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCommand.m; sourceTree = "<group>"; };
 		4EC7F26F27AE35030078F953 /* ZBCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommandDelegate.h; sourceTree = "<group>"; };
@@ -812,6 +815,8 @@
 		89BDCB6F2289FEA800FC1345 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4EC7D8D6309624EF0044F9A5 /* UIApplication+Zebra.m */,
+				4EC7D8D5309624C90044F9A5 /* UIApplication+Zebra.h */,
 				9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */,
 				9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */,
 				49E1304722715EE5006F450A /* UIColor+GlobalColors.h */,
@@ -1230,6 +1235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */,
+				4EC7D8D7309624F20044F9A5 /* UIApplication+Zebra.m in Sources */,
 				3639D19522CC600D0012E18F /* ZBNoScrollHeaderTableView.m in Sources */,
 				8997A9FA24035021001894BF /* ZBProxyPackage.m in Sources */,
 				363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */,

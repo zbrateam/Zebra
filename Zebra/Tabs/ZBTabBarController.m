@@ -23,6 +23,7 @@
 #import "ZBLabelTextView.h"
 #import "ZBSettingsErrorReportingViewController.h"
 #import "ZBQueueTabAccessoryView.h"
+#import "UIApplication+Zebra.h"
 
 #if SENTRY
 @import Sentry;
@@ -225,7 +226,7 @@
             urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedSourceBaseURL];
             forwardedSourceBaseURL = NULL;
         }
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+        [[UIApplication sharedApplication] zb_openURL:[NSURL URLWithString:urlString] options:nil completionHandler:nil];
         forwardToPackageID = NULL;
     }
 }
