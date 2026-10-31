@@ -217,12 +217,18 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     if ([ZBDatabaseManager needsMigration]) {
         if ([[launchURL scheme] isEqualToString:@"file"] && [[launchURL pathExtension] isEqualToString:@"list"]) {
             NSString *listPath = [ZBAppDelegate sourcesListPath];
-            NSError *removeError;
+            NSError *removeError = nil;
+            BOOL removed = YES;
             if ([[NSFileManager defaultManager] fileExistsAtPath:listPath]) {
-                [[NSFileManager defaultManager] removeItemAtPath:listPath error:&removeError];
+                removed = [[NSFileManager defaultManager] removeItemAtPath:listPath error:&removeError];
             }
-            if (!removeError) {
-                [[NSFileManager defaultManager] moveItemAtPath:[launchURL path] toPath:listPath error:nil];
+            if (removed) {
+                NSError *moveError = nil;
+                if (![[NSFileManager defaultManager] moveItemAtPath:[launchURL path] toPath:listPath error:&moveError]) {
+                    ZBLog(@"[Zebra] Failed to import sources list: %@", moveError.localizedDescription);
+                }
+            } else {
+                ZBLog(@"[Zebra] Failed to remove existing sources list: %@", removeError.localizedDescription);
             }
         }
         window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
@@ -287,7 +293,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     NSArray *choices = @[@"file", @"zbra", @"sileo"];
-    int index = (int)[choices indexOfObject:[url scheme]];
+    NSUInteger index = [choices indexOfObject:url.scheme];
     
     if (![[ZBAppDelegate window].rootViewController isKindOfClass:[ZBTabBarController class]]) {
         return NO;
@@ -331,10 +337,10 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         case 1: { // zbra
             ZBTabBarController *tabController = (ZBTabBarController *)[ZBAppDelegate window].rootViewController;
             
-            NSArray *components = [[url host] componentsSeparatedByString:@"/"];
+            NSArray *components = [([url host] ?: @"") componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
-            index = (int)[choices indexOfObject:components[0]];
-            
+            index = components.count ? [choices indexOfObject:components[0]] : -1;
+
             switch (index) {
                 case 0: {
                     [tabController setSelectedIndex:ZBTabHome];
@@ -354,8 +360,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 case 3: {
                     NSString *path = [url path];
                     if (path.length > 1) {
-                        NSString *sourceURL = [[url query] componentsSeparatedByString:@"source="][1];
-                        if (sourceURL != NULL) {
+                        NSArray <NSString *> *queryComponents = [(url.query ?: @"") componentsSeparatedByString:@"source="];
+                        NSString *sourceURL = queryComponents.count > 1 ? queryComponents[1] : nil;
+                        if (sourceURL.length) {
                             if ([ZBSource exists:sourceURL]) {
                                 NSString *packageID = [path substringFromIndex:1];
                                 ZBSource *source = [ZBSource sourceFromBaseURL:sourceURL];
