@@ -59,7 +59,7 @@
     [request setURL:[NSURL URLWithString:@"https://api.github.com/repos/zbrateam/Zebra/releases"]];
     [request setValue:@"application/vnd.github.v3.html" forHTTPHeaderField:@"Accept"];
     
-    NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, __unused NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data && !error) {
             NSMutableArray *allReleases = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
             NSRange r1 = [@PACKAGE_VERSION rangeOfString:@"~"];

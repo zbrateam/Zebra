@@ -150,7 +150,7 @@
                 sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
                 sourceCell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
-                [sourceCell.iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [sourceCell.iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
                     [sourceCell.iconImageView setIconImage:image variant:MIIconVariantSettings];
                 }];
 
@@ -343,7 +343,7 @@
         case 1:
         case 2:
         case 3: {
-            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(__unused UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 switch (indexPath.section) {
                     case 1: {
                         NSString *section = self->filteredSections[indexPath.row];
@@ -377,7 +377,7 @@
             return @[deleteFilterAction];
         }
         case 4: {
-            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Show Updates", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Show Updates", @"") handler:^(__unused UITableViewRowAction *action, NSIndexPath *indexPath) {
                 ZBPackage *package = self->ignoredUpdates[indexPath.row];
                 [self->ignoredUpdates removeObject:package];
                 

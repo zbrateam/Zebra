@@ -47,7 +47,7 @@
     [request setHTTPMethod:@"GET"];
     [request setURL:[NSURL URLWithString:@"https://api.getzbra.com/credits.json"]];
 
-    NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, __unused NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data && !error) {
             self->credits = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"sections"];
         }

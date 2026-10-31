@@ -270,7 +270,7 @@
     communitySourceCache = [NSMutableArray new];
 
     NSURL *url = [NSURL URLWithString:@"https://api.getzbra.com/sources.json"];
-    NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, __unused NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSMutableArray *sources = [NSMutableArray new];
         if (data && !error) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
@@ -343,7 +343,7 @@
     cell.urlLabel.textColor = [UIColor secondaryTextColor];
 
     NSURL *iconURL = [NSURL URLWithString:info[@"icon"]];
-    [cell.iconImageView setRetinaImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [cell.iconImageView setRetinaImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
         [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
     }];
 

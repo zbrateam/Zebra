@@ -368,7 +368,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnVersion, packageVersion, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnArchitecture, dict_get(package, "Architecture"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnShortDescription, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
-            if (longDescription[0] == '\0' || isspace(longDescription[0]))
+            if (longDescription[0] == '\0' || isspace((unsigned char)longDescription[0]))
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, NULL, -1, SQLITE_TRANSIENT);
             else
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, longDescription, -1, SQLITE_TRANSIENT);

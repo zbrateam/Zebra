@@ -76,7 +76,7 @@
     UIImage *sectionImage = [ZBSource imageForSection:self.section];
     if (self.iconURL) {
         __weak UIImageView *weakImageView = imageView;
-        [imageView setRetinaImageWithURL:self.iconURL placeholderImage:sectionImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [imageView setRetinaImageWithURL:self.iconURL placeholderImage:sectionImage completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
             [weakImageView setIconImage:image variant:variant];
         }];
     }

@@ -114,7 +114,7 @@
         NSMutableArray <NSURL *> *detectedURLs = [NSMutableArray new];
         
         NSString *sourcesString = self.addSourceTextView.text;
-        [detector enumerateMatchesInString:sourcesString options:0 range:NSMakeRange(0, sourcesString.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        [detector enumerateMatchesInString:sourcesString options:0 range:NSMakeRange(0, sourcesString.length) usingBlock:^(NSTextCheckingResult *result, __unused NSMatchingFlags flags, __unused BOOL *stop) {
             if (result.resultType == NSTextCheckingTypeLink) {
                 [detectedURLs addObject:result.URL];
             }

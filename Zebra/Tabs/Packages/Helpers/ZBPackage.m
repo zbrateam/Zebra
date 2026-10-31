@@ -352,7 +352,7 @@
     }
     
     NSMutableDictionary *info = [NSMutableDictionary new];
-    [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+    [stringRead enumerateLinesUsingBlock:^(NSString *line, __unused BOOL *stop) {
         NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
         if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
         if (pair.count != 2) return;
@@ -641,7 +641,7 @@
     UIImage *sectionImage = [ZBSource imageForSection:self.section];
     if (self.iconPath) {
         __weak UIImageView *weakImageView = imageView;
-        [imageView setRetinaImageWithURL:[NSURL URLWithString:self.iconPath] placeholderImage:sectionImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [imageView setRetinaImageWithURL:[NSURL URLWithString:self.iconPath] placeholderImage:sectionImage completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
             [weakImageView setIconImage:image variant:variant];
         }];
     }

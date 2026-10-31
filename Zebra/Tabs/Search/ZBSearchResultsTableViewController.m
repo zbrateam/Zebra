@@ -155,7 +155,7 @@
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+    } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
         weakSelf.previewPackageDepictionVC = [weakSelf getPackageDepictionVC:indexPath];
         weakSelf.previewPackageDepictionVC.parent = weakSelf;
         return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];

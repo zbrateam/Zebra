@@ -115,7 +115,7 @@
             [self.navigationController.navigationBar.navProgressView setProgress:1.0 animated:YES];
             [UIView animateWithDuration:0.5 animations:^{
                 [self.navigationController.navigationBar.navProgressView setAlpha:0.0];
-            } completion:^(BOOL finished) {
+            } completion:^(__unused BOOL finished) {
                 [self setImportEnabled:[self shouldEnableImportButton]];
             }];
         }
@@ -200,7 +200,7 @@
         cell.sourceLabel.text = self.titles[[source baseFilename]];
         cell.urlLabel.text = source.repositoryURI;
         
-        [cell.iconImageView setRetinaImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [cell.iconImageView setRetinaImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
             [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
         }];
 
@@ -306,7 +306,7 @@
     NSString *message = sources.count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to import %d sources into Zebra?", @""), (int)sources.count] : NSLocalizedString(@"Are you sure that you want to import 1 source into Zebra?", @"");
     UIAlertController *areYouSure = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleActionSheet];
 
-    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm Import", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm Import", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
         [self->sourceManager addBaseSources:sources];
         ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:sources];
         

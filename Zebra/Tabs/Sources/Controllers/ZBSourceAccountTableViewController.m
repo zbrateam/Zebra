@@ -96,7 +96,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
 
-                UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
                     [self signOut:self];
                 }];
                 [errorAlert addAction:okAction];
@@ -176,7 +176,7 @@
                 cell.urlLabel.text = [source sourceDescription];
                 cell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
-                [cell.iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [cell.iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
                     [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
                 }];
 
@@ -287,7 +287,7 @@
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+    } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
         weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
         weakSelf.previewPackageDepictionVC.package = self->purchases[indexPath.row];
 //        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];

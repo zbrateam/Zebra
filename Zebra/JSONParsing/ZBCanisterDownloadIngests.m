@@ -46,7 +46,7 @@
 
 + (void)checkCanisterPrivacyPolicyWithCompletion:(void (^)(NSURL  * _Nullable))completion {
     NSURL *canisterURL = [[NSURL alloc] initWithString:@"https://api.canister.me/v2/"];
-    [[[NSURLSession zbra_standardSession] dataTaskWithURL:canisterURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    [[[NSURLSession zbra_standardSession] dataTaskWithURL:canisterURL completionHandler:^(NSData * _Nullable data, __unused NSURLResponse * _Nullable response, __unused NSError * _Nullable error) {
         if (!data) {
             completion(nil);
             return;

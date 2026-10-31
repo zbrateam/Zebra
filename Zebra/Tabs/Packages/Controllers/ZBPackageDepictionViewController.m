@@ -223,7 +223,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
             [UIView animateWithDuration:0.3 delay:0.2 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 [self->progressView setAlpha:0.0];
-            } completion:^(BOOL finished) {
+            } completion:^(__unused BOOL finished) {
                 [self->progressView setProgress:0.0 animated:NO];
             }];
         } else {
@@ -259,7 +259,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)layoutDepictionWebView:(WKWebView *)webView {
-    [webView evaluateJavaScript:@"var body = document.body, html = document.documentElement; [document.readyState, Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.offsetHeight)]" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+    [webView evaluateJavaScript:@"var body = document.body, html = document.documentElement; [document.readyState, Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.offsetHeight)]" completionHandler:^(id _Nullable result, __unused NSError * _Nullable error) {
         NSString *readyState = result[0];
         NSNumber *height = result[1];
 
@@ -497,10 +497,10 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)showSupportSelection:(UIView *)sender {
     if (self.package.supportURL && self.package.authorEmail) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Email Author", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Email Author", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *alertAction) {
             [self sendEmailToDeveloper];
         }]];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"View Support Website", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"View Support Website", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *alertAction) {
             [self openSupportURL];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];

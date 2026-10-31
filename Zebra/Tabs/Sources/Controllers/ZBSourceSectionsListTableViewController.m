@@ -87,7 +87,7 @@
     imageView.layer.masksToBounds = YES;
 
     __weak UIImageView *weakImageView = imageView;
-    [imageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [imageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, __unused SDImageCacheType cacheType, __unused NSURL * _Nullable imageURL) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (image && !error) {
                 [weakImageView setIconImage:image variant:MIIconVariantSettings];
@@ -207,7 +207,7 @@
     [self.tableView layoutIfNeeded];
     if (!source.checkedSupportFeaturedPackages || source.supportsFeaturedPackages) {
         NSURL *requestURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
-        [[[NSURLSession zbra_standardSession] dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [[[NSURLSession zbra_standardSession] dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, __unused NSError *error) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
             self->source.checkedSupportFeaturedPackages = YES;
             if (data == nil || httpResponse.statusCode >= 300) {
@@ -360,12 +360,12 @@
 // 3D Touch Actions
 
 - (NSArray *)previewActionItems {
-    UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+    UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(__unused UIPreviewAction *action, __unused UIViewController *previewViewController) {
         [self->databaseManager updateSource:self->source useCaching:YES];
     }];
     
     if ([source canDelete]) {
-        UIPreviewAction *delete = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Delete", @"") style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        UIPreviewAction *delete = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Delete", @"") style:UIPreviewActionStyleDestructive handler:^(__unused UIPreviewAction *action, __unused UIViewController *previewViewController) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteSourceTouchAction" object:self userInfo:@{@"source": self->source}];
         }];
         
@@ -403,7 +403,7 @@
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageListVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+    } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
         weakSelf.previewPackageListVC = (ZBPackageListTableViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
         weakSelf.previewPackageListVC.source = self->source;
         if (indexPath.row > 0) {

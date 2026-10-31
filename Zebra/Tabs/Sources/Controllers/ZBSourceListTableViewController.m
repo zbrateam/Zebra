@@ -111,7 +111,7 @@
         [self setSpinnerVisible:[busyList[[trueSource baseFilename]] boolValue] forCell:cell];
         
         cell.urlLabel.text = [trueSource repositoryURI];
-        [cell.iconImageView setRetinaImageWithURL:[trueSource iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [cell.iconImageView setRetinaImageWithURL:[trueSource iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
             [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
         }];
 
@@ -164,7 +164,7 @@
         ZBSource *source = (ZBSource *)baseSource;
         if ([source canDelete]) {
             NSString *title = [ZBDevice useIcon] ? @"✗" : NSLocalizedString(@"Remove", @"");
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:title handler:^(__unused UITableViewRowAction *action, __unused NSIndexPath *indexPath) {
                 [self->sources removeObject:source];
                 [self->sourceManager deleteSource:source];
                 [self refreshTable];
@@ -173,7 +173,7 @@
         }
         if (![self.databaseManager isDatabaseBeingUpdated]) {
             NSString *title = [ZBDevice useIcon] ? @"↻" : NSLocalizedString(@"Refresh", @"");
-            UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(__unused UITableViewRowAction *action, __unused NSIndexPath *indexPath) {
                 [self.databaseManager updateSource:source useCaching:YES];
             }];
             
@@ -189,7 +189,7 @@
         }
     }
     else if ([baseSource canDelete]) {
-        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(__unused UITableViewRowAction *action, __unused NSIndexPath *indexPath) {
             [self->sources removeObject:baseSource];
             [self->sourceManager deleteSource:(ZBSource *)baseSource];
             [self refreshTable];
@@ -253,7 +253,7 @@
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.", @""), [baseSource repositoryURI]];
         UIAlertController *invalidSourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid Source", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(__unused UIAlertAction *action) {
             [self->sources removeObject:source];
             [self->sourceManager deleteSource:(ZBSource *)baseSource];
             [self refreshTable];
@@ -319,12 +319,12 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
 
-    UIAlertAction *add = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *add = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
         [self addSourceFromAlertController:alertController];
     }];
     [alertController addAction:add];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple…", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple…", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
         UINavigationController *controller = [ZBAddSourceViewController controllerWithText:alertController.textFields[0].text delegate:self];
         [self presentViewController:controller animated:YES completion:nil];
     }]];
@@ -366,10 +366,10 @@
         // will trigger the alert, but the user will at least see why we accessed the pasteboard.
         UIPasteboardDetectionPattern pattern = UIPasteboardDetectionPatternProbableWebURL;
         [[UIPasteboard generalPasteboard] detectPatternsForPatterns:[NSSet setWithObject:pattern]
-                                                  completionHandler:^(NSSet <UIPasteboardDetectionPattern> *patterns, NSError *error) {
+                                                  completionHandler:^(NSSet <UIPasteboardDetectionPattern> *patterns, __unused NSError *error) {
             if ([patterns containsObject:pattern]) {
                 [[UIPasteboard generalPasteboard] detectValuesForPatterns:[NSSet setWithObject:pattern]
-                                                        completionHandler:^(NSDictionary <UIPasteboardDetectionPattern, id> *values, NSError *error) {
+                                                        completionHandler:^(NSDictionary <UIPasteboardDetectionPattern, id> *values, __unused NSError *error) {
                     NSString *result = values[pattern];
                     if (result) {
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -447,7 +447,7 @@
         // Warn user for insecure source (has low self esteem)
         UIAlertController *insecureSource = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You are adding a repository that is not secure", @"") message:NSLocalizedString(@"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?", @"") preferredStyle:UIAlertControllerStyleAlert];
 
-        UIAlertAction *addInsecure = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *addInsecure = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
             NSString *repoString = [urlString copy];
             if (![repoString hasSuffix:@"/"]) {
                 repoString = [repoString stringByAppendingString:@"/"];
@@ -458,7 +458,7 @@
         }];
         [insecureSource addAction:addInsecure];
 
-        UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
             [self showAddSourceAlert:urlString];
         }];
         [insecureSource addAction:edit];
@@ -499,7 +499,7 @@
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
         [youAlreadyAdded addAction:cancelAction];
 
-        UIAlertAction *viewAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"View", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIAlertAction *viewAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"View", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
             NSInteger pos = [self->sourceIndexes[baseSource.baseFilename] integerValue];
             NSIndexPath *indexPath = [self indexPathForPosition:pos];
 
@@ -738,7 +738,7 @@
 
                 [errorPopup addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
 
-                UIAlertAction *editAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UIAlertAction *editAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
                     if (multiple) {
                         UINavigationController *controller = [ZBAddSourceViewController controllerWithText:[urls componentsJoinedByString:@"\n"] delegate:self];
 

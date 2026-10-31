@@ -133,7 +133,7 @@
     cell.urlLabel.text = [source repositoryURI];
     cell.urlLabel.textColor = [UIColor secondaryTextColor];
 
-    [cell.iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [cell.iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
         [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
     }];
 

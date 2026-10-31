@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
             NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:source.repositoryURI]];
             NSURL *checkingURL = requestURL;
             [[[NSURLSession zbra_standardSession] dataTaskWithURL:checkingURL
-                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                completionHandler:^(NSData *data, NSURLResponse *response, __unused NSError *error) {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                 source.checkedSupportFeaturedPackages = YES;
                 if (data == nil || httpResponse.statusCode >= 300) {
@@ -698,11 +698,11 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
     }
 }
 
-- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)) {
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable {
         return weakSelf.previewPackageDepictionVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+    } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
         weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
         
         ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];

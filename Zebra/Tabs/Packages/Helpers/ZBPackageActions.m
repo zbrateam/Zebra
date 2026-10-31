@@ -160,7 +160,7 @@
     
     for (ZBPackage *otherPackage in allVersions) {
         NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:otherPackage == allVersions[0]];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
             [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
             [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
             
@@ -191,7 +191,7 @@
         
         for (ZBPackage *otherPackage in greaterVersions) {
             NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
-            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
                 [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
                 
@@ -228,7 +228,7 @@
             if ([[otherPackage source] sourceID] < 1) continue;
             
             NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
-            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
                 [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
                 if (completion) completion();
@@ -346,7 +346,7 @@
         
         NSString *title = [self titleForAction:action useIcon:YES];
         UITableViewRowActionStyle style = action == ZBPackageActionRemove ? UITableViewRowActionStyleDestructive : UITableViewRowActionStyleNormal;
-        UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *rowAction, NSIndexPath *indexPath) {
+        UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(__unused UITableViewRowAction *rowAction, __unused NSIndexPath *indexPath) {
             [self performAction:action forPackage:package fromViewController:tableView.viewController completion:^{
                 if (tableView) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -372,7 +372,7 @@
 
         NSString *title = [self titleForAction:action useIcon:NO];
         UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
-        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction *alertAction) {
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(__unused UIAlertAction *alertAction) {
             [self performAction:action forPackage:package fromViewController:viewController completion:nil];
         }];
         [alertActions addObject:alertAction];
@@ -392,7 +392,7 @@
         
         NSString *title = [self titleForAction:action useIcon:NO];
         UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
-        UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(UIPreviewAction *previewAction, UIViewController *previewViewController) {
+        UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(__unused UIPreviewAction *previewAction, UIViewController *previewViewController) {
             [self performAction:action forPackage:package fromViewController:previewViewController completion:^{
                 if (tableView) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -418,7 +418,7 @@
         NSString *title = [self titleForAction:action useIcon:NO];
         UIImage *image = [self systemImageForAction:action];
         
-        UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction *uiAction) {
+        UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__unused __kindof UIAction *uiAction) {
             [self performAction:action forPackage:package fromViewController:tableView.viewController completion:^{
                 if (tableView) {
                     dispatch_async(dispatch_get_main_queue(), ^{

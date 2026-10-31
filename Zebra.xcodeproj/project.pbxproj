@@ -1512,6 +1512,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				WARNING_CFLAGS = "-Wextra";
 			};
 			name = "Debug Rootless";
 		};
@@ -1627,6 +1628,7 @@
 				STRIPFLAGS = "-rSTx";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				WARNING_CFLAGS = "-Wextra";
 			};
 			name = "Release Rootless";
 		};
@@ -1805,6 +1807,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				WARNING_CFLAGS = "-Wextra";
 			};
 			name = Debug;
 		};
@@ -1854,6 +1857,7 @@
 				STRIPFLAGS = "-rSTx";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				WARNING_CFLAGS = "-Wextra";
 			};
 			name = Release;
 		};

@@ -111,7 +111,7 @@
 - (IBAction)clearQueue:(id)sender {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-    UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Clear Queue", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Clear Queue", @"") style:UIAlertActionStyleDestructive handler:^(__unused UIAlertAction *action) {
         [self->queue clear];
     }];
     [alert addAction:confirm];
@@ -132,7 +132,7 @@
     if ([queue containsEssentialOrRequiredPackage]) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.", @"") preferredStyle:UIAlertControllerStyleActionSheet];
 
-        UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(__unused UIAlertAction *action) {
             [self _pushConsole];
         }];
         [alert addAction:confirm];
@@ -208,11 +208,11 @@
     if ([package isEssentialOrRequired] && [queue contains:package inQueue:ZBQueueTypeRemove]) {
         if ([package removedBy] != NULL) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:[NSString stringWithFormat:NSLocalizedString(@"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!", @""), [package name], [[package removedBy] name], [[package removedBy] name]] preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove from Queue", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove from Queue", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
                 [self->queue removePackage:package];
                 [self refreshTable];
             }];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(__unused UIAlertAction *action) {
                 [alert dismissViewControllerAnimated:YES completion:nil];
             }];
             
@@ -222,11 +222,11 @@
         }
         else {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:[NSString stringWithFormat:NSLocalizedString(@"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!", @""), [package name]] preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove from Queue", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove from Queue", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
                 [self->queue removePackage:package];
                 [self refreshTable];
             }];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(__unused UIAlertAction *action) {
                 [alert dismissViewControllerAnimated:YES completion:nil];
             }];
             
@@ -241,11 +241,11 @@
             [message appendFormat:@"\n%@", issue];
         }
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Issues", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove from Queue", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove from Queue", @"") style:UIAlertActionStyleDestructive handler:^(__unused UIAlertAction *action) {
             [self->queue removePackage:package];
             [self refreshTable];
         }];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
             [alert dismissViewControllerAnimated:YES completion:nil];
         }];
         [alert addAction:okAction];
@@ -255,7 +255,7 @@
     else if ([package removedBy] != nil) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"%@ must be removed because it depends on %@", @""), [package name], [[package removedBy] name]];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
             [alert dismissViewControllerAnimated:YES completion:nil];
         }];
         [alert addAction:okAction];
@@ -267,7 +267,7 @@
             [message appendFormat:@"\n%@", [parent name]];
         }
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
             [alert dismissViewControllerAnimated:YES completion:nil];
         }];
         [alert addAction:okAction];
@@ -282,7 +282,7 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[ZBDevice useIcon] ? @"✗" : NSLocalizedString(@"Delete", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[ZBDevice useIcon] ? @"✗" : NSLocalizedString(@"Delete", @"") handler:^(__unused UITableViewRowAction *action, NSIndexPath *indexPath) {
         [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
     }];
     return @[deleteAction];

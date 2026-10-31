@@ -203,7 +203,7 @@
 - (void)confirmationControllerWithTitle:(NSString *)title message:(NSString *)message callback:(void(^)(void))callback indexPath:(NSIndexPath *)indexPath {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:[self alertControllerStyle]];
 
-    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:title ?: NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:title ?: NSLocalizedString(@"OK", @"") style:UIAlertActionStyleDestructive handler:^(__unused UIAlertAction *action) {
         dispatch_async(dispatch_get_main_queue(), ^{
             callback();
         });

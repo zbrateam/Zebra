@@ -344,7 +344,7 @@
 
 - (BOOL)isSessionOutOfTasks:(NSURLSession *)sesh {
     __block BOOL outOfTasks = NO;
-    [sesh getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+    [sesh getTasksWithCompletionHandler:^(NSArray *dataTasks, __unused NSArray *uploadTasks, __unused NSArray *downloadTasks) {
         outOfTasks = dataTasks.count == 0;
     }];
     

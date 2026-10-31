@@ -106,7 +106,7 @@
         [self.redditPosts removeAllObjects];
         NSMutableURLRequest *request = [NSMutableURLRequest new];
         [request setURL:[NSURL URLWithString:@"https://api.getzbra.com/reddit-news/new.json"]];
-        [[[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        [[[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, __unused NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (data) {
                 NSError *err = nil;
                 ZBRedditPosts *redditPosts = [ZBRedditPosts fromData:data error:&err];
@@ -312,7 +312,7 @@
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+    } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
         weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
         [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
         return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];

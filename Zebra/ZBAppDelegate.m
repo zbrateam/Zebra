@@ -184,7 +184,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
             
             if (actionLabel != nil && block != NULL) {
-                UIAlertAction *blockAction = [UIAlertAction actionWithTitle:actionLabel style:UIAlertActionStyleDefault handler:^(UIAlertAction *action_) {
+                UIAlertAction *blockAction = [UIAlertAction actionWithTitle:actionLabel style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
                     block();
                 }];
                 [alert addAction:blockAction];
@@ -241,7 +241,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 
     if (@available(iOS 10, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionAlert | UNAuthorizationOptionBadge
-                                                                            completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                                                            completionHandler:^(__unused BOOL granted, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"[Zebra] Failed to register for notifications: %@", error);
             }
@@ -474,7 +474,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         else if (eventType == 7) { // After taking screenshot
             [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserDidTakeScreenshotNotification object:nil];
         }
-    } withIdentifierCallback:^(int a) {}];
+    } withIdentifierCallback:^(__unused int a) {}];
 }
 
 - (void)checkForScreenRecording:(NSNotification *)notif {

@@ -214,7 +214,7 @@
     if (!sourceGroup) return NULL;
     
     NSMutableDictionary *source = [NSMutableDictionary new];
-    [sourceGroup enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+    [sourceGroup enumerateLinesUsingBlock:^(NSString *line, __unused BOOL *stop) {
         if (![line hasPrefix:@"#"]) {
             NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
             if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
@@ -300,11 +300,11 @@
 
     NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
 
-    NSURLSessionDataTask *releaseTask = [[NSURLSession zbra_downloadSession] dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *releaseTask = [[NSURLSession zbra_downloadSession] dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, __unused NSURLResponse * _Nullable response, __unused NSError * _Nullable error) {
         NSString *releaseFile = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
         __block NSString *label = NULL;
-        [releaseFile enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        [releaseFile enumerateLinesUsingBlock:^(NSString *line, __unused BOOL *stop) {
             NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
             if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
             if (pair.count != 2) return;

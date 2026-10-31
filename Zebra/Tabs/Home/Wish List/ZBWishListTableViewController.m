@@ -219,7 +219,7 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"✗" : NSLocalizedString(@"Remove", @"")) handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"✗" : NSLocalizedString(@"Remove", @"")) handler:^(__unused UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         ZBPackage *package = self->wishedPackages[indexPath.row];
         
         [self->wishedPackages removeObject:package];
@@ -253,7 +253,7 @@
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+    } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
         if (weakSelf == nil) {
             return nil;
         }
