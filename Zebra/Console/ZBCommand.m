@@ -303,16 +303,16 @@ static const int ZBCommandFinishFileno = 3;
 
     void (^handleSourceEvent)(dispatch_source_t, int, void (^)(NSString *)) = ^(dispatch_source_t source, int fd, void (^action)(NSString *)) {
         char *buffer = (char *)malloc(BUFSIZ * sizeof(char));
-        size_t bytes = read(fd, buffer, BUFSIZ);
+        ssize_t bytes = read(fd, buffer, BUFSIZ);
 
         if (bytes > 0) {
             // Read from output and notify delegate
-            NSString *string = [[NSString alloc] initWithBytes:buffer length:bytes encoding:NSUTF8StringEncoding];
+            NSString *string = [[NSString alloc] initWithBytes:buffer length:(NSUInteger)bytes encoding:NSUTF8StringEncoding];
             if (string) {
                 action(string);
             }
         }
-        else {
+        else if (bytes == 0 || (errno != EINTR && errno != EAGAIN)) {
             // The fd was closed; cancel the dispatch_source.
             dispatch_source_cancel(source);
         }
