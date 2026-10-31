@@ -379,6 +379,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 
     NSMutableArray *wishlist = [[ZBSettings wishlist] mutableCopy];
     [wishlist removeObjectsInArray:installedPackageIdentifiers];
+    [ZBSettings setWishlist:wishlist];
 
     [installedPackageIdentifiers removeAllObjects];
 
