@@ -243,7 +243,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 
             for (NSArray <NSString *> *command in actions) {
                 if ([command count] == 1) {
-                    [self updateStage:(ZBStage)[command[0] intValue]];
+                    [self updateStage:(ZBStage)[command[0] integerValue]];
                 }
                 else {
                     if (currentStage == ZBStageRemove) {

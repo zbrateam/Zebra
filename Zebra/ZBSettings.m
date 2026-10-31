@@ -433,8 +433,8 @@ NSString *const CanisterUpdateDateKey = @"CanisterUpdateDate";
 }
 
 + (void)setFeaturedPackagesType:(NSNumber *)featuredPackagesType {
-    ZBFeaturedType type = featuredPackagesType.intValue;
-    
+    ZBFeaturedType type = featuredPackagesType.integerValue;
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:type forKey:FeaturedPackagesTypeKey];
@@ -493,7 +493,7 @@ NSString *const CanisterUpdateDateKey = @"CanisterUpdateDate";
 + (void)setSourceRefreshTimeout:(NSNumber *)time {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setInteger:time.intValue forKey:SourceTimeoutKey];
+    [defaults setInteger:time.integerValue forKey:SourceTimeoutKey];
 }
 
 #pragma mark - Changes Settings
@@ -590,7 +590,7 @@ NSString *const CanisterUpdateDateKey = @"CanisterUpdateDate";
 }
 
 + (void)setSwipeActionStyle:(NSNumber *)newStyle {
-    ZBSwipeActionStyle style = newStyle.intValue;
+    ZBSwipeActionStyle style = newStyle.integerValue;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     

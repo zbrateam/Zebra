@@ -166,7 +166,7 @@
     if (section > actions.count - 1) {
         return [NSString stringWithFormat:@"Unrecognized Action %ld", (long)section];
     }
-    ZBQueueType action = actions[section].intValue;
+    ZBQueueType action = actions[section].integerValue;
     NSString *downloadSize = [queue downloadSizeForQueue:action];
     NSMutableString *title = [[queue displayableNameForQueueType:action] mutableCopy];
     if (downloadSize) [title appendFormat:@" (%@: %@)", NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];

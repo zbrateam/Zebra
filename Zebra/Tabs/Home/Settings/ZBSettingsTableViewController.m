@@ -420,7 +420,7 @@ enum ZBMiscOrder {
                 NSMutableArray *options = [NSMutableArray new];
                 NSArray *choices = @[@5, @10, @15, @30, @45, @60];
                 for (NSNumber *choice in choices) {
-                    [options addObject:[NSString stringWithFormat:NSLocalizedString(@"%d Seconds", @""), choice.intValue]];
+                    [options addObject:[NSString stringWithFormat:NSLocalizedString(@"%d Seconds", @""), choice.integerValue]];
                 }
                 ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:options getter:@selector(sourceRefreshTimeoutIndex) setter:@selector(setSourceRefreshTimeout:) settingChangedCallback:nil];
                 

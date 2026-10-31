@@ -558,7 +558,7 @@
     for (NSNumber *key in managedQueue) {
         for (ZBPackage *queuedPackage in managedQueue[key]) {
             if ([packageID isEqualToString:[queuedPackage identifier]]) {
-                return key.intValue;
+                return key.integerValue;
             }
         }
     }
