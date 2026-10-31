@@ -24,7 +24,7 @@
 #import "UIImageView+Zebra.h"
 #import "ZBCanisterDownloadIngests.h"
 
-#if FLEX
+#if DEBUG
 @import FLEX;
 #endif
 
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
     }
 
-#if FLEX
+#if DEBUG
     // Add FLEX toggle
     UIBarButtonItem *flexBarItem = [[UIBarButtonItem alloc] initWithTitle:@"FLEX" style:UIBarButtonItemStylePlain target:[FLEXManager sharedManager] action:@selector(toggleExplorer)];
     self.navigationItem.rightBarButtonItems = [self.navigationItem.rightBarButtonItems arrayByAddingObject:flexBarItem];
