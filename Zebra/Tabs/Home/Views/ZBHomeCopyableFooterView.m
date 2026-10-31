@@ -24,7 +24,10 @@
     [super layoutSubviews];
 
     // Yeah, layoutSubviews, because UITableViewHeaderFooterView sucks.
-    self.textLabel.textAlignment = NSTextAlignmentCenter;
+    if (@available(iOS 26, *)) {
+    } else {
+        self.textLabel.textAlignment = NSTextAlignmentCenter;
+    }
 }
 
 #pragma mark - UIResponder
