@@ -147,6 +147,10 @@ static const void *ZBImageURLKey = &ZBImageURLKey;
     self.zb_imageURL = url;
 
     NSString *urlString = url.absoluteString;
+    if (!urlString) {
+        [self sd_setImageWithURL:nil placeholderImage:placeholder completed:completion];
+        return;
+    }
 
     // If the URL already has a scaled suffix, use it as-is
     NSRegularExpression *scalePattern = [NSRegularExpression regularExpressionWithPattern:@"@[0-9]+x\\.[^.]+$" options:0 error:nil];
