@@ -79,6 +79,13 @@
     return self;
 }
 
+- (NSOperationQueue *)_delegateQueue {
+    NSOperationQueue *queue = [NSOperationQueue new];
+    queue.maxConcurrentOperationCount = 1;
+    queue.name = @"xyz.willy.Zebra.download-delegate";
+    return queue;
+}
+
 #pragma mark - Downloading Sources
 
 - (void)downloadSources:(NSSet <ZBBaseSource *> *_Nonnull)sources useCaching:(BOOL)useCaching {
@@ -92,12 +99,14 @@
     }
     configuration.timeoutIntervalForRequest = [ZBSettings sourceRefreshTimeout];
 
-    session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
+    session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:self._delegateQueue];
     for (ZBBaseSource *source in sources) {
         NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
         
         source.releaseTaskIdentifier = releaseTask.taskIdentifier;
-        [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
+        @synchronized (self) {
+            [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
+        }
         [releaseTask resume];
         
         [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
@@ -122,7 +131,9 @@
     NSURLSessionTask *packagesTask = [session downloadTaskWithRequest:packagesRequest];
 
     source.packagesTaskIdentifier = packagesTask.taskIdentifier;
-    [sourceTasksMap setObject:source forKey:@(packagesTask.taskIdentifier)];
+    @synchronized (self) {
+        [sourceTasksMap setObject:source forKey:@(packagesTask.taskIdentifier)];
+    }
     [packagesTask resume];
 }
 
@@ -135,7 +146,7 @@
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages {
     [downloadDelegate startedDownloads];
 
-    session = [NSURLSession sessionWithConfiguration:[NSURLSession zbra_downloadSession].configuration delegate:self delegateQueue:nil];
+    session = [NSURLSession sessionWithConfiguration:[NSURLSession zbra_downloadSession].configuration delegate:self delegateQueue:self._delegateQueue];
     for (ZBPackage *package in packages) {
         ZBSource *source = [package source];
         NSString *filename = [package filename];
@@ -158,7 +169,9 @@
             NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:url];
             [downloadTask resume];
             
-            [packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
+            @synchronized (self) {
+                [packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
+            }
             [downloadDelegate startedPackageDownload:package];
         } else if (package.requiresAuthorization) {
             [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Authorizing Download for %@", @""), package.name] atLevel:ZBLogLevelDescript];
@@ -173,7 +186,9 @@
                     NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:url];
                     [downloadTask resume];
                     
-                    [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
+                    @synchronized (self) {
+                        [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
+                    }
                     [self->downloadDelegate startedPackageDownload:package];
                 }
                 else {
@@ -191,7 +206,9 @@
             NSURLSessionTask *downloadTask = [session downloadTaskWithURL:base];
             [downloadTask resume];
             
-            [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
+            @synchronized (self) {
+                [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
+            }
             [downloadDelegate startedPackageDownload:package];
         }
     }
@@ -292,9 +309,13 @@
         source.releaseTaskIdentifier = -1;
     }
     
-    [sourceTasksMap removeObjectForKey:@(task.taskIdentifier)];
-    
-    if (!sourceTasksMap.count) {
+    BOOL noSourceTasksRemaining;
+    @synchronized (self) {
+        [sourceTasksMap removeObjectForKey:@(task.taskIdentifier)];
+        noSourceTasksRemaining = !sourceTasksMap.count;
+    }
+
+    if (noSourceTasksRemaining) {
         [downloadDelegate finishedAllDownloads];
     }
 }
@@ -325,7 +346,7 @@
 }
 
 - (void)cancelAllTasksForSession:(NSURLSession *)session {
-    [session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+    [session getTasksWithCompletionHandler:^(NSArray *dataTasks, __unused NSArray *uploadTasks, __unused NSArray *downloadTasks) {
         if (!dataTasks || !dataTasks.count) {
             return;
         }
@@ -333,8 +354,10 @@
             [task cancel];
         }
     }];
-    [packageTasksMap removeAllObjects];
-    [sourceTasksMap removeAllObjects];
+    @synchronized (self) {
+        [packageTasksMap removeAllObjects];
+        [sourceTasksMap removeAllObjects];
+    }
     [session invalidateAndCancel];
 }
 
@@ -438,8 +461,11 @@
     
     if (responseCode == 304) {
         //Since we should never get a 304 for a deb, we can assume this is from a source.
-        ZBBaseSource *source = sourceTasksMap[@(downloadTask.taskIdentifier)];
-        
+        ZBBaseSource *source;
+        @synchronized (self) {
+            source = sourceTasksMap[@(downloadTask.taskIdentifier)];
+        }
+
         [self task:downloadTask completedDownloadedForFile:NULL fromSource:source withError:NULL];
         return;
     }
@@ -448,7 +474,11 @@
     NSString *requestedMIMEType = [self guessMIMETypeForFile:[[response URL] lastPathComponent]];
     NSArray *acceptableMIMETypes = @[@"text/plain", @"application/x-xz", @"application/x-bzip2", @"application/x-gzip", @"application/x-lzma", @"application/x-deb", @"application/x-debian-package"];
     NSUInteger index = [acceptableMIMETypes indexOfObject:MIMEType];
-    if (packageTasksMap[@([downloadTask taskIdentifier])]) {
+    BOOL isPackageTask;
+    @synchronized (self) {
+        isPackageTask = packageTasksMap[@([downloadTask taskIdentifier])] != nil;
+    }
+    if (isPackageTask) {
         MIMEType = @"application/x-deb";
         index = [acceptableMIMETypes indexOfObject:MIMEType];
     }
@@ -460,7 +490,10 @@
     BOOL downloadFailed = (responseCode != 200 && responseCode != 304);
     switch (index) {
         case 0: { //Uncompressed Packages file or a Release file
-            ZBBaseSource *source = sourceTasksMap[@(downloadTask.taskIdentifier)];
+            ZBBaseSource *source;
+            @synchronized (self) {
+                source = sourceTasksMap[@(downloadTask.taskIdentifier)];
+            }
             if (source) {
                 if (downloadFailed) {
                     NSString *suggestedFilename = [response suggestedFilename];
@@ -499,7 +532,10 @@
         case 2:
         case 3:
         case 4: { //Compressed packages file (.xz, .bz2, .gz, or .lzma)
-            ZBBaseSource *source = sourceTasksMap[@(downloadTask.taskIdentifier)];
+            ZBBaseSource *source;
+            @synchronized (self) {
+                source = sourceTasksMap[@(downloadTask.taskIdentifier)];
+            }
             if (source) {
                 if (downloadFailed) {
                     NSString *suggestedFilename = [response suggestedFilename];
@@ -532,7 +568,10 @@
         }
         case 5:
         case 6: { //Package.deb
-            ZBPackage *package = packageTasksMap[@(downloadTask.taskIdentifier)];
+            ZBPackage *package;
+            @synchronized (self) {
+                package = packageTasksMap[@(downloadTask.taskIdentifier)];
+            }
             NSLog(@"[Zebra] Successfully downloaded file for %@", package);
             
             NSString *suggestedFilename = [response suggestedFilename];
@@ -541,9 +580,13 @@
                 
                 [downloadDelegate finishedPackageDownload:package withError:error];
                 
-                [self->packageTasksMap removeObjectForKey:@(downloadTask.taskIdentifier)];
-                
-                if (!self->packageTasksMap.count) {
+                BOOL noPackageTasksRemaining;
+                @synchronized (self) {
+                    [self->packageTasksMap removeObjectForKey:@(downloadTask.taskIdentifier)];
+                    noPackageTasksRemaining = self->packageTasksMap.count == 0;
+                }
+
+                if (noPackageTasksRemaining) {
                     [self->downloadDelegate finishedAllDownloads];
                 }
             }
@@ -554,7 +597,10 @@
                 NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(NSError *error) {
-                    ZBPackage *package = self->packageTasksMap[@(downloadTask.taskIdentifier)];
+                    ZBPackage *package;
+                    @synchronized (self) {
+                        package = self->packageTasksMap[@(downloadTask.taskIdentifier)];
+                    }
                     if (error) {
                         [self cancelAllTasksForSession:self->session];
                         NSString *text = [NSString stringWithFormat:[NSString stringWithFormat:@"[Zebra] %@: %%@\n", NSLocalizedString(@"Error while moving file at %@ to %@", @"")], location, finalPath, error.localizedDescription];
@@ -567,9 +613,13 @@
                         [self->downloadDelegate finishedPackageDownload:package withError:nil];
                     }
                     
-                    [self->packageTasksMap removeObjectForKey:@(downloadTask.taskIdentifier)];
-                    
-                    if (![self->packageTasksMap count]) {
+                    BOOL noPackageTasksRemaining;
+                    @synchronized (self) {
+                        [self->packageTasksMap removeObjectForKey:@(downloadTask.taskIdentifier)];
+                        noPackageTasksRemaining = [self->packageTasksMap count] == 0;
+                    }
+
+                    if (noPackageTasksRemaining) {
                         [self->downloadDelegate finishedAllDownloads];
                     }
                 }];
@@ -600,33 +650,44 @@
 
     NSNumber *taskIdentifier = @(task.taskIdentifier);
     if (error && error.code != NSURLErrorCancelled) {
-        ZBPackage *package = packageTasksMap[taskIdentifier];
+        ZBPackage *package;
+        BOOL lastPackageTask;
+        @synchronized (self) {
+            package = packageTasksMap[taskIdentifier];
+            lastPackageTask = packageTasksMap.count - 1 == 0;
+        }
         if (package) {
             [downloadDelegate finishedPackageDownload:package withError:error];
-            
-            if (packageTasksMap.count - 1 == 0) {
+
+            if (lastPackageTask) {
                 [downloadDelegate finishedAllDownloads];
             }
         }
         else { //This should be a source
-            ZBBaseSource *source = sourceTasksMap[@(task.taskIdentifier)];
+            ZBBaseSource *source;
+            @synchronized (self) {
+                source = sourceTasksMap[@(task.taskIdentifier)];
+            }
             [self task:task completedDownloadedForFile:nil fromSource:source withError:error];
         }
     }
-    [packageTasksMap removeObjectForKey:@(task.taskIdentifier)];
-    [sourceTasksMap removeObjectForKey:@(task.taskIdentifier)];
+    @synchronized (self) {
+        [packageTasksMap removeObjectForKey:@(task.taskIdentifier)];
+        [sourceTasksMap removeObjectForKey:@(task.taskIdentifier)];
+    }
 }
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     if (totalBytesExpectedToWrite == -1) {
         return;
     }
-    ZBPackage *package = packageTasksMap[@(downloadTask.taskIdentifier)];
+    ZBPackage *package;
+    @synchronized (self) {
+        package = packageTasksMap[@(downloadTask.taskIdentifier)];
+    }
     if (package) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [self->downloadDelegate progressUpdate:((double)totalBytesWritten / totalBytesExpectedToWrite) forPackage:package];
-            });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self->downloadDelegate progressUpdate:((double)totalBytesWritten / totalBytesExpectedToWrite) forPackage:package];
         });
     }
 }
@@ -658,13 +719,15 @@
         NSString *decompressedPath = [self decompressFile:path compressionType:compressionType error:&decompressionError];
         
         if (decompressedPath) {
-            *error = nil;
-            
+            if (error) {
+                *error = nil;
+            }
+
             return decompressedPath;
         }
     }
-    
-    if (decompressionError) {
+
+    if (decompressionError && error) {
         *error = decompressionError;
     }
     
@@ -681,9 +744,10 @@
         case 0: {
             NSData *data = [NSData dataWithContentsOfFile:path];
             if (![self validGZFile:data]) {
-                NSError *invalidFileError = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .gz archive"}];
-                *error = invalidFileError;
-                
+                if (error) {
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .gz archive"}];
+                }
+
                 return nil;
             }
             
@@ -696,6 +760,7 @@
             stream.avail_out = 0;
             
             NSMutableData *output = nil;
+            BOOL decompressed = NO;
             if (inflateInit2(&stream, 47) == Z_OK) {
                 int status = Z_OK;
                 output = [NSMutableData dataWithCapacity:data.length * 2];
@@ -709,25 +774,43 @@
                 }
                 if (inflateEnd(&stream) == Z_OK && status == Z_STREAM_END) {
                     output.length = stream.total_out;
+                    decompressed = YES;
                 }
             }
-            
-            [output writeToFile:[path stringByDeletingPathExtension] atomically:NO];
-            
+
+            if (!decompressed) {
+                if (error) {
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Failed to decompress .gz archive"}];
+                }
+
+                return nil;
+            }
+
+            NSString *finalPath = [path stringByDeletingPathExtension];
+            NSError *writeError = nil;
+            if (![output writeToFile:finalPath options:0 error:&writeError]) {
+                if (error) {
+                    *error = writeError;
+                }
+
+                return nil;
+            }
+
             NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
-            if (removeError) {
+            if (removeError && error) {
                 *error = removeError;
             }
-            
-            return [path stringByDeletingPathExtension];
+
+            return finalPath;
         }
         case 1: {
             NSData *data = [NSData dataWithContentsOfFile:path];
             if (![self validBZ2File:data]) {
-                NSError *invalidFileError = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .bz2 archive"}];
-                *error = invalidFileError;
-                
+                if (error) {
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .bz2 archive"}];
+                }
+
                 return nil;
             }
             
@@ -742,8 +825,10 @@
 
             int status = BZ2_bzDecompressInit(&stream, 0, NO);
             if (status != BZ_OK) {
-                *error = [NSError errorWithDomain:NSCocoaErrorDomain code:status userInfo:@{NSLocalizedDescriptionKey: @"Failed to initialize decompression stream"}];
-                
+                if (error) {
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:status userInfo:@{NSLocalizedDescriptionKey: @"Failed to initialize decompression stream"}];
+                }
+
                 return nil;
             }
 
@@ -753,8 +838,12 @@
             do {
                 status = BZ2_bzDecompress(&stream);
                 if (status < BZ_OK) {
-                    *error = [self errorForBZ2Code:status file:[path lastPathComponent]];
-                    
+                    if (error) {
+                        *error = [self errorForBZ2Code:status file:[path lastPathComponent]];
+                    }
+
+                    BZ2_bzDecompressEnd(&stream);
+
                     return nil;
                 }
 
@@ -770,7 +859,7 @@
             
             NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
-            if (removeError) {
+            if (removeError && error) {
                 *error = removeError;
             }
             
@@ -781,9 +870,10 @@
             compression_stream stream;
             compression_status status = compression_stream_init(&stream, COMPRESSION_STREAM_DECODE, COMPRESSION_LZMA);
             if (status == COMPRESSION_STATUS_ERROR) {
-                NSError *invalidFileError = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
-                *error = invalidFileError;
-                
+                if (error) {
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
+                }
+
                 return nil;
             }
 
@@ -818,7 +908,9 @@
                         break;
                         
                     case COMPRESSION_STATUS_ERROR:
-                        *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
+                        if (error) {
+                            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
+                        }
                         compression_stream_destroy(&stream);
                         free(destinationBuffer);
                         return nil;
@@ -833,7 +925,7 @@
             
             NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
-            if (removeError) {
+            if (removeError && error) {
                 *error = removeError;
             }
             
