@@ -277,14 +277,6 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenModeDidChangeNotification object:nil];
     }
 
-    NSDictionary *userActivityDict = launchOptions[UIApplicationLaunchOptionsUserActivityDictionaryKey];
-    if (userActivityDict) {
-        NSUserActivity *userActivity = userActivityDict[UIApplicationLaunchOptionsUserActivityTypeKey];
-        if (userActivity) {
-            [self continueUserActivity:userActivity];
-        }
-    }
-
     return YES;
 }
 

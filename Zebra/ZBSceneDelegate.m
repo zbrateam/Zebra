@@ -29,9 +29,23 @@ API_AVAILABLE(ios(13.0))
         NSUserActivity *userActivity = [connectionOptions.userActivities anyObject];
         [self._appDelegate continueUserActivity:userActivity];
     }
+
+    NSSet <UIOpenURLContext *> *urlContexts = connectionOptions.URLContexts;
+    UIApplicationShortcutItem *shortcutItem = connectionOptions.shortcutItem;
+    if (urlContexts.count > 0 || shortcutItem) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (urlContexts.count > 0) {
+                [self _openURLContexts:urlContexts];
+            }
+            if (shortcutItem) {
+                UIApplication *app = [UIApplication sharedApplication];
+                [self._appDelegate application:app performActionForShortcutItem:shortcutItem completionHandler:^(__unused BOOL succeeded) {}];
+            }
+        });
+    }
 }
 
-- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)urlContexts {
+- (void)_openURLContexts:(NSSet <UIOpenURLContext *> *)urlContexts {
     UIOpenURLContext *context = urlContexts.anyObject;
     if (!context) {
         return;
@@ -42,6 +56,10 @@ API_AVAILABLE(ios(13.0))
     };
     UIApplication *app = [UIApplication sharedApplication];
     [self._appDelegate application:app openURL:context.URL options:options];
+}
+
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)urlContexts {
+    [self _openURLContexts:urlContexts];
 }
 
 - (void)windowScene:(UIWindowScene *)windowScene performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
