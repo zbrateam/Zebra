@@ -79,7 +79,7 @@
     self->indicator.color = [UIColor whiteColor];
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
-    [self setPackageUpdateBadgeValue:(int)badgeValue];
+    [self setPackageUpdateBadgeValue:badgeValue];
     [self updatePackagesTableView];
     
     databaseManager = [ZBDatabaseManager sharedInstance];
@@ -124,13 +124,13 @@
     }
 }
 
-- (void)setPackageUpdateBadgeValue:(int)updates {
+- (void)setPackageUpdateBadgeValue:(NSInteger)updates {
     [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
         UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:ZBTabPackages];
         
         if (updates > 0) {
-            [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
+            [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld", (long)updates]];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:updates];
         } else {
             [packagesTabBarItem setBadgeValue:nil];
@@ -197,7 +197,7 @@
     [self setSourceRefreshIndicatorVisible:YES];
 }
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
+- (void)databaseCompletedUpdate:(NSInteger)packageUpdates {
     if (packageUpdates != -1) {
         [self setPackageUpdateBadgeValue:packageUpdates];
     }
@@ -288,7 +288,7 @@
 
 - (void)updateQueueBar {
     dispatch_async(dispatch_get_main_queue(), ^{
-        int count = [ZBQueue count];
+        NSUInteger count = [ZBQueue count];
         [self updateQueueBarPackageCount:count];
 
         if (count == 0) {
@@ -313,14 +313,14 @@
     });
 }
 
-- (void)updateQueueBarPackageCount:(int)count {
+- (void)updateQueueBarPackageCount:(NSUInteger)count {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *title = nil, *subtitle = nil;
 
         if (count > 0) {
             title = count > 1
-                ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count]
-                : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
+                ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), (int)count]
+                : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), (int)count];
             subtitle = NSLocalizedString(@"Tap to manage", @"");
         } else {
             title = NSLocalizedString(@"No Packages Queued", @"");

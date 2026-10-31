@@ -26,7 +26,7 @@
 @synthesize limit;
 @synthesize selectionType;
 
-- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(int)sourceLimit {
+- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(NSUInteger)sourceLimit {
     self = [super initWithStyle:[ZBDevice tableViewStyle]];
 
     if (self) {
@@ -39,7 +39,7 @@
     return self;
 }
 
-- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(int)sourceLimit selectedSources:(NSArray *)preSelectedSources {
+- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(NSUInteger)sourceLimit selectedSources:(NSArray *)preSelectedSources {
     self = [self initWithSelectionType:type limit:sourceLimit];
 
     if (self) {

@@ -212,7 +212,7 @@
         [tableView endUpdates];
         
         ZBTabBarController *tabController = (ZBTabBarController *)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-        [tabController setPackageUpdateBadgeValue:(int)[self.databaseManager packagesWithUpdates].count];
+        [tabController setPackageUpdateBadgeValue:[self.databaseManager packagesWithUpdates].count];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
     }
 }
@@ -575,7 +575,7 @@
     UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
     NSInteger sectionCount = [[collation sectionTitles] count];
     NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
-    for (int i = 0; i < sectionCount; ++i) {
+    for (NSInteger i = 0; i < sectionCount; ++i) {
         [unsortedSections addObject:[NSMutableArray array]];
     }
     for (ZBSource *object in array) {
@@ -637,7 +637,7 @@
 
 #pragma mark - Database Delegate
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
+- (void)databaseCompletedUpdate:(NSInteger)packageUpdates {
     [super databaseCompletedUpdate:packageUpdates];
     
     dispatch_async(dispatch_get_main_queue(), ^{

@@ -20,7 +20,7 @@
 #import "UIImageView+Zebra.h"
 
 @interface ZBSourceImportTableViewController () {
-    double individualIncrement;
+    float individualIncrement;
     NSUInteger sourcesToVerify;
 }
 @property NSArray <ZBBaseSource *> *baseSources;
@@ -108,9 +108,9 @@
     }
 }
 
-- (void)increaseProgressBy:(double)progress {
+- (void)increaseProgressBy:(float)progress {
     dispatch_async(dispatch_get_main_queue(), ^{
-        double trueProgress = self.navigationController.navigationBar.navProgressView.progress + progress;
+        float trueProgress = self.navigationController.navigationBar.navProgressView.progress + progress;
         if (trueProgress >= 1.0) {
             [self.navigationController.navigationBar.navProgressView setProgress:1.0 animated:YES];
             [UIView animateWithDuration:0.5 animations:^{
@@ -268,7 +268,7 @@
     baseSources = [[baseSourcesSet allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
     
     sourcesToVerify = baseSources.count;
-    individualIncrement = (double) 1 / sourcesToVerify;
+    individualIncrement = 1.0f / sourcesToVerify;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         for (ZBBaseSource *source in self->baseSources) {

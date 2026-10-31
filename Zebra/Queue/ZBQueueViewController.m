@@ -163,7 +163,7 @@
     if (actions.count == 0) {
         return @"No Actions to Perform";
     }
-    if (section > actions.count - 1) {
+    if (section >= (NSInteger)actions.count) {
         return [NSString stringWithFormat:@"Unrecognized Action %ld", (long)section];
     }
     ZBQueueType action = actions[section].integerValue;

@@ -18,7 +18,7 @@
             [sectionIndexTitles addObjectsFromArray:[NSMutableArray arrayWithArray:[collation sectionIndexTitles]]];
             NSInteger sectionCount = [[collation sectionTitles] count];
             NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
-            for (int i = 0; i < sectionCount; ++i) {
+            for (NSInteger i = 0; i < sectionCount; ++i) {
                 [unsortedSections addObject:[NSMutableArray array]];
             }
             for (id object in array) {

@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setHaltDatabaseOperations:(BOOL)halt;
 
 - (void)bulkDatabaseStartedUpdate;
-- (void)bulkDatabaseCompletedUpdate:(int)updates;
+- (void)bulkDatabaseCompletedUpdate:(NSInteger)updates;
 - (void)bulkPostStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 - (void)bulkSetSource:(NSString *)bfn busy:(BOOL)busy;
 - (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate;
@@ -193,13 +193,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param section (Nullable) A subsection of the source to count the number of packages in.
  @return The number of packages in that source/section.
  */
-- (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section;
+- (NSInteger)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section;
 
 /*!
  @brief Overload of -numberOfPackagesInSource:section:
  @param enableFiltering Show or hide the packages with sections filtered out.
  */
-- (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering;
+- (NSInteger)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering;
 
 /*!
  @brief All of the sources that are in the database.
@@ -237,13 +237,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param start An offset from row zero in the database.
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding source.
  */
-- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
+- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(NSInteger)limit startingAt:(NSInteger)start;
 
 /*!
  @brief Overload of -packagesFromSource:inSection:numberOfPackages:startingAt:
  @param enableFiltering Show or hide the packages with sections filtered out.
  */
-- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering;
+- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(NSInteger)limit startingAt:(NSInteger)start enableFiltering:(BOOL)enableFiltering;
 
 /*!
  @brief A list of packages that the user has installed on their device.
@@ -489,7 +489,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param limit Specify how many rows are selected.
  @return An array of all packages with a reachable icon.
  */
-- (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
+- (NSArray * _Nullable)packagesWithReachableIcon:(NSInteger)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
 
 - (ZBPackage *)localVersionForPackage:(ZBPackage *)package;
 - (NSString * _Nullable)installedVersionForPackage:(ZBPackage *)package;

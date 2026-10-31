@@ -485,8 +485,8 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
             
             const char *installedSizeString = dict_get(package, "Installed-Size");
             if (installedSizeString != NULL) {
-                int installedSize = atoi(installedSizeString);
-                sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnInstalledSize, installedSize);
+                sqlite3_int64 installedSize = strtoll(installedSizeString, NULL, 10);
+                sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnInstalledSize, installedSize);
             }
             else {
                 sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnInstalledSize, -1);
@@ -494,8 +494,8 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
             
             const char *downloadSizeString = dict_get(package, "Size");
             if (downloadSizeString != NULL) {
-                int downloadSize = atoi(downloadSizeString);
-                sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnDownloadSize, downloadSize);
+                sqlite3_int64 downloadSize = strtoll(downloadSizeString, NULL, 10);
+                sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnDownloadSize, downloadSize);
             }
             else {
                 sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnDownloadSize, -1);

@@ -29,9 +29,9 @@
     NSUserDefaults *defaults;
     NSArray *packages;
     NSMutableArray *sectionIndexTitles;
-    int totalNumberOfPackages;
-    int numberOfPackages;
-    int databaseRow;
+    NSInteger totalNumberOfPackages;
+    NSInteger numberOfPackages;
+    NSInteger databaseRow;
 }
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @property (nonatomic, weak) SFSafariViewController *previewSafariVC;
@@ -159,7 +159,7 @@
         self->packages = [self.databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
         self->databaseRow = self.batchLoadCount - 1;
         self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInSource:NULL section:NULL enableFiltering:YES];
-        self->numberOfPackages = (int)[self->packages count];
+        self->numberOfPackages = [self->packages count];
         self.batchLoad = YES;
         self.continueBatchLoad = self.batchLoad;
         [self updateSections];
@@ -180,7 +180,7 @@
                 return;
             }
             self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
-            self->numberOfPackages = (int)[self->packages count];
+            self->numberOfPackages = [self->packages count];
             self->databaseRow += self.batchLoadCount;
             [self updateSections];
             [self.tableView reloadData];
@@ -339,7 +339,7 @@
     else {
         CGPoint locationCell = [self.collectionView convertPoint:location fromView:self.view];
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:locationCell];
-        if ([self.redditPosts count] && indexPath.row < [self.redditPosts count]) {
+        if ([self.redditPosts count] && indexPath.row < (NSInteger)[self.redditPosts count]) {
             ZBRedditPost *post = self.redditPosts[indexPath.row];
             return [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:post.url]];
         }

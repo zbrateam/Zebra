@@ -324,7 +324,7 @@ typedef NS_ENUM(NSUInteger, ZBRefreshButtonState) {
     hadAProblem = NO;
 }
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
+- (void)databaseCompletedUpdate:(NSInteger)packageUpdates {
 //    ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
 //    if (packageUpdates != -1) {
 //        [tabController setPackageUpdateBadgeValue:packageUpdates];

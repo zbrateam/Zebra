@@ -18,13 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *forwardToPackageID;
 @property (nonatomic, strong) NSString *forwardedSourceBaseURL;
 @property (nonatomic, strong) NSMutableDictionary *sourceBusyList;
-- (void)setPackageUpdateBadgeValue:(int)updates;
+- (void)setPackageUpdateBadgeValue:(NSInteger)updates;
 - (void)setSourceRefreshIndicatorVisible:(BOOL)visible;
 - (void)openQueue:(BOOL)openPopup;
 - (void)clearSources;
 - (void)updateQueueBar;
 - (void)forwardToPackage;
-- (void)updateQueueBarPackageCount:(int)count;
+- (void)updateQueueBarPackageCount:(NSUInteger)count;
 - (void)dismissQueue;
 - (void)closeQueue;
 - (CGFloat)queueBarHeight;

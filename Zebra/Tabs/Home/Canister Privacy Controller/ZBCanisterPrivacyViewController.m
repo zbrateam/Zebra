@@ -92,7 +92,7 @@ NSURL *privacyPolicy;
         [buttonStackView addArrangedSubview:decline];
         [buttonStackView addArrangedSubview:accept];
         
-        double buttonHeights = 0;
+        CGFloat buttonHeights = 0;
         switch ((int)[UIScreen mainScreen].scale) {
             case 1:
                 buttonHeights = 40;

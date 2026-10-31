@@ -37,8 +37,8 @@
     return instance;
 }
 
-+ (int)count {
-    int numberOfPackages = 0;
++ (NSUInteger)count {
+    NSUInteger numberOfPackages = 0;
     for (NSArray *queue in [[self sharedQueue] queues]) {
         numberOfPackages += [queue count];
     }
@@ -432,8 +432,8 @@
     return actions;
 }
 
-- (int)numberOfPackagesInQueue:(ZBQueueType)queue {
-    return (int)[managedQueue[@(queue)] count];
+- (NSUInteger)numberOfPackagesInQueue:(ZBQueueType)queue {
+    return [managedQueue[@(queue)] count];
 }
 
 - (BOOL)needsToDownloadPackages {
@@ -534,7 +534,7 @@
 - (NSString *)downloadSizeForQueue:(ZBQueueType)queueType {
     if (queueType == ZBQueueTypeClear || queueType == ZBQueueTypeRemove || queueType == ZBQueueTypeConflict || queueType == ZBQueueTypeDependency) return NULL;
     
-    double totalDownloadSize = 0;
+    long long totalDownloadSize = 0;
     NSMutableArray *packages = [[self queueFromType:queueType] mutableCopy];
     if (queueType == ZBQueueTypeInstall) {
         [packages addObjectsFromArray:[self dependencyQueue]];

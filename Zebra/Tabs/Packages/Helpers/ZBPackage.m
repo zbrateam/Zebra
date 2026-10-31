@@ -270,8 +270,8 @@
         }
         
         [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
-        [self setInstalledSize:sqlite3_column_int(statement, ZBPackageColumnInstalledSize)];
-        [self setDownloadSize:sqlite3_column_int(statement, ZBPackageColumnDownloadSize)];
+        [self setInstalledSize:sqlite3_column_int64(statement, ZBPackageColumnInstalledSize)];
+        [self setDownloadSize:sqlite3_column_int64(statement, ZBPackageColumnDownloadSize)];
     }
     
     return self;

@@ -151,7 +151,7 @@
     [self layoutNavigationButtons];
 }
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
+- (void)databaseCompletedUpdate:(NSInteger)packageUpdates {
     if (![self supportRefresh]) {
         return;
     }

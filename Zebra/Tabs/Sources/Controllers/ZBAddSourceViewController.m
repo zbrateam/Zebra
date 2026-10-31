@@ -75,7 +75,7 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    double duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     CGRect frame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.textFieldBottomConstraint.constant = frame.size.height;
     
@@ -85,7 +85,7 @@
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    double duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSTimeInterval duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.textFieldBottomConstraint.constant = 0.0;
     
     [UIView animateWithDuration:duration animations:^{

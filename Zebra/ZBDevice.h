@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)useIcon;
 
 + (void)exitZebra;
-+ (void)exitZebraAfter:(int)seconds;
++ (void)exitZebraAfter:(NSTimeInterval)seconds;
 
 + (BOOL)darkModeEnabled; //Only provided for legacy tweak support
 + (BOOL)buttonShapesEnabled;

@@ -13,7 +13,7 @@
 
 @protocol ZBDatabaseDelegate <NSObject>
 - (void)databaseStartedUpdate;
-- (void)databaseCompletedUpdate:(int)packageUpdates;
+- (void)databaseCompletedUpdate:(NSInteger)packageUpdates;
 @optional
 - (void)setSource:(NSString *)bfn busy:(BOOL)busy;
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;

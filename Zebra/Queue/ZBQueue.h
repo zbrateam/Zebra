@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *zebraPath;
 @property (nonatomic, strong) NSMutableArray<NSString *> *queuedPackagesList;
 + (id)sharedQueue;
-+ (int)count;
++ (NSUInteger)count;
 + (UIColor *)colorForQueueType:(ZBQueueType)queue;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue;
 - (NSArray<NSNumber *> *)actionsToPerform;
 - (NSString *)displayableNameForQueueType:(ZBQueueType)queue;
-- (int)numberOfPackagesInQueue:(ZBQueueType)queue;
+- (NSUInteger)numberOfPackagesInQueue:(ZBQueueType)queue;
 - (BOOL)needsToDownloadPackages;
 - (NSArray *)packagesToDownload;
 - (NSArray *)packagesToInstall;

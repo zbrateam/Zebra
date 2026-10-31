@@ -26,7 +26,7 @@
 
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;
-    int numberOfUpdates;
+    NSInteger numberOfUpdates;
     NSMutableArray *completedSources;
     NSMutableArray *installedPackageIDs;
     NSMutableArray *upgradePackageIDs;
@@ -234,7 +234,7 @@
     }
 }
 
-- (void)bulkDatabaseCompletedUpdate:(int)updates {
+- (void)bulkDatabaseCompletedUpdate:(NSInteger)updates {
     databaseBeingUpdated = NO;
     for (NSUInteger i = 0; i < self.databaseDelegates.count; ++i) {
         id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
@@ -739,10 +739,10 @@
     return -1;
 }
 
-- (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering {
+- (NSInteger)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering {
     if ([self openDatabase] == SQLITE_OK) {
         // FIXME: Use NSUserDefaults
-        int packages = 0;
+        NSInteger packages = 0;
         NSString *query = nil;
         NSString *sourcePart = source ? @"= ?" : @"> 0";
         if (section != NULL) {
@@ -803,7 +803,7 @@
     return -1;
 }
 
-- (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section {
+- (NSInteger)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section {
     return [self numberOfPackagesInSource:source section:section enableFiltering:NO];
 }
 
@@ -1004,7 +1004,7 @@
 
 #pragma mark - Package management
 
-- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering {
+- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(NSInteger)limit startingAt:(NSInteger)start enableFiltering:(BOOL)enableFiltering {
 
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
@@ -1016,12 +1016,12 @@
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
                      @"WHERE REPOID %@ AND %@ "
                      @"ORDER BY %@, LASTSEEN DESC "
-                     @"LIMIT %d "
-                     @"OFFSET %d",
+                     @"LIMIT %ld "
+                     @"OFFSET %ld",
                      sourcePart,
                      self._userArchitectureFilteringClause,
                      self._packageArchitectureWeightingClause,
-                     limit, start];
+                     (long)limit, (long)start];
         } else {
             NSString *sourcePart = source ? [NSString stringWithFormat:@"= %d", [source sourceID]] : @"> 0";
 
@@ -1032,12 +1032,12 @@
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
                      @"WHERE (SECTION = ? OR SECTION = ?) AND REPOID %@ AND %@ "
                      @"ORDER BY %@ "
-                     @"LIMIT %d "
-                     @"OFFSET %d",
+                     @"LIMIT %ld "
+                     @"OFFSET %ld",
                      sourcePart,
                      self._userArchitectureFilteringClause,
                      self._packageArchitectureWeightingClause,
-                     limit, start];
+                     (long)limit, (long)start];
         }
 
         sqlite3_stmt *statement = NULL;
@@ -1068,7 +1068,7 @@
     return NULL;
 }
 
-- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
+- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(NSInteger)limit startingAt:(NSInteger)start {
     return [self packagesFromSource:source inSection:section numberOfPackages:limit startingAt:start enableFiltering:NO];
 }
 
@@ -1168,7 +1168,7 @@
             NSString *query = [NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE IN (%@)", [packageTemplates componentsJoinedByString:@","]];
             if (sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil) == SQLITE_OK) {
                 for (NSUInteger i = 0; i < irrelevantPackages.count; i++) {
-                    sqlite3_bind_text(statement, i + 1, irrelevantPackages[i].UTF8String, -1, SQLITE_TRANSIENT);
+                    sqlite3_bind_text(statement, (int)i + 1, irrelevantPackages[i].UTF8String, -1, SQLITE_TRANSIENT);
                 }
                 sqlite3_step(statement);
             }
@@ -1377,7 +1377,7 @@
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             for (NSUInteger i = 0; i < requestedPackages.count; i++) {
-                sqlite3_bind_text(statement, i + 1, [requestedPackages[i] UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, (int)i + 1, [requestedPackages[i] UTF8String], -1, SQLITE_TRANSIENT);
             }
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -2100,7 +2100,7 @@
     return NULL;
 }
 
-- (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources {
+- (NSArray * _Nullable)packagesWithReachableIcon:(NSInteger)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
 
@@ -2112,15 +2112,15 @@
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
                            @"WHERE REPOID NOT IN (-1, 0) AND REPOID NOT IN (%@) AND ICONURL IS NOT NULL AND %@ "
                            @"ORDER BY RANDOM() "
-                           @"LIMIT %d",
+                           @"LIMIT %ld",
                            [sourceTemplates componentsJoinedByString:@","],
                            self._installablePackageArchitectureClause,
-                           limit];
+                           (long)limit];
 
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             for (NSUInteger i = 0; i < blacklistedSources.count; i++) {
-                sqlite3_bind_int(statement, i + 1, blacklistedSources[i].sourceID);
+                sqlite3_bind_int(statement, (int)i + 1, blacklistedSources[i].sourceID);
             }
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -2341,7 +2341,7 @@
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             for (NSUInteger i = 0; i < removedPackages.count; i++) {
-                sqlite3_bind_text(statement, i + 1, [removedPackages[i] UTF8String], -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(statement, (int)i + 1, [removedPackages[i] UTF8String], -1, SQLITE_TRANSIENT);
             }
 
             sqlite3_bind_text(statement, (int)removedPackages.count + 2, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);

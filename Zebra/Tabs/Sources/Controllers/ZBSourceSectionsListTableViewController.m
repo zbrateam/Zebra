@@ -157,7 +157,7 @@
     [super setEditing:editing animated:animated];
     
     if (self.editing) {
-        for (NSInteger i = 1; i < sectionNames.count + 1; ++i) {
+        for (NSUInteger i = 1; i < sectionNames.count + 1; ++i) {
             NSString *section = [sectionNames objectAtIndex:i - 1];
             if (![filteredSections containsObject:section]) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -315,7 +315,7 @@
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"All Packages", @"");
         
-        NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInSource:source section:NULL]];
+        NSNumber *numberOfPackages = @([databaseManager numberOfPackagesInSource:source section:NULL]);
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
         cell.imageView.image = nil;
     } else {

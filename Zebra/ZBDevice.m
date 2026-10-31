@@ -521,7 +521,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     [self exitZebraAfter:1];
 }
 
-+ (void)exitZebraAfter:(int)seconds {
++ (void)exitZebraAfter:(NSTimeInterval)seconds {
     [[UIApplication sharedApplication] suspend];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         exit(0);

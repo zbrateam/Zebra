@@ -45,8 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBPackage * _Nullable removedBy;
 @property (nonatomic, strong) NSString *priority;
 @property (nonatomic, strong) NSString *SHA256;
-@property int installedSize;
-@property int downloadSize;
+@property long long installedSize;
+@property long long downloadSize;
 @property BOOL requiresAuthorization;
 @property BOOL essential;
 @property BOOL ignoreDependencies;

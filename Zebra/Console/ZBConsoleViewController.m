@@ -854,7 +854,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     [self writeToConsole:NSLocalizedString(@"Importing local packages.", @"") atLevel:ZBLogLevelInfo];
 }
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
+- (void)databaseCompletedUpdate:(NSInteger)packageUpdates {
     blockDatabaseMessages = NO;
     [self writeToConsole:NSLocalizedString(@"Finished importing local packages.", @"") atLevel:ZBLogLevelInfo];
     if (packageUpdates != -1) {

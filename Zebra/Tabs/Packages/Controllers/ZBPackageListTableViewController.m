@@ -32,9 +32,9 @@
     UIBarButtonItem *clearButton;
     BOOL needsUpdatesSection;
     BOOL isRefreshingTable;
-    int totalNumberOfPackages;
-    int numberOfPackages;
-    int databaseRow;
+    NSInteger totalNumberOfPackages;
+    NSInteger numberOfPackages;
+    NSInteger databaseRow;
 }
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
@@ -151,15 +151,18 @@
         }
         if (self->selectedSortingType == ZBSortingTypeInstalledSize) {
             self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(ZBPackage *a, ZBPackage *b) {
-                NSInteger sizeA = [a installedSize];
-                NSInteger sizeB = [b installedSize];
-                return sizeB - sizeA;
+                long long sizeA = [a installedSize];
+                long long sizeB = [b installedSize];
+                if (sizeA == sizeB) {
+                    return NSOrderedSame;
+                }
+                return sizeA > sizeB ? NSOrderedAscending : NSOrderedDescending;
             }];
         } else {
             self->sortedPackages = nil;
         }
         [self layoutNavigationButtons];
-        self->numberOfPackages = (int)[self->packages count];
+        self->numberOfPackages = [self->packages count];
         
         [self updateCollation];
         [self.tableView reloadData];
@@ -180,7 +183,7 @@
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
             } else {
                 self->packages = [self.databaseManager cleanUpDuplicatePackages:[self->packages arrayByAddingObjectsFromArray:nextPackages]];
-                self->numberOfPackages = (int)[self->packages count];
+                self->numberOfPackages = [self->packages count];
                 self->databaseRow += self.batchLoadCount;
                 [self updateCollation];
                 [self.tableView reloadData];

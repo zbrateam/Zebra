@@ -131,7 +131,7 @@
             return cell;
         }
         case 1: {
-            if (indexPath.row < filteredSections.count) {
+            if (indexPath.row < (NSInteger)filteredSections.count) {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
                 cell.textLabel.text = filteredSections[indexPath.row];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
@@ -145,7 +145,7 @@
             break;
         }
         case 2: {
-            if (indexPath.row < filteredSources.count) {
+            if (indexPath.row < (NSInteger)filteredSources.count) {
                 ZBSourceTableViewCell *sourceCell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
                 ZBSource *source = sources[indexPath.row];
                 
@@ -165,7 +165,7 @@
             break;
         }
         case 3: {
-            if (indexPath.row < blockedAuthors.count) {
+            if (indexPath.row < (NSInteger)blockedAuthors.count) {
                 UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
@@ -187,7 +187,7 @@
             break;
         }
         case 4: {
-            if (indexPath.row < ignoredUpdates.count) {
+            if (indexPath.row < (NSInteger)ignoredUpdates.count) {
                 ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
                 ZBPackage *package = ignoredUpdates[indexPath.row];
                 
@@ -263,7 +263,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSUInteger rowCount = [tableView numberOfRowsInSection:indexPath.section];
+    NSInteger rowCount = [tableView numberOfRowsInSection:indexPath.section];
     BOOL lastRow = indexPath.row == rowCount - 1;
     
     switch (indexPath.section) {
@@ -339,7 +339,7 @@
         return YES;
     }
     else {
-        NSUInteger rowCount = [tableView numberOfRowsInSection:indexPath.section];
+        NSInteger rowCount = [tableView numberOfRowsInSection:indexPath.section];
         return indexPath.row != rowCount - 1;
     }
 }

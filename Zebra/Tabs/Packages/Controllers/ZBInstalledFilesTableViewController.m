@@ -32,7 +32,7 @@
     NSArray *installedFiles = [ZBPackage filesInstalledBy:package.identifier];
     installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
     
-    for (int i = 0; i < installedFiles.count; ++i) {
+    for (NSUInteger i = 0; i < installedFiles.count; ++i) {
         NSString *file = installedFiles[i];
         if ([file isEqualToString:@"/."] || file.length == 0) {
             continue;
@@ -40,7 +40,7 @@
         
         NSArray *components = [file componentsSeparatedByString:@"/"];
         NSMutableString *displayStr = [NSMutableString new];
-        for (int b = 0; b < components.count - 2; ++b) {
+        for (NSInteger b = 0; b < (NSInteger)components.count - 2; ++b) {
             [displayStr appendString:@"\t"]; // add tab character
         }
         if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {

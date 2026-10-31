@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL batchLoad;
 @property (nonatomic, assign) BOOL isPerformingBatchLoad;
 @property (nonatomic, assign) BOOL continueBatchLoad;
-@property (nonatomic, assign) int batchLoadCount;
+@property (nonatomic, assign) NSInteger batchLoadCount;
 @property (readwrite, copy, nonatomic) NSArray <NSArray *> *tableData;
 - (void)refreshTable;
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination;
