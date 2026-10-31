@@ -294,8 +294,8 @@ NSString *const CanisterUpdateDateKey = @"CanisterUpdateDate";
 
 + (NSString *)selectedLanguage {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    return [defaults arrayForKey:@"AppleLanguages"][0];
+
+    return [[defaults arrayForKey:@"AppleLanguages"] firstObject];
 }
 
 + (void)setSelectedLanguage:(NSString *_Nullable)languageCode {
@@ -483,8 +483,10 @@ NSString *const CanisterUpdateDateKey = @"CanisterUpdateDate";
 + (NSTimeInterval)sourceRefreshTimeout {
     NSArray *choices = @[@5, @10, @15, @30, @45, @60];
     NSInteger index = [self sourceRefreshTimeoutIndex];
-    if (index > [choices count]) return (NSTimeInterval)[[choices lastObject] doubleValue];
-    
+    if (index < 0 || index >= (NSInteger)[choices count]) {
+        return (NSTimeInterval)[[choices lastObject] doubleValue];
+    }
+
     return (NSTimeInterval)[[choices objectAtIndex:index] doubleValue];
 }
 
@@ -575,7 +577,16 @@ NSString *const CanisterUpdateDateKey = @"CanisterUpdateDate";
         [self setSwipeActionStyle:@(ZBSwipeActionStyleText)];
         return ZBSwipeActionStyleText;
     }
-    return [defaults boolForKey:SwipeActionStyleKey];
+
+    NSInteger style = [defaults integerForKey:SwipeActionStyleKey];
+    switch (style) {
+    case ZBSwipeActionStyleText:
+    case ZBSwipeActionStyleIcon:
+        return style;
+
+    default:
+        return ZBSwipeActionStyleText;
+    }
 }
 
 + (void)setSwipeActionStyle:(NSNumber *)newStyle {
