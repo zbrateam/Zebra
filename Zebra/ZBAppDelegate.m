@@ -19,6 +19,7 @@
 #import <SDWebImage/SDImageCacheConfig.h>
 #import <SDWebImage/SDImageCache.h>
 #import "ZBSource.h"
+#import "ZBSourceManager.h"
 #import "ZBThemeManager.h"
 #import "ZBRefreshViewController.h"
 #import "ZBSearchTableViewController.h"
@@ -258,6 +259,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
 
     [self registerForScreenshotNotifications];
+
+    [[ZBSourceManager sharedInstance] migrateSources];
 
     if (@available(iOS 13, *)) {
         // Handled by ZBSceneDelegate

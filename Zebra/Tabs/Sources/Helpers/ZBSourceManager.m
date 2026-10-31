@@ -71,7 +71,8 @@
             @"modmyi.saurik.com",
             @"apt.saurik.com",
             @"apt.bingner.com",
-            @"cydia.zodttd.com"
+            @"cydia.zodttd.com",
+            @"zodttd.saurik.com"
         ];
     });
     return urls;
@@ -87,7 +88,8 @@
             @"deb http://modmyi.saurik.com/ stable main",
             [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
             [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
-            @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
+            @"deb http://zodttd.saurik.com/repo/cydia/ stable main",
+            @"deb http://zodttd.saurik.com/repo/cydia/ stable main"
         ];
     });
     return lines;
@@ -103,6 +105,50 @@
     else {
         return [NSString stringWithFormat:@"deb %@ ./", [URL absoluteString]];
     }
+}
+
++ (NSDictionary <NSString *, NSString *> *)sourceMigrationURLs {
+    // Source URLs that are a direct migration from the old URL
+    return @{
+        @"http://apt.modmyi.com/": @"http://modmyi.saurik.com/",
+        @"http://cydia.zodttd.com/repo/cydia/": @"http://zodttd.saurik.com/repo/cydia/",
+        @"http://repo.chariz.io/": @"https://repo.chariz.com/",
+        @"https://repo.chariz.io/": @"https://repo.chariz.com/"
+    };
+}
+
+- (void)migrateSources {
+    NSString *listPath = [ZBAppDelegate sourcesListPath];
+    NSError *error = NULL;
+    NSString *contents = [NSString stringWithContentsOfFile:listPath encoding:NSUTF8StringEncoding error:&error];
+    if (!contents) {
+        NSLog(@"[Zebra] Error reading sources for migration: %@", error);
+        return;
+    }
+
+    NSDictionary <NSString *, NSString *> *sourceMigrationURLs = self.class.sourceMigrationURLs;
+    NSString *newContents = contents;
+    for (NSString *oldURL in sourceMigrationURLs) {
+        newContents = [newContents stringByReplacingOccurrencesOfString:oldURL withString:sourceMigrationURLs[oldURL]];
+    }
+
+    if ([newContents isEqualToString:contents]) {
+        return;
+    }
+
+    if (![newContents writeToFile:listPath atomically:YES encoding:NSUTF8StringEncoding error:&error]) {
+        NSLog(@"[Zebra] Error while writing sources to file: %@", error);
+        return;
+    }
+
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    for (ZBSource *source in self.sources.allValues) {
+        if (sourceMigrationURLs[source.repositoryURI]) {
+            [databaseManager deleteSource:source];
+        }
+    }
+
+    recachingNeeded = YES;
 }
 
 //TODO: This needs error pointers

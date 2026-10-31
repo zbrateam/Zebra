@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources;
 - (void)deleteSource:(ZBSource *)source;
 - (void)needRecaching;
+- (void)migrateSources;
 @end
 
 NS_ASSUME_NONNULL_END
