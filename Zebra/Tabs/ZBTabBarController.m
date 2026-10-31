@@ -254,12 +254,14 @@
 }
 
 - (void)_applyQueueSheetTransition:(UIViewController *)viewController {
+#ifdef __IPHONE_18_0
     if (@available(iOS 18, *)) {
         __weak __typeof(self) weakSelf = self;
         viewController.preferredTransition = [UIViewControllerTransition zoomWithOptions:nil sourceViewProvider:^UIView *(__unused UIZoomTransitionSourceViewProviderContext *context) {
             return [weakSelf queueBarSourceView];
         }];
     }
+#endif
 }
 
 - (ZBQueueViewController *)queueController {
