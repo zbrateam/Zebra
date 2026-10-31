@@ -443,6 +443,12 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)configureUserActivity {
+    if (!package.identifier) {
+        [self.userActivity resignCurrent];
+        self.userActivity = nil;
+        return;
+    }
+
     NSString *activityType = [NSString stringWithFormat:@"%@.package-activity", [ZBAppDelegate bundleID]];
     NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:activityType];
     userActivity.eligibleForHandoff = YES;
