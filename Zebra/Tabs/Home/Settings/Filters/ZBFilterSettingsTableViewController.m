@@ -28,6 +28,7 @@
     NSMutableDictionary <NSString *, NSArray *> *filteredSources;
     NSMutableArray <NSString *> *filteredSections;
     NSMutableDictionary <NSString *, NSString *> *blockedAuthors;
+    NSArray <NSString *> *blockedAuthorEmails;
     NSMutableArray <ZBPackage *> *ignoredUpdates;
 }
 @end
@@ -75,10 +76,15 @@
     }
     
     blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
-    
+    [self _refreshBlockedAuthorEmails];
+
     ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesWithIgnoredUpdates];
     
     [self.tableView reloadData];
+}
+
+- (void)_refreshBlockedAuthorEmails {
+    blockedAuthorEmails = [blockedAuthors.allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 #pragma mark - Table View Data Source
@@ -163,13 +169,13 @@
                 UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
-                cell.textLabel.text = [blockedAuthors objectForKey:[blockedAuthors allKeys][indexPath.row]];
+                cell.textLabel.text = [blockedAuthors objectForKey:blockedAuthorEmails[indexPath.row]];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
                 
                 NSArray *aliases = [self listAllAuthorsFromMail:indexPath];
                 if (aliases.count > 1) cell.accessoryType = UITableViewCellAccessoryDetailButton;
                 
-                NSString *email = [blockedAuthors allKeys][indexPath.row];
+                NSString *email = blockedAuthorEmails[indexPath.row];
                 if (![email isEqualToString:cell.textLabel.text]) {
                     cell.detailTextLabel.text = email;
                     cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
@@ -206,7 +212,7 @@
     if (indexPath.section == 3) {
         NSMutableString *message = [NSLocalizedString(@"This author also goes by the following names:", @"") mutableCopy];
         
-        NSString *email = [blockedAuthors allKeys][indexPath.row];
+        NSString *email = blockedAuthorEmails[indexPath.row];
         NSString *name = blockedAuthors[email];
         NSArray *aliases = [self listAllAuthorsFromMail:indexPath];
         for (NSArray *alias in aliases) {
@@ -363,8 +369,9 @@
                         break;
                     }
                     case 3: {
-                        NSString *author = [self->blockedAuthors allKeys][indexPath.row];
+                        NSString *author = self->blockedAuthorEmails[indexPath.row];
                         [self->blockedAuthors removeObjectForKey:author];
+                        [self _refreshBlockedAuthorEmails];
 
                         [ZBSettings setBlockedAuthors:self->blockedAuthors];
                         [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -401,7 +408,7 @@
 
 - (NSArray *)listAllAuthorsFromMail:(NSIndexPath *)indexPath {
     ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
-    NSString *email = [blockedAuthors allKeys][indexPath.row];
+    NSString *email = blockedAuthorEmails[indexPath.row];
     NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
     
     return aliases;
