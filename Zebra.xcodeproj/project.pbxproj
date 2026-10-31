@@ -1102,7 +1102,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = ZB;
-				LastUpgradeCheck = 2640;
+				LastUpgradeCheck = 2720;
 				ORGANIZATIONNAME = "Zebra Team";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
