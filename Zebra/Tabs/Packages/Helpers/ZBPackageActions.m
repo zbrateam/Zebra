@@ -273,9 +273,9 @@
 
                 [self presentAlertController:selectAction fromViewController:viewController];
             }
-            else {
+            else if ([actions count] == 1) {
                 // If the user has pressed the bar button twice (i.e. the same package is already in the Queue, present it
-                ZBPackageActionType action = actions[0].intValue;
+                ZBPackageActionType action = actions[0].integerValue;
                 if ([[ZBQueue sharedQueue] contains:package inQueue:[self actionToQueue:action]]) {
                     [[ZBAppDelegate tabBarController] openQueue:YES];
                 }
@@ -288,7 +288,7 @@
         UIBarButtonItemStyle style = UIBarButtonItemStylePlain;
         NSArray <NSNumber *> *actions = [package possibleActions];
         if ([actions count] > 0) {
-            ZBPackageActionType action = actions[0].intValue;
+            ZBPackageActionType action = actions[0].integerValue;
             switch (action) {
             case ZBPackageActionInstall:
             case ZBPackageActionUpgrade:
@@ -299,7 +299,13 @@
             }
         }
 
-        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[self buttonTitleForPackage:package] style:style actionHandler:handler];
+        NSString *buttonTitle = [self buttonTitleForPackage:package];
+        dispatch_block_t completeDefaultButton = ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion([[UIBarButtonItem alloc] initWithTitle:buttonTitle style:style actionHandler:handler]);
+            });
+        };
+
         if ([package mightRequirePayment]) {
             [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
                 if (info) { // Package does have purchase info
@@ -307,32 +313,26 @@
                         NSString *title = info.price;
                         if ([title isKindOfClass:[NSNumber class]] && [title integerValue] == 0) {
                             // Free package even with purchase info
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                completion(button);
-                            });
+                            completeDefaultButton();
                             return;
                         }
-                        UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleDone actionHandler:^{
-                            [self performAction:ZBPackageActionInstall forPackage:package fromViewController:viewController completion:nil];
-                        }];
-                        
+
                         dispatch_async(dispatch_get_main_queue(), ^{
+                            UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleDone actionHandler:^{
+                                [self performAction:ZBPackageActionInstall forPackage:package fromViewController:viewController completion:nil];
+                            }];
                             completion(purchaseButton);
                         });
                         return;
                     }
                 }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(button);
-                });
+                completeDefaultButton();
                 return;
             }];
             return;
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completion(button);
-        });
+
+        completeDefaultButton();
     });
 }
 
@@ -341,7 +341,7 @@
     
     NSArray *actions = [package possibleActions];
     for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
+        ZBPackageActionType action = number.integerValue;
         if (action == ZBPackageActionShowUpdates || action == ZBPackageActionHideUpdates) continue;
         
         NSString *title = [self titleForAction:action useIcon:YES];
@@ -368,7 +368,7 @@
 
     NSArray *actions = [package possibleActions];
     for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
+        ZBPackageActionType action = number.integerValue;
 
         NSString *title = [self titleForAction:action useIcon:NO];
         UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
@@ -388,8 +388,8 @@
     
     NSArray *actions = [package possibleActions];
     for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-        
+        ZBPackageActionType action = number.integerValue;
+
         NSString *title = [self titleForAction:action useIcon:NO];
         UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
         UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(__unused UIPreviewAction *previewAction, UIViewController *previewViewController) {
@@ -413,8 +413,8 @@
     
     NSArray *actions = [package possibleActions];
     for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-        
+        ZBPackageActionType action = number.integerValue;
+
         NSString *title = [self titleForAction:action useIcon:NO];
         UIImage *image = [self systemImageForAction:action];
         
@@ -514,10 +514,11 @@
     if ([actions count] > 1) {
         return NSLocalizedString(@"Modify", @"");
     }
-    else {
-        ZBPackageActionType action = actions[0].intValue;
+    else if ([actions count] == 1) {
+        ZBPackageActionType action = actions[0].integerValue;
         return [self titleForAction:action useIcon:NO];
     }
+    return NSLocalizedString(@"Modify", @"");
 }
 
 + (ZBQueueType)actionToQueue:(ZBPackageActionType)action {
