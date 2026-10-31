@@ -221,9 +221,9 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 #if TARGET_OS_SIMULATOR
         architectures = @[@DEB_ARCH];
 #else
-        NSString *nativeArch = [[ZBCommand execute:@"dpkg" withArguments:@[@"--print-architecture"] asRoot:NO]
+        NSString *nativeArch = [[ZBCommand execute:self.dpkgBinary withArguments:@[@"--print-architecture"] asRoot:NO]
                                 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSString *foreignArchs = [[ZBCommand execute:@"dpkg" withArguments:@[@"--print-foreign-architectures"] asRoot:NO]
+        NSString *foreignArchs = [[ZBCommand execute:self.dpkgBinary withArguments:@[@"--print-foreign-architectures"] asRoot:NO]
                                   stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
         architectures = [@[nativeArch ?: @DEB_ARCH] arrayByAddingObjectsFromArray:[foreignArchs componentsSeparatedByString:@"\n"]];
@@ -483,24 +483,36 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     static NSString *packageManagementBinary = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/usr/bin/apt"]) {
-            packageManagementBinary = @INSTALL_PREFIX @"/usr/bin/apt";
+        if ([[NSFileManager defaultManager] fileExistsAtPath:self.aptBinary]) {
+            packageManagementBinary = self.aptBinary;
         }
-        else if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/usr/bin/dpkg"]) {
-            packageManagementBinary = @INSTALL_PREFIX @"/usr/bin/dpkg";
+        else if ([[NSFileManager defaultManager] fileExistsAtPath:self.dpkgBinary]) {
+            packageManagementBinary = self.dpkgBinary;
         }
     });
     return packageManagementBinary;
 }
 
-+ (NSString *)path {
-    // Construct a safe PATH. This will be set app-wide.
-    NSArray <NSString *> *path = @[@"/usr/sbin", @"/usr/bin", @"/sbin", @"/bin"];
-    if (isPrefixed) {
-        NSArray <NSString *> *prefixedPath = @[@INSTALL_PREFIX @"/usr/sbin", @INSTALL_PREFIX @"/usr/bin", @INSTALL_PREFIX @"/sbin", @INSTALL_PREFIX @"/bin"];
-        path = [prefixedPath arrayByAddingObjectsFromArray:path];
-    }
-    return [path componentsJoinedByString:@":"];
++ (NSString *)aptBinary {
+    return @INSTALL_PREFIX @"/usr/bin/apt";
+}
+
++ (NSString *)dpkgBinary {
+    return @INSTALL_PREFIX @"/usr/bin/dpkg";
+}
+
++ (NSArray <NSString *> *)path {
+    static NSArray <NSString *> *path = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // Construct a safe PATH. This will be set app-wide.
+        path = @[@"/usr/sbin", @"/usr/bin", @"/sbin", @"/bin"];
+        if (isPrefixed) {
+            NSArray <NSString *> *prefixedPath = @[@INSTALL_PREFIX @"/usr/sbin", @INSTALL_PREFIX @"/usr/bin", @INSTALL_PREFIX @"/sbin", @INSTALL_PREFIX @"/bin"];
+            path = [prefixedPath arrayByAddingObjectsFromArray:path];
+        }
+    });
+    return path;
 }
 
 + (NSString * _Nonnull)deviceType {

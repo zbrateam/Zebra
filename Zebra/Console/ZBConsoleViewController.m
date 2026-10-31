@@ -313,11 +313,11 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                 NSString *path = queue.zebraPath;
 
                 NSArray *baseCommand;
-                if ([[ZBDevice packageManagementBinary] isEqualToString:@INSTALL_PREFIX @"/usr/bin/dpkg"]) {
-                    baseCommand = @[@"dpkg", queue.removingZebra ? @"-r" : @"-i", queue.zebraPath ? path : @"xyz.willy.zebra"];
+                if ([[ZBDevice packageManagementBinary] isEqualToString:[ZBDevice dpkgBinary]]) {
+                    baseCommand = @[[ZBDevice packageManagementBinary], queue.removingZebra ? @"-r" : @"-i", @"--", queue.zebraPath ? path : @"xyz.willy.zebra"];
                 }
                 else {
-                    baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", queue.removingZebra ? @"remove" : @"install", queue.zebraPath ? path : @"xyz.willy.zebra"];
+                    baseCommand = @[[ZBDevice packageManagementBinary], @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", queue.removingZebra ? @"remove" : @"install", @"--", queue.zebraPath ? path : @"xyz.willy.zebra"];
                 }
 
                 if (![ZBDevice needsSimulation]) {

@@ -231,18 +231,18 @@
     NSArray *baseCommand;
     BOOL ignoreDependencies = [self containsPackageWithIgnoredDependencies]; //fallback to dpkg
     
-    if (ignoreDependencies || [[ZBDevice packageManagementBinary] isEqualToString:@INSTALL_PREFIX @"/usr/bin/dpkg"]) {
-        baseCommand = @[@"dpkg", @"--force-confdef", @"--force-confnew"];
+    if (ignoreDependencies || [[ZBDevice packageManagementBinary] isEqualToString:[ZBDevice dpkgBinary]]) {
+        baseCommand = @[[ZBDevice dpkgBinary], @"--force-confdef", @"--force-confnew"];
     } else {
-        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAcquire::AllowUnsizedPackages=true", @"-oDir::State::lists=/var/empty", @"-oDpkg::Options::=--force-confdef", @"-oDpkg::Options::=--force-confnew"];
+        baseCommand = @[[ZBDevice packageManagementBinary], @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAcquire::AllowUnsizedPackages=true", @"-oDir::State::lists=/var/empty", @"-oDpkg::Options::=--force-confdef", @"-oDpkg::Options::=--force-confnew"];
     }
     
     NSString *binary = baseCommand[0];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
         if ([self containsEssentialOrRequiredPackage]) { //We need to use dpkg to remove these packages, I haven't found a flag that will enable APT to do this
-            NSMutableArray *removeCommand = [@[@"dpkg", @"-r", @"--force-remove-essential"] mutableCopy];
-            
+            NSMutableArray *removeCommand = [@[[ZBDevice dpkgBinary], @"-r", @"--force-remove-essential"] mutableCopy];
+
             if (ignoreDependencies) {
                 [removeCommand addObject:@"--force-depends"];
             }
@@ -273,7 +273,7 @@
         }
         else {
             NSMutableArray *removeCommand = [baseCommand mutableCopy];
-            if ([binary isEqualToString:@"apt"]) {
+            if ([binary isEqualToString:[ZBDevice aptBinary]]) {
                 [removeCommand addObject:@"remove"];
             }
             else {
@@ -314,7 +314,7 @@
     BOOL downgradePackages = [self queueHasPackages:ZBQueueTypeDowngrade];
     if (installPackages || upgradePackages || downgradePackages) {
         NSMutableArray *installCommand = [baseCommand mutableCopy];
-        if ([binary isEqualToString:@"apt"]) {
+        if ([binary isEqualToString:[ZBDevice aptBinary]]) {
             [installCommand addObject:@"install"];
         }
         else {
@@ -353,7 +353,7 @@
     
     if ([self queueHasPackages:ZBQueueTypeReinstall]) {
         [commands addObject:@[@(ZBStageReinstall)]];
-        if ([binary isEqualToString:@"apt"]) {
+        if ([binary isEqualToString:[ZBDevice aptBinary]]) {
             NSMutableArray *reinstallCommand = [baseCommand mutableCopy];
             [reinstallCommand addObject:@"install"];
             [reinstallCommand addObject:@"--reinstall"];
@@ -362,7 +362,7 @@
             [reinstallCommand addObjectsFromArray:paths];
             [commands addObject:reinstallCommand];
         }
-        else if ([binary isEqualToString:@"dpkg"]) {
+        else if ([binary isEqualToString:[ZBDevice dpkgBinary]]) {
             //Remove package first
             NSMutableArray *removeCommand = [baseCommand mutableCopy];
             

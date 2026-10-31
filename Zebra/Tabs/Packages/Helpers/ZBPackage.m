@@ -91,9 +91,7 @@
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
 
         // We need to look up the *actual* package ID of this deb from the deb's control file
-        NSString *stringRead = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/dpkg"
-                                withArguments:@[@"-I", packageID, @"control"]
-                                       asRoot:NO];
+        NSString *stringRead = [ZBCommand execute:[ZBDevice dpkgBinary] withArguments:@[@"-I", packageID, @"control"] asRoot:NO];
 
         __block BOOL contains = NO;
         [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
@@ -142,9 +140,7 @@
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
 
         // We need to look up the *actual* package ID of this deb from the deb's control file
-        NSString *stringRead = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/dpkg"
-                                    withArguments:@[@"-I", packageID, @"control"]
-                                           asRoot:NO];
+        NSString *stringRead = [ZBCommand execute:[ZBDevice dpkgBinary] withArguments:@[@"-I", packageID, @"control"] asRoot:NO];
 
         __block NSString *path;
         [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
@@ -343,9 +339,7 @@
     
     NSString *stringRead;
     if (![ZBDevice needsSimulation]) {
-        stringRead = [ZBCommand execute:@INSTALL_PREFIX @"/usr/bin/dpkg"
-                          withArguments:@[@"-I", path, @"control"]
-                                 asRoot:NO];
+        stringRead = [ZBCommand execute:[ZBDevice dpkgBinary] withArguments:@[@"-I", path, @"control"] asRoot:NO];
     }
     else {
         stringRead = [[NSString alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"control" withExtension:@"sample"] encoding:NSUTF8StringEncoding error:nil];

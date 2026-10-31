@@ -122,6 +122,21 @@ static const int ZBCommandFinishFileno = 3;
     ZBCommandFds *fds;
 }
 
++ (NSString *)_resolveCommandPath:(NSString *)command {
+    if (!command || [command hasPrefix:@"/"]) {
+        return command;
+    }
+
+    for (NSString *dir in [ZBDevice path]) {
+        NSString *path = [dir stringByAppendingPathComponent:command];
+        if (access(path.fileSystemRepresentation, X_OK) == 0) {
+            return path;
+        }
+    }
+
+    return nil;
+}
+
 + (NSString *)execute:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root {
     // As this method is intended for convenience, the arguments array isn’t expected to have the
     // first argument, which is typically the path or name of the binary being invoked. Add it now.
@@ -131,7 +146,7 @@ static const int ZBCommandFinishFileno = 3;
     return [task execute] == 0 ? task.output : nil;
 }
 
-- (id)initWithDelegate:(id <ZBCommandDelegate>)delegate {
+- (instancetype)initWithDelegate:(id <ZBCommandDelegate>)delegate {
     self = [super init];
 
     if (self) {
@@ -143,11 +158,11 @@ static const int ZBCommandFinishFileno = 3;
     return self;
 }
 
-- (id)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> *_Nullable)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate>)delegate {
+- (instancetype)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> * _Nullable)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate>)delegate {
     self = [self initWithDelegate:delegate];
 
     if (self) {
-        _command = command;
+        _command = [self.class _resolveCommandPath:command];
         _arguments = arguments;
         self.asRoot = root;
     }
@@ -194,7 +209,7 @@ static const int ZBCommandFinishFileno = 3;
 
     if (_arguments.count > binaryIndex) {
         NSString *binary = _arguments[binaryIndex];
-        if ([binary isEqualToString:@"apt"]) {
+        if ([binary isEqualToString:[ZBDevice aptBinary]]) {
             // We need to insert this flag to ensure our fd is passed through to dpkg.
             NSMutableArray <NSString *> *mutableArguments = [_arguments mutableCopy] ?: [NSMutableArray array];
             NSString *flag = [NSString stringWithFormat:@"-oAPT::Keep-Fds::=%d", ZBCommandFinishFileno];
@@ -209,6 +224,12 @@ static const int ZBCommandFinishFileno = 3;
 }
 
 - (int)execute {
+    // Must be a fully-qualified path
+    _command = [self.class _resolveCommandPath:_command];
+    if (!_command) {
+        return -ENOENT;
+    }
+
     // Create output and error pipes
     fds = [ZBCommandFds commandFdsWithFinish:_useFinishFd];
     if (!fds) {
@@ -346,7 +367,7 @@ static const int ZBCommandFinishFileno = 3;
 
     // Spawn the child process
     pid_t pid = 0;
-    int ret = posix_spawnp(&pid, _command.UTF8String, &child_fd_actions, &child_fd_attrs, argv, envp);
+    int ret = posix_spawn(&pid, _command.fileSystemRepresentation, &child_fd_actions, &child_fd_attrs, argv, envp);
 
     for (int i = 0; argv[i] != NULL; i++) {
         free(argv[i]);

@@ -79,7 +79,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray <NSString *> *)allDebianArchitectures;
 + (NSString *)debianArchitecture;
 + (nullable NSString *)packageManagementBinary;
-+ (NSString *)path;
++ (NSString *)aptBinary;
++ (NSString *)dpkgBinary;
++ (NSArray <NSString *> *)path;
 + (BOOL)supportsUserspaceReboot;
 
 + (void)hapticButton;
