@@ -66,18 +66,41 @@ char *replace_char(char *str, char find, char replace) {
 
 int isSourceSecure(const char *sourcePath, char *sourceURL) {
     FILE *file = fopen(sourcePath, "r");
-    if (file != NULL) {
-        char line[256];
-        
-        char *url = strtok(sourceURL, "_");
-        
-        while (fgets(line, sizeof(line), file) != NULL) {
-            if (strcasestr(line, url) != NULL && line[8] == 's') {
-                return 1;
-            }
+    if (file == NULL) {
+        return 0;
+    }
+
+    char *url = strdup(sourceURL);
+    if (url == NULL) {
+        fclose(file);
+        return 0;
+    }
+    strtok(url, "_");
+
+    int secure = 0;
+    char line[256];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        if (strcasestr(line, url) == NULL) {
+            continue;
+        }
+
+        const char *scheme = strstr(line, "://");
+        if (scheme == NULL) {
+            continue;
+        }
+        while (scheme > line && !isspace((unsigned char)scheme[-1])) {
+            --scheme;
+        }
+
+        if (strncasecmp(scheme, "https://", 8) == 0) {
+            secure = 1;
+            break;
         }
     }
-    return 0;
+
+    free(url);
+    fclose(file);
+    return secure;
 }
 
 char *sourcesSchema(void) {
@@ -123,24 +146,33 @@ int needsMigration(sqlite3 *database, int table) {
     
     if (sqlite3_prepare_v2(database, query, -1, &statement, 0) == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            schema = (char *)sqlite3_column_text(statement, 0);
+            const char *columnText = (const char *)sqlite3_column_text(statement, 0);
+            if (columnText != NULL) {
+                schema = strdup(columnText);
+            }
             break;
-        }
-        
-        if (schema != NULL) {
-            // Remove CREATE TABLE
-            multi_tok_t s = init();
-            multi_tok(schema, &s, "CREATE TABLE ");
-            schema = multi_tok(NULL, &s, "CREATE TABLE ");
-            
-            int result = strcmp(schema, schemaForTable(table));
-            sqlite3_finalize(statement);
-            return result;
         }
     } else {
         printf("[Zebra] Error creating migration check statement: %s\n", sqlite3_errmsg(database));
     }
-    return 0;
+    sqlite3_finalize(statement);
+
+    if (schema == NULL) {
+        return 0;
+    }
+
+    // Remove CREATE TABLE
+    multi_tok_t s = init();
+    multi_tok(schema, &s, "CREATE TABLE ");
+    char *strippedSchema = multi_tok(NULL, &s, "CREATE TABLE ");
+
+    int result = 0;
+    if (strippedSchema != NULL) {
+        result = strcmp(strippedSchema, schemaForTable(table));
+    }
+
+    free(schema);
+    return result;
 }
 
 void createTable(sqlite3 *database, int table) {
@@ -286,12 +318,14 @@ void createDummySource(struct ZBBaseSource source, sqlite3 *database, int source
 }
 
 sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageIdentifier, const char *version, int sourceID) {
-    char query[250];
-    snprintf(query, sizeof(query), "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, sourceID);
-    
+    const char *query = "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = ? AND VERSION = ? AND REPOID = ? LIMIT 1;";
+
     sqlite3_int64 timestamp = -1;
     sqlite3_stmt *statement = NULL;
     if (sqlite3_prepare_v2(database, query, -1, &statement, NULL) == SQLITE_OK) {
+        sqlite3_bind_text(statement, 1, packageIdentifier, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, 2, version, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(statement, 3, sourceID);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             timestamp = sqlite3_column_int64(statement, 0);
             break;
@@ -315,16 +349,16 @@ pair *splitNameAndEmail(const char *author) {
         
         char *l = strchr(author, '<');
         char *r = strchr(author, '>');
-        
-        if (l && r) {
+
+        if (l && r && r > l) {
             p->value = malloc(length + 1);
-            
-            int nameSize = (int)(l - author);
-            int emailSize = (int)(r - author) - nameSize - 1;
-            
+
+            size_t nameSize = (size_t)(l - author);
+            size_t emailSize = (size_t)(r - l) - 1;
+
             strncpy(p->key, author, nameSize);
             p->key[nameSize] = 0;
-            
+
             strncpy(p->value, l + 1, emailSize);
             p->value[emailSize] = 0;
         }
@@ -337,15 +371,51 @@ pair *splitNameAndEmail(const char *author) {
     return p;
 }
 
+bool isValidPackageIdentifier(const char *identifier) {
+    // According to Debian policy, a package identifier should match, effectively, /^[a-z0-9][a-z0-9+._-]+$/.
+    if (identifier == NULL || identifier[0] == '\0') {
+        return false;
+    }
+    if (!isalnum((unsigned char)identifier[0])) {
+        return false;
+    }
+
+    for (int i = 0; identifier[i]; ++i) {
+        char c = identifier[i];
+        if (!isalnum((unsigned char)c) && c != '+' && c != '-' && c != '.' && c != '_') {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescription, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
-    for (int i = 0; packageIdentifier[i]; ++i) {
-        packageIdentifier[i] = tolower(packageIdentifier[i]);
+    if (packageIdentifier == NULL) {
+        dict_free(*package_);
+        *package_ = dict_new();
+        longDescription[0] = '\0';
+        depends[0] = '\0';
+        return true;
     }
+    for (int i = 0; packageIdentifier[i]; ++i) {
+        packageIdentifier[i] = tolower((unsigned char)packageIdentifier[i]);
+    }
+
+    if (!isValidPackageIdentifier(packageIdentifier)) {
+        printf("[Parsel] Rejecting package with invalid identifier: %s\n", packageIdentifier);
+        dict_free(*package_);
+        *package_ = dict_new();
+        longDescription[0] = '\0';
+        depends[0] = '\0';
+        return true;
+    }
+
     const char *tags = dict_get(package, "Tag");
     const char *status = dict_get(package, "Status");
-    if (!import || (strcasestr(status, "config-files") == NULL && strcasestr(status, "not-installed") == NULL && strcasestr(status, "deinstall") == NULL)) {
+    if (!import || status == NULL || (strcasestr(status, "config-files") == NULL && strcasestr(status, "not-installed") == NULL && strcasestr(status, "deinstall") == NULL)) {
         if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
             sourceID = -1;
         } else if (sourceID == -1) {
@@ -357,7 +427,17 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
         }
         
         sqlite3_stmt *insertStatement;
-        
+
+        size_t longDescriptionLength = strlen(longDescription);
+        if (longDescriptionLength != 0 && longDescription[longDescriptionLength - 1] == '\n') {
+            longDescription[longDescriptionLength - 1] = '\0';
+        }
+
+        size_t dependsLength = strlen(depends);
+        if (dependsLength != 0 && depends[dependsLength - 1] == '\n') {
+            depends[dependsLength - 1] = '\0';
+        }
+
         if (sqlite3_prepare_v2(database, packageInsertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPackage, packageIdentifier, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnName, dict_get(package, "Name"), -1, SQLITE_TRANSIENT);
@@ -436,10 +516,6 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSHA256, sha256, -1, SQLITE_TRANSIENT);
             }
             
-            if (longDescription[0] != '\0')
-                longDescription[strlen(longDescription) - 1] = '\0';
-            if (depends[0] != '\0')
-                depends[strlen(depends) - 1] = '\0';
             sqlite3_step(insertStatement);
         } else {
             printf("[Parsel] Error preparing package binding statement: %s", sqlite3_errmsg(database));
