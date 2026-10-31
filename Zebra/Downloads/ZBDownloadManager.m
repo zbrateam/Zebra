@@ -167,11 +167,10 @@
         
         if (url && url.host && url.scheme) {
             NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithURL:url];
-            [downloadTask resume];
-            
             @synchronized (self) {
                 [packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
             }
+            [downloadTask resume];
             [downloadDelegate startedPackageDownload:package];
         } else if (package.requiresAuthorization) {
             [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Authorizing Download for %@", @""), package.name] atLevel:ZBLogLevelDescript];
@@ -184,11 +183,10 @@
                                                            completion:^(NSURL * _Nullable url, NSError * _Nullable error) {
                 if (url && !error) {
                     NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:url];
-                    [downloadTask resume];
-                    
                     @synchronized (self) {
                         [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
                     }
+                    [downloadTask resume];
                     [self->downloadDelegate startedPackageDownload:package];
                 }
                 else {
@@ -204,11 +202,10 @@
             base = [NSURL URLWithString:baseString];
             
             NSURLSessionTask *downloadTask = [session downloadTaskWithURL:base];
-            [downloadTask resume];
-            
             @synchronized (self) {
                 [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
             }
+            [downloadTask resume];
             [downloadDelegate startedPackageDownload:package];
         }
     }
@@ -788,7 +785,7 @@
 
             NSString *finalPath = [path stringByDeletingPathExtension];
             NSError *writeError = nil;
-            if (![output writeToFile:finalPath options:0 error:&writeError]) {
+            if (![output writeToFile:finalPath options:kNilOptions error:&writeError]) {
                 if (error) {
                     *error = writeError;
                 }
@@ -843,7 +840,15 @@
                     }
 
                     BZ2_bzDecompressEnd(&stream);
+                    return nil;
+                }
 
+                if (status == BZ_OK && stream.avail_in == 0 && stream.avail_out > 0) {
+                    if (error) {
+                        *error = [self errorForBZ2Code:BZ_UNEXPECTED_EOF file:[path lastPathComponent]];
+                    }
+
+                    BZ2_bzDecompressEnd(&stream);
                     return nil;
                 }
 
@@ -855,8 +860,15 @@
             BZ2_bzDecompressEnd(&stream);
             
             NSString *finalPath = [path stringByDeletingPathExtension];
-            [decompressedData writeToFile:finalPath atomically:NO];
-            
+            NSError *writeError = nil;
+            if (![decompressedData writeToFile:finalPath options:kNilOptions error:&writeError]) {
+                if (error) {
+                    *error = writeError;
+                }
+
+                return nil;
+            }
+
             NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError && error) {
@@ -878,6 +890,14 @@
             }
 
             NSData *compressedData = [NSData dataWithContentsOfFile:path];
+            if (compressedData.length == 0) {
+                if (error) {
+                    *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
+                }
+                compression_stream_destroy(&stream);
+                return nil;
+            }
+
             stream.src_ptr = compressedData.bytes;
             stream.src_size = compressedData.length;
 
@@ -889,8 +909,11 @@
             NSMutableData *decompressedData = [NSMutableData new];
 
             do {
-                status = compression_stream_process(&stream, 0);
-                
+                status = compression_stream_process(&stream, COMPRESSION_STREAM_FINALIZE);
+                if (status == COMPRESSION_STATUS_OK && stream.src_size == 0 && stream.dst_size > 0) {
+                    status = COMPRESSION_STATUS_ERROR;
+                }
+
                 switch (status) {
                     case COMPRESSION_STATUS_OK:
                         if (stream.dst_size == 0) {
@@ -920,9 +943,17 @@
             } while (status == COMPRESSION_STATUS_OK);
 
             compression_stream_destroy(&stream);
-            [decompressedData writeToFile:[path stringByDeletingPathExtension] atomically:YES];
             free(destinationBuffer);
-            
+
+            NSError *writeError = nil;
+            if (![decompressedData writeToFile:[path stringByDeletingPathExtension] options:NSDataWritingAtomic error:&writeError]) {
+                if (error) {
+                    *error = writeError;
+                }
+
+                return nil;
+            }
+
             NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError && error) {
