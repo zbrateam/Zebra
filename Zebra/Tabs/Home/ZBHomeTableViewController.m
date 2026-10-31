@@ -294,12 +294,17 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
         [self.selectedFeatured removeAllObjects];
         self.cellNumber = [self cellCount];
         
-        for (int i = 1; i <= self.cellNumber; ++i) {
-            NSDictionary *dict = [self->allFeatured objectAtIndex:(arc4random() % allFeatured.count)];
-            if (![selectedFeatured containsObject:dict]) {
+        NSMutableArray *shuffled = [self->allFeatured mutableCopy];
+        for (NSUInteger i = shuffled.count; i > 1; --i) {
+            [shuffled exchangeObjectAtIndex:i - 1 withObjectAtIndex:arc4random_uniform((uint32_t)i)];
+        }
+
+        for (NSDictionary *dict in shuffled) {
+            if (self->selectedFeatured.count >= (NSUInteger)self.cellNumber) {
+                break;
+            }
+            if (![self->selectedFeatured containsObject:dict]) {
                 [self->selectedFeatured addObject:dict];
-            } else {
-                --i;
             }
         }
         
