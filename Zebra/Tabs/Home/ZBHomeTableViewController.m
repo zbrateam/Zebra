@@ -203,10 +203,19 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
                 }
                 source.supportsFeaturedPackages = YES;
 
-                if ([json objectForKey:@"banners"]) {
-                    NSArray *banners = [json objectForKey:@"banners"];
-                    if (banners.count) {
-                        [featuredItems setObject:banners forKey:[source baseFilename]];
+                NSArray *banners = [json isKindOfClass:[NSDictionary class]] ? [json objectForKey:@"banners"] : nil;
+                if ([banners isKindOfClass:[NSArray class]] && banners.count) {
+                    NSMutableArray *validBanners = [NSMutableArray new];
+                    for (id banner in banners) {
+                        if ([banner isKindOfClass:[NSDictionary class]]) {
+                            [validBanners addObject:banner];
+                        }
+                    }
+
+                    if (validBanners.count) {
+                        @synchronized (featuredItems) {
+                            [featuredItems setObject:validBanners forKey:[source baseFilename]];
+                        }
                     }
                 }
                 dispatch_group_leave(group);
@@ -223,8 +232,17 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
     [allFeatured removeAllObjects];
     
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]];
-    for (NSArray *arr in [dict allValues]) {
-        [allFeatured addObjectsFromArray:arr];
+    if ([dict isKindOfClass:[NSDictionary class]]) {
+        for (id array in [dict allValues]) {
+            if (![array isKindOfClass:[NSArray class]]) {
+                continue;
+            }
+            for (id banner in array) {
+                if ([banner isKindOfClass:[NSDictionary class]]) {
+                    [allFeatured addObject:banner];
+                }
+            }
+        }
     }
     if (![allFeatured count]) {
         [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:nil];
@@ -654,15 +672,21 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
 
 - (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-    if (indexPath.row < selectedFeatured.count) {
+    if ((NSUInteger)indexPath.row < selectedFeatured.count) {
         NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
         NSString *section = currentBanner[@"section"];
-        if (section == NULL) section = @"banner";
+        if (![section isKindOfClass:[NSString class]]) {
+            section = @"banner";
+        }
+
+        NSString *urlString = currentBanner[@"url"];
+        NSString *packageID = currentBanner[@"package"];
+        NSString *title = currentBanner[@"title"];
 
         cell.imageView.sd_imageIndicator = nil;
-        [cell.imageView setRetinaImageWithURL:[NSURL URLWithString:currentBanner[@"url"]] placeholderImage:[UIImage imageNamed:section]];
-        cell.packageID = currentBanner[@"package"];
-        cell.titleLabel.text = currentBanner[@"title"];
+        [cell.imageView setRetinaImageWithURL:[urlString isKindOfClass:[NSString class]] ? [NSURL URLWithString:urlString] : nil placeholderImage:[UIImage imageNamed:section]];
+        cell.packageID = [packageID isKindOfClass:[NSString class]] ? packageID : nil;
+        cell.titleLabel.text = [title isKindOfClass:[NSString class]] ? title : nil;
     }
     return cell;
 }

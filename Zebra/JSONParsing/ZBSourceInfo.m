@@ -3,19 +3,16 @@
 #import "ZBSourceInfo.h"
 #import "NSObject+Zebra.h"
 
-// Shorthand for simple blocks
-#define λ(decl, expr) (^(decl) { return (expr); })
-
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface ZBSourceInfo (JSONConversion)
+@interface ZBSourceInfo (JSONConversion) <ZBJSONDecodable>
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
 
-@interface ZBAuthenticationBanner (JSONConversion)
+@interface ZBAuthenticationBanner (JSONConversion) <ZBJSONDecodable>
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
@@ -57,14 +54,14 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 }
 
 @implementation ZBSourceInfo
-+ (NSDictionary<NSString *, NSString *> *)properties
++ (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
-    static NSDictionary<NSString *, NSString *> *properties;
+    static NSDictionary<NSString *, ZBJSONProperty *> *properties;
     return properties = properties ? properties : @{
-        @"name": @"name",
-        @"icon": @"icon",
-        @"description": @"theDescription",
-        @"authentication_banner": @"authenticationBanner",
+        @"name": ZBJSONString(@"name"),
+        @"icon": ZBJSONString(@"icon"),
+        @"description": ZBJSONString(@"theDescription"),
+        @"authentication_banner": ZBJSONObject(@"authenticationBanner", [ZBAuthenticationBanner class]),
     };
 }
 
@@ -87,18 +84,17 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 {
     if (self = [super init]) {
         [self zbra_setValues:dict forProperties:self.class.properties];
-        _authenticationBanner = [ZBAuthenticationBanner fromJSONDictionary:(id)_authenticationBanner];
     }
     return self;
 }
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:ZBSourceInfo.properties.allValues] mutableCopy];
+    id dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBSourceInfo.properties)] mutableCopy];
 
     // Rewrite property names that differ in JSON
     for (id jsonName in ZBSourceInfo.properties) {
-        id propertyName = ZBSourceInfo.properties[jsonName];
+        NSString *propertyName = ZBSourceInfo.properties[jsonName].propertyName;
         if (![jsonName isEqualToString:propertyName]) {
             dict[jsonName] = dict[propertyName];
             [dict removeObjectForKey:propertyName];
@@ -125,12 +121,12 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 @end
 
 @implementation ZBAuthenticationBanner
-+ (NSDictionary<NSString *, NSString *> *)properties
++ (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
-    static NSDictionary<NSString *, NSString *> *properties;
+    static NSDictionary<NSString *, ZBJSONProperty *> *properties;
     return properties = properties ? properties : @{
-        @"message": @"message",
-        @"button": @"button",
+        @"message": ZBJSONString(@"message"),
+        @"button": ZBJSONString(@"button"),
     };
 }
 
@@ -149,7 +145,7 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 
 - (NSDictionary *)JSONDictionary
 {
-    return [self dictionaryWithValuesForKeys:ZBAuthenticationBanner.properties.allValues];
+    return [self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBAuthenticationBanner.properties)];
 }
 @end
 

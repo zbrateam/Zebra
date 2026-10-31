@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZBJSONProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Zebra)
 
-- (void)zbra_setValues:(NSDictionary <NSString *, id> *)values forProperties:(NSDictionary <NSString *, NSString *> *)properties;
+- (void)zbra_setValues:(NSDictionary <NSString *, id> *)values forProperties:(NSDictionary <NSString *, ZBJSONProperty *> *)properties;
 
 @end
 

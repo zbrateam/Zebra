@@ -1,35 +1,21 @@
 #import "ZBRedditPosts.h"
 #import "NSObject+Zebra.h"
 
-// Shorthand for simple blocks
-#define λ(decl, expr) (^(decl) { return (expr); })
-
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface ZBRedditPost (JSONConversion)
+@interface ZBRedditPost (JSONConversion) <ZBJSONDecodable>
++ (nullable instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (nullable instancetype)initWithJSONDictionary:(nullable NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
 
-static id map(id collection, id (^f)(id value)) {
-    id result = nil;
-    if ([collection isKindOfClass:NSArray.class]) {
-        result = [NSMutableArray arrayWithCapacity:[(NSArray *)collection count]];
-        for (id x in collection) [result addObject:f(x)];
-    } else if ([collection isKindOfClass:NSDictionary.class]) {
-        result = [NSMutableDictionary dictionaryWithCapacity:[(NSArray *)collection count]];
-        for (id key in collection) [result setObject:f([collection objectForKey:key]) forKey:key];
-    }
-    return result;
-}
-
 @implementation ZBRedditPosts
-+ (NSDictionary<NSString *, NSString *> *)properties
++ (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
     return @{
-        @"data": @"data"
+        @"data": ZBJSONArrayOf(@"data", [ZBRedditPost class])
     };
 }
 
@@ -44,21 +30,25 @@ static id map(id collection, id (^f)(id value)) {
     self = [super init];
     if (self) {
         [self zbra_setValues:dict forProperties:self.class.properties];
-        _data = map(_data, λ(id x, [[ZBRedditPost alloc] initWithJSONDictionary:x]));
     }
     return self;
 }
 @end
 
 @implementation ZBRedditPost
-+ (NSDictionary<NSString *, NSString *> *)properties
++ (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
     return @{
-        @"title": @"title",
-        @"url": @"url",
-        @"thumbnail": @"thumbnail",
-        @"tags": @"tags"
+        @"title": ZBJSONString(@"title"),
+        @"url": ZBJSONString(@"url"),
+        @"thumbnail": ZBJSONString(@"thumbnail"),
+        @"tags": ZBJSONString(@"tags")
     };
+}
+
++ (nullable instancetype)fromJSONDictionary:(NSDictionary *)dict
+{
+    return [[self alloc] initWithJSONDictionary:dict];
 }
 
 - (nullable instancetype)initWithJSONDictionary:(nullable NSDictionary *)dict

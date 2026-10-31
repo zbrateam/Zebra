@@ -274,26 +274,33 @@
         NSMutableArray *sources = [NSMutableArray new];
         if (data && !error) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            if (json[@"repos"]) {
-                NSArray *jsonSources = json[@"repos"];
+            NSArray *jsonSources = [json isKindOfClass:[NSDictionary class]] ? json[@"repos"] : nil;
+            if ([jsonSources isKindOfClass:[NSArray class]]) {
                 for (NSDictionary *source in jsonSources) {
+                    if (![source isKindOfClass:[NSDictionary class]]) {
+                        continue;
+                    }
                     NSString *version = source[@"appVersion"];
+                    if (![version isKindOfClass:[NSString class]]) {
+                        continue;
+                    }
                     if ([ZBDependencyResolver doesVersion:@PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version]) {
                         [sources addObject:source];
                     }
                 }
-            }
-
-            if (sources.count) {
-                self->communitySourceCache = sources;
             }
         }
         else {
             ZBLog(@"[Zebra] Error while trying to access community sources: %@", error);
         }
 
-        [self populateSources];
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (sources.count) {
+                self->communitySourceCache = sources;
+            }
+
+            [self populateSources];
+
             self.navigationItem.titleView = nil;
             self.navigationItem.title = NSLocalizedString(@"Community Sources", @"");
         });

@@ -57,6 +57,7 @@
 		4E9FC84C278EA57100934FFE /* ZBChangelogEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FC84B278EA57100934FFE /* ZBChangelogEntryCell.m */; };
 		4EA26E9727CBA3190019A5AA /* ZBHomeCopyableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA26E9627CBA3190019A5AA /* ZBHomeCopyableFooterView.m */; };
 		4EBC4ABD2FD7EB10002178AF /* ZBSceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBC4ABC2FD7EB10002178AF /* ZBSceneDelegate.m */; };
+		4EC7D8D43095A61A0044F9A5 /* ZBJSONProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7D8D33095A61A0044F9A5 /* ZBJSONProperty.m */; };
 		4EC7F26927AE34E00078F953 /* ZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC7F26827AE34E00078F953 /* ZBCommand.m */; };
 		4ECB1DF52948C9FD0049FE08 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ECB1DF32948C9FD0049FE08 /* InfoPlist.strings */; };
 		4ED6E26D30270C4F00380C4E /* FLEX in Frameworks */ = {isa = PBXBuildFile; productRef = 4E9022722F74CC6200827C72 /* FLEX */; };
@@ -231,6 +232,8 @@
 		4EA26E9627CBA3190019A5AA /* ZBHomeCopyableFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBHomeCopyableFooterView.m; sourceTree = "<group>"; };
 		4EBC4ABB2FD7EB0E002178AF /* ZBSceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSceneDelegate.h; sourceTree = "<group>"; };
 		4EBC4ABC2FD7EB10002178AF /* ZBSceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSceneDelegate.m; sourceTree = "<group>"; };
+		4EC7D8D23095A61A0044F9A5 /* ZBJSONProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBJSONProperty.h; sourceTree = "<group>"; };
+		4EC7D8D33095A61A0044F9A5 /* ZBJSONProperty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBJSONProperty.m; sourceTree = "<group>"; };
 		4EC7F26727AE34E00078F953 /* ZBCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommand.h; sourceTree = "<group>"; };
 		4EC7F26827AE34E00078F953 /* ZBCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCommand.m; sourceTree = "<group>"; };
 		4EC7F26F27AE35030078F953 /* ZBCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommandDelegate.h; sourceTree = "<group>"; };
@@ -501,6 +504,8 @@
 		36A1D8F8230A15FC002694BE /* JSONParsing */ = {
 			isa = PBXGroup;
 			children = (
+				4EC7D8D23095A61A0044F9A5 /* ZBJSONProperty.h */,
+				4EC7D8D33095A61A0044F9A5 /* ZBJSONProperty.m */,
 				36A1D8F9230A1616002694BE /* ZBUserInfo.h */,
 				36A1D8FA230A1616002694BE /* ZBUserInfo.m */,
 				36A1D900230A485B002694BE /* ZBRedditPosts.h */,
@@ -1294,6 +1299,7 @@
 				89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
 				89308E2723FF4BBB00D4641D /* ZBSettingsResetTableViewController.m in Sources */,
+				4EC7D8D43095A61A0044F9A5 /* ZBJSONProperty.m in Sources */,
 				4E2E6BFD2820FBCF0089E4FB /* ZBPaymentVendorError.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,

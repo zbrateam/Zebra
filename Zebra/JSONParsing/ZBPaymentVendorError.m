@@ -9,14 +9,11 @@
 #import "ZBPaymentVendorError.h"
 #import "NSObject+Zebra.h"
 
-// Shorthand for simple blocks
-#define λ(decl, expr) (^(decl) { return (expr); })
-
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface ZBPaymentVendorError (JSONConversion)
+@interface ZBPaymentVendorError (JSONConversion) <ZBJSONDecodable>
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
@@ -58,13 +55,13 @@ NSString *_Nullable ZBPaymentVendorErrorToJSON(ZBPaymentVendorError *sourceInfo,
 }
 
 @implementation ZBPaymentVendorError
-+ (NSDictionary<NSString *, NSString *> *)properties
++ (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
-    static NSDictionary<NSString *, NSString *> *properties;
+    static NSDictionary<NSString *, ZBJSONProperty *> *properties;
     return properties = properties ? properties : @{
-        @"error": @"error",
-        @"recoveryURL": @"recoveryURL",
-        @"invalidate": @"invalidate"
+        @"error": ZBJSONString(@"error"),
+        @"recoveryURL": ZBJSONString(@"recoveryURL"),
+        @"invalidate": ZBJSONNumber(@"invalidate")
     };
 }
 
@@ -93,7 +90,7 @@ NSString *_Nullable ZBPaymentVendorErrorToJSON(ZBPaymentVendorError *sourceInfo,
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:self.class.properties.allValues] mutableCopy];
+    id dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(self.class.properties)] mutableCopy];
 
     // Rewrite property names that differ in JSON
     for (id jsonName in self.class.properties) {

@@ -1,9 +1,6 @@
 #import "ZBUserInfo.h"
 #import "NSObject+Zebra.h"
 
-// Shorthand for simple blocks
-#define λ(decl, expr) (^(decl) { return (expr); })
-
 // nil → NSNull conversion for JSON dictionaries
 static id NSNullify(id _Nullable x) {
     return (x == nil || x == NSNull.null) ? NSNull.null : x;
@@ -13,12 +10,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface ZBUserInfo (JSONConversion)
+@interface ZBUserInfo (JSONConversion) <ZBJSONDecodable>
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
 
-@interface ZBUser (JSONConversion)
+@interface ZBUser (JSONConversion) <ZBJSONDecodable>
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
@@ -60,14 +57,13 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 }
 
 @implementation ZBUserInfo
-+ (NSDictionary<NSString *, NSString *> *)properties
++ (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
-    static NSDictionary<NSString *, NSString *> *properties;
+    static NSDictionary<NSString *, ZBJSONProperty *> *properties;
     return properties = properties ? properties : @{
-        @"items": @"items",
-        @"user": @"user",
-        @"error": @"error",
-        @"success": @"success"
+        @"items": ZBJSONArray(@"items"),
+        @"user": ZBJSONObject(@"user", [ZBUser class]),
+        @"error": ZBJSONString(@"error"),
     };
 }
 
@@ -89,23 +85,14 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        for (NSString* key in dict) {
-            @try {
-                [self setValue:dict[key] forKey:key];
-            } @catch (NSException *exception) {
-                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
-                    @throw exception;
-                }
-            }
-        }
-        _user = [ZBUser fromJSONDictionary:(id)_user];
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
 }
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:ZBUserInfo.properties.allValues] mutableCopy];
+    id dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBUserInfo.properties)] mutableCopy];
 
     // Map values that need translation
     [dict addEntriesFromDictionary:@{
@@ -127,12 +114,12 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 @end
 
 @implementation ZBUser
-+ (NSDictionary<NSString *, NSString *> *)properties
++ (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
-    static NSDictionary<NSString *, NSString *> *properties;
+    static NSDictionary<NSString *, ZBJSONProperty *> *properties;
     return properties = properties ? properties : @{
-        @"name": @"name",
-        @"email": @"email"
+        @"name": ZBJSONString(@"name"),
+        @"email": ZBJSONString(@"email")
     };
 }
 
@@ -151,7 +138,7 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 
 - (NSDictionary *)JSONDictionary
 {
-    return [self dictionaryWithValuesForKeys:ZBUser.properties.allValues];
+    return [self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBUser.properties)];
 }
 @end
 

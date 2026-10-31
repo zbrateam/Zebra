@@ -5,7 +5,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface ZBPurchaseInfo (JSONConversion)
+@interface ZBPurchaseInfo (JSONConversion) <ZBJSONDecodable>
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
@@ -46,14 +46,14 @@ NSString *_Nullable ZBPurchaseInfoToJSON(ZBPurchaseInfo *purchaseInfo, NSStringE
 
 @implementation ZBPurchaseInfo
 
-+ (NSDictionary<NSString *, NSString *> *)properties {
-    static NSDictionary<NSString *, NSString *> *properties;
++ (NSDictionary<NSString *, ZBJSONProperty *> *)properties {
+    static NSDictionary<NSString *, ZBJSONProperty *> *properties;
     return properties = properties ? properties : @{
-        @"price": @"price",
-        @"purchased": @"purchased",
-        @"available": @"available",
-        @"error": @"error",
-        @"recovery_url": @"recoveryURL",
+        @"price": ZBJSONString(@"price"),
+        @"purchased": ZBJSONNumber(@"purchased"),
+        @"available": ZBJSONNumber(@"available"),
+        @"error": ZBJSONString(@"error"),
+        @"recovery_url": ZBJSONString(@"recoveryURL"),
     };
 }
 
@@ -80,11 +80,11 @@ NSString *_Nullable ZBPurchaseInfoToJSON(ZBPurchaseInfo *purchaseInfo, NSStringE
 }
 
 - (NSDictionary *)JSONDictionary {
-    id dict = [[self dictionaryWithValuesForKeys:ZBPurchaseInfo.properties.allValues] mutableCopy];
+    id dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBPurchaseInfo.properties)] mutableCopy];
 
     // Rewrite property names that differ in JSON
     for (id jsonName in ZBPurchaseInfo.properties) {
-        id propertyName = ZBPurchaseInfo.properties[jsonName];
+        NSString *propertyName = ZBPurchaseInfo.properties[jsonName].propertyName;
         if (![jsonName isEqualToString:propertyName]) {
             dict[jsonName] = dict[propertyName];
             [dict removeObjectForKey:propertyName];

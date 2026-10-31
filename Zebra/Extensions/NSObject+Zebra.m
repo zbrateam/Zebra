@@ -10,16 +10,20 @@
 
 @implementation NSObject (Zebra)
 
-- (void)zbra_setValues:(NSDictionary <NSString *, id> *)values forProperties:(NSDictionary <NSString *, NSString *> *)properties {
-    if (values == nil || [values isEqual:[NSNull null]]) {
+- (void)zbra_setValues:(NSDictionary <NSString *, id> *)values forProperties:(NSDictionary <NSString *, ZBJSONProperty *> *)properties {
+    if (![values isKindOfClass:[NSDictionary class]]) {
         return;
     }
+
     for (NSString *key in properties.allKeys) {
-        if (values[key] != nil && ![values[key] isEqual:[NSNull null]]) {
-            [self setValue:values[key] forKey:properties[key]];
+        ZBJSONProperty *property = properties[key];
+        id value = [property valueFromJSONValue:values[key]];
+        if (value == nil) {
+            continue;
         }
+
+        [self setValue:value forKey:property.propertyName];
     }
 }
 
 @end
-

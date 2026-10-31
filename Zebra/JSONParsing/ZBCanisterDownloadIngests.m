@@ -53,27 +53,31 @@
         }
         NSError *serializationError;
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&serializationError];
-        if (serializationError || !dict) {
+        if (serializationError || ![dict isKindOfClass:[NSDictionary class]]) {
             completion(nil);
             return;
         }
         NSDictionary *dataDict = dict[@"data"];
-        if (!dataDict) {
+        if (![dataDict isKindOfClass:[NSDictionary class]]) {
             completion(nil);
             return;
         }
         NSDictionary *info = dataDict[@"reference"];
-        if (!info) {
+        if (![info isKindOfClass:[NSDictionary class]]) {
             completion(nil);
             return;
         }
         NSString *privacyPolicy = info[@"privacy_policy"];
-        if (!privacyPolicy) {
+        if (![privacyPolicy isKindOfClass:[NSString class]]) {
             completion(nil);
             return;
         }
         NSURL *privacyPolicyURL = [[NSURL alloc] initWithString:privacyPolicy];
         NSString *changedDate = info[@"privacy_updated"];
+        if (![changedDate isKindOfClass:[NSString class]]) {
+            completion(nil);
+            return;
+        }
         NSString *pastDate = [ZBSettings canisterUpdateDate];
 
         BOOL needsUpdate = [ZBSettings sendCanisterIngest] == ZBSendCanisterIngestUnspecified || ![changedDate isEqualToString:pastDate];
@@ -105,8 +109,7 @@
     request.HTTPMethod = @"POST";
     request.HTTPBody = data;
     [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [[[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-    }] resume];
+    [[[NSURLSession zbra_standardSession] dataTaskWithRequest:request] resume];
 }
 
 @end

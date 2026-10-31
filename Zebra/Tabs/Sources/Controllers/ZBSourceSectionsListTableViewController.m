@@ -224,19 +224,36 @@
                 return;
             }
             self->source.supportsFeaturedPackages = YES;
-            NSArray *banners = json[@"banners"];
-            if (!banners) {
+
+            NSArray *banners = [json isKindOfClass:[NSDictionary class]] ? json[@"banners"] : nil;
+            if (![banners isKindOfClass:[NSArray class]]) {
                 self->source.supportsFeaturedPackages = NO;
                 return;
             }
 
-            self->bannerSize = CGSizeFromString(json[@"itemSize"]);
-            self.featuredPackages = banners;
+            NSMutableArray *validBanners = [NSMutableArray new];
+            for (id banner in banners) {
+                if ([banner isKindOfClass:[NSDictionary class]]) {
+                    [validBanners addObject:banner];
+                }
+            }
+            if (!validBanners.count) {
+                self->source.supportsFeaturedPackages = NO;
+                return;
+            }
 
-            [featuredItems setObject:banners forKey:[self->source baseFilename]];
+            NSString *itemSize = json[@"itemSize"];
+            CGSize parsedSize = [itemSize isKindOfClass:[NSString class]] ? CGSizeFromString(itemSize) : CGSizeZero;
+
+            if (![featuredItems isKindOfClass:[NSMutableDictionary class]]) {
+                featuredItems = [NSMutableDictionary new];
+            }
+            [featuredItems setObject:validBanners forKey:[self->source baseFilename]];
             [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
 
             dispatch_async(dispatch_get_main_queue(), ^{
+                self->bannerSize = parsedSize;
+                self.featuredPackages = validBanners;
                 [self setupFeaturedPackages];
             });
         }] resume];
@@ -311,19 +328,28 @@
     return cell;
 }
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.editing && indexPath.row == 0) return nil;
+    if (self.editing && indexPath.row == 0) {
+        return nil;
+    }
+
     return indexPath;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) return;
-    
+    if (indexPath.row == 0) {
+        return;
+    }
+
     NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections removeObject:section];
     [ZBSettings setSection:section filtered:NO forSource:self.source];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return;
+    }
+
     NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections addObject:section];
     [ZBSettings setSection:section filtered:YES forSource:self.source];
