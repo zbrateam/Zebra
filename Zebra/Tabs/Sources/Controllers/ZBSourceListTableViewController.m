@@ -670,8 +670,9 @@
             // URL passed in. Try and parse a valid URL out of it, and do our best to display the
             // prompt with it. If we can’t parse out a valid URL, we’ll display the prompt anyway
             // with no URL prefilled.
-            NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
-            [self showAddSourceAlert:[self _fullyQualifiedURLForInput:urlString]];
+            NSArray <NSString *> *urlComponents = [path componentsSeparatedByString:@"/add/"];
+            NSString *urlString = urlComponents.count > 1 ? urlComponents[1] : nil;
+            [self showAddSourceAlert:urlString.length ? [self _fullyQualifiedURLForInput:urlString] : nil];
         }
     }
 }

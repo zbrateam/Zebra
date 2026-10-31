@@ -37,6 +37,7 @@
                     [sections addObject:[collation sortedArrayFromArray:section collationStringSelector:selector]];
                 }
             }
+            [sectionsToRemove removeIndexesInRange:NSMakeRange([sectionIndexTitles count], NSUIntegerMax - [sectionIndexTitles count])];
             [sectionIndexTitles removeObjectsAtIndexes:sectionsToRemove];
             return sections;
         }

@@ -47,7 +47,10 @@
         originalLanguage = selectedLanguage;
         
         if (selectedLanguage) {
-            selectedRow = [NSIndexPath indexPathForRow:[languages indexOfObject:selectedLanguage] inSection:1];
+            NSUInteger languageIndex = [languages indexOfObject:selectedLanguage];
+            if (languageIndex != NSNotFound) {
+                selectedRow = [NSIndexPath indexPathForRow:languageIndex inSection:1];
+            }
         }
     }
     

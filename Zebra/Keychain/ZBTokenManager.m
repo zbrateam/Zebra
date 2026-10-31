@@ -54,21 +54,20 @@ NSErrorDomain const ZBTokenManagerErrorDomain = @"ZBTokenManagerErrorDomain";
 }
 
 + (void)valueForKey:(NSString *)key withPrompt:(NSString *)prompt completion:(ZBTokenManagerValueForKeyCompletion)completion {
-    __block NSString *value;
-    __block NSError *error;
-    if (prompt && ![self canUseBiometricWithError:&error]) {
-        completion(nil, error);
+    NSError *biometricError = nil;
+    if (prompt && ![self canUseBiometricWithError:&biometricError]) {
+        completion(nil, biometricError);
         return;
     }
 
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.token-manager-queue", dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INTERACTIVE, 0));
     dispatch_async(queue, ^{
-        value = [self _valueForKey:key withPrompt:prompt error:&error];
-        dispatch_semaphore_signal(semaphore);
+        NSError *error = nil;
+        NSString *value = [self _valueForKey:key withPrompt:prompt error:&error];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(value, error);
+        });
     });
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    completion(value, error);
 }
 
 + (nullable NSString *)_valueForKey:(NSString *)key withPrompt:(nullable NSString *)prompt error:(NSError * __autoreleasing *)error {

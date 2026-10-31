@@ -153,16 +153,18 @@
 #pragma mark - Opening and Closing the Database
 
 - (int)openDatabase {
-    if (![self isDatabaseOpen] || !database) {
-        assert(sqlite3_threadsafe());
-        int result = sqlite3_open_v2([[ZBAppDelegate databaseLocation] UTF8String], &database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_CREATE, NULL);
-        if (result == SQLITE_OK) {
-            [self increment];
+    @synchronized(self) {
+        if (![self isDatabaseOpen] || !database) {
+            assert(sqlite3_threadsafe());
+            int result = sqlite3_open_v2([[ZBAppDelegate databaseLocation] UTF8String], &database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_CREATE, NULL);
+            if (result == SQLITE_OK) {
+                ++numberOfDatabaseUsers;
+            }
+            return result;
+        } else {
+            ++numberOfDatabaseUsers;
+            return SQLITE_OK;
         }
-        return result;
-    } else {
-        [self increment];
-        return SQLITE_OK;
     }
 }
 
@@ -183,14 +185,14 @@
         if (numberOfDatabaseUsers == 0) {
             return SQLITE_ERROR;
         }
-    }
 
-    if (--numberOfDatabaseUsers == 0 && [self isDatabaseOpen]) {
-        int result = sqlite3_close(database);
-        database = NULL;
-        return result;
+        if (--numberOfDatabaseUsers == 0 && [self isDatabaseOpen]) {
+            int result = sqlite3_close(database);
+            database = NULL;
+            return result;
+        }
+        return SQLITE_OK;
     }
-    return SQLITE_OK;
 }
 
 - (BOOL)isDatabaseBeingUpdated {
@@ -677,8 +679,13 @@
 
 - (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)burl {
     NSRange dividerRange = [burl rangeOfString:@"://"];
-    NSUInteger divide = NSMaxRange(dividerRange);
-    NSString *baseFilename = divide > [burl length] ? burl : [burl substringFromIndex:divide];
+    NSString *baseFilename = burl;
+    if (dividerRange.location != NSNotFound) {
+        NSUInteger divide = NSMaxRange(dividerRange);
+        if (divide <= [burl length]) {
+            baseFilename = [burl substringFromIndex:divide];
+        }
+    }
     baseFilename = [baseFilename stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     return [self sourceFromBaseFilename:baseFilename];
 }

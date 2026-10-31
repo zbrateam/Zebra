@@ -127,11 +127,12 @@
 }
 
 - (void)refreshTable {
-    if (isRefreshingTable)
-        return;
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->isRefreshingTable)
+            return;
+        self->isRefreshingTable = YES;
+
         if ([self->source sourceID] == 0) {
-            self->isRefreshingTable = YES;
             self->packages = [self.databaseManager installedPackages:NO];
             self->updates = [self.databaseManager packagesWithUpdates];
             
@@ -140,8 +141,6 @@
             UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
             [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%lu", (unsigned long)totalUpdates] : nil];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
-            
-            self->isRefreshingTable = NO;
         } else {
             self.batchLoadCount = 500;
             self->packages = [self.databaseManager packagesFromSource:self->source inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
@@ -164,6 +163,8 @@
         
         [self updateCollation];
         [self.tableView reloadData];
+
+        self->isRefreshingTable = NO;
     });
 }
 
