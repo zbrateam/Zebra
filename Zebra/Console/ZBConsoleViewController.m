@@ -258,8 +258,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                                 [applicationBundlePaths addObject:bundlePath];
                             }
 
-                            if (finishOption < ZBConsoleFinishOptionRestartSpringBoard && [ZBPackage respringRequiredFor:packageID]) {
-                                finishOption = ZBConsoleFinishOptionRestartSpringBoard;
+                            if ([self _handleNeedsRespringForPackage:packageID]) {
                                 ZBLog(@"[Zebra] Respring Required");
                             }
                         }
@@ -271,7 +270,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                     }
                     else {
                         [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
-                        for (int i = COMMAND_START; i < [command count]; ++i) {
+                        for (NSUInteger i = COMMAND_START; i < [command count]; ++i) {
                             NSString *packageID = command[i];
                             if (![self isValidPackageID:packageID]) continue;
                             [self writeToConsole:[packageID lastPathComponent] atLevel:ZBLogLevelDescript];
@@ -288,9 +287,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                     [applicationBundlePaths addObject:bundlePath];
                 }
 
-                if (finishOption < ZBConsoleFinishOptionRestartSpringBoard && [ZBPackage respringRequiredFor:packageIdentifier]) {
-                    finishOption = ZBConsoleFinishOptionRestartSpringBoard;
-                }
+                [self _handleNeedsRespringForPackage:packageIdentifier];
             }
 
             if (zebraModification) { //Zebra should be the last thing installed so here is our chance to install it.
@@ -302,9 +299,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                 }
 
                 zebraRestartRequired = YES;
-                if (finishOption < ZBConsoleFinishOptionReopen) {
-                    finishOption = ZBConsoleFinishOptionReopen;
-                }
+                [self _setFinishOption:ZBConsoleFinishOptionReopen];
 
                 ZBLog(@"[Zebra] modifying zebra…");
                 if (queue.removingZebra) {
@@ -377,7 +372,9 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 
 - (void)finishTasks {
     ZBLog(@"[Zebra] Finishing tasks");
-    [downloadMap removeAllObjects];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->downloadMap removeAllObjects];
+    });
     [applicationBundlePaths removeAllObjects];
 
     NSMutableArray *wishlist = [[ZBSettings wishlist] mutableCopy];
@@ -650,7 +647,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 }
 
 - (void)updateCompleteButton {
-    ZBLog(@"[Zebra] Final statuses: downloadFailed(%d), finishOption(%lu), zebraRestartRequired(%d)", downloadFailed, (unsigned long)finishOption, zebraRestartRequired);
+    ZBLog(@"[Zebra] Final statuses: downloadFailed(%d), finishOption(%lu), zebraRestartRequired(%d)", downloadFailed, (unsigned long)[self _finishOption], zebraRestartRequired);
     if ([ZBSettings wantsFinishAutomatically]) { // automatically finish after 3 secs
         dispatch_block_t finishBlock = nil;
 
@@ -662,7 +659,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
             };
         }
         else {
-            switch (self->finishOption) {
+            switch ([self _finishOption]) {
             case ZBConsoleFinishOptionClose:
             case ZBConsoleFinishOptionRefreshIconCache: {
                 // RefreshIconCache is redundant; we’re just treating it the same as Close.
@@ -715,7 +712,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
                 [self->completeButton addTarget:self action:@selector(returnToQueue) forControlEvents:UIControlEventTouchUpInside];
             }
             else {
-                switch (self->finishOption) {
+                switch ([self _finishOption]) {
                 case ZBConsoleFinishOptionClose:
                 case ZBConsoleFinishOptionRefreshIconCache:
                     // RefreshIconCache is redundant since we handle this automatically; we’re just
@@ -761,6 +758,32 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     }
 }
 
+- (void)_setFinishOption:(ZBConsoleFinishOption)option {
+    @synchronized (self) {
+        if (finishOption < option) {
+            finishOption = option;
+        }
+    }
+}
+
+- (ZBConsoleFinishOption)_finishOption {
+    @synchronized (self) {
+        return finishOption;
+    }
+}
+
+- (BOOL)_handleNeedsRespringForPackage:(NSString *)packageID {
+    if ([self _finishOption] >= ZBConsoleFinishOptionRestartSpringBoard) {
+        return NO;
+    }
+    if (![ZBPackage respringRequiredFor:packageID]) {
+        return NO;
+    }
+
+    [self _setFinishOption:ZBConsoleFinishOptionRestartSpringBoard];
+    return YES;
+}
+
 - (void)receivedFinishData:(NSString *)str {
     if ([str hasPrefix:@"finish:"]) {
         NSArray *components = [str componentsSeparatedByString:@":"];
@@ -770,7 +793,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
             NSUInteger index = [options indexOfObject:option];
 
             if (index != NSNotFound) {
-                [self _raiseFinishOptionTo:(ZBConsoleFinishOption)index];
+                [self _setFinishOption:(ZBConsoleFinishOption)index];
             }
         }
     }
@@ -790,14 +813,21 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 }
 
 - (void)progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package {
-    downloadMap[package.identifier] = @(progress);
-    CGFloat totalProgress = 0;
-    for (NSString *packageID in downloadMap) {
-        totalProgress += [downloadMap[packageID] doubleValue];
-    }
-    totalProgress /= downloadMap.count;
-    [self updateProgress:totalProgress];
-    [self updateProgressText:[NSString stringWithFormat: @"%@: %.0f%% ", NSLocalizedString(@"Downloading", @""), totalProgress * 100]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->downloadMap[package.identifier] = @(progress);
+        NSUInteger count = self->downloadMap.count;
+        if (count == 0) {
+            return;
+        }
+
+        CGFloat totalProgress = 0;
+        for (NSNumber *packageProgress in [self->downloadMap allValues]) {
+            totalProgress += [packageProgress doubleValue];
+        }
+        totalProgress /= count;
+        [self updateProgress:totalProgress];
+        [self updateProgressText:[NSString stringWithFormat: @"%@: %.0f%% ", NSLocalizedString(@"Downloading", @""), totalProgress * 100]];
+    });
 }
 
 - (void)finishedPackageDownload:(ZBPackage *)package withError:(NSError *_Nullable)error {
