@@ -193,7 +193,7 @@
                 distribution = lineComponents[2];
                 
                 // Group all of the components into the components array
-                for (int i = 3; i < count; i++) {
+                for (NSUInteger i = 3; i < count; i++) {
                     NSString *component = lineComponents[i];
                     if (component)  {
                         [sourceComponents addObject:component];
@@ -259,8 +259,10 @@
     }
     
     completion(ZBSourceVerifying);
-    
+
+    dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.source-verify", DISPATCH_QUEUE_SERIAL);
     __block int tasks = 5;
+    __block BOOL done = NO;
 
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSession zbra_downloadSession].configuration];
 
@@ -271,21 +273,29 @@
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:testURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
         [request setHTTPMethod:@"HEAD"];
 
-        NSURLSessionDataTask *task = [[NSURLSession zbra_downloadSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSURLSessionDataTask *task = [[NSURLSession zbra_downloadSession] dataTaskWithRequest:request completionHandler:^(__unused NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-            if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
-                NSLog(@"[ZBBaseSource] Valid source found");
-                [session invalidateAndCancel];
+            dispatch_async(queue, ^{
+                if (done) {
+                    return;
+                }
 
-                self->verificationStatus = ZBSourceExists;
-                if (completion) completion(self->verificationStatus);
-            }
-            else if (--tasks == 0) {
-                self->verificationStatus = ZBSourceImaginary;
-                self->_verificationError = error ?: [ZBDownloadManager errorForHTTPStatusCode:httpResponse.statusCode forFile:nil];
-                NSLog(@"[ZBBaseSource] Source is imaginary: %@", self->_verificationError);
-                if (completion) completion(self->verificationStatus);
-            }
+                if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
+                    NSLog(@"[ZBBaseSource] Valid source found");
+                    [session invalidateAndCancel];
+
+                    done = YES;
+                    self->verificationStatus = ZBSourceExists;
+                    if (completion) completion(self->verificationStatus);
+                }
+                else if (--tasks == 0) {
+                    done = YES;
+                    self->verificationStatus = ZBSourceImaginary;
+                    self->_verificationError = error ?: [ZBDownloadManager errorForHTTPStatusCode:httpResponse.statusCode forFile:nil];
+                    NSLog(@"[ZBBaseSource] Source is imaginary: %@", self->_verificationError);
+                    if (completion) completion(self->verificationStatus);
+                }
+            });
         }];
         [task resume];
     }

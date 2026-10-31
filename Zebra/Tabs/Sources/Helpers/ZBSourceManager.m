@@ -205,22 +205,34 @@
     NSUInteger sourcesToVerify = [sources count];
     NSMutableArray *existingSources = [NSMutableArray new];
     NSMutableArray *imaginarySources = [NSMutableArray new];
-    
+
+    dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.source-verify", DISPATCH_QUEUE_SERIAL);
+    __block BOOL done = NO;
+
     for (ZBBaseSource *source in sources) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             [source verify:^(ZBSourceVerificationStatus status) {
-                if ([delegate respondsToSelector:@selector(source:status:)]) [delegate source:source status:status];
-                
-                if (status == ZBSourceExists) {
-                    [existingSources addObject:source];
-                }
-                else if (status == ZBSourceImaginary) {
-                    [imaginarySources addObject:source];
-                }
-                
-                if ([delegate respondsToSelector:@selector(finishedSourceVerification:imaginarySources:)] && sourcesToVerify == [existingSources count] + [imaginarySources count]) {
-                    [delegate finishedSourceVerification:existingSources imaginarySources:imaginarySources];
-                }
+                dispatch_async(queue, ^{
+                    if (done) {
+                        return;
+                    }
+
+                    if ([delegate respondsToSelector:@selector(source:status:)]) [delegate source:source status:status];
+
+                    if (status == ZBSourceExists) {
+                        [existingSources addObject:source];
+                    }
+                    else if (status == ZBSourceImaginary) {
+                        [imaginarySources addObject:source];
+                    }
+
+                    if (sourcesToVerify <= [existingSources count] + [imaginarySources count]) {
+                        done = YES;
+                        if ([delegate respondsToSelector:@selector(finishedSourceVerification:imaginarySources:)]) {
+                            [delegate finishedSourceVerification:existingSources imaginarySources:imaginarySources];
+                        }
+                    }
+                });
             }];
         });
     }
