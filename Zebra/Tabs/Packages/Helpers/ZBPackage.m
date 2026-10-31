@@ -487,15 +487,25 @@
     [scanner scanUpToString:@"\n\n" intoString:&packageInfo];
     if (packageInfo == NULL) return NULL;
     scanner = [[NSScanner alloc] initWithString:packageInfo];
-    do {
+    while (YES) {
         [scanner scanUpToString:[field stringByAppendingString:@": "] intoString:NULL];
-        if ([scanner isAtEnd])
+        if ([scanner isAtEnd] || scanner.scanLocation >= packageInfo.length) {
+            return NULL;
+        }
+
+        scanner.scanLocation += 1;
+        if (scanner.scanLocation < 2 || [packageInfo characterAtIndex:scanner.scanLocation - 2] == '\n') {
             break;
-        ++scanner.scanLocation;
-    } while ([packageInfo characterAtIndex:scanner.scanLocation - 2] != '\n');
+        }
+    }
     [scanner scanUpToString:@"\n" intoString:&value];
-    
-    return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
+
+    NSArray <NSString *> *components = [value componentsSeparatedByString:@": "];
+    if (components.count < 2) {
+        return NULL;
+    }
+
+    return components[1];
 }
 
 - (NSString *)downloadSizeString {
