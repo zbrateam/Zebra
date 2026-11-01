@@ -556,8 +556,11 @@
                 const char *identifierChars = (const char *)sqlite3_column_text(essentialStatement, 0);
                 const char *versionChars = (const char *)sqlite3_column_text(essentialStatement, 1);
 
-                NSString *packageIdentifier = [NSString stringWithUTF8String:identifierChars];
-                NSString *version = [NSString stringWithUTF8String:versionChars];
+                NSString *packageIdentifier = identifierChars ? [NSString stringWithUTF8String:identifierChars] : nil;
+                NSString *version = versionChars ? [NSString stringWithUTF8String:versionChars] : nil;
+                if (!packageIdentifier || !version) {
+                    continue;
+                }
 
                 if (![self packageIDIsInstalled:packageIdentifier version:NULL]) {
                     NSDictionary *essentialPackage = @{@"id": packageIdentifier, @"version": version};
@@ -1820,6 +1823,11 @@
 
         if (package != NULL) {
             NSArray *otherVersions = [self allVersionsForPackage:package];
+            if (otherVersions.count == 0) {
+                [self closeDatabase];
+                return NULL;
+            }
+
             if (version != NULL && comparison != NULL) {
                 if ([otherVersions count] > 1) {
                     for (ZBPackage *package in otherVersions) {
@@ -1835,6 +1843,7 @@
                 [self closeDatabase];
                 return [ZBDependencyResolver doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
             }
+            [self closeDatabase];
             return otherVersions.firstObject;
         }
 
