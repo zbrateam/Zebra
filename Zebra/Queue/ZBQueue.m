@@ -357,7 +357,8 @@
             NSMutableArray *reinstallCommand = [baseCommand mutableCopy];
             [reinstallCommand addObject:@"install"];
             [reinstallCommand addObject:@"--reinstall"];
-            
+            [reinstallCommand addObject:@"--"];
+
             NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeReinstall];
             [reinstallCommand addObjectsFromArray:paths];
             [commands addObject:reinstallCommand];
@@ -368,6 +369,7 @@
             
             [removeCommand insertObject:@"-r" atIndex:1];
             [removeCommand insertObject:@"--force-depends" atIndex:2];
+            [removeCommand addObject:@"--"];
             for (ZBPackage *package in [self reinstallQueue]) {
                 [removeCommand addObject:package.identifier];
             }
@@ -376,6 +378,7 @@
             //Install new version
             NSMutableArray *installCommand = [baseCommand mutableCopy];
             [installCommand insertObject:@"-i" atIndex:1];
+            [installCommand addObject:@"--"];
             NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeReinstall];
             [installCommand addObjectsFromArray:paths];
             [commands addObject:installCommand];
