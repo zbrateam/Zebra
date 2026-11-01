@@ -112,7 +112,7 @@
         for (NSString *providedPackage in [package provides]) {
             NSArray *components = [providedPackage componentsSeparatedByString:@"("];
             NSString *packageID = [components[0] stringByReplacingOccurrencesOfString:@" " withString:@""];
-            [queuedPackagesList addObject:packageID];
+            [queuedPackagesList addObject:packageID.lowercaseString];
         }
         
         [[self dependencyQueue] addObject:package];

@@ -221,6 +221,7 @@
         return [self isPackageInstalled:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
+        dependency = dependency.lowercaseString;
         if ([[queue queuedPackagesList] containsObject:dependency]) {
             ZBPackage *queuedDependency = [self packageInDependencyQueue:dependency];
             if (queuedDependency != nil) {
@@ -382,8 +383,8 @@
 }
 
 - (ZBPackage * _Nullable)packageInDependencyQueue:(NSString *)packageID {
-    for (ZBPackage *package in [queue dependencyQueue]) {
-        if ([[package identifier] isEqual:packageID]) {
+    for (ZBPackage *package in queue.dependencyQueue) {
+        if ([package.identifier caseInsensitiveCompare:packageID] == NSOrderedSame) {
             return package;
         }
     }

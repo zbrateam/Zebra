@@ -300,7 +300,7 @@
             [self setTags:[tagString componentsSeparatedByString:@", "] ?: NULL];
         }
         
-        [self setIdentifier:packageID];
+        [self setIdentifier:packageID.lowercaseString];
         [self setName:name];
         [self setVersion:version];
         [self setArchitecture:architecture];

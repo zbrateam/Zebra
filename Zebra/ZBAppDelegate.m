@@ -360,7 +360,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                         NSString *sourceURL = queryComponents.count > 1 ? queryComponents[1] : nil;
                         if (sourceURL.length) {
                             if ([ZBSource exists:sourceURL]) {
-                                NSString *packageID = [path substringFromIndex:1];
+                                NSString *packageID = [path substringFromIndex:1].lowercaseString;
                                 ZBSource *source = [ZBSource sourceFromBaseURL:sourceURL];
                                 ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID inSource:source];
                                 ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
@@ -373,7 +373,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                                 }
                             }
                             else {
-                                NSString *packageID = [path substringFromIndex:1];
+                                NSString *packageID = [path substringFromIndex:1].lowercaseString;
                                 [tabController setForwardToPackageID:packageID];
                                 [tabController setForwardedSourceBaseURL:sourceURL];
                                 
@@ -382,7 +382,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                             }
                         }
                         else {
-                            NSString *packageID = [path substringFromIndex:1];
+                            NSString *packageID = [path substringFromIndex:1].lowercaseString;
                             ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
                             ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
                             if (packageController) {
