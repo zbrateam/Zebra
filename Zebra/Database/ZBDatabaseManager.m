@@ -2345,15 +2345,15 @@
                 sqlite3_bind_text(statement, (int)i + 1, [removedPackages[i] UTF8String], -1, SQLITE_TRANSIENT);
             }
 
-            sqlite3_bind_text(statement, (int)removedPackages.count + 2, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, (int)removedPackages.count + 3, firstSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, (int)removedPackages.count + 4, secondSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, (int)removedPackages.count + 5, thirdSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, (int)removedPackages.count + 6, fourthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, (int)removedPackages.count + 7, fifthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, (int)removedPackages.count + 8, sixthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, (int)removedPackages.count + 9, seventhSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, (int)removedPackages.count + 10, eighthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 2, firstSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 3, secondSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 4, thirdSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 5, fourthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 6, fifthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 7, sixthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 8, seventhSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 9, eighthSearchTerm, -1, SQLITE_TRANSIENT);
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (needsVersionComparison) {
