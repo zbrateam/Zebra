@@ -427,8 +427,10 @@
 }
 
 - (NSString *)saveNameForURL:(NSURL *)url {
-    NSString *filename = [url lastPathComponent]; //Releases
-    NSString *schemeless = [[[[url URLByDeletingLastPathComponent] absoluteString] stringByReplacingOccurrencesOfString:[url scheme] withString:@""] substringFromIndex:3]; //Removes scheme and ://
+    NSString *filename = url.lastPathComponent; //Releases
+    NSString *directoryString = [url URLByDeletingLastPathComponent].absoluteString;
+    NSString *schemePrefix = url.scheme ? [url.scheme stringByAppendingString:@"://"] : nil;
+    NSString *schemeless = schemePrefix && [directoryString hasPrefix:schemePrefix] ? [directoryString substringFromIndex:schemePrefix.length] : directoryString;
     NSString *baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     return [baseFilename stringByAppendingString:filename];
 }

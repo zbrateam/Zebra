@@ -144,7 +144,8 @@
         releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         
         NSString *mainDirectoryString = [mainDirectoryURL absoluteString];
-        NSString *schemeless = [mainDirectoryURL scheme] ? [[mainDirectoryString stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3] : mainDirectoryString; //Removes scheme and ://
+        NSString *schemePrefix = [mainDirectoryURL scheme] ? [[mainDirectoryURL scheme] stringByAppendingString:@"://"] : nil;
+        NSString *schemeless = schemePrefix && [mainDirectoryString hasPrefix:schemePrefix] ? [mainDirectoryString substringFromIndex:schemePrefix.length] : mainDirectoryString;
         self->baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     }
     

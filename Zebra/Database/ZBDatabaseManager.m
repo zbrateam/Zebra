@@ -375,7 +375,8 @@
                             NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                             endpoint = [endpoint stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                             if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
-                                if ([endpoint hasPrefix:@"https"]) {
+                                NSURL *endpointURL = [NSURL URLWithString:endpoint];
+                                if ([endpointURL.scheme.lowercaseString isEqualToString:@"https"] && endpointURL.host.length > 0) {
                                     [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Adding Payment Vendor URL for %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
                                     if ([self openDatabase] == SQLITE_OK) {
                                         addPaymentEndpointForSource([endpoint UTF8String], self->database, sourceID);
