@@ -38,21 +38,30 @@
     NSUInteger openIndex = [dependency rangeOfString:@"("].location;
     NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
     
-    if (openIndex == NSNotFound || closeIndex == NSNotFound) {
+    if (openIndex == NSNotFound || closeIndex == NSNotFound || closeIndex < openIndex) {
         return @[dependency, @"<=>", @"0:0"];
     }
-    
-    NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    packageIdentifier = [packageIdentifier lowercaseString];
-    
-    NSString *version = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *comparison;
-    
-    NSScanner *scanner = [NSScanner scannerWithString:version];
-    NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyz0123456789"];
+
+    NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].lowercaseString;
+
+    NSString *versionComparison = [[dependency substringWithRange:NSMakeRange(openIndex + 1, closeIndex - openIndex - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *comparison = nil;
+    NSString *version = nil;
+
+    NSScanner *scanner = [NSScanner scannerWithString:versionComparison];
+    NSCharacterSet *versionChars = [NSCharacterSet characterSetWithCharactersInString:@":.+-~abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
     [scanner scanUpToCharactersFromSet:versionChars intoString:&comparison];
     [scanner scanCharactersFromSet:versionChars intoString:&version];
-    
+
+    if (version.length == 0) {
+        return @[packageIdentifier, @"<=>", @"0:0"];
+    }
+
+    comparison = [comparison stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (comparison.length == 0) {
+        comparison = @"=";
+    }
+
     return @[packageIdentifier, comparison, version];
 }
 
