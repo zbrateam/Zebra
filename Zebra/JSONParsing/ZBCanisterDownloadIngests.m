@@ -9,6 +9,63 @@
 #import "ZBCanisterDownloadIngests.h"
 #import "NSURLSession+Zebra.h"
 #import "ZBSettings.h"
+#import "ZBJSONObject.h"
+
+@interface ZBCanisterReference : ZBJSONObject
+@property (nonatomic, copy, nullable) NSString *privacyPolicy;
+@property (nonatomic, copy, nullable) NSString *privacyUpdated;
+@end
+
+@interface ZBCanisterInfoData : ZBJSONObject
+@property (nonatomic, strong, nullable) ZBCanisterReference *reference;
+@end
+
+@interface ZBCanisterInfo : ZBJSONObject
+@property (nonatomic, strong, nullable) ZBCanisterInfoData *data;
+@end
+
+@implementation ZBCanisterReference
+
++ (NSDictionary <NSString *, ZBJSONProperty *> *)properties {
+    static NSDictionary <NSString *, ZBJSONProperty *> *properties;
+    if (!properties) {
+        properties = @{
+            @"privacy_policy": ZBJSONString(@"privacyPolicy"),
+            @"privacy_updated": ZBJSONString(@"privacyUpdated")
+        };
+    }
+    return properties;
+}
+
+@end
+
+@implementation ZBCanisterInfoData
+
++ (NSDictionary <NSString *, ZBJSONProperty *> *)properties {
+    static NSDictionary <NSString *, ZBJSONProperty *> *properties;
+    if (!properties) {
+        properties = @{
+            @"reference": ZBJSONObject(@"reference", [ZBCanisterReference class])
+        };
+    }
+    return properties;
+}
+
+@end
+
+@implementation ZBCanisterInfo
+
++ (NSDictionary <NSString *, ZBJSONProperty *> *)properties {
+    static NSDictionary <NSString *, ZBJSONProperty *> *properties;
+    if (!properties) {
+        properties = @{
+            @"data": ZBJSONObject(@"data", [ZBCanisterInfoData class])
+        };
+    }
+    return properties;
+}
+
+@end
 
 @implementation ZBCanisterPackage
 
@@ -51,33 +108,13 @@
             completion(nil);
             return;
         }
-        NSError *serializationError;
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&serializationError];
-        if (serializationError || ![dict isKindOfClass:[NSDictionary class]]) {
+        ZBCanisterReference *info = [ZBCanisterInfo fromData:data error:nil].data.reference;
+        if (!info.privacyPolicy || !info.privacyUpdated) {
             completion(nil);
             return;
         }
-        NSDictionary *dataDict = dict[@"data"];
-        if (![dataDict isKindOfClass:[NSDictionary class]]) {
-            completion(nil);
-            return;
-        }
-        NSDictionary *info = dataDict[@"reference"];
-        if (![info isKindOfClass:[NSDictionary class]]) {
-            completion(nil);
-            return;
-        }
-        NSString *privacyPolicy = info[@"privacy_policy"];
-        if (![privacyPolicy isKindOfClass:[NSString class]]) {
-            completion(nil);
-            return;
-        }
-        NSURL *privacyPolicyURL = [[NSURL alloc] initWithString:privacyPolicy];
-        NSString *changedDate = info[@"privacy_updated"];
-        if (![changedDate isKindOfClass:[NSString class]]) {
-            completion(nil);
-            return;
-        }
+        NSURL *privacyPolicyURL = [[NSURL alloc] initWithString:info.privacyPolicy];
+        NSString *changedDate = info.privacyUpdated;
         NSString *pastDate = [ZBSettings canisterUpdateDate];
 
         BOOL needsUpdate = [ZBSettings sendCanisterIngest] == ZBSendCanisterIngestUnspecified || ![changedDate isEqualToString:pastDate];

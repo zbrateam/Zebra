@@ -1,5 +1,4 @@
 #import "ZBUserInfo.h"
-#import "NSObject+Zebra.h"
 
 // nil → NSNull conversion for JSON dictionaries
 static id NSNullify(id _Nullable x) {
@@ -10,33 +9,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface ZBUserInfo (JSONConversion) <ZBJSONDecodable>
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+@interface ZBUserInfo (JSONConversion)
 - (NSDictionary *)JSONDictionary;
 @end
 
-@interface ZBUser (JSONConversion) <ZBJSONDecodable>
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+@interface ZBUser (JSONConversion)
 - (NSDictionary *)JSONDictionary;
 @end
 
 #pragma mark - JSON serialization
-
-ZBUserInfo *_Nullable ZBUserInfoFromData(NSData *data, NSError **error)
-{
-    @try {
-        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:error];
-        return *error ? nil : [ZBUserInfo fromJSONDictionary:json];
-    } @catch (NSException *exception) {
-        *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
-        return nil;
-    }
-}
-
-ZBUserInfo *_Nullable ZBUserInfoFromJSON(NSString *json, NSStringEncoding encoding, NSError **error)
-{
-    return ZBUserInfoFromData([json dataUsingEncoding:encoding], error);
-}
 
 NSData *_Nullable ZBUserInfoToData(ZBUserInfo *userInfo, NSError **error)
 {
@@ -60,34 +41,14 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 + (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
     static NSDictionary<NSString *, ZBJSONProperty *> *properties;
-    return properties = properties ? properties : @{
-        @"items": ZBJSONArray(@"items"),
-        @"user": ZBJSONObject(@"user", [ZBUser class]),
-        @"error": ZBJSONString(@"error"),
-    };
-}
-
-+ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error
-{
-    return ZBUserInfoFromData(data, error);
-}
-
-+ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
-{
-    return ZBUserInfoFromJSON(json, encoding, error);
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict
-{
-    return dict ? [[ZBUserInfo alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        [self zbra_setValues:dict forProperties:self.class.properties];
+    if (!properties) {
+        properties = @{
+            @"items": ZBJSONArrayOf(@"items", [NSString class]),
+            @"user": ZBJSONObject(@"user", [ZBUser class]),
+            @"error": ZBJSONString(@"error"),
+        };
     }
-    return self;
+    return properties;
 }
 
 - (NSDictionary *)JSONDictionary
@@ -117,23 +78,13 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 + (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
     static NSDictionary<NSString *, ZBJSONProperty *> *properties;
-    return properties = properties ? properties : @{
-        @"name": ZBJSONString(@"name"),
-        @"email": ZBJSONString(@"email")
-    };
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict
-{
-    return dict ? [[ZBUser alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        [self zbra_setValues:dict forProperties:self.class.properties];
+    if (!properties) {
+        properties = @{
+            @"name": ZBJSONString(@"name"),
+            @"email": ZBJSONString(@"email")
+        };
     }
-    return self;
+    return properties;
 }
 
 - (NSDictionary *)JSONDictionary

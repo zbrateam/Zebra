@@ -10,10 +10,12 @@
 
 @import SafariServices;
 
+@class ZBCreditsSection;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBCreditsTableViewController : ZBTableViewController <SFSafariViewControllerDelegate>
-@property (nonatomic, strong) NSArray <NSDictionary <NSString *, id> *> *credits;
+@property (nonatomic, strong, nullable) NSArray <ZBCreditsSection *> *credits;
 @end
 
 NS_ASSUME_NONNULL_END

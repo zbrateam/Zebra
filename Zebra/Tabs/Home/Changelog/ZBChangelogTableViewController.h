@@ -8,6 +8,8 @@
 
 #import "ZBTableViewController.h"
 
+@class ZBGitHubRelease;
+
 @interface ZBChangelogTableViewController : ZBTableViewController
-@property NSMutableArray *releases;
+@property NSMutableArray <ZBGitHubRelease *> *releases;
 @end

@@ -41,6 +41,16 @@ typedef NS_ENUM(NSUInteger, ZBJSONPropertyKind) {
 #define ZBJSONArray(name)        [ZBJSONProperty propertyNamed:name kind:ZBJSONPropertyKindArray objectClass:Nil]
 #define ZBJSONArrayOf(name, cls) [ZBJSONProperty propertyNamed:name kind:ZBJSONPropertyKindArray objectClass:cls]
 
+FOUNDATION_EXPORT id _ZBJSONDecode(ZBJSONProperty *property, NSData *data, NSError **error);
+
+NS_INLINE id _Nullable ZBJSONDecodeObject(Class<ZBJSONDecodable> objectClass, NSData *_Nullable data, NSError *_Nullable *_Nullable error) {
+    return _ZBJSONDecode(ZBJSONObject(@"", objectClass), data, error);
+}
+
+NS_INLINE NSArray *_Nullable ZBJSONDecodeArray(Class<ZBJSONDecodable> objectClass, NSData *_Nullable data, NSError *_Nullable *_Nullable error) {
+    return _ZBJSONDecode(ZBJSONArrayOf(@"", objectClass), data, error);
+}
+
 NS_INLINE NSArray <NSString *> *ZBJSONPropertyNames(NSDictionary <NSString *, ZBJSONProperty *> *properties) {
     NSMutableArray <NSString *> *names = [NSMutableArray arrayWithCapacity:properties.count];
     for (ZBJSONProperty *property in properties.allValues) {

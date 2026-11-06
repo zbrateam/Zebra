@@ -24,6 +24,7 @@
 #import "UIImageView+Zebra.h"
 #import "NSURLSession+Zebra.h"
 #import "UIView+Zebra.h"
+#import "ZBFeaturedBanners.h"
 
 @import SDWebImage;
 
@@ -33,7 +34,7 @@
     BOOL editOnly;
 }
 @property (nonatomic, strong) IBOutlet UICollectionView *featuredCollection;
-@property (nonatomic, strong) NSArray *featuredPackages;
+@property (nonatomic, strong) NSArray <ZBFeaturedBanner *> *featuredPackages;
 @property (nonatomic, strong) NSArray *sectionNames;
 @property (nonatomic, strong) NSMutableArray *filteredSections;
 @property (nonatomic, strong) NSDictionary *sectionReadout;
@@ -217,43 +218,33 @@
 
             NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
 
-            NSError *jsonError;
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
-            if (jsonError) {
+            ZBFeaturedBanners *featured = [ZBFeaturedBanners fromData:data error:nil];
+            if (!featured.banners.count) {
                 self->source.supportsFeaturedPackages = NO;
                 return;
             }
             self->source.supportsFeaturedPackages = YES;
 
-            NSArray *banners = [json isKindOfClass:[NSDictionary class]] ? json[@"banners"] : nil;
-            if (![banners isKindOfClass:[NSArray class]]) {
-                self->source.supportsFeaturedPackages = NO;
-                return;
+            NSArray <ZBFeaturedBanner *> *banners = featured.banners;
+            NSMutableArray <NSDictionary *> *bannerDicts = [NSMutableArray arrayWithCapacity:banners.count];
+            for (ZBFeaturedBanner *banner in banners) {
+                [bannerDicts addObject:banner.JSONDictionary];
             }
 
-            NSMutableArray *validBanners = [NSMutableArray new];
-            for (id banner in banners) {
-                if ([banner isKindOfClass:[NSDictionary class]]) {
-                    [validBanners addObject:banner];
-                }
+            CGSize parsedSize = featured.itemSize ? CGSizeFromString(featured.itemSize) : CGSizeZero;
+            if (!isfinite(parsedSize.width) || !isfinite(parsedSize.height) || parsedSize.width <= 0 || parsedSize.height <= 0 || parsedSize.width > 1024 || parsedSize.height > 1024) {
+                parsedSize = CGSizeMake(263, 148);
             }
-            if (!validBanners.count) {
-                self->source.supportsFeaturedPackages = NO;
-                return;
-            }
-
-            NSString *itemSize = json[@"itemSize"];
-            CGSize parsedSize = [itemSize isKindOfClass:[NSString class]] ? CGSizeFromString(itemSize) : CGSizeZero;
 
             if (![featuredItems isKindOfClass:[NSMutableDictionary class]]) {
                 featuredItems = [NSMutableDictionary new];
             }
-            [featuredItems setObject:validBanners forKey:[self->source baseFilename]];
+            [featuredItems setObject:bannerDicts forKey:[self->source baseFilename]];
             [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 self->bannerSize = parsedSize;
-                self.featuredPackages = validBanners;
+                self.featuredPackages = banners;
                 [self setupFeaturedPackages];
             });
         }] resume];
@@ -404,10 +395,16 @@
 #pragma mark UICollectionView delegates
 - (ZBFeaturedCollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-    NSDictionary *currentBanner = [self.featuredPackages objectAtIndex:indexPath.row];
-    [cell.imageView setRetinaImageWithURL:[NSURL URLWithString:currentBanner[@"url"]] placeholderImage:[UIImage imageNamed:@"banner"]];
-    cell.packageID = currentBanner[@"package"];
-    [cell.titleLabel setText:currentBanner[@"title"]];
+    if ((NSUInteger)indexPath.row >= self.featuredPackages.count) {
+        return cell;
+    }
+
+    ZBFeaturedBanner *banner = self.featuredPackages[indexPath.row];
+
+    NSURL *bannerURL = banner.url ? [NSURL URLWithString:banner.url] : nil;
+    [cell.imageView setRetinaImageWithURL:bannerURL placeholderImage:[UIImage imageNamed:@"banner"]];
+    cell.packageID = banner.package.lowercaseString;
+    [cell.titleLabel setText:banner.title];
     return cell;
 }
 

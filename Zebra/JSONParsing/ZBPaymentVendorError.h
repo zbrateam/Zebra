@@ -7,16 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZBJSONObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPaymentVendorError : NSObject
+@interface ZBPaymentVendorError : ZBJSONObject
 @property (nonatomic, copy)   NSString *error;
 @property (nonatomic, copy)   NSString *recoveryURL;
 @property (nonatomic)         BOOL invalidate;
 
-+ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
-+ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error;
 - (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
 - (NSData *_Nullable)toData:(NSError *_Nullable *)error;
 @end

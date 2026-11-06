@@ -1,9 +1,10 @@
 // To parse this JSON:
 //
 //   NSError *error = NULL;
-//   ZBPurchaseInfo *purchaseInfo = [ZBPurchaseInfo fromJSON:json encoding:NSUTF8Encoding error:&error];
+//   ZBPurchaseInfo *purchaseInfo = [ZBPurchaseInfo fromData:data error:&error];
 
 #import <Foundation/Foundation.h>
+#import "ZBJSONObject.h"
 
 @class ZBPurchaseInfo;
 
@@ -11,15 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Object interfaces
 
-@interface ZBPurchaseInfo : NSObject
+@interface ZBPurchaseInfo : ZBJSONObject
 @property (nonatomic, nullable, copy)   NSString *price;
 @property BOOL purchased;
 @property BOOL available;
 @property (nonatomic, nullable, copy)   NSString *error;
 @property (nonatomic, nullable, copy)   NSString *recoveryURL;
 
-+ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
-+ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error;
 - (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;
 - (NSData *_Nullable)toData:(NSError *_Nullable *)error;
 @end

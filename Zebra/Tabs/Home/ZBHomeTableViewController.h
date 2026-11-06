@@ -18,6 +18,8 @@
 #import "ZBFeaturedCollectionViewCell.h"
 @import SDWebImage;
 
+@class ZBFeaturedBanner;
+
 @interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIAdaptivePresentationControllerDelegate, SFSafariViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
@@ -26,8 +28,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *footerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *udidLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *featuredCollection;
-@property NSMutableArray *allFeatured;
-@property NSMutableArray *selectedFeatured;
+@property NSMutableArray <ZBFeaturedBanner *> *allFeatured;
+@property NSMutableArray <ZBFeaturedBanner *> *selectedFeatured;
 @property NSInteger cellNumber;
 @property NSUserDefaults *defaults;
 @end

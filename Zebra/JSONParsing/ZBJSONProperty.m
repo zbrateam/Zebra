@@ -67,11 +67,17 @@
             return value;
         }
         
+        NSMutableArray *elements = [NSMutableArray arrayWithCapacity:((NSArray *)value).count];
         if (![_objectClass respondsToSelector:@selector(fromJSONDictionary:)]) {
-            return nil;
+            for (id element in value) {
+                if ([element isKindOfClass:_objectClass]) {
+                    [elements addObject:element];
+                }
+            }
+
+            return elements;
         }
 
-        NSMutableArray *elements = [NSMutableArray arrayWithCapacity:((NSArray *)value).count];
         for (id element in value) {
             if (![element isKindOfClass:[NSDictionary class]]) {
                 continue;
@@ -92,3 +98,19 @@
 
 @end
 
+id _ZBJSONDecode(ZBJSONProperty *property, NSData *data, NSError **error) {
+    if (data == nil) {
+        if (error) {
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderReadCorruptError userInfo:nil];
+        }
+        return nil;
+    }
+
+    NSError *jsonError = nil;
+    id json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
+    id result = json ? [property valueFromJSONValue:json] : nil;
+    if (result == nil && error) {
+        *error = jsonError ?: [NSError errorWithDomain:NSCocoaErrorDomain code:NSCoderReadCorruptError userInfo:nil];
+    }
+    return result;
+}

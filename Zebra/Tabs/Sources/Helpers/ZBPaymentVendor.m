@@ -17,6 +17,7 @@
 #import "ZBDownloadManager.h"
 #import "ZBPurchaseInfo.h"
 #import "ZBPaymentVendorError.h"
+#import "ZBPaymentVendorResponses.h"
 #import "ZBTokenManager.h"
 #import "NSURLSession+Zebra.h"
 @import LocalAuthentication;
@@ -307,7 +308,7 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
 
 - (void)initiatePurchaseForPackage:(NSString *)packageID paymentSecret:(nullable NSString *)paymentSecret completion:(void (^)(NSError *_Nullable error))completion {
     NSDictionary *body = @{
-        @"token": self.token,
+        @"token": self.token ?: @"none",
         @"payment_secret": paymentSecret ?: [NSNull null],
         @"udid": [ZBDevice UDID],
         @"device": [ZBDevice deviceModelID]
@@ -322,11 +323,11 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
             return;
         }
 
-        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        NSInteger status = [result[@"status"] integerValue];
+        ZBPurchaseResponse *result = [ZBPurchaseResponse fromData:data error:nil];
+        NSInteger status = result.status ? result.status.integerValue : NSIntegerMin;
         switch (status) {
         case -1: { // An error occurred, payment api doesn't specify that an error must exist here but we may as well check it
-            NSString *localizedDescription = [result objectForKey:@"error"] ?: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"");
+            NSString *localizedDescription = result.error ?: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"");
 
             NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
             completion(error);
@@ -337,7 +338,7 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
             break;
         }
         case 1: { // Action is required, pass this information on to the view controller
-            NSURL *actionLink = [NSURL URLWithString:result[@"url"]];
+            NSURL *actionLink = result.url ? [NSURL URLWithString:result.url] : nil;
             if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"https"])) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     static ZBSafariAuthenticationSession *session;
@@ -356,11 +357,16 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
                 });
             }
             else {
-                NSString *localizedDescription = [NSString stringWithFormat:NSLocalizedString(@"The Payment Provider responded with an improper payment URL: %@", @""), result[@"url"]];
+                NSString *localizedDescription = [NSString stringWithFormat:NSLocalizedString(@"The Payment Provider responded with an improper payment URL: %@", @""), result.url];
 
                 NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
                 completion(error);
             }
+            break;
+        }
+        default: {
+            NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"")}];
+            completion(error);
             break;
         }
         }
@@ -385,8 +391,8 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
             return;
         }
 
-        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        if (!result[@"url"]) {
+        ZBDownloadAuthorizationResponse *result = [ZBDownloadAuthorizationResponse fromData:data error:nil];
+        if (!result.url) {
             error = [NSError errorWithDomain:ZBPaymentVendorErrorDomain
                                         code:808
                                     userInfo:@{
@@ -396,7 +402,7 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
             return;
         }
 
-        NSURL *downloadURL = [NSURL URLWithString:result[@"url"]];
+        NSURL *downloadURL = [NSURL URLWithString:result.url];
         if (downloadURL && [downloadURL.scheme isEqualToString:@"https"]) {
             completion(downloadURL, nil);
             return;

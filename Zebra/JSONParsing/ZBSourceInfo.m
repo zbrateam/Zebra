@@ -1,39 +1,20 @@
 // ZBSourceInfo.m
 
 #import "ZBSourceInfo.h"
-#import "NSObject+Zebra.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface ZBSourceInfo (JSONConversion) <ZBJSONDecodable>
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+@interface ZBSourceInfo (JSONConversion)
 - (NSDictionary *)JSONDictionary;
 @end
 
-@interface ZBAuthenticationBanner (JSONConversion) <ZBJSONDecodable>
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+@interface ZBAuthenticationBanner (JSONConversion)
 - (NSDictionary *)JSONDictionary;
 @end
 
 #pragma mark - JSON serialization
-
-ZBSourceInfo *_Nullable ZBSourceInfoFromData(NSData *data, NSError **error)
-{
-    @try {
-        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:error];
-        return *error ? nil : [ZBSourceInfo fromJSONDictionary:json];
-    } @catch (NSException *exception) {
-        *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
-        return nil;
-    }
-}
-
-ZBSourceInfo *_Nullable ZBSourceInfoFromJSON(NSString *json, NSStringEncoding encoding, NSError **error)
-{
-    return ZBSourceInfoFromData([json dataUsingEncoding:encoding], error);
-}
 
 NSData *_Nullable ZBSourceInfoToData(ZBSourceInfo *sourceInfo, NSError **error)
 {
@@ -57,35 +38,15 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 + (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
     static NSDictionary<NSString *, ZBJSONProperty *> *properties;
-    return properties = properties ? properties : @{
-        @"name": ZBJSONString(@"name"),
-        @"icon": ZBJSONString(@"icon"),
-        @"description": ZBJSONString(@"theDescription"),
-        @"authentication_banner": ZBJSONObject(@"authenticationBanner", [ZBAuthenticationBanner class]),
-    };
-}
-
-+ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error
-{
-    return ZBSourceInfoFromData(data, error);
-}
-
-+ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
-{
-    return ZBSourceInfoFromJSON(json, encoding, error);
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict
-{
-    return dict ? [[ZBSourceInfo alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        [self zbra_setValues:dict forProperties:self.class.properties];
+    if (!properties) {
+        properties = @{
+            @"name": ZBJSONString(@"name"),
+            @"icon": ZBJSONString(@"icon"),
+            @"description": ZBJSONString(@"theDescription"),
+            @"authentication_banner": ZBJSONObject(@"authenticationBanner", [ZBAuthenticationBanner class]),
+        };
     }
-    return self;
+    return properties;
 }
 
 - (NSDictionary *)JSONDictionary
@@ -124,23 +85,13 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 + (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
     static NSDictionary<NSString *, ZBJSONProperty *> *properties;
-    return properties = properties ? properties : @{
-        @"message": ZBJSONString(@"message"),
-        @"button": ZBJSONString(@"button"),
-    };
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict
-{
-    return dict ? [[ZBAuthenticationBanner alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        [self zbra_setValues:dict forProperties:self.class.properties];
+    if (!properties) {
+        properties = @{
+            @"message": ZBJSONString(@"message"),
+            @"button": ZBJSONString(@"button"),
+        };
     }
-    return self;
+    return properties;
 }
 
 - (NSDictionary *)JSONDictionary

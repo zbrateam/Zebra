@@ -1,32 +1,16 @@
 #import "ZBPurchaseInfo.h"
-#import "NSObject+Zebra.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface ZBPurchaseInfo (JSONConversion) <ZBJSONDecodable>
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+@interface ZBPurchaseInfo (JSONConversion)
 - (NSDictionary *)JSONDictionary;
 @end
 
 NS_ASSUME_NONNULL_END
 
 #pragma mark - JSON serialization
-
-ZBPurchaseInfo *_Nullable ZBPurchaseInfoFromData(NSData *data, NSError **error) {
-    @try {
-        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:error];
-        return *error ? nil : [ZBPurchaseInfo fromJSONDictionary:json];
-    } @catch (NSException *exception) {
-        *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
-        return nil;
-    }
-}
-
-ZBPurchaseInfo *_Nullable ZBPurchaseInfoFromJSON(NSString *json, NSStringEncoding encoding, NSError **error) {
-    return ZBPurchaseInfoFromData([json dataUsingEncoding:encoding], error);
-}
 
 NSData *_Nullable ZBPurchaseInfoToData(ZBPurchaseInfo *purchaseInfo, NSError **error) {
     @try {
@@ -48,35 +32,16 @@ NSString *_Nullable ZBPurchaseInfoToJSON(ZBPurchaseInfo *purchaseInfo, NSStringE
 
 + (NSDictionary<NSString *, ZBJSONProperty *> *)properties {
     static NSDictionary<NSString *, ZBJSONProperty *> *properties;
-    return properties = properties ? properties : @{
-        @"price": ZBJSONString(@"price"),
-        @"purchased": ZBJSONNumber(@"purchased"),
-        @"available": ZBJSONNumber(@"available"),
-        @"error": ZBJSONString(@"error"),
-        @"recovery_url": ZBJSONString(@"recoveryURL"),
-    };
-}
-
-+ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error {
-    return ZBPurchaseInfoFromData(data, error);
-}
-
-+ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error {
-    return ZBPurchaseInfoFromJSON(json, encoding, error);
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict {
-    return dict ? [[ZBPurchaseInfo alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict {
-    self = [super init];
-    
-    if (self) {
-        [self zbra_setValues:dict forProperties:self.class.properties];
+    if (!properties) {
+        properties = @{
+            @"price": ZBJSONString(@"price"),
+            @"purchased": ZBJSONNumber(@"purchased"),
+            @"available": ZBJSONNumber(@"available"),
+            @"error": ZBJSONString(@"error"),
+            @"recovery_url": ZBJSONString(@"recoveryURL"),
+        };
     }
-    
-    return self;
+    return properties;
 }
 
 - (NSDictionary *)JSONDictionary {

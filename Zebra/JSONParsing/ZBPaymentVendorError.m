@@ -7,34 +7,16 @@
 //
 
 #import "ZBPaymentVendorError.h"
-#import "NSObject+Zebra.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces
 
-@interface ZBPaymentVendorError (JSONConversion) <ZBJSONDecodable>
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+@interface ZBPaymentVendorError (JSONConversion)
 - (NSDictionary *)JSONDictionary;
 @end
 
 #pragma mark - JSON serialization
-
-ZBPaymentVendorError *_Nullable ZBPaymentVendorErrorFromData(NSData *data, NSError **error)
-{
-    @try {
-        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:error];
-        return *error ? nil : [ZBPaymentVendorError fromJSONDictionary:json];
-    } @catch (NSException *exception) {
-        *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
-        return nil;
-    }
-}
-
-ZBPaymentVendorError *_Nullable ZBPaymentVendorErrorFromJSON(NSString *json, NSStringEncoding encoding, NSError **error)
-{
-    return ZBPaymentVendorErrorFromData([json dataUsingEncoding:encoding], error);
-}
 
 NSData *_Nullable ZBPaymentVendorErrorToData(ZBPaymentVendorError *paymentError, NSError **error)
 {
@@ -58,34 +40,14 @@ NSString *_Nullable ZBPaymentVendorErrorToJSON(ZBPaymentVendorError *sourceInfo,
 + (NSDictionary<NSString *, ZBJSONProperty *> *)properties
 {
     static NSDictionary<NSString *, ZBJSONProperty *> *properties;
-    return properties = properties ? properties : @{
-        @"error": ZBJSONString(@"error"),
-        @"recoveryURL": ZBJSONString(@"recoveryURL"),
-        @"invalidate": ZBJSONNumber(@"invalidate")
-    };
-}
-
-+ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error
-{
-    return ZBPaymentVendorErrorFromData(data, error);
-}
-
-+ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
-{
-    return ZBPaymentVendorErrorFromJSON(json, encoding, error);
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict
-{
-    return dict ? [[self alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        [self zbra_setValues:dict forProperties:self.class.properties];
+    if (!properties) {
+        properties = @{
+            @"error": ZBJSONString(@"error"),
+            @"recoveryURL": ZBJSONString(@"recoveryURL"),
+            @"invalidate": ZBJSONNumber(@"invalidate")
+        };
     }
-    return self;
+    return properties;
 }
 
 - (NSDictionary *)JSONDictionary

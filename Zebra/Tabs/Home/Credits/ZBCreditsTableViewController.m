@@ -11,6 +11,7 @@
 #import "ZBDevice.h"
 #import "ZBSettings.h"
 #import "NSURLSession+Zebra.h"
+#import "ZBCredits.h"
 
 @interface ZBCreditsTableViewController ()
 
@@ -48,14 +49,16 @@
     [request setURL:[NSURL URLWithString:@"https://api.getzbra.com/credits.json"]];
 
     NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, __unused NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSArray <ZBCreditsSection *> *newCredits = nil;
         if (data && !error) {
-            self->credits = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"sections"];
+            newCredits = [ZBCredits fromData:data error:nil].sections;
         }
         else {
             NSLog(@"[Zebra] Error while trying to access credits: %@", error);
         }
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
+            self->credits = newCredits;
             [self.tableView reloadData];
             self.navigationItem.titleView = NULL;
             self.navigationItem.title = NSLocalizedString(@"Credits", @"");
@@ -70,13 +73,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [credits[section][@"items"] count];
+    return credits[section].items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
-    
-    NSDictionary *item = credits[indexPath.section][@"items"][indexPath.row];
+
+    ZBCreditsItem *item = credits[indexPath.section].items[indexPath.row];
     
     if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"libraryCreditTableViewCell" forIndexPath:indexPath];
@@ -85,7 +88,7 @@
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
-        if (item[@"link"]) {
+        if (item.link) {
             [cell.textLabel setTextColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
         }
         else {
@@ -94,22 +97,22 @@
     }
     cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     
-    cell.textLabel.text = item[@"name"];
-    cell.detailTextLabel.text = item[@"subtitle"];
+    cell.textLabel.text = item.name;
+    cell.detailTextLabel.text = item.subtitle;
     
     return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return NSLocalizedString(credits[section][@"title"], @"");
+    return NSLocalizedString(credits[section].title, @"");
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *person = credits[indexPath.section][@"items"][indexPath.row];
-    NSURL *url = [NSURL URLWithString:person[@"link"]];
-    
+    ZBCreditsItem *person = credits[indexPath.section].items[indexPath.row];
+    NSURL *url = person.link ? [NSURL URLWithString:person.link] : nil;
+
     if (url) {
         [ZBDevice openURL:url delegate:self];
     }

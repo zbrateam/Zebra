@@ -19,11 +19,12 @@
 #import "ZBSourceImportTableViewController.h"
 #import "NSURLSession+Zebra.h"
 #import "UIImageView+Zebra.h"
+#import "ZBCommunitySources.h"
 
 @interface ZBCommunitySourcesTableViewController () {
-    NSArray <NSDictionary *> *communitySourceCache;
+    NSArray <ZBCommunitySource *> *communitySourceCache;
     ZBSourceManager *sourceManager;
-    NSMutableArray <NSArray <NSDictionary *> *> *sources;
+    NSMutableArray <NSArray <ZBCommunitySource *> *> *sources;
 }
 @end
 
@@ -33,7 +34,7 @@
     self = [super initWithStyle:[ZBDevice tableViewStyle]];
 
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateSources) name:@"ZBDatabaseCompletedUpdate" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseCompletedUpdate) name:@"ZBDatabaseCompletedUpdate" object:nil];
 
         sourceManager = [ZBSourceManager sharedInstance];
         sources = [NSMutableArray new];
@@ -56,6 +57,12 @@
     }
 
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
+}
+
+- (void)databaseCompletedUpdate {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self populateSources];
+    });
 }
 
 - (void)populateSources {
@@ -84,7 +91,7 @@
     });
 }
 
-- (NSArray *)packageManagers {
+- (NSArray <ZBCommunitySource *> *)packageManagers {
     NSMutableArray *result = [NSMutableArray new];
     if ([[NSFileManager defaultManager] fileExistsAtPath:@INSTALL_PREFIX @"/Applications/Cydia.app/Cydia"]) {
         NSDictionary *dict = @{@"type" : @"transfer",
@@ -122,10 +129,10 @@
                                @"icon" : @"file://" @INSTALL_PREFIX @"/Applications/Sileo-Nightly.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
     }
-    return result;
+    return [self sourcesFromDictionaries:result];
 }
 
-- (NSArray *)utilitySources {
+- (NSArray <ZBCommunitySource *> *)utilitySources {
     NSMutableArray *result = [NSMutableArray array];
     switch ([ZBDevice jailbreak]) {
     case ZBJailbreakTaurine:
@@ -245,10 +252,18 @@
             break;
         }
     }
+    return [self sourcesFromDictionaries:result];
+}
+
+- (NSArray <ZBCommunitySource *> *)sourcesFromDictionaries:(NSArray <NSDictionary *> *)dictionaries {
+    NSMutableArray <ZBCommunitySource *> *result = [NSMutableArray arrayWithCapacity:dictionaries.count];
+    for (NSDictionary *dict in dictionaries) {
+        [result addObject:[ZBCommunitySource fromJSONDictionary:dict]];
+    }
     return result;
 }
 
-- (NSArray *)communitySources {
+- (NSArray <ZBCommunitySource *> *)communitySources {
     if (!communitySourceCache) {
         [self fetchCommunitySources];
 
@@ -271,22 +286,11 @@
 
     NSURL *url = [NSURL URLWithString:@"https://api.getzbra.com/sources.json"];
     NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, __unused NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSMutableArray *sources = [NSMutableArray new];
+        NSMutableArray <ZBCommunitySource *> *sources = [NSMutableArray new];
         if (data && !error) {
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSArray *jsonSources = [json isKindOfClass:[NSDictionary class]] ? json[@"repos"] : nil;
-            if ([jsonSources isKindOfClass:[NSArray class]]) {
-                for (NSDictionary *source in jsonSources) {
-                    if (![source isKindOfClass:[NSDictionary class]]) {
-                        continue;
-                    }
-                    NSString *version = source[@"appVersion"];
-                    if (![version isKindOfClass:[NSString class]]) {
-                        continue;
-                    }
-                    if ([ZBDependencyResolver doesVersion:@PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version]) {
-                        [sources addObject:source];
-                    }
+            for (ZBCommunitySource *source in [ZBCommunitySources fromData:data error:nil].repos) {
+                if (source.appVersion && [ZBDependencyResolver doesVersion:@PACKAGE_VERSION satisfyComparison:@">=" ofVersion:source.appVersion]) {
+                    [sources addObject:source];
                 }
             }
         }
@@ -320,10 +324,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *info = sources[indexPath.section][indexPath.row];
-    NSString *type = info[@"type"];
+    ZBCommunitySource *info = sources[indexPath.section][indexPath.row];
 
-    if ([type isEqualToString:@"none"]) {
+    if ([info.type isEqualToString:@"none"]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noneLeftCell"];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noneLeftCell"];
@@ -342,14 +345,13 @@
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor cellBackgroundColor];
 
-    cell.sourceLabel.text = info[@"name"];
+    cell.sourceLabel.text = info.name;
     cell.sourceLabel.textColor = [UIColor primaryTextColor];
 
-    NSString *subtitle = info[@"label"] ?: info[@"url"];
-    cell.urlLabel.text = subtitle;
+    cell.urlLabel.text = info.label ?: info.url;
     cell.urlLabel.textColor = [UIColor secondaryTextColor];
 
-    NSURL *iconURL = [NSURL URLWithString:info[@"icon"]];
+    NSURL *iconURL = info.icon ? [NSURL URLWithString:info.icon] : nil;
     [cell.iconImageView setRetinaImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
         [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
     }];
@@ -361,11 +363,11 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (sources.count) {
-        NSDictionary *info = sources[section][0];
-        NSString *type = info[@"type"];
+        NSString *type = sources[section][0].type;
 
         NSArray *options = @[@"transfer", @"utility", @"repo", @"none"];
-        switch ([options indexOfObject:type]) {
+        NSUInteger index = type ? [options indexOfObject:type] : NSNotFound;
+        switch (index) {
             case 0:
                 return NSLocalizedString(@"Transfer Sources", @"");
             case 1:
@@ -380,14 +382,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    NSDictionary *info = sources[indexPath.section][indexPath.row];
-    NSString *type = info[@"type"];
+    ZBCommunitySource *info = sources[indexPath.section][indexPath.row];
+    NSURL *url = info.url ? [NSURL URLWithString:info.url] : nil;
+    if (!url) {
+        return;
+    }
 
     NSArray *options = @[@"transfer", @"utility", @"repo"];
-    switch ([options indexOfObject:type]) {
+    NSUInteger index = info.type ? [options indexOfObject:info.type] : NSNotFound;
+    switch (index) {
         case 0: {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithPaths:@[[NSURL URLWithString:info[@"url"]]] extension:info[@"ext"]];
+                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithPaths:@[url] extension:info.ext];
 
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
                 [self presentViewController:navController animated:YES completion:nil];
@@ -396,8 +402,7 @@
         }
         case 1:
         case 2: {
-            NSString *url = info[@"url"];
-            ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:[NSURL URLWithString:url]];
+            ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:url];
             if (source) {
                 [sourceManager addBaseSources:[NSSet setWithObject:source]];
                 ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:[NSSet setWithObject:source]];

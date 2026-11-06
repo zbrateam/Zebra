@@ -23,6 +23,7 @@
 #import "ZBCanisterPrivacyViewController.h"
 #import "UIImageView+Zebra.h"
 #import "ZBCanisterDownloadIngests.h"
+#import "ZBFeaturedBanners.h"
 
 #if DEBUG
 @import FLEX;
@@ -194,28 +195,17 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
                     return;
                 }
 
-                NSError *jsonError;
-                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
-                if (jsonError) {
-                    source.supportsFeaturedPackages = NO;
-                    dispatch_group_leave(group);
-                    return;
-                }
-                source.supportsFeaturedPackages = YES;
+                ZBFeaturedBanners *featured = [ZBFeaturedBanners fromData:data error:nil];
+                source.supportsFeaturedPackages = featured != nil;
 
-                NSArray *banners = [json isKindOfClass:[NSDictionary class]] ? [json objectForKey:@"banners"] : nil;
-                if ([banners isKindOfClass:[NSArray class]] && banners.count) {
-                    NSMutableArray *validBanners = [NSMutableArray new];
-                    for (id banner in banners) {
-                        if ([banner isKindOfClass:[NSDictionary class]]) {
-                            [validBanners addObject:banner];
-                        }
+                if (featured.banners.count) {
+                    NSMutableArray <NSDictionary *> *banners = [NSMutableArray arrayWithCapacity:featured.banners.count];
+                    for (ZBFeaturedBanner *banner in featured.banners) {
+                        [banners addObject:banner.JSONDictionary];
                     }
 
-                    if (validBanners.count) {
-                        @synchronized (featuredItems) {
-                            [featuredItems setObject:validBanners forKey:[source baseFilename]];
-                        }
+                    @synchronized (featuredItems) {
+                        [featuredItems setObject:banners forKey:[source baseFilename]];
                     }
                 }
                 dispatch_group_leave(group);
@@ -237,8 +227,9 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
             if (![array isKindOfClass:[NSArray class]]) {
                 continue;
             }
-            for (id banner in array) {
-                if ([banner isKindOfClass:[NSDictionary class]]) {
+            for (id dict in array) {
+                ZBFeaturedBanner *banner = [dict isKindOfClass:[NSDictionary class]] ? [ZBFeaturedBanner fromJSONDictionary:dict] : nil;
+                if (banner) {
                     [allFeatured addObject:banner];
                 }
             }
@@ -268,15 +259,15 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
     dispatch_group_t group = dispatch_group_create();
     for (ZBPackage *package in packages) {
         dispatch_group_enter(group);
-        NSMutableDictionary *dict = [NSMutableDictionary new];
         if (package.iconPath) {
             if (![[NSURL URLWithString:package.iconPath] isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
-                [dict setObject:package.iconPath forKey:@"url"];
-                [dict setObject:package.identifier forKey:@"package"];
-                [dict setObject:package.name forKey:@"title"];
-                [dict setObject:package.section forKey:@"section"];
-                
-                [self->allFeatured addObject:dict];
+                ZBFeaturedBanner *banner = [[ZBFeaturedBanner alloc] init];
+                banner.url = package.iconPath;
+                banner.package = package.identifier;
+                banner.title = package.name;
+                banner.section = package.section;
+
+                [self->allFeatured addObject:banner];
             }
         }
         dispatch_group_leave(group);
@@ -299,12 +290,12 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
             [shuffled exchangeObjectAtIndex:i - 1 withObjectAtIndex:arc4random_uniform((uint32_t)i)];
         }
 
-        for (NSDictionary *dict in shuffled) {
+        for (ZBFeaturedBanner *banner in shuffled) {
             if (self->selectedFeatured.count >= (NSUInteger)self.cellNumber) {
                 break;
             }
-            if (![self->selectedFeatured containsObject:dict]) {
-                [self->selectedFeatured addObject:dict];
+            if (![self->selectedFeatured containsObject:banner]) {
+                [self->selectedFeatured addObject:banner];
             }
         }
         
@@ -669,20 +660,13 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
 - (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     if ((NSUInteger)indexPath.row < selectedFeatured.count) {
-        NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
-        NSString *section = currentBanner[@"section"];
-        if (![section isKindOfClass:[NSString class]]) {
-            section = @"banner";
-        }
-
-        NSString *urlString = currentBanner[@"url"];
-        NSString *packageID = currentBanner[@"package"];
-        NSString *title = currentBanner[@"title"];
+        ZBFeaturedBanner *banner = selectedFeatured[indexPath.row];
 
         cell.imageView.sd_imageIndicator = nil;
-        [cell.imageView setRetinaImageWithURL:[urlString isKindOfClass:[NSString class]] ? [NSURL URLWithString:urlString] : nil placeholderImage:[UIImage imageNamed:section]];
-        cell.packageID = [packageID isKindOfClass:[NSString class]] ? packageID : nil;
-        cell.titleLabel.text = [title isKindOfClass:[NSString class]] ? title : nil;
+        NSURL *bannerURL = banner.url ? [NSURL URLWithString:banner.url] : nil;
+        [cell.imageView setRetinaImageWithURL:bannerURL placeholderImage:[UIImage imageNamed:banner.section ?: @"banner"]];
+        cell.packageID = banner.package.lowercaseString;
+        cell.titleLabel.text = banner.title;
     }
     return cell;
 }

@@ -15,6 +15,7 @@
 #import "ZBChangelogEntryCell.h"
 #import "ZBLabelTextView.h"
 #import "NSURLSession+Zebra.h"
+#import "ZBGitHubRelease.h"
 
 @interface ZBChangelogTableViewController ()
 
@@ -60,23 +61,25 @@
     [request setValue:@"application/vnd.github.v3.html" forHTTPHeaderField:@"Accept"];
     
     NSURLSessionDataTask *task = [[NSURLSession zbra_standardSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, __unused NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSMutableArray <ZBGitHubRelease *> *releases = [NSMutableArray array];
         if (data && !error) {
-            NSMutableArray *allReleases = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            NSArray <ZBGitHubRelease *> *allReleases = [ZBGitHubRelease arrayFromData:data error:nil];
+
             NSRange r1 = [@PACKAGE_VERSION rangeOfString:@"~"];
             if (r1.location != NSNotFound) {
                 NSRange r2 = [@PACKAGE_VERSION rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet] options:0 range:NSMakeRange(r1.location, @PACKAGE_VERSION.length - r1.location)];
                 NSRange rSub = NSMakeRange(r1.location + r1.length, r2.location - r1.location - r1.length);
                 NSString *releaseType = [@PACKAGE_VERSION substringWithRange:rSub];
-                for (NSDictionary *release in allReleases) {
-                    if ([[release objectForKey:@"tag_name"] containsString:releaseType]) {
-                        [self->releases addObject:release];
+                for (ZBGitHubRelease *release in allReleases) {
+                    if ([release.tagName containsString:releaseType]) {
+                        [releases addObject:release];
                     }
                 }
             }
             else {
-                for (NSDictionary *release in allReleases) {
-                    if (![[release objectForKey:@"prerelease"] boolValue]) {
-                        [self->releases addObject:release];
+                for (ZBGitHubRelease *release in allReleases) {
+                    if (!release.prerelease) {
+                        [releases addObject:release];
                     }
                 }
             }
@@ -85,8 +88,9 @@
         else {
             ZBLog(@"[Zebra] Error while trying to access GitHub releases: %@", error);
         }
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self->releases addObjectsFromArray:releases];
             self->_attributedStrings = [NSMutableDictionary dictionary];
             [self.tableView reloadData];
             self.navigationItem.titleView = NULL;
@@ -109,12 +113,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"changeLogCell";
-    NSDictionary *dataDict = releases[indexPath.section];
+    ZBGitHubRelease *release = releases[indexPath.section];
 
     ZBChangelogEntryCell *cell = (ZBChangelogEntryCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     NSMutableAttributedString *attributedString = _attributedStrings[@(indexPath.section)];
     if (!attributedString) {
-        attributedString = [ZBLabelTextView attributedStringWithBody:dataDict[@"body_html"] ?: NSLocalizedString(@"Error", @"")];
+        attributedString = [ZBLabelTextView attributedStringWithBody:release.bodyHTML];
         _attributedStrings[@(indexPath.section)] = attributedString;
     }
     [attributedString addAttributes:@{
@@ -125,8 +129,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSDictionary *jsonDict = releases[section];
-    return jsonDict[@"name"] ?: NSLocalizedString(@"Error", @"");
+    return releases[section].name;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
