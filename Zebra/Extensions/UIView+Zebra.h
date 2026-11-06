@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIView (Zebra)
 
 @property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic) CGFloat concentricCornerRadius;
 @property (nonatomic, readonly, nullable) UIViewController *viewController;
 
 @end

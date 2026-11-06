@@ -29,12 +29,12 @@
 #ifdef __IPHONE_26_0
     if (@available(iOS 26, *)) {
         if ([self respondsToSelector:@selector(setCornerConfiguration:)]) {
-            self.cornerConfiguration = [UICornerConfiguration configurationWithUniformRadius:[UICornerRadius containerConcentricRadiusWithMinimum:cornerRadius]];
+            self.cornerConfiguration = [UICornerConfiguration configurationWithUniformRadius:[UICornerRadius fixedRadius:cornerRadius]];
             return;
         }
     }
 #endif
-    
+
     self.layer.cornerRadius = cornerRadius;
 
     if (@available(iOS 13, *)) {
@@ -42,6 +42,25 @@
     } else if (@available(iOS 11, *)) {
         self._continuousCornerRadius = cornerRadius;
     }
+}
+
+- (CGFloat)concentricCornerRadius {
+    return self.layer.cornerRadius;
+}
+
+- (void)setConcentricCornerRadius:(CGFloat)cornerRadius {
+    self.layer.masksToBounds = YES;
+
+#ifdef __IPHONE_26_0
+    if (@available(iOS 26, *)) {
+        if ([self respondsToSelector:@selector(setCornerConfiguration:)]) {
+            self.cornerConfiguration = [UICornerConfiguration configurationWithUniformRadius:[UICornerRadius containerConcentricRadiusWithMinimum:cornerRadius]];
+            return;
+        }
+    }
+#endif
+
+    self.cornerRadius = cornerRadius;
 }
 
 @end

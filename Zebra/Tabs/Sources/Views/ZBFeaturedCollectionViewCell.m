@@ -30,7 +30,7 @@
     self.layer.borderWidth = 1.0f;
     self.layer.borderColor = [UIColor clearColor].CGColor;
     if (@available(iOS 26, *)) {
-        self.cornerRadius = 27.0f;
+        self.concentricCornerRadius = 27.0f;
     } else {
         self.cornerRadius = 10.0f;
     }

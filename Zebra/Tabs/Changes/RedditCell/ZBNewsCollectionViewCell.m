@@ -40,7 +40,11 @@
     self.layer.borderWidth = 1.0f;
     self.layer.borderColor = [UIColor clearColor].CGColor;
     self.layer.masksToBounds = YES;
-    self.cornerRadius = 10.0f;
+    if (@available(iOS 26, *)) {
+        self.concentricCornerRadius = 27.0f;
+    } else {
+        self.cornerRadius = 10.0f;
+    }
 }
 
 - (void)createBlur {
