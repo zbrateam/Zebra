@@ -10,9 +10,14 @@
 #define parsel_h
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <sqlite3.h>
 #include <string.h>
 #include <libgen.h>
+#include "dict.h"
+
+#define LONG_DESCRIPTION_MAX_LENGTH 32768
+#define DEPENDS_MAX_LENGTH 512
 
 struct ZBBaseSource {
     const char *archiveType;
@@ -27,6 +32,7 @@ enum PARSEL_RETURN_TYPE {
     PARSEL_FILENOTFOUND
 };
 
+bool parseControlLine(char *line, dict *package, char *longDescription, size_t longDescriptionSize, char *depends, size_t dependsSize, bool *longDescFlag);
 void createTable(sqlite3 *database, int table);
 int needsMigration(sqlite3 *database, int table);
 enum PARSEL_RETURN_TYPE importSourceToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID);

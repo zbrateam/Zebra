@@ -14,8 +14,6 @@
 #include <time.h>
 #include "ZBColumn.h"
 
-#define LONG_DESCRIPTION_MAX_LENGTH 32768
-
 char *trim(char *s) {
     size_t size = strlen(s);
     if (!size)
@@ -537,6 +535,63 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
     return false;
 }
 
+bool parseControlLine(char *line, dict *package, char *longDescription, size_t longDescriptionSize, char *depends, size_t dependsSize, bool *longDescFlag) {
+    if (strlen(trim(line)) == 0) {
+        *longDescFlag = false;
+        return false;
+    }
+
+    if (isspace((unsigned char)line[0])) {
+        if (*longDescFlag) {
+            int i = 0;
+            while (line[i] != '\0' && isspace((unsigned char)line[i])) {
+                ++i;
+            }
+
+            if (strlen(&line[i]) + strlen(longDescription) + 1 < longDescriptionSize) {
+                strcat(longDescription, &line[i]);
+                strcat(longDescription, "\n");
+            }
+        }
+
+        return true;
+    }
+
+    *longDescFlag = false;
+
+    char *info = strtok(line, "\n");
+    info = strtok(line, "\r");
+
+    multi_tok_t s = init();
+
+    char *key = multi_tok(info, &s, ": ");
+    char *value = multi_tok(NULL, &s, NULL);
+
+    if (key == NULL || value == NULL) { // y'all suck at maintaining sources, what do you do? make the package files by hand??
+        key = multi_tok(info, &s, ":");
+        value = multi_tok(NULL, &s, NULL);
+    }
+
+    if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
+        size_t dependsLen = strlen(depends);
+        if (dependsLen + strlen(value) + 2 < dependsSize) {
+            if (dependsLen) {
+                strcat(depends, ", ");
+            }
+            strcat(depends, value);
+        }
+        return true;
+    }
+
+    dict_add(package, key, value);
+
+    if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
+        *longDescFlag = true;
+    }
+
+    return true;
+}
+
 enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *database, int sourceID) {
     FILE *file = fopen(path, "r");
     if (file == NULL) {
@@ -553,55 +608,11 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     bool longDescFlag = false;
     
     char longDescription[LONG_DESCRIPTION_MAX_LENGTH] = "";
-    char depends[512] = "";
-    
+    char depends[DEPENDS_MAX_LENGTH] = "";
+
     while (fgets(line, sizeof(line), file)) {
-        if (strlen(trim(line)) != 0) {
-            if (longDescFlag && isspace((unsigned char)line[0])) {
-                int i = 0;
-                while (line[i] != '\0' && isspace((unsigned char)line[i])) {
-                    ++i;
-                }
-                
-                if (strlen(&line[i]) + strlen(longDescription) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
-                    strcat(longDescription, &line[i]);
-                    strcat(longDescription, "\n");
-                }
-                
-                continue;
-            } else {
-                longDescFlag = false;
-            }
-            
-            char *info = strtok(line, "\n");
-            info = strtok(line, "\r");
-            
-            multi_tok_t s = init();
-            
-            char *key = multi_tok(info, &s, ": ");
-            char *value = multi_tok(NULL, &s, NULL);
-            
-            if (key == NULL || value == NULL) { // y'all suck at maintaining sources, what do you do? make the package files by hand??
-                key = multi_tok(info, &s, ":");
-                value = multi_tok(NULL, &s, NULL);
-            }
-            
-            if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
-                size_t dependsLen = strlen(depends);
-                if (dependsLen + strlen(value) + 2 < 512) {
-                    if (dependsLen) {
-                        strcat(depends, ", ");
-                    }
-                    strcat(depends, value);
-                }
-                continue;
-            }
-            
-            dict_add(package, key, value);
-            
-            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
-                longDescFlag = true;
-            }
+        if (parseControlLine(line, package, longDescription, sizeof(longDescription), depends, sizeof(depends), &longDescFlag)) {
+            continue;
         } else if (dict_get(package, "Package") != 0) {
             if (bindPackage(&package, sourceID, safeID, longDescription, depends, database, true, 0))
                 continue;
@@ -640,55 +651,11 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     bool longDescFlag = false;
     
     char longDescription[LONG_DESCRIPTION_MAX_LENGTH] = "";
-    char depends[512] = "";
-    
+    char depends[DEPENDS_MAX_LENGTH] = "";
+
     while (fgets(line, sizeof(line), file)) {
-        if (strlen(trim(line)) != 0) {
-            if (longDescFlag && isspace((unsigned char)line[0])) {
-                int i = 0;
-                while (line[i] != '\0' && isspace((unsigned char)line[i])) {
-                    ++i;
-                }
-                
-                if (strlen(&line[i]) + strlen(longDescription) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
-                    strcat(longDescription, &line[i]);
-                    strcat(longDescription, "\n");
-                }
-                                
-                continue;
-            } else {
-                longDescFlag = false;
-            }
-            
-            char *info = strtok(line, "\n");
-            info = strtok(line, "\r");
-            
-            multi_tok_t s = init();
-            
-            char *key = multi_tok(info, &s, ": ");
-            char *value = multi_tok(NULL, &s, NULL);
-            
-            if (key == NULL || value == NULL) { // y'all suck at maintaining sources, what do you do? make the package files by hand??
-                key = multi_tok(info, &s, ":");
-                value = multi_tok(NULL, &s, NULL);
-            }
-            
-            if (key != NULL && value != NULL && (strcmp(key, "Depends") == 0 || strcmp(key, "Pre-Depends") == 0)) {
-                size_t dependsLen = strlen(depends);
-                if (dependsLen + strlen(value) + 2 < 512) {
-                    if (dependsLen) {
-                        strcat(depends, ", ");
-                    }
-                    strcat(depends, value);
-                }
-                continue;
-            }
-            
-            dict_add(package, key, value);
-            
-            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
-                longDescFlag = true;
-            }
+        if (parseControlLine(line, package, longDescription, sizeof(longDescription), depends, sizeof(depends), &longDescFlag)) {
+            continue;
         } else if (dict_get(package, "Package") != 0) {
             bindPackage(&package, sourceID, safeID, longDescription, depends, database, false, currentDate);
         } else {

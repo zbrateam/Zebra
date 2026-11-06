@@ -18,6 +18,7 @@
 #import "ZBAppDelegate.h"
 #import "ZBDatabaseManager.h"
 #import "ZBColumn.h"
+#import "parsel.h"
 #import "ZBQueue.h"
 #import "ZBSettings.h"
 #import "ZBCommand.h"
@@ -345,20 +346,40 @@
         stringRead = [[NSString alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"control" withExtension:@"sample"] encoding:NSUTF8StringEncoding error:nil];
     }
     
+    dict *fields = dict_new();
+    char longDescription[LONG_DESCRIPTION_MAX_LENGTH] = "";
+    char depends[DEPENDS_MAX_LENGTH] = "";
+    bool longDescFlag = false;
+
+    for (NSString *line in [stringRead componentsSeparatedByString:@"\n"]) {
+        char buffer[2048];
+        strlcpy(buffer, line.UTF8String, sizeof(buffer));
+        if (!parseControlLine(buffer, fields, longDescription, sizeof(longDescription), depends, sizeof(depends), &longDescFlag)) {
+            break;
+        }
+    }
+
     NSMutableDictionary *info = [NSMutableDictionary new];
-    [stringRead enumerateLinesUsingBlock:^(NSString *line, __unused BOOL *stop) {
-        NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
-        if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
-        if (pair.count != 2) return;
-        NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-        NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-        info[key] = value;
-    }];
-    
+    for (dict *node = fields; node != NULL && node->head != NULL; node = node->next) {
+        NSString *key = [NSString stringWithUTF8String:node->head->key];
+        NSString *value = [NSString stringWithUTF8String:node->head->value];
+        if (key && value) {
+            info[key] = value;
+        }
+    }
+    dict_free(fields);
+
+    if (depends[0] != '\0') {
+        info[@"Depends"] = [NSString stringWithUTF8String:depends];
+    }
+
     ZBPackage *package = [self initWithDictionary:info];
+    if (longDescription[0] != '\0') {
+        package.longDescription = [[NSString stringWithUTF8String:longDescription] stringByTrimmingCharactersInSet:NSCharacterSet.newlineCharacterSet];
+    }
     [package setDebPath:path];
     [package setSource:[ZBSource localSource:-2]];
-    
+
     return package;
 }
 
