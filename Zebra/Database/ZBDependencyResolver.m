@@ -367,11 +367,12 @@
 
 - (BOOL)enqueueDependency:(ZBPackage *)dependency forPackage:(ZBPackage *)package ignoreFurtherDependencies:(BOOL)ignore {
     NSLog(@"[Zebra] Adding %@ as a dependency for %@", dependency, package);
+    BOOL alreadyQueued = [queue.dependencyQueue containsObject:dependency];
     [package addDependency:dependency];
     [dependency addDependencyOf:package];
     [queue addDependency:dependency];
-    
-    return ignore || [self calculateDependenciesForPackage:dependency];
+
+    return ignore || alreadyQueued || [self calculateDependenciesForPackage:dependency];
 }
 
 - (void)enqueueConflict:(ZBPackage *)conflict forPackage:(ZBPackage *)package {
