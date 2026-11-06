@@ -24,7 +24,7 @@
 }
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, strong) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBWishListTableViewController

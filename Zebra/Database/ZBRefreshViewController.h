@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSArray *messages;
 @property (nonatomic, retain) NSSet <ZBBaseSource *> *baseSources;
 @property (nonatomic) BOOL dropTables;
-@property id <ZBSourceVerificationDelegate> delegate;
+@property (nonatomic, weak) id <ZBSourceVerificationDelegate> delegate;
 - (id)init;
 - (id)initWithMessages:(NSArray *)messages;
 - (id)initWithDropTables:(BOOL)dropTables;

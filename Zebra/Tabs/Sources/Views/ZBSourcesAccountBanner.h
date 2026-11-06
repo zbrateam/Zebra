@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @property (nonatomic, strong) ZBSource *source;
 @property (nonatomic, strong) ZBSourceInfo *sourceInfo;
-@property (nonatomic, assign) ZBSourceSectionsListTableViewController *owner;
+@property (nonatomic, weak) ZBSourceSectionsListTableViewController *owner;
 
 @property (weak, nonatomic) IBOutlet UIButton *button;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;

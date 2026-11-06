@@ -62,7 +62,7 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
 @interface ZBHomeTableViewController () {
     NSMutableArray *redditPosts;
 }
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, strong) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBHomeTableViewController

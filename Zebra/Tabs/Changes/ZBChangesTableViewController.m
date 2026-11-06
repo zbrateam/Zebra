@@ -33,8 +33,8 @@
     NSInteger numberOfPackages;
     NSInteger databaseRow;
 }
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
-@property (nonatomic, weak) SFSafariViewController *previewSafariVC;
+@property (nonatomic, strong) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, strong) SFSafariViewController *previewSafariVC;
 @property (nonatomic, strong, nullable) NSMutableArray <ZBRedditPost *> *redditPosts;
 @end
 

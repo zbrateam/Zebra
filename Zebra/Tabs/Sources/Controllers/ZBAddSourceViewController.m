@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textFieldBottomConstraint;
 @property (nonatomic, copy) NSString *text;
-@property id <ZBSourceVerificationDelegate> delegate;
+@property (nonatomic, weak) id <ZBSourceVerificationDelegate> delegate;
 @end
 
 @implementation ZBAddSourceViewController

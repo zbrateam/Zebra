@@ -32,7 +32,7 @@
     NSString *userEmail;
     BOOL loading;
 }
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, strong) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBSourceAccountTableViewController

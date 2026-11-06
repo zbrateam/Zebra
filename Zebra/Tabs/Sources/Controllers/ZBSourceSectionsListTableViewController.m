@@ -38,7 +38,7 @@
 @property (nonatomic, strong) NSArray *sectionNames;
 @property (nonatomic, strong) NSMutableArray *filteredSections;
 @property (nonatomic, strong) NSDictionary *sectionReadout;
-@property (nonatomic, weak) ZBPackageListTableViewController *previewPackageListVC;
+@property (nonatomic, strong) ZBPackageListTableViewController *previewPackageListVC;
 @end
 
 @implementation ZBSourceSectionsListTableViewController

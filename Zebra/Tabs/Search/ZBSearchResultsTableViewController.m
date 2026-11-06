@@ -19,7 +19,7 @@
 
 
 @interface ZBSearchResultsTableViewController ()
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, strong) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBSearchResultsTableViewController
