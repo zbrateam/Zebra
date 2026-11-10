@@ -311,7 +311,9 @@
                 if (info) { // Package does have purchase info
                     if (!info.purchased && ![package isInstalled:NO]) { // If the user has not purchased the package
                         NSString *title = info.price;
-                        if ([title isKindOfClass:[NSNumber class]] && [title integerValue] == 0) {
+                        NSScanner *scanner = title ? [NSScanner scannerWithString:title] : nil;
+                        double price = 0;
+                        if (title.length == 0 || ([scanner scanDouble:&price] && scanner.isAtEnd && price == 0)) {
                             // Free package even with purchase info
                             completeDefaultButton();
                             return;
