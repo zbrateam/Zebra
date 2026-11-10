@@ -46,16 +46,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSURL *releaseURL;
 
 /*! @brief An identifier of a NSURLSessionDownloadTask to retrieve information about the task downloading the repository's release file */
-@property NSUInteger releaseTaskIdentifier;
+@property (nonatomic) NSUInteger releaseTaskIdentifier;
 
 /*! @brief An identifier of a NSURLSessionDownloadTask to retrieve information about the task downloading the repository's package file */
-@property NSUInteger packagesTaskIdentifier;
+@property (nonatomic) NSUInteger packagesTaskIdentifier;
 
 /*! @brief Indicates whether or not the task downloading the Packages file is completed and the repo should be parsed */
-@property BOOL packagesTaskCompleted;
+@property (nonatomic) BOOL packagesTaskCompleted;
 
 /*! @brief Indicates whether or not the task downloading the Release file is completed and the repo should be parsed */
-@property BOOL releaseTaskCompleted;
+@property (nonatomic) BOOL releaseTaskCompleted;
 
 /*! @brief A file path that points to the downloaded Packages file (NULL if no file has been downloaded and the database entry should not be updated) */
 @property (nonatomic) NSString *_Nullable packagesFilePath;
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief The base filename of the repository, based on the URL */
 @property (nonatomic) NSString *baseFilename;
 
-@property ZBSourceVerificationStatus verificationStatus;
+@property (nonatomic) ZBSourceVerificationStatus verificationStatus;
 @property (nonatomic) NSError *verificationError;
 
 @property (nonatomic) NSString *label;

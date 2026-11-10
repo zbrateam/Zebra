@@ -11,5 +11,5 @@
 @interface ZBFeaturedCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
-@property NSString *packageID;
+@property (nonatomic, strong) NSString *packageID;
 @end

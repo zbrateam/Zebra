@@ -28,8 +28,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *footerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *udidLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *featuredCollection;
-@property NSMutableArray <ZBFeaturedBanner *> *allFeatured;
-@property NSMutableArray <ZBFeaturedBanner *> *selectedFeatured;
-@property NSInteger cellNumber;
-@property NSUserDefaults *defaults;
+@property (nonatomic, strong) NSMutableArray <ZBFeaturedBanner *> *allFeatured;
+@property (nonatomic, strong) NSMutableArray <ZBFeaturedBanner *> *selectedFeatured;
+@property (nonatomic) NSInteger cellNumber;
+@property (nonatomic, strong) NSUserDefaults *defaults;
 @end

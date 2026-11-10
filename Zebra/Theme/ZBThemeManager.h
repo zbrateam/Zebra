@@ -13,8 +13,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBThemeManager : NSObject
-@property ZBInterfaceStyle interfaceStyle;
-@property ZBAccentColor accentColor;
+@property (nonatomic) ZBInterfaceStyle interfaceStyle;
+@property (nonatomic) ZBAccentColor accentColor;
 + (id)sharedInstance;
 + (UIColor *)getAccentColor:(ZBAccentColor)accentColor;
 + (UIColor *)getAccentColor:(ZBAccentColor)accentColor forInterfaceStyle:(ZBInterfaceStyle)style;

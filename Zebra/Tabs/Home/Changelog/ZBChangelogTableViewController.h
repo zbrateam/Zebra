@@ -11,5 +11,5 @@
 @class ZBGitHubRelease;
 
 @interface ZBChangelogTableViewController : ZBTableViewController
-@property NSMutableArray <ZBGitHubRelease *> *releases;
+@property (nonatomic, strong) NSMutableArray <ZBGitHubRelease *> *releases;
 @end

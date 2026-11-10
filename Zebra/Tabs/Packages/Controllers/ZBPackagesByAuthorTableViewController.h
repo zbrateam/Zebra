@@ -10,6 +10,6 @@
 #import "ZBTableViewController.h"
 
 @interface ZBPackagesByAuthorTableViewController : ZBTableViewController
-@property ZBPackage *package;
-@property NSString *developerName;
+@property (nonatomic, strong) ZBPackage *package;
+@property (nonatomic, strong) NSString *developerName;
 @end

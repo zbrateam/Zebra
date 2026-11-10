@@ -10,5 +10,5 @@
 #import "ZBPackage.h"
 
 @interface ZBInstalledFilesTableViewController : ZBTableViewController
-@property ZBPackage *package;
+@property (nonatomic, strong) ZBPackage *package;
 @end

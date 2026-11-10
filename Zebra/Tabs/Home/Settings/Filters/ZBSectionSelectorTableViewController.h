@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSectionSelectorTableViewController : ZBTableViewController
-@property void (^sectionsSelected)(NSArray *selectedSections);
+@property (nonatomic, copy) void (^sectionsSelected)(NSArray *selectedSections);
 @end
 
 NS_ASSUME_NONNULL_END

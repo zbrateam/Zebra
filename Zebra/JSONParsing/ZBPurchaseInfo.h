@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPurchaseInfo : ZBJSONObject
 @property (nonatomic, nullable, copy)   NSString *price;
-@property BOOL purchased;
-@property BOOL available;
+@property (nonatomic) BOOL purchased;
+@property (nonatomic) BOOL available;
 @property (nonatomic, nullable, copy)   NSString *error;
 @property (nonatomic, nullable, copy)   NSString *recoveryURL;
 

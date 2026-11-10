@@ -23,10 +23,10 @@
     float individualIncrement;
     NSUInteger sourcesToVerify;
 }
-@property NSArray <ZBBaseSource *> *baseSources;
-@property NSMutableDictionary <NSString *, NSString *> *titles;
-@property NSMutableDictionary <NSString *, NSNumber *> *selectedSources;
-@property ZBSourceManager *sourceManager;
+@property (nonatomic, strong) NSArray <ZBBaseSource *> *baseSources;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, NSString *> *titles;
+@property (nonatomic, strong) NSMutableDictionary <NSString *, NSNumber *> *selectedSources;
+@property (nonatomic, strong) ZBSourceManager *sourceManager;
 @end
 
 @implementation ZBSourceImportTableViewController

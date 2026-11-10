@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBAuthorSelectorTableViewController : ZBTableViewController <UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
 @property (nonatomic, strong) UISearchController *searchController;
-@property void (^authorsSelected)(NSDictionary *selectedAuthors);
+@property (nonatomic, copy) void (^authorsSelected)(NSDictionary *selectedAuthors);
 @end
 
 NS_ASSUME_NONNULL_END

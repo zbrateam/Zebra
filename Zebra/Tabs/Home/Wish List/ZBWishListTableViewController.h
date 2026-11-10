@@ -9,6 +9,6 @@
 #import "ZBTableViewController.h"
 
 @interface ZBWishListTableViewController : ZBTableViewController <UIToolbarDelegate>
-@property NSMutableArray *wishedPackages;
-@property NSMutableArray *wishedPackageIdentifiers;
+@property (nonatomic, strong) NSMutableArray *wishedPackages;
+@property (nonatomic, strong) NSMutableArray *wishedPackageIdentifiers;
 @end

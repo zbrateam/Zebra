@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBSearchResultsTableViewController : ZBTableViewController
 @property (nonatomic) NSArray *filteredResults;
 @property (nonatomic) UINavigationController *navController;
-@property BOOL live;
+@property (nonatomic) BOOL live;
 - (id)initWithNavigationController:(UINavigationController *)controller;
 - (void)refreshTable;
 @end

@@ -18,9 +18,9 @@ typedef NS_ENUM(NSUInteger, ZBSourceSelectionType) {
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceSelectTableViewController : ZBSourceListTableViewController
-@property void (^sourcesSelected)(NSArray <ZBSource *> *selectedSources);
-@property ZBSourceSelectionType selectionType;
-@property NSUInteger limit;
+@property (nonatomic, copy) void (^sourcesSelected)(NSArray <ZBSource *> *selectedSources);
+@property (nonatomic) ZBSourceSelectionType selectionType;
+@property (nonatomic) NSUInteger limit;
 
 - (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(NSUInteger)limit;
 - (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(NSUInteger)sourceLimit selectedSources:(NSArray *)preSelectedSources;

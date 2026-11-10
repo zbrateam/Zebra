@@ -18,5 +18,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headerView;
 @property (weak, nonatomic) IBOutlet UIView *headerContainer;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property UIVisualEffectView *blurView;
+@property (nonatomic, strong) UIVisualEffectView *blurView;
 @end

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBDatabaseManager : NSObject <ZBDownloadDelegate>
 
 /*! @brief A reference to the database. */
-@property (atomic) sqlite3 *database;
+@property (atomic, nullable) sqlite3 *database;
 
 /*! @brief Property indicating whether or not the databaseDelegate should present the console when performing actions. */
 @property (nonatomic) BOOL needsToPresentRefresh;

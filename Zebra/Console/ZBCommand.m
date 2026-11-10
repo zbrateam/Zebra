@@ -137,7 +137,7 @@ static const int ZBCommandFinishFileno = 3;
     return nil;
 }
 
-+ (NSString *)execute:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root {
++ (nullable NSString *)execute:(NSString *)command withArguments:(nullable NSArray <NSString *> *)arguments asRoot:(BOOL)root {
     // As this method is intended for convenience, the arguments array isn’t expected to have the
     // first argument, which is typically the path or name of the binary being invoked. Add it now.
     arguments = [@[command] arrayByAddingObjectsFromArray:arguments ?: @[]];
@@ -158,7 +158,7 @@ static const int ZBCommandFinishFileno = 3;
     return self;
 }
 
-- (instancetype)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> * _Nullable)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate>)delegate {
+- (instancetype)initWithCommand:(NSString *)command arguments:(nullable NSArray <NSString *> *)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate>)delegate {
     self = [self initWithDelegate:delegate];
 
     if (self) {
@@ -185,7 +185,7 @@ static const int ZBCommandFinishFileno = 3;
             // command into the arguments array
             [mutableArguments insertObject:_command atIndex:0];
             _arguments = mutableArguments;
-            _command = [[NSBundle mainBundle] pathForResource:@"supersling" ofType:nil];
+            _command = (NSString *)[[NSBundle mainBundle] pathForResource:@"supersling" ofType:nil];
         }
 
         if (!_asRoot && !asRoot && (!mutableArguments.count || ![mutableArguments[0] isEqualToString:_command])) {

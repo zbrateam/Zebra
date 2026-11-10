@@ -12,7 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *postTag;
 @property (weak, nonatomic) IBOutlet UILabel *postTitle;
-@property NSURL *redditLink;
-@property NSString *redditID;
-@property CAGradientLayer *gradient;
+@property (nonatomic, strong) NSURL *redditLink;
+@property (nonatomic, strong) NSString *redditID;
+@property (nonatomic, strong) CAGradientLayer *gradient;
 @end
