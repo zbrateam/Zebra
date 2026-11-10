@@ -290,7 +290,7 @@ static const int ZBCommandFinishFileno = 3;
 
     // Setup the dispatch queues for reading output and errors
     dispatch_semaphore_t lock = dispatch_semaphore_create(0);
-    dispatch_queue_t readQueue = dispatch_queue_create("xyz.willy.Zebra.david", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_queue_t readQueue = dispatch_queue_create("xyz.willy.Zebra.david", DISPATCH_QUEUE_SERIAL);
 
     // Setup the dispatch handler for the output pipes
     dispatch_source_t stdOutSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_READ, fds->stdOut->fds[0], 0, readQueue);
