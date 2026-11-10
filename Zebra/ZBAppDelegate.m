@@ -412,6 +412,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         case 2: { // sileo
             // Forward to current Safari auth session, if any.
             [ZBSafariAuthenticationSession handleCallbackURL:url];
+            break;
         }
         default: {
             return NO;
@@ -425,19 +426,25 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     if (![[ZBAppDelegate window].rootViewController isKindOfClass:[ZBTabBarController class]]) {
         return;
     }
-    
+
     ZBTabBarController *tabController = (ZBTabBarController *)[ZBAppDelegate window].rootViewController;
     if ([shortcutItem.type isEqualToString:@"Search"]) {
         [tabController setSelectedIndex:ZBTabSearch];
-        
+
         ZBSearchTableViewController *searchController = (ZBSearchTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [searchController handleURL:nil];
+        completionHandler(YES);
+        return;
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
-        
+
         ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
+        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
+        completionHandler(YES);
+        return;
     }
+
+    completionHandler(NO);
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray <id <UIUserActivityRestoring>> *))restorationHandler {
