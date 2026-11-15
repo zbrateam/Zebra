@@ -107,7 +107,7 @@ char *sourcesSchema(void) {
 
 const char *sourceInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, VENDOR, BASEFILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-const char *sourceUpdateQuery = "UPDATE REPOS SET (TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, VENDOR, BASEFILENAME) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
+const char *sourceUpdateQuery = "UPDATE REPOS SET TYPE = ?1, URI = ?2, DISTRIBUTION = ?3, COMPONENTS = ?4, DESCRIPTION = ?5, ORIGIN = ?6, LABEL = ?7, VERSION = ?8, SUITE = ?9, CODENAME = ?10, ARCHITECTURES = ?11, BASEFILENAME = ?13 WHERE REPOID = ?14;";
 
 char *packagesSchema(void) {
     return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), ARCHITECTURE STRING, SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHORNAME STRING, AUTHOREMAIL STRING, SUPPORT STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING, SHA256 STRING)";
@@ -272,11 +272,11 @@ enum PARSEL_RETURN_TYPE updateSourceInDatabase(struct ZBBaseSource source, const
 
 enum PARSEL_RETURN_TYPE addPaymentEndpointForSource(const char *endpointURL, sqlite3 *database, int sourceID) {
     sqlite3_stmt *updateStatement;
-    const char *query = "UPDATE REPOS SET (VENDOR) = (?) WHERE REPOID = ?;";
+    const char *query = "UPDATE REPOS SET VENDOR = ? WHERE REPOID = ?;";
     if (sqlite3_prepare_v2(database, query, -1, &updateStatement, 0) == SQLITE_OK) {
         sqlite3_bind_text(updateStatement, 1, endpointURL, -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(updateStatement, 2, sourceID);
-        if (sqlite3_step(updateStatement) != SQLITE_OK) {
+        if (sqlite3_step(updateStatement) != SQLITE_DONE) {
             printDatabaseError(database);
         }
     }
