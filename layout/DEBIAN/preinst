@@ -1,15 +1,15 @@
 #!/bin/sh
 
-if [ -d /var/mobile/Documents/xyz.willy.Zebra ];then
+if [ -d /var/mobile/Documents/xyz.willy.Zebra ]; then
     echo "Moving Zebra data from /var/mobile/Documents to /var/mobile/Library/Application Support"
     cp -R /var/mobile/Documents/xyz.willy.Zebra "/var/mobile/Library/Application Support/"
     rm -rf /var/mobile/Documents/xyz.willy.Zebra
 fi
 
 # Prevent Zebra from choosing a sandbox path for its directory
-if [ -f /var/mobile/Containers/Data/Application/*/Documents/zebra.db ];then
-    DBPATH=$(ls /var/mobile/Containers/Data/Application/*/Documents/zebra.db)
-    ZBPATH=${DBPATH/Documents\/zebra.db/}
-    rm -rf ${ZBPATH}
-    echo "Removed sandboxed Zebra document directory"
-fi
+for i in /var/mobile/Containers/Data/Application/*/Documents/zebra.db; do
+    if [ -f "$i" ]; then
+        rm -rf "${i%/Documents/zebra.db}"
+        echo "Removed sandboxed Zebra document directory"
+    fi
+done
