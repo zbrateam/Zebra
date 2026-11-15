@@ -176,10 +176,10 @@ typedef NS_ENUM(NSInteger, ZBPackageInfoOrder) {
         [shortDescription replaceOccurrencesOfString:@">"     withString:@"&gt;"  options:kNilOptions range:NSMakeRange(0, shortDescription.length)];
 
         NSMutableString *longDescription = [package.longDescription ?: @"" mutableCopy];
-        [longDescription replaceOccurrencesOfString:@"\n.\n"  withString:@"\n\n"  options:kNilOptions range:NSMakeRange(0, longDescription.length)];
         [longDescription replaceOccurrencesOfString:@"&"      withString:@"&amp;" options:kNilOptions range:NSMakeRange(0, longDescription.length)];
         [longDescription replaceOccurrencesOfString:@"<"      withString:@"&lt;"  options:kNilOptions range:NSMakeRange(0, longDescription.length)];
         [longDescription replaceOccurrencesOfString:@">"      withString:@"&gt;"  options:kNilOptions range:NSMakeRange(0, longDescription.length)];
+        [longDescription replaceOccurrencesOfString:@"\n.\n"  withString:@"</p><p>"  options:kNilOptions range:NSMakeRange(0, longDescription.length)];
 
         NSString *marginX = @"20px";
         if (@available(iOS 13, *)) {
@@ -187,7 +187,7 @@ typedef NS_ENUM(NSInteger, ZBPackageInfoOrder) {
         }
 
         NSString *css = [NSString stringWithFormat:
-                         @"body { margin: 15px %@; font: -apple-system-body; background: transparent; color: %@; white-space: pre-line; }"
+                         @"body { margin: 15px %@; font: -apple-system-body; background: transparent; color: %@; }"
                          @"a { color: %@; }",
                          marginX,
                          [UIColor hexStringFromColor:[UIColor primaryTextColor]],
@@ -202,9 +202,8 @@ typedef NS_ENUM(NSInteger, ZBPackageInfoOrder) {
                               @"<style>%@</style>"
                           @"</head>"
                           @"<body>"
-                            @"<strong>%@</strong>"
-                            @"\n\n"
-                            @"%@"
+                            @"<p><strong>%@</strong></p>"
+                            @"<p>%@</p>"
                           @"</body>"
                           @"</html>",
                           css, shortDescription, longDescription];
