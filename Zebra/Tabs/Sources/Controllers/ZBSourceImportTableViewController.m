@@ -200,8 +200,9 @@
         cell.sourceLabel.text = self.titles[[source baseFilename]];
         cell.urlLabel.text = source.repositoryURI;
         
-        [cell.iconImageView setRetinaImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
-            [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
+        __weak UIImageView *iconImageView = cell.iconImageView;
+        [iconImageView setRetinaImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
+            [iconImageView setIconImage:image variant:MIIconVariantSettings];
         }];
 
         return cell;

@@ -22,7 +22,11 @@
 }
 @end
 
-@implementation ZBDependencyResolver
+@implementation ZBDependencyResolver {
+    ZBDatabaseManager *databaseManager;
+    ZBPackage *package;
+    ZBQueue *queue;
+}
 
 #pragma mark - Version Comparison separation
 

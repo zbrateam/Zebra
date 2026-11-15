@@ -16,11 +16,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceListTableViewController : ZBRefreshableTableViewController <ZBSourceVerificationDelegate> {
-    NSMutableArray *sources;
-    NSMutableDictionary <NSString *, NSNumber *> *sourceIndexes;
-    NSMutableArray *sectionIndexTitles;
-}
+@interface ZBSourceListTableViewController : ZBRefreshableTableViewController <ZBSourceVerificationDelegate>
+@property (nonatomic, strong) NSMutableArray *sources;
 @property (readwrite, copy, nonatomic) NSArray *tableData;
 - (void)setSpinnerVisible:(BOOL)visible forSource:(NSString *)bfn;
 - (void)handleURL:(NSURL *)url;

@@ -352,8 +352,9 @@
     cell.urlLabel.textColor = [UIColor secondaryTextColor];
 
     NSURL *iconURL = info.icon ? [NSURL URLWithString:info.icon] : nil;
-    [cell.iconImageView setRetinaImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
-        [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
+    __weak UIImageView *iconImageView = cell.iconImageView;
+    [iconImageView setRetinaImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
+        [iconImageView setIconImage:image variant:MIIconVariantSettings];
     }];
 
     [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];

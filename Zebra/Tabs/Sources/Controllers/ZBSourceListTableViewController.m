@@ -28,6 +28,8 @@
 @import SDWebImage;
 
 @interface ZBSourceListTableViewController () <UITextFieldDelegate> {
+    NSMutableDictionary <NSString *, NSNumber *> *sourceIndexes;
+    NSMutableArray *sectionIndexTitles;
     NSMutableArray *errorMessages;
     BOOL askedToAddFromClipboard;
     BOOL isRefreshingTable;
@@ -38,6 +40,8 @@
 @end
 
 @implementation ZBSourceListTableViewController
+
+@synthesize sources;
 
 - (BOOL)forceSetColors {
     return YES;
@@ -111,8 +115,9 @@
         [self setSpinnerVisible:[busyList[[trueSource baseFilename]] boolValue] forCell:cell];
         
         cell.urlLabel.text = [trueSource repositoryURI];
-        [cell.iconImageView setRetinaImageWithURL:[trueSource iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
-            [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
+        __weak UIImageView *iconImageView = cell.iconImageView;
+        [iconImageView setRetinaImageWithURL:[trueSource iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
+            [iconImageView setIconImage:image variant:MIIconVariantSettings];
         }];
 
         cell.sourceLabel.textColor = [UIColor primaryTextColor];
@@ -164,7 +169,7 @@
         ZBSource *source = (ZBSource *)baseSource;
         if ([source canDelete]) {
             NSString *title = [ZBDevice useIcon] ? @"✗" : NSLocalizedString(@"Remove", @"");
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:title handler:^(__unused UITableViewRowAction *action, __unused NSIndexPath *indexPath) {
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:title handler:^(__unused UITableViewRowAction *action, __unused NSIndexPath *indexPath2) {
                 [self->sources removeObject:source];
                 [self->sourceManager deleteSource:source];
                 [self refreshTable];
@@ -173,7 +178,7 @@
         }
         if (![self.databaseManager isDatabaseBeingUpdated]) {
             NSString *title = [ZBDevice useIcon] ? @"↻" : NSLocalizedString(@"Refresh", @"");
-            UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(__unused UITableViewRowAction *action, __unused NSIndexPath *indexPath) {
+            UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(__unused UITableViewRowAction *action, __unused NSIndexPath *indexPath2) {
                 [self.databaseManager updateSource:source useCaching:YES];
             }];
             
@@ -189,7 +194,7 @@
         }
     }
     else if ([baseSource canDelete]) {
-        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(__unused UITableViewRowAction *action, __unused NSIndexPath *indexPath) {
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(__unused UITableViewRowAction *action, __unused NSIndexPath *indexPath2) {
             [self->sources removeObject:baseSource];
             [self->sourceManager deleteSource:(ZBSource *)baseSource];
             [self refreshTable];
@@ -369,7 +374,7 @@
                                                   completionHandler:^(NSSet <UIPasteboardDetectionPattern> *patterns, __unused NSError *error) {
             if ([patterns containsObject:pattern]) {
                 [[UIPasteboard generalPasteboard] detectValuesForPatterns:[NSSet setWithObject:pattern]
-                                                        completionHandler:^(NSDictionary <UIPasteboardDetectionPattern, id> *values, __unused NSError *error) {
+                                                        completionHandler:^(NSDictionary <UIPasteboardDetectionPattern, id> *values, __unused NSError *error2) {
                     NSString *result = values[pattern];
                     if (result) {
                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -573,9 +578,9 @@
     [sourceIndexes removeAllObjects];
     sectionIndexTitles = [NSMutableArray arrayWithArray:[[UILocalizedIndexedCollation currentCollation] sectionIndexTitles]];
     UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
-    NSInteger sectionCount = [[collation sectionTitles] count];
+    NSUInteger sectionCount = [[collation sectionTitles] count];
     NSMutableArray *unsortedSections = [NSMutableArray arrayWithCapacity:sectionCount];
-    for (NSInteger i = 0; i < sectionCount; ++i) {
+    for (NSUInteger i = 0; i < sectionCount; ++i) {
         [unsortedSections addObject:[NSMutableArray array]];
     }
     for (ZBSource *object in array) {

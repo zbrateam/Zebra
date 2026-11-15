@@ -153,7 +153,7 @@
             return;
         }
 
-        NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
+        NSInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
         switch (selectedIndex) {
             case 0:
                 results = [databaseManager searchForPackageName:strippedString fullSearch:!self->liveSearch];
@@ -278,14 +278,14 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableArray *actions = [NSMutableArray array];
     NSString *remove = [ZBDevice useIcon] ? @"✗" : NSLocalizedString(@"Remove", @"");
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:remove handler:^(__unused UITableViewRowAction *action, NSIndexPath *indexPath) {
-        [self->recentSearches removeObjectAtIndex:(long)indexPath.row];
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:remove handler:^(__unused UITableViewRowAction *action, NSIndexPath *actionIndexPath) {
+        [self->recentSearches removeObjectAtIndex:actionIndexPath.row];
         [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"recentSearches"];
 
         if (self->recentSearches.count == 0) {
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
         } else {
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+            [tableView deleteRowsAtIndexPaths:@[actionIndexPath] withRowAnimation:UITableViewRowAnimationTop];
         }
     }];
     [actions addObject:deleteAction];

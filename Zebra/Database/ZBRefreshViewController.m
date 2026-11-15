@@ -236,12 +236,13 @@ typedef NS_ENUM(NSUInteger, ZBRefreshButtonState) {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:NO];
     } else {
+        id <ZBSourceVerificationDelegate> delegate = self->delegate;
         [self clearProblems];
         ZBTabBarController *controller = (ZBTabBarController *)[self presentingViewController];
         if (controller) {
             [self dismissViewControllerAnimated:YES completion:^{
-                if (self->delegate) {
-                    [self->delegate finishedSourceVerification:NULL imaginarySources:self->imaginarySources];
+                if (delegate) {
+                    [delegate finishedSourceVerification:NULL imaginarySources:self->imaginarySources];
                 }
                 if ([controller isKindOfClass:[ZBTabBarController class]] && controller.forwardToPackageID != NULL) {
                     [controller forwardToPackage];
@@ -282,33 +283,32 @@ typedef NS_ENUM(NSUInteger, ZBRefreshButtonState) {
     
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color = [UIColor whiteColor];
-        UIFont *font;
+        UIFont *font = [UIFont monospaceFont];
         switch (level) {
             case ZBLogLevelDescript:
-                font = UIFont.monospaceFont;
-            case ZBLogLevelInfo: {
+                break;
+            case ZBLogLevelInfo:
                 if ([ZBSettings interfaceStyle] < ZBInterfaceStyleDark) {
                     color = [UIColor whiteColor];
                 }
-                font = font ?: UIFont.boldMonospaceFont;
                 break;
-            }
-            case ZBLogLevelError: {
+            case ZBLogLevelError:
                 color = [UIColor systemRedColor];
-                font = UIFont.boldMonospaceFont;
+                font = [UIFont boldMonospaceFont];
                 break;
-            }
-            case ZBLogLevelWarning: {
+            case ZBLogLevelWarning:
                 color = [UIColor systemYellowColor];
-                font = UIFont.monospaceFont;
+                font = [UIFont boldMonospaceFont];
                 break;
-            }
             default:
                 break;
         }
 
-        NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
-        
+        NSDictionary *attrs = @{
+            NSForegroundColorAttributeName: color,
+            NSFontAttributeName: font
+        };
+
         [self->consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 
         if (self->consoleView.text.length) {

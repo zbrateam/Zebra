@@ -173,9 +173,11 @@
             repositoryURI = lineComponents[1];
             
             if (([self hasCFVersionComponent:repositoryURI]) && count == 3) { // Sources that are known to use CF number in URL but for some reason aren't written in the sources.list properly
-                double rounding = kCFCoreFoundationVersionNumber >= 2000.0 ? 1000.0 : 100.0;
-                int roundedCF = rounding * floor((kCFCoreFoundationVersionNumber / rounding) + 0.5);
-                if (roundedCF > kCFCoreFoundationVersionNumber) roundedCF -= rounding;
+                int rounding = kCFCoreFoundationVersionNumber >= 2000.0 ? 1000 : 100;
+                int roundedCF = rounding * (int)floor((kCFCoreFoundationVersionNumber / rounding) + 0.5);
+                if (roundedCF > kCFCoreFoundationVersionNumber) {
+                    roundedCF -= rounding;
+                }
 
                 if ([repositoryURI containsString:@"apt.procurs.us"]) { // Have to treat this differently because its special
                     NSString *dist = roundedCF >= 1900 ? @"" : @"iphoneos-arm64-rootless";

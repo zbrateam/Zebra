@@ -13,11 +13,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
-@property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
-@property (weak, nonatomic) IBOutlet UILabel *urlLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *chevronView;
+@property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (strong, nonatomic) IBOutlet UILabel *sourceLabel;
+@property (strong, nonatomic) IBOutlet UIView *backgroundContainerView;
+@property (strong, nonatomic) IBOutlet UILabel *urlLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *chevronView;
 
 - (void)clearAccessoryView;
 - (void)setSpinning:(BOOL)animated;

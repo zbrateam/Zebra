@@ -72,7 +72,7 @@
         if ([view isKindOfClass:NSClassFromString(@"_UIPopoverView")]) {
             UIView *backgroundView = [view valueForKey:@"_backgroundView"];
             UIView *visualEffectView = [backgroundView valueForKey:@"_blurView"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
                 visualEffectView.subviews[1].backgroundColor = [UIColor cellBackgroundColor];
             });
             return;

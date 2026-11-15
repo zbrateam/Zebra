@@ -14,7 +14,7 @@
 #include <time.h>
 #include "ZBColumn.h"
 
-char *trim(char *s) {
+static char *trim(char *s) {
     size_t size = strlen(s);
     if (!size)
         return s;
@@ -27,7 +27,7 @@ char *trim(char *s) {
 
 typedef char *multi_tok_t;
 
-char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
+static char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
     if (input != NULL)
         *string = input;
     
@@ -51,9 +51,9 @@ char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
     return temp;
 }
 
-multi_tok_t init(void) { return NULL; }
+static multi_tok_t init(void) { return NULL; }
 
-char *replace_char(char *str, char find, char replace) {
+static char *replace_char(char *str, char find, char replace) {
     char *current_pos = strchr(str, find);
     while (current_pos) {
         *current_pos = replace;
@@ -62,7 +62,7 @@ char *replace_char(char *str, char find, char replace) {
     return str;
 }
 
-int isSourceSecure(const char *sourcePath, char *sourceURL) {
+static int isSourceSecure(const char *sourcePath, char *sourceURL) {
     FILE *file = fopen(sourcePath, "r");
     if (file == NULL) {
         return 0;
@@ -101,25 +101,25 @@ int isSourceSecure(const char *sourcePath, char *sourceURL) {
     return secure;
 }
 
-char *sourcesSchema(void) {
+static char *sourcesSchema(void) {
     return "REPOS(TYPE STRING, URI STRING, DISTRIBUTION STRING, COMPONENTS STRING, DESCRIPTION STRING, ORIGIN STRING, LABEL STRING, VERSION VARCHAR(16), SUITE STRING, CODENAME STRING, ARCHITECTURES STRING, VENDOR STRING, BASEFILENAME STRING, REPOID INTEGER PRIMARY KEY)";
 }
 
-const char *sourceInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, VENDOR, BASEFILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+static const char *sourceInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, VENDOR, BASEFILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-const char *sourceUpdateQuery = "UPDATE REPOS SET TYPE = ?1, URI = ?2, DISTRIBUTION = ?3, COMPONENTS = ?4, DESCRIPTION = ?5, ORIGIN = ?6, LABEL = ?7, VERSION = ?8, SUITE = ?9, CODENAME = ?10, ARCHITECTURES = ?11, BASEFILENAME = ?13 WHERE REPOID = ?14;";
+static const char *sourceUpdateQuery = "UPDATE REPOS SET TYPE = ?1, URI = ?2, DISTRIBUTION = ?3, COMPONENTS = ?4, DESCRIPTION = ?5, ORIGIN = ?6, LABEL = ?7, VERSION = ?8, SUITE = ?9, CODENAME = ?10, ARCHITECTURES = ?11, BASEFILENAME = ?13 WHERE REPOID = ?14;";
 
-char *packagesSchema(void) {
+static char *packagesSchema(void) {
     return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), ARCHITECTURE STRING, SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHORNAME STRING, AUTHOREMAIL STRING, SUPPORT STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING, SHA256 STRING)";
 }
 
-const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, ARCHITECTURE, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHORNAME, AUTHOREMAIL, SUPPORT, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID, LASTSEEN, INSTALLEDSIZE, DOWNLOADSIZE, PRIORITY, ESSENTIAL, SHA256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+static const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, ARCHITECTURE, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHORNAME, AUTHOREMAIL, SUPPORT, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID, LASTSEEN, INSTALLEDSIZE, DOWNLOADSIZE, PRIORITY, ESSENTIAL, SHA256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-char *updatesSchema(void) {
+static char *updatesSchema(void) {
     return "UPDATES(PACKAGE STRING PRIMARY KEY, VERSION VARCHAR(16) NOT NULL, IGNORE INTEGER DEFAULT 0)";
 }
 
-char *schemaForTable(int table) {
+static char *schemaForTable(int table) {
     switch (table) {
         case 0:
             return sourcesSchema();
@@ -197,14 +197,14 @@ void createTable(sqlite3 *database, int table) {
     }
 }
 
-void printDatabaseError(sqlite3 *database) {
+static void printDatabaseError(sqlite3 *database) {
     const char *error = sqlite3_errmsg(database);
     if (strcmp(error, "not an error") && strcmp(error, "no more rows available")) {
         printf("sql error: %s\n", error);
     }
 }
 
-enum PARSEL_RETURN_TYPE addSourceToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID, bool update) {
+static enum PARSEL_RETURN_TYPE addSourceToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID, bool update) {
     FILE *file = fopen(releasePath, "r");
     if (file == NULL) {
         return PARSEL_FILENOTFOUND;
@@ -315,7 +315,7 @@ void createDummySource(struct ZBBaseSource source, sqlite3 *database, int source
     sqlite3_finalize(insertStatement);
 }
 
-sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageIdentifier, const char *version, int sourceID) {
+static sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageIdentifier, const char *version, int sourceID) {
     const char *query = "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = ? AND VERSION = ? AND REPOID = ? LIMIT 1;";
 
     sqlite3_int64 timestamp = -1;
@@ -335,7 +335,7 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
     return timestamp;
 }
 
-pair *splitNameAndEmail(const char *author) {
+static pair *splitNameAndEmail(const char *author) {
     pair *p = malloc(sizeof(pair));
     
     if (author == NULL) {
@@ -369,7 +369,7 @@ pair *splitNameAndEmail(const char *author) {
     return p;
 }
 
-bool isValidPackageIdentifier(const char *identifier) {
+static bool isValidPackageIdentifier(const char *identifier) {
     // According to Debian policy, a package identifier should match, effectively, /^[a-z0-9][a-z0-9+._-]+$/.
     if (identifier == NULL || identifier[0] == '\0') {
         return false;
@@ -388,7 +388,7 @@ bool isValidPackageIdentifier(const char *identifier) {
     return true;
 }
 
-bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescription, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
+static bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescription, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
     if (packageIdentifier == NULL) {

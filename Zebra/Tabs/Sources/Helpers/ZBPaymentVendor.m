@@ -24,7 +24,7 @@
 
 NSErrorDomain const ZBPaymentVendorErrorDomain = @"ZBPaymentVendorErrorDomain";
 
-NSErrorUserInfoKey const ZBPaymentVendorErrorRecoveryURL = @"ZBPaymentVendorErrorRecoveryURL";
+NSErrorUserInfoKey const ZBPaymentVendorErrorRecoveryURLKey = @"ZBPaymentVendorErrorRecoveryURL";
 
 typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id body, NSError *error);
 
@@ -83,7 +83,7 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
         NSMutableDictionary <NSErrorUserInfoKey, id> *userInfo = [NSMutableDictionary dictionary];
         userInfo[NSLocalizedDescriptionKey] = error.error ?: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"");
         if (error.recoveryURL) {
-            userInfo[ZBPaymentVendorErrorRecoveryURL] = error.recoveryURL;
+            userInfo[ZBPaymentVendorErrorRecoveryURLKey] = error.recoveryURL;
         }
         return [NSError errorWithDomain:ZBPaymentVendorErrorDomain code:0 userInfo:userInfo];
     }
@@ -159,9 +159,9 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
     session = [[ZBSafariAuthenticationSession alloc] initWithURL:components.URL callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
         if (callbackURL && !error) {
             NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-            NSArray *queryItems = urlComponents.queryItems;
+            NSArray *callbackQueryItems = urlComponents.queryItems;
             NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-            for (NSURLQueryItem *q in queryItems) {
+            for (NSURLQueryItem *q in callbackQueryItems) {
                 [queryByKeys setValue:[q value] forKey:[q name]];
             }
             NSString *token = queryByKeys[@"token"];
@@ -329,8 +329,8 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
         case -1: { // An error occurred, payment api doesn't specify that an error must exist here but we may as well check it
             NSString *localizedDescription = result.error ?: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"");
 
-            NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
-            completion(error);
+            NSError *purchaseError = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+            completion(purchaseError);
             break;
         }
         case 0: { // Success, queue the package for install
@@ -342,15 +342,15 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
             if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"https"])) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     static ZBSafariAuthenticationSession *session;
-                    session = [[ZBSafariAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                        if (callbackURL && !error) {
+                    session = [[ZBSafariAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable authError) {
+                        if (callbackURL && !authError) {
                             completion(nil);
                         }
-                        else if (error && !(error.domain == ZBSafariAuthenticationErrorDomain && error.code == ZBSafariAuthenticationErrorCanceledLogin)) {
-                            NSString *localizedDescription = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), error.localizedDescription];
+                        else if (authError && !(authError.domain == ZBSafariAuthenticationErrorDomain && authError.code == ZBSafariAuthenticationErrorCanceledLogin)) {
+                            NSString *localizedDescription = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), authError.localizedDescription];
 
-                            NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
-                            completion(error);
+                            NSError *purchaseError = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+                            completion(purchaseError);
                         }
                     }];
                     [session start];
@@ -359,14 +359,14 @@ typedef void (^ZBPaymentVendorCompletionHandler)(NSHTTPURLResponse *response, id
             else {
                 NSString *localizedDescription = [NSString stringWithFormat:NSLocalizedString(@"The Payment Provider responded with an improper payment URL: %@", @""), result.url];
 
-                NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
-                completion(error);
+                NSError *purchaseError = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+                completion(purchaseError);
             }
             break;
         }
         default: {
-            NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"")}];
-            completion(error);
+            NSError *purchaseError = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"")}];
+            completion(purchaseError);
             break;
         }
         }

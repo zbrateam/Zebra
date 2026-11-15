@@ -15,9 +15,9 @@
 #import "ZBThemeManager.h"
 
 @interface ZBAddSourceViewController ()
-@property (weak, nonatomic) IBOutlet UITextView *addSourceTextView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textFieldBottomConstraint;
+@property (strong, nonatomic) IBOutlet UITextView *addSourceTextView;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *addButton;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *textFieldBottomConstraint;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, weak) id <ZBSourceVerificationDelegate> delegate;
 @end
@@ -123,8 +123,9 @@
         NSSet *baseSources = [ZBBaseSource baseSourcesFromURLs:detectedURLs];
         
         [self dismissViewControllerAnimated:YES completion:^{
-            if (self->delegate) {
-                [self->delegate verifyAndAdd:baseSources];
+            id <ZBSourceVerificationDelegate> strongDelegate = self->delegate;
+            if (strongDelegate) {
+                [strongDelegate verifyAndAdd:baseSources];
             }
         }];
     }

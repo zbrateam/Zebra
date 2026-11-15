@@ -9,7 +9,7 @@
 #ifndef ZBPackageActionType_h
 #define ZBPackageActionType_h
 
-typedef NS_ENUM(NSUInteger, ZBPackageActionType) {
+typedef NS_ENUM(NSInteger, ZBPackageActionType) {
     ZBPackageActionInstall,
     ZBPackageActionRemove,
     ZBPackageActionReinstall,

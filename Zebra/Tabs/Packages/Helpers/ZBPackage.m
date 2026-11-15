@@ -795,8 +795,8 @@ static NSString *ZBIconPath(NSString *string) {
             if (!error) {
                 [self.source.paymentVendor initiatePurchaseForPackage:self.identifier
                                                         paymentSecret:secret
-                                                           completion:^(NSError * _Nullable error) {
-                    completion(error == nil, error);
+                                                           completion:^(NSError * _Nullable purchaseError) {
+                    completion(purchaseError == nil, purchaseError);
                 }];
                 return;
             } else if (error.code != errSecUserCanceled) {

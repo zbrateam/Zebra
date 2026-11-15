@@ -11,10 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBLiveSearchResultTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *packageIconImageView;
-@property (weak, nonatomic) IBOutlet UILabel *packageNameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *packageIconImageView;
+@property (strong, nonatomic) IBOutlet UILabel *packageNameLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *isPaidImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 - (void)updateData:(ZBProxyPackage *)package;
 - (void)setColors;
 @end

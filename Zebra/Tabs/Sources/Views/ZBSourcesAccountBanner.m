@@ -17,6 +17,7 @@
 #import "UIView+Zebra.h"
 
 @interface ZBSourcesAccountBanner () {
+    BOOL hideEmail;
     BOOL hideUDID;
 }
 @end

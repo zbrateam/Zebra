@@ -35,13 +35,13 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBReset
 };
 
-typedef NS_ENUM(NSUInteger, ZBInterfaceOrder) {
+typedef NS_ENUM(NSInteger, ZBInterfaceOrder) {
     ZBDisplay,
     ZBLanguage,
     ZBAppIcon
 };
 
-typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
+typedef NS_ENUM(NSInteger, ZBFeatureOrder) {
     ZBFeaturedEnable,
     ZBFeatureOrRandomToggle,
     ZBFeatureBlacklist
@@ -156,17 +156,17 @@ enum ZBMiscOrder {
     UITableViewCell *cell;
     if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
         if (@available(iOS 10.3, *)) {
-            ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
-            cell.backgroundColor = [UIColor cellBackgroundColor];
-            
-            cell.label.text = NSLocalizedString(@"App Icon", @"");
-            
+            ZBRightIconTableViewCell *iconCell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
+            iconCell.backgroundColor = [UIColor cellBackgroundColor];
+
+            iconCell.label.text = NSLocalizedString(@"App Icon", @"");
+
             NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
             NSString *iconName = [icon[@"iconName"] stringByAppendingString:@"-preview"];
             UIImage *iconImage = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-            [cell setAppIcon:iconImage];
-            
-            return cell;
+            [iconCell setAppIcon:iconImage];
+
+            return iconCell;
         }
     }
     else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc || (indexPath.section == ZBSources && indexPath.row == 1)) {

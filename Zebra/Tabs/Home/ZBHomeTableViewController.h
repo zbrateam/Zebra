@@ -21,13 +21,13 @@
 @class ZBFeaturedBanner;
 
 @interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIAdaptivePresentationControllerDelegate, SFSafariViewControllerDelegate>
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
-@property (weak, nonatomic) IBOutlet UIView *footerView;
-@property (weak, nonatomic) IBOutlet UIView *headerView;
-@property (weak, nonatomic) IBOutlet UILabel *footerLabel;
-@property (weak, nonatomic) IBOutlet UILabel *udidLabel;
-@property (weak, nonatomic) IBOutlet UICollectionView *featuredCollection;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
+@property (strong, nonatomic) IBOutlet UIView *footerView;
+@property (strong, nonatomic) IBOutlet UIView *headerView;
+@property (strong, nonatomic) IBOutlet UILabel *footerLabel;
+@property (strong, nonatomic) IBOutlet UILabel *udidLabel;
+@property (strong, nonatomic) IBOutlet UICollectionView *featuredCollection;
 @property (nonatomic, strong) NSMutableArray <ZBFeaturedBanner *> *allFeatured;
 @property (nonatomic, strong) NSMutableArray <ZBFeaturedBanner *> *selectedFeatured;
 @property (nonatomic) NSInteger cellNumber;

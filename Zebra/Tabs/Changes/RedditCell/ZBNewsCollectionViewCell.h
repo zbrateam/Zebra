@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ZBNewsCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
-@property (weak, nonatomic) IBOutlet UILabel *postTag;
-@property (weak, nonatomic) IBOutlet UILabel *postTitle;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
+@property (strong, nonatomic) IBOutlet UILabel *postTag;
+@property (strong, nonatomic) IBOutlet UILabel *postTitle;
 @property (nonatomic, strong) NSURL *redditLink;
 @property (nonatomic, strong) NSString *redditID;
 @property (nonatomic, strong) CAGradientLayer *gradient;

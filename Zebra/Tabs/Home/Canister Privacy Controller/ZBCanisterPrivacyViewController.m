@@ -14,16 +14,16 @@
 
 @end
 
-NSURL *privacyPolicy;
+static NSURL *privacyPolicyURL;
 
 @implementation ZBCanisterPrivacyViewController
 
 + (void)load {
-    privacyPolicy = [[NSURL alloc] initWithString:@"https://canister.me/privacy"];
+    privacyPolicyURL = [[NSURL alloc] initWithString:@"https://canister.me/privacy"];
 }
 
 - (instancetype)initWithURL:(NSURL *)url {
-    privacyPolicy = url;
+    privacyPolicyURL = url;
     return [self initWithNibName:nil bundle:nil];
 }
 
@@ -146,7 +146,7 @@ NSURL *privacyPolicy;
 }
 
 - (void)openPrivacyPolicy {
-    [ZBDevice openURL:privacyPolicy delegate:self];
+    [ZBDevice openURL:privacyPolicyURL delegate:self];
 }
 
 - (void)openAccept {

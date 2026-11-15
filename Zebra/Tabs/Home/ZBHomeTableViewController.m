@@ -227,8 +227,8 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
             if (![array isKindOfClass:[NSArray class]]) {
                 continue;
             }
-            for (id dict in array) {
-                ZBFeaturedBanner *banner = [dict isKindOfClass:[NSDictionary class]] ? [ZBFeaturedBanner fromJSONDictionary:dict] : nil;
+            for (id item in array) {
+                ZBFeaturedBanner *banner = [item isKindOfClass:[NSDictionary class]] ? [ZBFeaturedBanner fromJSONDictionary:item] : nil;
                 if (banner) {
                     [allFeatured addObject:banner];
                 }
@@ -529,7 +529,7 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (void)pushToView:(NSUInteger)row {
+- (void)pushToView:(NSInteger)row {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     switch (row) {
         case ZBCommunity: {
@@ -552,7 +552,7 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
     }
 }
 
-- (void)openCreditsFromRow:(NSUInteger)row {
+- (void)openCreditsFromRow:(NSInteger)row {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     switch (row) {
         case ZBChangeLog: {
@@ -567,7 +567,7 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
     }
 }
 
-- (void)openLinkFromRow:(NSUInteger)row {
+- (void)openLinkFromRow:(NSInteger)row {
     UIApplication *application = [UIApplication sharedApplication];
     switch (row) {
         case ZBMastodon: {
@@ -707,20 +707,22 @@ typedef NS_ENUM(NSUInteger, ZBCreditsOrder) {
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable {
         return weakSelf.previewPackageDepictionVC;
     } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
-        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        
+        typeof(self) strongSelf = weakSelf;
+        strongSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[strongSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+
         ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-        [weakSelf setPackageOnDestinationVC:weakSelf.previewPackageDepictionVC withPackage:cell.packageID];
-        weakSelf.previewPackageDepictionVC.parent = weakSelf;
-        
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:nil]];
+        [strongSelf setPackageOnDestinationVC:strongSelf.previewPackageDepictionVC withPackage:cell.packageID];
+        strongSelf.previewPackageDepictionVC.parent = strongSelf;
+
+        return [UIMenu menuWithTitle:@"" children:[strongSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:nil]];
     }];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id <UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)) {
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
-        [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+        typeof(self) strongSelf = weakSelf;
+        [strongSelf.navigationController pushViewController:strongSelf.previewPackageDepictionVC animated:YES];
     }];
 }
 

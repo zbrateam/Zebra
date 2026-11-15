@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - JSON serialization
 
-NSData *_Nullable ZBSourceInfoToData(ZBSourceInfo *sourceInfo, NSError **error)
+static NSData *_Nullable ZBSourceInfoToData(ZBSourceInfo *sourceInfo, NSError **error)
 {
     @try {
         id json = [sourceInfo JSONDictionary];
@@ -28,7 +28,7 @@ NSData *_Nullable ZBSourceInfoToData(ZBSourceInfo *sourceInfo, NSError **error)
     }
 }
 
-NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncoding encoding, NSError **error)
+static NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncoding encoding, NSError **error)
 {
     NSData *data = ZBSourceInfoToData(sourceInfo, error);
     return data ? [[NSString alloc] initWithData:data encoding:encoding] : nil;
@@ -51,7 +51,7 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBSourceInfo.properties)] mutableCopy];
+    NSMutableDictionary <NSString *, id> *dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBSourceInfo.properties)] mutableCopy];
 
     // Rewrite property names that differ in JSON
     for (id jsonName in ZBSourceInfo.properties) {

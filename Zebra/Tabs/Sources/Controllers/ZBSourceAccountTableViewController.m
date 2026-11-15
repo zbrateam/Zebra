@@ -177,8 +177,9 @@
                 cell.urlLabel.text = [source sourceDescription];
                 cell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
-                [cell.iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
-                    [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
+                __weak UIImageView *iconImageView = cell.iconImageView;
+                [iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
+                    [iconImageView setIconImage:image variant:MIIconVariantSettings];
                 }];
 
                 cell.accessoryType = UITableViewCellAccessoryNone;
@@ -289,17 +290,19 @@
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
     } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
-        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        weakSelf.previewPackageDepictionVC.package = self->purchases[indexPath.row];
+        typeof(self) strongSelf = weakSelf;
+        strongSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[strongSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        strongSelf.previewPackageDepictionVC.package = self->purchases[indexPath.row];
 //        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+        return [UIMenu menuWithTitle:@"" children:[strongSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
     }];
 }
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
-        [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+        typeof(self) strongSelf = weakSelf;
+        [strongSelf.navigationController pushViewController:strongSelf.previewPackageDepictionVC animated:YES];
     }];
 }
 

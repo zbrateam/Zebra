@@ -388,13 +388,13 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
     for (NSArray <id> *item in jailbreakInstalledFiles) {
         if ([self _isRegularFile:item[0]]) {
-            return ((NSNumber *)item[1]).integerValue;
+            return ((NSNumber *)item[1]).unsignedIntegerValue;
         }
     }
 
     for (NSArray <id> *item in jailbreakInstalledDirs) {
         if ([self _isRegularDirectory:item[0]]) {
-            return ((NSNumber *)item[1]).integerValue;
+            return ((NSNumber *)item[1]).unsignedIntegerValue;
         }
     }
 

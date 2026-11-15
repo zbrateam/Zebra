@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - JSON serialization
 
-NSData *_Nullable ZBPaymentVendorErrorToData(ZBPaymentVendorError *paymentError, NSError **error)
+static NSData *_Nullable ZBPaymentVendorErrorToData(ZBPaymentVendorError *paymentError, NSError **error)
 {
     @try {
         id json = [paymentError JSONDictionary];
@@ -30,7 +30,7 @@ NSData *_Nullable ZBPaymentVendorErrorToData(ZBPaymentVendorError *paymentError,
     }
 }
 
-NSString *_Nullable ZBPaymentVendorErrorToJSON(ZBPaymentVendorError *sourceInfo, NSStringEncoding encoding, NSError **error)
+static NSString *_Nullable ZBPaymentVendorErrorToJSON(ZBPaymentVendorError *sourceInfo, NSStringEncoding encoding, NSError **error)
 {
     NSData *data = ZBPaymentVendorErrorToData(sourceInfo, error);
     return data ? [[NSString alloc] initWithData:data encoding:encoding] : nil;
@@ -52,7 +52,7 @@ NSString *_Nullable ZBPaymentVendorErrorToJSON(ZBPaymentVendorError *sourceInfo,
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(self.class.properties)] mutableCopy];
+    NSMutableDictionary <NSString *, id> *dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(self.class.properties)] mutableCopy];
 
     // Rewrite property names that differ in JSON
     for (id jsonName in self.class.properties) {

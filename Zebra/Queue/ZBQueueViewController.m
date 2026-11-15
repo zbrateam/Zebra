@@ -282,8 +282,8 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[ZBDevice useIcon] ? @"✗" : NSLocalizedString(@"Delete", @"") handler:^(__unused UITableViewRowAction *action, NSIndexPath *indexPath) {
-        [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[ZBDevice useIcon] ? @"✗" : NSLocalizedString(@"Delete", @"") handler:^(__unused UITableViewRowAction *action, NSIndexPath *indexPath2) {
+        [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath2];
     }];
     return @[deleteAction];
 }

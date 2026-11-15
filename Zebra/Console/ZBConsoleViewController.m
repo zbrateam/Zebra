@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 }
 
 - (void)setupView {
-    currentStage = -1;
+    currentStage = (ZBStage)-1;
     downloadFailed = NO;
     updateIconCache = NO;
     suppressCancel = NO;

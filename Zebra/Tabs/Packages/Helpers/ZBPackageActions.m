@@ -160,7 +160,7 @@
     
     for (ZBPackage *otherPackage in allVersions) {
         NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:otherPackage == allVersions[0]];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action2) {
             [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
             [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
             
@@ -191,7 +191,7 @@
         
         for (ZBPackage *otherPackage in greaterVersions) {
             NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
-            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action2) {
                 [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
                 
@@ -228,7 +228,7 @@
             if ([[otherPackage source] sourceID] < 1) continue;
             
             NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
-            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(__unused UIAlertAction *action2) {
                 [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
                 if (completion) completion();
@@ -264,8 +264,8 @@
     __weak UIViewController *weakViewController = viewController;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         UIBarButtonItemActionHandler handler = ^{
-            UIViewController *viewController = weakViewController;
-            if (!viewController) {
+            UIViewController *strongViewController = weakViewController;
+            if (!strongViewController) {
                 return;
             }
 
@@ -273,11 +273,11 @@
             if ([actions count] > 1) {
                 UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
 
-                for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package fromViewController:viewController]) {
+                for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package fromViewController:strongViewController]) {
                     [selectAction addAction:action];
                 }
 
-                [self presentAlertController:selectAction fromViewController:viewController];
+                [self presentAlertController:selectAction fromViewController:strongViewController];
             }
             else if ([actions count] == 1) {
                 // If the user has pressed the bar button twice (i.e. the same package is already in the Queue, present it
@@ -286,7 +286,7 @@
                     [[ZBAppDelegate tabBarController] openQueue:YES];
                 }
                 else {
-                    [self performAction:action forPackage:package fromViewController:viewController completion:nil];
+                    [self performAction:action forPackage:package fromViewController:strongViewController completion:nil];
                 }
             }
         };
@@ -299,6 +299,7 @@
             case ZBPackageActionInstall:
             case ZBPackageActionUpgrade:
                 style = UIBarButtonItemStyleDone;
+                break;
 
             default:
                 break;
@@ -327,12 +328,12 @@
 
                         dispatch_async(dispatch_get_main_queue(), ^{
                             UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleDone actionHandler:^{
-                                UIViewController *viewController = weakViewController;
-                                if (!viewController) {
+                                UIViewController *strongViewController = weakViewController;
+                                if (!strongViewController) {
                                     return;
                                 }
 
-                                [self performAction:ZBPackageActionInstall forPackage:package fromViewController:viewController completion:nil];
+                                [self performAction:ZBPackageActionInstall forPackage:package fromViewController:strongViewController completion:nil];
                             }];
                             completion(purchaseButton);
                         });
@@ -359,7 +360,7 @@
         
         NSString *title = [self titleForAction:action useIcon:YES];
         UITableViewRowActionStyle style = action == ZBPackageActionRemove ? UITableViewRowActionStyleDestructive : UITableViewRowActionStyleNormal;
-        UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(__unused UITableViewRowAction *rowAction, __unused NSIndexPath *indexPath) {
+        UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(__unused UITableViewRowAction *rowAction2, __unused NSIndexPath *indexPath) {
             [self performAction:action forPackage:package fromViewController:tableView.viewController completion:^{
                 if (tableView) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -385,7 +386,7 @@
 
         NSString *title = [self titleForAction:action useIcon:NO];
         UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
-        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(__unused UIAlertAction *alertAction) {
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(__unused UIAlertAction *alertAction2) {
             [self performAction:action forPackage:package fromViewController:viewController completion:nil];
         }];
         [alertActions addObject:alertAction];
@@ -405,7 +406,7 @@
 
         NSString *title = [self titleForAction:action useIcon:NO];
         UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
-        UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(__unused UIPreviewAction *previewAction, UIViewController *previewViewController) {
+        UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(__unused UIPreviewAction *previewAction2, UIViewController *previewViewController) {
             [self performAction:action forPackage:package fromViewController:previewViewController completion:^{
                 if (tableView) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -431,7 +432,7 @@
         NSString *title = [self titleForAction:action useIcon:NO];
         UIImage *image = [self systemImageForAction:action];
         
-        UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__unused __kindof UIAction *uiAction) {
+        UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__unused __kindof UIAction *uiAction2) {
             [self performAction:action forPackage:package fromViewController:tableView.viewController completion:^{
                 if (tableView) {
                     dispatch_async(dispatch_get_main_queue(), ^{

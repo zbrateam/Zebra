@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark - JSON serialization
 
-NSData *_Nullable ZBPurchaseInfoToData(ZBPurchaseInfo *purchaseInfo, NSError **error) {
+static NSData *_Nullable ZBPurchaseInfoToData(ZBPurchaseInfo *purchaseInfo, NSError **error) {
     @try {
         id json = [purchaseInfo JSONDictionary];
         NSData *data = [NSJSONSerialization dataWithJSONObject:json options:kNilOptions error:error];
@@ -23,7 +23,7 @@ NSData *_Nullable ZBPurchaseInfoToData(ZBPurchaseInfo *purchaseInfo, NSError **e
     }
 }
 
-NSString *_Nullable ZBPurchaseInfoToJSON(ZBPurchaseInfo *purchaseInfo, NSStringEncoding encoding, NSError **error) {
+static NSString *_Nullable ZBPurchaseInfoToJSON(ZBPurchaseInfo *purchaseInfo, NSStringEncoding encoding, NSError **error) {
     NSData *data = ZBPurchaseInfoToData(purchaseInfo, error);
     return data ? [[NSString alloc] initWithData:data encoding:encoding] : nil;
 }
@@ -45,7 +45,7 @@ NSString *_Nullable ZBPurchaseInfoToJSON(ZBPurchaseInfo *purchaseInfo, NSStringE
 }
 
 - (NSDictionary *)JSONDictionary {
-    id dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBPurchaseInfo.properties)] mutableCopy];
+    NSMutableDictionary <NSString *, id> *dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBPurchaseInfo.properties)] mutableCopy];
 
     // Rewrite property names that differ in JSON
     for (id jsonName in ZBPurchaseInfo.properties) {

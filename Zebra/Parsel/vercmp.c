@@ -16,7 +16,7 @@ static int order(char c) {
     return 0;
 }
 
-int compareFragment(const char *A, const char *AEnd, const char *B, const char *BEnd) {
+static int compareFragment(const char *A, const char *AEnd, const char *B, const char *BEnd) {
     /* Iterate over the whole string
      What this does is to split the whole string into groups of
      numeric and non numeric portions. For instance:
@@ -76,10 +76,10 @@ int compareFragment(const char *A, const char *AEnd, const char *B, const char *
     return 1;
 }
 
-int compareVersion(const char *A, const char *AEnd, const char *B, const char *BEnd) {
+static int compareVersion(const char *A, const char *AEnd, const char *B, const char *BEnd) {
     // Strip off the epoch and compare it
-    const char *lhs = (const char*) memchr(A, ':', AEnd - A);
-    const char *rhs = (const char*) memchr(B, ':', BEnd - B);
+    const char *lhs = (const char*) memchr(A, ':', (size_t)(AEnd - A));
+    const char *rhs = (const char*) memchr(B, ':', (size_t)(BEnd - B));
     if (lhs == NULL)
         lhs = A;
     if (rhs == NULL)

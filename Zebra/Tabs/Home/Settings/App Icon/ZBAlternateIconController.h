@@ -9,7 +9,7 @@
 #import "ZBTableViewController.h"
 
 @interface ZBAlternateIconController : ZBTableViewController
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 + (NSArray <NSDictionary *> *)icons;
 + (NSDictionary *)iconForName:(NSString *)name;
 @end

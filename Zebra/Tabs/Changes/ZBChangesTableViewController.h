@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL continueBatchLoad;
 @property (nonatomic, assign) NSInteger batchLoadCount;
 @property (readwrite, copy, nonatomic) NSArray *tableData;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 - (void)refreshTable;
 @end
 

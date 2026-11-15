@@ -281,10 +281,11 @@
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
-        ZBRedditPost *post = weakSelf.redditPosts[indexPath.row];
+        typeof(self) strongSelf = weakSelf;
+        ZBRedditPost *post = strongSelf.redditPosts[indexPath.row];
         NSURL *url = [NSURL URLWithString:post.url];
         if (!url) {
-            weakSelf.previewSafariVC = nil;
+            strongSelf.previewSafariVC = nil;
             return nil;
         }
 
@@ -296,15 +297,16 @@
         } else {
             safariVC.view.tintColor = tintColor;
         }
-        weakSelf.previewSafariVC = safariVC;
-        return weakSelf.previewSafariVC;
+        strongSelf.previewSafariVC = safariVC;
+        return strongSelf.previewSafariVC;
     } actionProvider:nil];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
-        [weakSelf.navigationController presentViewController:weakSelf.previewSafariVC animated:YES completion:nil];
+        typeof(self) strongSelf = weakSelf;
+        [strongSelf.navigationController presentViewController:strongSelf.previewSafariVC animated:YES completion:nil];
     }];
 }
 
@@ -313,16 +315,18 @@
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
     } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
-        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+        typeof(self) strongSelf = weakSelf;
+        strongSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[strongSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        [strongSelf setDestinationVC:indexPath destination:strongSelf.previewPackageDepictionVC];
+        return [UIMenu menuWithTitle:@"" children:[strongSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
     }];
 }
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
-        [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+        typeof(self) strongSelf = weakSelf;
+        [strongSelf.navigationController pushViewController:strongSelf.previewPackageDepictionVC animated:YES];
     }];
 }
 
@@ -338,9 +342,9 @@
     }
     else {
         CGPoint locationCell = [self.collectionView convertPoint:location fromView:self.view];
-        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:locationCell];
-        if ([self.redditPosts count] && indexPath.row < (NSInteger)[self.redditPosts count]) {
-            ZBRedditPost *post = self.redditPosts[indexPath.row];
+        NSIndexPath *collectionIndexPath = [self.collectionView indexPathForItemAtPoint:locationCell];
+        if ([self.redditPosts count] && collectionIndexPath.row < (NSInteger)[self.redditPosts count]) {
+            ZBRedditPost *post = self.redditPosts[collectionIndexPath.row];
             return [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:post.url]];
         }
         return NULL;

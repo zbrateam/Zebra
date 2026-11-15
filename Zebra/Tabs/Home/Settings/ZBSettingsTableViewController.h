@@ -15,8 +15,8 @@
 @import SDWebImage;
 
 @interface ZBSettingsTableViewController : ZBTableViewController <UINavigationControllerDelegate>
-@property (weak, nonatomic) IBOutlet UIImageView *headerView;
-@property (weak, nonatomic) IBOutlet UIView *headerContainer;
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *headerView;
+@property (strong, nonatomic) IBOutlet UIView *headerContainer;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) UIVisualEffectView *blurView;
 @end

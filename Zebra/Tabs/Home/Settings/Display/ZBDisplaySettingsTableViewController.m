@@ -70,12 +70,12 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             return 1;
         case ZBSectionSystemStyle:
             if (@available(iOS 13.0, *)) return 1;
-        case ZBSectionStyleChooser:
+        __attribute__((fallthrough)); case ZBSectionStyleChooser:
             if (@available(iOS 13.0, *)) {
                 if (!usesSystemAppearance) return 2;
             }
             else if (section == ZBSectionSystemStyle && !usesSystemAppearance) return 2;
-        case ZBSectionPureBlack:
+        __attribute__((fallthrough)); case ZBSectionPureBlack:
             return 1;
         default:
             return 1;
@@ -108,7 +108,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                 break;
             }
         }
-        case ZBSectionStyleChooser: {
+        __attribute__((fallthrough)); case ZBSectionStyleChooser: {
             if (@available(iOS 13.0, *)) {
                 if (!usesSystemAppearance) {
                     if (indexPath.row == 0) {
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                 break;
             }
         }
-        case ZBSectionPureBlack: {
+        __attribute__((fallthrough)); case ZBSectionPureBlack: {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.text = NSLocalizedString(@"Pure Black Mode", @"");
             
@@ -166,7 +166,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                 break;
             }
         }
-        case ZBSectionStyleChooser: {
+        __attribute__((fallthrough)); case ZBSectionStyleChooser: {
             // ZBSectionStyleChooser can only be the last section if system appearance is not natively supported - and this rather points pure black mode section
             if (section == [tableView numberOfSections] - 1) break;
             if (!usesSystemAppearance) {
@@ -211,6 +211,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                 self.navigationController.navigationBar.tintColor = [UIColor accentColor];
                 [self updateInterfaceStyle];
             }
+            break;
         }
         default:
             break;

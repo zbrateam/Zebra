@@ -29,7 +29,7 @@
 @import CoreServices;
 @import CoreSpotlight;
 
-typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
+typedef NS_ENUM(NSInteger, ZBPackageInfoOrder) {
     ZBPackageInfoID = 0,
     ZBPackageInfoAuthor,
     ZBPackageInfoVersion,

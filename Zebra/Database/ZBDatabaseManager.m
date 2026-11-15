@@ -143,13 +143,6 @@
             [foreignArchs componentsJoinedByString:@","]];
 }
 
-- (NSInteger)_bindStringArray:(NSArray <NSString *> *)array toStatement:(sqlite3_stmt *)statement at:(NSInteger)startIndex {
-    for (NSUInteger i = 0; i < array.count; i++) {
-        sqlite3_bind_text(statement, (int)(startIndex + i), array[i].UTF8String, -1, SQLITE_TRANSIENT);
-    }
-    return startIndex + array.count;
-}
-
 #pragma mark - Opening and Closing the Database
 
 - (int)openDatabase {
@@ -579,9 +572,9 @@
             BOOL ignoreUpdates = [self areUpdatesIgnoredForPackageIdentifier:[essentialPackage objectForKey:@"id"]];
             if (!ignoreUpdates) ++numberOfUpdates;
 
-            char *query = "REPLACE INTO UPDATES (PACKAGE, VERSION, IGNORE) "
-                          "VALUES (?, ?, ?)";
-            if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
+            char *query2 = "REPLACE INTO UPDATES (PACKAGE, VERSION, IGNORE) "
+                           "VALUES (?, ?, ?)";
+            if (sqlite3_prepare_v2(database, query2, -1, &statement, nil) == SQLITE_OK) {
                 sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
                 sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
                 sqlite3_bind_int(statement, 3, ignoreUpdates ? 1 : 0);
@@ -1830,8 +1823,8 @@
 
             if (version != NULL && comparison != NULL) {
                 if ([otherVersions count] > 1) {
-                    for (ZBPackage *package in otherVersions) {
-                        if ([ZBDependencyResolver doesPackage:package satisfyComparison:comparison ofVersion:version]) {
+                    for (ZBPackage *package2 in otherVersions) {
+                        if ([ZBDependencyResolver doesPackage:package2 satisfyComparison:comparison ofVersion:version]) {
                             [self closeDatabase];
                             return package;
                         }
@@ -2308,8 +2301,8 @@
 - (BOOL)willDependencyBeSatisfiedAfterQueueOperations:(NSString *_Nonnull)dependency {
     if ([dependency containsString:@"|"]) {
         NSArray *components = [dependency componentsSeparatedByString:@"|"];
-        for (NSString *dependency in components) {
-            if ([self willDependencyBeSatisfiedAfterQueueOperations:[dependency stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]]) {
+        for (NSString *dependency2 in components) {
+            if ([self willDependencyBeSatisfiedAfterQueueOperations:[dependency2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]]) {
                 return YES;
             }
         }

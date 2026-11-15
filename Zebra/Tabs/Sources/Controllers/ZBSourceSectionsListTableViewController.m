@@ -427,25 +427,27 @@
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageListVC;
     } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
-        weakSelf.previewPackageListVC = (ZBPackageListTableViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
-        weakSelf.previewPackageListVC.source = self->source;
+        typeof(self) strongSelf = weakSelf;
+        strongSelf.previewPackageListVC = (ZBPackageListTableViewController *)[strongSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
+        strongSelf.previewPackageListVC.source = self->source;
         if (indexPath.row > 0) {
             NSString *section = [self->sectionNames objectAtIndex:indexPath.row - 1];
-            weakSelf.previewPackageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-            weakSelf.title = section;
+            strongSelf.previewPackageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            strongSelf.title = section;
         }
         else {
-            weakSelf.title = NSLocalizedString(@"All Packages", @"");
+            strongSelf.title = NSLocalizedString(@"All Packages", @"");
         }
 //        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageListVC contextMenuActionItemsForIndexPath:indexPath]];
+        return [UIMenu menuWithTitle:@"" children:[strongSelf.previewPackageListVC contextMenuActionItemsForIndexPath:indexPath]];
     }];
 }
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
-        [weakSelf.navigationController pushViewController:weakSelf.previewPackageListVC animated:YES];
+        typeof(self) strongSelf = weakSelf;
+        [strongSelf.navigationController pushViewController:strongSelf.previewPackageListVC animated:YES];
     }];
 }
 

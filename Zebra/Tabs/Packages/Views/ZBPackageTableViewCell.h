@@ -13,14 +13,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
-@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet UILabel *packageLabel;
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
-@property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
-@property (weak, nonatomic) IBOutlet UILabel *authorAndSourceAndSize;
+@property (strong, nonatomic) IBOutlet UIView *backgroundContainerView;
+@property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (strong, nonatomic) IBOutlet UILabel *packageLabel;
+@property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *isPaidImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *isInstalledImageView;
+@property (strong, nonatomic) IBOutlet UILabel *queueStatusLabel;
+@property (strong, nonatomic) IBOutlet UILabel *authorAndSourceAndSize;
 - (void)updateData:(ZBPackage *)package;
 - (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize showVersion:(BOOL)showVersion;
 - (void)updateQueueStatus:(ZBPackage *)package;

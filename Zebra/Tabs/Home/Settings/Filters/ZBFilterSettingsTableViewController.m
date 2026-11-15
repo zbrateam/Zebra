@@ -156,8 +156,9 @@
                 sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
                 sourceCell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
-                [sourceCell.iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
-                    [sourceCell.iconImageView setIconImage:image variant:MIIconVariantSettings];
+                __weak UIImageView *iconImageView = sourceCell.iconImageView;
+                [iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
+                    [iconImageView setIconImage:image variant:MIIconVariantSettings];
                 }];
 
                 return sourceCell;
@@ -215,7 +216,7 @@
         NSString *email = blockedAuthorEmails[indexPath.row];
         NSString *name = blockedAuthors[email];
         NSArray *aliases = [self listAllAuthorsFromMail:indexPath];
-        for (NSArray *alias in aliases) {
+        for (NSArray <NSString *> *alias in aliases) {
             if (![alias[0] isEqual:name]) [message appendFormat:@"\n%@", alias[0]];
         }
         
@@ -349,32 +350,32 @@
         case 1:
         case 2:
         case 3: {
-            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(__unused UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-                switch (indexPath.section) {
+            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(__unused UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull actionIndexPath) {
+                switch (actionIndexPath.section) {
                     case 1: {
-                        NSString *section = self->filteredSections[indexPath.row];
+                        NSString *section = self->filteredSections[actionIndexPath.row];
                         [self->filteredSections removeObject:section];
-                        
+
                         [ZBSettings setFilteredSections:self->filteredSections];
-                        [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [tableView reloadSections:[NSIndexSet indexSetWithIndex:actionIndexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                         break;
                     }
                     case 2: {
-                        ZBSource *source = self->sources[indexPath.row];
+                        ZBSource *source = self->sources[actionIndexPath.row];
                         [self->filteredSources removeObjectForKey:[source baseFilename]];
-                        [self->sources removeObjectAtIndex:indexPath.row];
-                        
+                        [self->sources removeObjectAtIndex:actionIndexPath.row];
+
                         [ZBSettings setFilteredSources:self->filteredSources];
-                        [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [tableView reloadSections:[NSIndexSet indexSetWithIndex:actionIndexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                         break;
                     }
                     case 3: {
-                        NSString *author = self->blockedAuthorEmails[indexPath.row];
+                        NSString *author = self->blockedAuthorEmails[actionIndexPath.row];
                         [self->blockedAuthors removeObjectForKey:author];
                         [self _refreshBlockedAuthorEmails];
 
                         [ZBSettings setBlockedAuthors:self->blockedAuthors];
-                        [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                        [tableView reloadSections:[NSIndexSet indexSetWithIndex:actionIndexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                         break;
                     }
                 }
@@ -384,17 +385,17 @@
             return @[deleteFilterAction];
         }
         case 4: {
-            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Show Updates", @"") handler:^(__unused UITableViewRowAction *action, NSIndexPath *indexPath) {
-                ZBPackage *package = self->ignoredUpdates[indexPath.row];
+            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Show Updates", @"") handler:^(__unused UITableViewRowAction *action, NSIndexPath *actionIndexPath) {
+                ZBPackage *package = self->ignoredUpdates[actionIndexPath.row];
                 [self->ignoredUpdates removeObject:package];
-                
+
                 [package setIgnoreUpdates:NO];
-                
+
                 if (self->ignoredUpdates.count) {
-                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:actionIndexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
                 else {
-                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:actionIndexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
             }];
             [deleteFilterAction setBackgroundColor:[UIColor systemGreenColor]];

@@ -28,7 +28,7 @@
 @synthesize architectures;
 @synthesize sourceID;
 
-const char *textColumn(sqlite3_stmt *statement, int column) {
+static const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
 }
 

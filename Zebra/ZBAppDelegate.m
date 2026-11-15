@@ -335,7 +335,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
             
             NSArray *components = [([url host] ?: @"") componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
-            index = components.count ? [choices indexOfObject:components[0]] : -1;
+            index = components.count ? [choices indexOfObject:components[0]] : NSUIntegerMax;
 
             switch (index) {
                 case 0: {
@@ -424,6 +424,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     if (![[ZBAppDelegate window].rootViewController isKindOfClass:[ZBTabBarController class]]) {
+        completionHandler(NO);
         return;
     }
 

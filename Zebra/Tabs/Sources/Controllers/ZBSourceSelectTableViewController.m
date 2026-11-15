@@ -107,15 +107,15 @@
 }
 
 - (void)refreshTable {
-    self->sources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
+    self.sources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
 
     NSMutableArray *fakeSources = [NSMutableArray new];
-    for (NSObject *source in sources) {
+    for (NSObject *source in self.sources) {
         if (![source isKindOfClass:[ZBSource class]]) {
             [fakeSources addObject:source];
         }
     }
-    [sources removeObjectsInArray:fakeSources];
+    [self.sources removeObjectsInArray:fakeSources];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateCollation];
@@ -133,8 +133,9 @@
     cell.urlLabel.text = [source repositoryURI];
     cell.urlLabel.textColor = [UIColor secondaryTextColor];
 
-    [cell.iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
-        [cell.iconImageView setIconImage:image variant:MIIconVariantSettings];
+    __weak UIImageView *iconImageView = cell.iconImageView;
+    [iconImageView setRetinaImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage *image, __unused NSError *error, __unused SDImageCacheType cacheType, __unused NSURL *imageURL) {
+        [iconImageView setIconImage:image variant:MIIconVariantSettings];
     }];
 
     cell.accessoryType = UITableViewCellAccessoryNone;

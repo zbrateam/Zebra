@@ -127,7 +127,7 @@
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
-        
+
     return [[ZBPackageDepictionViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];
 }
 
@@ -156,16 +156,18 @@
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
     } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
-        weakSelf.previewPackageDepictionVC = [weakSelf getPackageDepictionVC:indexPath];
-        weakSelf.previewPackageDepictionVC.parent = weakSelf;
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+        typeof(self) strongSelf = weakSelf;
+        strongSelf.previewPackageDepictionVC = [strongSelf getPackageDepictionVC:indexPath];
+        strongSelf.previewPackageDepictionVC.parent = strongSelf;
+        return [UIMenu menuWithTitle:@"" children:[strongSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
     }];
 }
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
-        [[weakSelf navController] pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+        typeof(self) strongSelf = weakSelf;
+        [[strongSelf navController] pushViewController:strongSelf.previewPackageDepictionVC animated:YES];
     }];
 }
 

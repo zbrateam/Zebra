@@ -219,8 +219,8 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"✗" : NSLocalizedString(@"Remove", @"")) handler:^(__unused UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        ZBPackage *package = self->wishedPackages[indexPath.row];
+    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"✗" : NSLocalizedString(@"Remove", @"")) handler:^(__unused UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull actionIndexPath) {
+        ZBPackage *package = self->wishedPackages[actionIndexPath.row];
         
         [self->wishedPackages removeObject:package];
         [self->wishedPackageIdentifiers removeObject:[package identifier]];
@@ -254,21 +254,22 @@
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
     } actionProvider:^UIMenu * _Nullable (__unused NSArray<UIMenuElement *> *suggestedActions) {
-        if (weakSelf == nil) {
+        typeof(self) strongSelf = weakSelf;
+        if (strongSelf == nil) {
             return nil;
         }
-        typeof(self) __strong strongSelf = weakSelf;
-        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        weakSelf.previewPackageDepictionVC.package = strongSelf.wishedPackages[indexPath.row];
-        weakSelf.previewPackageDepictionVC.parent = weakSelf;
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+        strongSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[strongSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        strongSelf.previewPackageDepictionVC.package = strongSelf.wishedPackages[indexPath.row];
+        strongSelf.previewPackageDepictionVC.parent = strongSelf;
+        return [UIMenu menuWithTitle:@"" children:[strongSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
     }];
 }
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
-        [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+        typeof(self) strongSelf = weakSelf;
+        [strongSelf.navigationController pushViewController:strongSelf.previewPackageDepictionVC animated:YES];
     }];
 }
 

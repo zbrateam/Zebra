@@ -44,7 +44,7 @@
     return [NSURLSession zbra_downloadSession].configuration.HTTPAdditionalHeaders;
 }
 
-+ (NSError *)errorForHTTPStatusCode:(NSUInteger)statusCode forFile:(nullable NSString *)file {
++ (NSError *)errorForHTTPStatusCode:(NSInteger)statusCode forFile:(nullable NSString *)file {
     NSString *reasonPhrase = [[NSHTTPURLResponse localizedStringForStatusCode:statusCode] localizedCapitalizedString];
     NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:@{
         NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%lu %@%@%@", (unsigned long)statusCode, reasonPhrase, file ? @": " : @"", file ?: @""]
@@ -90,6 +90,8 @@
 
 - (void)downloadSources:(NSSet <ZBBaseSource *> *_Nonnull)sources useCaching:(BOOL)useCaching {
     self->ignore = !useCaching;
+
+    id <ZBDownloadDelegate> downloadDelegate = self->downloadDelegate;
     [downloadDelegate startedDownloads];
     
     NSURLSessionConfiguration *configuration = [[NSURLSession zbra_downloadSession].configuration copy];
@@ -144,6 +146,7 @@
 }
 
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages {
+    id <ZBDownloadDelegate> downloadDelegate = self->downloadDelegate;
     [downloadDelegate startedDownloads];
 
     session = [NSURLSession sessionWithConfiguration:[NSURLSession zbra_downloadSession].configuration delegate:self delegateQueue:self._delegateQueue];
@@ -180,9 +183,9 @@
                 @"architecture": package.architecture,
                 @"repo": source.repositoryURI
             }
-                                                           completion:^(NSURL * _Nullable url, NSError * _Nullable error) {
-                if (url && !error) {
-                    NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:url];
+                                                           completion:^(NSURL * _Nullable url2, NSError * _Nullable error) {
+                if (url2 && !error) {
+                    NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:url2];
                     @synchronized (self) {
                         [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
                     }
@@ -212,13 +215,15 @@
     
     if (failedTasks == packages.count) {
         failedTasks = 0;
-        [self->downloadDelegate finishedAllDownloads];
+        [downloadDelegate finishedAllDownloads];
     }
 }
 
 #pragma mark - Handling Downloaded Files
 
 - (void)task:(NSURLSessionTask *_Nonnull)task completedDownloadedForFile:(NSString *_Nullable)path fromSource:(ZBBaseSource *_Nonnull)source withError:(NSError *_Nullable)error {
+    id <ZBDownloadDelegate> downloadDelegate = self->downloadDelegate;
+
     if (error) { //An error occured, we should handle it accordingly
         if (error.code == NSURLErrorTimedOut && (task.taskIdentifier == source.releaseTaskIdentifier || task.taskIdentifier == source.packagesTaskIdentifier)) { // If one of these files times out, the source is likely down. We're going to cancel the entire task.
             
@@ -300,10 +305,10 @@
     
     //Remove task identifiers
     if (task.taskIdentifier == source.packagesTaskIdentifier) {
-        source.packagesTaskIdentifier = -1;
+        source.packagesTaskIdentifier = NSUIntegerMax;
     }
     else if (task.taskIdentifier == source.releaseTaskIdentifier) {
-        source.releaseTaskIdentifier = -1;
+        source.releaseTaskIdentifier = NSUIntegerMax;
     }
     
     BOOL noSourceTasksRemaining;
@@ -455,6 +460,8 @@
 #pragma mark - URL Session Delegate
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location {
+    id <ZBDownloadDelegate> downloadDelegate = self->downloadDelegate;
+
     NSURLResponse *response = [downloadTask response];
     NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
     
@@ -481,11 +488,18 @@
         MIMEType = @"application/x-deb";
         index = [acceptableMIMETypes indexOfObject:MIMEType];
     }
-    else if (index == NSNotFound || ![requestedMIMEType isEqualToString:MIMEType]) {
-        MIMEType = [self guessMIMETypeForFile:[[response URL] absoluteString]];
-        index = [acceptableMIMETypes indexOfObject:MIMEType];
+    else {
+        if (index == NSNotFound || ![requestedMIMEType isEqualToString:MIMEType]) {
+            MIMEType = [self guessMIMETypeForFile:[[response URL] absoluteString]];
+            index = [acceptableMIMETypes indexOfObject:MIMEType];
+        }
+
+        // Only a package task can be handled as a deb. A source that redirects to one is invalid.
+        if ([MIMEType isEqualToString:@"application/x-deb"] || [MIMEType isEqualToString:@"application/x-debian-package"]) {
+            index = NSNotFound;
+        }
     }
-    
+
     BOOL downloadFailed = (responseCode != 200 && responseCode != 304);
     switch (index) {
         case 0: { //Uncompressed Packages file or a Release file
@@ -552,10 +566,10 @@
                             [self task:downloadTask completedDownloadedForFile:finalPath fromSource:source withError:error];
                         }
                         else {
-                            NSError *error = nil;
-                            NSString *decompressedFilePath = [self decompressFile:finalPath error:&error];
-                            
-                            [self task:downloadTask completedDownloadedForFile:decompressedFilePath fromSource:source withError:error];
+                            NSError *error2 = nil;
+                            NSString *decompressedFilePath = [self decompressFile:finalPath error:&error2];
+
+                            [self task:downloadTask completedDownloadedForFile:decompressedFilePath fromSource:source withError:error2];
                         }
                     }];
                 }
@@ -586,7 +600,7 @@
                 }
 
                 if (noPackageTasksRemaining) {
-                    [self->downloadDelegate finishedAllDownloads];
+                    [downloadDelegate finishedAllDownloads];
                 }
             }
             else {
@@ -596,20 +610,20 @@
                 NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(NSError *error) {
-                    ZBPackage *package;
+                    ZBPackage *package2;
                     @synchronized (self) {
-                        package = self->packageTasksMap[@(downloadTask.taskIdentifier)];
+                        package2 = self->packageTasksMap[@(downloadTask.taskIdentifier)];
                     }
                     if (error) {
                         [self cancelAllTasksForSession:self->session];
                         NSString *text = [NSString stringWithFormat:[NSString stringWithFormat:@"[Zebra] %@: %%@\n", NSLocalizedString(@"Error while moving file at %@ to %@", @"")], location, finalPath, error.localizedDescription];
-                        [self->downloadDelegate postStatusUpdate:text atLevel:ZBLogLevelError];
+                        [downloadDelegate postStatusUpdate:text atLevel:ZBLogLevelError];
                         
-                        [self->downloadDelegate finishedPackageDownload:package withError:error];
+                        [downloadDelegate finishedPackageDownload:package withError:error];
                     } else {
-                        package.debPath = finalPath;
-                        
-                        [self->downloadDelegate finishedPackageDownload:package withError:nil];
+                        package2.debPath = finalPath;
+
+                        [downloadDelegate finishedPackageDownload:package withError:nil];
                     }
                     
                     BOOL noPackageTasksRemaining;
@@ -619,7 +633,7 @@
                     }
 
                     if (noPackageTasksRemaining) {
-                        [self->downloadDelegate finishedAllDownloads];
+                        [downloadDelegate finishedAllDownloads];
                     }
                 }];
             }
@@ -627,15 +641,27 @@
         }
         default: { //We couldn't determine the file
             NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Could not parse %@ from %@", @""), [response suggestedFilename], [response URL]];
-            [downloadDelegate postStatusUpdate:text atLevel:ZBLogLevelError];
-            
-            [downloadDelegate finishedAllDownloads];
+
+            ZBBaseSource *source;
+            @synchronized (self) {
+                source = sourceTasksMap[@(downloadTask.taskIdentifier)];
+            }
+            if (source) {
+                NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCannotParseResponse userInfo:@{NSLocalizedDescriptionKey: text}];
+                [self task:downloadTask completedDownloadedForFile:[[response URL] absoluteString] fromSource:source withError:error];
+            }
+            else {
+                [downloadDelegate postStatusUpdate:text atLevel:ZBLogLevelError];
+                [downloadDelegate finishedAllDownloads];
+            }
             break;
         }
     }
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    id <ZBDownloadDelegate> downloadDelegate = self->downloadDelegate;
+
 #if DEBUG
     NSURLRequest *request = task.currentRequest;
     NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
@@ -694,6 +720,8 @@
 #pragma mark - Logging
 
 - (void)postStatusUpdate:(NSString *)update atLevel:(ZBLogLevel)level {
+    id <ZBDownloadDelegate> downloadDelegate = self->downloadDelegate;
+
     if (downloadDelegate && [downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
         [downloadDelegate postStatusUpdate:update atLevel:level];
     }

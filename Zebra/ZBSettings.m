@@ -17,45 +17,45 @@
 
 @implementation ZBSettings
 
-NSString *const AccentColorKey = @"AccentColor";
-NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
-NSString *const InterfaceStyleKey = @"InterfaceStyle";
-NSString *const UseSystemAppearanceKey = @"UseSystemAppearance";
-NSString *const PureBlackModeKey = @"PureBlackMode";
+static NSString *const AccentColorKey = @"AccentColor";
+static NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
+static NSString *const InterfaceStyleKey = @"InterfaceStyle";
+static NSString *const UseSystemAppearanceKey = @"UseSystemAppearance";
+static NSString *const PureBlackModeKey = @"PureBlackMode";
 
-NSString *const UseSystemLanguageKey = @"UseSystemLanguage";
-NSString *const SelectedLanguageKey = @"AppleLanguages";
+static NSString *const UseSystemLanguageKey = @"UseSystemLanguage";
+static NSString *const SelectedLanguageKey = @"AppleLanguages";
 
-NSString *const FilteredSectionsKey = @"FilteredSections";
-NSString *const FilteredSourcesKey = @"FilteredSources";
-NSString *const BlockedAuthorsKey = @"BlockedAuthors";
-NSString *const FilterIncompatibleArchitecturesKey = @"FilterIncompatibleArchitectures";
+static NSString *const FilteredSectionsKey = @"FilteredSections";
+static NSString *const FilteredSourcesKey = @"FilteredSources";
+static NSString *const BlockedAuthorsKey = @"BlockedAuthors";
+static NSString *const FilterIncompatibleArchitecturesKey = @"FilterIncompatibleArchitectures";
 
-NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
-NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
-NSString *const FeaturedSourceBlacklistKey = @"FeaturedSourceBlacklist";
+static NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
+static NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
+static NSString *const FeaturedSourceBlacklistKey = @"FeaturedSourceBlacklist";
 
-NSString *const WantsAutoRefreshKey = @"AutoRefresh";
-NSString *const SourceTimeoutKey = @"SourceTimeout";
+static NSString *const WantsAutoRefreshKey = @"AutoRefresh";
+static NSString *const SourceTimeoutKey = @"SourceTimeout";
 
-NSString *const WantsCommunityNewsKey = @"CommunityNews";
+static NSString *const WantsCommunityNewsKey = @"CommunityNews";
 
-NSString *const AlwaysInstallLatestKey = @"AlwaysInstallLatest";
+static NSString *const AlwaysInstallLatestKey = @"AlwaysInstallLatest";
 
-NSString *const WantsLiveSearchKey = @"LiveSearch";
+static NSString *const WantsLiveSearchKey = @"LiveSearch";
 
-NSString *const WantsFinishAutomaticallyKey = @"FinishAutomatically";
+static NSString *const WantsFinishAutomaticallyKey = @"FinishAutomatically";
 
-NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
+static NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
 
-NSString *const WishlistKey = @"Wishlist";
+static NSString *const WishlistKey = @"Wishlist";
 
-NSString *const PackageSortingTypeKey = @"PackageSortingType";
+static NSString *const PackageSortingTypeKey = @"PackageSortingType";
 
 NSString *const SendErrorReportsKey = @"SendErrorReports";
 
-NSString *const SendCanisterIngestKey = @"CanisterIngest";
-NSString *const CanisterUpdateDateKey = @"CanisterUpdateDate";
+static NSString *const SendCanisterIngestKey = @"CanisterIngest";
+static NSString *const CanisterUpdateDateKey = @"CanisterUpdateDate";
 
 + (void)load {
     [super load];

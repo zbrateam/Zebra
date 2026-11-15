@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - JSON serialization
 
-NSData *_Nullable ZBUserInfoToData(ZBUserInfo *userInfo, NSError **error)
+static NSData *_Nullable ZBUserInfoToData(ZBUserInfo *userInfo, NSError **error)
 {
     @try {
         id json = [userInfo JSONDictionary];
@@ -31,7 +31,7 @@ NSData *_Nullable ZBUserInfoToData(ZBUserInfo *userInfo, NSError **error)
     }
 }
 
-NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding encoding, NSError **error)
+static NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding encoding, NSError **error)
 {
     NSData *data = ZBUserInfoToData(userInfo, error);
     return data ? [[NSString alloc] initWithData:data encoding:encoding] : nil;
@@ -53,7 +53,7 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBUserInfo.properties)] mutableCopy];
+    NSMutableDictionary <NSString *, id> *dict = [[self dictionaryWithValuesForKeys:ZBJSONPropertyNames(ZBUserInfo.properties)] mutableCopy];
 
     // Map values that need translation
     [dict addEntriesFromDictionary:@{
