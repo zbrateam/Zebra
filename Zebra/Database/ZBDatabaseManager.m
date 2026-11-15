@@ -1650,7 +1650,7 @@
         NSString *excludeQuery = exclude ? @"PACKAGE != ? AND" : @"";
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
                            @"WHERE %@ REPOID > 0 AND ("
-                                @"PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
+                                @"PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
                            @") AND %@ "
                            @"ORDER BY %@ "
                            @"LIMIT 1",
@@ -1671,6 +1671,7 @@
             sqlite3_bind_text(statement, offset + 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, offset + 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, offset + 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 9, packageIDLike.UTF8String, -1, SQLITE_TRANSIENT);
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *providesLine = (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
@@ -1712,7 +1713,7 @@
         NSString *excludeQuery = exclude ? @"PACKAGE != ? AND" : @"";
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES "
                            @"WHERE %@ REPOID = 0 AND ("
-                                @"PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
+                                @"PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
                            @") "
                            @"LIMIT 1",
                            excludeQuery];
@@ -1742,6 +1743,7 @@
             sqlite3_bind_text(statement, offset + 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, offset + 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, offset + 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, offset + 9, packageIDLike.UTF8String, -1, SQLITE_TRANSIENT);
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *providesLine = (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
@@ -2180,7 +2182,7 @@
         const char *eighthSearchTerm  = [[NSString stringWithFormat:@"%@ |%%",     packageIDLike] UTF8String];
 
         const char *query = "SELECT * FROM PACKAGES WHERE ("
-                "DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS = ?"
+                "DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\' OR DEPENDS LIKE ? ESCAPE '\\'"
             ") AND REPOID = 0";
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
@@ -2192,7 +2194,7 @@
             sqlite3_bind_text(statement, 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 9, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 9, packageIDLike.UTF8String, -1, SQLITE_TRANSIENT);
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *dependsChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
@@ -2251,7 +2253,7 @@
         const char *eighthSearchTerm  = [[NSString stringWithFormat:@"%@ |%%",     packageIDLike] UTF8String];
 
         const char *query = "SELECT * FROM PACKAGES WHERE ("
-                "CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS = ?"
+                "CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\' OR CONFLICTS LIKE ? ESCAPE '\\'"
             ") AND REPOID = 0";
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
@@ -2263,7 +2265,7 @@
             sqlite3_bind_text(statement, 6, sixthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 7, seventhSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, 8, eighthSearchTerm, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 9, [[package identifier] UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 9, packageIDLike.UTF8String, -1, SQLITE_TRANSIENT);
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *found = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 [packages addObject:found];
@@ -2334,7 +2336,7 @@
         NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES "
                            @"WHERE PACKAGE NOT IN (%@) AND REPOID = 0 AND ("
                                 @"PACKAGE = ? OR ("
-                                    @"PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
+                                    @"PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\' OR PROVIDES LIKE ? ESCAPE '\\'"
                                 @")"
                            @") AND %@ "
                            @"LIMIT 1",
@@ -2356,6 +2358,7 @@
             sqlite3_bind_text(statement, (int)removedPackages.count + 7, sixthSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, (int)removedPackages.count + 8, seventhSearchTerm, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, (int)removedPackages.count + 9, eighthSearchTerm, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, (int)removedPackages.count + 10, packageIDLike.UTF8String, -1, SQLITE_TRANSIENT);
 
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (needsVersionComparison) {
