@@ -163,7 +163,7 @@ static const int ZBCommandFinishFileno = 3;
     self = [self initWithDelegate:delegate];
 
     if (self) {
-        _command = [self.class _resolveCommandPath:command];
+        _command = [self.class _resolveCommandPath:command] ?: command;
         _arguments = arguments;
         self.asRoot = root;
     }
@@ -189,7 +189,7 @@ static const int ZBCommandFinishFileno = 3;
             _command = (NSString *)[[NSBundle mainBundle] pathForResource:@"supersling" ofType:nil];
         }
 
-        if (!_asRoot && !asRoot && (!mutableArguments.count || ![mutableArguments[0] isEqualToString:_command])) {
+        if (!_asRoot && !asRoot && (!mutableArguments.count || ![[self.class _resolveCommandPath:mutableArguments[0]] isEqualToString:_command])) {
             // If we’re not set as root and we don’t want to, we need to make sure the first argument in the array is
             // the binary we want to run
             [mutableArguments insertObject:_command atIndex:0];
