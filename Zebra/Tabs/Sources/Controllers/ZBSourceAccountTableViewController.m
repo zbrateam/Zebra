@@ -59,8 +59,9 @@
     self.navigationItem.title = NSLocalizedString(@"My Account", @"");
     
     if (self.presentingViewController) {
+        typeof(self) __weak weakSelf = self;
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone actionHandler:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
         }];
         self.navigationItem.rightBarButtonItem = doneButton;
     }

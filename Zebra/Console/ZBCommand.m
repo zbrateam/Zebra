@@ -245,7 +245,7 @@ static const int ZBCommandFinishFileno = 3;
 
     // Construct environment vars
     NSMutableArray <NSString *> *environmentVars = [NSMutableArray array];
-    [environmentVars addObject:[NSString stringWithFormat:@"PATH=%@", [ZBDevice path]]];
+    [environmentVars addObject:[NSString stringWithFormat:@"PATH=%@", [[ZBDevice path] componentsJoinedByString:@":"]]];
     if (_useFinishFd) {
         // $CYDIA enables maintenance scripts to send “finish” messages to the package manager.
         // Contains two integers. First is the fd to write to, second is the API version

@@ -27,6 +27,27 @@
 
 @import SDWebImage;
 
+static NSURL *ZBURLWithAllowedSchemes(NSString *string, NSArray <NSString *> *schemes) {
+    if (string.length == 0) {
+        return nil;
+    }
+
+    NSURL *url = [NSURL URLWithString:string];
+    if (!url.scheme || ![schemes containsObject:url.scheme.lowercaseString]) {
+        return nil;
+    }
+
+    return url;
+}
+
+static NSURL *ZBDepictionURL(NSString *string) {
+    return ZBURLWithAllowedSchemes(string, @[@"http", @"https"]);
+}
+
+static NSString *ZBIconPath(NSString *string) {
+    return ZBURLWithAllowedSchemes(string, @[@"file", @"http", @"https"]) ? string : nil;
+}
+
 @interface ZBPackage () {
     BOOL checkedForPurchaseInfo;
     ZBPurchaseInfo *purchaseInfo;
@@ -230,12 +251,12 @@
         [self setShortDescription:shortDescriptionChars != 0 ? [NSString stringWithUTF8String:shortDescriptionChars] : NULL];
         [self setLongDescription:longDescriptionChars != 0 ? [NSString stringWithUTF8String:longDescriptionChars] : NULL];
         [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL];
-        [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : NULL];
+        [self setDepictionURL:depictionChars != 0 ? ZBDepictionURL([NSString stringWithUTF8String:depictionChars]) : NULL];
         [self setAuthorName:authorNameChars != 0 ? [NSString stringWithUTF8String:authorNameChars] : NULL];
         [self setAuthorEmail:authorEmailChars != 0 ? [NSString stringWithUTF8String:authorEmailChars] : NULL];
         [self setSupportURL:supportChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:supportChars]] : NULL];
         [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : NULL];
-        [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL];
+        [self setIconPath:iconChars != 0 ? ZBIconPath([NSString stringWithUTF8String:iconChars]) : NULL];
         
         [self setPriority:priorityChars != 0 ? [NSString stringWithUTF8String:priorityChars] : NULL];
         
@@ -307,9 +328,9 @@
         [self setArchitecture:architecture];
         [self setShortDescription:desc];
         [self setSection:section];
-        [self setDepictionURL:[NSURL URLWithString:depiction]];
+        [self setDepictionURL:ZBDepictionURL(depiction)];
         [self setAuthorName:author];
-        [self setIconPath:icon];
+        [self setIconPath:ZBIconPath(icon)];
         [self setPriority:priority];
         [self setTags:tags];
         

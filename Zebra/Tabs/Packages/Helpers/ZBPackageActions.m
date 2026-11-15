@@ -261,8 +261,14 @@
 #pragma mark - Display Actions
 
 + (void)barButtonItemForPackage:(ZBPackage *)package fromViewController:(UIViewController *)viewController completion:(void (^)(UIBarButtonItem *barButton))completion {
+    __weak UIViewController *weakViewController = viewController;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         UIBarButtonItemActionHandler handler = ^{
+            UIViewController *viewController = weakViewController;
+            if (!viewController) {
+                return;
+            }
+
             NSArray <NSNumber *> *actions = [package possibleActions];
             if ([actions count] > 1) {
                 UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
@@ -321,6 +327,11 @@
 
                         dispatch_async(dispatch_get_main_queue(), ^{
                             UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleDone actionHandler:^{
+                                UIViewController *viewController = weakViewController;
+                                if (!viewController) {
+                                    return;
+                                }
+
                                 [self performAction:ZBPackageActionInstall forPackage:package fromViewController:viewController completion:nil];
                             }];
                             completion(purchaseButton);
